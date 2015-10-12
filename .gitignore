@@ -1,0 +1,18 @@
+# MAC OS
+.DS_Store
+
+# Java
+target/
+lib/
+classes/
+bin/
+
+#IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+#Log files
+*.log
