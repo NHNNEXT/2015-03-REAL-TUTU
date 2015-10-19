@@ -15,5 +15,8 @@ public enum AuthorityType {
     ROLE_TEACHING_ASSISTANT,
 
     // 교수
-    ROLE_PROFESSOR
+    ROLE_PROFESSOR,
+
+    // 시스템 관리자
+    ROLE_SYSTEM_MANAGER
 }
