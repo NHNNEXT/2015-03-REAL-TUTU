@@ -44,9 +44,12 @@
           <menu state="mypage" name="마이페이지"></menu>
           <menu state="main" name="메인"></menu>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" ng-show="!user.logged">
           <menu state="register" name="회원가입"></menu>
           <menu state="login" name="로그인"></menu>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" ng-show="user.logged">
+          {{user}}
         </ul>
       </div>
     </div>

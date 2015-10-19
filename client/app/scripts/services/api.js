@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('api', function ($http) {
+  .service('api', function ($http, alert) {
     $http.get = function (url, data) {
       if (data !== undefined)
         url += "?" + parse(data);
@@ -23,8 +23,16 @@ angular.module('clientApp')
     };
 
     this.user = {};
-    this.user.login = function () {
-
+    this.user.login = function (user) {
+      if (!user)
+        return;
+      $http.post('/api/v1/user/login', user).success(function (res) {
+        if (res.err) {
+          alert(res.err);
+          return;
+        }
+        user.logged = true;
+      });
     };
 
   });
