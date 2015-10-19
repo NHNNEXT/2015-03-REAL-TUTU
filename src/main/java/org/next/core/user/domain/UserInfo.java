@@ -31,4 +31,32 @@ public class UserInfo {
 
     @Column(name = "MAJOR")
     private String major;
+
+    public LoginAccount getLoginAccount() {
+        return loginAccount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getMajor() {
+        return major;
+    }
 }
