@@ -8,13 +8,12 @@
  *
  * Main module of the application.
  */
-var app = angular
-  .module('clientApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngSanitize',
-    'ngTouch',
-    'ui.router'
-  ]);
+angular.module('clientApp', [
+  'ngAnimate',
+  'ngCookies',
+  'ngResource',
+  'ngSanitize',
+  'ngTouch',
+  'ui.router'
+]);
 
