@@ -14,7 +14,7 @@ angular.module('clientApp')
                 state: '@',
                 name: '@'
             },
-            link: function postLink(scope, element, attrs) {
+            link: function postLink(scope, element) {
                 scope.$state = $state;
                 var html = "<li ng-class=\"{active:$state.current.name=='" + scope.state + "'}\"><a ui-sref='" + scope.state + "'>" + scope.name + "</a></li>";
                 var e = $compile(html)(scope);

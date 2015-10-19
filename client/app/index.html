@@ -1,79 +1,82 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="/styles/main.css">
-    <!-- endbuild -->
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/animate.css">
+  <!-- endbuild -->
 </head>
 <body ng-app="clientApp">
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
+  your browser</a> to improve your experience.</p>
 <![endif]-->
 
 <!-- Add your site or application content here -->
 <div class="header" ng-controller="HeaderCtrl">
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
 
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#js-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#js-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-                <a class="navbar-brand" ui-sref="main">Next</a>
-            </div>
+        <a class="navbar-brand" ui-sref="main">Next</a>
+      </div>
 
-            <div class="collapse navbar-collapse" id="js-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <menu state="mypage" name="마이페이지"></menu>
-                    <menu state="main" name="메인"></menu>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <menu state="register" name="회원가입"></menu>
-                    <menu state="login" name="로그인"></menu>
-                </ul>
-            </div>
-        </div>
+      <div class="collapse navbar-collapse" id="js-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <menu state="mypage" name="마이페이지"></menu>
+          <menu state="main" name="메인"></menu>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <menu state="register" name="회원가입"></menu>
+          <menu state="login" name="로그인"></menu>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>
 
+<div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert}}</div>
+
 <div class="container">
-    <div ui-view></div>
+  <div ui-view></div>
 </div>
 
 <div class="footer">
-    <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-    </div>
+  <div class="container">
+    <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+  </div>
 </div>
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
-    !function (A, n, g, u, l, a, r) {
-        A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-            (A[l].q = A[l].q || []).push(arguments)
-        }, A[l].l = +new Date, a = n.createElement(g),
-                r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  !function (A, n, g, u, l, a, r) {
+    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
+      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+  }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');
 </script>
 
 <!-- build:js(.) scripts/vendor.js -->
@@ -99,6 +102,12 @@
 <script src="/scripts/directives/menu.js"></script>
 <script src="/scripts/controllers/login.js"></script>
 <script src="/scripts/controllers/register.js"></script>
+<script src="/scripts/directives/ngregex.js"></script>
+<script src="/scripts/services/regex.js"></script>
+<script src="/scripts/services/user.js"></script>
+<script src="/scripts/services/alert.js"></script>
+<script src="/scripts/controllers/alert.js"></script>
+<script src="/scripts/services/api.js"></script>
 <!-- endbuild -->
 </body>
 </html>

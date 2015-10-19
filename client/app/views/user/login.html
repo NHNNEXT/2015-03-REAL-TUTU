@@ -1,4 +1,12 @@
 <div class="row marketing">
-    <h4>로그인</h4>
+  <h4>로그인</h4>
 
+  <input class="form-control" placeholder="email" type="email" ng-model="user.email" ng-regex="regex.email"
+         message="이메일 형식이 맞지 않습니다.">
+  <input class="form-control" placeholder="password" type="password" ng-model="user.password"
+         ng-regex="regex.password"
+         message="패스워드는 6~12자입니다.">
+
+  <div class="btn btn-primary" ng-class="{disabled:!valid()}" ng-click="login(user)">로그인</div>
+  {{ngRegex}}
 </div>

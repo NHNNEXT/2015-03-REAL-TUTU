@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: menu', function () {
+describe('Directive: ngRegex', function () {
 
   // load the directive's module
   beforeEach(module('clientApp'));
@@ -13,8 +13,8 @@ describe('Directive: menu', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<menu></menu>');
+    element = angular.element('<ng-regex></ng-regex>');
     element = $compile(element)(scope);
-    //expect(element.text()).toBe('this is the menu directive');
+    //expect(element.text()).toBe('this is the ngRegex directive');
   }));
 });

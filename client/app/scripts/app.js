@@ -16,4 +16,3 @@ angular.module('clientApp', [
   'ngTouch',
   'ui.router'
 ]);
-

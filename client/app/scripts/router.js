@@ -1,9 +1,10 @@
-angular.module('clientApp').config(["$locationProvider", function ($locationProvider) {
+angular.module('clientApp').config(function ($locationProvider) {
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: false
   });
-}]);
+});
+
 
 angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/notfound");
