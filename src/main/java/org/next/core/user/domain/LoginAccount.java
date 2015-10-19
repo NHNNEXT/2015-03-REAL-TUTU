@@ -19,11 +19,11 @@ public class LoginAccount {
     private Long id;
 
     @NotNull(message = "User Email Id Must Not Be Null")
-    @Column(name = "USER_EMAIL_ID")
+    @Column(name = "EMAIL_ID")
     private String emailId;
 
     @NotNull(message = "User Password Must Not Be Null")
-    @Column(name = "USER_PASSWORD")
+    @Column(name = "PASSWORD")
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -38,5 +38,53 @@ public class LoginAccount {
 
     public boolean login(LoginAccount loginAccount) {
         return this.emailId.equals(loginAccount.emailId) && this.password.equals(loginAccount.password);
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public UserStateType getState() {
+        return state;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
+    }
+
+    public void setState(UserStateType state) {
+        this.state = state;
     }
 }
