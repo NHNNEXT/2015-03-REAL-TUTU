@@ -19,6 +19,16 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
       controller: "HeaderCtrl",
       templateUrl: "/views/mypage.html"
     })
+    .state('login', {
+      url: "/user/login",
+      controller: "LoginCtrl",
+      templateUrl: "/views/user/login.html"
+    })
+    .state('register', {
+      url: "/user/register",
+      controller: "RegisterCtrl",
+      templateUrl: "/views/user/register.html"
+    })
     .state('notfound', {
       url: "/notfound",
       templateUrl: "/404.html"
