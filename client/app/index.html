@@ -8,7 +8,7 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -23,38 +23,9 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div class="header" ng-controller="HeaderCtrl">
-  <div class="navbar navbar-default" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#js-navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand" ui-sref="main">Next</a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="js-navbar-collapse">
-        <ul class="nav navbar-nav">
-          <menu state="mypage" name="마이페이지"></menu>
-          <menu state="main" name="메인"></menu>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" ng-show="!user.logged">
-          <menu state="register" name="회원가입"></menu>
-          <menu state="login" name="로그인"></menu>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" ng-show="user.logged">
-          {{user}}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<header class="header">
+  <div ng-include="'/views/header.html'"></div>
+</header>
 
 <div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert}}</div>
 
@@ -101,7 +72,6 @@
 <script src="/scripts/router.js"></script>
 <script src="/scripts/controllers/main.js"></script>
 <script src="/scripts/controllers/header.js"></script>
-<script src="/scripts/controllers/mypage.js"></script>
 <script src="/scripts/directives/menu.js"></script>
 <script src="/scripts/controllers/login.js"></script>
 <script src="/scripts/controllers/register.js"></script>
@@ -111,6 +81,11 @@
 <script src="/scripts/services/alert.js"></script>
 <script src="/scripts/controllers/alert.js"></script>
 <script src="/scripts/services/api.js"></script>
+<script src="/scripts/services/http.js"></script>
+<script src="/scripts/controllers/mypage/mypage.js"></script>
+<script src="/scripts/controllers/mypage/lecture.js"></script>
+<script src="/scripts/controllers/mypage/usermodify.js"></script>
+<script src="/scripts/controllers/mypage/homework.js"></script>
 <!-- endbuild -->
 </body>
 </html>

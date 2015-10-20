@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name clientApp.controller:MypageCtrl
+ * @name clientApp.controller:LectureCtrl
  * @description
- * # MypageCtrl
+ * # LectureCtrl
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MypageCtrl', function () {
+  .controller('LectureCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

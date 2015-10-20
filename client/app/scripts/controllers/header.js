@@ -9,12 +9,6 @@
  */
 angular.module('clientApp')
   .controller('HeaderCtrl', function ($state, $rootScope, $scope, user) {
-    $rootScope.$on('$stateChangeSuccess',
-      function (event, toState) {
-      //function (event, toState, toParams, fromState, fromParams) {
-        $state.current = toState;
-      }
-    );
     $scope.state = $state;
     $scope.user = user;
   });
