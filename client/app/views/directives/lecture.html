@@ -1,0 +1,14 @@
+<div class="media">
+  <div class="media-left">
+    <a>
+      <img class="media-object" ng-src="{{lecture.image}}">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <span ui-sref="lecture({id:lecture.id})">{{lecture.name}}</span>
+      <small>prof.{{lecture.prof}} {{lecture.time}}</small>
+    </h4>
+    <div>{{lecture.description}}</div>
+  </div>
+</div>

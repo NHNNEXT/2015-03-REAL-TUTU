@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('LoginCtrl', function ($scope, regex, user, api, alert) {
+  .controller('LoginCtrl', function ($scope, regex, user, alert, http) {
     $scope.regex = regex;
     $scope.user = user;
     $scope.valid = function () {
@@ -22,6 +22,9 @@ angular.module('clientApp')
         alert('이메일과 패스워드를 입력해 주세요');
         return;
       }
-      api.user.login(user);
+      http.post('/api/v1/user/login', user, function (result) {
+        angular.copy(user, result);
+        user.logged = true;
+      });
     };
   });

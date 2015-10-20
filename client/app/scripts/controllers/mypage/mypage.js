@@ -11,7 +11,7 @@ angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('mypage.lecture', {
       url: "/lecture",
-      controller: "LectureCtrl",
+      controller: "MyPageLectureCtrl",
       templateUrl: "/views/mypage/lecture.html"
     })
     .state('mypage.homework', {
@@ -25,5 +25,5 @@ angular.module('clientApp').config(function ($stateProvider) {
       templateUrl: "/views/mypage/modify.html"
     })
 })
-  .controller('MypageCtrl', function () {
+  .controller('MypageCtrl', function ($state) {
   });

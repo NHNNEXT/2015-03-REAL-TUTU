@@ -22,7 +22,7 @@ angular.module('clientApp')
         }
         if (!success)
           return;
-        success(res);
+        success(res.result);
       }).error(function (e) {
         if (!error)
           return;

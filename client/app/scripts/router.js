@@ -20,6 +20,16 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
       controller: "LoginCtrl",
       templateUrl: "/views/user/login.html"
     })
+    .state('lecture', {
+      url: "/lecture/:id",
+      controller: "LectureCtrl",
+      templateUrl: "/views/lecture.html"
+    })
+    .state('article', {
+      url: "/article/:id",
+      controller: "ArticleCtrl",
+      templateUrl: "/views/article.html"
+    })
     .state('register', {
       url: "/user/register",
       controller: "RegisterCtrl",
