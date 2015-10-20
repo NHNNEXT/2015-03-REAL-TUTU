@@ -30,6 +30,11 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
       controller: "ArticleCtrl",
       templateUrl: "/views/article.html"
     })
+    .state('homework', {
+      url: "/homework/:id",
+      controller: "HomeworkCtrl",
+      templateUrl: "/views/homework.html"
+    })
     .state('register', {
       url: "/user/register",
       controller: "RegisterCtrl",
