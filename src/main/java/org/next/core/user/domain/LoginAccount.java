@@ -34,7 +34,7 @@ public class LoginAccount {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "User State Type Must Not Be Null")
     @Column(name = "USER_ACCOUNT_STATE")
-    private UserStateType state;
+    private AccountStateType state;
 
     public boolean login(LoginAccount loginAccount) {
         return this.emailId.equals(loginAccount.emailId) && this.password.equals(loginAccount.password);
@@ -60,7 +60,7 @@ public class LoginAccount {
         return type;
     }
 
-    public UserStateType getState() {
+    public AccountStateType getState() {
         return state;
     }
 
@@ -84,7 +84,7 @@ public class LoginAccount {
         this.type = type;
     }
 
-    public void setState(UserStateType state) {
+    public void setState(AccountStateType state) {
         this.state = state;
     }
 }

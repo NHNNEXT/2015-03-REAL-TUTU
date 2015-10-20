@@ -1,6 +1,6 @@
 package org.next.core.user.domain;
 
-public enum UserStateType {
+public enum AccountStateType {
 
     // 활성 사용자 - 일반 사용자들의 상태
     ACTIVE,
