@@ -30,6 +30,16 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
       controller: "ArticleCtrl",
       templateUrl: "/views/article.html"
     })
+    .state('board', {
+      url: "/board/:id",
+      controller: "BoardCtrl",
+      templateUrl: "/views/board.html"
+    })
+    .state('articleEdit', {
+      url: "/article/:id/edit",
+      controller: "ArticleEditCtrl",
+      templateUrl: "/views/articleEdit.html"
+    })
     .state('homework', {
       url: "/homework/:id",
       controller: "HomeworkCtrl",

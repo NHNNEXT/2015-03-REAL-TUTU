@@ -14,7 +14,8 @@ angular.module('clientApp', [
   'ngResource',
   'ngSanitize',
   'ngTouch',
-  'ui.router'
+  'ui.router',
+  'wysiwyg.module'
 ]).run(function ($rootScope, $state) {
   $rootScope.$on('$stateChangeSuccess',
     function (event, toState) {

@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ArticleCtrl', function ($scope, $stateParams) {
+  .controller('ArticleCtrl', function ($scope, $stateParams, http) {
     $scope.article = {};
     $scope.$watch(function () {
       return $stateParams.id;
