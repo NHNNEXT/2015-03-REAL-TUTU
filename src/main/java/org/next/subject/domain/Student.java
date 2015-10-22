@@ -1,0 +1,22 @@
+package org.next.subject.domain;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "STUDENT")
+public class Student {
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StudentAttendLecture> studentAttendLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StudentHaveAssignment> studentHaveAssignments= new ArrayList<>();
+
+    @Id
+    @Column(name = "STUDENT_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+}
