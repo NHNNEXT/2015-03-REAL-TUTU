@@ -2,3 +2,14 @@
 <p ng-bind="article.body"></p>
 <p ng-bind="article.date.toYMD()"></p>
 <p ng-bind="article.writer"></p>
+
+
+<ul class="list-group">
+  <li ng-repeat="reply in replies" class="list-group-item">{{reply}}</li>
+
+</ul>
+
+<wysiwyg textarea-class="form-control"
+         textarea-height="250px"
+         textarea-required ng-model="homework.body" enable-bootstrap-title="true"></wysiwyg>
+<div class="btn btn-primary">댓글달기</div>
