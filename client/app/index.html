@@ -14,8 +14,6 @@
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="/styles/main.css">
-  <link rel="stylesheet" href="/styles/animate.css">
   <!-- endbuild -->
 </head>
 <body ng-app="clientApp">
@@ -26,7 +24,7 @@
 
 <!-- Add your site or application content here -->
 <header class="header">
-  <div ng-include="'/views/header.html'"></div>
+  <div ng-include="'/part/header/header.html'"></div>
 </header>
 
 <div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert}}</div>
@@ -72,30 +70,19 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="/scripts/app.js"></script>
-<script src="/scripts/router.js"></script>
-<script src="/scripts/controllers/main.js"></script>
-<script src="/scripts/controllers/header.js"></script>
-<script src="/scripts/directives/menu.js"></script>
-<script src="/scripts/controllers/login.js"></script>
-<script src="/scripts/controllers/register.js"></script>
-<script src="/scripts/directives/ngregex.js"></script>
-<script src="/scripts/services/regex.js"></script>
-<script src="/scripts/services/user.js"></script>
-<script src="/scripts/services/alert.js"></script>
-<script src="/scripts/controllers/alert.js"></script>
-<script src="/scripts/services/http.js"></script>
-<script src="/scripts/controllers/mypage/mypage.js"></script>
-<script src="/scripts/controllers/mypage/mypagelecture.js"></script>
-<script src="/scripts/controllers/mypage/usermodify.js"></script>
-<script src="/scripts/controllers/mypage/homework.js"></script>
-<script src="/scripts/directives/lecture.js"></script>
-<script src="/scripts/controllers/lecture.js"></script>
-<script src="/scripts/controllers/article.js"></script>
-<script src="/scripts/controllers/homework.js"></script>
-<script src="/scripts/controllers/articleedit.js"></script>
-<script src="/scripts/controllers/board.js"></script>
-<script src="/scripts/directives/article-header.js"></script>
+<script src="/app.js"></script>
+<script src="/services/regex.js"></script>
+<script src="/services/user.js"></script>
+<script src="/services/alert.js"></script>
+<script src="/services/http.js"></script>
+<script src="/directives/menu.js"></script>
+<script src="/directives/ngregex.js"></script>
+<script src="/part/header/header.js"></script>
+<script src="/part/alert/alert.js"></script>
+<script src="/pages/login/login.js"></script>
+<script src="/pages/register/register.js"></script>
+<script src="/pages/main/main.js"></script>
+<script src="/pages/notfound/notfound.js"></script>
 <!-- endbuild -->
 </body>
 </html>

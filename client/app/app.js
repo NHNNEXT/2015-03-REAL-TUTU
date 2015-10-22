@@ -33,4 +33,11 @@ angular.module('clientApp', [
         $state.go(redirect);
     }
   });
+}).config(function ($locationProvider, $urlRouterProvider) {
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
+
+  $urlRouterProvider.otherwise("/notfound");
 });
