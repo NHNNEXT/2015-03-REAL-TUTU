@@ -1,8 +1,8 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
-    .state('homework', {
-      url: "/homework/:id",
-      templateUrl: "/pages/homework/homework.html",
+    .state('homeworkedit', {
+      url: "/homework/edit/:id",
+      templateUrl: "/pages/homework/homeworkedit.html",
       controller: function ($stateParams, $scope, http) {
 
         $scope.$watch(function () {
@@ -12,8 +12,6 @@ angular.module('clientApp').config(function ($stateProvider) {
 
           });
         });
-
-        $scope.submits = [1, 2, 3, 4, 5];
 
       }
     });

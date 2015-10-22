@@ -1,1 +1,19 @@
-<li ng-repeat="homework in homeworks" ui-sref="homework({id:homework.id})">{{homework}}</li>
+<table class="table">
+  <thead>
+  <tr>
+    <td>제목</td>
+    <td>제출기한</td>
+    <td>작성자</td>
+    <td>조회수</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="homework in homeworks">
+    <td ui-sref="homework({id:homework.id})">{{homework.title}}</td>
+    <td>{{homework.dueDate.toYMD()}} (마감 {{remainDate(homework.dueDate)}}일전)</td>
+    <td>{{homework.writer}}</td>
+    <td>{{homework.hits}}</td>
+  </tr>
+  </tbody>
+</table>
+<div class="btn btn-primary" ui-sref="homeworkedit">새 과제 만들기</div>

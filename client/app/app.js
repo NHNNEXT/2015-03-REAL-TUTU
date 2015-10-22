@@ -15,7 +15,8 @@ angular.module('clientApp', [
   'ngSanitize',
   'ngTouch',
   'ui.router',
-  'wysiwyg.module'
+  'wysiwyg.module',
+  'datePicker'
 ]).run(function ($rootScope, $state) {
   $rootScope.$on('$stateChangeSuccess',
     function (event, toState) {

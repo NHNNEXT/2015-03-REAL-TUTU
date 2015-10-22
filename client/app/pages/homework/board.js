@@ -13,25 +13,25 @@ angular.module('clientApp').config(function ($stateProvider) {
           });
         });
 
+        $scope.remainDate = function (date) {
+          var now = new Date();
+          return parseInt((date - now) / 1000 / 60 / 60 / 24 * 10) / 10;
+        };
+
 
         var homeworks = $scope.homeworks = [];
-        homeworks.push(new Article("제목", new User(1, "image.png", "황")));
-        homeworks.push(new Article("제목", new User(1, "image.png", "황")));
-        homeworks.push(new Article("제목", new User(1, "image.png", "황")));
-        homeworks.push(new Article("제목", new User(1, "image.png", "황")));
+        homeworks.push(new Article("자바지기와함께하는신나는숙제", "박재성", new Date(2015, 10, 31)));
+        homeworks.push(new Article("자바지기와함께하는신나는숙제", "박재성", new Date(2015, 10, 31)));
+        homeworks.push(new Article("자바지기와함께하는신나는숙제", "박재성", new Date(2015, 10, 31)));
+        homeworks.push(new Article("자바지기와함께하는신나는숙제", "박재성", new Date(2015, 10, 31)));
+        homeworks.push(new Article("자바지기와함께하는신나는숙제", "박재성", new Date(2015, 10, 31)));
 
-        function Article(title, writer) {
+        function Article(title, writer, dueDate) {
           this.id = 3;
           this.title = title;
           this.writer = writer;
+          this.dueDate = dueDate;
         }
-
-        function User(id, profile, name) {
-          this.id = id;
-          this.profile = profile;
-          this.name = name;
-        }
-
 
       }
     });
