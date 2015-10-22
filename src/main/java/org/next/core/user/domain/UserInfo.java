@@ -19,10 +19,6 @@ public class UserInfo {
     @Column(name = "USER_NAME")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "GENDER")
-    private GenderType gender;
-
     @Column(name = "STUDENT_ID")
     private String studentId;
 
@@ -44,10 +40,6 @@ public class UserInfo {
         return name;
     }
 
-    public GenderType getGender() {
-        return gender;
-    }
-
     public String getStudentId() {
         return studentId;
     }
@@ -58,5 +50,36 @@ public class UserInfo {
 
     public String getMajor() {
         return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLoginAccount(LoginAccount loginAccount) {
+        this.loginAccount = loginAccount;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", studentId='" + studentId + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", major='" + major + '\'' +
+                '}';
     }
 }

@@ -24,8 +24,35 @@ public class Authority {
     @Column(name = "AUTHORITY_TYPE")
     private AuthorityType authorityType;
 
+    public Authority() {}
+
     public Authority(Long id, AuthorityType authorityType) {
         this.id = id;
         this.authorityType = authorityType;
+    }
+
+    public AuthorityType getAuthorityType() {
+        return authorityType;
+    }
+
+    public List<UserAuthority> getUserAuthorities() {
+        return userAuthorities;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAuthorityType(AuthorityType authorityType) {
+        this.authorityType = authorityType;
+    }
+
+    public void setUserAuthorities(List<UserAuthority> userAuthorities) {
+
+        this.userAuthorities = userAuthorities;
     }
 }

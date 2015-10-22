@@ -21,8 +21,14 @@ public class UserAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    public UserAuthority() {}
+
     public UserAuthority(Authority authority, LoginAccount loginAccount) {
         this.authority = authority;
         this.loginAccount = loginAccount;
+    }
+
+    public Authority getAuthority() {
+        return authority;
     }
 }

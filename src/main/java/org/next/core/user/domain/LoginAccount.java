@@ -1,7 +1,12 @@
 package org.next.core.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.next.core.user.dto.LoginToken;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "LOGIN_ACCOUNT")
@@ -11,6 +16,9 @@ public class LoginAccount {
     @OneToOne
     @JoinColumn(name = "USER_INFO_ID")
     private UserInfo userInfo;
+
+    @OneToMany(mappedBy = "loginAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserAuthority> userAuthorities = new ArrayList<>();
 
     // Field
     @Id
@@ -38,6 +46,11 @@ public class LoginAccount {
 
     public boolean login(LoginAccount loginAccount) {
         return this.emailId.equals(loginAccount.emailId) && this.password.equals(loginAccount.password);
+    }
+
+    public void setLoginToken(LoginToken loginToken) {
+        setEmailId(loginToken.getEmail());
+        setPassword(loginToken.getPassword());
     }
 
     public UserInfo getUserInfo() {
@@ -86,5 +99,24 @@ public class LoginAccount {
 
     public void setState(AccountStateType state) {
         this.state = state;
+    }
+
+    public void addAuthority(Authority authority) {
+        this.userAuthorities.add(new UserAuthority(authority, this));
+    }
+
+    public List<UserAuthority> getUserAuthorities() {
+        return userAuthorities;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginAccount{" +
+                ", id=" + id +
+                ", emailId='" + emailId + '\'' +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                ", state=" + state +
+                '}';
     }
 }
