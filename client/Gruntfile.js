@@ -50,7 +50,7 @@ module.exports = function (grunt) {
       },
       less: {
         files: [
-          '**/*.less'
+          '<%= yeoman.app %>/{,*/}*.less',
         ],
         tasks: ['less'],
         options: {
@@ -70,7 +70,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
-          '**/*.css',
+          '<%= yeoman.app %>/{,*/}*.js',
+          '<%= yeoman.app %>/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }

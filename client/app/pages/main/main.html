@@ -1,11 +1,18 @@
 <div class="jumbotron">
-  <h1>TUTU</h1>
-  <p class="lead">
-    넥스트 강의 관리
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+  <h1>넥스트 강의 관리 </h1>
 </div>
 
-<ul class="list-group">
-  <li class="list-group-item" ui-sref="lecture">과목</li>
-</ul>
+<div ng-show="myLectures.length!==0">
+  <h1>수강 과목</h1>
+  <lecture-table lectures="myLectures"></lecture-table>
+</div>
+
+<div ng-show="teachLectures.length!==0">
+  <h1>교수 과목</h1>
+  <lecture-table lectures="teachLectures"></lecture-table>
+</div>
+
+
+<h1>전체 강의</h1>
+<lecture-table lectures="lectures"></lecture-table>
+

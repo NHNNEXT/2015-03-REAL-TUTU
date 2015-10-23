@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+  <tr>
+    <td ng-repeat="column in columns" ng-click="sort(key)">{{filters[column]}}</td>
+    <td></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="lecture in lectures | orderBy:order:reverse | filter:search">
+    <td ng-repeat="column in columns">{{lecture[column]}}</td>
+    <td>
+      <span ui-sref="lecture({id:lecture.id})">페이지</span>
+      <span>신청</span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="9">
+      <div class="input-group">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            {{filters[key]||"전체"}} <span
+            class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="column in columns" ng-click="setKey(column)"><a>{{filters[column]}}</a></li>
+          </ul>
+        </div>
+        <input type="text" class="form-control" placeholder="검색어" ng-model="search[key]">
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
