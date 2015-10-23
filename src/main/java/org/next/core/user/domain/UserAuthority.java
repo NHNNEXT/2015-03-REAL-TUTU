@@ -1,7 +1,13 @@
 package org.next.core.user.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"authority", "loginAccount"})
 @Entity
 @Table(name = "USER_AUTHORITY")
 public class UserAuthority {
@@ -21,14 +27,8 @@ public class UserAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public UserAuthority() {}
-
     public UserAuthority(Authority authority, LoginAccount loginAccount) {
         this.authority = authority;
         this.loginAccount = loginAccount;
-    }
-
-    public Authority getAuthority() {
-        return authority;
     }
 }

@@ -1,7 +1,14 @@
 package org.next.core.user.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString(exclude = "loginAccount")
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"loginAccount"})
 @Entity
 @Table(name = "USER_INFO")
 public class UserInfo {
@@ -27,59 +34,4 @@ public class UserInfo {
 
     @Column(name = "MAJOR")
     private String major;
-
-    public LoginAccount getLoginAccount() {
-        return loginAccount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLoginAccount(LoginAccount loginAccount) {
-        this.loginAccount = loginAccount;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", studentId='" + studentId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", major='" + major + '\'' +
-                '}';
-    }
 }
