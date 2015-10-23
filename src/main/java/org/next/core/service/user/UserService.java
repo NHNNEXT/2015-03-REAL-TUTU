@@ -1,13 +1,14 @@
-package org.next.lecturemanager.core.service.user;
+package org.next.core.service.user;
 
 import org.next.common.dto.JsonResponse;
 import org.next.common.util.PasswordEncoder;
+import org.next.core.domain.user.*;
+import org.next.core.dto.user.ClientUserInfoDto;
+import org.next.core.dto.user.LoginToken;
+import org.next.core.repository.user.UserInfoRepository;
 import org.next.lecturemanager.core.controller.user.domain.*;
-import org.next.lecturemanager.core.repository.user.UserInfoRepository;
-import org.next.lecturemanager.core.dto.user.ClientUserInfoDto;
-import org.next.lecturemanager.core.dto.user.LoginToken;
-import org.next.lecturemanager.core.repository.user.AuthorityRepository;
-import org.next.lecturemanager.core.repository.user.LoginAccountRepository;
+import org.next.core.repository.user.AuthorityRepository;
+import org.next.core.repository.user.LoginAccountRepository;
 import org.next.lecturemanager.core.domain.user.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

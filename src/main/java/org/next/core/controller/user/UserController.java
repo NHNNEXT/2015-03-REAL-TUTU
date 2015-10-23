@@ -1,11 +1,11 @@
-package org.next.lecturemanager.core.controller.user;
+package org.next.core.controller.user;
 
 import org.next.common.dto.JsonResponse;
-import org.next.lecturemanager.core.domain.user.AccountType;
-import org.next.lecturemanager.core.domain.user.LoginAccount;
-import org.next.lecturemanager.core.domain.user.UserInfo;
-import org.next.lecturemanager.core.dto.user.LoginToken;
-import org.next.lecturemanager.core.service.user.UserService;
+import org.next.core.domain.user.AccountType;
+import org.next.core.domain.user.LoginAccount;
+import org.next.core.domain.user.UserInfo;
+import org.next.core.dto.user.LoginToken;
+import org.next.core.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

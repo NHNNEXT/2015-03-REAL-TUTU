@@ -1,7 +1,7 @@
-package org.next.lecturemanager.core.repository.user;
+package org.next.core.repository.user;
 
-import org.next.lecturemanager.core.domain.user.AuthorityType;
-import org.next.lecturemanager.core.domain.user.Authority;
+import org.next.core.domain.user.AuthorityType;
+import org.next.core.domain.user.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthorityRepository extends JpaRepository<Authority, Long> {

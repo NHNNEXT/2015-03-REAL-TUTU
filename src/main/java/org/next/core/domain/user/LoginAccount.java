@@ -1,7 +1,7 @@
-package org.next.lecturemanager.core.domain.user;
+package org.next.core.domain.user;
 
 import lombok.*;
-import org.next.lecturemanager.core.dto.user.LoginToken;
+import org.next.core.dto.user.LoginToken;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -1,9 +1,9 @@
-package org.next.lecturemanager.core.dto.user;
+package org.next.core.dto.user;
 
-import org.next.lecturemanager.core.domain.user.AccountType;
-import org.next.lecturemanager.core.domain.user.LoginAccount;
-import org.next.lecturemanager.core.domain.user.AccountStateType;
-import org.next.lecturemanager.core.domain.user.UserInfo;
+import org.next.core.domain.user.AccountType;
+import org.next.core.domain.user.LoginAccount;
+import org.next.core.domain.user.AccountStateType;
+import org.next.core.domain.user.UserInfo;
 
 public class ClientUserInfoDto {
 

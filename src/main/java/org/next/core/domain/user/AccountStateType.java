@@ -1,4 +1,4 @@
-package org.next.lecturemanager.core.domain.user;
+package org.next.core.domain.user;
 
 public enum AccountStateType {
 

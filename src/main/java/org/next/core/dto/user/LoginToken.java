@@ -1,4 +1,4 @@
-package org.next.lecturemanager.core.dto.user;
+package org.next.core.dto.user;
 
 import lombok.*;
 
