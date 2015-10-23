@@ -1,10 +1,16 @@
 package org.next.subject.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"studentHaveAssignments", "lecture"})
 @Entity
 @Table(name = "ASSIGNMENT")
 public class Assignment {

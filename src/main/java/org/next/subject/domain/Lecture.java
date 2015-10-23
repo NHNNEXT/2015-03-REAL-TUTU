@@ -1,11 +1,15 @@
 package org.next.subject.domain;
 
+import lombok.*;
 import org.next.core.user.domain.Authority;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"subject", "professorHaveLectures", "studentAttendLectures", "courseMaterials", "assignments"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -25,9 +29,6 @@ public class Lecture {
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Assignment> assignments = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Student> students = new ArrayList<>();
 
     @Id
     @Column(name = "LECTURE_ID")

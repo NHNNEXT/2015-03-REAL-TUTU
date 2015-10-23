@@ -1,7 +1,12 @@
 package org.next.subject.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"professor", "lecture"})
 @Entity
 @Table(name = "PROFESSOR_HAVE_LECTURE")
 public class ProfessorHaveLecture {

@@ -1,9 +1,14 @@
 package org.next.subject.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"studentAttendLectures", "studentHaveAssignments"})
 @Entity
 @Table(name = "STUDENT")
 public class Student {
