@@ -121,7 +121,7 @@ public class UserService {
 
 
     public JsonResponse getUserInfo(HttpSession session) {
-        LoginAccount loginAccount = (LoginAccount) session.getAttribute("loginAccount");
+        LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
         if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
