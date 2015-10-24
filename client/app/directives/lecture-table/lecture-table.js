@@ -18,7 +18,7 @@ angular.module('clientApp')
           $scope.columns = ['year', 'semester', 'name', 'classNo', 'type', 'credit', 'prof', 'time'];
         }
 
-        $scope.filters = {
+        $scope.headers = {
           year: "년도",
           semester: "학기",
           name: "강의명",
