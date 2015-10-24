@@ -1,12 +1,26 @@
 <table class="table">
   <thead>
   <tr>
-    <td ng-repeat="column in columns" ng-click="sort(key)">{{headers[column]}}</td>
+    <td ng-click="sort('year')">{{headers.year}}</td>
+    <td ng-click="sort('semester')">{{headers.semester}}</td>
+    <td ng-click="sort('name')">{{headers.name}}</td>
+    <td ng-click="sort('classNo')">{{headers.classNo}}</td>
+    <td ng-click="sort('year')">{{headers.type}}</td>
+    <td ng-click="sort('year')">{{headers.credit}}</td>
+    <td ng-click="sort('year')">{{headers.prof}}</td>
+    <td ng-click="sort('year')">{{headers.time}}</td>
   </tr>
   </thead>
   <tbody>
-  <tr ui-sref="lecture({id:lecture.id})" ng-repeat="lecture in lectures | orderBy:order:reverse | filter:search">
-    <td ng-repeat="column in columns">{{lecture[column]}}</td>
+  <tr ng-repeat="lecture in lectures | orderBy:order:reverse | filter:search">
+    <td>{{lecture.year}}</td>
+    <td>{{lecture.semester}}</td>
+    <td ui-sref="lecture({id:lecture.id})">{{lecture.name}}</td>
+    <td>{{lecture.classNo}}</td>
+    <td>{{lecture.type}}</td>
+    <td>{{lecture.credit}}</td>
+    <td ui-sref="user({id:lecture.prof})">{{lecture.prof}}</td>
+    <td>{{lecture.time}}</td>
   </tr>
   <tr>
     <td colspan="9">
