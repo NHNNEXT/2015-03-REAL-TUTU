@@ -28,14 +28,6 @@ angular.module('clientApp')
           prof: "담당교수",
           time: "시간"
         };
-
-        $scope.sort = function (val) {
-          if (val === $scope.order) {
-            $scope.reverse = !$scope.reverse;
-          }
-          $scope.order = val;
-        }
-
       }
     };
   });

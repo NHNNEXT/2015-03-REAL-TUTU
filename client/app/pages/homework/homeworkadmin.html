@@ -7,12 +7,12 @@
 <table class="table">
   <thead>
   <tr>
-    <td>제출자</td>
-    <td>제출일</td>
-    <td>현재상태</td>
+    <td sort="writer">제출자</td>
+    <td sort="date">제출일</td>
+    <td sort="state">현재상태</td>
   </tr>
   </thead>
-  <tbody ng-repeat="reply in replies">
+  <tbody ng-repeat="reply in replies | orderBy:order:reverse">
   <tr ng-class="{danger:isTimeOut(reply)}" ng-click="reply.show = !reply.show">
     <td ng-bind="reply.writer"></td>
     <td ng-bind="reply.date.toYMD()"></td>
@@ -29,11 +29,11 @@
 <table class="table">
   <thead>
   <tr>
-    <td>수강생</td>
-    <td>현재상태</td>
+    <td sort="name" order="orders" reverse="reverses">수강생</td>
+    <td sort="state" order="orders" reverse="reverses">현재상태</td>
   </tr>
   </thead>
-  <tbody ng-repeat="student in students">
+  <tbody ng-repeat="student in students |orderBy:orders:reverses">
   <tr>
     <td ng-bind="student.name"></td>
     <td>{{states[student.state]}}</td>

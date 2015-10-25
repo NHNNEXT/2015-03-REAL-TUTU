@@ -1,13 +1,13 @@
 <table class="table">
   <thead>
   <tr>
-    <td>제목</td>
-    <td>작성자</td>
-    <td>조회수</td>
+    <td sort="title">제목</td>
+    <td sort="writer">작성자</td>
+    <td sort="hits">조회수</td>
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="article in articles">
+  <tr ng-repeat="article in articles | orderBy:order:reverse">
     <td ui-sref="article({id:article.id})">{{article.title}}</td>
     <td>{{article.writer}}</td>
     <td>{{article.hits}}</td>
