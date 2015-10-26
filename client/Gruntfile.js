@@ -238,9 +238,7 @@ module.exports = function (grunt) {
     less: {
       src: {
         expand: true,
-        cwd: "app/less",
-        dest: 'app/styles',
-        src: "**/*.less",
+        src: "app/**/*.less",
         ext: ".css"
       }
     },

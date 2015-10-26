@@ -1,8 +1,8 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
-    .state('article', {
-      url: "/article/:id",
-      templateUrl: "/pages/article/article.html",
+    .state('content', {
+      url: "/content/:id",
+      templateUrl: "/pages/content/content.html",
       controller: function ($scope) {
 
 
