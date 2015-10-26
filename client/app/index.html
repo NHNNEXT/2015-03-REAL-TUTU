@@ -16,7 +16,9 @@
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="/index.css" />
   <link rel="stylesheet" href="/directives/drop-down/drop-down.css" />
+  <link rel="stylesheet" href="/directives/user-profile/user-profile.css" />
   <!-- endbuild -->
 </head>
 <body ng-app="clientApp">
@@ -81,9 +83,14 @@
 <script src="/services/user.js"></script>
 <script src="/services/alert.js"></script>
 <script src="/services/http.js"></script>
+<script src="/directives/user-profile/user-profile.js"></script>
 <script src="/directives/menu.js"></script>
+<script src="/directives/ngenter.js"></script>
+<script src="/directives/textarea.js"></script>
 <script src="/directives/sort.js"></script>
 <script src="/directives/ngregex.js"></script>
+<script src="/directives/reply/reply.js"></script>
+<script src="/directives/like/like.js"></script>
 <script src="/directives/lecture-table/lecture-table.js"></script>
 <script src="/directives/drop-down/drop-down.js"></script>
 <script src="/part/header/header.js"></script>
@@ -93,15 +100,10 @@
 <script src="/pages/register/register.js"></script>
 <script src="/pages/main/main.js"></script>
 <script src="/pages/notfound/notfound.js"></script>
-<script src="/pages/content/content.js"></script>
 <script src="/pages/content/contentEdit.js"></script>
-<script src="/pages/article/board.js"></script>
+<script src="/pages/content/content.js"></script>
 <script src="/pages/lecture/lecture.js"></script>
 <script src="/pages/lecture/lectureEdit.js"></script>
-<script src="/pages/homework/homework.js"></script>
-<script src="/pages/homework/homeworkadmin.js"></script>
-<script src="/pages/homework/homeworkedit.js"></script>
-<script src="/pages/homework/board.js"></script>
 <!-- endbuild -->
 </body>
 </html>

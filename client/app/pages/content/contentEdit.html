@@ -1,12 +1,11 @@
-<input class="form-control" placeholder="제목">
-ㅁㄴㅇㄹㅁㄴㅇㄹ
-
-
-
-<drop-down ng-model="content.type" options="types"></drop-down>
-
-<wysiwyg textarea-class="form-control"
+<input ng-model="content.title" class="form-control" placeholder="제목">
+<drop-down ng-model="content.type" options="types" names="names"></drop-down>
+<input class="form-control" placeholder="기한" type="datetime" date-time ng-model="content.dueDate" max-view="date">
+<wysiwyg ng-model="content.body" textarea-class="form-control"
          textarea-height="250px"
          textarea-required ng-model="homework.body" enable-bootstrap-title="true"></wysiwyg>
 
 <div class="btn btn-primary">작성완료</div>
+
+
+{{content}}

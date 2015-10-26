@@ -5,12 +5,19 @@
 
 
 <ul class="list-group">
-  <li ng-repeat="reply in replies" class="list-group-item">{{reply}}</li>
+  <li ng-repeat="reply in replies" class="list-group-item wrap">
+    <div reply="reply"></div>
+  </li>
+  <li class="list-group-item wrap">
+    <div class="col-sm-3">
+      <user-profile user="user"></user-profile>
+    </div>
+    <div class="col-sm-9 ">
+      <div class="input-group">
+        <textarea ng-model="reply.body" class="form-control"></textarea>
 
+        <div class="input-group-addon" ng-click="writeReply(reply)">댓글달기</div>
+      </div>
+    </div>
+  </li>
 </ul>
-
-<wysiwyg textarea-class="form-control"
-         textarea-height="250px"
-         textarea-required ng-model="homework.body" enable-bootstrap-title="true"></wysiwyg>
-<div class="btn btn-primary">댓글달기</div>
-<></div>
