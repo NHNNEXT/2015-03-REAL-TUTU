@@ -2,6 +2,11 @@ angular.module('clientApp').config(function ($stateProvider) {
   var controller = function ($stateParams, $scope, http) {
     $scope.types = ['article', 'qna', 'homework'];
     $scope.names = {article: "게시물", qna: "Q & A", homework: "과제"};
+    $scope.content = {type: $stateParams.type};
+    if ($scope.content.type === undefined) {
+      $scope.content.type = 'article';
+    }
+
     $scope.$watch(function () {
       return $stateParams.id;
     }, function () {
@@ -12,12 +17,12 @@ angular.module('clientApp').config(function ($stateProvider) {
   };
   $stateProvider
     .state('contentEdit', {
-      url: "/content/:id/edit",
+      url: "/content/:id/edit?:type",
       templateUrl: "/pages/content/contentEdit.html",
       controller: controller
     })
     .state('contentNew', {
-      url: "/content/write",
+      url: "/content/write?:type",
       templateUrl: "/pages/content/contentEdit.html",
       controller: controller
     });

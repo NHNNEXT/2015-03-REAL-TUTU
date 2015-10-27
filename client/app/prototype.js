@@ -102,3 +102,8 @@ Array.prototype.remove = function (el) {
 Number.prototype.toDay = function () {
   return ["월", "화", "수", "목", "금", "토", "일"][this % 7];
 };
+
+
+String.prototype.newLine = function () {
+  return this.replace(/\n/g, '<br>');
+};

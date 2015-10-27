@@ -5,19 +5,15 @@
     강의설명
   </p>
 </div>
+<div class="row">
+  <div class="col-md-9">
+    <content-list contents="contents"></content-list>
+  </div>
+  <div class="col-md-3">
 
-<ul class="list-group">
-  <li class="list-group-item" ui-sref="articleBoard">강의자료</li>
-  <li class="list-group-item" ui-sref="homeworkBoard">숙제</li>
-</ul>
-
-<div class="list-group-item">수강생</div>
-
-<div class="btn btn-primary">게시판 추가하기</div>
-
-<div>
-  <input class="form-control" placeholder="게시판 이름" ng-model="board.title">
-
-  <drop-down ng-model="board.type" options="types"></drop-down>
-
+  </div>
 </div>
+
+<div class="btn btn-primary" ui-sref="contentNew">새 글</div>
+<div class="btn btn-primary" ui-sref="contentNew({type:'homework'})">새 과제</div>
+

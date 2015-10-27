@@ -1,7 +1,8 @@
-<h1 ng-bind="article.title"></h1>
-<p ng-bind="article.body"></p>
-<p ng-bind="article.date.toYMD()"></p>
-<p ng-bind="article.writer"></p>
+<h1 ng-bind="content.title"></h1>
+<p>{{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
+<p ng-bind-html="content.body"></p>
+<p>{{content.date.toYMD()}}</p>
+<user-profile user="content.writer"></user-profile>
 
 
 <ul class="list-group">
@@ -12,10 +13,9 @@
     <div class="col-sm-3">
       <user-profile user="user"></user-profile>
     </div>
-    <div class="col-sm-9 ">
+    <div class="col-sm-9">
       <div class="input-group">
         <textarea ng-model="reply.body" class="form-control"></textarea>
-
         <div class="input-group-addon" ng-click="writeReply(reply)">댓글달기</div>
       </div>
     </div>

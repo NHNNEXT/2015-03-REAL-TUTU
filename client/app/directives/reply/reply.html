@@ -2,7 +2,7 @@
   <user-profile user="reply.writer"></user-profile>
 </div>
 <div class="col-sm-9">
-  <span ng-bind="reply.body"></span>
+  <span ng-bind-html="reply.body.newLine()"></span>
   <like value="reply.like" target="reply.id"></like>
   <small>{{reply.date}}</small>
 </div>

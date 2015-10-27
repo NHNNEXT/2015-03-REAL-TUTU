@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .directive('dropDown', function ($compile, $state) {
+  .directive('dropDown', function () {
     return {
       restrict: 'E',
       scope: {
