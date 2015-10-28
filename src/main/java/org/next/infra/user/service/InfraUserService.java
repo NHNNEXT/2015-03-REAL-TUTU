@@ -1,6 +1,6 @@
 package org.next.infra.user.service;
 
-import org.next.common.dto.JsonResponse;
+import org.next.infra.common.dto.JsonResponse;
 import org.next.infra.user.domain.*;
 import org.next.infra.user.dto.ClientUserInfoDto;
 import org.next.infra.user.dto.LoginToken;

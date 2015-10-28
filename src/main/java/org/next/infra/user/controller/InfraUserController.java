@@ -1,6 +1,6 @@
 package org.next.infra.user.controller;
 
-import org.next.common.dto.JsonResponse;
+import org.next.infra.common.dto.JsonResponse;
 import org.next.infra.user.domain.AccountType;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.UserInfo;

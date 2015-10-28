@@ -1,4 +1,4 @@
-package org.next.common.dto;
+package org.next.infra.common.dto;
 
 import lombok.*;
 

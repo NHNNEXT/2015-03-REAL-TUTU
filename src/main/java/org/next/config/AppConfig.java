@@ -1,4 +1,4 @@
-package org.next.common.config;
+package org.next.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;

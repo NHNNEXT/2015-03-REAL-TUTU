@@ -1,4 +1,4 @@
-package org.next.common.config;
+package org.next.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
