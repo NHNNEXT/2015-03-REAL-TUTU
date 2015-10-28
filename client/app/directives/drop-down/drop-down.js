@@ -3,6 +3,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
+        dropClass: '@',
         options: '=',
         data: '=',
         ngModel: '=',

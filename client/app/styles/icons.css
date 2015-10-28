@@ -16,3 +16,6 @@
   margin: 0;
   margin-top: 20px;
 }
+.pointer {
+  cursor: pointer;
+}
