@@ -7,9 +7,6 @@ import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
 import org.next.infra.user.repository.LoginAccountRepository;
 import org.next.infra.user.repository.UserInfoRepository;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,10 +21,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.next.infra.common.dto.CommonJsonResponse.errorJsonResponse;
+import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
+
 @Service
 @Transactional
 public class InfraUserService {
-    private static final Logger logger = LoggerFactory.getLogger(InfraUserService.class);
 
     @Autowired
     private LoginAccountRepository loginAccountRepository;
@@ -45,31 +44,35 @@ public class InfraUserService {
         LoginAccount dbAccount = findAccount(loginToken);
 
         if(dbAccount == null) {
-            return new CommonJsonResponse().setErr("존재하지 않는 계정입니다.");
+            return errorJsonResponse("존재하지 않는 계정입니다.");
         }
 
         if(loginAbleAccount(dbAccount)) {
-            List<GrantedAuthority> authorities = dbAccount.getUserAuthorities().stream().map(authority -> authority.getAuthority().getAuthorityType())
-                    .map(authorityType -> new SimpleGrantedAuthority(authorityType.toString()))
-                    .collect(Collectors.toList());
-
-            Authentication token = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), authorities);
-            SecurityContextHolder.getContext().setAuthentication(token);
-            session.setAttribute("loginAccountId", dbAccount.getId());
-            session.setAttribute("userInfo", dbAccount.getUserInfo());
-
-            return new CommonJsonResponse().setResult(new ClientUserInfoDto(dbAccount));
+            setLoginStatus(loginToken, dbAccount, session);
+            return successJsonResponse(new ClientUserInfoDto(dbAccount));
         }
 
         if(holdAccount(dbAccount)) {
-            return new CommonJsonResponse().setErr("일시중지된 계정입니다.");
+            return errorJsonResponse("일시중지된 계정입니다.");
         }
 
         if(withDrawalAccount(dbAccount)) {
-            return new CommonJsonResponse().setErr("탈퇴한 계정입니다.");
+            return errorJsonResponse("탈퇴한 계정입니다.");
         }
 
-        return new CommonJsonResponse().setErr("아이디 또는 비밀번호를 확인해 주세요.");
+        return errorJsonResponse("아이디 또는 비밀번호를 확인해 주세요.");
+    }
+
+    private void setLoginStatus(LoginToken loginToken, LoginAccount dbAccount, HttpSession session) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), getAuthorities(dbAccount));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        session.setAttribute("loginAccountId", dbAccount.getId());
+        session.setAttribute("userInfo", dbAccount.getUserInfo());
+    }
+
+    private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
+        return dbAccount.getUserAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityType().toString())).collect(Collectors.toList());
     }
 
     private LoginAccount findAccount(LoginToken loginToken) {
@@ -96,7 +99,7 @@ public class InfraUserService {
         encodePassword(loginToken);
         userInfoRepository.save(userInfo);
         loginAccountRepository.save(loginAccount(loginToken, accountType, userInfo));
-        return new CommonJsonResponse().setResult("Success");
+        return successJsonResponse();
     }
 
     private void encodePassword(LoginToken loginToken) {
@@ -124,12 +127,12 @@ public class InfraUserService {
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
         if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
-            return null;
+            return errorJsonResponse("탈퇴된 회원입니다.");
         }
 
         loginAccount.setUserInfo(userInfo);
 
-        return new CommonJsonResponse().setResult(new ClientUserInfoDto(loginAccount));
+        return successJsonResponse(new ClientUserInfoDto(loginAccount));
     }
 
     public void edit(LoginAccount loginAccount){
@@ -143,6 +146,6 @@ public class InfraUserService {
         Long accountId = (Long) session.getAttribute("loginAccountId");
         LoginAccount account = loginAccountRepository.getOne(accountId);
         account.setState(AccountStateType.WITHDRAWAL);
-        return new CommonJsonResponse().setResult("Success");
+        return successJsonResponse();
     }
 }
