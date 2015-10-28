@@ -5,7 +5,7 @@ import org.next.infra.user.domain.AccountType;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.dto.LoginToken;
-import org.next.infra.user.service.UserService;
+import org.next.infra.user.service.InfraUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +19,23 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/v1/user")
-public class UserController {
+public class InfraUserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(InfraUserController.class);
 
     @Autowired
-    private UserService userService;
+    private InfraUserService infraUserService;
 
     @RequestMapping(method = RequestMethod.GET)
     @Secured({"ROLE_STUDENT", "ROLE_TEACHING_ASSISTANT", "ROLE_PROFESSOR", "ROLE_SYSTEM_MANAGER"})
     public JsonResponse getUserInfo(HttpSession session) {
-        return userService.getUserInfo(session);
+        return infraUserService.getUserInfo(session);
     }
 
     @PermitAll
     @RequestMapping(method = RequestMethod.POST)
     public JsonResponse joinService(LoginToken loginToken, AccountType accountType, UserInfo userInfo) {
-        return userService.join(loginToken, accountType, userInfo);
+        return infraUserService.join(loginToken, accountType, userInfo);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -48,13 +48,12 @@ public class UserController {
     @RequestMapping(method = RequestMethod.DELETE)
     @Secured({"ROLE_STUDENT", "ROLE_TEACHING_ASSISTANT", "ROLE_PROFESSOR", "ROLE_SYSTEM_MANAGER"})
     public JsonResponse withdrawalUser(HttpSession session) {
-        return userService.withdrawal(session);
+        return infraUserService.withdrawal(session);
     }
 
     @PermitAll
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public JsonResponse userLogin(LoginToken loginToken, HttpSession session) {
-        return userService.login(loginToken, session);
+        return infraUserService.login(loginToken, session);
     }
 }
-

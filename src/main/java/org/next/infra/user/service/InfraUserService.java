@@ -2,13 +2,12 @@ package org.next.infra.user.service;
 
 import org.next.common.dto.JsonResponse;
 import org.next.common.util.PasswordEncoder;
-import org.next.infra.domain.user.*;
+import org.next.infra.user.domain.*;
 import org.next.infra.user.dto.ClientUserInfoDto;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
 import org.next.infra.user.repository.LoginAccountRepository;
 import org.next.infra.user.repository.UserInfoRepository;
-import org.next.infra.user.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,8 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserService {
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+public class InfraUserService {
+    private static final Logger logger = LoggerFactory.getLogger(InfraUserService.class);
 
     @Autowired
     private LoginAccountRepository loginAccountRepository;
