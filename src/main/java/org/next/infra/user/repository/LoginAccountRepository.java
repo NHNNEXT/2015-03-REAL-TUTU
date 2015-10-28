@@ -1,6 +1,6 @@
-package org.next.core.repository.user;
+package org.next.infra.user.repository;
 
-import org.next.core.domain.user.LoginAccount;
+import org.next.infra.user.domain.LoginAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LoginAccountRepository extends JpaRepository<LoginAccount, Long> {

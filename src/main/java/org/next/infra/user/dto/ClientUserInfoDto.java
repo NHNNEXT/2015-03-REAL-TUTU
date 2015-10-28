@@ -1,9 +1,9 @@
-package org.next.core.dto.user;
+package org.next.infra.user.dto;
 
-import org.next.core.domain.user.AccountType;
-import org.next.core.domain.user.LoginAccount;
-import org.next.core.domain.user.AccountStateType;
-import org.next.core.domain.user.UserInfo;
+import org.next.infra.user.domain.AccountType;
+import org.next.infra.user.domain.LoginAccount;
+import org.next.infra.user.domain.AccountStateType;
+import org.next.infra.user.domain.UserInfo;
 
 public class ClientUserInfoDto {
 

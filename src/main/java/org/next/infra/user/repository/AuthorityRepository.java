@@ -1,7 +1,7 @@
-package org.next.core.repository.user;
+package org.next.infra.user.repository;
 
-import org.next.core.domain.user.AuthorityType;
-import org.next.core.domain.user.Authority;
+import org.next.infra.user.domain.AuthorityType;
+import org.next.infra.user.domain.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthorityRepository extends JpaRepository<Authority, Long> {

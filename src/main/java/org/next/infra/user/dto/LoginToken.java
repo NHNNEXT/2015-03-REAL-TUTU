@@ -1,4 +1,4 @@
-package org.next.core.dto.user;
+package org.next.infra.user.dto;
 
 import lombok.*;
 

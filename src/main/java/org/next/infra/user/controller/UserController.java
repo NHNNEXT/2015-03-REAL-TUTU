@@ -1,11 +1,11 @@
-package org.next.core.controller.user;
+package org.next.infra.user.controller;
 
 import org.next.common.dto.JsonResponse;
-import org.next.core.domain.user.AccountType;
-import org.next.core.domain.user.LoginAccount;
-import org.next.core.domain.user.UserInfo;
-import org.next.core.dto.user.LoginToken;
-import org.next.core.service.user.UserService;
+import org.next.infra.user.domain.AccountType;
+import org.next.infra.user.domain.LoginAccount;
+import org.next.infra.user.domain.UserInfo;
+import org.next.infra.user.dto.LoginToken;
+import org.next.infra.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

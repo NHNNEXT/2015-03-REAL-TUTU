@@ -1,4 +1,4 @@
-package org.next.core.domain.user;
+package org.next.infra.user.domain;
 
 public enum AuthorityType {
 

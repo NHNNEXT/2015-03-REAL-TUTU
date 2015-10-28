@@ -1,7 +1,7 @@
-package org.next.core.domain.user;
+package org.next.infra.user.domain;
 
 import lombok.*;
-import org.next.core.dto.user.LoginToken;
+import org.next.infra.user.dto.LoginToken;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
