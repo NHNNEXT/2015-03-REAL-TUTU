@@ -1,6 +1,6 @@
 package org.next.infra.user.service;
 
-import org.next.infra.common.dto.JsonResponse;
+import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.user.domain.*;
 import org.next.infra.user.dto.ClientUserInfoDto;
 import org.next.infra.user.dto.LoginToken;
@@ -41,11 +41,11 @@ public class InfraUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public JsonResponse login(LoginToken loginToken, HttpSession session) {
+    public CommonJsonResponse login(LoginToken loginToken, HttpSession session) {
         LoginAccount dbAccount = findAccount(loginToken);
 
         if(dbAccount == null) {
-            return new JsonResponse().setErr("존재하지 않는 계정입니다.");
+            return new CommonJsonResponse().setErr("존재하지 않는 계정입니다.");
         }
 
         if(loginAbleAccount(dbAccount)) {
@@ -58,18 +58,18 @@ public class InfraUserService {
             session.setAttribute("loginAccountId", dbAccount.getId());
             session.setAttribute("userInfo", dbAccount.getUserInfo());
 
-            return new JsonResponse().setResult(new ClientUserInfoDto(dbAccount));
+            return new CommonJsonResponse().setResult(new ClientUserInfoDto(dbAccount));
         }
 
         if(holdAccount(dbAccount)) {
-            return new JsonResponse().setErr("일시중지된 계정입니다.");
+            return new CommonJsonResponse().setErr("일시중지된 계정입니다.");
         }
 
         if(withDrawalAccount(dbAccount)) {
-            return new JsonResponse().setErr("탈퇴한 계정입니다.");
+            return new CommonJsonResponse().setErr("탈퇴한 계정입니다.");
         }
 
-        return new JsonResponse().setErr("아이디 또는 비밀번호를 확인해 주세요.");
+        return new CommonJsonResponse().setErr("아이디 또는 비밀번호를 확인해 주세요.");
     }
 
     private LoginAccount findAccount(LoginToken loginToken) {
@@ -92,11 +92,11 @@ public class InfraUserService {
         return dbAccount != null && dbAccount.getState() == AccountStateType.WITHDRAWAL;
     }
 
-    public JsonResponse join(LoginToken loginToken, AccountType accountType, UserInfo userInfo) {
+    public CommonJsonResponse join(LoginToken loginToken, AccountType accountType, UserInfo userInfo) {
         encodePassword(loginToken);
         userInfoRepository.save(userInfo);
         loginAccountRepository.save(loginAccount(loginToken, accountType, userInfo));
-        return new JsonResponse().setResult("Success");
+        return new CommonJsonResponse().setResult("Success");
     }
 
     private void encodePassword(LoginToken loginToken) {
@@ -119,7 +119,7 @@ public class InfraUserService {
         return authorityRepository.findByAuthorityType(authorityType);
     }
 
-    public JsonResponse getUserInfo(HttpSession session) {
+    public CommonJsonResponse getUserInfo(HttpSession session) {
         LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
@@ -129,7 +129,7 @@ public class InfraUserService {
 
         loginAccount.setUserInfo(userInfo);
 
-        return new JsonResponse().setResult(new ClientUserInfoDto(loginAccount));
+        return new CommonJsonResponse().setResult(new ClientUserInfoDto(loginAccount));
     }
 
     public void edit(LoginAccount loginAccount){
@@ -139,10 +139,10 @@ public class InfraUserService {
         loginAccountRepository.save(loginAccount);
     }
 
-    public JsonResponse withdrawal(HttpSession session) {
+    public CommonJsonResponse withdrawal(HttpSession session) {
         Long accountId = (Long) session.getAttribute("loginAccountId");
         LoginAccount account = loginAccountRepository.getOne(accountId);
         account.setState(AccountStateType.WITHDRAWAL);
-        return new JsonResponse().setResult("Success");
+        return new CommonJsonResponse().setResult("Success");
     }
 }

@@ -4,16 +4,16 @@ import lombok.*;
 
 @Getter
 @NoArgsConstructor
-public class JsonResponse {
+public class CommonJsonResponse {
     private String err;
     private Object result;
 
-    public JsonResponse setErr(String errorMessage) {
+    public CommonJsonResponse setErr(String errorMessage) {
         this.err = errorMessage;
         return this;
     }
 
-    public JsonResponse setResult(Object result) {
+    public CommonJsonResponse setResult(Object result) {
         this.result = result;
         return this;
     }
