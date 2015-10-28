@@ -7,6 +7,15 @@ angular.module('clientApp').config(function ($stateProvider) {
       $scope.content.type = 'article';
     }
 
+    $scope.addTag = function (tag) {
+      if (!$scope.content.tags)
+        $scope.content.tags = [];
+      if ($scope.content.tags.includes(tag))
+        return;
+      $scope.content.tags.push(tag);
+      $scope.tag = "";
+    };
+
     $scope.$watch(function () {
       return $stateParams.id;
     }, function () {

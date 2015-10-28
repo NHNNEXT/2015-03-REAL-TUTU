@@ -12,7 +12,14 @@ angular.module('clientApp').config(function ($stateProvider) {
         };
 
 
-        $scope.content = {title: "제목", body: "내용", writer: "작성자", date: new Date(), dueDate: new Date(2015, 9, 26)};
+        $scope.content = {
+          type: 'homework',
+          title: "제목",
+          body: "내용",
+          writer: "작성자",
+          date: new Date(),
+          dueDate: new Date(2015, 9, 26)
+        };
 
         $scope.replies = [];
 
