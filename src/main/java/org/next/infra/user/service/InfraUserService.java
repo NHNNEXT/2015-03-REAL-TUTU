@@ -45,7 +45,7 @@ public class InfraUserService {
         LoginAccount dbAccount = findAccount(loginToken);
 
         if(dbAccount == null) {
-            return new JsonResponse("존재하지 않는 계정입니다.", null);
+            return new JsonResponse().setErr("존재하지 않는 계정입니다.");
         }
 
         if(loginAbleAccount(dbAccount)) {
@@ -58,18 +58,18 @@ public class InfraUserService {
             session.setAttribute("loginAccountId", dbAccount.getId());
             session.setAttribute("userInfo", dbAccount.getUserInfo());
 
-            return new JsonResponse(null, new ClientUserInfoDto(dbAccount));
+            return new JsonResponse().setResult(new ClientUserInfoDto(dbAccount));
         }
 
         if(holdAccount(dbAccount)) {
-            return new JsonResponse("일시중지된 계정입니다.", null);
+            return new JsonResponse().setErr("일시중지된 계정입니다.");
         }
 
         if(withDrawalAccount(dbAccount)) {
-            return new JsonResponse("탈퇴한 계정입니다.", null);
+            return new JsonResponse().setErr("탈퇴한 계정입니다.");
         }
 
-        return new JsonResponse("아이디 또는 비밀번호를 확인해 주세요.", null);
+        return new JsonResponse().setErr("아이디 또는 비밀번호를 확인해 주세요.");
     }
 
     private LoginAccount findAccount(LoginToken loginToken) {
@@ -96,7 +96,7 @@ public class InfraUserService {
         encodePassword(loginToken);
         userInfoRepository.save(userInfo);
         loginAccountRepository.save(loginAccount(loginToken, accountType, userInfo));
-        return new JsonResponse(null, "Success");
+        return new JsonResponse().setResult("Success");
     }
 
     private void encodePassword(LoginToken loginToken) {
@@ -129,7 +129,7 @@ public class InfraUserService {
 
         loginAccount.setUserInfo(userInfo);
 
-        return new JsonResponse(null, new ClientUserInfoDto(loginAccount));
+        return new JsonResponse().setResult(new ClientUserInfoDto(loginAccount));
     }
 
     public void edit(LoginAccount loginAccount){
@@ -143,6 +143,6 @@ public class InfraUserService {
         Long accountId = (Long) session.getAttribute("loginAccountId");
         LoginAccount account = loginAccountRepository.getOne(accountId);
         account.setState(AccountStateType.WITHDRAWAL);
-        return new JsonResponse(null, "Success");
+        return new JsonResponse().setResult("Success");
     }
 }
