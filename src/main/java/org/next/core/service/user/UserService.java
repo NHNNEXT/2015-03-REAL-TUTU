@@ -5,11 +5,9 @@ import org.next.common.util.PasswordEncoder;
 import org.next.core.domain.user.*;
 import org.next.core.dto.user.ClientUserInfoDto;
 import org.next.core.dto.user.LoginToken;
-import org.next.core.repository.user.UserInfoRepository;
-import org.next.lecturemanager.core.controller.user.domain.*;
 import org.next.core.repository.user.AuthorityRepository;
 import org.next.core.repository.user.LoginAccountRepository;
-import org.next.lecturemanager.core.domain.user.*;
+import org.next.core.repository.user.UserInfoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,15 +109,14 @@ public class UserService {
         loginAccount.setState(AccountStateType.ACTIVE);
         loginAccount.setType(accountType);
         loginAccount.setUserInfo(userInfo);
-        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_STUDENT));
-        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_PROFESSOR));
+        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_STUDENT));    // TODO 수정필요
+        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_PROFESSOR));  // TODO 수정필요
         return loginAccount;
     }
 
     private Authority getAuthority(AuthorityType authorityType) {
         return authorityRepository.findByAuthorityType(authorityType);
     }
-
 
     public JsonResponse getUserInfo(HttpSession session) {
         LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
