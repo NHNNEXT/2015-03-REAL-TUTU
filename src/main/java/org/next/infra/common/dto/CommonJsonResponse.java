@@ -6,8 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 public class CommonJsonResponse {
 
-    public static final String DEFAULT_ERROR_MESSAGE = "Error";
-    public static final String DEFAULT_SUCCESS_MESSAGE = "Success";
+    public static final String DEFAULT_ERROR_MESSAGE = "Error.";
+    public static final String DEFAULT_SUCCESS_MESSAGE = "Success.";
 
     private String err;
     private Object result;
@@ -27,7 +27,7 @@ public class CommonJsonResponse {
     }
 
     public static CommonJsonResponse errorJsonResponse(String errorMessage) {
-        return new CommonJsonResponse().setErr(errorMessage);
+        return new CommonJsonResponse().setErr(ensureMessageEndWithPeriod(errorMessage));
     }
 
     public static CommonJsonResponse successJsonResponse() {
@@ -35,6 +35,18 @@ public class CommonJsonResponse {
     }
 
     public static CommonJsonResponse successJsonResponse(Object result) {
+        if(stringInstance(result)) {
+            return new CommonJsonResponse().setResult(ensureMessageEndWithPeriod((String) result));
+        }
         return new CommonJsonResponse().setResult(result);
+    }
+
+    private static String ensureMessageEndWithPeriod(String message) {
+        boolean endWithPeriod = message.trim().endsWith(".");
+        return endWithPeriod ? message : (message + ".");
+    }
+
+    private static boolean stringInstance(Object result) {
+        return result instanceof String;
     }
 }
