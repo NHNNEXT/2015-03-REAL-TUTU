@@ -1,19 +1,18 @@
 <div class="jumbotron">
-  <h1>넥스트 강의 관리 </h1>
+  <div class="container">
+    <h2>나의 강의</h2>
+
+    <p>
+      <drop-down data="lectures" placeholder="년도" distinct="year" ng-model="query.year"></drop-down>
+      <drop-down data="lectures" placeholder="학기" distinct="semester" ng-model="query.semester"></drop-down>
+      <drop-down data="lectures" placeholder="구분" distinct="type" ng-model="query.type"></drop-down>
+      <drop-down data="lectures" placeholder="교수" distinct="prof" ng-model="query.prof"></drop-down>
+    </p>
+  </div>
 </div>
 
-<div ng-show="myLectures.length!==0">
-  <h1>수강 과목</h1>
-  <lecture-table lectures="myLectures"></lecture-table>
+<div class="container">
+  <div class="row">
+    <lecture-table lectures="lectures" query="query"></lecture-table>
+  </div>
 </div>
-
-<div ng-show="teachLectures.length!==0">
-  <h1>교수 과목</h1>
-  <lecture-table lectures="teachLectures"></lecture-table>
-</div>
-
-
-<h1>전체 강의</h1>
-<lecture-table lectures="lectures"></lecture-table>
-
-<div ui-sref="lectureEdit" class="btn btn-primary">강의등록하기</div>

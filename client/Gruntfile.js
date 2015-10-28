@@ -50,7 +50,7 @@ module.exports = function (grunt) {
       },
       less: {
         files: [
-          '<%= yeoman.app %>/{,*/}*.less',
+          '<%= yeoman.app %>/**/*.less',
         ],
         tasks: ['less'],
         options: {

@@ -12,7 +12,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="lecture in lectures | orderBy:order:reverse | filter:search">
+  <tr ng-repeat="lecture in filtered =(lectures | orderBy:order:reverse | filter:query)">
     <td>{{lecture.year}}</td>
     <td>{{lecture.semester}}</td>
     <td ui-sref="lecture({id:lecture.id})">{{lecture.name}}</td>
@@ -22,15 +22,8 @@
     <td ui-sref="profile({id:lecture.prof})">{{lecture.prof}}</td>
     <td>{{lecture.time}}</td>
   </tr>
-  <tr>
-    <td colspan="9">
-      <div class="input-group">
-        <div class="input-group-btn">
-          <drop-down names="headers" ng-model="key" options="columns"></drop-down>
-        </div>
-        <input type="text" class="form-control" placeholder="검색어" ng-model="search[key]">
-      </div>
-    </td>
+  <tr ng-show="filtered.length==0">
+    <td colspan="8">자료가 없습니다.</td>
   </tr>
   </tbody>
 </table>

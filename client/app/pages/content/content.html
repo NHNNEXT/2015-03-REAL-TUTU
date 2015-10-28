@@ -1,23 +1,29 @@
-<h1 ng-bind="content.title"></h1>
-<p>{{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
-<p ng-bind-html="content.body"></p>
-<p>{{content.date.toYMD()}}</p>
-<user-profile user="content.writer"></user-profile>
+<div class="container">
+  <h1 ng-bind="content.title"></h1>
+
+  <p>{{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
+
+  <p ng-bind-html="content.body"></p>
+
+  <p>{{content.date.toYMD()}}</p>
+  <user-profile user="content.writer"></user-profile>
 
 
-<ul class="list-group">
-  <li ng-repeat="reply in replies" class="list-group-item wrap">
-    <div reply="reply"></div>
-  </li>
-  <li class="list-group-item wrap">
-    <div class="col-sm-3">
-      <user-profile user="user"></user-profile>
-    </div>
-    <div class="col-sm-9">
-      <div class="input-group">
-        <textarea ng-model="reply.body" class="form-control"></textarea>
-        <div class="input-group-addon" ng-click="writeReply(reply)">댓글달기</div>
+  <ul class="list-group">
+    <li ng-repeat="reply in replies" class="list-group-item wrap">
+      <div reply="reply"></div>
+    </li>
+    <li class="list-group-item wrap">
+      <div class="col-sm-3">
+        <user-profile user="user"></user-profile>
       </div>
-    </div>
-  </li>
-</ul>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <textarea ng-model="reply.body" class="form-control"></textarea>
+
+          <div class="input-group-addon" ng-click="writeReply(reply)">댓글달기</div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

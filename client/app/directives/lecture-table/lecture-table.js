@@ -4,7 +4,8 @@ angular.module('clientApp')
       restrict: 'E',
       scope: {
         lectures: '=',
-        columns: '='
+        columns: '=',
+        query: '='
       },
       templateUrl: '/directives/lecture-table/lecture-table.html',
       controller: function ($scope) {

@@ -31,6 +31,9 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/",
       templateUrl: "/pages/main/main.html",
       controller: function ($scope) {
+
+
+
         var lectures = $scope.lectures = [];
         var teachLectures = $scope.teachLectures = [];
         var myLectures = $scope.myLectures = [];
