@@ -8,7 +8,8 @@ angular.module('clientApp')
       },
       templateUrl: '/directives/like/like.html',
       controller: function ($scope) {
-
+        if (!$scope.value)
+          $scope.value = 0;
       }
     };
   });

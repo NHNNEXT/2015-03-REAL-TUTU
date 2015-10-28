@@ -50,7 +50,7 @@ Number.prototype.zf = function (len) {
 };
 
 Date.prototype.toYMD = function () {
-  return this.format("yyyy/MM/dd hh:mm");
+  return this.format("yyyy년 MM월 dd일 hh:mm");
 };
 
 
