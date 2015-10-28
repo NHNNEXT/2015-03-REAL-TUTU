@@ -1,10 +1,12 @@
 package org.next.infra.user.dto;
 
+import lombok.Getter;
 import org.next.infra.user.domain.AccountType;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.AccountStateType;
 import org.next.infra.user.domain.UserInfo;
 
+@Getter
 public class ClientUserInfoDto {
 
     private Long userNo;
@@ -34,37 +36,5 @@ public class ClientUserInfoDto {
         this.studentId = info.getStudentId();
         this.phoneNumber = info.getPhoneNumber();
         this.major = info.getMajor();
-    }
-
-    public Long getUserNo() {
-        return userNo;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public AccountStateType getAccountState() {
-        return accountState;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getMajor() {
-        return major;
     }
 }
