@@ -136,3 +136,31 @@ Number.prototype.toDay = function () {
 String.prototype.newLine = function () {
   return this.replace(/\n/g, '<br>');
 };
+
+
+
+function ClassTime(day, startTime, endTime) {
+  this.day = day;
+  this.startTime = startTime;
+  this.endTime = endTime;
+}
+
+ClassTime.prototype.getTime = function () {
+  return this.day.toDay() + " " + this.startTime + " ~ " + this.endTime;
+};
+
+function Lecture(year, semester, name, classNo, type, credit, times, prof, id, desc) {
+  this.year = year;
+  this.semester = semester;
+  this.name = name;
+  this.classNo = classNo;
+  this.type = ["전공필수", "전공선택", "교양"][type];
+  this.credit = credit;
+  this.time = "";
+  for (var i = 0; i < times.length; i++)
+    this.time += times[i].getTime() + "<br>";
+  this.time = this.time.substr(0, this.time.length - 4);
+  this.prof = prof;
+  this.id = id;
+  this.desc = desc;
+}

@@ -9,10 +9,10 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -30,9 +30,7 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<header class="header">
-  <div ng-include="'/part/header/header.html'"></div>
-</header>
+<header ng-include="'/part/header/header.html'" class="header"></header>
 
 <div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert}}</div>
 
@@ -95,18 +93,19 @@
 <script src="/directives/lecture-table/lecture-table.js"></script>
 <script src="/directives/content-list/content-list.js"></script>
 <script src="/directives/drop-down/drop-down.js"></script>
-<!--<script src="/filter/selectFilter.js"></script>-->
 <script src="/part/header/header.js"></script>
 <script src="/part/alert/alert.js"></script>
+<script src="/part/subheader/subheader.js"></script>
 <script src="/pages/login/login.js"></script>
 <script src="/pages/profile/profile.js"></script>
 <script src="/pages/register/register.js"></script>
 <script src="/pages/main/main.js"></script>
 <script src="/pages/notfound/notfound.js"></script>
-<script src="/pages/content/contentEdit.js"></script>
-<script src="/pages/content/content.js"></script>
+<script src="/pages/lecture/lectureContainer.js"></script>
 <script src="/pages/lecture/lecture.js"></script>
 <script src="/pages/lecture/lectureEdit.js"></script>
+<script src="/pages/lecture/content/contentEdit.js"></script>
+<script src="/pages/lecture/content/content.js"></script>
 <!-- endbuild -->
 </body>
 </html>

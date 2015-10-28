@@ -15,7 +15,7 @@
   <tr ng-repeat="lecture in filtered =(lectures | orderBy:order:reverse | filter:query)">
     <td>{{lecture.year}}</td>
     <td>{{lecture.semester}}</td>
-    <td ui-sref="lecture({id:lecture.id})">{{lecture.name}}</td>
+    <td ui-sref="lecture.detail({id:lecture.id})">{{lecture.name}}</td>
     <td>{{lecture.classNo}}</td>
     <td>{{lecture.type}}</td>
     <td>{{lecture.credit}}</td>

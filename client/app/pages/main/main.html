@@ -1,7 +1,6 @@
 <div class="jumbotron">
   <div class="container">
     <h2>나의 강의</h2>
-
     <p>
       <drop-down data="lectures" placeholder="년도" distinct="year" ng-model="query.year"></drop-down>
       <drop-down data="lectures" placeholder="학기" distinct="semester" ng-model="query.semester"></drop-down>
@@ -13,6 +12,6 @@
 
 <div class="container">
   <div class="row">
-    <lecture-table lectures="lectures" query="query"></lecture-table>
+    <lecture-table lectures="user.lectures" query="query"></lecture-table>
   </div>
 </div>

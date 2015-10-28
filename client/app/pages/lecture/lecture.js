@@ -1,6 +1,6 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
-    .state('lecture', {
+    .state('lecture.detail', {
       url: "/lecture/:id",
       templateUrl: "/pages/lecture/lecture.html",
       controller: function ($scope) {
