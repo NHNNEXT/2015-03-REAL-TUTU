@@ -1,13 +1,13 @@
 package org.next.infra.user.service;
 
 import org.next.common.dto.JsonResponse;
-import org.next.common.util.PasswordEncoder;
 import org.next.infra.user.domain.*;
 import org.next.infra.user.dto.ClientUserInfoDto;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
 import org.next.infra.user.repository.LoginAccountRepository;
 import org.next.infra.user.repository.UserInfoRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -73,7 +74,7 @@ public class InfraUserService {
 
     private LoginAccount findAccount(LoginToken loginToken) {
         LoginAccount dbAccount = loginAccountRepository.findByEmailId(loginToken.getEmail());
-        if(dbAccount != null && passwordEncoder.same(loginToken.getPassword(), dbAccount.getPassword())) {
+        if(dbAccount != null && passwordEncoder.matches(loginToken.getPassword(), dbAccount.getPassword())) {
             return dbAccount;
         }
         return null;
