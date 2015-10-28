@@ -23,7 +23,7 @@ public class LoginAccount {
     @JoinColumn(name = "USER_INFO_ID")
     private UserInfo userInfo;
 
-    @OneToMany(mappedBy = "loginAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<UserAuthority> userAuthorities = new ArrayList<>();
 
     // Field
