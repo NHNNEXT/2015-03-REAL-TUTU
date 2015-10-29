@@ -94,6 +94,13 @@ public class InfraUserService {
         return successJsonResponse();
     }
 
+    public CommonJsonResponse withdrawal(HttpSession session) {
+        Long accountId = (Long) session.getAttribute("loginAccountId");
+        LoginAccount account = loginAccountRepository.getOne(accountId);
+        account.setState(AccountStateType.WITHDRAWAL);
+        return successJsonResponse();
+    }
+
     private void updateAccount(LoginAccount dbAccount, LoginToken loginToken) {
         encodePassword(loginToken);
         dbAccount.setEmailId(loginToken.getEmail());
@@ -112,13 +119,6 @@ public class InfraUserService {
             loginAccount.setUserInfo(userInfo);
             userInfoRepository.save(userInfo);
         }
-    }
-
-    public CommonJsonResponse withdrawal(HttpSession session) {
-        Long accountId = (Long) session.getAttribute("loginAccountId");
-        LoginAccount account = loginAccountRepository.getOne(accountId);
-        account.setState(AccountStateType.WITHDRAWAL);
-        return successJsonResponse();
     }
 
     private LoginAccount findAccount(LoginToken loginToken) {
