@@ -1,7 +1,6 @@
 package org.next.infra.user.dto;
 
 import lombok.Getter;
-import org.next.infra.user.domain.AccountType;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.AccountStateType;
 import org.next.infra.user.domain.UserInfo;
@@ -11,7 +10,6 @@ public class ClientUserInfoDto {
 
     private Long userNo;
     private String emailId;
-    private AccountType accountType;
     private AccountStateType accountState;
     private String name;
     private String studentId;
@@ -26,12 +24,16 @@ public class ClientUserInfoDto {
     public void setLoginAccountInfo(LoginAccount loginAccountInfo) {
         this.userNo = loginAccountInfo.getId();
         this.emailId = loginAccountInfo.getEmailId();
-        this.accountType = loginAccountInfo.getType();
         this.accountState = loginAccountInfo.getState();
     }
 
     public void setUserInfo(LoginAccount loginAccount) {
         UserInfo info = loginAccount.getUserInfo();
+
+        if(info == null) {
+            return;
+        }
+
         this.name = info.getName();
         this.studentId = info.getStudentId();
         this.phoneNumber = info.getPhoneNumber();
