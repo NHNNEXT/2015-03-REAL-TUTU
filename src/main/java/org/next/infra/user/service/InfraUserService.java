@@ -1,5 +1,6 @@
 package org.next.infra.user.service;
 
+import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.user.domain.*;
 import org.next.infra.user.dto.ClientUserInfoDto;
@@ -28,6 +29,9 @@ import static org.next.infra.util.CommonUtils.notNull;
 @Service
 @Transactional
 public class InfraUserService {
+
+    @Autowired
+    private UserInfoBroker userInfoBroker;
 
     @Autowired
     private LoginAccountRepository loginAccountRepository;
@@ -66,7 +70,7 @@ public class InfraUserService {
 
     public CommonJsonResponse join(LoginToken loginToken) {
         if(alreadyJoined(loginToken)) {
-            return errorJsonResponse("이미 가입되어 있는 계정입니다.");
+            return errorJsonResponse("이미 가입되어 있거나 탈퇴한 계정입니다.");
         }
         encodePassword(loginToken);
         loginAccountRepository.save(loginAccount(loginToken));
@@ -74,7 +78,7 @@ public class InfraUserService {
     }
 
     public CommonJsonResponse getUserInfo(HttpSession session) {
-        LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
+        LoginAccount loginAccount = userInfoBroker.getLoginAccount(session);
 
         if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
             return errorJsonResponse("탈퇴된 회원입니다.");
@@ -84,7 +88,7 @@ public class InfraUserService {
     }
 
     public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, HttpSession session){
-        LoginAccount dbAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
+        LoginAccount dbAccount = userInfoBroker.getLoginAccount(session);
 
         if(notNull(loginToken)) {
             updateAccount(dbAccount, loginToken);
@@ -95,8 +99,7 @@ public class InfraUserService {
     }
 
     public CommonJsonResponse withdrawal(HttpSession session) {
-        Long accountId = (Long) session.getAttribute("loginAccountId");
-        LoginAccount account = loginAccountRepository.getOne(accountId);
+        LoginAccount account = userInfoBroker.getLoginAccount(session);
         account.setState(AccountStateType.WITHDRAWAL);
         return successJsonResponse();
     }
@@ -122,7 +125,7 @@ public class InfraUserService {
     }
 
     private LoginAccount findAccount(LoginToken loginToken) {
-        LoginAccount dbAccount = loginAccountRepository.findByEmailId(loginToken.getEmail());
+        LoginAccount dbAccount = getByEmailId(loginToken);
         if(dbAccount != null && passwordEncoder.matches(loginToken.getPassword(), dbAccount.getPassword())) {
             return dbAccount;
         }
@@ -170,7 +173,11 @@ public class InfraUserService {
     }
 
     private boolean alreadyJoined(LoginToken loginToken) {
-        LoginAccount dbAccount = loginAccountRepository.findByEmailId(loginToken.getEmail());
+        LoginAccount dbAccount = getByEmailId(loginToken);
         return dbAccount != null;
+    }
+
+    private LoginAccount getByEmailId(LoginToken loginToken) {
+        return loginAccountRepository.findByEmailId(loginToken.getEmail());
     }
 }
