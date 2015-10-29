@@ -82,7 +82,8 @@ audio,
 video {
   font-family: 'Nanum Gothic', sans-serif;
 }
-[ng-click] {
+[ng-click],
+[ui-sref] {
   cursor: pointer;
 }
 .wrap {

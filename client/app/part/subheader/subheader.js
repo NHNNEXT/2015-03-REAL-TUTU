@@ -1,4 +1,4 @@
-angular.module('clientApp').controller('subheader', function ($scope, user, $state) {
+angular.module('clientApp').controller('subheader', function ($scope, user, $state, $stateParams) {
   var options = $scope.options = [];
   var names = $scope.names = {};
   $scope.$watch(function () {
@@ -15,4 +15,11 @@ angular.module('clientApp').controller('subheader', function ($scope, user, $sta
       return;
     $state.go('lecture.detail', {id: id});
   });
+
+  $scope.$watch(function () {
+    return $stateParams.id;
+  }, function (id) {
+    $scope.lecture = id;
+  });
+
 });
