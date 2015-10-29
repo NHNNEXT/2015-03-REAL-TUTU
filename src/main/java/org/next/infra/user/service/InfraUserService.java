@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 import static org.next.infra.common.dto.CommonJsonResponse.errorJsonResponse;
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
+import static org.next.infra.util.CommonUtils.notNull;
 
 @Service
 @Transactional
@@ -74,29 +75,43 @@ public class InfraUserService {
 
     public CommonJsonResponse getUserInfo(HttpSession session) {
         LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
-        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
         if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
             return errorJsonResponse("탈퇴된 회원입니다.");
         }
 
-        loginAccount.setUserInfo(userInfo);
-
         return successJsonResponse(new ClientUserInfoDto(loginAccount));
     }
 
-    public CommonJsonResponse edit(LoginAccount loginAccount, UserInfo userInfo){
-        // TODO 현재 로그인된 사용자 정보 가져와야 함
-        UserInfo dbUserInfo = loginAccount.getUserInfo();
-        if(dbUserInfo != null) {
-            dbUserInfo.
-        } else {
-            loginAccount.setUserInfo(userInfo);
+    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, HttpSession session){
+        LoginAccount dbAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
+
+        if(notNull(loginToken)) {
+            updateAccount(dbAccount, loginToken);
+            updateUserInfo(dbAccount, userInfo);
         }
 
-        loginAccountRepository.save(loginAccount);
-
         return successJsonResponse();
+    }
+
+    private void updateAccount(LoginAccount dbAccount, LoginToken loginToken) {
+        encodePassword(loginToken);
+        dbAccount.setEmailId(loginToken.getEmail());
+        dbAccount.setPassword(loginToken.getPassword());
+    }
+
+    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
+        UserInfo dbUserInfo = loginAccount.getUserInfo();
+
+        if(notNull(dbUserInfo)) {
+            dbUserInfo.setMajor(userInfo.getMajor());
+            dbUserInfo.setName(userInfo.getName());
+            dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
+            dbUserInfo.setStudentId(userInfo.getStudentId());
+        } else {
+            loginAccount.setUserInfo(userInfo);
+            userInfoRepository.save(userInfo);
+        }
     }
 
     public CommonJsonResponse withdrawal(HttpSession session) {
@@ -123,7 +138,6 @@ public class InfraUserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         session.setAttribute("loginAccountId", dbAccount.getId());
-        session.setAttribute("userInfo", dbAccount.getUserInfo());
     }
 
     private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
