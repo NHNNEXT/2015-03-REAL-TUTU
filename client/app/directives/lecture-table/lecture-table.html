@@ -1,32 +1,29 @@
 <table class="table">
   <thead>
   <tr>
-    <td ng-repeat="column in columns" ng-click="sort(key)">{{filters[column]}}</td>
-    <td></td>
+    <td sort="year">{{headers.year}}</td>
+    <td sort="semester">{{headers.semester}}</td>
+    <td sort="name">{{headers.name}}</td>
+    <td sort="classNo">{{headers.classNo}}</td>
+    <td sort="type">{{headers.type}}</td>
+    <td sort="credit">{{headers.credit}}</td>
+    <td sort="prof">{{headers.prof}}</td>
+    <td sort="time">{{headers.time}}</td>
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="lecture in lectures | orderBy:order:reverse | filter:search">
-    <td ng-repeat="column in columns">{{lecture[column]}}</td>
-    <td>
-      <span ui-sref="lecture({id:lecture.id})">페이지</span>
-      <span>신청</span>
-    </td>
+  <tr ng-repeat="lecture in filtered =(lectures | orderBy:order:reverse | filter:query)">
+    <td>{{lecture.year}}</td>
+    <td>{{lecture.semester}}</td>
+    <td ui-sref="lecture.detail({id:lecture.id})">{{lecture.name}}</td>
+    <td>{{lecture.classNo}}</td>
+    <td>{{lecture.type}}</td>
+    <td>{{lecture.credit}}</td>
+    <td ui-sref="profile({id:lecture.prof})">{{lecture.prof}}</td>
+    <td>{{lecture.time}}</td>
   </tr>
-  <tr>
-    <td colspan="9">
-      <div class="input-group">
-        <div class="input-group-btn">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            {{filters[key]||"전체"}} <span
-            class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li ng-repeat="column in columns" ng-click="setKey(column)"><a>{{filters[column]}}</a></li>
-          </ul>
-        </div>
-        <input type="text" class="form-control" placeholder="검색어" ng-model="search[key]">
-      </div>
-    </td>
+  <tr ng-show="filtered.length==0">
+    <td colspan="8">자료가 없습니다.</td>
   </tr>
   </tbody>
 </table>

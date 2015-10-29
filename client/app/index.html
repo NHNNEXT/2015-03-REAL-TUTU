@@ -6,15 +6,21 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="/styles/index.css"/>
+  <link rel="stylesheet" href="/styles/icons.css"/>
+  <link rel="stylesheet" href="/directives/drop-down/drop-down.css"/>
+  <link rel="stylesheet" href="/directives/mod-input/mod-input.css"/>
+  <link rel="stylesheet" href="/directives/user-profile/user-profile.css"/>
   <!-- endbuild -->
 </head>
 <body ng-app="clientApp">
@@ -24,15 +30,11 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<header class="header">
-  <div ng-include="'/part/header/header.html'"></div>
-</header>
+<header ng-include="'/part/header/header.html'" class="header"></header>
 
 <div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert}}</div>
 
-<div class="container">
-  <div ui-view></div>
-</div>
+<div ui-view></div>
 
 <div class="footer">
   <div class="container">
@@ -79,23 +81,31 @@
 <script src="/services/user.js"></script>
 <script src="/services/alert.js"></script>
 <script src="/services/http.js"></script>
+<script src="/directives/user-profile/user-profile.js"></script>
+<script src="/directives/mod-input/mod-input.js"></script>
 <script src="/directives/menu.js"></script>
+<script src="/directives/ngenter.js"></script>
+<script src="/directives/textarea.js"></script>
+<script src="/directives/sort.js"></script>
 <script src="/directives/ngregex.js"></script>
+<script src="/directives/reply/reply.js"></script>
+<script src="/directives/like/like.js"></script>
 <script src="/directives/lecture-table/lecture-table.js"></script>
+<script src="/directives/content-list/content-list.js"></script>
+<script src="/directives/drop-down/drop-down.js"></script>
 <script src="/part/header/header.js"></script>
 <script src="/part/alert/alert.js"></script>
+<script src="/part/subheader/subheader.js"></script>
 <script src="/pages/login/login.js"></script>
+<script src="/pages/profile/profile.js"></script>
 <script src="/pages/register/register.js"></script>
 <script src="/pages/main/main.js"></script>
 <script src="/pages/notfound/notfound.js"></script>
-<script src="/pages/article/article.js"></script>
-<script src="/pages/article/articleedit.js"></script>
-<script src="/pages/article/board.js"></script>
+<script src="/pages/lecture/lectureContainer.js"></script>
 <script src="/pages/lecture/lecture.js"></script>
-<script src="/pages/homework/homework.js"></script>
-<script src="/pages/homework/homeworkadmin.js"></script>
-<script src="/pages/homework/homeworkedit.js"></script>
-<script src="/pages/homework/board.js"></script>
+<script src="/pages/lecture/lectureEdit.js"></script>
+<script src="/pages/lecture/content/contentEdit.js"></script>
+<script src="/pages/lecture/content/content.js"></script>
 <!-- endbuild -->
 </body>
 </html>

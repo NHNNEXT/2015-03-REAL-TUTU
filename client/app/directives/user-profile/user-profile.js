@@ -3,9 +3,8 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        userId: '=',
         user: '='
       },
-      templateUrl: '/directives/lecture-profile/lecture-profile.html'
+      templateUrl: '/directives/user-profile/user-profile.html'
     };
   });

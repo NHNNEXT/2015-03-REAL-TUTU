@@ -4,7 +4,8 @@ angular.module('clientApp')
       restrict: 'E',
       scope: {
         lectures: '=',
-        columns: '='
+        columns: '=',
+        query: '='
       },
       templateUrl: '/directives/lecture-table/lecture-table.html',
       controller: function ($scope) {
@@ -18,7 +19,7 @@ angular.module('clientApp')
           $scope.columns = ['year', 'semester', 'name', 'classNo', 'type', 'credit', 'prof', 'time'];
         }
 
-        $scope.filters = {
+        $scope.headers = {
           year: "년도",
           semester: "학기",
           name: "강의명",
@@ -28,14 +29,6 @@ angular.module('clientApp')
           prof: "담당교수",
           time: "시간"
         };
-
-        $scope.sort = function (val) {
-          if (val === $scope.order) {
-            $scope.reverse = !$scope.reverse;
-          }
-          $scope.order = val;
-        }
-
       }
     };
   });

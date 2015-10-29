@@ -50,7 +50,7 @@ Number.prototype.zf = function (len) {
 };
 
 Date.prototype.toYMD = function () {
-  return this.format("yyyy/MM/dd hh:mm");
+  return this.format("yyyy년 MM월 dd일 hh:mm");
 };
 
 
@@ -85,6 +85,35 @@ if (!Array.prototype.includes) {
   };
 }
 
+Array.prototype.ignoreTypeIncludes = function (searchElement /*, fromIndex*/) {
+  'use strict';
+  var O = Object(this);
+  var len = parseInt(O.length) || 0;
+  if (len === 0) {
+    return false;
+  }
+  var n = parseInt(arguments[1]) || 0;
+  var k;
+  if (n >= 0) {
+    k = n;
+  } else {
+    k = len + n;
+    if (k < 0) {
+      k = 0;
+    }
+  }
+  var currentElement;
+  while (k < len) {
+    currentElement = O[k];
+    if (searchElement == currentElement ||
+      (searchElement != searchElement && currentElement != currentElement)) {
+      return true;
+    }
+    k++;
+  }
+  return false;
+};
+
 Array.prototype.toggle = function (el) {
   if (this.includes(el)) {
     this.remove(el);
@@ -102,3 +131,36 @@ Array.prototype.remove = function (el) {
 Number.prototype.toDay = function () {
   return ["월", "화", "수", "목", "금", "토", "일"][this % 7];
 };
+
+
+String.prototype.newLine = function () {
+  return this.replace(/\n/g, '<br>');
+};
+
+
+
+function ClassTime(day, startTime, endTime) {
+  this.day = day;
+  this.startTime = startTime;
+  this.endTime = endTime;
+}
+
+ClassTime.prototype.getTime = function () {
+  return this.day.toDay() + " " + this.startTime + " ~ " + this.endTime;
+};
+
+function Lecture(year, semester, name, classNo, type, credit, times, prof, id, desc) {
+  this.year = year;
+  this.semester = semester;
+  this.name = name;
+  this.classNo = classNo;
+  this.type = ["전공필수", "전공선택", "교양"][type];
+  this.credit = credit;
+  this.time = "";
+  for (var i = 0; i < times.length; i++)
+    this.time += times[i].getTime() + "<br>";
+  this.time = this.time.substr(0, this.time.length - 4);
+  this.prof = prof;
+  this.id = id;
+  this.desc = desc;
+}

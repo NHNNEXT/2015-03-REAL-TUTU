@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="box">
+        <input ng-model="content.title" class="margin-vertical form-control" placeholder="제목">
+
+        <div class="margin-bottom">
+          <drop-down ng-model="content.type" placeholder="구분" options="types" names="names"></drop-down>
+          <input class="tag" placeholder="태그" ng-enter="addTag(tag)" ng-model="tag">
+
+          <div class="btn btn-default" ng-click="addTag(tag)">태그추가</div>
+        </div>
+        <div class="margin-bottom" ng-show="content.tags.length!=0">
+          <span ng-repeat="tag in content.tags"><span class="label label-info">{{tag}}
+          <i class="fa fa-times" ng-click="content.tags.remove(tag)"></i></span>  </span>
+        </div>
+
+        <input ng-show="content.type==='homework'" class="form-control" ng-show="content.type==='homework'"
+               placeholder="기한" type="datetime" date-time
+               ng-model="content.dueDate" max-view="date">
+
+        <div class="divider"></div>
+        <wysiwyg ng-model="content.body" textarea-class="form-control"
+                 textarea-height="250px"
+                 textarea-required ng-model="homework.body" enable-bootstrap-title="true"></wysiwyg>
+
+        <div class="btn btn-primary margin-vertical btn-lg full-width">작성완료</div>
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel-body">
+        <user-profile class="content" user="content.writer"></user-profile>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="container">
+
+
+</div>

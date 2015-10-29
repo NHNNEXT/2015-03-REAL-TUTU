@@ -1,10 +1,9 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
-    .state('articleBoard', {
-      url: "/article/board/:id",
-      templateUrl: "/pages/article/board.html",
+    .state('profile', {
+      url: "/profile/:id",
+      templateUrl: "/pages/profile/profile.html",
       controller: function () {
-
       }
     });
 });
