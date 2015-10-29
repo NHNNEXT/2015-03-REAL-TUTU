@@ -44,7 +44,7 @@ public class InfraUserService {
         LoginAccount dbAccount = findAccount(loginToken);
 
         if(dbAccount == null) {
-            return errorJsonResponse("존재하지 않는 계정입니다.");
+            return errorJsonResponse("아이디 또는 비밀번호를 확인해 주세요.");
         }
 
         if(loginAbleAccount(dbAccount)) {
@@ -60,19 +60,7 @@ public class InfraUserService {
             return errorJsonResponse("탈퇴한 계정입니다.");
         }
 
-        return errorJsonResponse("아이디 또는 비밀번호를 확인해 주세요.");
-    }
-
-    private void setLoginStatus(LoginToken loginToken, LoginAccount dbAccount, HttpSession session) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), getAuthorities(dbAccount));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        session.setAttribute("loginAccountId", dbAccount.getId());
-        session.setAttribute("userInfo", dbAccount.getUserInfo());
-    }
-
-    private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
-        return dbAccount.getUserAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityType().toString())).collect(Collectors.toList());
+        return errorJsonResponse();
     }
 
     private LoginAccount findAccount(LoginToken loginToken) {
@@ -85,6 +73,18 @@ public class InfraUserService {
 
     private boolean loginAbleAccount(LoginAccount dbAccount) {
         return dbAccount != null && dbAccount.getState() == AccountStateType.ACTIVE;
+    }
+
+    private void setLoginStatus(LoginToken loginToken, LoginAccount dbAccount, HttpSession session) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), getAuthorities(dbAccount));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        session.setAttribute("loginAccountId", dbAccount.getId());
+        session.setAttribute("userInfo", dbAccount.getUserInfo());
+    }
+
+    private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
+        return dbAccount.getUserAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityType().toString())).collect(Collectors.toList());
     }
 
     private boolean holdAccount(LoginAccount dbAccount) {
@@ -103,8 +103,8 @@ public class InfraUserService {
     }
 
     private void encodePassword(LoginToken loginToken) {
-        String bcryptedPassword = passwordEncoder.encode(loginToken.getPassword());
-        loginToken.setPassword(bcryptedPassword);
+        String encodedPassword = passwordEncoder.encode(loginToken.getPassword());
+        loginToken.setPassword(encodedPassword);
     }
 
     private LoginAccount loginAccount(LoginToken loginToken, AccountType accountType, UserInfo userInfo) {
