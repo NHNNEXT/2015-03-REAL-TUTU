@@ -41,11 +41,6 @@ public class LoginAccount {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "User Account Type Must Not Be Null")
-    @Column(name = "USER_ACCOUNT_TYPE")
-    private AccountType type;
-
-    @Enumerated(EnumType.STRING)
     @NotNull(message = "User State Type Must Not Be Null")
     @Column(name = "USER_ACCOUNT_STATE")
     private AccountStateType state;

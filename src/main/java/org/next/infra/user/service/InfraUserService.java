@@ -63,6 +63,49 @@ public class InfraUserService {
         return errorJsonResponse();
     }
 
+    public CommonJsonResponse join(LoginToken loginToken) {
+        if(alreadyJoined(loginToken)) {
+            return errorJsonResponse("이미 가입되어 있는 계정입니다.");
+        }
+        encodePassword(loginToken);
+        loginAccountRepository.save(loginAccount(loginToken));
+        return successJsonResponse();
+    }
+
+    public CommonJsonResponse getUserInfo(HttpSession session) {
+        LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+
+        if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
+            return errorJsonResponse("탈퇴된 회원입니다.");
+        }
+
+        loginAccount.setUserInfo(userInfo);
+
+        return successJsonResponse(new ClientUserInfoDto(loginAccount));
+    }
+
+    public CommonJsonResponse edit(LoginAccount loginAccount, UserInfo userInfo){
+        // TODO 현재 로그인된 사용자 정보 가져와야 함
+        UserInfo dbUserInfo = loginAccount.getUserInfo();
+        if(dbUserInfo != null) {
+            dbUserInfo.
+        } else {
+            loginAccount.setUserInfo(userInfo);
+        }
+
+        loginAccountRepository.save(loginAccount);
+
+        return successJsonResponse();
+    }
+
+    public CommonJsonResponse withdrawal(HttpSession session) {
+        Long accountId = (Long) session.getAttribute("loginAccountId");
+        LoginAccount account = loginAccountRepository.getOne(accountId);
+        account.setState(AccountStateType.WITHDRAWAL);
+        return successJsonResponse();
+    }
+
     private LoginAccount findAccount(LoginToken loginToken) {
         LoginAccount dbAccount = loginAccountRepository.findByEmailId(loginToken.getEmail());
         if(dbAccount != null && passwordEncoder.matches(loginToken.getPassword(), dbAccount.getPassword())) {
@@ -95,26 +138,16 @@ public class InfraUserService {
         return dbAccount != null && dbAccount.getState() == AccountStateType.WITHDRAWAL;
     }
 
-    public CommonJsonResponse join(LoginToken loginToken, AccountType accountType, UserInfo userInfo) {
-        encodePassword(loginToken);
-        userInfoRepository.save(userInfo);
-        loginAccountRepository.save(loginAccount(loginToken, accountType, userInfo));
-        return successJsonResponse();
-    }
-
     private void encodePassword(LoginToken loginToken) {
         String encodedPassword = passwordEncoder.encode(loginToken.getPassword());
         loginToken.setPassword(encodedPassword);
     }
 
-    private LoginAccount loginAccount(LoginToken loginToken, AccountType accountType, UserInfo userInfo) {
+    private LoginAccount loginAccount(LoginToken loginToken) {
         LoginAccount loginAccount = new LoginAccount();
         loginAccount.setLoginToken(loginToken);
         loginAccount.setState(AccountStateType.ACTIVE);
-        loginAccount.setType(accountType);
-        loginAccount.setUserInfo(userInfo);
-        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_STUDENT));    // TODO 수정필요
-        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_PROFESSOR));  // TODO 수정필요
+        loginAccount.addAuthority(getAuthority(AuthorityType.ROLE_NOT_AUTHORIZED));
         return loginAccount;
     }
 
@@ -122,30 +155,8 @@ public class InfraUserService {
         return authorityRepository.findByAuthorityType(authorityType);
     }
 
-    public CommonJsonResponse getUserInfo(HttpSession session) {
-        LoginAccount loginAccount = loginAccountRepository.findOne((Long) session.getAttribute("loginAccountId"));
-        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-
-        if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
-            return errorJsonResponse("탈퇴된 회원입니다.");
-        }
-
-        loginAccount.setUserInfo(userInfo);
-
-        return successJsonResponse(new ClientUserInfoDto(loginAccount));
-    }
-
-    public void edit(LoginAccount loginAccount){
-        if(loginAccount.getUserInfo() == null) {
-            throw new NullPointerException("User Info가 설정되지 않음");
-        }
-        loginAccountRepository.save(loginAccount);
-    }
-
-    public CommonJsonResponse withdrawal(HttpSession session) {
-        Long accountId = (Long) session.getAttribute("loginAccountId");
-        LoginAccount account = loginAccountRepository.getOne(accountId);
-        account.setState(AccountStateType.WITHDRAWAL);
-        return successJsonResponse();
+    private boolean alreadyJoined(LoginToken loginToken) {
+        LoginAccount dbAccount = loginAccountRepository.findByEmailId(loginToken.getEmail());
+        return dbAccount != null;
     }
 }
