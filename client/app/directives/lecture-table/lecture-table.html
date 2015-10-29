@@ -1,0 +1,29 @@
+<table class="table">
+  <thead>
+  <tr>
+    <td sort="year">{{headers.year}}</td>
+    <td sort="semester">{{headers.semester}}</td>
+    <td sort="name">{{headers.name}}</td>
+    <td sort="classNo">{{headers.classNo}}</td>
+    <td sort="type">{{headers.type}}</td>
+    <td sort="credit">{{headers.credit}}</td>
+    <td sort="prof">{{headers.prof}}</td>
+    <td sort="time">{{headers.time}}</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="lecture in filtered =(lectures | orderBy:order:reverse | filter:query)">
+    <td>{{lecture.year}}</td>
+    <td>{{lecture.semester}}</td>
+    <td ui-sref="lecture.detail({id:lecture.id})">{{lecture.name}}</td>
+    <td>{{lecture.classNo}}</td>
+    <td>{{lecture.type}}</td>
+    <td>{{lecture.credit}}</td>
+    <td ui-sref="profile({id:lecture.prof})">{{lecture.prof}}</td>
+    <td>{{lecture.time}}</td>
+  </tr>
+  <tr ng-show="filtered.length==0">
+    <td colspan="8">자료가 없습니다.</td>
+  </tr>
+  </tbody>
+</table>

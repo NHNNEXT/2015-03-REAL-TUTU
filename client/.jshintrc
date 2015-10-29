@@ -1,10 +1,10 @@
 {
   "bitwise": true,
   "browser": true,
-  "curly": true,
+  "curly": false,
   "eqeqeq": true,
   "esnext": true,
-  "latedef": true,
+  "latedef": false,
   "noarg": true,
   "node": true,
   "strict": false,

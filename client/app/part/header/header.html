@@ -1,0 +1,29 @@
+<div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl">
+  <div class="container">
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#js-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" ui-sref="main">Next</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="js-navbar-collapse">
+      <ul class="nav navbar-nav">
+        <menu state="main" name="메인"></menu>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-show="!user.logged">
+        <menu state="register" name="회원가입"></menu>
+        <menu state="login" name="로그인"></menu>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-show="user.logged">
+        {{user}}
+      </ul>
+    </div>
+  </div>
+</div>
