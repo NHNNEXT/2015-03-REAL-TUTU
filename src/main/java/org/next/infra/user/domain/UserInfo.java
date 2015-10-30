@@ -1,8 +1,12 @@
 package org.next.infra.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +21,24 @@ public class UserInfo {
     @OneToOne(mappedBy = "userInfo")
     private LoginAccount loginAccount;
 
+    @JsonIgnore
+    @Getter(AccessLevel.NONE)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ENROLLED_LECTURE_ID")
+    private Lecture enrolledLecture;
+
+    @JsonIgnore
+    @Getter(AccessLevel.NONE)
+    @OneToOne(mappedBy = "masterId")
+    private Lecture lecture;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ENROLLED_STUDENT_USER_INFO_ID")
+//    private UserInfo enrolledStudentUserInfo;
+//
+//    @OneToMany(mappedBy = "enrolledStudentUserInfo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+//    private List<UserInfo> enrolledStudent = new ArrayList<>();
+
     // Field
     @Id
     @Column(name = "USER_INFO_ID")
@@ -26,12 +48,6 @@ public class UserInfo {
     @Column(name = "USER_NAME")
     private String name;
 
-    @Column(name = "STUDENT_ID")
-    private String studentId;
-
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
-
-    @Column(name = "MAJOR")
-    private String major;
+    @Column(name = "PROFILE_URL")
+    private String profileUrl;
 }

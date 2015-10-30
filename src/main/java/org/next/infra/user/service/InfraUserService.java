@@ -3,7 +3,6 @@ package org.next.infra.user.service;
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.user.domain.*;
-import org.next.infra.user.dto.ClientUserInfoDto;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
 import org.next.infra.user.repository.LoginAccountRepository;
@@ -54,7 +53,7 @@ public class InfraUserService {
 
         if(loginAbleAccount(dbAccount)) {
             setLoginStatus(loginToken, dbAccount, session);
-            return successJsonResponse(new ClientUserInfoDto(dbAccount));
+            return successJsonResponse(dbAccount);
         }
 
         if(holdAccount(dbAccount)) {
@@ -84,15 +83,15 @@ public class InfraUserService {
             return errorJsonResponse("탈퇴된 회원입니다.");
         }
 
-        return successJsonResponse(new ClientUserInfoDto(loginAccount));
+        return successJsonResponse(loginAccount);
     }
 
-    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, HttpSession session){
+    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, DetailUserInfo detailUserInfo, HttpSession session){
         LoginAccount dbAccount = userInfoBroker.getLoginAccount(session);
 
         if(notNull(loginToken)) {
             updateAccount(dbAccount, loginToken);
-            updateUserInfo(dbAccount, userInfo);
+            updateUserInfo(dbAccount, userInfo, detailUserInfo);
         }
 
         return successJsonResponse();
@@ -110,14 +109,15 @@ public class InfraUserService {
         dbAccount.setPassword(loginToken.getPassword());
     }
 
-    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
+    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo, DetailUserInfo detailUserInfo) {
         UserInfo dbUserInfo = loginAccount.getUserInfo();
+        DetailUserInfo dbDetailUserInfo = loginAccount.getDetailUserInfo();
 
         if(notNull(dbUserInfo)) {
-            dbUserInfo.setMajor(userInfo.getMajor());
             dbUserInfo.setName(userInfo.getName());
-            dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
-            dbUserInfo.setStudentId(userInfo.getStudentId());
+            dbDetailUserInfo.setMajor(detailUserInfo.getMajor());
+            dbDetailUserInfo.setPhoneNumber(detailUserInfo.getPhoneNumber());
+            dbDetailUserInfo.setStudentId(detailUserInfo.getStudentId());
         } else {
             loginAccount.setUserInfo(userInfo);
             userInfoRepository.save(userInfo);

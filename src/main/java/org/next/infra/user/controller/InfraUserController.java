@@ -1,6 +1,7 @@
 package org.next.infra.user.controller;
 
 import org.next.infra.common.dto.CommonJsonResponse;
+import org.next.infra.user.domain.DetailUserInfo;
 import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.service.InfraUserService;
@@ -36,8 +37,8 @@ public class InfraUserController {
 
     @Secured({"ROLE_NOT_AUTHORIZED", "ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.PUT)
-    public CommonJsonResponse editUserAccountAndInfo(LoginToken loginToken, UserInfo userInfo, HttpSession session) {
-        return infraUserService.edit(loginToken, userInfo, session);
+    public CommonJsonResponse editUserAccountAndInfo(LoginToken loginToken, UserInfo userInfo, DetailUserInfo detailUserInfo, HttpSession session) {
+        return infraUserService.edit(loginToken, userInfo, detailUserInfo, session);
     }
 
     @Secured({"ROLE_NOT_AUTHORIZED", "ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
