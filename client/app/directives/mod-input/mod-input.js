@@ -4,7 +4,8 @@ angular.module('clientApp').directive('modInput', function () {
     templateUrl: '/directives/mod-input/mod-input.html',
     scope: {
       ngModel: '=',
-      placeholder: '@'
+      placeholder: '@',
+      maxlength:'@'
     },
     controller: function ($scope) {
     }

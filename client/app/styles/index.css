@@ -107,7 +107,7 @@ user-profile.content {
 .underlined {
   border-bottom: 1px solid #000;
 }
-.list-group-item {
+.list-group-item- {
   position: relative;
   display: block;
   padding: 20px 15px;
@@ -116,7 +116,7 @@ user-profile.content {
   border: none;
   border-top: 1px solid #eee;
 }
-.list-group-item:first-child {
+.list-group-item-:first-child {
   border-top: none;
 }
 .box {
@@ -131,7 +131,7 @@ user-profile.content {
   padding-top: 30px;
   border-top: 1px solid #eee;
 }
-.box .tag {
+.tag {
   vertical-align: middle;
   padding: 6px 16px;
   border-radius: 4px;

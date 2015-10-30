@@ -16,7 +16,8 @@ angular.module('clientApp', [
   'ngTouch',
   'ui.router',
   'wysiwyg.module',
-  'datePicker'
+  'datePicker',
+  'ngFileUpload'
 ]).run(function ($rootScope, $state) {
   $rootScope.$on('$stateChangeSuccess',
     function (event, toState) {

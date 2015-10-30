@@ -1,0 +1,9 @@
+auto-complete {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+auto-complete ul {
+  position: absolute;
+  width: 100%;
+}
