@@ -2,6 +2,9 @@ package org.next.lms.lecture.domain;
 
 import lombok.*;
 import org.next.infra.user.domain.UserInfo;
+import org.next.lms.content.domain.Content;
+import org.next.lms.content.domain.UserEnrolledLecture;
+import org.next.lms.content.domain.UserHostLecture;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,12 +25,14 @@ public class Lecture {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "MASTER_ID")
-    private UserInfo masterId;
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<UserHostLecture> managers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "enrolledLecture", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<UserInfo> enrolledStudent = new ArrayList<>();
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<UserEnrolledLecture> enrolledStudent = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<Content> contents = new ArrayList<>();
 //
 //    @Column(name = "")
 //    private String ;

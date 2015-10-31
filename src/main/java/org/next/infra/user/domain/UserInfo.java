@@ -2,6 +2,8 @@ package org.next.infra.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.next.lms.content.domain.UserEnrolledLecture;
+import org.next.lms.content.domain.UserHostLecture;
 import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
@@ -21,23 +23,11 @@ public class UserInfo {
     @OneToOne(mappedBy = "userInfo")
     private LoginAccount loginAccount;
 
-    @JsonIgnore
-    @Getter(AccessLevel.NONE)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ENROLLED_LECTURE_ID")
-    private Lecture enrolledLecture;
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserEnrolledLecture> enrolledLectures = new ArrayList<>();
 
-    @JsonIgnore
-    @Getter(AccessLevel.NONE)
-    @OneToOne(mappedBy = "masterId")
-    private Lecture lecture;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ENROLLED_STUDENT_USER_INFO_ID")
-//    private UserInfo enrolledStudentUserInfo;
-//
-//    @OneToMany(mappedBy = "enrolledStudentUserInfo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-//    private List<UserInfo> enrolledStudent = new ArrayList<>();
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserHostLecture> hostLectures = new ArrayList<>();
 
     // Field
     @Id
