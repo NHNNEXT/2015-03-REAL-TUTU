@@ -1,25 +1,46 @@
+
 /**
  * @ngdoc service
- * @name clientApp.lecture
+ * @name clientApp.lectureSvc
  * @description
- * # lecture
- * Factory in the clientApp.
- * @author hwangjjung
+ * # lectureSvc
+ * Service in the clientApp.
  */
+ (function() {
+   'use strict';
 
- // info: 전역에 함수가 생성되지 않도록 IIFE 패턴으로 만듬.
-(function() {
-  'use strict';
+angular
+  .module('clientApp')
+  .service('lecture', lecture);
+  /* @ngInject */
+  function lecture(Lectures) {
+    this.getLecture = getLecture;
+    this.getLectures = getLectures;
+    this.create = create;
 
-  angular.module('clientApp')
-    .factory('lectures', Lectures);
 
-    /* @ngInject */
-     function  Lectures(Restangular) {
-       var model = Restangular.all('lectures');
-       model.one = function(id) {
-         return Restangular.one('lectures',id);
-       };
-       return model;
+    function getLecture(lectureId) {
+      return Lectures.one(lectureId).get();
     }
+
+    function getLectures(isOnlyMyLecture,params) {
+      var lecture;
+      if(isOnlyMyLecture) {
+        lecture = {type: 'RELATED' , sort: '-CREATED'};
+      } else {
+        lecture = {type: 'UNRELATED', sort: '-CREATED'};
+      }
+
+      if(params) {
+        params = angular.extend(lecture , params);
+      } else {
+        params = lecture;
+      }
+      return Lectures.customGET('', params);
+    }
+
+    function create(params) {
+      return Lectures.customPOST(params);
+    }
+  }
 }());

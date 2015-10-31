@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc overview
  * @name clientApp
@@ -8,39 +6,44 @@
  *
  * Main module of the application.
  */
-angular.module('clientApp', [
-  'ngAnimate',
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngTouch',
-  'ui.router',
-  'wysiwyg.module',
-  'datePicker',
-  'ngFileUpload',
-  'restangular'
-]).run(function ($rootScope, $state) {
-  $rootScope.$on('$stateChangeSuccess',
-    function (event, toState) {
-      //function (event, toState, toParams, fromState, fromParams) {
-      $state.current = toState;
-    }
-  );
-  $rootScope.$on('$stateChangeStart', function (event, toState) {
-    var redirect = toState.redirectTo;
-    if (redirect) {
-      event.preventDefault();
-      if (angular.isFunction(redirect))
-        redirect.call($state);
-      else
-        $state.go(redirect);
-    }
-  });
-}).config(function ($locationProvider, $urlRouterProvider, $RestangularProvider) {
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  });
-  $RestangularProvider.setBaseURl('/api/v1/');
-  $urlRouterProvider.otherwise("/notfound");
-});
+ (function() {
+   'use strict';
+   angular.module('clientApp', [
+     'ngAnimate',
+     'ngCookies',
+     'ngResource',
+     'ngSanitize',
+     'ngTouch',
+     'ui.router',
+     'ui.bootstrap',
+     'wysiwyg.module',
+     'datePicker',
+     'ngFileUpload',
+     'restangular'
+   ]).run(function ($rootScope, $state) {
+     $rootScope.$on('$stateChangeSuccess',
+       function (event, toState) {
+         //function (event, toState, toParams, fromState, fromParams) {
+         $state.current = toState;
+       }
+     );
+     $rootScope.$on('$stateChangeStart', function (event, toState) {
+       var redirect = toState.redirectTo;
+       if (redirect) {
+         event.preventDefault();
+         if (angular.isFunction(redirect))
+           redirect.call($state);
+         else
+           $state.go(redirect);
+       }
+     });
+   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider) {
+     $locationProvider.html5Mode({
+       enabled: true,
+       requireBase: false
+     });
+     RestangularProvider.setBaseUrl('/api/v1/');
+     RestangularProvider.setRequestSuffix('.json');
+     $urlRouterProvider.otherwise("/notfound");
+   });
+ }());

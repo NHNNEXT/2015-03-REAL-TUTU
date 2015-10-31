@@ -1,0 +1,40 @@
+
+/**
+ * @ngdoc service
+ * @name clientApp.lectureSvc
+ * @description
+ * # lectureSvc
+ * Service in the clientApp.
+ */
+ (function() {
+   'use strict';
+
+angular
+  .module('clientApp')
+  .service('modal', modal);
+  /* @ngInject */
+  function modal($modal,$q) {
+    this.open = open;
+
+    function open(size, templateId, controller,params) {
+      var modalInstance = $modal.open({
+        templateUrl: templateId,
+        controller: controller,
+        size:size,
+        resolve: {
+          params: function () {
+            return params;
+          }
+        }
+      });
+
+      var deferred = $q.defer();
+      modalInstance.result.then(function(result) {
+        deferred.resolve(result);
+      },function (error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
+    }
+  }
+}());

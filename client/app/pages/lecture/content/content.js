@@ -32,34 +32,3 @@ angular.module('clientApp').config(function ($stateProvider) {
       }
     });
 });
-
-
-function merge(arr1, arr2) {
-  var result = [], i1 = 0, i2 = 0;
-  while (arr1[i1] !== undefined || arr2[i2] !== undefined) {
-    if (arr1[i1] === undefined) {
-      arr2push();
-      continue;
-    }
-    if (arr2[i2] === undefined) {
-      arr1push();
-      continue;
-    }
-    if (arr1[i1] > arr2[i2]) {
-      arr2push();
-      continue;
-    }
-    arr1push();
-  }
-  return result;
-
-  function arr1push() {
-    result.push(arr1[i1]);
-    i1++;
-  }
-
-  function arr2push() {
-    result.push(arr2[i2]);
-    i2++;
-  }
-}
