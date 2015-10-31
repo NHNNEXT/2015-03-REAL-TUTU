@@ -23,10 +23,6 @@ public class LoginAccount {
     @JoinColumn(name = "USER_INFO_ID")
     private UserInfo userInfo;
 
-    @OneToOne
-    @JoinColumn(name = "DETAIL_USER_INFO_ID")
-    private DetailUserInfo detailUserInfo;
-
     @OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<UserAuthority> userAuthorities = new ArrayList<>();
 

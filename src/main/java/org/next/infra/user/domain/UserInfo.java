@@ -50,4 +50,13 @@ public class UserInfo {
 
     @Column(name = "PROFILE_URL")
     private String profileUrl;
+
+    @Column(name = "STUDENT_ID")
+    private String studentId;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "MAJOR")
+    private String major;
 }

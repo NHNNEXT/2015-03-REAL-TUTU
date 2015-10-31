@@ -1,7 +1,7 @@
 package org.next.infra.user.service;
 
-import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
+import org.next.infra.user.controller.ErrorResponse;
 import org.next.infra.user.domain.*;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,9 +29,6 @@ import static org.next.infra.util.CommonUtils.notNull;
 public class InfraUserService {
 
     @Autowired
-    private UserInfoBroker userInfoBroker;
-
-    @Autowired
     private LoginAccountRepository loginAccountRepository;
 
     @Autowired
@@ -44,27 +40,23 @@ public class InfraUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public CommonJsonResponse login(LoginToken loginToken, HttpSession session) {
-        LoginAccount dbAccount = findAccount(loginToken);
+    public Long login(LoginToken loginToken) {
+        LoginAccount dbAccount = getByEmailId(loginToken);
 
         if(dbAccount == null) {
-            return errorJsonResponse("아이디 또는 비밀번호를 확인해 주세요.");
-        }
-
-        if(loginAbleAccount(dbAccount)) {
-            setLoginStatus(loginToken, dbAccount, session);
-            return successJsonResponse(dbAccount);
-        }
-
-        if(holdAccount(dbAccount)) {
-            return errorJsonResponse("일시중지된 계정입니다.");
+            throw new ErrorResponse("없는 계정입니다.");
         }
 
         if(withDrawalAccount(dbAccount)) {
-            return errorJsonResponse("탈퇴한 계정입니다.");
+            throw new ErrorResponse("탈퇴한 계정입니다.");
         }
 
-        return errorJsonResponse();
+        if(passwordCorrect(dbAccount, loginToken)) {
+            setLoginStatus(dbAccount, loginToken);
+            return dbAccount.getId();
+        } else {
+            throw new ErrorResponse("비밀번호를 확인해 주세요.");
+        }
     }
 
     public CommonJsonResponse join(LoginToken loginToken) {
@@ -76,30 +68,17 @@ public class InfraUserService {
         return successJsonResponse();
     }
 
-    public CommonJsonResponse getUserInfo(HttpSession session) {
-        LoginAccount loginAccount = userInfoBroker.getLoginAccount(session);
-
-        if(loginAccount.getState() == AccountStateType.WITHDRAWAL) {
-            return errorJsonResponse("탈퇴된 회원입니다.");
-        }
-
-        return successJsonResponse(loginAccount);
-    }
-
-    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, DetailUserInfo detailUserInfo, HttpSession session){
-        LoginAccount dbAccount = userInfoBroker.getLoginAccount(session);
-
+    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, LoginAccount dbAccount){
         if(notNull(loginToken)) {
             updateAccount(dbAccount, loginToken);
-            updateUserInfo(dbAccount, userInfo, detailUserInfo);
+            updateUserInfo(dbAccount, userInfo);
         }
 
         return successJsonResponse();
     }
 
-    public CommonJsonResponse withdrawal(HttpSession session) {
-        LoginAccount account = userInfoBroker.getLoginAccount(session);
-        account.setState(AccountStateType.WITHDRAWAL);
+    public CommonJsonResponse withdrawal(LoginAccount loginAccount) {
+        loginAccount.setState(AccountStateType.WITHDRAWAL);
         return successJsonResponse();
     }
 
@@ -109,50 +88,35 @@ public class InfraUserService {
         dbAccount.setPassword(loginToken.getPassword());
     }
 
-    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo, DetailUserInfo detailUserInfo) {
+    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
         UserInfo dbUserInfo = loginAccount.getUserInfo();
-        DetailUserInfo dbDetailUserInfo = loginAccount.getDetailUserInfo();
 
         if(notNull(dbUserInfo)) {
             dbUserInfo.setName(userInfo.getName());
-            dbDetailUserInfo.setMajor(detailUserInfo.getMajor());
-            dbDetailUserInfo.setPhoneNumber(detailUserInfo.getPhoneNumber());
-            dbDetailUserInfo.setStudentId(detailUserInfo.getStudentId());
+            dbUserInfo.setMajor(userInfo.getMajor());
+            dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
+            dbUserInfo.setStudentId(userInfo.getStudentId());
         } else {
             loginAccount.setUserInfo(userInfo);
             userInfoRepository.save(userInfo);
         }
     }
 
-    private LoginAccount findAccount(LoginToken loginToken) {
-        LoginAccount dbAccount = getByEmailId(loginToken);
-        if(dbAccount != null && passwordEncoder.matches(loginToken.getPassword(), dbAccount.getPassword())) {
-            return dbAccount;
-        }
-        return null;
+    private boolean passwordCorrect(LoginAccount dbAccount, LoginToken loginToken) {
+        return dbAccount != null && passwordEncoder.matches(loginToken.getPassword(), dbAccount.getPassword());
     }
 
-    private boolean loginAbleAccount(LoginAccount dbAccount) {
-        return dbAccount != null && dbAccount.getState() == AccountStateType.ACTIVE;
-    }
-
-    private void setLoginStatus(LoginToken loginToken, LoginAccount dbAccount, HttpSession session) {
+    private void setLoginStatus(LoginAccount dbAccount, LoginToken loginToken) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), getAuthorities(dbAccount));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        session.setAttribute("loginAccountId", dbAccount.getId());
     }
 
     private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
         return dbAccount.getUserAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityType().toString())).collect(Collectors.toList());
     }
 
-    private boolean holdAccount(LoginAccount dbAccount) {
-        return dbAccount != null && dbAccount.getState() == AccountStateType.HOLD;
-    }
-
     private boolean withDrawalAccount(LoginAccount dbAccount) {
-        return dbAccount != null && dbAccount.getState() == AccountStateType.WITHDRAWAL;
+        return dbAccount != null && (dbAccount.getState() == AccountStateType.WITHDRAWAL || dbAccount.getState() != AccountStateType.ACTIVE);
     }
 
     private void encodePassword(LoginToken loginToken) {
