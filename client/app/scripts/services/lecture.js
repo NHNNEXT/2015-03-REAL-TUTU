@@ -12,47 +12,14 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('lecture', LectureFactory);
+    .factory('lectures', Lectures);
 
     /* @ngInject */
-     function  LectureFactory($http,$q) {
-
-      function Lecture(lectureData) {
-        if(lectureData) {
-          this.setData(lectureData);
-        }
-      }
-
-
-    Lecture.prototype = {
-
-      api: 'api/v1/lectures',
-
-      setData: function (lectureData) {
-        angular.extend(this,lectureData);
-      },
-      load: function(id) {
-        var self = this;
-        var deferred= $q.defer();
-        $http
-          .get(self.api+id)
-          .success(function(lectureData) {
-            self.setData(lectureData);
-            deferred.resolve(lectureData);
-          })
-          .error(function () {
-            deferred.reject();
-          });
-        return deferred.promise;
-      },
-
-      delete: function(id) {
-          //
-      },
-      update: function(id) {
-        //
-      }
-    };
-    return Lecture;
-  }
+     function  Lectures(Restangular) {
+       var model = Restangular.all('lectures');
+       model.one = function(id) {
+         return Restangular.one('lectures',id);
+       };
+       return model;
+    }
 }());

@@ -13,9 +13,20 @@
 
   /* @ngInject */
   function LectureCtrl($scope, Lecture) {
-     var lecture = new Lecture();
-     lecture.load(1).then(function(lectureData) {
-       $scope.lecture = lectureData;
-     });
+     //강의 하나 조회
+    $scope.lecture = Lecture.get({id:$scope.lectureId}, function() {
+      console.log(lecture);
+    });
+
+    $scope.lectures = Lecture.query( function() {
+      console.log(groups);
+    });
+
+    $scope.lecture = new Lecture();
+    $scope.lecture.name = "peter";
+    lecture.$update(function() {
+      //...
+    });
+
   }
 }());

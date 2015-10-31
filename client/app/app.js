@@ -17,7 +17,8 @@ angular.module('clientApp', [
   'ui.router',
   'wysiwyg.module',
   'datePicker',
-  'ngFileUpload'
+  'ngFileUpload',
+  'restangular'
 ]).run(function ($rootScope, $state) {
   $rootScope.$on('$stateChangeSuccess',
     function (event, toState) {
@@ -35,11 +36,11 @@ angular.module('clientApp', [
         $state.go(redirect);
     }
   });
-}).config(function ($locationProvider, $urlRouterProvider) {
+}).config(function ($locationProvider, $urlRouterProvider, $RestangularProvider) {
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: false
   });
-
+  $RestangularProvider.setBaseURl('/api/v1/');
   $urlRouterProvider.otherwise("/notfound");
 });
