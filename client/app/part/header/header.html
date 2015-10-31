@@ -22,7 +22,10 @@
         <menu state="login" name="로그인"></menu>
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-show="user.logged">
-        <user-profile user="user"></user-profile>
+        <li>
+          <user-profile user="user"></user-profile>
+        </li>
+        <li><a ng-click="logout()">로그아웃</a></li>
       </ul>
     </div>
   </div>

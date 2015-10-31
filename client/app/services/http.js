@@ -10,11 +10,22 @@
 angular.module('clientApp')
   .factory('http', function ($http, alert) {
     var http = function (method, url, params, success, error) {
-      var options = {method: method, url: url};
+      var options = {
+        method: method, url: url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      };
       if (method === "GET" || method === "DELETE")
         options.params = params;
-      else
+      else {
+        options.transformRequest = function (obj) {
+          var str = [];
+          for (var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          return str.join("&");
+        };
         options.data = params;
+      }
+
       $http(options).success(function (res) {
         if (res.err) {
           alert(res.err);

@@ -1,5 +1,5 @@
 angular.module('clientApp').config(function ($stateProvider) {
-  var controller = function ($scope, regex, user, alert, http) {
+  var controller = function ($scope, regex, user, alert, userBroker) {
     $scope.regex = regex;
     $scope.user = user;
     $scope.valid = function () {
@@ -13,10 +13,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         alert('이메일과 패스워드를 입력해 주세요');
         return;
       }
-      http.post('/api/v1/user/login', user, function (result) {
-        angular.copy(user, result);
-        user.logged = true;
-      });
+      userBroker.login(user);
     };
 
     $scope.register = function (user) {
@@ -24,12 +21,8 @@ angular.module('clientApp').config(function ($stateProvider) {
         alert('이메일과 패스워드를 입력해 주세요');
         return;
       }
-      http.post('/api/v1/user', user, function (result) {
-        angular.copy(user, result);
-        user.logged = true;
-      });
+      userBroker.register(user);
     };
-
   };
 
   $stateProvider
