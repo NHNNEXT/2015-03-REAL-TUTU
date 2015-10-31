@@ -11,6 +11,8 @@ angular.module('clientApp')
   .service('user', function () {
     this.name = "황정민";
     this.profile = "/favicon.ico";
+    this.logged = true;
+    this.id = 1;
     var lectures = this.lectures = [];
     lectures.push(new Lecture(2014, 1, "자료구조와 알고리즘2", 0, 1, 3, [new ClassTime(3, "09:00", "11:00")], "김동진", 1, "설명"));
     lectures.push(new Lecture(2013, 2, "료구조와 알고리즘2", 2, 2, 4, [new ClassTime(3, "09:00", "11:00")], "김동진", 2, "설명"));

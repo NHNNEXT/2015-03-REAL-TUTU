@@ -1,15 +1,22 @@
-<input class="form-control" placeholder="강의명">
-<input class="form-control" placeholder="교수">
-<input class="form-control" placeholder="년도">
-<input class="form-control" placeholder="학기">
-<input class="form-control" placeholder="구분">
-<input class="form-control" placeholder="학점">
-<input class="form-control" placeholder="요일">
-<input class="form-control" placeholder="시간">
+<div class="container">
 
-<wysiwyg textarea-class="form-control"
-         textarea-height="250px"
-         textarea-required ng-model="homework.body" enable-bootstrap-title="true"></wysiwyg>
+  <auto-complete placeholder="교수" src="/api/v1/prof" ng-model="selected" template="/pages/lecture/li.html"></auto-complete>
 
-<div class="btn btn-primary">작성완료</div>
+  {{selected}}
 
+  <input class="form-control" placeholder="강의명">
+  <input class="form-control" placeholder="교수">
+  <input class="form-control" placeholder="년도">
+  <input class="form-control" placeholder="학기">
+  <input class="form-control" placeholder="구분">
+  <input class="form-control" placeholder="학점">
+  <input class="form-control" placeholder="요일">
+  <input class="form-control" placeholder="시간">
+
+  <wysiwyg textarea-class="form-control"
+           textarea-height="250px"
+           textarea-required ng-model="homework.body" enable-bootstrap-title="true"></wysiwyg>
+
+  <div class="btn btn-primary">작성완료</div>
+
+</div>
