@@ -1,5 +1,6 @@
 package org.next.lms.content.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.next.infra.user.domain.Authority;
 import org.next.infra.user.domain.LoginAccount;
@@ -15,8 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"lecture", "userInfo"})
 @Entity
-@Table(name = "USER_HOST_LECTURE")
-public class UserHostLecture {
+@Table(name = "USER_MANAGE_LECTURE")
+public class UserManageLecture {
 
     // Relation
     @ManyToOne(fetch = FetchType.LAZY)
