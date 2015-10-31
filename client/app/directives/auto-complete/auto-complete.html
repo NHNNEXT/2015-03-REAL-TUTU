@@ -1,0 +1,8 @@
+<input class="form-control" placeholder="{{placeholder}}" ng-model="keyword"
+       ng-click="selecting=true;$event.stopPropagation();">
+<ul class="list-group">
+  <li class="list-group-item" ng-show="result.length>0 && selecting" ng-repeat="each in result"
+      ng-class="{active:$index==index}" ng-mouseover="hover($index)" ng-click="select(each)">
+    <ng-include src="template"></ng-include>
+  </li>
+</ul>

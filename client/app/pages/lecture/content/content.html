@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="box">
+        <h1>
+          <span ng-bind="content.title"></span>
+          <small>수정</small>
+          <small>삭제</small>
+        </h1>
+        <span class="label label-warning">강의자료</span>
+        <span class="label label-info">태그1</span>
+        <span class="label label-info">태그1</span>
+        <span class="label label-info">태그1</span>
+        <h5>{{content.date.toYMD()}}</h5>
+        <ul class="icons">
+          <li>
+            <i class="fa fa-eye"></i> 33
+          </li>
+          <li>
+            <i class="fa fa-comment"></i> {{replies.length}}
+          </li>
+          <li>
+            <like></like>
+          </li>
+        </ul>
+
+        <div class="divider" ng-show="content.type==='homework'">
+          <p>제출기한 : {{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
+        </div>
+
+        <div class="divider"></div>
+        <p ng-bind-html="content.body"></p>
+
+
+        <div class="divider"></div>
+
+        <span class="underlined">
+          <span ng-switch="content.type">
+               <span ng-switch-when="homework">제출이력</span>
+               <span ng-switch-default>댓글</span>
+          </span>
+          ({{replies.length}})</span>
+        <ul class="list-group">
+          <li ng-repeat="reply in replies" class="list-group-item wrap">
+            <div reply="reply"></div>
+          </li>
+          <li class="list-group-item- wrap">
+            <div class="col-sm-3">
+              <user-profile user="user"></user-profile>
+            </div>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <textarea ng-model="reply.body" class="form-control"></textarea>
+
+                <div class="input-group-addon" ng-click="writeReply(reply)">
+                  <span ng-switch="content.type">
+                    <span ng-switch-when="homework">제출하기</span>
+                    <span ng-switch-default>댓글달기</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel-body">
+        <user-profile class="content" user="content.writer"></user-profile>
+      </div>
+    </div>
+  </div>
+
+</div>

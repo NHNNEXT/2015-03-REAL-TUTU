@@ -50,7 +50,7 @@ module.exports = function (grunt) {
       },
       less: {
         files: [
-          '**/*.less'
+          '<%= yeoman.app %>/**/*.less',
         ],
         tasks: ['less'],
         options: {
@@ -70,7 +70,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
-          '**/*.css',
+          '<%= yeoman.app %>/{,*/}*.js',
+          '<%= yeoman.app %>/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -97,7 +98,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               require('grunt-connect-proxy/lib/utils').proxyRequest,
-              require('connect-modrewrite')(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.woff|\\.woff2|\\.ttf$ /index.html [L]']),
+              require('connect-modrewrite')(['!\\.html|\\.js|\\.ico|\\.svg|\\.css|\\.png|\\.woff|\\.woff2|\\.ttf$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -237,9 +238,7 @@ module.exports = function (grunt) {
     less: {
       src: {
         expand: true,
-        cwd: "app/less",
-        dest: 'app/styles',
-        src: "**/*.less",
+        src: "app/**/*.less",
         ext: ".css"
       }
     },
@@ -277,10 +276,10 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
-          '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '/<%= yeoman.dist %>/scripts/{,*/}*.js',
+          '/<%= yeoman.dist %>/styles/{,*/}*.css',
+          '/<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '/<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
     },

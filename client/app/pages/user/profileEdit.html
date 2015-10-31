@@ -1,0 +1,15 @@
+<div class="container">
+  <img ngf-select ng-model="file" ngf-drop ngf-drag-over-class="file-hovered" accept="image/*" ngf-max-height="1000"
+       ngf-max-size="1MB" ng-src="{{user.photo || '/favicon.ico'}}">
+
+  <input placeholder="name" class="form-control" ng-model="user.name">
+
+  <p>
+    email : <span ng-bind="user.email || 'email'"></span>
+    phone : <span ng-bind="user.phone || 'phone'"></span>
+  </p>
+
+  <br> <br>
+
+  <div ng-show="user.id == params.id" class="btn btn-primary">완료</div>
+</div>
