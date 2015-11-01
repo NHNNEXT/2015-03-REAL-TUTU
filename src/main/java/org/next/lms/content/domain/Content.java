@@ -24,7 +24,8 @@ public class Content {
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userInfo")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LOGIN_ACCOUNT_ID")
     private LoginAccount writer;
 
     @ManyToOne(fetch = FetchType.LAZY)

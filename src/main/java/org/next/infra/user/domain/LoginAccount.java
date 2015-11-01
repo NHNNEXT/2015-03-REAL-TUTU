@@ -25,9 +25,8 @@ public class LoginAccount {
     @JoinColumn(name = "USER_INFO_ID")
     private UserInfo userInfo;
 
-    @OneToOne
-    @JoinColumn(name = "CONTENT_ID")
-    private Content content;
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY)
+    private List<Content> contents = new ArrayList<>();
 
     @OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<UserAuthority> userAuthorities = new ArrayList<>();
