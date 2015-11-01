@@ -71,4 +71,10 @@ public class InfraUserController {
         session.invalidate();
         return successJsonResponse();
     }
+
+    @PermitAll
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public CommonJsonResponse userAutoComplete(String keyword) {
+        return successJsonResponse(infraUserService.findByNameLike(keyword));
+    }
 }

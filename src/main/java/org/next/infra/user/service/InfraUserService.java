@@ -7,6 +7,7 @@ import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
 import org.next.infra.user.repository.LoginAccountRepository;
 import org.next.infra.user.repository.UserInfoRepository;
+import org.next.lms.dto.UserSummaryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,15 +45,15 @@ public class InfraUserService {
     public Long login(LoginToken loginToken) {
         LoginAccount dbAccount = getByEmailId(loginToken);
 
-        if(dbAccount == null) {
+        if (dbAccount == null) {
             throw new ErrorResponse("없는 계정입니다.");
         }
 
-        if(withDrawalAccount(dbAccount)) {
+        if (withDrawalAccount(dbAccount)) {
             throw new ErrorResponse("탈퇴한 계정입니다.");
         }
 
-        if(passwordCorrect(dbAccount, loginToken)) {
+        if (passwordCorrect(dbAccount, loginToken)) {
             setLoginStatus(dbAccount, loginToken);
             return dbAccount.getId();
         } else {
@@ -60,7 +62,7 @@ public class InfraUserService {
     }
 
     public CommonJsonResponse join(LoginToken loginToken) {
-        if(alreadyJoined(loginToken)) {
+        if (alreadyJoined(loginToken)) {
             return errorJsonResponse("이미 가입되어 있거나 탈퇴한 계정입니다.");
         }
         encodePassword(loginToken);
@@ -76,8 +78,8 @@ public class InfraUserService {
         return successJsonResponse();
     }
 
-    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, LoginAccount dbAccount){
-        if(notNull(loginToken)) {
+    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, LoginAccount dbAccount) {
+        if (notNull(loginToken)) {
             updateAccount(dbAccount, loginToken);
             updateUserInfo(dbAccount, userInfo);
         }
@@ -99,7 +101,7 @@ public class InfraUserService {
     private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
         UserInfo dbUserInfo = loginAccount.getUserInfo();
 
-        if(notNull(dbUserInfo)) {
+        if (notNull(dbUserInfo)) {
             dbUserInfo.setName(userInfo.getName());
             dbUserInfo.setMajor(userInfo.getMajor());
             dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
@@ -151,5 +153,11 @@ public class InfraUserService {
 
     private LoginAccount getByEmailId(LoginToken loginToken) {
         return loginAccountRepository.findByEmailId(loginToken.getEmail());
+    }
+
+    public List<UserSummaryDto> findByNameLike(String keyword) {
+        List<UserSummaryDto> result = new ArrayList<>();
+        userInfoRepository.findByNameContaining(keyword).forEach(userInfo -> result.add(new UserSummaryDto(userInfo)));
+        return result;
     }
 }

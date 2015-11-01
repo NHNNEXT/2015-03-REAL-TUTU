@@ -10,9 +10,12 @@ public class UserSummaryDto {
         this.id = userInfo.getId();
         this.name = userInfo.getName();
         this.profileUrl = userInfo.getProfileUrl();
+        this.email = userInfo.getLoginAccount().getEmailId();
     }
 
     private Long id;
+
+    private String email;
 
     private String name;
 
