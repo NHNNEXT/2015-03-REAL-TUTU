@@ -43,7 +43,6 @@
        requireBase: false
      });
      RestangularProvider.setBaseUrl('/api/v1/');
-     RestangularProvider.setRequestSuffix('.json');
      $urlRouterProvider.otherwise("/notfound");
    });
  }());

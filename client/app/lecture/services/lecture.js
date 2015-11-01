@@ -23,6 +23,9 @@ angular
       return Lectures.one(lectureId).get();
     }
 
+
+    //type으로 내껀가 아닌가 보는건데, subject만 가입유무가 있.
+    //-CRETED 는 역순정렬.
     function getLectures(isOnlyMyLecture,params) {
       var lecture;
       if(isOnlyMyLecture) {
