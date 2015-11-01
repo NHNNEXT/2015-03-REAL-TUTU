@@ -9,9 +9,9 @@
   $stateProvider
     .state('lec', {
       url: "/lec",
-      templateUrl: "/pages/lec/lec.html",
-      controller: "LecCtrl",
-      controllerAS: "lec"
+      templateUrl: "/lecture/list/lectureList.html",
+      controller: "LectureController",
+      controllerAS: "lecture"
     });
   }
 }());

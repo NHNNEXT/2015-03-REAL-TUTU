@@ -2,10 +2,10 @@
   'use strict';
   angular
     .module('clientApp')
-    .controller('CreateLectureCtrl',CreateLectureCtrl);
+    .controller('CreateLectureController',CreateLectureController);
 
     /* @ngInject */
-    function CreateLectureCtrl($scope,$uibModalInstance,lecture,$log) {
+    function CreateLectureController($scope,$uibModalInstance,lecture,$log) {
       $scope.create = create;
       $scope.cancel = cancel;
       _init();

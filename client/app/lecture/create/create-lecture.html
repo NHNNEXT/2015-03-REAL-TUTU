@@ -4,42 +4,42 @@
 <div>
   <div class="modal-header">
     <h3 class="modal-title"> Create lecture</h3>
-    <auto-complete placeholder="교수" src="/api/v1/prof" ng-model="selected" template="/pages/lecture/li.html"></auto-complete>
+    <auto-complete placeholder="교수" src="/api/v1/prof" ng-model="selected" template="/common/template/li.html"></auto-complete>
     {{selected}}
   </div>
   <div class="modal-body">
     <form>
       <div class="form-group">
         <label for="Lname">Lecture Name</label>
-          <input type="text" class="form-control" id="Lname" ng.model="lecture.name" placeholder="강의명">
+          <input type="text" class="form-control" id="Lname" ng-model="lecture.name" placeholder="강의명">
       </div>
       <div class="form-group">
         <label for="Lprof">Lecture Professor</label>
-          <input type="text" class="form-control" id="Lprof" ng.model="lecture.prof" placeholder="교수">
+          <input type="text" class="form-control" id="Lprof" ng-model="lecture.prof" placeholder="교수">
       </div>
       <div class="form-group">
         <label for="Lyear">Lecture Year</label>
-          <input type="text" class="form-control" id="Lyear" ng.model="lecture.year" placeholder="년도">
+          <input type="text" class="form-control" id="Lyear" ng-model="lecture.year" placeholder="년도">
       </div>
       <div class="form-group">
         <label for="Lterm">Lecture Term</label>
-          <input type="text" class="form-control" id="Lterm" ng.model="lecture.term" placeholder="학기">
+          <input type="text" class="form-control" id="Lterm" ng-model="lecture.term" placeholder="학기">
       </div>
       <div class="form-group">
         <label for="Lsection">Lecture section</label>
-          <input type="text" class="form-control" id="Lsection" ng.model="lecture.section" placeholder="구분">
+          <input type="text" class="form-control" id="Lsection" ng-model="lecture.section" placeholder="구분">
       </div>
       <div class="form-group">
         <label for="Lscore">Lecture score</label>
-          <input type="text" class="form-control" id="Lscore" ng.model="lecture.score" placeholder="학점">
+          <input type="text" class="form-control" id="Lscore" ng-model="lecture.score" placeholder="학점">
       </div>
       <div class="form-group">
         <label for="Lday">Lecture day</label>
-          <input type="text" class="form-control" id="Lday" ng.model="lecture.day" placeholder="요일">
+          <input type="text" class="form-control" id="Lday" ng-model="lecture.day" placeholder="요일">
       </div>
       <div class="form-group">
         <label for="Ltime">Lecture time</label>
-          <input type="text" class="form-control" id="Ltime" ng.model="lecture.time" placeholder="시간">
+          <input type="text" class="form-control" id="Ltime" ng-model="lecture.time" placeholder="시간">
       </div>
       <div class="form-group">
         <wysiwyg textarea-class="form-control"

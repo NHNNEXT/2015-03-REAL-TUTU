@@ -3,10 +3,10 @@
 
   angular
     .module('clientApp')
-    .controller('LecCtrl',LecCtrl);
+    .controller('LectureController',LectureController);
 
     /* @ngInject */
-    function LecCtrl($scope,$log,lecture,modal) {
+    function LectureController($scope,$log,lecture,modal) {
       var vm = $scope;
       vm.createLecture = createLecture;
       _init();
@@ -32,7 +32,7 @@
 
       function createLecture() {
         modal
-        .open('lg', 'create-lecture.html', 'CreateLectureCtrl')
+        .open('lg', 'create-lecture.html', 'CreateLectureController')
         .then(function(result) {
           $log.info('create lecture result: ', result);
           vm.myLectures.unshift(result);
