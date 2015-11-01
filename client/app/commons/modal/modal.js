@@ -13,11 +13,11 @@ angular
   .module('clientApp')
   .service('modal', modal);
   /* @ngInject */
-  function modal($modal,$q) {
+  function modal($uibModal,$q) {
     this.open = open;
 
     function open(size, templateId, controller,params) {
-      var modalInstance = $modal.open({
+      var modalInstance = $uibModal.open({
         templateUrl: templateId,
         controller: controller,
         size:size,

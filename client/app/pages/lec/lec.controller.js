@@ -6,7 +6,7 @@
     .controller('LectureCtrl',LectureCtrl);
 
     /* @ngInject */
-    function LectureCtrl($scope, lecture, modal, logger) {
+    function LectureCtrl($scope,$log,lecture, modal) {
       var vm = this;
       vm.createLecture = createLecture;
       _init();
@@ -21,7 +21,7 @@
         lecture
           .getLectures(isMyLecture, params)
           .then(function (response) {
-            logger.info('lecture list: ' , response.data);
+            $log.info('lecture list: ' , response.data);
             if(isMyLecture) {
               vm.myLectures = response.data;
             } else {
@@ -34,8 +34,8 @@
         modal
         .open('sm', 'create-lecture.html', 'CreateLectureCtrl')
         .then(function(result) {
-          logger.info('create lecture result: ', result);
-          vm.myLectures.unshift(result);
+          $log.info('create lecture result: ', result);
+          vm.myLectures.unshift(res                                                 ult);
         },function(error) {});
       }
 
