@@ -16,7 +16,9 @@ angular
   function modal($uibModal,$q) {
     this.open = open;
 
+    //"" , "lg", "sm"
     function open(size, templateId, controller,params) {
+console.log("create");
       var modalInstance = $uibModal.open({
         templateUrl: templateId,
         controller: controller,

@@ -10,8 +10,8 @@
     .state('lec', {
       url: "/lec",
       templateUrl: "/pages/lec/lec.html",
-      controller: "LectureCtrl",
-      controllerAS: "lecture"
+      controller: "LecCtrl",
+      controllerAS: "lec"
     });
   }
 }());
