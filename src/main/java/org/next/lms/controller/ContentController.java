@@ -8,6 +8,12 @@ import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.dto.ClientUserInfoDto;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.service.InfraUserService;
+import org.next.lms.content.domain.Content;
+import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.service.ContentService;
+import org.next.lms.service.LectureService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +29,24 @@ import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 @RequestMapping("/api/v1/content")
 public class ContentController {
 
+    private static final Logger logger = LoggerFactory.getLogger(LectureController.class);
+
     @Autowired
     private UserInfoBroker userInfoBroker;
 
     @Autowired
-    private SessionBroker sessionBroker;
+    private ContentService contentService;
 
-    @PermitAll
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public CommonJsonResponse userLogout(HttpSession session) {
-        session.invalidate();
-        return successJsonResponse();
+
+    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
+    @RequestMapping(method = RequestMethod.GET)
+    public CommonJsonResponse getContent(Long id) {
+        return successJsonResponse(contentService.getDtoById(id));
+    }
+
+    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
+    @RequestMapping(method = RequestMethod.POST)
+    public CommonJsonResponse saveLecture(Content content, HttpSession session) {
+        return contentService.save(content, userInfoBroker.getUserInfo(session));
     }
 }

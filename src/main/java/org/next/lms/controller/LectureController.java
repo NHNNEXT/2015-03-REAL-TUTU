@@ -4,6 +4,7 @@ import org.next.infra.broker.SessionBroker;
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.lms.common.domain.Term;
+import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.service.LectureService;
 import org.slf4j.Logger;
@@ -39,9 +40,8 @@ public class LectureController {
 
 //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.GET)
-    public CommonJsonResponse getLectureInfo(@RequestParam(value = "id") Lecture lecture) {
-
-        return successJsonResponse(lecture);
+    public CommonJsonResponse getLectureInfo(Long lectureId) {
+        return successJsonResponse(lectureService.getDtoById(lectureId));
     }
 
 //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})

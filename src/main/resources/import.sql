@@ -13,3 +13,7 @@ INSERT INTO LOGIN_ACCOUNT VALUES(3, 'test3@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj
 INSERT INTO TERM VALUES(1, '2015-10-15', '2015-1학기', '2016-01-01')
 INSERT INTO TERM VALUES(2, '2015-10-15', '2015-2학기', '2016-01-01')
 INSERT INTO TERM VALUES(3, '2015-10-15', '2015-3학기', '2016-01-01')
+
+insert into lecture (lecture_id, host_user_id, type, name, play_time, term_id) values (null, 1, 0, '자구알', '[]', 1);
+insert into lecture (lecture_id, host_user_id, type, name, play_time, term_id) values (null, 2, 0, '자구알2', '[]', 1);
+insert into lecture (lecture_id, host_user_id, type, name, play_time, term_id) values (null, 3, 0, '자구알3', '[]', 1);
