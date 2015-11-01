@@ -2,6 +2,8 @@ package org.next.infra.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.next.lms.content.domain.UserEnrolledLecture;
+import org.next.lms.content.domain.UserManageLecture;
 import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
@@ -10,34 +12,27 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = "loginAccount")
+@ToString(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"loginAccount"})
+@EqualsAndHashCode(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures"})
 @Entity
 @Table(name = "USER_INFO")
 public class UserInfo {
 
     // Relation
+    @JsonIgnore
     @OneToOne(mappedBy = "userInfo")
     private LoginAccount loginAccount;
 
-    @JsonIgnore
-    @Getter(AccessLevel.NONE)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ENROLLED_LECTURE_ID")
-    private Lecture enrolledLecture;
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserEnrolledLecture> enrolledLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserManageLecture> manageLectures = new ArrayList<>();
 
     @JsonIgnore
-    @Getter(AccessLevel.NONE)
-    @OneToOne(mappedBy = "masterId")
-    private Lecture lecture;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ENROLLED_STUDENT_USER_INFO_ID")
-//    private UserInfo enrolledStudentUserInfo;
-//
-//    @OneToMany(mappedBy = "enrolledStudentUserInfo", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-//    private List<UserInfo> enrolledStudent = new ArrayList<>();
+    @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)
+    private List<Lecture> hostLectures = new ArrayList<>();
 
     // Field
     @Id

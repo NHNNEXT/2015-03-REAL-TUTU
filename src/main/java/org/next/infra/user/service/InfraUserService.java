@@ -64,7 +64,15 @@ public class InfraUserService {
             return errorJsonResponse("이미 가입되어 있거나 탈퇴한 계정입니다.");
         }
         encodePassword(loginToken);
-        loginAccountRepository.save(loginAccount(loginToken));
+
+        LoginAccount account = loginAccount(loginToken);
+
+        UserInfo userInfo = new UserInfo();
+        userInfoRepository.save(userInfo);
+
+        account.setUserInfo(userInfo);
+        loginAccountRepository.save(account);
+
         return successJsonResponse();
     }
 

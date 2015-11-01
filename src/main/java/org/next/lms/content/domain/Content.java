@@ -1,6 +1,8 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.next.infra.user.domain.LoginAccount;
+import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,20 +21,22 @@ public class Content {
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Attachment> attachment = new ArrayList<>();
 
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    private List<Reply> replies = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LOGIN_ACCOUNT_ID")
+    private LoginAccount writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LECTURE_ID")
+    private Lecture lecture;
+
     // Field
     @Id
     @Column(name = "CONTENT_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "WRITER_ID")
-    private Long writerId;
-
-    @Column(name = "LECTURE_ID")
-    private Long lectureId;
-
-    @Column(name = "PARENT_CONTENT_ID")
-    private Long parentContentId;
 
     @Column(name = "TITLE")
     private String title;

@@ -64,4 +64,11 @@ public class InfraUserController {
         sessionBroker.setLoginAccountId(session, loginAccountId);
         return successJsonResponse(new ClientUserInfoDto(userInfoBroker.getLoginAccount(session)));
     }
+
+    @PermitAll
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public CommonJsonResponse userLogout(HttpSession session) {
+        session.invalidate();
+        return successJsonResponse();
+    }
 }

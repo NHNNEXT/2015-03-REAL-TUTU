@@ -2,6 +2,8 @@ package org.next.infra.user.domain;
 
 import lombok.*;
 import org.next.infra.user.dto.LoginToken;
+import org.next.lms.content.domain.Content;
+import org.next.lms.content.domain.Reply;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,8 +25,14 @@ public class LoginAccount {
     @JoinColumn(name = "USER_INFO_ID")
     private UserInfo userInfo;
 
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY)
+    private List<Content> contents = new ArrayList<>();
+
     @OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<UserAuthority> userAuthorities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY)
+    private List<Reply> replies = new ArrayList<>();
 
     // Field
     @Id
