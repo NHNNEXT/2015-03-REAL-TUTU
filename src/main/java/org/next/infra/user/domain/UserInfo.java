@@ -3,7 +3,7 @@ package org.next.infra.user.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.next.lms.content.domain.UserEnrolledLecture;
-import org.next.lms.content.domain.UserHostLecture;
+import org.next.lms.content.domain.UserManageLecture;
 import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
@@ -12,14 +12,15 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = "loginAccount")
+@ToString(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"loginAccount"})
+@EqualsAndHashCode(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures"})
 @Entity
 @Table(name = "USER_INFO")
 public class UserInfo {
 
     // Relation
+    @JsonIgnore
     @OneToOne(mappedBy = "userInfo")
     private LoginAccount loginAccount;
 
@@ -27,7 +28,11 @@ public class UserInfo {
     private List<UserEnrolledLecture> enrolledLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
-    private List<UserHostLecture> hostLectures = new ArrayList<>();
+    private List<UserManageLecture> manageLectures = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)
+    private List<Lecture> hostLectures = new ArrayList<>();
 
     // Field
     @Id
