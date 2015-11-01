@@ -4,8 +4,8 @@
 <div>
   <div class="modal-header">
     <h3 class="modal-title"> Create lecture</h3>
-    <auto-complete placeholder="교수" src="/api/v1/prof" ng-model="selected" template="/common/template/li.html"></auto-complete>
-    {{selected}}
+    <span ng-repeat="manager in lecture.managers" class="btn btn-sm btn-primary">{{manager.name}} {{manager.email}}</span>
+    <auto-complete placeholder="교수" src="/api/v1/user/find" action="push" template="/common/template/li.html"></auto-complete>
   </div>
   <div class="modal-body">
     <form>
