@@ -3,10 +3,7 @@ auto-complete {
   width: 100%;
   display: block;
 }
-
 auto-complete ul {
   position: absolute;
   width: 100%;
-  z-index: 100;
-  box-shadow: 1px 1px 1px silver;
 }

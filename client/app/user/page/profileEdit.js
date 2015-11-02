@@ -3,9 +3,10 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('profileEdit', {
       url: "/profile/:id/edit",
       templateUrl: "/user/page/profileEdit.html",
-      controller: function ($scope, user, $stateParams, Upload) {
+      controller: function ($scope, user, $stateParams, Upload, userBroker) {
         $scope.user = user;
         $scope.params = $stateParams;
+        $scope.update = userBroker.update();
 
         $scope.$watch('file', function (file) {
           if (!file)

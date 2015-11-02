@@ -27,13 +27,9 @@ angular.module('clientApp')
       }
 
       $http(options).success(function (res) {
-        if (res.err) {
-          alert(res.err);
-          return;
-        }
         if (!success)
           return;
-        success(res.result);
+        success(res);
       }).error(function (e) {
         if (!error)
           return;

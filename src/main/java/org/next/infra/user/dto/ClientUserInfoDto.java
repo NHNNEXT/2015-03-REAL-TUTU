@@ -10,8 +10,8 @@ import static org.next.infra.util.CommonUtils.notNull;
 @Getter
 public class ClientUserInfoDto {
 
-    private Long userNo;
-    private String emailId;
+    private Long id;
+    private String email;
     private AccountStateType accountState;
     private String name;
     private String studentId;
@@ -24,8 +24,8 @@ public class ClientUserInfoDto {
     }
 
     public void setLoginAccountInfo(LoginAccount loginAccountInfo) {
-        this.userNo = loginAccountInfo.getId();
-        this.emailId = loginAccountInfo.getEmailId();
+        this.id = loginAccountInfo.getId();
+        this.email = loginAccountInfo.getEmailId();
         this.accountState = loginAccountInfo.getState();
     }
 

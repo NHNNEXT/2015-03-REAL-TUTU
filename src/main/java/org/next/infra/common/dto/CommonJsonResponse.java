@@ -2,6 +2,7 @@ package org.next.infra.common.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.next.infra.user.domain.LoginAccount;
 
 @Getter
 @NoArgsConstructor
@@ -12,6 +13,16 @@ public class CommonJsonResponse {
 
     private String err;
     private Object result;
+    private Integer code;
+
+    public CommonJsonResponse(Integer code) {
+        this.code = code;
+    }
+
+    public CommonJsonResponse(Integer code, Object object) {
+        this.code = code;
+        this.result = object;
+    }
 
     public static CommonJsonResponse errorJsonResponse() {
         return errorJsonResponse(DEFAULT_ERROR_MESSAGE);
