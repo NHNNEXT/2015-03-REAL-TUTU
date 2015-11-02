@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @ToString(exclude = {"userInfo", "userAuthorities"})
 @NoArgsConstructor
 //@AllArgsConstructor
@@ -40,14 +40,17 @@ public class LoginAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Setter(AccessLevel.NONE)
     @NotNull(message = "User Email Id Must Not Be Null")
     @Column(name = "EMAIL_ID")
     private String emailId;
 
+    @Setter(AccessLevel.NONE)
     @NotNull(message = "User Password Must Not Be Null")
     @Column(name = "PASSWORD")
     private String password;
 
+    @Setter(AccessLevel.NONE)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "User State Type Must Not Be Null")
     @Column(name = "USER_ACCOUNT_STATE")
@@ -62,7 +65,26 @@ public class LoginAccount {
         setPassword(loginToken.getPassword());
     }
 
+    public void setEmailId(String emailId) {
+        if(emailId == null) return;
+        this.emailId = emailId;
+    }
+
+    public void setPassword(String password) {
+        if(password == null) return;
+        this.password = password;
+    }
+
+    public void setState(AccountStateType state) {
+        if(state == null) return;
+        this.state = state;
+    }
+
     public void addAuthority(Authority authority) {
         this.userAuthorities.add(new UserAuthority(authority, this));
+    }
+
+    public boolean isWithDrawalAccount() {
+        return this.state == AccountStateType.WITHDRAWAL || this.state != AccountStateType.ACTIVE;
     }
 }
