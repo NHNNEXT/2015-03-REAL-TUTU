@@ -25,6 +25,8 @@ angular.module('clientApp')
           if (typeof s.action === "function") {
             s.action(each);
           }
+          if (!s.$$phase)
+            s.$apply();
         };
         s.hover = function (i) {
           s.index = i;
@@ -35,18 +37,22 @@ angular.module('clientApp')
             s.index--;
             if (s.index < 0)
               s.index = s.result.length - 1;
-            s.$apply();
+            if(!s.$$phase)
+              s.$apply();
             return;
           }
           if (e.keyCode === 40) {
             s.index++;
             if (s.index > s.result.length - 1)
               s.index = 0;
-            s.$apply();
+            if(!s.$$phase)
+              s.$apply();
             return;
           }
           if (e.keyCode === 13) {
             s.select(s.result[s.index]);
+            if(!s.$$phase)
+              s.$apply();
           }
           if (!s.keyword)
             return;
@@ -55,7 +61,7 @@ angular.module('clientApp')
             http.get(s.src, {keyword: s.keyword}, function (result) {
               s.result = result;
             });
-          }, 300);
+          });
         });
       }
     };

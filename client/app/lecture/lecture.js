@@ -8,7 +8,7 @@
   function config($stateProvider) {
   $stateProvider
     .state('lec', {
-      url: "/lec",
+      url: "/lecture",
       templateUrl: "/lecture/list/lectureList.html",
       controller: "LectureController",
       controllerAS: "lecture"

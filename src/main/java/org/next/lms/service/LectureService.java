@@ -5,6 +5,7 @@ import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.repository.UserInfoRepository;
 import org.next.lms.common.domain.Term;
 import org.next.lms.common.repository.TermRepository;
+import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.repository.LectureRepository;
 import org.slf4j.Logger;
@@ -42,5 +43,9 @@ public class LectureService {
 
         lectureRepository.save(lecture);
         return successJsonResponse();
+    }
+
+    public LectureDto getDtoById(Long lectureId) {
+        return new LectureDto(lectureRepository.getOne(lectureId));
     }
 }
