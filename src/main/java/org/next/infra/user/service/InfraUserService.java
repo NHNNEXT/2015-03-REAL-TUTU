@@ -111,7 +111,6 @@ public class InfraUserService {
     }
 
     private void updateAccount(LoginAccount dbAccount, LoginToken loginToken) {
-        System.out.println(dbAccount);
         loginToken.encryptPassword();
         dbAccount.setLoginToken(loginToken);
     }
