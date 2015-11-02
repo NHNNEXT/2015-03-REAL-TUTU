@@ -2,7 +2,6 @@ package org.next.infra.common.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.next.infra.user.domain.LoginAccount;
 
 @Getter
 @NoArgsConstructor

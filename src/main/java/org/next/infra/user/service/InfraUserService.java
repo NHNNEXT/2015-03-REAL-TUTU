@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.next.infra.common.dto.CommonJsonResponse.errorJsonResponse;
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 import static org.next.infra.util.CommonUtils.notNull;
 
@@ -52,10 +51,9 @@ public class InfraUserService {
     @Autowired
     private UserInfoBroker userInfoBroker;
 
-
     public CommonJsonResponse getSessionUser(HttpSession session) {
         LoginAccount user = userInfoBroker.getLoginAccount(session);
-        if(user == null)
+        if (user == null)
             return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
         return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(user));
     }
@@ -103,7 +101,6 @@ public class InfraUserService {
             updateAccount(dbAccount, loginToken);
             updateUserInfo(dbAccount, userInfo);
         }
-
         return successJsonResponse();
     }
 

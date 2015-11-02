@@ -8,5 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('user', function () {
+  .factory('user', function () {
+    var a = {};
+    return a;
   });
