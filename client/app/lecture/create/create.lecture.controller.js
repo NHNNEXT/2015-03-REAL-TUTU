@@ -9,7 +9,10 @@
     $scope.create = create;
     $scope.cancel = cancel;
     _init();
+
     $scope.push = function (selected) {
+      if (!selected)
+        return;
       if (!$scope.lecture.managers.includes(selected))
         $scope.lecture.managers.push(selected);
     };

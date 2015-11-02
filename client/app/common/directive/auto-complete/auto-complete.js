@@ -18,26 +18,31 @@ angular.module('clientApp')
         var ajax;
         s.result = [];
         s.index = 0;
+
         s.select = function (each) {
           s.ngModel = each;
           s.selecting = false;
           s.keyword = '';
+          if (!s.action)
+            return;
           if (typeof s.action === "function") {
             s.action(each);
           }
+          s.$eval(s.action);
           if (!s.$$phase)
             s.$apply();
         };
         s.hover = function (i) {
           s.index = i;
         };
+
         e.bind('keypress keydown', function (e) {
           s.selecting = true;
           if (e.keyCode === 38) {
             s.index--;
             if (s.index < 0)
               s.index = s.result.length - 1;
-            if(!s.$$phase)
+            if (!s.$$phase)
               s.$apply();
             return;
           }
@@ -45,21 +50,21 @@ angular.module('clientApp')
             s.index++;
             if (s.index > s.result.length - 1)
               s.index = 0;
-            if(!s.$$phase)
+            if (!s.$$phase)
               s.$apply();
             return;
           }
           if (e.keyCode === 13) {
             s.select(s.result[s.index]);
-            if(!s.$$phase)
+            if (!s.$$phase)
               s.$apply();
           }
           if (!s.keyword)
             return;
           $timeout.cancel(ajax);
           ajax = $timeout(function () {
-            http.get(s.src, {keyword: s.keyword}, function (result) {
-              s.result = result;
+            http.get(s.src, {keyword: s.keyword}, function (response) {
+              s.result = response.result;
             });
           });
         });
