@@ -16,7 +16,7 @@ public class ResponseCodeController {
     @PermitAll
     @RequestMapping(method = RequestMethod.GET)
     public Map<String, ?> getResponseCode() throws IllegalAccessException {
-        return ResponseCode.toJsonMap();
+        return ResponseCode.getResponseCodeMap();
     }
 
 }
