@@ -37,7 +37,7 @@ public class CommonJsonResponse {
 
     public static CommonJsonResponse successJsonResponse(Object result) {
         if (stringInstance(result)) {
-            return new CommonJsonResponse().setResult(ensureMessageEndWithPeriod((String) result));
+            return new CommonJsonResponse().setResult(result);
         }
         return new CommonJsonResponse().setResult(result);
     }
