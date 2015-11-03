@@ -1,6 +1,7 @@
 package org.next.infra.file.controller;
 
 import org.next.infra.common.dto.CommonJsonResponse;
+import org.next.infra.reponse.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,11 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-import static org.next.infra.common.dto.CommonJsonResponse.errorJsonResponse;
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 
 @RestController
@@ -34,9 +35,9 @@ public class FileUploadController {
     }
 
     @RequestMapping
-    public CommonJsonResponse uplaodFile(MultipartFile file){
+    public CommonJsonResponse uplaodFile(MultipartFile file, HttpSession session){
         if(file.isEmpty())
-            return errorJsonResponse("파일이 첨부되지 않음");
+            return new CommonJsonResponse(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
         ensureFileSaveDirectoryExist(FILE_SAVE_DIRECTORY_PATH);
 
@@ -45,7 +46,7 @@ public class FileUploadController {
         try {
             file.transferTo(fileStorePath);
         } catch (IllegalStateException | IOException e) {
-            throw new RuntimeException("파일 저장중 오류가 발생하였습니다.");
+            return new CommonJsonResponse(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
 
         return successJsonResponse(extractRelativePath(fileStorePath));
@@ -56,7 +57,7 @@ public class FileUploadController {
     }
 
     private String refineFileSavePath(MultipartFile file) {
-        return FILE_SAVE_DIRECTORY_PATH + UUID.randomUUID().toString().replace("-", "") + extractFileExtention(file.getOriginalFilename());
+        return FILE_SAVE_DIRECTORY_PATH + System.currentTimeMillis() + UUID.randomUUID().toString().replace("-", "") + extractFileExtention(file.getOriginalFilename());
     }
 
     private void ensureFileSaveDirectoryExist(String fileSaveDirectoryPath) {
