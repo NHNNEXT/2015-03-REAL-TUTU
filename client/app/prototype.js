@@ -50,12 +50,26 @@ Number.prototype.zf = function (len) {
 };
 
 Date.prototype.toYMD = function () {
-  return this.format("yyyy년 MM월 dd일 hh:mm");
+  return this.getDateString() + " (" + this.getDayKR() + ") " + this.getTimeString();
 };
 
-Date.prototype.toDateString = function () {
+Date.prototype.getDateString = function () {
   return this.format("yyyy년 MM월 dd일");
 };
+
+Date.prototype.getTimeString = function () {
+  return this.format("hh:mm");
+};
+
+Date.prototype.isSameDay = function (date) {
+  if (!date)
+    return false;
+  return this.getFullYear() === date.getFullYear() && this.getMonth() === date.getMonth() && this.getDate() === date.getDate();
+};
+
+Date.prototype.getDayKR = function () {
+  return ["일", "월", "화", "수", "목", "금", "토"][this.getDay()];
+}
 
 
 if (!Array.prototype.includes) {
@@ -140,7 +154,6 @@ Number.prototype.toDay = function () {
 String.prototype.newLine = function () {
   return this.replace(/\n/g, '<br>');
 };
-
 
 
 function ClassTime(day, startTime, endTime) {

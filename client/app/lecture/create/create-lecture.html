@@ -11,23 +11,91 @@
           <label for="Lname">강의명</label>
           <input type="text" class="form-control" id="Lname" ng-model="lecture.name" placeholder="강의명">
         </div>
-        <label for="Lname">교수</label>
-
-        <div>
-          <user-profile user="user"></user-profile>
-        </div>
-        <div ng-repeat="manager in managers">
-          <user-profile user="manager"></user-profile>
-          <i class="fa fa-times" ng-click="managers.remove(manager)"></i>
-        </div>
-        <auto-complete placeholder="교수" src="/api/v1/user/find" action="push"
-                       template="/common/template/li.html"></auto-complete>
         <div class="form-group">
-          <label>기간</label>
+          <label for="Lname">교수</label>
 
-          <div>{{lecture.start.toDateString()}} ~ {{lecture.end.toDateString()}}</div>
-          <div date-range start="lecture.start" end="lecture.end" min-view="date"></div>
+          <div>
+            <user-profile user="user"></user-profile>
+          </div>
+
+
+          <div ng-repeat="manager in managers">
+            <user-profile user="manager"></user-profile>
+            <i class="fa fa-times" ng-click="managers.remove(manager)"></i>
+          </div>
+          <auto-complete placeholder="교수" src="/api/v1/user/find" action="push"
+                         template="/common/template/li.html"></auto-complete>
         </div>
+
+        <div class="form-group">
+          <label>수업</label>
+
+          <div lesson="lesson" ng-repeat="lesson in lecture.lessons |orderBy:'start'" index="$index"></div>
+
+          <div ng-show="showAddLesson" class="form-group">
+
+
+            <div ng-init="addType='many'">
+              <input type="radio" ng-model="addType" ng-value="'many'">
+              <label>기간 내 일괄 추가</label>
+              <input type="radio" ng-model="addType" ng-value="'one'">
+              <label>하나 추가</label>
+            </div>
+
+            <div ng-show="addType==='many'">
+              <div>
+                <strong>기간</strong>
+
+                <input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy월 MM월 dd일" view="date"
+                       min-view="date"
+                       ng-model="lesson.start"> ~
+                <input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy월 MM월 dd일" view="date"
+                       min-view="date"
+                       ng-model="lesson.end">
+
+              </div>
+
+
+              <div>
+                <strong>매주</strong>
+                <input type="checkbox" ng-model="week[0]">일
+                <input type="checkbox" ng-model="week[1]">월
+                <input type="checkbox" ng-model="week[2]">화
+                <input type="checkbox" ng-model="week[3]">수
+                <input type="checkbox" ng-model="week[4]">목
+                <input type="checkbox" ng-model="week[5]">금
+                <input type="checkbox" ng-model="week[6]">토
+              </div>
+              <div>
+                <strong>시간</strong>
+
+                <input readonly="true" type="datetime" placeholder="시작" date-time format="hh:mm" max-view="hours" view="hours"
+                       ng-model="lesson.timeStart"> ~
+                <input readonly="true" type="datetime" placeholder="끝" date-time format="hh:mm" max-view="hours" view="hours"
+                       ng-model="lesson.timeEnd">
+
+              </div>
+
+
+            </div>
+
+            <div ng-show="addType==='one'">
+              시간 :
+              <input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy. MM. dd. hh:mm" view="date"
+                     ng-model="lesson.start">
+              ~
+              <input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy. MM. dd. hh:mm" view="date"
+                     ng-model="lesson.end">
+            </div>
+
+
+            <input placeholder="주제" class="form-control" ng-model="lesson.name">
+            <textarea placeholder="내용" class="form-control" ng-model="lesson.description"></textarea>
+          </div>
+          <div class="btn btn-primary" ng-click="addLesson()">수업 추가하기</div>
+        </div>
+
+
         <div class="form-group">
           <label>구분</label>
           <drop-down options="[0,1,2,3]" names="['전공필수', '전공선택', '교양', '기타']"></drop-down>
