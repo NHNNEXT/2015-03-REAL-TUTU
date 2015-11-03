@@ -1,4 +1,4 @@
-<div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl">
+<div class="navbar navbar-default" role="navigation" ng-controller="HeaderCtrl" ng-class="state.current.headerClass">
   <div class="container">
     <div class="navbar-header">
 
@@ -10,13 +10,12 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" ui-sref="main">Next</a>
+      <a class="navbar-brand" ui-sref="main">NEXUS</a>
     </div>
 
     <div class="collapse navbar-collapse" id="js-navbar-collapse">
       <ul class="nav navbar-nav">
-        <menu state="main" name="메인"></menu>
-        <menu state="lec" name="강의"></menu>
+        <menu state="lec" name="전체 강의"></menu>
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-show="!user.logged">
         <menu state="register" name="회원가입"></menu>
@@ -24,9 +23,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-show="user.logged">
         <li>
-          <user-profile user="user"></user-profile>
+          <my-profile></my-profile>
         </li>
-        <li><a ng-click="logout()">로그아웃</a></li>
       </ul>
     </div>
   </div>

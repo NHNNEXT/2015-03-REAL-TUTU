@@ -71,8 +71,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '<%= yeoman.app %>/{,*/}*.js',
-          '<%= yeoman.app %>/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= yeoman.app %>/{,*/}*.css'
         ]
       }
     },
@@ -98,7 +97,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               require('grunt-connect-proxy/lib/utils').proxyRequest,
-              require('connect-modrewrite')(['!\\.html|\\.js|\\.ico|\\.svg|\\.css|\\.png|\\.woff|\\.woff2|\\.ttf$ /index.html [L]']),
+              require('connect-modrewrite')(['!\\.html|\\.js|\\.ico|\\.svg|\\.css|\\.png|\\.jpg|\\.woff|\\.woff2|\\.ttf$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',

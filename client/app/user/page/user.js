@@ -29,11 +29,15 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('login', {
       url: "/login",
       templateUrl: "/user/page/login.html",
-      controller: controller
+      controller: controller,
+      uiViewClass:'full-height bg',
+      headerClass:'navbar-fixed-top navbar-transparent'
     })
     .state('register', {
       url: "/register",
       templateUrl: "/user/page/register.html",
-      controller: controller
+      controller: controller,
+      uiViewClass:'full-height bg',
+      headerClass:'navbar-fixed-top navbar-transparent'
     })
 });

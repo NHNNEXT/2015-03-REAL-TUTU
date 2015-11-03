@@ -1,9 +1,8 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
-    .state('main', {
-      url: "/",
-      templateUrl: "/common/page/main/main.html",
-      headerClass:'navbar-fixed-top navbar-transparent',
+    .state('mylectures', {
+      url: "/mylectures",
+      templateUrl: "/user/page/mylectures/mylectures.html",
       controller: function ($scope, user) {
         $scope.user = user;
 

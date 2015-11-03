@@ -16,6 +16,10 @@
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="/resource/flaty.css"/>
+  <link rel="stylesheet" href="/common/part/alert/alert.css"/>
+  <link rel="stylesheet" href="/common/style/animate.css"/>
+  <link rel="stylesheet" href="/common/style/bootstrap.css"/>
   <link rel="stylesheet" href="/common/style/index.css"/>
   <link rel="stylesheet" href="/common/style/icons.css"/>
   <link rel="stylesheet" href="/common/directive/drop-down/drop-down.css"/>
@@ -23,10 +27,11 @@
   <link rel="stylesheet" href="/common/directive/auto-complete/auto-complete.css"/>
   <link rel="stylesheet" href="/common/directive/upload-img/upload-img.css"/>
   <link rel="stylesheet" href="/user/directive/user-profile/user-profile.css"/>
+  <link rel="stylesheet" href="/user/page/form.css"/>
 
   <!-- endbuild -->
 </head>
-<body ng-app="clientApp">
+<body ng-app="clientApp" ng-controller="root">
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
@@ -35,15 +40,15 @@
 <!-- Add your site or application content here -->
 <header ng-include="'/common/part/header/header.html'" class="header"></header>
 
-<div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert}}</div>
+<div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert.alert}}</div>
 
-<div ui-view></div>
+<div ui-view ng-class="state.current.uiViewClass"></div>
 
-<div class="footer">
-  <div class="container">
-    <p>2015-03-REAL-TUTU 강의 관리 시스템 개발(박성호,황정민,하태호)</p>
-  </div>
-</div>
+<!--<div class="footer">-->
+  <!--<div class="container">-->
+    <!--<p>2015-03-REAL-TUTU 강의 관리 시스템 개발(박성호,황정민,하태호)</p>-->
+  <!--</div>-->
+<!--</div>-->
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -77,6 +82,7 @@
 <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
 <script src="/bower_components/restangular/dist/restangular.js"></script>
 <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/bower_components/freewall/freewall.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -84,6 +90,7 @@
 <script src="/app.js"></script>
 <script src="/prototype.js"></script>
 
+<script src="/common/root.js"></script>
 <script src="/common/service/regex.js"></script>
 <script src="/common/service/alert.js"></script>
 <script src="/common/service/http.js"></script>
@@ -109,6 +116,7 @@
 <script src="/common/page/main/main.js"></script>
 
 
+
 <script src="/content/directive/content-list/content-list.js"></script>
 <script src="/content/page/contentEdit.js"></script>
 <script src="/content/page/content.js"></script>
@@ -116,9 +124,11 @@
 <script src="/user/service/user.js"></script>
 <script src="/user/service/userBroker.js"></script>
 <script src="/user/directive/user-profile/user-profile.js"></script>
+<script src="/user/directive/my-profile/my-profile.js"></script>
 <script src="/user/page/profile.js"></script>
 <script src="/user/page/profileEdit.js"></script>
 <script src="/user/page/user.js"></script>
+<script src="/user/page/mylectures/mylectures.js"></script>
 
 <script src="/lecture/page/lectureContainer.js"></script>
 <script src="/lecture/page/lectureEdit.js"></script>
