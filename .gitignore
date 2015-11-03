@@ -16,3 +16,6 @@ out/
 
 #Log files
 *.log
+
+#file
+image/
