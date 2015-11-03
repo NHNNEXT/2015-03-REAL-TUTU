@@ -5,22 +5,24 @@
     .controller('CreateLectureController', CreateLectureController);
 
   /* @ngInject */
-  function CreateLectureController($scope, $uibModalInstance, lecture, $log) {
+  function CreateLectureController($scope, $uibModalInstance, lectureBroker, $log, user) {
     $scope.create = create;
     $scope.cancel = cancel;
     _init();
+    $scope.user = user;
+    $scope.managers = [];
 
     $scope.push = function (selected) {
-      if (!selected)
+      if (!selected || !selected.email)
         return;
-      if (!$scope.lecture.managers.includes(selected))
-        $scope.lecture.managers.push(selected);
+      if (!$scope.managers.includes(selected)) {
+        $scope.managers.push(selected);
+      }
     };
 
     function _init() {
       $scope.lecture = {
         name: "",
-        managers: [],
         term: "",
         type: "",
         score: "",
@@ -30,14 +32,11 @@
       };
     }
 
-    function create() {
-      lecture
-        .create($scope.lecture)
-        .then(function (response) {
-          $uibModalInstance.close(response.data);
-        }, function (error) {
-          $log.error('error: ', error);
-        });
+    function create(lecture){
+      var managerIds = [];
+      $scope.managers.forEach(function(manager){managerIds.push(manager.id)});
+      lecture.managerIds = managerIds;
+      lectureBroker.create(lecture);
     }
 
     function cancel() {

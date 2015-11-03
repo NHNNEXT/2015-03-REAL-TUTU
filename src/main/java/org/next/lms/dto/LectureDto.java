@@ -1,16 +1,16 @@
 package org.next.lms.dto;
 
 import lombok.Getter;
-import org.next.infra.common.domain.MajorType;
 import org.next.lms.lecture.domain.Lecture;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 public class LectureDto {
     public LectureDto(Lecture lecture) {
-        this.term = new TermDto(lecture.getTerm());
+//        this.term = new TermDto(lecture.getTerm());
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
         this.managers = new ArrayList<>();
         lecture.getManagers().forEach(referenceTable -> {
@@ -28,10 +28,13 @@ public class LectureDto {
         this.name = lecture.getName();
         this.majorType = lecture.getMajorType();
         this.playTime = lecture.getPlayTime();
+        this.start = lecture.getStart();
+        this.end = lecture.getEnd();
     }
 
 
-    private TermDto term;
+    private Date start;
+    private Date end;
 
     private UserSummaryDto hostUser;
 
@@ -45,7 +48,7 @@ public class LectureDto {
 
     private String name;
 
-    private MajorType majorType;
+    private Integer majorType;
 
     private String playTime;
 }

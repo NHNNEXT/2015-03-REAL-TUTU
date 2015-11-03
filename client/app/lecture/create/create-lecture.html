@@ -1,56 +1,46 @@
 <script type="text/ng-template" id="create-lecture.html">
 
 
-<div>
-  <div class="modal-header">
-    <h3 class="modal-title"> Create lecture</h3>
-    <span ng-repeat="manager in lecture.managers" class="btn btn-sm btn-primary">{{manager.name}} {{manager.email}}</span>
-    <auto-complete placeholder="교수" src="/api/v1/user/find" action="push" template="/common/template/li.html"></auto-complete>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="Lname">Lecture Name</label>
+  <div>
+    <div class="modal-header">
+      <h3 class="modal-title">강의 생성</h3>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="Lname">강의명</label>
           <input type="text" class="form-control" id="Lname" ng-model="lecture.name" placeholder="강의명">
-      </div>
-      <div class="form-group">
-        <label for="Lprof">Lecture Professor</label>
-          <input type="text" class="form-control" id="Lprof" ng-model="lecture.prof" placeholder="교수">
-      </div>
-      <div class="form-group">
-        <label for="Lyear">Lecture Year</label>
-          <input type="text" class="form-control" id="Lyear" ng-model="lecture.year" placeholder="년도">
-      </div>
-      <div class="form-group">
-        <label for="Lterm">Lecture Term</label>
-          <input type="text" class="form-control" id="Lterm" ng-model="lecture.term" placeholder="학기">
-      </div>
-      <div class="form-group">
-        <label for="Lsection">Lecture section</label>
-          <input type="text" class="form-control" id="Lsection" ng-model="lecture.section" placeholder="구분">
-      </div>
-      <div class="form-group">
-        <label for="Lscore">Lecture score</label>
-          <input type="text" class="form-control" id="Lscore" ng-model="lecture.score" placeholder="학점">
-      </div>
-      <div class="form-group">
-        <label for="Lday">Lecture day</label>
-          <input type="text" class="form-control" id="Lday" ng-model="lecture.day" placeholder="요일">
-      </div>
-      <div class="form-group">
-        <label for="Ltime">Lecture time</label>
-          <input type="text" class="form-control" id="Ltime" ng-model="lecture.time" placeholder="시간">
-      </div>
-      <div class="form-group">
-        <wysiwyg textarea-class="form-control"
-                 textarea-height="250px"
-                 textarea-required ng-model="lecture.body" enable-bootstrap-title="true"></wysiwyg>
-      </div>
-    </form>
+        </div>
+        <label for="Lname">교수</label>
+
+        <div>
+          <user-profile user="user"></user-profile>
+        </div>
+        <div ng-repeat="manager in managers">
+          <user-profile user="manager"></user-profile>
+          <i class="fa fa-times" ng-click="managers.remove(manager)"></i>
+        </div>
+        <auto-complete placeholder="교수" src="/api/v1/user/find" action="push"
+                       template="/common/template/li.html"></auto-complete>
+        <div class="form-group">
+          <label>기간</label>
+
+          <div>{{lecture.start.toDateString()}} ~ {{lecture.end.toDateString()}}</div>
+          <div date-range start="lecture.start" end="lecture.end" min-view="date"></div>
+        </div>
+        <div class="form-group">
+          <label>구분</label>
+          <drop-down options="[0,1,2,3]" names="['전공필수', '전공선택', '교양', '기타']"></drop-down>
+        </div>
+        <div class="form-group">
+          <label for="Lsection">시간</label>
+          <input type="text" class="form-control" id="Lsection" ng-model="lecture.section" placeholder="시간">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" ng-click="create(lecture)">create</button>
+      <button type="button" class="btn btn-warning" ng-click="cancel()">cancel</button>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="create()">create</button>
-    <button type="button" class="btn btn-warning" ng-click="cancel()">cancel</button>
-  </div>
-</div>
 </script>

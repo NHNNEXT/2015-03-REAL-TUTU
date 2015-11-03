@@ -53,6 +53,10 @@ Date.prototype.toYMD = function () {
   return this.format("yyyy년 MM월 dd일 hh:mm");
 };
 
+Date.prototype.toDateString = function () {
+  return this.format("yyyy년 MM월 dd일");
+};
+
 
 if (!Array.prototype.includes) {
   Array.prototype.includes = function (searchElement /*, fromIndex*/) {
