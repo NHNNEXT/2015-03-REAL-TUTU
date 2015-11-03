@@ -6,6 +6,7 @@ import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.repository.UserInfoRepository;
 import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.Lesson;
 import org.next.lms.repository.LectureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
-import static org.next.infra.util.CommonUtils.stringIdArrayToIdList;
+import static org.next.infra.util.CommonUtils.parseList;
 
 @Service
 public class LectureService {
@@ -34,15 +35,18 @@ public class LectureService {
     private UserInfoBroker userInfoBroker;
 
 
-    public CommonJsonResponse save(Lecture lecture, String managerIds, HttpSession session) {
+    public CommonJsonResponse save(Lecture lecture, String managerIds, String lessonString, HttpSession session) {
         UserInfo userInfo = userInfoBroker.getUserInfo(session);
         lecture.setHostUser(userInfo);
 
-        List<Long> managerIdList = stringIdArrayToIdList(managerIds);
+        List<Long> managerIdList = parseList(Long.class, managerIds);
         if (managerIdList != null) {
             List<UserInfo> managers = managerIdList.stream().map(userInfoRepository::findOne).collect(Collectors.toList());
             lecture.addManagers(managers);
         }
+
+        List<Lesson> lessons = parseList(Lesson.class, lessonString);
+        lecture.addLessons(lessons);
 
         lectureRepository.save(lecture);
         return successJsonResponse();

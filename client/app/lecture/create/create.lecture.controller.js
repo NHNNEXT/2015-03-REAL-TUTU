@@ -86,6 +86,8 @@
         angular.copy($scope.lesson, newLesson);
         newLesson.start = lessonStart;
         newLesson.end = lessonEnd;
+        delete newLesson.timeStart;
+        delete newLesson.timeEnd;
         $scope.lecture.lessons.push(newLesson);
       }
     }
@@ -109,8 +111,8 @@
       });
       lecture.managerIds = managerIds;
       angular.copy(lecture, query);
-      query.lessons = JSON.stringify(query.lessons);
-      console.log(query);
+      query.lessonString = JSON.stringify(query.lessons);
+      delete query.lessons;
       lectureBroker.create(query);
     }
 

@@ -36,6 +36,4 @@ public class Lesson {
     @Temporal(TemporalType.DATE)
     @Column(name = "END")
     private Date end;
-
-
 }

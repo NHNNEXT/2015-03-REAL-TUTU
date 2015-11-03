@@ -1,15 +1,16 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.next.infra.user.domain.UserInfo;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.content.domain.UserManageLecture;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -24,7 +25,7 @@ public class Lecture {
     @JoinColumn(name = "HOST_USER_ID")
     private UserInfo hostUser;
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Lesson> lessons = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
@@ -65,6 +66,13 @@ public class Lecture {
             lecture.setUserInfo(managerUserInfo);
             this.managers.add(lecture);
         });
+    }
+
+   public void addLessons(List<Lesson> lessons) {
+       lessons.forEach(item->{
+           item.setLecture(this);
+           this.lessons.add(item);
+       });
     }
 }
 
