@@ -3,7 +3,6 @@ package org.next.lms.controller;
 import org.next.infra.broker.SessionBroker;
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
-import org.next.lms.common.domain.Term;
 import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.service.LectureService;
@@ -27,9 +26,6 @@ public class LectureController {
     private static final Logger logger = LoggerFactory.getLogger(LectureController.class);
 
     @Autowired
-    private UserInfoBroker userInfoBroker;
-
-    @Autowired
     private LectureService lectureService;
 
 //    @RequestMapping(method = RequestMethod.GET)
@@ -46,8 +42,8 @@ public class LectureController {
 
 //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
-    public CommonJsonResponse saveLecture(Lecture lecture, Long termId, String managerIds, HttpSession session) {
-        return lectureService.save(lecture, termId, managerIds, userInfoBroker.getUserInfo(session));
+    public CommonJsonResponse saveLecture(Lecture lecture, String managerIds, HttpSession session) {
+        return lectureService.save(lecture, managerIds, session);
     }
 //
 //    @RequestMapping(method = RequestMethod.PUT)

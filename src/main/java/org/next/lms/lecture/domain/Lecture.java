@@ -1,32 +1,30 @@
 package org.next.lms.lecture.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.next.infra.common.domain.MajorType;
 import org.next.infra.user.domain.UserInfo;
-import org.next.lms.common.domain.Term;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.content.domain.UserManageLecture;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"term", "hostUser", "managers", "enrolledStudent", "contents"})
+@ToString(exclude = {"hostUser", "managers", "enrolledStudent", "contents"})
 @NoArgsConstructor
 //@AllArgsConstructor
-@EqualsAndHashCode(exclude = {"term", "hostUser", "managers", "enrolledStudent", "contents"})
+@EqualsAndHashCode(exclude = {"hostUser", "managers", "enrolledStudent", "contents"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TERM_ID")
-    private Term term;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "TERM_ID")
+//    private Term term;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
@@ -46,11 +44,19 @@ public class Lecture {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "START")
+    private Date start;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "END")
+    private Date end;
+
     @Column(name = "NAME")
     private String name;
 
     @Column(name = "TYPE")
-    private MajorType majorType;
+    private Integer majorType;
 
     @Column(name = "PLAY_TIME")
     private String playTime;

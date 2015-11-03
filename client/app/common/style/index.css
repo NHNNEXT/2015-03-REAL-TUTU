@@ -165,3 +165,6 @@ h1 small {
 .full-width {
   width: 100%;
 }
+.inline-block {
+  display: inline-block;
+}

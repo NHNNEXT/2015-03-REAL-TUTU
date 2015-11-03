@@ -1,0 +1,11 @@
+<h4><span ng-show="index!==undefined">{{index+1}}차시</span> {{lesson.name}}</h4>
+<small>
+  <div ng-if="lesson.start.isSameDay(lesson.end)">
+    {{lesson.start.getDateString()}} ({{lesson.start.getDayKR()}})
+    {{lesson.start.getTimeString()}} ~ {{lesson.end.getTimeString()}}
+  </div>
+  <div ng-if="!lesson.start.isSameDay(lesson.end)">
+    {{lesson.start.toYMD()}} <span ng-show="lesson.end">~</span> {{lesson.end.toYMD()}}
+  </div>
+</small>
+<p>{{lesson.description}}</p>

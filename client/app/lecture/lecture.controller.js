@@ -6,7 +6,7 @@
     .controller('LectureController', LectureController);
 
   /* @ngInject */
-  function LectureController($scope, $log, lecture, modal) {
+  function LectureController($scope, $log, lectureBroker, modal) {
     var vm = $scope;
     vm.createLecture = createLecture;
     _init();
@@ -17,18 +17,18 @@
       //_lectures(false);
     }
 
-    function _lectures(isMyLecture, params) {
-      lecture
-        .getLectures(isMyLecture, params)
-        .then(function (response) {
-          $log.info('lecture list: ', response.data);
-          if (isMyLecture) {
-            vm.myLectures = response.data;
-          } else {
-            vm.otherLectures = response.data;
-          }
-        });
-    }
+    //function _lectures(isMyLecture, params) {
+    //  lecture
+    //    .getLectures(isMyLecture, params)
+    //    .then(function (response) {
+    //      $log.info('lecture list: ', response.data);
+    //      if (isMyLecture) {
+    //        vm.myLectures = response.data;
+    //      } else {
+    //        vm.otherLectures = response.data;
+    //      }
+    //    });
+    //}
 
     function createLecture() {
       modal
@@ -40,18 +40,18 @@
         });
     }
 
-
-    $scope.$watch(function () {
-      return vm.myLectureName;
-    }, function (newVal, oldVal) {
-      _lectures(true, {name: vm.myLectureName});
-    });
-
-    $scope.$watch(function () {
-      return vm.otherLectureName;
-    }, function (newVal, oldVal) {
-      _lectures(false, {name: vm.otherLectureName});
-    });
+    //
+    //$scope.$watch(function () {
+    //  return vm.myLectureName;
+    //}, function (newVal, oldVal) {
+    //  _lectures(true, {name: vm.myLectureName});
+    //});
+    //
+    //$scope.$watch(function () {
+    //  return vm.otherLectureName;
+    //}, function (newVal, oldVal) {
+    //  _lectures(false, {name: vm.otherLectureName});
+    //});
   }
 
 }());
