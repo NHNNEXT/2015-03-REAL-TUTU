@@ -30,14 +30,8 @@ public class LectureDto {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.majorType = lecture.getMajorType();
-        this.playTime = lecture.getPlayTime();
-        this.start = lecture.getStart();
-        this.end = lecture.getEnd();
     }
 
-
-    private Date start;
-    private Date end;
 
     private UserSummaryDto hostUser;
 

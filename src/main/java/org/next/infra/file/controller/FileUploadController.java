@@ -19,7 +19,7 @@ import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 @RequestMapping("/api/v1/upload")
 public class FileUploadController {
 
-    private static final String FILE_STORAGE_DIRECTORY = "image/";
+    private static final String FILE_STORAGE_DIRECTORY = "uploads/";
 
     private static String SERVLET_CONTEXT_ABSOLUTE_PATH;
     private static String FILE_SAVE_DIRECTORY_PATH;

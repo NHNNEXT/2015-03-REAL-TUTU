@@ -1,6 +1,5 @@
 <div class="container">
-  <img ngf-select ng-model="file" ngf-drop ngf-drag-over-class="file-hovered" accept="image/*" ngf-max-height="1000"
-       ngf-max-size="1MB" ng-src="{{user.photo || '/favicon.ico'}}">
+  <upload-img style="width:300px;height:300px"></upload-img>
 
   <input placeholder="name" class="form-control" ng-model="user.name">
 
