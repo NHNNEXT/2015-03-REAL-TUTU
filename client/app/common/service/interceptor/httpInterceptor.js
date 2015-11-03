@@ -5,10 +5,10 @@
   'use strict';
 
   angular
-    .module('clientapp')
+    .module('clientApp')
     .factory('httpInterceptor',httpInterceptor);
 
-  function httpInterceptor($q,alert) {
+  function httpInterceptor($q) {
 
     return {
       'request': request,
@@ -32,7 +32,6 @@
 
     function responseError(rejection) {
       var msg = httpType(rejection.status);
-      alert.error(msg.value , msg.code);
       return $q.reject(rejection);
     }
 

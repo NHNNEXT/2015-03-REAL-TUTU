@@ -45,10 +45,10 @@
      });
      RestangularProvider.setBaseUrl('/api/v1/');
      $urlRouterProvider.otherwise("/notfound");
-     $httpProvider.interceptors.push('httpInterceptor');
      angular.extend(toastrConfig, {
        timeOut: 3000,
        closeButton: true
      });
+     $httpProvider.interceptors.push('httpInterceptor');
    });
  }());
