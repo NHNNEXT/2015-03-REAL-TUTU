@@ -1,0 +1,16 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>전체 강의</h1>
+    <p>
+      <drop-down data="user.lectures" placeholder="구분" distinct="type" ng-model="query.type"></drop-down>
+      <drop-down data="user.lectures" placeholder="교수" distinct="prof" ng-model="query.prof"></drop-down>
+      <div class="btn btn-primary" ui-sref="lectureNew">강의 등록하기</div>
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <lecture-table lectures="user.lectures" query="query"></lecture-table>
+  </div>
+</div>

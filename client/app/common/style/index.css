@@ -97,3 +97,14 @@ h1 small {
 .main-title {
   color: white;
 }
+.date.form-control {
+  background-color: white;
+  width: 40%;
+  display: inline-block;
+}
+.margin-right {
+  margin-right: 20px;
+}
+.margin-right-s {
+  margin-right: 10px;
+}

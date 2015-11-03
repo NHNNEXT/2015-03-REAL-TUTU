@@ -8,7 +8,7 @@ angular.module('clientApp')
         data: '=',
         ngModel: '=',
         placeholder: '@',
-        names: '=',
+        names: '='
       },
       templateUrl: '/common/directive/drop-down/drop-down.html',
       controller: function ($scope) {

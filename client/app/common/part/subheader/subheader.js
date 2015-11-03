@@ -4,6 +4,8 @@ angular.module('clientApp').controller('subheader', function ($scope, user, $sta
   $scope.$watch(function () {
     return user;
   }, function () {
+    if (!user.lectures)
+      return;
     user.lectures.forEach(function (lecture) {
       $scope.options.push(lecture.id);
       $scope.names[lecture.id] = lecture.name;
