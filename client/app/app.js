@@ -47,7 +47,7 @@
      $urlRouterProvider.otherwise("/notfound");
      angular.extend(toastrConfig, {
        timeOut: 3000,
-       closeButton: true,
+       closeButton: true
      });
    });
  }());

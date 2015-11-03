@@ -46,7 +46,7 @@
       var newLesson = {};
       if ($scope.addType === 'one') {
         rangeCheck($scope.lesson.start, $scope.lesson.end);
-        angular.copy($scope.lesson, newLesson)
+        angular.copy($scope.lesson, newLesson);
         $scope.lecture.lessons.push(newLesson);
         $scope.showAddLesson = false;
         return;
@@ -66,7 +66,7 @@
 
        */
       if (!$scope.lesson.start || !$scope.lesson.end || !$scope.lesson.timeStart || !$scope.lesson.timeEnd) {
-        alert.info("시간을 입력해주세요.");
+        alert("시간을 입력해주세요.");
         return;
       }
       rangeCheck($scope.lesson.start, $scope.lesson.end);
@@ -114,16 +114,6 @@
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
       lectureBroker.create(query);
-    }
-
-    function _create() {
-      lecture
-        .create($scope.lecture)
-        .then(function (response) {
-          $uibModalInstance.close(response.data);
-        }, function (error) {
-          $log.error('error: ', error);
-        });
     }
 
     function cancel() {
