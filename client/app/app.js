@@ -38,13 +38,14 @@
            $state.go(redirect);
        }
      });
-   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider,toastrConfig) {
+   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider,toastrConfig,$httpProvider) {
      $locationProvider.html5Mode({
        enabled: true,
        requireBase: false
      });
      RestangularProvider.setBaseUrl('/api/v1/');
      $urlRouterProvider.otherwise("/notfound");
+     $httpProvider.interceptors.push('httpInterceptor');
      angular.extend(toastrConfig, {
        timeOut: 3000,
        closeButton: true
