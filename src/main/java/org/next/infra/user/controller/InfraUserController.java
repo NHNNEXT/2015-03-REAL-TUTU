@@ -4,6 +4,9 @@ import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.service.InfraUserService;
+import org.next.lms.controller.LectureController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,8 @@ import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 @RestController
 @RequestMapping("/api/v1/user")
 public class InfraUserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(InfraUserController.class);
 
     @Autowired
     private InfraUserService infraUserService;

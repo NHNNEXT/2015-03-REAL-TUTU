@@ -42,22 +42,11 @@ public class Lecture {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "START")
-    private Date start;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "END")
-    private Date end;
-
     @Column(name = "NAME")
     private String name;
 
     @Column(name = "TYPE")
     private Integer majorType;
-
-    @Column(name = "PLAY_TIME")
-    private String playTime;
 
     public void addManagers(List<UserInfo> managers) {
         managers.stream().forEach(managerUserInfo -> {

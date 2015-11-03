@@ -20,7 +20,7 @@ import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 @RequestMapping("/api/v1/upload")
 public class FileUploadController {
 
-    private static final String FILE_STORAGE_DIRECTORY = "image/";
+    private static final String FILE_STORAGE_DIRECTORY = "./../../../client/app/uploads/";
 
     private static String SERVLET_CONTEXT_ABSOLUTE_PATH;
     private static String FILE_SAVE_DIRECTORY_PATH;
@@ -41,7 +41,9 @@ public class FileUploadController {
 
         ensureFileSaveDirectoryExist(FILE_SAVE_DIRECTORY_PATH);
 
-        File fileStorePath = new File(refineFileSavePath(file));
+        String fileName = getName(file);
+
+        File fileStorePath = new File(FILE_SAVE_DIRECTORY_PATH + fileName);
 
         try {
             file.transferTo(fileStorePath);
@@ -49,14 +51,14 @@ public class FileUploadController {
             return new CommonJsonResponse(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
 
-        return successJsonResponse(extractRelativePath(fileStorePath));
+        return successJsonResponse(fileName);
     }
 
     private String extractRelativePath(File pathTobeSaved) {
         return pathTobeSaved.toString().replace(SERVLET_CONTEXT_ABSOLUTE_PATH, "");
     }
 
-    private String refineFileSavePath(MultipartFile file) {
+    private String getName(MultipartFile file) {
         return FILE_SAVE_DIRECTORY_PATH + System.currentTimeMillis() + UUID.randomUUID().toString().replace("-", "") + extractFileExtention(file.getOriginalFilename());
     }
 
