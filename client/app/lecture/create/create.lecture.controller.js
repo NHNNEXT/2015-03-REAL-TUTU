@@ -66,7 +66,7 @@
 
        */
       if (!$scope.lesson.start || !$scope.lesson.end || !$scope.lesson.timeStart || !$scope.lesson.timeEnd) {
-        alert("시간을 입력해주세요.");
+        alert.info("시간을 입력해주세요.");
         return;
       }
       rangeCheck($scope.lesson.start, $scope.lesson.end);
@@ -114,6 +114,16 @@
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
       lectureBroker.create(query);
+    }
+
+    function _create() {
+      lecture
+        .create($scope.lecture)
+        .then(function (response) {
+          $uibModalInstance.close(response.data);
+        }, function (error) {
+          $log.error('error: ', error);
+        });
     }
 
     function cancel() {

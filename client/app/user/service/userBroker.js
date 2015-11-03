@@ -3,15 +3,15 @@ angular.module('clientApp')
     this.login = function () {
       http.post('/api/v1/user/login', user, function (response) {
         if (response.code === responseCode.Login.NOT_EXIST_EMAIL) {
-          alert('가입하지 않은 아이디입니다.');
+          alert.error('가입하지 않은 아이디입니다.');
           return;
         }
         if (response.code === responseCode.Login.WRONG_PASSWORD) {
-          alert('패스워드가 다릅니다.');
+          alert.warning('패스워드가 다릅니다.');
           return;
         }
         if (response.code === responseCode.SUCCESS) {
-          alert('로그인 되었습니다.');
+          alert.success('로그인 되었습니다.');
           angular.copy(response.result, user);
           user.logged = true;
           $state.go('main');
@@ -22,11 +22,11 @@ angular.module('clientApp')
     this.register = function (user) {
       http.post('/api/v1/user', user, function (response) {
         if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
-          alert('이미 가입한 이메일입니다.');
+          alert.info('이미 가입한 이메일입니다.');
           return;
         }
         if (response.code === responseCode.SUCCESS) {
-          alert('가입되었습니다.');
+          alert.success('가입되었습니다.');
           $state.go('login');
         }
       });
@@ -53,7 +53,7 @@ angular.module('clientApp')
 
       http.put('/api/v1/user', user, function (response) {
         if (response.code === responseCode.SUCCESS) {
-          alert("회원 정보가 수정되었습니다.");
+          alert.success("회원 정보가 수정되었습니다.");
         }
       });
     };

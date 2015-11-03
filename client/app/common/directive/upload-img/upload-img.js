@@ -22,7 +22,7 @@ angular.module('clientApp')
             $scope.uploading = false;
             $scope.ngModel = resp.data.result;
           }, function () {
-            alert("업로드 실패 했습니다.");
+            alert.error("업로드 실패 했습니다.");
             $scope.uploading = false;
           }, function (evt) {
             $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
