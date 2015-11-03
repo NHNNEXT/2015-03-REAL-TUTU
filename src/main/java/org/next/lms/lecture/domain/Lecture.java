@@ -15,20 +15,17 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"hostUser", "managers", "enrolledStudent", "contents"})
 @NoArgsConstructor
-//@AllArgsConstructor
 @EqualsAndHashCode(exclude = {"hostUser", "managers", "enrolledStudent", "contents"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
 
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "TERM_ID")
-//    private Term term;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
     private UserInfo hostUser;
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<Lesson> lessons = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserManageLecture> managers = new ArrayList<>();

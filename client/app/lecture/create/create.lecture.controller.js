@@ -51,6 +51,20 @@
         $scope.showAddLesson = false;
         return;
       }
+
+      /*
+
+
+
+       형 어제 파일 업로드 못하고 있던거 지금 찾아보니 서블릿 버전이 바뀌어서 그렇대요
+       파일 업로드 기능 어떻게든 오늘내로는 완료시킬께요
+
+       - 태호 -
+
+
+
+
+       */
       if (!$scope.lesson.start || !$scope.lesson.end || !$scope.lesson.timeStart || !$scope.lesson.timeEnd) {
         alert("시간을 입력해주세요.");
         return;
@@ -89,11 +103,15 @@
 
     function create(lecture) {
       var managerIds = [];
+      var query = {};
       $scope.managers.forEach(function (manager) {
         managerIds.push(manager.id)
       });
       lecture.managerIds = managerIds;
-      lectureBroker.create(lecture);
+      angular.copy(lecture, query);
+      query.lessons = JSON.stringify(query.lessons);
+      console.log(query);
+      lectureBroker.create(query);
     }
 
     function cancel() {

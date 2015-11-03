@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 public class LectureDto {
     public LectureDto(Lecture lecture) {
-//        this.term = new TermDto(lecture.getTerm());
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
         this.managers = new ArrayList<>();
         lecture.getManagers().forEach(referenceTable -> {
@@ -23,6 +22,10 @@ public class LectureDto {
         contents = new ArrayList<>();
         lecture.getContents().forEach(content -> {
             contents.add(new ContentDto(content));
+        });
+        this.lessons = new ArrayList<>();
+        lecture.getLessons().forEach(lesson -> {
+            lessons.add(new LessonDto(lesson));
         });
         this.id = lecture.getId();
         this.name = lecture.getName();
@@ -43,6 +46,8 @@ public class LectureDto {
     private List<UserSummaryDto> enrolledStudent;
 
     private List<ContentDto> contents;
+
+    private List<LessonDto> lessons;
 
     private Long id;
 

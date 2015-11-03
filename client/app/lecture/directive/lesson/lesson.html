@@ -1,4 +1,4 @@
-<h4><span ng-show="index!==undefined">{{index+1}}차시</span> {{lesson.name}}</h4>
+<h4><span class="label label-info" ng-show="index!==undefined">{{index+1}}차시</span> {{lesson.name}}</h4>
 <small>
   <div ng-if="lesson.start.isSameDay(lesson.end)">
     {{lesson.start.getDateString()}} ({{lesson.start.getDayKR()}})

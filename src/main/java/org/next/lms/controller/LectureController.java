@@ -43,6 +43,7 @@ public class LectureController {
 //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
     public CommonJsonResponse saveLecture(Lecture lecture, String managerIds, HttpSession session) {
+        System.out.println(lecture);
         return lectureService.save(lecture, managerIds, session);
     }
 //
