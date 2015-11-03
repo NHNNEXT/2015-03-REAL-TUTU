@@ -19,7 +19,7 @@ import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 @RequestMapping("/api/v1/upload")
 public class FileUploadController {
 
-    private static final String FILE_STORAGE_DIRECTORY = "uploads/";
+    private static final String FILE_STORAGE_DIRECTORY = "./../../../client/app/uploads/";
 
     private static String SERVLET_CONTEXT_ABSOLUTE_PATH;
     private static String FILE_SAVE_DIRECTORY_PATH;
@@ -40,7 +40,9 @@ public class FileUploadController {
 
         ensureFileSaveDirectoryExist(FILE_SAVE_DIRECTORY_PATH);
 
-        File fileStorePath = new File(refineFileSavePath(file));
+        String fileName = getName(file);
+
+        File fileStorePath = new File(FILE_SAVE_DIRECTORY_PATH + fileName);
 
         try {
             file.transferTo(fileStorePath);
@@ -48,15 +50,15 @@ public class FileUploadController {
             throw new RuntimeException("파일 저장중 오류가 발생하였습니다.");
         }
 
-        return successJsonResponse(extractRelativePath(fileStorePath));
+        return successJsonResponse(fileName);
     }
 
     private String extractRelativePath(File pathTobeSaved) {
         return pathTobeSaved.toString().replace(SERVLET_CONTEXT_ABSOLUTE_PATH, "");
     }
 
-    private String refineFileSavePath(MultipartFile file) {
-        return FILE_SAVE_DIRECTORY_PATH + UUID.randomUUID().toString().replace("-", "") + extractFileExtention(file.getOriginalFilename());
+    private String getName(MultipartFile file) {
+        return UUID.randomUUID().toString().replace("-", "") + extractFileExtention(file.getOriginalFilename());
     }
 
     private void ensureFileSaveDirectoryExist(String fileSaveDirectoryPath) {

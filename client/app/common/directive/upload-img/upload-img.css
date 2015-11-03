@@ -7,7 +7,7 @@ upload-img img {
   height: 100%;
 }
 upload-img .dragover {
-  outline: 5px dotted #eee;
+  opacity: 0.8;
 }
 upload-img .progress {
   position: absolute;

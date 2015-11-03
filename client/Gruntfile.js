@@ -91,11 +91,6 @@ module.exports = function (grunt) {
             context: ['/api'],
             host: '127.0.0.1',
             port: 8080
-          },
-          {
-            context: ['/uploads'],
-            host: '127.0.0.1',
-            port: 8080
           }
         ],
         options: {
