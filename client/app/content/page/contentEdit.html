@@ -1,6 +1,6 @@
 <div class="sub-header">
   <div class="container">
-    {{lecture.name}}가나다라
+    <drop-down options="lectures" names="names" ng-model="content.lectureId" drop-class="none"></drop-down>
   </div>
 </div>
 <div class="container">
@@ -42,7 +42,7 @@
     </div>
     <div class="col-md-4">
       <div class="panel-body">
-        <user-profile class="content" user="content.writer"></user-profile>
+        <user-profile class="content" user="user"></user-profile>
       </div>
     </div>
   </div>

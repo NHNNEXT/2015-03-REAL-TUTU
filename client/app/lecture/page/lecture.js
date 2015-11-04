@@ -3,7 +3,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('lecture', {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
-      controller: function ($scope, $stateParams, lectureBroker) {
+      controller: function ($scope, $stateParams, lectureBroker, user) {
 
         $scope.enroll = function (id) {
           lectureBroker.enroll(id, function (result) {
@@ -18,6 +18,16 @@ angular.module('clientApp').config(function ($stateProvider) {
             $scope.lecture = lecture;
           });
         });
+
+        $scope.isEnrolled = function (id) {
+          var lectures = user.lectures;
+          if (!lectures)
+            return false;
+          for (var i = 0; i < lectures.length; i++)
+            if (lectures[i].id === id)
+              return true;
+          return false;
+        };
 
       }
     });

@@ -46,7 +46,7 @@ public class ContentController {
 
     //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
-    public CommonJsonResponse saveLecture(Content content, HttpSession session) {
-        return contentService.save(content, userInfoBroker.getUserInfo(session));
+    public CommonJsonResponse saveLecture(Content content, Long lectureId, HttpSession session) {
+        return contentService.save(content, userInfoBroker.getUserInfo(session), lectureId);
     }
 }

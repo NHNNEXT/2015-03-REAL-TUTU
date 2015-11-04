@@ -27,7 +27,7 @@ public class InfraUserController {
     @Autowired
     private InfraUserService infraUserService;
 
-    @Secured({"ROLE_NOT_AUTHORIZED", "ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
+    @PermitAll
     @RequestMapping(method = RequestMethod.GET)
     public CommonJsonResponse getUserInfo(HttpSession session) {
         return infraUserService.getSessionUser(session);
