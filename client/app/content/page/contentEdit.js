@@ -3,13 +3,12 @@ angular.module('clientApp').config(function ($stateProvider) {
     $scope.user = user;
     $scope.content = {type: $stateParams.type, lectureId: $stateParams.lectureId};
     $scope.contentTypes = types.contentTypes;
-    if ($scope.content.type === undefined) {
-      $scope.content.type = 'article';
-    }
 
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
+      if (!id)
+        return;
       contentBroker.findById(id, function (result) {
         angular.copy(result, $scope.content);
         $scope.content.dueDate = new Date($scope.content.dueDate);
