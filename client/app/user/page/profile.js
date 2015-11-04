@@ -5,7 +5,9 @@ angular.module('clientApp').config(function ($stateProvider) {
       templateUrl: "/user/page/profile.html",
       controller: function ($scope, user, $stateParams, userBroker) {
 
-        $scope.update = userBroker.update(user);
+        $scope.update = function () {
+          userBroker.update($scope.user);
+        };
 
         $scope.isRootUser = function () {
           return user.id === $scope.user.id;

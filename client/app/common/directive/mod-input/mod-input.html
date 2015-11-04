@@ -4,8 +4,8 @@
 <span ng-show="mod">
   <div class="input-group">
     <input class="form-control" maxlength="{{maxlength}}" placeholder="{{placeholder}}" ng-model="ngModel"
-           ng-enter="modSave();mod=false;">
-    <i class="input-group-addon fa fa-check" ng-click="modSave();mod=false"></i>
+           ng-enter="save()">
+    <i class="input-group-addon fa fa-check" ng-click="save()"></i>
   </div>
 </span>
 
