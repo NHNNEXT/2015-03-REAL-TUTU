@@ -44,6 +44,12 @@ public class ContentController {
         return successJsonResponse(contentService.getDtoById(id));
     }
 
+    // [TODO] 페이저블
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public CommonJsonResponse getContentList() {
+        return successJsonResponse(contentService.getList());
+    }
+
     //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
     public CommonJsonResponse saveLecture(Content content, Long lectureId, HttpSession session) {

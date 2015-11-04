@@ -10,6 +10,10 @@
 angular.module('clientApp')
   .factory('http', function ($http, alert) {
     var http = function (method, url, params, success, error) {
+      if (typeof params === "function") {
+        http(method, url, {}, params, success);
+        return;
+      }
       var options = {
         method: method, url: url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -40,23 +44,15 @@ angular.module('clientApp')
       });
     };
     http.get = function (url, params, success, error) {
-      if (typeof params === "function")
-        this("GET", url, {}, params, success);
       this("GET", url, params, success, error);
     };
     http.post = function (url, params, success, error) {
-      if (typeof params === "function")
-        this("POST", url, {}, params, success);
       this("POST", url, params, success, error);
     };
     http.put = function (url, params, success, error) {
-      if (typeof params === "function")
-        this("PUT", url, {}, params, success);
       this("PUT", url, params, success, error);
     };
     http.delete = function (url, params, success, error) {
-      if (typeof params === "function")
-        this("DELETE", url, {}, params, success);
       this("DELETE", url, params, success, error);
     };
     return http;

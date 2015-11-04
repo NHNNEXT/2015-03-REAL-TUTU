@@ -27,9 +27,7 @@
     }
 
     function getList(callback) {
-      //[TODO] 리퀘스트 두번보냄 원인 확인
-      $log.debug("get Lecture List");
-      http.get('/api/v1/lecture', function (response) {
+      http.get('/api/v1/content/list', function (response) {
         if (response.code === responseCode.SUCCESS) {
           callback(response.result);
         }
