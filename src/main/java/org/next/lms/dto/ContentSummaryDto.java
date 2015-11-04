@@ -17,7 +17,10 @@ public class ContentSummaryDto {
         this.writeDate = content.getWriteDate();
         this.dueDate = content.getDueDate();
         this.type = content.getType();
+        this.hits = content.getHits();
     }
+
+    private Long hits;
 
     private Integer replies;
 

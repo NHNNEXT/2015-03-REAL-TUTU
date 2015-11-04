@@ -5,7 +5,9 @@ angular.module('clientApp').directive('modInput', function () {
     scope: {
       ngModel: '=',
       placeholder: '@',
-      maxlength:'@'
+      maxlength: '@',
+      modRight: '=',
+      modSave: '='
     }
   }
 });

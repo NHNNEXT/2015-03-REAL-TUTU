@@ -40,6 +40,8 @@ public class Content {
     @Column(name = "TITLE")
     private String title;
 
+    @Column(name = "hits")
+    private Long hits;
 
     @Column(name = "TYPE")
     private Integer type;

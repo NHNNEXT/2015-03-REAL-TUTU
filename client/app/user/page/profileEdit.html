@@ -1,5 +1,4 @@
 <div class="container">
-  <upload-img style="width:300px;height:300px" data="user" attr="profileUrl"></upload-img>
 
   <input placeholder="name" class="form-control" ng-model="user.name">
 
@@ -9,6 +8,6 @@
   </p>
 
   <br> <br>
-
+{{rootUser}}
   <div ng-show="user.id == rootUser.id" ng-click="update()" class="btn btn-primary">완료</div>
 </div>

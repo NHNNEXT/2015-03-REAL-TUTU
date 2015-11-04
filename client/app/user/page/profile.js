@@ -4,7 +4,9 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/profile/:id",
       templateUrl: "/user/page/profile.html",
       controller: function ($scope, user, $stateParams, userBroker) {
-        $scope.rootUser = user;
+        $scope.isRootUser = function(){
+          return user.id === $scope.user.id;
+        };
         $scope.user = {};
         $scope.$watch(function () {
           return $stateParams.id;

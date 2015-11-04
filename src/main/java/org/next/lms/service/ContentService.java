@@ -22,7 +22,10 @@ public class ContentService {
     LectureRepository lectureRepository;
 
     public ContentDto getDtoById(Long id) {
-        return new ContentDto(contentRepository.getOne(id));
+        Content content = contentRepository.getOne(id);
+        content.setHits(content.getHits() + 1);
+        contentRepository.save(content);
+        return new ContentDto(content);
     }
 
     public CommonJsonResponse save(Content content, UserInfo userInfo, Long lectureId) {
