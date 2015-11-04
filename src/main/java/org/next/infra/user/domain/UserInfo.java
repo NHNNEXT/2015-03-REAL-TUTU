@@ -40,48 +40,38 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "USER_NAME")
     private String name;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "PROFILE_URL")
     private String profileUrl;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "STUDENT_ID")
     private String studentId;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Setter(AccessLevel.NONE)
     @Column(name = "MAJOR")
     private String major;
 
-    public void setName(String name) {
-        if(name == null) return;
-        this.name = name;
-    }
+    @Lob
+    @Column(name = "INTRODUCE")
+    private String introduce;
 
-    public void setProfileUrl(String profileUrl) {
-        if(profileUrl == null) return;
-        this.profileUrl = profileUrl;
-    }
 
-    public void setStudentId(String studentId) {
-        if(studentId == null) return;
-        this.studentId = studentId;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        if(phoneNumber == null) return;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setMajor(String major) {
-        if(major == null) return;
-        this.major = major;
+    public void update(UserInfo passed) {
+        if (passed.name != null)
+            this.name = passed.name;
+        if (passed.profileUrl != null)
+            this.profileUrl = passed.profileUrl;
+        if (passed.studentId != null)
+            this.studentId = passed.studentId;
+        if (passed.phoneNumber != null)
+            this.phoneNumber = passed.phoneNumber;
+        if (passed.major != null)
+            this.major = passed.major;
+        if (passed.introduce != null)
+            this.introduce = passed.introduce;
     }
 }

@@ -8,6 +8,14 @@ angular.module('clientApp').directive('modInput', function () {
       maxlength: '@',
       modRight: '=',
       modSave: '='
+    },
+    controller: function ($scope) {
+      $scope.save = function () {
+        $scope.mod = false;
+        if (typeof $scope.modSave !== "function")
+          return;
+        $scope.modSave();
+      }
     }
   }
 });

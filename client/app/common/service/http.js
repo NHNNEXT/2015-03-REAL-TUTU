@@ -20,7 +20,7 @@ angular.module('clientApp')
         options.transformRequest = function (obj) {
           var str = [];
           for (var p in obj) {
-            if (obj[p] === undefined)
+            if (obj[p] === undefined || obj[p] === null || obj[p] === "null")
               continue;
             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
           }

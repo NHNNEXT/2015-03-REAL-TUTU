@@ -49,7 +49,7 @@ angular.module('clientApp')
       });
     };
 
-    this.update = function () {
+    this.update = function (user) {
       http.put('/api/v1/user', user, function (response) {
         if (response.code === responseCode.SUCCESS) {
           alert.success("회원 정보가 수정되었습니다.");

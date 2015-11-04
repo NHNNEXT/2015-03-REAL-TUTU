@@ -86,7 +86,7 @@ public class InfraUserService {
         return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(dbAccount));
     }
 
-    public CommonJsonResponse join(LoginToken loginToken) {
+    public CommonJsonResponse join(LoginToken loginToken, String name) {
         if (alreadyJoined(loginToken)) {
             return new CommonJsonResponse(ResponseCode.Register.ALREADY_EXIST_EMAIL);
         }
@@ -94,6 +94,7 @@ public class InfraUserService {
         LoginAccount account = loginAccount(loginToken);
 
         UserInfo userInfo = new UserInfo();
+        userInfo.setName(name);
         userInfoRepository.save(userInfo);
 
         account.setUserInfo(userInfo);
@@ -102,14 +103,13 @@ public class InfraUserService {
         return new CommonJsonResponse(ResponseCode.SUCCESS);
     }
 
-    public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, HttpSession session) {
+    public CommonJsonResponse updateUserInfo(UserInfo passed, HttpSession session) {
         LoginAccount dbAccount = userInfoBroker.getLoginAccount(session);
-//      [TODO] 리팩토링 필요 dbAccount.getUserInfo.update(userInfo);
-//      [TODO] 리팩토링 필요 dbAccount.update(loginToken);
-        if (notNull(loginToken)) {
-            updateAccount(dbAccount, loginToken);
-            updateUserInfo(dbAccount, userInfo);
-        }
+        if (dbAccount == null)
+            return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
+        UserInfo userinfo = dbAccount.getUserInfo();
+        userinfo.update(passed);
+        userInfoRepository.save(userinfo);
         return successJsonResponse();
     }
 
@@ -118,26 +118,26 @@ public class InfraUserService {
         loginAccount.setState(AccountStateType.WITHDRAWAL);
         return successJsonResponse();
     }
+//
+//    private void updateAccount(LoginAccount dbAccount, LoginToken loginToken) {
+//        loginToken.encryptPassword();
+//        dbAccount.setLoginToken(loginToken);
+//    }
 
-    private void updateAccount(LoginAccount dbAccount, LoginToken loginToken) {
-        loginToken.encryptPassword();
-        dbAccount.setLoginToken(loginToken);
-    }
-
-    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
-        UserInfo dbUserInfo = loginAccount.getUserInfo();
-
-        if (notNull(dbUserInfo)) {
-            dbUserInfo.setName(userInfo.getName());
-            dbUserInfo.setMajor(userInfo.getMajor());
-            dbUserInfo.setProfileUrl(userInfo.getProfileUrl());
-            dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
-            dbUserInfo.setStudentId(userInfo.getStudentId());
-        } else {
-            loginAccount.setUserInfo(userInfo);
-            userInfoRepository.save(userInfo);
-        }
-    }
+//    private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
+//        UserInfo dbUserInfo = loginAccount.getUserInfo();
+//
+//        if (notNull(dbUserInfo)) {
+//            dbUserInfo.setName(userInfo.getName());
+//            dbUserInfo.setMajor(userInfo.getMajor());
+//            dbUserInfo.setProfileUrl(userInfo.getProfileUrl());
+//            dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
+//            dbUserInfo.setStudentId(userInfo.getStudentId());
+//        } else {
+//            loginAccount.setUserInfo(userInfo);
+//            userInfoRepository.save(userInfo);
+//        }
+//    }
 
     private void setLoginStatus(LoginAccount dbAccount, LoginToken loginToken) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), getAuthorities(dbAccount));

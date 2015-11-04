@@ -1,7 +1,7 @@
 <div class="jumbotron bg">
   <div class="container">
     <h1>
-      <mod-input ng-model="user.name" mod-right="isRootUser()"></mod-input>
+      <mod-input ng-model="user.name" mod-right="isRootUser()" mod-save="update"></mod-input>
     </h1>
     <div class="profile-img">
       <img ng-show="!isRootUser()" ng-src="{{user.photo || '/resource/profile.png'}}">
@@ -13,6 +13,6 @@
 
 <div class="container">
   <p class="margin-top">
-    <mod-input ng-model="user.email" mod-right="isRootUser()"></mod-input>
+    <span ng-bind="user.email"></span>
   </p>
 </div>
