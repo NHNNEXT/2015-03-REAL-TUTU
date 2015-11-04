@@ -25,12 +25,12 @@ angular.module('clientApp').config(function ($stateProvider) {
     });
   };
   $stateProvider
-    .state('lecture.contentEdit', {
+    .state('contentEdit', {
       url: "/content/:id/edit?:type",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller
     })
-    .state('lecture.contentNew', {
+    .state('contentNew', {
       url: "/content/write?:type",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller

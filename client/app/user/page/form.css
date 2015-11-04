@@ -11,6 +11,7 @@
 .bg {
   background-image: url('/resource/bg.jpg');
   background-size: cover;
+  color: white;
 }
 .black-sheep {
   position: absolute;

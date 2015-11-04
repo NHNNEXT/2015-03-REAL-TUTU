@@ -1,4 +1,3 @@
-
 /**
  * @ngdoc service
  * @name clientApp.lectureSvc
@@ -6,14 +5,14 @@
  * # lectureSvc
  * Service in the clientApp.
  */
- (function() {
-   'use strict';
+(function () {
+  'use strict';
 
-angular
-  .module('clientApp')
-  .service('lectureBroker', lecture);
+  angular
+    .module('clientApp')
+    .service('lectureBroker', lecture);
   /* @ngInject */
-  function lecture(http, responseCode) {
+  function lecture($log, http, responseCode) {
     this.findById = findById;
     this.getList = getList;
     this.create = create;
@@ -26,12 +25,22 @@ angular
       });
     }
 
-    function findById(lectureId) {
-
+    function findById(lectureId, callback) {
+      http.get('/api/v1/lecture', {id: lectureId}, function (response) {
+        if (response.code === responseCode.SUCCESS) {
+          callback(response.result);
+        }
+      });
     }
 
-    function getList(isOnlyMyLecture,params) {
-
+    function getList(callback) {
+      //[TODO] 리퀘스트 두번보냄 원인 확인
+      $log.debug("get Lecture List");
+      http.get('/api/v1/lecture', function (response) {
+        if (response.code === responseCode.SUCCESS) {
+          callback(response.result);
+        }
+      });
     }
 
   }

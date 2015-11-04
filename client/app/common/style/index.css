@@ -99,12 +99,21 @@ h1 small {
 }
 .date.form-control {
   background-color: white;
-  width: 40%;
+}
+.wrapper {
   display: inline-block;
+  position: relative;
+  width: 40%;
 }
 .margin-right {
   margin-right: 20px;
 }
 .margin-right-s {
   margin-right: 10px;
+}
+.margin-left {
+  margin-left: 20px;
+}
+.white {
+  color: white;
 }

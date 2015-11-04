@@ -6,15 +6,13 @@
     .controller('LectureController', LectureController);
 
   /* @ngInject */
-  function LectureController($scope, $log, lectureBroker, modal) {
-    var vm = $scope;
-    vm.createLecture = createLecture;
+  function LectureController($scope, lectureBroker, modal) {
     _init();
 
     function _init() {
-      // change it to $watch
-      //_lectures(true);
-      //_lectures(false);
+      lectureBroker.getList(function (lectures) {
+        $scope.lectures = lectures;
+      });
     }
 
     //function _lectures(isMyLecture, params) {
@@ -29,16 +27,6 @@
     //      }
     //    });
     //}
-
-    function createLecture() {
-      modal
-        .open('lg', 'create-lecture.html', 'CreateLectureController')
-        .then(function (result) {
-          $log.info('create lecture result: ', result);
-          vm.myLectures.unshift(result);
-        }, function (error) {
-        });
-    }
 
     //
     //$scope.$watch(function () {

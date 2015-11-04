@@ -8,26 +8,18 @@ angular.module('clientApp')
         query: '='
       },
       templateUrl: '/lecture/directive/lecture-table/lecture-table.html',
-      controller: function ($scope) {
+      controller: function ($scope, majorTypes) {
         $scope.key = 'name';
-
+        $scope.$watch('lectures', function (lectures) {
+          if (!lectures)
+            return;
+          lectures.forEach(function (lecture) {
+            if (majorTypes[lecture.majorType])
+              lecture.majorType = majorTypes[lecture.majorType];
+          });
+        });
         $scope.setKey = function (k) {
           $scope.key = k;
-        };
-
-        if ($scope.columns === undefined) {
-          $scope.columns = ['year', 'semester', 'name', 'classNo', 'type', 'credit', 'prof', 'time'];
-        }
-
-        $scope.headers = {
-          year: "년도",
-          semester: "학기",
-          name: "강의명",
-          classNo: "분반",
-          type: "구분",
-          credit: "학점",
-          prof: "담당교수",
-          time: "시간"
         };
       }
     };
