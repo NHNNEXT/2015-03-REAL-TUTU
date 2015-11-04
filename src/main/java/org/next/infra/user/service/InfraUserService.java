@@ -66,11 +66,11 @@ public class InfraUserService {
             return new CommonJsonResponse(ResponseCode.Login.NOT_EXIST_EMAIL);
 
 
-        if (withDrawalAccount(dbAccount))
+        if (dbAccount.isWithDrawalAccount())
             return new CommonJsonResponse(ResponseCode.Login.WITHDRAWAL_ACCOUNT);
 
 
-        if (!passwordCorrect(dbAccount, loginToken)) {
+        if (!loginToken.isPasswordCorrect(dbAccount.getPassword())) {
             return new CommonJsonResponse(ResponseCode.Login.WRONG_PASSWORD);
         }
 
@@ -83,7 +83,7 @@ public class InfraUserService {
         if (alreadyJoined(loginToken)) {
             return new CommonJsonResponse(ResponseCode.Register.ALREADY_EXIST_EMAIL);
         }
-        encodePassword(loginToken);
+        loginToken.encryptPassword();
         LoginAccount account = loginAccount(loginToken);
 
         UserInfo userInfo = new UserInfo();
@@ -111,9 +111,8 @@ public class InfraUserService {
     }
 
     private void updateAccount(LoginAccount dbAccount, LoginToken loginToken) {
-        encodePassword(loginToken);
-        dbAccount.setEmailId(loginToken.getEmail());
-        dbAccount.setPassword(loginToken.getPassword());
+        loginToken.encryptPassword();
+        dbAccount.setLoginToken(loginToken);
     }
 
     private void updateUserInfo(LoginAccount loginAccount, UserInfo userInfo) {
@@ -130,10 +129,6 @@ public class InfraUserService {
         }
     }
 
-    private boolean passwordCorrect(LoginAccount dbAccount, LoginToken loginToken) {
-        return dbAccount != null && passwordEncoder.matches(loginToken.getPassword(), dbAccount.getPassword());
-    }
-
     private void setLoginStatus(LoginAccount dbAccount, LoginToken loginToken) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), getAuthorities(dbAccount));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -141,15 +136,6 @@ public class InfraUserService {
 
     private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
         return dbAccount.getUserAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityType().toString())).collect(Collectors.toList());
-    }
-
-    private boolean withDrawalAccount(LoginAccount dbAccount) {
-        return dbAccount != null && (dbAccount.getState() == AccountStateType.WITHDRAWAL || dbAccount.getState() != AccountStateType.ACTIVE);
-    }
-
-    private void encodePassword(LoginToken loginToken) {
-        String encodedPassword = passwordEncoder.encode(loginToken.getPassword());
-        loginToken.setPassword(encodedPassword);
     }
 
     private LoginAccount loginAccount(LoginToken loginToken) {

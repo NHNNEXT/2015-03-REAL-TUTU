@@ -16,10 +16,8 @@ INSERT INTO LOGIN_ACCOUNT VALUES(4, 'test5@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj
 INSERT INTO LOGIN_ACCOUNT VALUES(5, 'test7@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 5);
 INSERT INTO LOGIN_ACCOUNT VALUES(6, 'test89@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 6);
 
-INSERT INTO TERM VALUES(1, '2015-10-15', '2015-1학기', '2016-01-01')
-INSERT INTO TERM VALUES(2, '2015-10-15', '2015-2학기', '2016-01-01')
-INSERT INTO TERM VALUES(3, '2015-10-15', '2015-3학기', '2016-01-01')
 
-insert into lecture (lecture_id, host_user_id, type, name, play_time, term_id) values (null, 1, 0, '자구알', '[]', 1);
-insert into lecture (lecture_id, host_user_id, type, name, play_time, term_id) values (null, 2, 0, '자구알2', '[]', 1);
-insert into lecture (lecture_id, host_user_id, type, name, play_time, term_id) values (null, 3, 0, '자구알3', '[]', 1);
+insert into lecture values (null, 1, '자구알',  1);
+insert into lecture values (null, 2, '자구알',  2);
+insert into lecture values (null, 3, '자구알',  3);
+insert into lecture values (null, 4, '자구알',  4);

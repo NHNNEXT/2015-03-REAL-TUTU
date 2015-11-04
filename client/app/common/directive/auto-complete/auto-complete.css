@@ -2,6 +2,7 @@ auto-complete {
   position: relative;
   width: 100%;
   display: block;
+  z-index: 100;
 }
 auto-complete ul {
   position: absolute;

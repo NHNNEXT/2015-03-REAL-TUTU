@@ -1,0 +1,8 @@
+<img ng-show="!uploading" ngf-select ng-model="file" ngf-drop ngf-drag-over-class="file-hovered" accept="image/*"
+     ngf-max-size="2MB" ng-src="{{ngModel || '/favicon.ico'}}">
+<img ng-show="uploading" ngf-src="file">
+<div ng-show="uploading" class="progress" ng-style="{opacity: progress/100}">
+  <div class="progress-bar" ng-style="{width: progress+'%'}">
+    <span class="sr-only">{{progress}}% Complete</span>
+  </div>
+</div>

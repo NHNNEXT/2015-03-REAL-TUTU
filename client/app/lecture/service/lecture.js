@@ -1,3 +1,6 @@
+/**
+ * Created by itmnext13 on 2015. 11. 3..
+ */
 
 /**
  * @ngdoc service
@@ -6,12 +9,14 @@
  * # lectureSvc
  * Service in the clientApp.
  */
- (function() {
-   'use strict';
+(function() {
+  'use strict';
 
-angular
-  .module('clientApp')
-  .service('lecture', lecture);
+  angular
+    .module('clientApp')
+    .service('lecture', lecture);
+
+
   /* @ngInject */
   function lecture(Lectures) {
     this.getLecture = getLecture;

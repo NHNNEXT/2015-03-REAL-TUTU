@@ -11,10 +11,10 @@ public class CommonUtils {
         return obj != null;
     }
 
-    public static List<Long> stringIdArrayToIdList(String arrayString) {
+    public static <T> List<T> parseList(Class<T> clazz, String arrayString) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(arrayString, mapper.getTypeFactory().constructCollectionType(List.class, Long.class));
+            return mapper.readValue(arrayString, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (IOException e) {
             return null;
         }

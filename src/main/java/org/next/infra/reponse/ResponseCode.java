@@ -24,7 +24,46 @@ public class ResponseCode {
         public static final Integer EMPTY = 1;
     }
 
-    public static Map<String, ?> toJsonMap() throws IllegalAccessException {
+
+    /*
+
+
+                ⊂_ヽ
+            　 ＼＼ Λ＿Λ
+            　　 ＼( 'ㅅ' ) 두둠칫
+            　　　 >　⌒ヽ
+            　　　/ 　 へ＼
+            　　 /　　/　＼＼
+            　　 ﾚ　ノ　　 ヽ_つ
+            　　/　/ 두둠칫
+            　 /　/|
+            　(　(ヽ
+            　|　|、＼
+            　| 丿 ＼ ⌒)
+            　| |　　) /
+            (`ノ )　　Lﾉ
+
+
+                                Directed By Sungho. Park
+
+     */
+
+
+    private static Map<String, ?> responseCode;
+
+    static {
+        try {
+            responseCode = toJsonMap();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Map<String,?> getResponseCodeMap(){
+        return responseCode;
+    }
+
+    private static Map<String, ?> toJsonMap() throws IllegalAccessException {
         return parseClass(ResponseCode.class);
     }
 

@@ -19,7 +19,8 @@
      'wysiwyg.module',
      'datePicker',
      'ngFileUpload',
-     'restangular'
+     'restangular',
+     'toastr'
    ]).run(function ($rootScope, $state) {
      $rootScope.$on('$stateChangeSuccess',
        function (event, toState) {
@@ -37,12 +38,17 @@
            $state.go(redirect);
        }
      });
-   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider) {
+   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider,toastrConfig,$httpProvider) {
      $locationProvider.html5Mode({
        enabled: true,
        requireBase: false
      });
      RestangularProvider.setBaseUrl('/api/v1/');
      $urlRouterProvider.otherwise("/notfound");
+     angular.extend(toastrConfig, {
+       timeOut: 3000,
+       closeButton: true
+     });
+     $httpProvider.interceptors.push('httpInterceptor');
    });
  }());
