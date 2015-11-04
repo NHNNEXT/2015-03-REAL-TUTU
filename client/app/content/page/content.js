@@ -3,29 +3,33 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('content', {
       url: "/content/:id",
       templateUrl: "/content/page/content.html",
-      controller: function ($scope, user) {
+      controller: function ($scope, user, contentBroker, $stateParams, types) {
 
         $scope.user = user;
+        $scope.content = {replies: []};
+        $scope.contentTypes = types.contentTypes;
+
+        $scope.$watch(function () {
+          return $stateParams.id;
+        }, function (id) {
+          contentBroker.findById(id, function (result) {
+            angular.copy(result, $scope.content);
+            $scope.content.dueDate = new Date($scope.content.dueDate);
+            $scope.content.writeDate = new Date($scope.content.writeDate);
+          });
+        });
 
         $scope.remainDay = function (date) {
-          return parseInt((new Date() - date) / 1000 / 60 / 60 / 24 * 10) / 10;
+          var remain = parseInt((new Date() - date) / 1000 / 60 / 60 / 24 * 10) / 10;
+          if (remain < 0)
+            return 0;
+          return remain;
         };
 
-
-        $scope.content = {
-          type: 'homework',
-          title: "제목",
-          body: "내용",
-          writer: "작성자",
-          date: new Date(),
-          dueDate: new Date(2015, 9, 26)
-        };
-
-        $scope.replies = [];
 
         $scope.writeReply = function (reply) {
           reply.writer = user;
-          $scope.replies.push(reply);
+          $scope.content.replies.push(reply);
           $scope.reply = {};
         };
 

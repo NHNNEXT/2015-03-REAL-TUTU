@@ -9,7 +9,7 @@ INSERT INTO USER_INFO VALUES(4, '웹서버3', 'hwangjungmin', '010-1234-1234', N
 INSERT INTO USER_INFO VALUES(5, '웹서버3', 'hjungmin', '010-1234-1234', NULL, '141414');
 INSERT INTO USER_INFO VALUES(6, '웹버3', 'hngungmin', '010-1234-1234', NULL, '141414');
 
-INSERT INTO LOGIN_ACCOUNT VALUES(1, 'test1@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 1);
+INSERT INTO LOGIN_ACCOUNT VALUES(1, 'test1@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa', 'ACTIVE', 1);
 INSERT INTO LOGIN_ACCOUNT VALUES(2, 'test2@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 2);
 INSERT INTO LOGIN_ACCOUNT VALUES(3, 'test3@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 3);
 INSERT INTO LOGIN_ACCOUNT VALUES(4, 'test5@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 4);
@@ -45,3 +45,26 @@ insert into lesson values (null, '샘플수업','2015-10-11', '샘플강의','20
 insert into lesson values (null, '샘플수업','2015-10-11', '샘플강의','2015-10-09',  6);
 insert into lesson values (null, '샘플수업','2015-10-11', '샘플강의','2015-10-09',  6);
 insert into lesson values (null, '샘플수업','2015-10-11', '샘플강의','2015-10-09',  6);
+
+insert into USER_ENROLLED_LECTURE values (null, 1,1);
+insert into USER_ENROLLED_LECTURE values (null, 2,1);
+insert into USER_ENROLLED_LECTURE values (null, 3,1);
+insert into USER_ENROLLED_LECTURE values (null, 4,1);
+insert into USER_ENROLLED_LECTURE values (null, 5,1);
+insert into USER_ENROLLED_LECTURE values (null, 1,2);
+insert into USER_ENROLLED_LECTURE values (null, 3,2);
+insert into USER_ENROLLED_LECTURE values (null, 4,2);
+insert into USER_ENROLLED_LECTURE values (null, 5,2);
+insert into USER_ENROLLED_LECTURE values (null, 4,3);
+insert into USER_ENROLLED_LECTURE values (null, 5,3);
+insert into USER_ENROLLED_LECTURE values (null, 6,3);
+
+insert into content (content_id, hits, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 1, 0);
+insert into content (content_id,hits, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, 0,'테스트', '2015-11-15', '제목', '2015-10-11', 1, 1, 1);
+insert into content (content_id,hits, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 1, 2);
+insert into content (content_id, hits,body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 2, 0);
+insert into content (content_id, hits,body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 2, 1);
+insert into content (content_id, hits,body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 2, 0);
+insert into content (content_id, hits,body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 2, 1, 0);
+insert into content (content_id, hits,body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 2, 1, 1);
+insert into content (content_id, hits,body, due_date, title, write_date, lecture_id, login_account_id, type) values (null,0, '테스트', '2015-11-15', '제목', '2015-10-11', 2, 1, 0);

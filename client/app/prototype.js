@@ -146,6 +146,12 @@ Array.prototype.remove = function (el) {
   this.splice(this.indexOf(el), 1);
 };
 
+Array.prototype.pushIfNotExist = function (el) {
+  if (this.includes(el))
+    return;
+  this.push(el);
+};
+
 Number.prototype.toDay = function () {
   return ["월", "화", "수", "목", "금", "토", "일"][this % 7];
 };

@@ -18,8 +18,8 @@
       });
     }
 
-    function findById(lectureId, callback) {
-      http.get('/api/v1/lecture', {id: lectureId}, function (response) {
+    function findById(id, callback) {
+      http.get('/api/v1/content', {id: id}, function (response) {
         if (response.code === responseCode.SUCCESS) {
           callback(response.result);
         }

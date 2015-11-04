@@ -19,8 +19,11 @@ angular.module('clientApp')
       else {
         options.transformRequest = function (obj) {
           var str = [];
-          for (var p in obj)
+          for (var p in obj) {
+            if (obj[p] === undefined)
+              continue;
             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          }
           return str.join("&");
         };
         options.data = params;

@@ -58,6 +58,13 @@ public class InfraUserService {
         return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(user));
     }
 
+    public CommonJsonResponse getUser(Long id) {
+        LoginAccount user = loginAccountRepository.getOne(id);
+        if (user == null)
+            return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
+        return new CommonJsonResponse(ResponseCode.SUCCESS, new UserSummaryDto(user.getUserInfo()));
+    }
+
 
     public CommonJsonResponse login(LoginToken loginToken, HttpSession session) {
         LoginAccount dbAccount = getByEmailId(loginToken);

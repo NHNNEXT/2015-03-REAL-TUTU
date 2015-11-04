@@ -21,10 +21,12 @@ angular.module('clientApp')
           if (!file)
             return;
           $scope.uploading = true;
+          console.log(file);
           Upload.upload({
             url: '/api/v1/upload',
             data: {file: file}
           }).then(function (resp) {
+            console.log(resp);
             $scope.uploading = false;
             $scope.data[$scope.attr] = resp.data.result;
           }, function () {

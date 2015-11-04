@@ -39,7 +39,7 @@ angular.module('clientApp')
     };
 
     this.getSessionUser = function () {
-      http.get('/api/v1/user', {}, function (response) {
+      http.get('/api/v1/user', function (response) {
         if (response.code === responseCode.GetSessionUser.EMPTY) //세션에 유저가 없으면 리턴
           return;
         if (response.code === responseCode.SUCCESS) {//세션에 유저가 없으면 리턴
@@ -50,10 +50,20 @@ angular.module('clientApp')
     };
 
     this.update = function () {
-
       http.put('/api/v1/user', user, function (response) {
         if (response.code === responseCode.SUCCESS) {
           alert.success("회원 정보가 수정되었습니다.");
+        }
+      });
+    };
+
+
+    this.findById = function (id, callback) {
+      http.get('/api/v1/user', {id: id}, function (response) {
+        if (response.code === responseCode.GetSessionUser.EMPTY) //세션에 유저가 없으면 리턴
+          return;
+        if (response.code === responseCode.SUCCESS) {//세션에 유저가 없으면 리턴
+          callback(response.result);
         }
       });
     };

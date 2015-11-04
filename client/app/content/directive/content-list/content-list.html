@@ -1,21 +1,23 @@
 <ul class="nav nav-tabs">
   <li ng-class="{active:query.type===undefined}" ng-click="query.type=undefined"><a>전체</a></li>
-  <li ng-class="{active:query.type==='article'}" ng-click="query.type='article'"><a>게시물</a></li>
-  <li ng-class="{active:query.type==='qna'}" ng-click="query.type='qna'"><a>QnA</a></li>
-  <li ng-class="{active:query.type==='homework'}" ng-click="query.type='homework'"><a>과제</a></li>
+  <li ng-class="{active:query.type===0}" ng-click="query.type=0"><a>게시물</a></li>
+  <li ng-class="{active:query.type===1}" ng-click="query.type=1"><a>QnA</a></li>
+  <li ng-class="{active:query.type===2}" ng-click="query.type=2"><a>과제</a></li>
 </ul>
 
 <div class="panel-body">
   <ul class="list-group">
     <li ng-repeat="content in filtered = (contents | filter:query)" class="row list-group-item-">
       <div class="col-sm-2">
-        {{content.type}}
+        <!-- [TODO] 스타일-->
+        <i style="line-height: 100px" class="fa fa-4x" ng-class="icons[content.type]"></i>
       </div>
 
       <div class="col-sm-10">
-        <h3 ui-sref="lecture.content({id:content.id})">{{content.title}}</h3>
+        <h3 ui-sref="content({id:content.id})">{{content.title}}</h3>
 
-        <p>By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span> {{content.date.toYMD()}}
+        <p>By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span>
+          {{content.writeDate.toYMD()}}
         </p>
       </div>
     </li>
