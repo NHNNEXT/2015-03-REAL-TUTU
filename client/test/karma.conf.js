@@ -31,8 +31,6 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
-      'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
-      'bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js',
       'bower_components/lodash/lodash.js',
       'bower_components/angular-datepicker/dist/angular-datepicker.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
@@ -40,6 +38,8 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
       'bower_components/bowser/bowser.js',
+      'bower_components/freewall/freewall.js',
+      'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

@@ -1,27 +1,34 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
-    .state('lecture.detail', {
+    .state('lecture', {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
-      controller: function ($scope) {
+      controller: function ($scope, $stateParams, lectureBroker, user) {
 
-        $scope.contents = [];
+        $scope.enroll = function (id) {
+          lectureBroker.enroll(id, function (result) {
 
-        $scope.contents.push(new Content(1, "제목", {id:1, name:"이름"}, 3, new Date(), new Date()));
-        $scope.contents.push(new Content(1, "제목", {id:1, name:"이름"}, 3, new Date(), new Date()));
-        $scope.contents.push(new Content(1, "제목", {id:1, name:"이름"}, 3, new Date(), new Date()));
-        $scope.contents.push(new Content(1, "제목", {id:1, name:"이름"}, 3, new Date(), new Date()));
-        $scope.contents.push(new Content(1, "제목", {id:1, name:"이름"}, 3, new Date(), new Date()));
-        $scope.contents.push(new Content(1, "제목", {id:1, name:"이름"}, 3, new Date(), new Date()));
+          });
+        };
 
-        function Content(id, title, writer, like, date, dueDate) {
-          this.id = id;
-          this.title = title;
-          this.writer = writer;
-          this.like = like;
-          this.date = date;
-          this.dueDate = dueDate;
-        }
+        $scope.$watch(function () {
+          return $stateParams.id;
+        }, function (id) {
+          lectureBroker.findById(id, function (lecture) {
+            $scope.lecture = lecture;
+          });
+        });
+
+        $scope.isEnrolled = function (id) {
+          var lectures = user.lectures;
+          if (!lectures)
+            return false;
+          for (var i = 0; i < lectures.length; i++)
+            if (lectures[i].id === id)
+              return true;
+          return false;
+        };
+
       }
     });
 });

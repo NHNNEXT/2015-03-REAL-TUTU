@@ -1,16 +1,32 @@
 (function () {
   'use strict';
+  angular.module('clientApp').config(function ($stateProvider) {
+    $stateProvider
+      .state('lectureEdit', {
+        url: "/lecture/:id/edit",
+        templateUrl: "/lecture/page/edit/edit.html",
+        controller: EditLectureController
+      })
+      .state('lectureNew', {
+        url: "/lecture/new",
+        templateUrl: "/lecture/page/edit/edit.html",
+        controller: EditLectureController
+      });
+  });
+
+
   angular
     .module('clientApp')
-    .controller('CreateLectureController', CreateLectureController);
+    .controller('EditLectureController', EditLectureController);
 
   /* @ngInject */
-  function CreateLectureController($scope, $uibModalInstance, lectureBroker, user, alert) {
+  function EditLectureController($scope, lectureBroker, user, alert, $state, types) {
     $scope.create = create;
     $scope.cancel = cancel;
     _init();
     $scope.addLesson = addLesson;
     $scope.user = user;
+    $scope.majorTypes = types.majorTypes;
 
     $scope.push = function (selected) {
       if (!selected || !selected.email)
@@ -38,11 +54,6 @@
     }
 
     function addLesson() {
-      if (!$scope.showAddLesson) {
-        $scope.week = [];
-        $scope.showAddLesson = true;
-        return;
-      }
       var newLesson = {};
       if ($scope.addType === 'one') {
         rangeCheck($scope.lesson.start, $scope.lesson.end);
@@ -117,7 +128,7 @@
     }
 
     function cancel() {
-      $uibModalInstance.dismiss('cancel');
+      $state.go('lectures')
     }
   }
 }());

@@ -1,16 +1,18 @@
+<div class="jumbotron bg">
+  <div class="container">
+    <h1>
+      <mod-input ng-model="user.name" mod-right="isRootUser()"></mod-input>
+    </h1>
+    <div class="profile-img">
+      <img ng-show="!isRootUser()" ng-src="{{user.photo || '/resource/profile.png'}}">
+      <upload-img ng-show="isRootUser()" data="user" attr="profileUrl"></upload-img>
+    </div>
+
+  </div>
+</div>
+
 <div class="container">
-  <img ng-src="{{user.photo || '/favicon.ico'}}">
-
-  <h1 ng-bind="user.name || '이름'"></h1>
-
-  <p>
-    email : <span ng-bind="user.email || 'email'"></span>
-    phone : <span ng-bind="user.phone || 'phone'"></span>
+  <p class="margin-top">
+    <mod-input ng-model="user.email" mod-right="isRootUser()"></mod-input>
   </p>
-  <mod-input ng-model="user.email"></mod-input>
-
-  <br> <br>
-
-  {{user}}
-  <div ng-show="user.id == params.id" ui-sref="profileEdit({id:user.id})" class="btn btn-primary">회원정보 수정</div>
 </div>

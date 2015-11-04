@@ -58,6 +58,13 @@ public class InfraUserService {
         return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(user));
     }
 
+    public CommonJsonResponse getUser(Long id) {
+        LoginAccount user = loginAccountRepository.getOne(id);
+        if (user == null)
+            return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
+        return new CommonJsonResponse(ResponseCode.SUCCESS, new UserSummaryDto(user.getUserInfo()));
+    }
+
 
     public CommonJsonResponse login(LoginToken loginToken, HttpSession session) {
         LoginAccount dbAccount = getByEmailId(loginToken);
@@ -97,6 +104,8 @@ public class InfraUserService {
 
     public CommonJsonResponse edit(LoginToken loginToken, UserInfo userInfo, HttpSession session) {
         LoginAccount dbAccount = userInfoBroker.getLoginAccount(session);
+//      [TODO] 리팩토링 필요 dbAccount.getUserInfo.update(userInfo);
+//      [TODO] 리팩토링 필요 dbAccount.update(loginToken);
         if (notNull(loginToken)) {
             updateAccount(dbAccount, loginToken);
             updateUserInfo(dbAccount, userInfo);
@@ -121,6 +130,7 @@ public class InfraUserService {
         if (notNull(dbUserInfo)) {
             dbUserInfo.setName(userInfo.getName());
             dbUserInfo.setMajor(userInfo.getMajor());
+            dbUserInfo.setProfileUrl(userInfo.getProfileUrl());
             dbUserInfo.setPhoneNumber(userInfo.getPhoneNumber());
             dbUserInfo.setStudentId(userInfo.getStudentId());
         } else {

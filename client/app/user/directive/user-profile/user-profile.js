@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .directive('userProfile', function ($compile, $state) {
+  .directive('userProfile', function () {
     return {
       restrict: 'E',
       scope: {

@@ -7,7 +7,16 @@ angular.module('clientApp')
       },
       templateUrl: '/content/directive/content-list/content-list.html',
       controller: function ($scope) {
+        $scope.$watch('contents', function (contents) {
+          if (!contents)
+            return;
+          contents.forEach(function (content) {
+            content.writeDate = new Date(content.writeDate);
+            content.dueDate = new Date(content.dueDate);
+          });
+        })
 
+        $scope.icons = ['fa-newspaper-o', 'fa-question-circle', 'fa-home'];
 
       }
     };

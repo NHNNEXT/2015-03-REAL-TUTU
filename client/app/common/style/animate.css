@@ -1,0 +1,9 @@
+.message,
+#alert {
+  transition: 0.2s linear all;
+  opacity: 1;
+}
+.message.ng-hide,
+#alert.ng-hide {
+  opacity: 0;
+}

@@ -11,4 +11,5 @@ angular.module('clientApp')
   .service('regex', function () {
     this.email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     this.password = /^\S{6,12}$/;
+    this.name = /^\S{2,12}$/;
   });

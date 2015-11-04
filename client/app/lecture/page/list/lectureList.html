@@ -1,0 +1,19 @@
+<div class="jumbotron bg">
+  <div class="container">
+    <span class="btn btn-primary pull-right" ui-sref="lectureNew">강의 등록</span>
+
+    <h2>전체 강의 </h2>
+
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="query">
+
+      <div class="input-group-addon"><i class="fa fa-search"></i></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <lecture-table lectures="lectures" query="query"></lecture-table>
+  </div>
+</div>

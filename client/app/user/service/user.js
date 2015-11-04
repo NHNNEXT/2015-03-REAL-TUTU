@@ -8,7 +8,8 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .factory('user', function () {
-    var a = {};
-    return a;
+  .service('user', function () {
+    //test계정
+    this.email = "test1@test.com";
+    this.password = "password";
   });

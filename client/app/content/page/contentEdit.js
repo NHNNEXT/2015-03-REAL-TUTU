@@ -1,37 +1,57 @@
 angular.module('clientApp').config(function ($stateProvider) {
-  var controller = function ($stateParams, $scope, http) {
-    $scope.types = ['article', 'qna', 'homework'];
-    $scope.names = {article: "게시물", qna: "Q & A", homework: "과제"};
-    $scope.content = {type: $stateParams.type};
-    if ($scope.content.type === undefined) {
-      $scope.content.type = 'article';
-    }
-
-    $scope.addTag = function (tag) {
-      if (!$scope.content.tags)
-        $scope.content.tags = [];
-      if ($scope.content.tags.includes(tag))
-        return;
-      $scope.content.tags.push(tag);
-      $scope.tag = "";
-    };
+  var controller = function ($stateParams, $scope, contentBroker, types, user, $state) {
+    $scope.user = user;
+    $scope.content = {type: $stateParams.type, lectureId: $stateParams.lectureId};
+    $scope.contentTypes = types.contentTypes;
 
     $scope.$watch(function () {
       return $stateParams.id;
-    }, function () {
-      http.post('/api/v1/article', {id: $stateParams.id}, function () {
-
+    }, function (id) {
+      if (!id)
+        return;
+      contentBroker.findById(id, function (result) {
+        angular.copy(result, $scope.content);
+        $scope.content.dueDate = new Date($scope.content.dueDate);
+        $scope.content.writeDate = new Date($scope.content.writeDate);
       });
+    });
+
+
+    $scope.create = function (content) {
+      contentBroker.create(content, function () {
+        $state.go('lecture', {id: content.lectureId});
+      });
+    };
+
+    $scope.$watch(function () {
+      return user.lectures;
+    }, function (lectures) {
+      $scope.lectures = [];
+      $scope.names = {};
+      if (!lectures)
+        return;
+      lectures.forEach(function (lecture) {
+        $scope.lectures.pushIfNotExist(lecture.id);
+        $scope.names[lecture.id] = lecture.name;
+      });
+    });
+
+    $scope.$watch(function () {
+      return $stateParams.lectureId;
+    }, function (id) {
+      if (!$scope.content)
+        $scope.content = {};
+      $scope.content.lectureId = id;
     });
   };
   $stateProvider
-    .state('lecture.contentEdit', {
-      url: "/content/:id/edit?:type",
+    .state('contentEdit', {
+      url: "/content/:id/edit?:type?:lectureId",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller
     })
-    .state('lecture.contentNew', {
-      url: "/content/write?:type",
+    .state('contentNew', {
+      url: "/content/write?:type?:lectureId",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller
     });
