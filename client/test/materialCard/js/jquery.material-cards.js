@@ -6,15 +6,45 @@
   /* global _ */
   var Module = angular.module('materialCard', []);
 
-  Module.constant('materialCardConfig', {
-    template: 'templates/datepicker.html',
-    view: 'month',
-    views: ['year', 'month', 'date', 'hours', 'minutes'],
-    step: 5
-  });
+  Module.directive('materialCard',MaterialCard);
+
+  function MaterialCard() {
+    var MaterialCard = function (element, options) {
+      this.options        = options;
+      this.card           = $(element);
+      this.button         = $(element).children('.mc-btn-action');
+      this.icon           = $(element).children('.mc-btn-action').children('i');
+      this.card_activator = options.card_activator;
+      this.timing         = this.getTransitionTiming();
+
+      var that = this;
+
+      if (that.card_activator == 'click') {
+        if (!this.icon.hasClass(this.options.icon_open)) {
+          this.icon.attr('class', this.icon.attr('class').replace(/\bfa-.*\b/g, '')).addClass(this.options.icon_open);
+        }
+        this.button.on('click', function () {
+          that.toggle();
+        });
+      } else {
+        this.button.hide();
+      }
+
+      if (that.card_activator == 'hover') {
+        this.card.on('mouseenter', function () {
+          that.open();
+        });
+        this.card.on('mouseleave', function () {
+          that.close();
+        });
+      }
+
+    };
+  }
 
 
 })();
+
 
 
 (function ($) {

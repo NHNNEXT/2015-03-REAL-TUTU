@@ -32,7 +32,6 @@ public class Content {
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 
-    // Field
     @Id
     @Column(name = "CONTENT_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,8 +51,5 @@ public class Content {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DUE_DATE")
     private Date dueDate;
-
-    @Column(name = "LIKE_COUNT")
-    private Long like;
 }
 

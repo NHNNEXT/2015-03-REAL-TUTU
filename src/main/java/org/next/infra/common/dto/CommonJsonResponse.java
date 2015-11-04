@@ -2,6 +2,7 @@ package org.next.infra.common.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.next.infra.reponse.ResponseCode;
 
 @Getter
 @NoArgsConstructor
@@ -32,14 +33,14 @@ public class CommonJsonResponse {
     }
 
     public static CommonJsonResponse successJsonResponse() {
-        return successJsonResponse(DEFAULT_SUCCESS_MESSAGE);
+        return successJsonResponse(ResponseCode.SUCCESS);
     }
 
     public static CommonJsonResponse successJsonResponse(Object result) {
-        if (stringInstance(result)) {
-            return new CommonJsonResponse().setResult(result);
-        }
-        return new CommonJsonResponse().setResult(result);
+        CommonJsonResponse response = new CommonJsonResponse();
+        response.setResult(result);
+        response.setCode(ResponseCode.SUCCESS);
+        return response;
     }
 
     private static String ensureMessageEndWithPeriod(String message) {
@@ -59,5 +60,9 @@ public class CommonJsonResponse {
     public CommonJsonResponse setResult(Object result) {
         this.result = result;
         return this;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

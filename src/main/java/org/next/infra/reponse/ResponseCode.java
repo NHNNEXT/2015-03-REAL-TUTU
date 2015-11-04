@@ -24,6 +24,11 @@ public class ResponseCode {
         public static final Integer EMPTY = 1;
     }
 
+    public static final class FileUpload {
+        public static final Integer FILE_NOT_ATTACHED = 1;
+        public static final Integer ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT = 2;
+    }
+
 
     /*
 
