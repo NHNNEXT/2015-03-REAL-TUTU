@@ -1,3 +1,8 @@
+<div class="sub-header">
+  <div class="container">
+    {{content.lectureName}}
+  </div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-md-8">
@@ -5,8 +10,8 @@
         <h1>
           <span ng-bind="content.title"></span>
           <span ng-show="content.writer.id === user.id">
-          <small ui-sref="contentEdit({id:content.id})">수정</small>
-          <small>삭제</small>
+            <small ui-sref="contentEdit({id:content.id})">수정</small>
+            <small>삭제</small>
           </span>
         </h1>
         <span class="label label-warning">{{contentTypes[content.type]}}</span>
