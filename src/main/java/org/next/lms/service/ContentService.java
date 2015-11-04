@@ -9,6 +9,8 @@ import org.next.lms.repository.LectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 
 @Service
@@ -30,7 +32,7 @@ public class ContentService {
 
     public CommonJsonResponse save(Content content, UserInfo userInfo, Long lectureId) {
         content.setWriter(userInfo.getLoginAccount());
-
+        content.setWriteDate(new Date());
         if (lectureId != null)
             content.setLecture(lectureRepository.getOne(lectureId));
 
