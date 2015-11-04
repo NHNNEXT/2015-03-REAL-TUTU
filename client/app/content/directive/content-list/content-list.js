@@ -6,8 +6,8 @@ angular.module('clientApp')
         contents: '='
       },
       templateUrl: '/content/directive/content-list/content-list.html',
-      controller: function ($scope) {
-        $scope.$watch('contents', function (contents, types) {
+      controller: function ($scope, types) {
+        $scope.$watch('contents', function (contents) {
           if (!contents)
             return;
           contents.forEach(function (content) {
