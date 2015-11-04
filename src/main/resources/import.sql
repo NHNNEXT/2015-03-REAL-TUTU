@@ -58,3 +58,13 @@ insert into USER_ENROLLED_LECTURE values (null, 5,2);
 insert into USER_ENROLLED_LECTURE values (null, 4,3);
 insert into USER_ENROLLED_LECTURE values (null, 5,3);
 insert into USER_ENROLLED_LECTURE values (null, 6,3);
+
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 1, 0);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 1, 1);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 1, 2);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 2, 0);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 2, 1);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 1, 2, 0);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 2, 1, 0);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 2, 1, 1);
+insert into content (content_id, body, due_date, title, write_date, lecture_id, login_account_id, type) values (null, '테스트', '2015-11-15', '제목', '2015-10-11', 2, 1, 0);

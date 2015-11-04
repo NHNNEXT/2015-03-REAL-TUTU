@@ -20,11 +20,14 @@ public class ContentDto {
         this.body = content.getBody();
         this.writeDate = content.getWriteDate();
         this.dueDate = content.getDueDate();
+        this.type = content.getType();
     }
 
     private List<Reply> replies;
 
     private UserSummaryDto writer;
+
+    private Integer type;
 
     private Long lectureId;
 

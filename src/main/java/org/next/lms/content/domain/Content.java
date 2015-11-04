@@ -40,6 +40,10 @@ public class Content {
     @Column(name = "TITLE")
     private String title;
 
+
+    @Column(name = "TYPE")
+    private Integer type;
+
     @Lob
     @Column(name = "BODY")
     private String body;

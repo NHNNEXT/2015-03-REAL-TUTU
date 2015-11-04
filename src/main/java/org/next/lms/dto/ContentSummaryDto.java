@@ -16,11 +16,14 @@ public class ContentSummaryDto {
         this.title = content.getTitle();
         this.writeDate = content.getWriteDate();
         this.dueDate = content.getDueDate();
+        this.type = content.getType();
     }
 
     private Integer replies;
 
     private UserSummaryDto writer;
+
+    private Integer type;
 
     private Long lectureId;
 
