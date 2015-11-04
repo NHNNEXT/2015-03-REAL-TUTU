@@ -33,7 +33,7 @@
 
   <!-- endbuild -->
 </head>
-<body ng-app="clientApp">
+<body ng-app="clientApp" ng-controller="root">
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
@@ -95,8 +95,8 @@
 <script src="/app.js"></script>
 <script src="/prototype.js"></script>
 
-<script src="/common/root.js"></script>
 
+<script src="/common/root.js"></script>
 <script src="/common/service/regex.js"></script>
 <script src="/common/service/alert.js"></script>
 <script src="/common/service/http.js"></script>
@@ -104,7 +104,6 @@
 <script src="/common/service/modal/modal.js"></script>
 <script src="/common/service/types.js"></script>
 <script src="/common/service/interceptor/httpInterceptor.js"></script>
-
 
 <script src="/common/directive/mod-input/mod-input.js"></script>
 <script src="/common/directive/menu.js"></script>

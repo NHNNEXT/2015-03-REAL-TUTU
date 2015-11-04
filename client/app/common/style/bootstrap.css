@@ -130,3 +130,6 @@ table > tfoot > tr > td,
   font-size: 80%;
   height: 35px;
 }
+.navbar.navbar-default {
+  margin-bottom: 0;
+}
