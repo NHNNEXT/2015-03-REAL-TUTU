@@ -1,8 +1,8 @@
 <div class="jumbotron bg">
   <div class="container">
     <div class="pull-right margin-top">
-      <div type="button" class="btn btn-primary " ng-click="create(lecture)">등록하기</div>
-      <div type="button" class="btn btn-warning" ng-click="cancel()">취소</div>
+      <div class="btn btn-primary " ng-click="create(lecture)">등록하기</div>
+      <div class="btn btn-warning" ng-click="cancel()">취소</div>
     </div>
     <h2>강의 생성</h2>
   </div>
@@ -10,20 +10,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-
-
-
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col-md-6">
       <div class="panel panel-primary margin-top">
         <div class="panel-heading">강의 정보</div>
         <div class="panel-body">
           <div class="input-group">
-
             <div class="input-group-addon" data-toggle="dropdown">
               {{majorTypes[lecture.majorType]||"구분"}}
               <span class="caret"></span></div>

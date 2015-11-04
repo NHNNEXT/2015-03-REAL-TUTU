@@ -122,3 +122,11 @@ table > tfoot > tr > td,
 .table > tfoot > tr > td {
   vertical-align: middle;
 }
+.wysiwyg-btn-group-margin {
+  margin-bottom: 5px;
+}
+.wysiwyg-select {
+  padding: 0 10px;
+  font-size: 80%;
+  height: 35px;
+}

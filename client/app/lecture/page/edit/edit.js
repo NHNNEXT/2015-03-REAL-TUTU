@@ -20,13 +20,13 @@
     .controller('EditLectureController', EditLectureController);
 
   /* @ngInject */
-  function EditLectureController($scope, lectureBroker, user, alert, $state, majorTypes) {
+  function EditLectureController($scope, lectureBroker, user, alert, $state, types) {
     $scope.create = create;
     $scope.cancel = cancel;
     _init();
     $scope.addLesson = addLesson;
     $scope.user = user;
-    $scope.majorTypes = majorTypes;
+    $scope.majorTypes = types.majorTypes;
 
     $scope.push = function (selected) {
       if (!selected || !selected.email)

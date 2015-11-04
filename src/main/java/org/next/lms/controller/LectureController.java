@@ -34,16 +34,24 @@ public class LectureController {
 //        return successJsonResponse(lecture);
 //    }
 
-//    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
+    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.GET)
-    public CommonJsonResponse getLectureInfo(Long lectureId) {
-        return successJsonResponse(lectureService.getDtoById(lectureId));
+    public CommonJsonResponse getLectureInfo(Long id) {
+        if (id == null)
+            return successJsonResponse(lectureService.getDtoList());
+        return successJsonResponse(lectureService.getDtoById(id));
     }
 
-//    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
+
+    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
     public CommonJsonResponse saveLecture(String lessonString, Lecture lecture, String managerIds, HttpSession session) {
-        return lectureService.save(lecture, managerIds,lessonString, session);
+        return lectureService.save(lecture, managerIds, lessonString, session);
+    }
+
+    @RequestMapping(value = "/enroll", method = RequestMethod.POST)
+    public CommonJsonResponse enroll(Long id, HttpSession session) {
+        return lectureService.enroll(id, session);
     }
 //
 //    @RequestMapping(method = RequestMethod.PUT)

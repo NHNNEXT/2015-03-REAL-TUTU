@@ -9,6 +9,8 @@ import java.util.List;
 
 @Getter
 public class LectureDto {
+
+
     public LectureDto(Lecture lecture) {
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
         this.managers = new ArrayList<>();
@@ -32,22 +34,13 @@ public class LectureDto {
         this.majorType = lecture.getMajorType();
     }
 
-
     private UserSummaryDto hostUser;
-
     private List<UserSummaryDto> managers;
-
     private List<UserSummaryDto> enrolledStudent;
-
     private List<ContentDto> contents;
-
     private List<LessonDto> lessons;
-
     private Long id;
-
     private String name;
-
     private Integer majorType;
-
     private String playTime;
 }

@@ -1,35 +1,19 @@
-/**
- * @ngdoc service
- * @name clientApp.lectureSvc
- * @description
- * # lectureSvc
- * Service in the clientApp.
- */
 (function () {
   'use strict';
 
   angular
     .module('clientApp')
-    .service('lectureBroker', lecture);
+    .service('contentBroker', contentBroker);
   /* @ngInject */
-  function lecture($log, http, responseCode, alert) {
+  function contentBroker($log, http, responseCode, alert) {
     this.findById = findById;
     this.getList = getList;
     this.create = create;
-    this.enroll = enroll;
 
-    function enroll(id) {
-      http.post('/api/v1/lecture/enroll', {id: id}, function (response) {
+    function create(content, callback) {
+      http.post('/api/v1/content', content, function (response) {
         if (response.code === responseCode.SUCCESS) {
-          alert('생성되었습니다.');
-        }
-      });
-    }
-
-    function create(lecture) {
-      http.post('/api/v1/lecture', lecture, function (response) {
-        if (response.code === responseCode.SUCCESS) {
-          alert('생성되었습니다.');
+          callback(response.result);
         }
       });
     }

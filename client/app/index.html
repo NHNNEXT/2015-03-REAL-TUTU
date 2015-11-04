@@ -10,9 +10,9 @@
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
   <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -77,18 +77,19 @@
 <script src="/bower_components/angular-touch/angular-touch.js"></script>
 <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-<script src="/bower_components/angular-wysiwyg/dist/angular-wysiwyg.min.js"></script>
 <script src="/bower_components/lodash/lodash.js"></script>
 <script src="/bower_components/angular-datepicker/dist/angular-datepicker.js"></script>
 <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
 <script src="/bower_components/restangular/dist/restangular.js"></script>
 <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="/bower_components/freewall/freewall.js"></script>
+<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="/resource/angular-wysiwyg.js"></script>
+
 <script src="/app.js"></script>
 <script src="/prototype.js"></script>
 
@@ -98,6 +99,7 @@
 <script src="/common/service/http.js"></script>
 <script src="/common/service/responseCode.js"></script>
 <script src="/common/service/modal/modal.js"></script>
+<script src="/common/service/types.js"></script>
 
 <script src="/common/directive/mod-input/mod-input.js"></script>
 <script src="/common/directive/menu.js"></script>
@@ -123,6 +125,7 @@
 <script src="/content/directive/content-list/content-list.js"></script>
 <script src="/content/page/contentEdit.js"></script>
 <script src="/content/page/content.js"></script>
+<script src="/content/service/contentBroker.js"></script>
 
 <script src="/user/service/user.js"></script>
 <script src="/user/service/userBroker.js"></script>
@@ -142,7 +145,7 @@
 <script src="/lecture/directive/lesson/lesson.js"></script>
 <script src="/lecture/service/lectures.js"></script>
 <script src="/lecture/service/lectureBroker.js"></script>
-<script src="/lecture/service/majorTypes.js"></script>
+
 
 <script src="/reply/directive/reply/reply.js"></script>
 <!-- endbuild -->

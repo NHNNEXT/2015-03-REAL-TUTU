@@ -8,8 +8,9 @@ angular.module('clientApp')
         query: '='
       },
       templateUrl: '/lecture/directive/lecture-table/lecture-table.html',
-      controller: function ($scope, majorTypes) {
+      controller: function ($scope, types) {
         $scope.key = 'name';
+        var majorTypes = types.majorTypes;
         $scope.$watch('lectures', function (lectures) {
           if (!lectures)
             return;

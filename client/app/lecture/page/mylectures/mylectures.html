@@ -1,12 +1,13 @@
-<div class="jumbotron">
+<div class="jumbotron bg">
   <div class="container">
-    <h2>나의 강의</h2>
-    <p>
-      <drop-down data="user.lectures" placeholder="년도" distinct="year" ng-model="query.year"></drop-down>
-      <drop-down data="user.lectures" placeholder="학기" distinct="semester" ng-model="query.semester"></drop-down>
-      <drop-down data="user.lectures" placeholder="구분" distinct="type" ng-model="query.type"></drop-down>
-      <drop-down data="user.lectures" placeholder="교수" distinct="prof" ng-model="query.prof"></drop-down>
-    </p>
+
+    <h2>내 강의 </h2>
+
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="query">
+
+      <div class="input-group-addon"><i class="fa fa-search"></i></div>
+    </div>
   </div>
 </div>
 

@@ -20,7 +20,6 @@ public class ContentDto {
         this.body = content.getBody();
         this.writeDate = content.getWriteDate();
         this.dueDate = content.getDueDate();
-        this.like = content.getLike();
     }
 
     private List<Reply> replies;

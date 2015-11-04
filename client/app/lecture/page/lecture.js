@@ -4,6 +4,13 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
       controller: function ($scope, $stateParams, lectureBroker) {
+
+        $scope.enroll = function (id) {
+          lectureBroker.enroll(id, function (result) {
+
+          });
+        };
+
         $scope.$watch(function () {
           return $stateParams.id;
         }, function (id) {
