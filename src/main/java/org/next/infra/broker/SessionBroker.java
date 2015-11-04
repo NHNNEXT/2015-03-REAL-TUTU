@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 @Component
 public class SessionBroker {
 
-    private static final String LOGIN_ACCOUNT_ID = "loginAccountId";
+    static final String LOGIN_ACCOUNT_ID = "loginAccountId";
 
     public Long getLoginAccountId(HttpSession session) {
         return getTypeSafeSessionValue(session, LOGIN_ACCOUNT_ID);
@@ -15,6 +15,8 @@ public class SessionBroker {
 
     @SuppressWarnings("unchecked")
     private <T> T getTypeSafeSessionValue(HttpSession session, String key) {
+        T result = (T) session.getAttribute(key);
+
         return (T) session.getAttribute(key);
     }
 

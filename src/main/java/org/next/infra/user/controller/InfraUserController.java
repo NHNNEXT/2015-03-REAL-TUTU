@@ -41,10 +41,10 @@ public class InfraUserController {
         return infraUserService.join(loginToken, name);
     }
 
-    @Secured({"ROLE_NOT_AUTHORIZED", "ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
+    @PermitAll
     @RequestMapping(method = RequestMethod.PUT)
-    public CommonJsonResponse editUserAccountAndInfo(LoginToken loginToken, UserInfo userInfo, HttpSession session) {
-        return infraUserService.edit(loginToken, userInfo, session);
+    public CommonJsonResponse updateUserInfo(UserInfo userInfo, HttpSession session) {
+        return infraUserService.updateUserInfo(userInfo, session);
     }
 
     @Secured({"ROLE_NOT_AUTHORIZED", "ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})

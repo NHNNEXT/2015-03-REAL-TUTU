@@ -4,13 +4,18 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/profile/:id",
       templateUrl: "/user/page/profile.html",
       controller: function ($scope, user, $stateParams, userBroker) {
-        $scope.isRootUser = function(){
+
+        $scope.update = userBroker.update(user);
+
+        $scope.isRootUser = function () {
           return user.id === $scope.user.id;
         };
         $scope.user = {};
         $scope.$watch(function () {
           return $stateParams.id;
         }, function (id) {
+          if (!id)
+            return;
           userBroker.findById(id, function (result) {
             angular.copy(result, $scope.user);
           })

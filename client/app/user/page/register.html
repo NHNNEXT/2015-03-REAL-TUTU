@@ -5,7 +5,6 @@
     <small>NEXT</small>
   </h1>
   <p>간단한 회원가입으로 시작하세요.</p>
-  {{ngRegex}}
   <input class="form-control" placeholder="이름" type="text" ng-model="user.name" ng-regex="regex.name"
          message="이름은 두글자 이상입니다.">
   <input class="form-control" placeholder="이메일" type="email" ng-model="user.email" ng-regex="regex.email"

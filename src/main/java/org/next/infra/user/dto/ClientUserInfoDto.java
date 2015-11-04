@@ -21,6 +21,7 @@ public class ClientUserInfoDto {
     private String studentId;
     private String phoneNumber;
     private String major;
+    private String introduce;
     private List<LectureDto> lectures;
 
     public ClientUserInfoDto(LoginAccount loginAccount) {
@@ -28,18 +29,19 @@ public class ClientUserInfoDto {
         setUserInfo(loginAccount);
     }
 
-    public void setLoginAccountInfo(LoginAccount loginAccountInfo) {
+    private void setLoginAccountInfo(LoginAccount loginAccountInfo) {
         this.id = loginAccountInfo.getId();
         this.email = loginAccountInfo.getEmailId();
         this.accountState = loginAccountInfo.getState();
     }
 
-    public void setUserInfo(LoginAccount loginAccount) {
+    private void setUserInfo(LoginAccount loginAccount) {
         UserInfo info = loginAccount.getUserInfo();
         if (info == null)
             return;
         this.name = info.getName();
         this.studentId = info.getStudentId();
+        this.introduce = info.getIntroduce();
         this.phoneNumber = info.getPhoneNumber();
         this.major = info.getMajor();
         this.lectures = new ArrayList<>();

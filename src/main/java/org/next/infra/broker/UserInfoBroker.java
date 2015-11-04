@@ -22,6 +22,9 @@ public class UserInfoBroker {
     }
 
     public LoginAccount getLoginAccount(HttpSession session) {
+        Long id = (Long) session.getAttribute(SessionBroker.LOGIN_ACCOUNT_ID);
+        if (id == null)
+            return null;
         return loginAccountRepository.findOne(getLoginAccountId(session));
     }
 
