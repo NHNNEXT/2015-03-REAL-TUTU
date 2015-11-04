@@ -18,7 +18,11 @@ angular.module('clientApp').config(function ($stateProvider) {
 
     $scope.register = function (user) {
       if (!$scope.valid()) {
-        alert.warning('이메일과 패스워드를 입력해 주세요');
+        alert.warning('정보를 입력해주세요.');
+        return;
+      }
+      if (!$scope.ngRegex['user.name']) {
+        alert.warning('정보를 입력해주세요.');
         return;
       }
       userBroker.register(user);

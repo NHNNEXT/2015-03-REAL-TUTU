@@ -86,7 +86,7 @@ public class InfraUserService {
         return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(dbAccount));
     }
 
-    public CommonJsonResponse join(LoginToken loginToken) {
+    public CommonJsonResponse join(LoginToken loginToken, String name) {
         if (alreadyJoined(loginToken)) {
             return new CommonJsonResponse(ResponseCode.Register.ALREADY_EXIST_EMAIL);
         }
@@ -94,6 +94,7 @@ public class InfraUserService {
         LoginAccount account = loginAccount(loginToken);
 
         UserInfo userInfo = new UserInfo();
+        userInfo.setName(name);
         userInfoRepository.save(userInfo);
 
         account.setUserInfo(userInfo);

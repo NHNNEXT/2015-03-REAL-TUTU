@@ -37,8 +37,8 @@ public class InfraUserController {
 
     @PermitAll
     @RequestMapping(method = RequestMethod.POST)
-    public CommonJsonResponse joinService(LoginToken loginToken) {
-        return infraUserService.join(loginToken);
+    public CommonJsonResponse joinService(LoginToken loginToken, String name) {
+        return infraUserService.join(loginToken, name);
     }
 
     @Secured({"ROLE_NOT_AUTHORIZED", "ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
