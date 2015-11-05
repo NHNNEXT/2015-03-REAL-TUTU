@@ -407,7 +407,6 @@
         } else if (obj.text) {
           el = document.createElement('span');
         } else {
-          console.log('cannot create this element.');
           el = document.createElement('span');
           return el;
         }

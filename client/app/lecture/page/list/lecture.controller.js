@@ -10,7 +10,7 @@
     _init();
 
     function _init() {
-      lectureBroker.getList(function (lectures) {
+      lectureBroker.getList().then(function (lectures) {
         $scope.lectures = lectures;
       });
     }

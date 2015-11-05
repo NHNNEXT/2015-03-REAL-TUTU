@@ -57,7 +57,7 @@ public class LectureService {
         lecture.addLessons(lessons);
 
         lectureRepository.save(lecture);
-        return successJsonResponse();
+        return successJsonResponse(lecture);
     }
 
     public LectureDto getDtoById(Long lectureId) {

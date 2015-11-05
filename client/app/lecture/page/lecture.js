@@ -3,18 +3,18 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('lecture', {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
-      controller: function ($scope, $stateParams, lectureBroker, user) {
+      controller: function ($scope, $stateParams, lectureBroker, user, alert) {
 
         $scope.enroll = function (id) {
-          lectureBroker.enroll(id, function (result) {
-
+          lectureBroker.enroll(id).then(function(){
+            alert.info('강의에 등록되었습니다.');
           });
         };
 
         $scope.$watch(function () {
           return $stateParams.id;
         }, function (id) {
-          lectureBroker.findById(id, function (lecture) {
+          lectureBroker.findById(id).then(function (lecture) {
             $scope.lecture = lecture;
           });
         });

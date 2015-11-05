@@ -30,7 +30,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         }, function (id) {
           if (!id)
             return;
-          userBroker.findById(id, function (result) {
+          userBroker.findById(id).then(function (result) {
             angular.copy(result, $scope.user);
           })
         });

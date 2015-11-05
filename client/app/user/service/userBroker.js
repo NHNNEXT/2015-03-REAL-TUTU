@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .service('userBroker', function (user, http, $state, responseCode, alert) {
+  .service('userBroker', function (user, http, $state, responseCode, alert, $q) {
     this.login = function () {
       http.post('/api/v1/user/login', user, function (response) {
         if (response.code === responseCode.Login.NOT_EXIST_EMAIL) {
@@ -62,13 +62,17 @@ angular.module('clientApp')
     };
 
 
-    this.findById = function (id, callback) {
-      http.get('/api/v1/user', {id: id}, function (response) {
-        if (response.code === responseCode.GetSessionUser.EMPTY) //세션에 유저가 없으면 리턴
-          return;
-        if (response.code === responseCode.SUCCESS) {//세션에 유저가 없으면 리턴
-          callback(response.result);
-        }
+    this.findById = function (id) {
+      return $q(function (resolve, reject) {
+        http.get('/api/v1/user', {id: id}, function (response) {
+          if (response.code === responseCode.GetSessionUser.EMPTY) {//세션에 유저가 없으면 리턴
+            reject(response);
+            return;
+          }
+          if (response.code === responseCode.SUCCESS) {//세션에 유저가 없으면 리턴
+            resolve(response.result);
+          }
+        });
       });
     };
 

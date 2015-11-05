@@ -124,7 +124,9 @@
       angular.copy(lecture, query);
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
-      lectureBroker.create(query);
+      lectureBroker.create(query).then(function(result){
+        $state.go('lecture',{id:result.id});
+      });
     }
 
     function cancel() {

@@ -10,7 +10,7 @@ angular.module('clientApp').config(function ($stateProvider) {
 
 
 
-        contentBroker.getList(function (list) {
+        contentBroker.getList().then(function (list) {
           $scope.contents = list;
           list.forEach(function (content) {
             content.style = ranStyle(content);

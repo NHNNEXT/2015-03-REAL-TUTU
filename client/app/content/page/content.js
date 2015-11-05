@@ -12,7 +12,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         $scope.$watch(function () {
           return $stateParams.id;
         }, function (id) {
-          contentBroker.findById(id, function (result) {
+          contentBroker.findById(id).then(function (result) {
             angular.copy(result, $scope.content);
             $scope.content.dueDate = new Date($scope.content.dueDate);
             $scope.content.writeDate = new Date($scope.content.writeDate);

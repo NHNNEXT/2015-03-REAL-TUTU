@@ -9,7 +9,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     }, function (id) {
       if (!id)
         return;
-      contentBroker.findById(id, function (result) {
+      contentBroker.findById(id).then(function (result) {
         angular.copy(result, $scope.content);
         $scope.content.dueDate = new Date($scope.content.dueDate);
         $scope.content.writeDate = new Date($scope.content.writeDate);
@@ -18,7 +18,7 @@ angular.module('clientApp').config(function ($stateProvider) {
 
 
     $scope.create = function (content) {
-      contentBroker.create(content, function () {
+      contentBroker.create(content).then(function () {
         $state.go('lecture', {id: content.lectureId});
       });
     };
