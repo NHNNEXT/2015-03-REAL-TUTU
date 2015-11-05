@@ -8,22 +8,12 @@ angular.module('clientApp').config(function ($stateProvider) {
         $scope.user = user;
         $scope.types = types;
 
-        var wall = new freewall('#freewall');
-        $scope.$watch(function () {
-          wall.fitWidth();
-        });
 
 
         contentBroker.getList(function (list) {
           $scope.contents = list;
           list.forEach(function (content) {
             content.style = ranStyle(content);
-          });
-        });
-
-        angular.element($window).bind('resize', function(){
-          $timeout(function(){
-            wall.fitWidth();
           });
         });
 

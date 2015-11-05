@@ -13,7 +13,7 @@
 </div>
 
 <div class="container cube">
-  <div class="panel-body" id="freewall">
+  <div class="panel-body" freewall>
     <div ng-repeat="content in contents | filter:query" class="tile" ng-style="content.style;">
       <i class="fa" ng-class="types.contentIcons[content.type]"></i> {{types.contentTypes[content.type]}}
 

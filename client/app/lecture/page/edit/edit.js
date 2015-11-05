@@ -77,7 +77,7 @@
 
        */
       if (!$scope.lesson.start || !$scope.lesson.end || !$scope.lesson.timeStart || !$scope.lesson.timeEnd) {
-        alert("시간을 입력해주세요.");
+        alert.error("시간을 입력해주세요.");
         return;
       }
       rangeCheck($scope.lesson.start, $scope.lesson.end);

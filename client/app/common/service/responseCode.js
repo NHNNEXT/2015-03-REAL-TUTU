@@ -4,5 +4,4 @@ angular.module('clientApp')
     http.get('/api/v1/responseCode', {}, function (res) {
       angular.copy(res, responseCode);
     });
-    return responseCode;
   });

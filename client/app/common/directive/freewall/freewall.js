@@ -1,13 +1,21 @@
 angular.module('clientApp')
-  .directive('freewall', function () {
+  .directive('freewall', function ($timeout, $window) {
     return {
-      restrict: 'E',
-      templateUrl: '/common/directive/freewall/freewall.html',
+      restrict: 'A',
       link: function postLink(scope, element) {
         var wall = new freewall(element);
-        scope.$watch('items', function () {
-          wall.fitWidth();
+        scope.$watch(function () {
+          $timeout(function () {
+            wall.fitWidth();
+          });
         }, true);
+
+        angular.element($window).bind('resize', function () {
+          $timeout(function () {
+            wall.fitWidth();
+          });
+        });
+
       }
     };
   });
