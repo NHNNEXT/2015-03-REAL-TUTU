@@ -1,7 +1,7 @@
 <span ng-show="!mod">
-   <span ng-bind="ngModel || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true" class="fa fa-pencil"></i></small>
+   <span ng-bind="ngModel || placeholder"></span> <small><i ng-if="modRight" ng-click="mod=true" class="fa fa-pencil"></i></small>
 </span>
-<span ng-show="mod">
+<span ng-if="modRight" ng-show="mod">
   <div class="input-group">
     <input class="form-control" maxlength="{{maxlength}}" placeholder="{{placeholder}}" ng-model="ngModel"
            ng-enter="save()">

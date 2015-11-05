@@ -1,4 +1,4 @@
 <img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
-<span>{{user.name || '이름'}}({{user.email||'이메일'}})</span>
+<span ui-sref="profile({id:user.id})">{{user.name || '이름'}}({{user.email||'이메일'}})</span>
 
 

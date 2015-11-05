@@ -1,6 +1,6 @@
 <div class="sub-header">
   <div class="container">
-    {{content.lectureName}}
+    <span ng-bind="content.lectureName" ui-sref="lecture({id:content.lectureId})"></span>
   </div>
 </div>
 <div class="container">
