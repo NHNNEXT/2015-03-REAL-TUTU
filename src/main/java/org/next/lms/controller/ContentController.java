@@ -1,26 +1,16 @@
 package org.next.lms.controller;
 
-import org.next.infra.broker.SessionBroker;
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
-import org.next.infra.user.domain.LoginAccount;
-import org.next.infra.user.domain.UserInfo;
-import org.next.infra.user.dto.ClientUserInfoDto;
-import org.next.infra.user.dto.LoginToken;
-import org.next.infra.user.service.InfraUserService;
 import org.next.lms.content.domain.Content;
-import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.service.ContentService;
-import org.next.lms.service.LectureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpSession;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;

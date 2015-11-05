@@ -5,7 +5,7 @@ import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.user.domain.*;
-import org.next.infra.user.dto.ClientUserInfoDto;
+import org.next.infra.user.dto.UserDto;
 import org.next.infra.user.dto.LoginToken;
 import org.next.infra.user.repository.AuthorityRepository;
 import org.next.infra.user.repository.LoginAccountRepository;
@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
-import static org.next.infra.util.CommonUtils.notNull;
 
 @Service
 @Transactional
@@ -55,7 +54,7 @@ public class InfraUserService {
         LoginAccount user = userInfoBroker.getLoginAccount(session);
         if (user == null)
             return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
-        return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(user));
+        return new CommonJsonResponse(ResponseCode.SUCCESS, new UserDto(user));
     }
 
     public CommonJsonResponse getUser(Long id) {
@@ -83,7 +82,7 @@ public class InfraUserService {
 
         setLoginStatus(dbAccount, loginToken);
         sessionBroker.setLoginAccountId(session, dbAccount.getId());
-        return new CommonJsonResponse(ResponseCode.SUCCESS, new ClientUserInfoDto(dbAccount));
+        return new CommonJsonResponse(ResponseCode.SUCCESS, new UserDto(dbAccount));
     }
 
     public CommonJsonResponse join(LoginToken loginToken, String name) {
@@ -110,7 +109,7 @@ public class InfraUserService {
         UserInfo userinfo = dbAccount.getUserInfo();
         userinfo.update(passed);
         userInfoRepository.save(userinfo);
-        return successJsonResponse(new ClientUserInfoDto(userinfo));
+        return successJsonResponse(new UserSummaryDto(userinfo));
     }
 
     public CommonJsonResponse withdrawal(HttpSession session) {

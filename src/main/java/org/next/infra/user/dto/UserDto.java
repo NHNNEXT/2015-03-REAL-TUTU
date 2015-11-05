@@ -12,7 +12,7 @@ import java.util.List;
 import static org.next.infra.util.CommonUtils.notNull;
 
 @Getter
-public class ClientUserInfoDto {
+public class UserDto {
 
     private Long id;
     private String email;
@@ -25,13 +25,13 @@ public class ClientUserInfoDto {
     private String profileUrl;
     private List<LectureDto> lectures;
 
-    public ClientUserInfoDto(LoginAccount loginAccount) {
+    public UserDto(LoginAccount loginAccount) {
         setLoginAccountInfo(loginAccount);
         UserInfo info = loginAccount.getUserInfo();
         setUserInfo(info);
     }
 
-    public ClientUserInfoDto(UserInfo userInfo) {
+    public UserDto(UserInfo userInfo) {
         setUserInfo(userInfo);
         LoginAccount account = userInfo.getLoginAccount();
         setLoginAccountInfo(account);

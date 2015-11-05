@@ -1,5 +1,5 @@
 <span ng-show="!mod">
-   <span ng-bind="ngModel"></span> <small><i ng-show="modRight" ng-click="mod=true" class="fa fa-pencil"></i></small>
+   <span ng-bind="ngModel || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true" class="fa fa-pencil"></i></small>
 </span>
 <span ng-show="mod">
   <div class="input-group">

@@ -1,7 +1,7 @@
 <div class="jumbotron bg">
   <div class="container">
     <h1>
-      <mod-input ng-model="user.name" mod-right="isRootUser()" mod-save="update"></mod-input>
+      <mod-input ng-model="user.name" mod-right="isRootUser()" placeholder="이름" mod-save="update"></mod-input>
     </h1>
     <div class="profile-img">
       <img ng-show="!isRootUser()" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
@@ -14,5 +14,9 @@
 <div class="container">
   <p class="margin-top">
     <span ng-bind="user.email"></span>
+    <mod-input ng-model="user.studentId" mod-right="isRootUser()" placeholder="학번" mod-save="update"></mod-input>
+    <mod-input ng-model="user.major" mod-right="isRootUser()" placeholder="전공" mod-save="update"></mod-input>
+    <mod-input ng-model="user.phoneNumber" mod-right="isRootUser()" placeholder="전화번호" mod-save="update"></mod-input>
+    <mod-textarea ng-model="user.introduce" mod-right="isRootUser()" mod-save="update"></mod-textarea>
   </p>
 </div>

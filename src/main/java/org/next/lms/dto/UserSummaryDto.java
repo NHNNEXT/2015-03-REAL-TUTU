@@ -11,6 +11,10 @@ public class UserSummaryDto {
         this.name = userInfo.getName();
         this.profileUrl = userInfo.getProfileUrl();
         this.email = userInfo.getLoginAccount().getEmailId();
+        this.studentId = userInfo.getStudentId();
+        this.phoneNumber = userInfo.getPhoneNumber();
+        this.major = userInfo.getMajor();
+        this.introduce = userInfo.getIntroduce();
     }
 
     private Long id;
@@ -21,5 +25,12 @@ public class UserSummaryDto {
 
     private String profileUrl;
 
+    private String studentId;
+
+    private String phoneNumber;
+
+    private String major;
+
+    private String introduce;
 
 }

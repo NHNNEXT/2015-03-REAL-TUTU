@@ -53,8 +53,7 @@ angular.module('clientApp')
       http.put('/api/v1/user', user, function (response) {
         if (response.code === responseCode.SUCCESS) {
           alert.success("회원 정보가 수정되었습니다.");
-          angular.copy(response.result, user);
-          user.logged = true;
+          angular.merge(user, response.result);
           //바인딩이 끊어져서 할수없이 강제 입력;
           angular.element($('my-profile')).scope().user = user;
         }
