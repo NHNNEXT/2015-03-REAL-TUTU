@@ -6,4 +6,5 @@ import org.next.infra.user.domain.AuthorityType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UploadFileRepository extends JpaRepository<UploadedFile, Long> {
+    UploadedFile findByUglyFileName(String uglifiedFileName);
 }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,13 +20,14 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
+import static org.next.infra.common.view.DownloadView.downloadView;
 import static org.next.infra.util.MultipartFileUtils.getNormalizedFileName;
 
 @Slf4j
 @Service
 @Transactional
 @PropertySource("classpath:config.properties")
-public class FileUploadService {
+public class FileService {
 
     @Value("${FILE_UPLOAD_PATH}")
     private String FILE_STORAGE_DIRECTORY;
@@ -78,5 +80,12 @@ public class FileUploadService {
     private String extractFileExtention(String fileName) {
         int lastPeriod = fileName.lastIndexOf(".");
         return fileName.substring(lastPeriod, fileName.length());
+    }
+
+    public ModelAndView downloadFile(String uglifiedFileName) {
+        File fileInStorage = new File(FILE_STORAGE_DIRECTORY + uglifiedFileName);
+        UploadedFile fileInfoFromDb = uploadFileRepository.findByUglyFileName(uglifiedFileName);
+
+        return downloadView(fileInStorage, fileInfoFromDb.getOriginalFileName());
     }
 }
