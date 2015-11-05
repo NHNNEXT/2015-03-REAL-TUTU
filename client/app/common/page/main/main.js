@@ -4,7 +4,7 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/",
       templateUrl: "/common/page/main/main.html",
       headerClass: 'navbar-fixed-top navbar-transparent',
-      controller: function ($scope, user, contentBroker, types, $timeout) {
+      controller: function ($scope, user, contentBroker, types, $window, $timeout) {
         $scope.user = user;
         $scope.types = types;
 
@@ -18,6 +18,12 @@ angular.module('clientApp').config(function ($stateProvider) {
           $scope.contents = list;
           list.forEach(function (content) {
             content.style = ranStyle(content);
+          });
+        });
+
+        angular.element($window).bind('resize', function(){
+          $timeout(function(){
+            wall.fitWidth();
           });
         });
 

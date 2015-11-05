@@ -7,7 +7,7 @@
 
 <div class="panel-body">
   <ul class="list-group">
-    <li ng-repeat="content in filtered = (contents | filter:query)" class="row list-group-item-">
+    <li ng-repeat="content in filtered = (contents | filter:query |orderBy:'-writeDate')" class="row list-group-item-">
       <div class="col-sm-2">
         <!-- [TODO] 스타일-->
         <i style="line-height: 100px" class="fa fa-4x" ng-class="icons[content.type]"></i>
