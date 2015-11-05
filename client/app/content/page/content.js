@@ -3,7 +3,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('content', {
       url: "/content/:id",
       templateUrl: "/content/page/content.html",
-      controller: function ($scope, user, contentBroker, $stateParams, types) {
+      controller: function ($scope, user, contentBroker, $stateParams, types, replyBroker) {
 
         $scope.user = user;
         $scope.content = {replies: []};
@@ -28,9 +28,11 @@ angular.module('clientApp').config(function ($stateProvider) {
 
 
         $scope.writeReply = function (reply) {
-          reply.writer = user;
-          $scope.content.replies.push(reply);
-          $scope.reply = {};
+          reply.contentId = $scope.content.id;
+          replyBroker.write(reply).then(function (result) {
+            $scope.content.replies.push(result);
+            $scope.reply = {};
+          });
         };
 
       }

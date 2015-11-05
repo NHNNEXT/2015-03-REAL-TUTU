@@ -16,7 +16,7 @@ import java.util.Date;
 public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PARENT_CONTENT_ID")
+    @JoinColumn(name = "CONTENT_ID")
     private Content content;
 
     @ManyToOne(fetch = FetchType.LAZY)

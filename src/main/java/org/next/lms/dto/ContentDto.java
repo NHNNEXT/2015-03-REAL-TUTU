@@ -13,7 +13,7 @@ public class ContentDto {
 
     public ContentDto(Content content) {
         this.replies = new ArrayList<>();
-        content.getReplies().forEach(reply -> replies.add(reply));
+        content.getReplies().forEach(reply -> replies.add(new ReplyDto(reply)));
         this.writer = new UserSummaryDto(content.getWriter().getUserInfo());
         this.lectureName = content.getLecture().getName();
         this.lectureId = content.getLecture().getId();
@@ -30,7 +30,7 @@ public class ContentDto {
 
     private Long hits;
 
-    private List<Reply> replies;
+    private List<ReplyDto> replies;
 
     private UserSummaryDto writer;
 

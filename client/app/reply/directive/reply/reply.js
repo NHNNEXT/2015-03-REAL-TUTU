@@ -5,8 +5,6 @@ angular.module('clientApp')
       scope: {
         reply: '='
       },
-      templateUrl: '/reply/directive/reply/reply.html',
-      controller: function ($scope) {
-      }
+      templateUrl: '/reply/directive/reply/reply.html'
     };
   });
