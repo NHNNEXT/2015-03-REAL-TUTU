@@ -17,7 +17,7 @@
     <i class="fa" ng-class="types.contentIcons[content.type]"></i> {{types.contentTypes[content.type]}}
 
     <h3 ui-sref="content({id:content.id})">{{content.title}}</h3>
-    By {{content.writer.name}}
+    By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span>
 
   </div>
 </div>

@@ -117,3 +117,6 @@ h1 small {
 .white {
   color: white;
 }
+[sort] {
+  cursor: pointer;
+}
