@@ -5,13 +5,23 @@ angular.module('clientApp').config(function ($stateProvider) {
       templateUrl: "/user/page/profile.html",
       controller: function ($scope, user, $stateParams, userBroker) {
 
-        $scope.update = function () {
-          userBroker.update($scope.user);
-        };
+        $scope.uploadCallback = uploadCallback;
+        $scope.update = update;
+        $scope.isRootUser = isRootUser;
 
-        $scope.isRootUser = function () {
+        function uploadCallback(resp) {
+          $scope.user.profileUrl = "/uploads/" + resp.data.result;
+          update();
+        }
+
+        function update() {
+          userBroker.update($scope.user);
+        }
+
+        function isRootUser() {
           return user.id === $scope.user.id;
-        };
+        }
+
         $scope.user = {};
         $scope.$watch(function () {
           return $stateParams.id;

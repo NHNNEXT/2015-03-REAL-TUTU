@@ -4,7 +4,6 @@ angular.module('clientApp')
       restrict: 'E',
       templateUrl: '/user/directive/my-profile/my-profile.html',
       controller: function (user, $scope, userBroker) {
-        $scope.user = user;
         $scope.logout = userBroker.logout;
       }
     };

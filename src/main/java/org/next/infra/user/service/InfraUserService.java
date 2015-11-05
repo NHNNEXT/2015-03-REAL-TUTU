@@ -110,7 +110,7 @@ public class InfraUserService {
         UserInfo userinfo = dbAccount.getUserInfo();
         userinfo.update(passed);
         userInfoRepository.save(userinfo);
-        return successJsonResponse();
+        return successJsonResponse(new ClientUserInfoDto(userinfo));
     }
 
     public CommonJsonResponse withdrawal(HttpSession session) {

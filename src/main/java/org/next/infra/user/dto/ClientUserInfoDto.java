@@ -22,11 +22,19 @@ public class ClientUserInfoDto {
     private String phoneNumber;
     private String major;
     private String introduce;
+    private String profileUrl;
     private List<LectureDto> lectures;
 
     public ClientUserInfoDto(LoginAccount loginAccount) {
         setLoginAccountInfo(loginAccount);
-        setUserInfo(loginAccount);
+        UserInfo info = loginAccount.getUserInfo();
+        setUserInfo(info);
+    }
+
+    public ClientUserInfoDto(UserInfo userInfo) {
+        setUserInfo(userInfo);
+        LoginAccount account = userInfo.getLoginAccount();
+        setLoginAccountInfo(account);
     }
 
     private void setLoginAccountInfo(LoginAccount loginAccountInfo) {
@@ -35,16 +43,14 @@ public class ClientUserInfoDto {
         this.accountState = loginAccountInfo.getState();
     }
 
-    private void setUserInfo(LoginAccount loginAccount) {
-        UserInfo info = loginAccount.getUserInfo();
-        if (info == null)
-            return;
-        this.name = info.getName();
-        this.studentId = info.getStudentId();
-        this.introduce = info.getIntroduce();
-        this.phoneNumber = info.getPhoneNumber();
-        this.major = info.getMajor();
+    private void setUserInfo(UserInfo userInfo) {
+        this.profileUrl = userInfo.getProfileUrl();
+        this.name = userInfo.getName();
+        this.studentId = userInfo.getStudentId();
+        this.introduce = userInfo.getIntroduce();
+        this.phoneNumber = userInfo.getPhoneNumber();
+        this.major = userInfo.getMajor();
         this.lectures = new ArrayList<>();
-        info.getEnrolledLectures().forEach(lecture -> lectures.add(new LectureDto(lecture.getLecture())));
+        userInfo.getEnrolledLectures().forEach(lecture -> lectures.add(new LectureDto(lecture.getLecture())));
     }
 }

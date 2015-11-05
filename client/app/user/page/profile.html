@@ -4,8 +4,8 @@
       <mod-input ng-model="user.name" mod-right="isRootUser()" mod-save="update"></mod-input>
     </h1>
     <div class="profile-img">
-      <img ng-show="!isRootUser()" ng-src="{{user.photo || '/resource/profile.png'}}">
-      <upload-img ng-show="isRootUser()" data="user" attr="profileUrl"></upload-img>
+      <img ng-show="!isRootUser()" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
+      <upload-img ng-show="isRootUser()" ng-model="user.profileUrl" default="/resource/profile.png" done="uploadCallback"></upload-img>
     </div>
 
   </div>
