@@ -3,6 +3,8 @@ package org.next.lms.content.domain;
 import lombok.*;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.like.UserLikesContent;
+import org.next.lms.like.UserLikesLesson;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ import java.util.List;
 @Entity
 @Table(name = "CONTENT")
 public class Content {
+
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    private List<UserLikesContent> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Attachment> attachment = new ArrayList<>();

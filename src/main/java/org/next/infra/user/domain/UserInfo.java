@@ -5,6 +5,10 @@ import lombok.*;
 import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.content.domain.UserManageLecture;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.like.UserLikesContent;
+import org.next.lms.like.UserLikesLecture;
+import org.next.lms.like.UserLikesLesson;
+import org.next.lms.like.UserLikesReply;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,8 +23,6 @@ import java.util.List;
 @Table(name = "USER_INFO")
 public class UserInfo {
 
-    // Relation
-    @JsonIgnore
     @OneToOne(mappedBy = "userInfo")
     private LoginAccount loginAccount;
 
@@ -30,11 +32,21 @@ public class UserInfo {
     @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
     private List<UserManageLecture> manageLectures = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)
     private List<Lecture> hostLectures = new ArrayList<>();
 
-    // Field
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserLikesLecture> likesLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserLikesContent> likesContents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserLikesLesson> likesLessons = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<UserLikesReply> likeReplies = new ArrayList<>();
+
     @Id
     @Column(name = "USER_INFO_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)

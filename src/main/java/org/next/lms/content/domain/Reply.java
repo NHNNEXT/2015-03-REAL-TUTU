@@ -2,9 +2,13 @@ package org.next.lms.content.domain;
 
 import lombok.*;
 import org.next.infra.user.domain.LoginAccount;
+import org.next.lms.like.UserLikesContent;
+import org.next.lms.like.UserLikesReply;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +18,9 @@ import java.util.Date;
 @Entity
 @Table(name = "Reply")
 public class Reply {
+
+    @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY)
+    private List<UserLikesReply> likes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTENT_ID")

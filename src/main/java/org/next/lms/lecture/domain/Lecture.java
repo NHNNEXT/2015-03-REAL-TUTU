@@ -6,6 +6,8 @@ import org.next.infra.user.domain.UserInfo;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.content.domain.UserManageLecture;
+import org.next.lms.like.UserLikesContent;
+import org.next.lms.like.UserLikesLecture;
 
 import javax.persistence.*;
 import java.util.*;
@@ -24,6 +26,10 @@ public class Lecture {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
     private UserInfo hostUser;
+
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<UserLikesLecture> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Lesson> lessons = new ArrayList<>();

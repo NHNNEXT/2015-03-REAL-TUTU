@@ -1,9 +1,13 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.next.lms.like.UserLikesLecture;
+import org.next.lms.like.UserLikesLesson;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +17,9 @@ import java.util.Date;
 @Entity
 @Table(name = "LESSON")
 public class Lesson {
+
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
+    private List<UserLikesLesson> likes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
