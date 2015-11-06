@@ -21,14 +21,14 @@ angular.module('clientApp')
 
     this.register = function (user) {
       http.post('/api/v1/user', user, function (response) {
-        if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
-          alert.info('이미 가입한 이메일입니다.');
-          return;
-        }
-        if (response.code === responseCode.SUCCESS) {
-          alert.success('가입되었습니다.');
-          $state.go('login');
-        }
+          if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
+            alert.info('이미 가입한 이메일입니다.');
+            return;
+          }
+          if (response.code === responseCode.SUCCESS) {
+            alert.success('가입되었습니다.');
+            $state.go('login');
+          }
       });
     };
 

@@ -32,8 +32,10 @@ public class LectureDto {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.majorType = lecture.getMajorType();
+        lecture.getLikes().forEach(like->likes.add(like.getUserInfo().getId()));
     }
 
+    private List<Long> likes = new ArrayList<>();
     private UserSummaryDto hostUser;
     private List<UserSummaryDto> managers;
     private List<UserSummaryDto> enrolledStudent;

@@ -3,6 +3,6 @@
 </div>
 <div class="col-sm-9">
   <span ng-bind-html="reply.body.newLine()"></span>
-  <like value="reply.like" target="reply.id"></like>
+  <like type="REPLY" like="reply.likes" target="reply.id"></like>
   <small>{{reply.date}}</small>
 </div>

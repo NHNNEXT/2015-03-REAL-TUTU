@@ -24,7 +24,10 @@ public class ContentDto {
         this.dueDate = content.getDueDate();
         this.type = content.getType();
         this.hits = content.getHits();
+        content.getLikes().forEach(like->likes.add(like.getUserInfo().getId()));
     }
+
+    private List<Long> likes = new ArrayList<>();
 
     private String lectureName;
 
