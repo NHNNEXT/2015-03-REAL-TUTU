@@ -3,11 +3,13 @@
   angular.module('clientApp').config(function ($stateProvider) {
     $stateProvider
       .state('lectureEdit', {
+        headerClass: 'navbar-fixed-top navbar-transparent',
         url: "/lecture/:id/edit",
         templateUrl: "/lecture/page/edit/edit.html",
         controller: EditLectureController
       })
       .state('lectureNew', {
+        headerClass: 'navbar-fixed-top navbar-transparent',
         url: "/lecture/new",
         templateUrl: "/lecture/page/edit/edit.html",
         controller: EditLectureController
