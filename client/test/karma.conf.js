@@ -40,6 +40,7 @@ module.exports = function(config) {
       'bower_components/bowser/bowser.js',
       'bower_components/freewall/freewall.js',
       'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
+      'bower_components/angular-ui-router-anim-in-out/anim-in-out.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

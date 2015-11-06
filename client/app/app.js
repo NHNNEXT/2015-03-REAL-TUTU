@@ -20,7 +20,8 @@
      'datePicker',
      'ngFileUpload',
      'restangular',
-     'toastr'
+     'toastr',
+     'anim-in-out'
    ]).run(function ($rootScope, $state) {
      $rootScope.$on('$stateChangeSuccess',
        function (event, toState) {
