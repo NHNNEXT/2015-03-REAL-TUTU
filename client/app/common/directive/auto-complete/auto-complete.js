@@ -13,6 +13,7 @@ angular.module('clientApp')
       link: function (s, e, a) {
         angular.element($('body')).bind('click', function () {
           s.selecting = false;
+          if(!s.$$phase)
           s.$apply();
         });
         var ajax;
@@ -63,8 +64,8 @@ angular.module('clientApp')
             return;
           $timeout.cancel(ajax);
           ajax = $timeout(function () {
-            http.get(s.src, {keyword: s.keyword}, function (response) {
-              s.result = response.result;
+            http.get(s.src, {keyword: s.keyword}).then(function (result) {
+              s.result = result;
             });
           });
         });

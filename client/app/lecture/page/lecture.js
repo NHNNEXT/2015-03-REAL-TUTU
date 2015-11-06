@@ -5,6 +5,8 @@ angular.module('clientApp').config(function ($stateProvider) {
       templateUrl: "/lecture/page/lecture.html",
       controller: function ($scope, $stateParams, lectureBroker, user, alert) {
 
+        $scope.user = user;
+
         $scope.enroll = function (id) {
           lectureBroker.enroll(id).then(function(){
             alert.info('강의에 등록되었습니다.');

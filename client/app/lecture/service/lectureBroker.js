@@ -23,6 +23,10 @@
     }
 
     function create(lecture) {
+      lecture.contents = undefined;
+      lecture.enrolledStudent = undefined;
+      lecture.hostUser = undefined;
+      lecture.managers = undefined;
       return http.post('/api/v1/lecture', lecture);
     }
 

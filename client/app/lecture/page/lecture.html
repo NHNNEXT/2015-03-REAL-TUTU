@@ -11,8 +11,10 @@
     <h1>{{lecture.name}}</h1>
     <!--[TODO] Description 로직-->
     <p>{{lecture.description}}</p>
-    <div ng-hide="isEnrolled(lecture.id)" class="btn btn-primary pull-right" ng-click="enroll(lecture.id)">강의 수강</div>
 
+    <div ng-hide="isEnrolled(lecture.id)" class="btn btn-primary pull-right" ng-click="enroll(lecture.id)">강의 수강</div>
+    <div ng-show="user.id === lecture.hostUser.id"><span ui-sref="lectureEdit({id:lecture.id})">수정</span>
+      <span>삭제</span></div>
   </div>
 </div>
 <div class="container">

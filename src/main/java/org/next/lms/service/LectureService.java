@@ -2,9 +2,11 @@ package org.next.lms.service;
 
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
+import org.next.infra.reponse.ResponseCode;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.repository.UserInfoRepository;
+import org.next.lms.auth.LectureAuthority;
 import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
@@ -39,11 +41,17 @@ public class LectureService {
     @Autowired
     private UserInfoBroker userInfoBroker;
 
+    @Autowired
+    private LectureAuthority lectureAuthority;
 
 
     public CommonJsonResponse save(Lecture lecture, String managerIds, String lessonString, HttpSession session) {
         UserInfo userInfo = userInfoBroker.getUserInfo(session);
-        lecture.setHostUser(userInfo);
+        if (lecture.getId() != null) {
+            if (!lectureAuthority.updateRight(userInfo, lectureRepository.findOne(lecture.getId())))
+                return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
+        } else
+            lecture.setHostUser(userInfo);
 
         List<Long> managerIdList = parseList(Long.class, managerIds);
         if (managerIdList != null) {

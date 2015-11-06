@@ -22,7 +22,7 @@
     .controller('EditLectureController', EditLectureController);
 
   /* @ngInject */
-  function EditLectureController($scope, lectureBroker, user, alert, $state, types) {
+  function EditLectureController($scope, lectureBroker, user, alert, $state, types, $stateParams) {
     $scope.create = create;
     $scope.cancel = cancel;
     _init();
@@ -38,6 +38,20 @@
       }
     };
 
+    $scope.$watch(function () {
+      return $stateParams.id;
+    }, function (id) {
+      lectureBroker.findById(id).then(function (lecture) {
+        $scope.lecture = lecture;
+        if (!$scope.lecture.lessons)
+          return;
+        $scope.lecture.lessons.forEach(function (lesson) {
+          lesson.start = new Date(lesson.start);
+          lesson.end = new Date(lesson.end);
+        })
+      });
+    });
+
     function _init() {
       $scope.managers = [];
       $scope.week = [];
@@ -45,13 +59,6 @@
 
       $scope.lecture = {
         lessons: [],
-        name: "",
-        term: "",
-        type: "",
-        score: "",
-        day: "",
-        time: "",
-        body: ""
       };
     }
 
@@ -126,8 +133,8 @@
       angular.copy(lecture, query);
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
-      lectureBroker.create(query).then(function(result){
-        $state.go('lecture',{id:result.id});
+      lectureBroker.create(query).then(function (result) {
+        $state.go('lecture', {id: result.id});
       });
     }
 
