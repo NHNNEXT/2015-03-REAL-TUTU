@@ -37,7 +37,7 @@ angular.module('clientApp').config(function ($stateProvider) {
 
         $scope.writeReply = function (reply) {
           reply.contentId = $scope.content.id;
-          replyBroker.write(reply).then(function (result) {
+          replyBroker.save(reply).then(function (result) {
             $scope.content.replies.push(result);
             $scope.reply = {};
           });

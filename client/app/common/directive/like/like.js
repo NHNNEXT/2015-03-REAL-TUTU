@@ -30,7 +30,8 @@ angular.module('clientApp')
           http.post('/api/v1/like', {
             id: $scope.target,
             type: responseCode.Like[$scope.type]
-          }).then(function (response) {
+          }).then(function () {
+          }, function (response) {
             if (response.code === responseCode.Like.ADD) {
               $scope.like.push(user.id);
               $scope.heartClass = 'fa-heart';

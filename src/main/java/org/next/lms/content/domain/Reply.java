@@ -41,4 +41,9 @@ public class Reply {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "WRITE_DATE")
     private Date writeDate;
+
+    public void update(Reply reply) {
+        this.writeDate = new Date();
+        this.body = reply.body;
+    }
 }

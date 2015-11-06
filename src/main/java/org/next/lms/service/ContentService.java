@@ -4,6 +4,7 @@ import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.user.domain.UserInfo;
 import org.next.lms.auth.LectureAuthority;
+import org.next.lms.auth.ReplyAuthority;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.Reply;
 import org.next.lms.dto.ContentDto;
@@ -34,17 +35,17 @@ public class ContentService {
     LectureRepository lectureRepository;
 
     @Autowired
-    ReplyRepository replyRepository;
-
-    @Autowired
     ContentAuthority contentAuthority;
 
     @Autowired
     LectureAuthority lectureAuthority;
 
+
     public ContentDto getDtoById(Long id) {
-        Content content = contentRepository.getOne(id);
-        content.setHits(content.getHits() + 1);
+        Content content = contentRepository.findOne(id);
+        if (content == null)
+            return null;
+        content.hits();
         contentRepository.save(content);
         return new ContentDto(content);
     }
@@ -53,7 +54,7 @@ public class ContentService {
         if (lectureId == null)
             return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
 
-        Lecture lecture = lectureRepository.getOne(lectureId);
+        Lecture lecture = lectureRepository.findOne(lectureId);
         if (lecture == null)
             return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
 
@@ -72,8 +73,8 @@ public class ContentService {
     }
 
     private CommonJsonResponse update(Content content, UserInfo userInfo, Lecture lecture) {
-        Content fromDB = contentRepository.getOne(content.getId());
-        if (!contentAuthority.hasUpdateRight(fromDB, userInfo))
+        Content fromDB = contentRepository.findOne(content.getId());
+        if (!contentAuthority.updateRight(fromDB, userInfo))
             return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
         fromDB.update(content);
         contentRepository.save(fromDB);
@@ -87,23 +88,11 @@ public class ContentService {
         return dtoList;
     }
 
-    // [TODO] 컨트롤러 분리
-    public CommonJsonResponse saveReply(Reply reply, UserInfo userInfo, Long contentId) {
-        Content content = contentRepository.getOne(contentId);
-        if (content == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
-        reply.setWriter(userInfo.getLoginAccount());
-        reply.setContent(content);
-        reply.setWriteDate(new Date());
-        replyRepository.save(reply);
-        return successJsonResponse(new ReplyDto(reply));
-    }
-
     public CommonJsonResponse delete(Long id, UserInfo userInfo) {
-        Content content = contentRepository.getOne(id);
+        Content content = contentRepository.findOne(id);
         if (content == null)
             return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
-        if (!contentAuthority.hasDeleteRight(content, userInfo))
+        if (!contentAuthority.deleteRight(content, userInfo))
             return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
         contentRepository.delete(id);
         return successJsonResponse();

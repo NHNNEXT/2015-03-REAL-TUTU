@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class ContentAuthority {
-    public boolean hasUpdateRight(Content fromDB, UserInfo userInfo) {
+    public boolean updateRight(Content fromDB, UserInfo userInfo) {
         return fromDB.getWriter().getUserInfo().equals(userInfo);
     }
 
-    public boolean hasDeleteRight(Content content, UserInfo userInfo) {
+    public boolean deleteRight(Content content, UserInfo userInfo) {
         return content.getWriter().getUserInfo().equals(userInfo);
     }
 }

@@ -49,6 +49,10 @@ Number.prototype.zf = function (len) {
   return this.toString().zf(len);
 };
 
+Number.prototype.toYMD = function(){
+  return new Date(this).toYMD();
+};
+
 Date.prototype.toYMD = function () {
   return this.getDateString() + " (" + this.getDayKR() + ") " + this.getTimeString();
 };

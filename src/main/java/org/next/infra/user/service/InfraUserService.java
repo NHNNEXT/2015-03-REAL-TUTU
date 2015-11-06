@@ -54,7 +54,7 @@ public class InfraUserService {
     }
 
     public CommonJsonResponse getUser(Long id) {
-        LoginAccount user = loginAccountRepository.getOne(id);
+        LoginAccount user = loginAccountRepository.findOne(id);
         if (user == null)
             return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
         return new CommonJsonResponse(ResponseCode.SUCCESS, new UserSummaryDto(user.getUserInfo()));

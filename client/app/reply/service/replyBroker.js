@@ -3,10 +3,15 @@ angular
   .module('clientApp')
   .service('replyBroker', replyBroker);
 /* @ngInject */
-function replyBroker(http, responseCode, $q) {
-  this.write = write;
+function replyBroker(http) {
+  this.save = save;
+  this.deleteReply = deleteReply;
 
-  function write(reply) {
+  function save(reply) {
     return http.post('/api/v1/reply', reply);
+  }
+
+  function deleteReply(id) {
+    return http.delete('/api/v1/reply', {id: id});
   }
 }

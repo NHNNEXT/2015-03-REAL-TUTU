@@ -73,7 +73,7 @@ public class LikeController {
 
     private CommonJsonResponse likeContent(Long id, LoginAccount loginAccount) {
         UserInfo user = loginAccount.getUserInfo();
-        UserLikesContent relation = new UserLikesContent(user, contentRepository.getOne(id));
+        UserLikesContent relation = new UserLikesContent(user, contentRepository.findOne(id));
         if (user.getLikeContents().contains(relation)) {
             user.getLikeContents().forEach(like -> {
                 if (Objects.equals(like.getContent().getId(), id))
@@ -85,13 +85,9 @@ public class LikeController {
         return new CommonJsonResponse(ResponseCode.Like.ADD);
     }
 
-    private void getById(List<UserLikesContent> likesContents, Long id) {
-
-    }
-
     private CommonJsonResponse likeLecture(Long id, LoginAccount loginAccount) {
         UserInfo user = loginAccount.getUserInfo();
-        UserLikesLecture relation = new UserLikesLecture(user, lectureRepository.getOne(id));
+        UserLikesLecture relation = new UserLikesLecture(user, lectureRepository.findOne(id));
         if (user.getLikeLectures().contains(relation)) {
             user.getLikeLectures().forEach(like -> {
                 if (Objects.equals(like.getLecture().getId(), id))
@@ -105,7 +101,7 @@ public class LikeController {
 
     private CommonJsonResponse likeLesson(Long id, LoginAccount loginAccount) {
         UserInfo user = loginAccount.getUserInfo();
-        UserLikesLesson relation = new UserLikesLesson(user, lessonRepository.getOne(id));
+        UserLikesLesson relation = new UserLikesLesson(user, lessonRepository.findOne(id));
         if (user.getLikeLessons().contains(relation)) {
             user.getLikeLessons().forEach(like -> {
                 if (Objects.equals(like.getLesson().getId(), id))
@@ -119,13 +115,12 @@ public class LikeController {
 
     private CommonJsonResponse likeReply(Long id, LoginAccount loginAccount) {
         UserInfo user = loginAccount.getUserInfo();
-        UserLikesReply relation = new UserLikesReply(user, replyRepository.getOne(id));
+        UserLikesReply relation = new UserLikesReply(user, replyRepository.findOne(id));
         if (user.getLikeReplies().contains(relation)) {
             user.getLikeReplies().forEach(like -> {
                 if (Objects.equals(like.getReply().getId(), id))
                     userLikesReplyRepository.delete(like);
             });
-            userLikesReplyRepository.delete(relation.getId());
             return new CommonJsonResponse(ResponseCode.Like.REMOVE);
         }
         userLikesReplyRepository.save(relation);

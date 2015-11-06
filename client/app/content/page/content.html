@@ -45,24 +45,18 @@
           ({{content.replies.length}})</span>
         <ul class="list-group">
           <li ng-repeat="reply in content.replies" class="list-group-item wrap reply">
-            <div reply="reply"></div>
+            <div reply="reply" replies="content.replies"></div>
           </li>
           <li class="list-group-item- wrap">
-            <div class="col-sm-3">
-              <user-profile user="user"></user-profile>
-            </div>
-            <div class="col-sm-9">
-              <div class="input-group">
-                <textarea ng-model="reply.body" class="form-control"></textarea>
-
-                <div class="input-group-addon" ng-click="writeReply(reply)">
-                  <span ng-switch="content.type">
+            <user-profile user="user"></user-profile>
+            <wysiwyg ng-model="reply.body" textarea-class="form-control"
+                     textarea-height="250px"
+                     textarea-required enable-bootstrap-title="true"></wysiwyg>
+            <div class="btn btn-primary margin-vertical full-width" ng-click="writeReply(reply)">
+              <span ng-switch="content.type">
                     <span ng-switch-when="2">제출하기</span>
                     <span ng-switch-default>댓글달기</span>
-                  </span>
-                </div>
-              </div>
-            </div>
+                  </span></div>
           </li>
         </ul>
       </div>

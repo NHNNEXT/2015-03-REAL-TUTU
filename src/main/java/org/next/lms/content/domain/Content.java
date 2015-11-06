@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.hibernate.annotations.NotFound;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.UserLikesContent;
@@ -72,6 +73,12 @@ public class Content {
             this.dueDate = content.dueDate;
         if (content.type != null)
             this.type = content.type;
+    }
+
+    public void hits() {
+        if(hits == null)
+            hits = 0L;
+        hits++;
     }
 }
 

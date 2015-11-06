@@ -1,9 +1,9 @@
 angular.module('clientApp')
   .service('userBroker', function (user, http, $state, responseCode, alert, $q) {
     this.login = function () {
-      http.post('/api/v1/user/login', user).then(function (response) {
+      http.post('/api/v1/user/login', user).then(function (result) {
         alert.success('로그인 되었습니다.');
-        angular.copy(response.result, user);
+        angular.copy(result, user);
         user.logged = true;
         $state.go('main');
       }, function (response) {
@@ -13,7 +13,6 @@ angular.module('clientApp')
         }
         if (response.code === responseCode.Login.WRONG_PASSWORD) {
           alert.warning('패스워드가 다릅니다.');
-          return;
         }
       });
     };

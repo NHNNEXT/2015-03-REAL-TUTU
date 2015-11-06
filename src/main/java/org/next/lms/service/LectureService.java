@@ -27,8 +27,6 @@ import static org.next.infra.util.CommonUtils.parseList;
 @Service
 public class LectureService {
 
-    private static final Logger logger = LoggerFactory.getLogger(LectureService.class);
-
     @Autowired
     private UserInfoRepository userInfoRepository;
 
@@ -61,7 +59,7 @@ public class LectureService {
     }
 
     public LectureDto getDtoById(Long lectureId) {
-        return new LectureDto(lectureRepository.getOne(lectureId));
+        return new LectureDto(lectureRepository.findOne(lectureId));
     }
 
     public List<LectureDto> getDtoList() {
@@ -72,7 +70,7 @@ public class LectureService {
 
     public CommonJsonResponse enroll(Long id, HttpSession session) {
         LoginAccount user = userInfoBroker.getLoginAccount(session);
-        Lecture lecture = lectureRepository.getOne(id);
+        Lecture lecture = lectureRepository.findOne(id);
         UserEnrolledLecture relation = new UserEnrolledLecture();
         relation.setLecture(lecture);
         relation.setUserInfo(user.getUserInfo());

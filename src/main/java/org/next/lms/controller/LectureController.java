@@ -1,7 +1,5 @@
 package org.next.lms.controller;
 
-import org.next.infra.broker.SessionBroker;
-import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
@@ -13,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 
