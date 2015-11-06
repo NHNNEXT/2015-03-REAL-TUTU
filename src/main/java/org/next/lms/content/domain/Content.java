@@ -62,5 +62,16 @@ public class Content {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DUE_DATE")
     private Date dueDate;
+
+    public void update(Content content) {
+        if (content.title != null)
+            this.title = content.title;
+        if (content.body != null)
+            this.body = content.body;
+        if (content.dueDate != null)
+            this.dueDate = content.dueDate;
+        if (content.type != null)
+            this.type = content.type;
+    }
 }
 

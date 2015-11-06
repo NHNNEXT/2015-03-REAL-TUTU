@@ -3,7 +3,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('content', {
       url: "/content/:id",
       templateUrl: "/content/page/content.html",
-      controller: function ($scope, user, contentBroker, $stateParams, types, replyBroker) {
+      controller: function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state) {
 
         $scope.user = user;
         $scope.content = {replies: []};
@@ -24,6 +24,14 @@ angular.module('clientApp').config(function ($stateProvider) {
           if (remain < 0)
             return 0;
           return remain;
+        };
+
+        $scope.delete = function (content) {
+          if (!confirm("삭제하시겠습니까?"))
+            return;
+          contentBroker.delete(content.id).then(function () {
+            $state.go('lecture', {id: content.lectureId});
+          });
         };
 
 

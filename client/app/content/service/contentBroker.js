@@ -5,19 +5,32 @@
     .module('clientApp')
     .service('contentBroker', contentBroker);
   /* @ngInject */
-  function contentBroker($log, http, responseCode, $q) {
+  function contentBroker(http, responseCode, $q) {
     this.findById = findById;
     this.getList = getList;
-    this.create = create;
+    this.edit = edit;
+    this.delete = deleteContent;
 
-    function create(content) {
+    function deleteContent(id) {
       return $q(function (resolve, reject) {
+        http.delete('/api/v1/content', {id: id}, function (response) {
+          if (response.code === responseCode.SUCCESS) {
+            resolve(response.result);
+          }
+          reject(response);
+        });
+      });
+    }
+
+    function edit(content) {
+      return $q(function (resolve, reject) {
+        content.writer = undefined;
         http.post('/api/v1/content', content, function (response) {
           if (response.code === responseCode.SUCCESS) {
             resolve(response.result);
           }
+          reject(response);
         });
-        reject(response);
       });
     }
 

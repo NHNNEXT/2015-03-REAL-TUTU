@@ -11,24 +11,26 @@ import javax.servlet.http.HttpSession;
 @Component
 public class UserInfoBroker {
 
+    static final String LOGIN_ACCOUNT_ID = "loginAccountId";
+
     @Autowired
     private LoginAccountRepository loginAccountRepository;
 
-    @Autowired
-    private SessionBroker sessionBroker;
-
-    public Long getLoginAccountId(HttpSession session) {
-        return sessionBroker.getLoginAccountId(session);
-    }
-
     public LoginAccount getLoginAccount(HttpSession session) {
-        Long id = (Long) session.getAttribute(SessionBroker.LOGIN_ACCOUNT_ID);
+        Long id = (Long) session.getAttribute(LOGIN_ACCOUNT_ID);
         if (id == null)
             return null;
-        return loginAccountRepository.findOne(getLoginAccountId(session));
+        return loginAccountRepository.findOne(id);
     }
 
     public UserInfo getUserInfo(HttpSession session) {
-        return getLoginAccount(session).getUserInfo();
+        LoginAccount account = getLoginAccount(session);
+        if(account == null)
+            return null;
+        return account.getUserInfo();
+    }
+
+    public void setUserIdToSession(HttpSession session, Long id) {
+        session.setAttribute(LOGIN_ACCOUNT_ID, id);
     }
 }

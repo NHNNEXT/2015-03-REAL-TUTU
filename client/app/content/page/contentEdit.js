@@ -17,8 +17,8 @@ angular.module('clientApp').config(function ($stateProvider) {
     });
 
 
-    $scope.create = function (content) {
-      contentBroker.create(content).then(function () {
+    $scope.edit = function (content) {
+      contentBroker.edit(content).then(function () {
         $state.go('lecture', {id: content.lectureId});
       });
     };

@@ -45,4 +45,9 @@ public class ContentController {
     public CommonJsonResponse saveLecture(Content content, Long lectureId, HttpSession session) {
         return contentService.save(content, userInfoBroker.getUserInfo(session), lectureId);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public CommonJsonResponse deleteLecture(Long id, HttpSession session) {
+        return contentService.delete(id, userInfoBroker.getUserInfo(session));
+    }
 }

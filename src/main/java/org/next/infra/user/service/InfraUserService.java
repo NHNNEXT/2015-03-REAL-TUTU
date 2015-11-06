@@ -1,6 +1,5 @@
 package org.next.infra.user.service;
 
-import org.next.infra.broker.SessionBroker;
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.reponse.ResponseCode;
@@ -45,9 +44,6 @@ public class InfraUserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private SessionBroker sessionBroker;
-
-    @Autowired
     private UserInfoBroker userInfoBroker;
 
     public CommonJsonResponse getSessionUser(HttpSession session) {
@@ -81,7 +77,7 @@ public class InfraUserService {
         }
 
         setLoginStatus(dbAccount, loginToken);
-        sessionBroker.setLoginAccountId(session, dbAccount.getId());
+        userInfoBroker.setUserIdToSession(session, dbAccount.getId());
         return new CommonJsonResponse(ResponseCode.SUCCESS, new UserDto(dbAccount));
     }
 
