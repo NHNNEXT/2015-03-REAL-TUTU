@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "managers", "enrolledStudent", "contents"})
+@ToString(exclude = {"hostUser", "managers", "enrolledStudent", "contents", "likes", "lessons"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "managers", "enrolledStudent", "contents"})
+@EqualsAndHashCode(exclude = {"hostUser", "managers", "enrolledStudent", "contents", "likes", "lessons"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -26,7 +26,6 @@ public class Lecture {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
     private UserInfo hostUser;
-
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserLikesLecture> likes = new ArrayList<>();
@@ -63,11 +62,11 @@ public class Lecture {
         });
     }
 
-   public void addLessons(List<Lesson> lessons) {
-       lessons.forEach(item->{
-           item.setLecture(this);
-           this.lessons.add(item);
-       });
+    public void addLessons(List<Lesson> lessons) {
+        lessons.forEach(item -> {
+            item.setLecture(this);
+            this.lessons.add(item);
+        });
     }
 }
 

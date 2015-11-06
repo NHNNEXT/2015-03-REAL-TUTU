@@ -10,15 +10,15 @@ import javax.persistence.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "id")
 @Entity
 @Table(name = "USER_LIKES_CONTENT")
 public class UserLikesContent {
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private UserInfo userInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CONTENT_ID")
     private Content content;
 
@@ -26,4 +26,10 @@ public class UserLikesContent {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    public UserLikesContent(UserInfo userInfo, Content content) {
+        this.userInfo = userInfo;
+        this.content = content;
+    }
+
 }

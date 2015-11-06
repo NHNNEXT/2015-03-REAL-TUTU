@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"likes", "lecture"})
 @Entity
 @Table(name = "LESSON")
 public class Lesson {

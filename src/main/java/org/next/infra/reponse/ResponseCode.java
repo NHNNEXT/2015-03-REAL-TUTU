@@ -11,6 +11,8 @@ public class ResponseCode {
 
     public static final Integer WROING_ACCESS = 1;
 
+    public static final Integer LOGIN_NEEDED = 13;
+
 
     public static final class Register {
         public static final Integer ALREADY_EXIST_EMAIL = 2;
@@ -29,6 +31,16 @@ public class ResponseCode {
     public static final class FileUpload {
         public static final Integer FILE_NOT_ATTACHED = 7;
         public static final Integer ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT = 8;
+    }
+
+
+    public static final class Like {
+        public static final Integer CONTENT = 9;
+        public static final Integer LECTURE = 10;
+        public static final Integer REPLY = 11;
+        public static final Integer LESSON = 12;
+        public static final Integer ADD = 14;
+        public static final Integer REMOVE = 15;
     }
 
 
@@ -66,7 +78,7 @@ public class ResponseCode {
         }
     }
 
-    public static Map<String,?> getResponseCodeMap(){
+    public static Map<String, ?> getResponseCodeMap() {
         return responseCode;
     }
 
@@ -82,4 +94,5 @@ public class ResponseCode {
             map.put(cLass.getSimpleName(), parseClass(cLass));
         return map;
     }
+
 }

@@ -16,9 +16,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures"})
+@ToString(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures", "likesLectures", "likesContents", "likesLessons", "likeReplies"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures"})
+@EqualsAndHashCode(exclude = {"loginAccount", "enrolledLectures", "manageLectures", "hostLectures", "likesLectures", "likesContents", "likesLessons", "likeReplies"})
 @Entity
 @Table(name = "USER_INFO")
 public class UserInfo {
@@ -36,13 +36,13 @@ public class UserInfo {
     private List<Lecture> hostLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
-    private List<UserLikesLecture> likesLectures = new ArrayList<>();
+    private List<UserLikesLecture> likeLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
-    private List<UserLikesContent> likesContents = new ArrayList<>();
+    private List<UserLikesContent> likeContents = new ArrayList<>();
 
     @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
-    private List<UserLikesLesson> likesLessons = new ArrayList<>();
+    private List<UserLikesLesson> likeLessons = new ArrayList<>();
 
     @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
     private List<UserLikesReply> likeReplies = new ArrayList<>();

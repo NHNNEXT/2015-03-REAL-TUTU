@@ -13,9 +13,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment"})
+@ToString(exclude = {"attachment", "likes", "replies", "writer", "lecture"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment"})
+@EqualsAndHashCode(exclude = {"attachment", "likes", "replies", "writer", "lecture"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {

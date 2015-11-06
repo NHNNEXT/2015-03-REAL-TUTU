@@ -12,9 +12,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"content"})
+@ToString(exclude = {"content", "likes", "writer"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"content"})
+@EqualsAndHashCode(exclude = {"content", "likes", "writer"})
 @Entity
 @Table(name = "Reply")
 public class Reply {
