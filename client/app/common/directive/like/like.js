@@ -27,7 +27,10 @@ angular.module('clientApp')
         $scope.likeToggle = function () {
           if (!user.logged)
             return;
-          http.post('/api/v1/like', {id: $scope.target, type: responseCode.Like[$scope.type]}, function (response) {
+          http.post('/api/v1/like', {
+            id: $scope.target,
+            type: responseCode.Like[$scope.type]
+          }).then(function (response) {
             if (response.code === responseCode.Like.ADD) {
               $scope.like.push(user.id);
               $scope.heartClass = 'fa-heart';

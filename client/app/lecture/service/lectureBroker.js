@@ -12,54 +12,26 @@
     .module('clientApp')
     .service('lectureBroker', lecture);
   /* @ngInject */
-  function lecture(http, responseCode, $q) {
+  function lecture(http, responseCode) {
     this.findById = findById;
     this.getList = getList;
     this.create = create;
     this.enroll = enroll;
 
     function enroll(id) {
-      return $q(function (resolve, reject) {
-        http.post('/api/v1/lecture/enroll', {id: id}, function (response) {
-          if (response.code === responseCode.SUCCESS) {
-            resolve(response.result);
-          }
-          reject(response);
-        });
-      });
+      return http.post('/api/v1/lecture/enroll', {id: id});
     }
 
     function create(lecture) {
-      return $q(function (resolve, reject) {
-        http.post('/api/v1/lecture', lecture, function (response) {
-          if (response.code === responseCode.SUCCESS) {
-            resolve(response.result);
-          }
-          reject(response);
-        });
-      });
+      return http.post('/api/v1/lecture', lecture);
     }
 
     function findById(lectureId) {
-      return $q(function (resolve, reject) {
-        http.get('/api/v1/lecture', {id: lectureId}, function (response) {
-          if (response.code === responseCode.SUCCESS) {
-            resolve(response.result);
-          }
-          reject(response);
-        });
-      });
+      return http.get('/api/v1/lecture', {id: lectureId});
     }
 
     function getList() {
-      return $q(function (resolve, reject) {
-        http.get('/api/v1/lecture', function (response) {
-          if (response.code === responseCode.SUCCESS) {
-            resolve(response.result);
-          }
-          reject(response);
-        });
-      });
+      return http.get('/api/v1/lecture');
     }
 
   }

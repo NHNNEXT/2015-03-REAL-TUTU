@@ -7,13 +7,6 @@ function replyBroker(http, responseCode, $q) {
   this.write = write;
 
   function write(reply) {
-    return $q(function (resolve, reject) {
-      http.post('/api/v1/reply', reply, function (response) {
-        if (response.code === responseCode.SUCCESS) {
-          resolve(response.result);
-        }
-        reject(response);
-      });
-    });
+    return http.post('/api/v1/reply', reply);
   }
 }

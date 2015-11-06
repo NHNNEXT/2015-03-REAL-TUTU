@@ -8,12 +8,8 @@
  * Factory in the clientApp.
  */
 angular.module('clientApp')
-  .factory('http', function ($http, alert) {
+  .factory('http', function ($http, $q, responseCode) {
     var http = function (method, url, params, success, error) {
-      if (typeof params === "function") {
-        http(method, url, {}, params, success);
-        return;
-      }
       var options = {
         method: method, url: url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -33,27 +29,38 @@ angular.module('clientApp')
         options.data = params;
       }
 
-      $http(options).success(function (res) {
+      $http(options).success(function (response) {
         if (!success)
           return;
-        success(res);
+        if (response.code === responseCode.SUCCESS) {
+          success(response.result);
+        }
+        error(response);
       }).error(function (e) {
         if (!error)
           return;
         error(e);
       });
     };
-    http.get = function (url, params, success, error) {
-      this("GET", url, params, success, error);
+    http.get = function (url, params) {
+      return $q(function (resolve, reject) {
+        http("GET", url, params, resolve, reject);
+      });
     };
-    http.post = function (url, params, success, error) {
-      this("POST", url, params, success, error);
+    http.post = function (url, params) {
+      return $q(function (resolve, reject) {
+        http("POST", url, params, resolve, reject);
+      });
     };
-    http.put = function (url, params, success, error) {
-      this("PUT", url, params, success, error);
+    http.put = function (url, params) {
+      return $q(function (resolve, reject) {
+        http("PUT", url, params, resolve, reject);
+      });
     };
-    http.delete = function (url, params, success, error) {
-      this("DELETE", url, params, success, error);
+    http.delete = function (url, params) {
+      return $q(function (resolve, reject) {
+        http("DELETE", url, params, resolve, reject);
+      });
     };
     return http;
   });
