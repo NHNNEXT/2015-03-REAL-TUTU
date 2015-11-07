@@ -32,17 +32,19 @@
     $scope.push = push;
     _init();
 
-    $scope.push = function push(selected) {
+    function push(selected) {
       if (!selected || !selected.email)
         return;
       if (!$scope.managers.includes(selected)) {
         $scope.managers.push(selected);
       }
-    };
+    }
 
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
+      if (!id)
+        return;
       lectureBroker.findById(id).then(function (lecture) {
         $scope.lecture = lecture;
         if (!$scope.lecture.lessons)

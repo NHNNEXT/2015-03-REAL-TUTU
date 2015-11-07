@@ -20,7 +20,7 @@ angular.module('clientApp')
     };
 
     this.update = function (user) {
-      return http.put('/api/v1/user', user);
+      return http.put('/api/v1/user', user, true);
     };
 
     this.findById = function (id) {

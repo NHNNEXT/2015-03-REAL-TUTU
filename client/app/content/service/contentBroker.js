@@ -12,12 +12,12 @@
     this.remove = remove;
 
     function remove(id) {
-      return http.delete('/api/v1/content', {id: id});
+      return http.delete('/api/v1/content', {id: id}, true);
     }
 
     function edit(content) {
       content.writer = undefined;
-      return http.post('/api/v1/content', content);
+      return http.post('/api/v1/content', content, true);
     }
 
     function findById(id) {

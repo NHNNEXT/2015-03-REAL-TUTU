@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('clientApp')
   .factory('user', function (alert, modal) {
     var User = function () {
@@ -14,5 +13,4 @@ angular.module('clientApp')
       modal.login();
     };
     return new User();
-
   });

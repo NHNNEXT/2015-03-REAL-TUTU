@@ -25,8 +25,6 @@ angular.module('clientApp')
           $scope.like = [];
 
         $scope.likeToggle = function () {
-          if (!user.loginCheck())
-            return;
           http.post('/api/v1/like', {
             id: $scope.target,
             type: responseCode.Like[$scope.type]

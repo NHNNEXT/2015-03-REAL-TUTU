@@ -8,7 +8,7 @@
  * Factory in the clientApp.
  */
 angular.module('clientApp')
-  .factory('http', function ($http, $q, responseCode) {
+  .factory('http', function ($http, $q, responseCode, user) {
     var http = function (method, url, params, success, error) {
       var options = {
         method: method, url: url,
@@ -42,22 +42,30 @@ angular.module('clientApp')
         error(e);
       });
     };
-    http.get = function (url, params) {
+    http.get = function (url, params, loginNeeded) {
+      if (loginNeeded && !user.loginCheck())
+        return;
       return $q(function (resolve, reject) {
         http("GET", url, params, resolve, reject);
       });
     };
-    http.post = function (url, params) {
+    http.post = function (url, params, loginNeeded) {
+      if (loginNeeded && !user.loginCheck())
+        return;
       return $q(function (resolve, reject) {
         http("POST", url, params, resolve, reject);
       });
     };
-    http.put = function (url, params) {
+    http.put = function (url, params, loginNeeded) {
+      if (loginNeeded && !user.loginCheck())
+        return;
       return $q(function (resolve, reject) {
         http("PUT", url, params, resolve, reject);
       });
     };
-    http.delete = function (url, params) {
+    http.delete = function (url, params, loginNeeded) {
+      if (loginNeeded && !user.loginCheck())
+        return;
       return $q(function (resolve, reject) {
         http("DELETE", url, params, resolve, reject);
       });
