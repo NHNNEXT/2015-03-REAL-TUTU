@@ -56,8 +56,7 @@
         </div>
         <div class="panel-body">
           <div ng-repeat="lesson in lecture.lessons |orderBy:'start'">
-            <span lesson="lesson" index="$index" style="display:inline-block"></span>
-            <i ng-click="lecture.lessons.remove(lesson)" class="fa fa-times margin-left"></i>
+            <lesson-edit lesson="lesson" lessons="lecture.lessons" index="$index" style="display:inline-block"></lesson-edit>
           </div>
           <div ng-show="lecture.lessons.length==0">등록된 수업이 없습니다.</div>
 

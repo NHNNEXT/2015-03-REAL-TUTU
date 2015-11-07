@@ -17,6 +17,18 @@
       <span ng-click="remove(lecture.id)">삭제</span></div>
   </div>
 </div>
+
+<div class="container">
+  <user-profile user="lecture.hostUser"></user-profile>
+  <user-profile user="user" ng-repeat="user in lecture.managers"></user-profile>
+</div>
+
+<div class="container">
+  <lesson lesson="lesson" ng-repeat="lesson in lecture.lessons"></lesson>
+  <div ui-calendar ng-model="events"></div>
+</div>
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-9">

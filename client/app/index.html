@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
   <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
   <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -32,6 +33,8 @@
   <link rel="stylesheet" href="/user/directive/user-profile/user-profile.css"/>
   <link rel="stylesheet" href="/user/modal/form.css"/>
   <link rel="stylesheet" href="/user/page/profile.css"/>
+  <link rel="stylesheet" href="/lesson/directive/lesson/lesson.css"/>
+  <link rel="stylesheet" href="/lesson/directive/lesson-edit/lesson-edit.css"/>
 
   <!-- endbuild -->
 </head>
@@ -89,6 +92,9 @@
 <script src="/bower_components/freewall/freewall.js"></script>
 <script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
 <script src="/bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
+<script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+<script src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -150,8 +156,10 @@
 <script src="/lecture/page/list/lecture.js"></script>
 <script src="/lecture/page/list/lecture.controller.js"></script>
 <script src="/lecture/directive/lecture-table/lecture-table.js"></script>
-<script src="/lecture/directive/lesson/lesson.js"></script>
 <script src="/lecture/service/lectureBroker.js"></script>
+
+<script src="/lesson/directive/lesson/lesson.js"></script>
+<script src="/lesson/directive/lesson-edit/lesson-edit.js"></script>
 
 <script src="/reply/directive/reply/reply.js"></script>
 <script src="/reply/service/replyBroker.js"></script>

@@ -1,11 +1,11 @@
 angular.module('clientApp')
   .directive('lesson', function ($compile, $state) {
     return {
-      restrict: 'A',
+      restrict: 'E',
       scope: {
         lesson: '=',
         index: '='
       },
-      templateUrl: '/lecture/directive/lesson/lesson.html',
+      templateUrl: '/lesson/directive/lesson/lesson.html'
     };
   });

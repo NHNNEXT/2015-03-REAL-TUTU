@@ -14,6 +14,7 @@
      'ngResource',
      'ngSanitize',
      'ngTouch',
+     'ui.calendar',
      'ui.router',
      'ui.bootstrap',
      'wysiwyg.module',

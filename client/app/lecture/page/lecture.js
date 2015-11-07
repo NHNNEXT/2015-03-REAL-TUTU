@@ -15,6 +15,14 @@ angular.module('clientApp').config(function ($stateProvider) {
         }, function (id) {
           lectureBroker.findById(id).then(function (lecture) {
             $scope.lecture = lecture;
+            $scope.events = [];
+            $scope.lecture.lessons.forEach(function(lesson){
+              var event  ={};
+              event.start = new Date(lesson.start);
+              event.end = new Date(lesson.end);
+              event.title = lesson.name;
+              $scope.events.push(event);
+            });
           });
         });
 
