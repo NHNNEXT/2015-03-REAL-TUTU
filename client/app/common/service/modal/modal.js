@@ -34,6 +34,10 @@
       open('centered', "/user/modal/register.html", 'userLoginController');
     };
 
+    this.close = function(){
+      if(modalInstance)
+        modalInstance.close();
+    };
     //"" , "lg", "sm"
     function open(size, templateId, controller, params) {
       if(modalInstance)

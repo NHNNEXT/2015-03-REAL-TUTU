@@ -3,7 +3,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('profile', {
       url: "/profile/:id",
       templateUrl: "/user/page/profile.html",
-      controller: function ($scope, user, $stateParams, userBroker) {
+      controller: function ($scope, user, $stateParams, userBroker, alert) {
 
         $scope.uploadCallback = uploadCallback;
         $scope.update = update;
@@ -15,11 +15,17 @@ angular.module('clientApp').config(function ($stateProvider) {
         }
 
         function update() {
-          userBroker.update($scope.user);
+          userBroker.update($scope.user).then(function (result) {
+            alert.success("회원 정보가 수정되었습니다.");
+            angular.merge(user, result);
+            user.logged = true;
+            //바인딩이 끊어져서 할수없이 강제 입력;
+            angular.element($('my-profile')).scope().user = user;
+          });
         }
 
         function isRootUser() {
-          if (!user.logged || !user.id)
+          if (!user.loginCheck())
             return;
           return user.id === $scope.user.id;
         }
