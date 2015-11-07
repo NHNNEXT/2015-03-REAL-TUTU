@@ -1,4 +1,3 @@
-
 /**
  * @ngdoc service
  * @name clientApp.lectureSvc
@@ -6,23 +5,43 @@
  * # lectureSvc
  * Service in the clientApp.
  */
- (function() {
-   'use strict';
+(function () {
+  'use strict';
 
-angular
-  .module('clientApp')
-  .service('modal', modal);
+  angular
+    .module('clientApp')
+    .service('modal', modal)
+    .directive('modal', function (modal) {
+      return {
+        restrict: 'A',
+        link: function (s, e, a) {
+          e.bind('click', function () {
+            modal[a.modal]();
+          })
+        }
+      }
+    });
   /* @ngInject */
-  function modal($uibModal,$q) {
+  function modal($uibModal, $q) {
     this.open = open;
+    var modalInstance;
+
+    this.login = function () {
+      open('centered', "/user/modal/login.html", 'userLoginController');
+    };
+
+    this.register = function () {
+      open('centered', "/user/modal/register.html", 'userLoginController');
+    };
 
     //"" , "lg", "sm"
-    function open(size, templateId, controller,params) {
-
-      var modalInstance = $uibModal.open({
+    function open(size, templateId, controller, params) {
+      if(modalInstance)
+        modalInstance.close();
+      modalInstance = $uibModal.open({
         templateUrl: templateId,
         controller: controller,
-        size:size,
+        size: size,
         resolve: {
           params: function () {
             return params;
@@ -31,9 +50,9 @@ angular
       });
 
       var deferred = $q.defer();
-      modalInstance.result.then(function(result) {
+      modalInstance.result.then(function (result) {
         deferred.resolve(result);
-      },function (error) {
+      }, function (error) {
         deferred.reject(error);
       });
       return deferred.promise;

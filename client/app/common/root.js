@@ -7,7 +7,9 @@
  * # HeaderCtrl
  * Controller of the clientApp
  */
+var modals;
 angular.module('clientApp')
-  .controller('root', function ($state, $scope) {
+  .controller('root', function ($state, $scope, modal) {
     $scope.state = $state;
+    modals = modal;
   });

@@ -141,3 +141,19 @@ table > tfoot > tr > td,
 .navbar {
   border-radius: 0 !important;
 }
+.modal-dialog.modal-centered {
+  color: white;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-60%) !important;
+  text-align: center;
+  width: 300px;
+}
+.modal-content {
+  height: 100%;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}

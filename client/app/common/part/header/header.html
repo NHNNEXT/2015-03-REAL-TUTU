@@ -18,8 +18,8 @@
         <menu state="lectures" name="전체 강의"></menu>
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-show="!user.logged">
-        <menu state="register" name="회원가입"></menu>
-        <menu state="login" name="로그인"></menu>
+        <li modal="register"><a>회원가입</a></li>
+        <li modal="login"><a>로그인</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-show="user.logged">
         <li>
