@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @ToString(exclude = {"lecture", "userInfo"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"lecture", "userInfo"})
+@EqualsAndHashCode(exclude = {"id"})
 @Entity
 @Table(name = "USER_MANAGE_LECTURE")
 public class UserManageLecture {
@@ -24,7 +24,7 @@ public class UserManageLecture {
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_INFO_ID")
     private UserInfo userInfo;
 

@@ -35,8 +35,8 @@
     function push(selected) {
       if (!selected || !selected.email)
         return;
-      if (!$scope.managers.includes(selected)) {
-        $scope.managers.push(selected);
+      if (!$scope.lecture.managers.includes(selected)) {
+        $scope.lecture.managers.push(selected);
       }
     }
 
@@ -57,12 +57,12 @@
     });
 
     function _init() {
-      $scope.managers = [];
       $scope.week = [];
       $scope.lesson = {};
 
       $scope.lecture = {
-        lessons: []
+        lessons: [],
+        managers : []
       };
     }
 
@@ -116,11 +116,11 @@
     function edit(lecture) {
       var managerIds = [];
       var query = {};
-      $scope.managers.forEach(function (manager) {
+      $scope.lecture.managers.forEach(function (manager) {
         managerIds.push(manager.id)
       });
-      lecture.managerIds = managerIds;
       angular.copy(lecture, query);
+      query.managerIds = JSON.stringify(managerIds);
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
       lectureBroker.edit(query).then(function (result) {

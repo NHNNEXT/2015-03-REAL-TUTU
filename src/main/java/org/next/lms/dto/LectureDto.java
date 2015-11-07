@@ -24,8 +24,10 @@ public class LectureDto {
         this.name = lecture.getName();
         this.majorType = lecture.getMajorType();
         this.likes = lecture.getLikes().stream().map(like -> like.getUserInfo().getId()).collect(toList());
+        this.date = lecture.getDate();
     }
 
+    private Date date;
     private List<Long> likes;
     private UserSummaryDto hostUser;
     private List<UserSummaryDto> managers;

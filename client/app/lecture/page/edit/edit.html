@@ -37,9 +37,9 @@
             <user-profile user="user"></user-profile>
           </div>
 
-          <div ng-repeat="manager in managers">
+          <div ng-repeat="manager in lecture.managers">
             <user-profile user="manager"></user-profile>
-            <i class="fa fa-times" ng-click="managers.remove(manager)"></i>
+            <i class="fa fa-times" ng-click="lecture.managers.remove(manager)"></i>
           </div>
         </div>
         <div class="panel-footer">

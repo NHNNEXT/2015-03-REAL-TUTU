@@ -10,9 +10,9 @@
 
   angular
     .module('clientApp')
-    .service('lectureBroker', lecture);
+    .service('lectureBroker', lectureBroker);
   /* @ngInject */
-  function lecture(http, user) {
+  function lectureBroker(http, user) {
     this.findById = findById;
     this.getList = getList;
     this.edit = edit;
@@ -33,6 +33,7 @@
       lecture.contents = undefined;
       lecture.enrolledStudent = undefined;
       lecture.hostUser = undefined;
+      lecture.date = undefined;
       lecture.managers = undefined;
       return http.post('/api/v1/lecture', lecture, true);
     }

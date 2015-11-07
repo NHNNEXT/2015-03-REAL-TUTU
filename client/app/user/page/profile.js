@@ -25,7 +25,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         }
 
         function isRootUser() {
-          if (!user.loginCheck())
+          if (!user.logged)
             return;
           return user.id === $scope.user.id;
         }

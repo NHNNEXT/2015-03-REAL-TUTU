@@ -43,30 +43,30 @@ angular.module('clientApp')
       });
     };
     http.get = function (url, params, loginNeeded) {
-      if (loginNeeded && !user.loginCheck())
-        return;
       return $q(function (resolve, reject) {
+        if (loginNeeded && !user.loginCheck())
+          return;
         http("GET", url, params, resolve, reject);
       });
     };
     http.post = function (url, params, loginNeeded) {
-      if (loginNeeded && !user.loginCheck())
-        return;
       return $q(function (resolve, reject) {
+        if (loginNeeded && !user.loginCheck())
+          return;
         http("POST", url, params, resolve, reject);
       });
     };
     http.put = function (url, params, loginNeeded) {
-      if (loginNeeded && !user.loginCheck())
-        return;
       return $q(function (resolve, reject) {
+        if (loginNeeded && !user.loginCheck())
+          return;
         http("PUT", url, params, resolve, reject);
       });
     };
     http.delete = function (url, params, loginNeeded) {
-      if (loginNeeded && !user.loginCheck())
-        return;
       return $q(function (resolve, reject) {
+        if (loginNeeded && !user.loginCheck())
+          return;
         http("DELETE", url, params, resolve, reject);
       });
     };

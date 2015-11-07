@@ -6,13 +6,10 @@ import org.next.infra.user.domain.UserInfo;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.content.domain.UserManageLecture;
-import org.next.lms.like.UserLikesContent;
 import org.next.lms.like.UserLikesLecture;
 
 import javax.persistence.*;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,10 +27,10 @@ public class Lecture {
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserLikesLecture> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Lesson> lessons = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<UserManageLecture> managers = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
@@ -53,12 +50,16 @@ public class Lecture {
     @Column(name = "TYPE")
     private Integer majorType;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE")
+    private Date date;
+
     public void addManagers(List<UserInfo> managers) {
         managers.forEach(managerUserInfo -> {
-            UserManageLecture lecture = new UserManageLecture();
-            lecture.setLecture(this);
-            lecture.setUserInfo(managerUserInfo);
-            this.managers.add(lecture);
+            UserManageLecture relation = new UserManageLecture();
+            relation.setLecture(this);
+            relation.setUserInfo(managerUserInfo);
+            this.managers.add(relation);
         });
     }
 
@@ -73,6 +74,15 @@ public class Lecture {
         this.hostUser = null;
         this.managers = null;
         this.enrolledStudent = null;
+    }
+
+    public void update(Lecture lecture) {
+        if (lecture.name != null)
+            this.name = lecture.name;
+        if (lecture.majorType != null)
+            this.majorType = lecture.majorType;
+        if (lecture.date != null)
+            this.date = lecture.date;
     }
 }
 

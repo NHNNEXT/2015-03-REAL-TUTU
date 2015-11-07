@@ -13,8 +13,8 @@ angular.module('clientApp')
       link: function (s, e, a) {
         angular.element($('body')).bind('click', function () {
           s.selecting = false;
-          if(!s.$$phase)
-          s.$apply();
+          if (!s.$$phase)
+            s.$apply();
         });
         var ajax;
         s.result = [];
