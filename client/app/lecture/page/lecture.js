@@ -10,19 +10,25 @@ angular.module('clientApp').config(function ($stateProvider) {
         $scope.enroll = enroll;
         $scope.isEnrolled = isEnrolled;
 
+        $scope.current = new Date();
+        $scope.view = 'month';
+
         $scope.$watch(function () {
           return $stateParams.id;
         }, function (id) {
           lectureBroker.findById(id).then(function (lecture) {
             $scope.lecture = lecture;
-            $scope.events = [];
-            $scope.lecture.lessons.forEach(function(lesson){
-              var event  ={};
-              event.start = new Date(lesson.start);
-              event.end = new Date(lesson.end);
-              event.title = lesson.name;
-              $scope.events.push(event);
+            var i = 0;
+            var date = 0;
+            $scope.lecture.lessons.forEach(function (lesson) {
+              i++;
+              date += lesson.start;
+              date += lesson.end;
+              lesson.title = lesson.name;
+              lesson.start = new Date(lesson.start);
+              lesson.end = new Date(lesson.end);
             });
+            $scope.current = new Date(date / i / 2);
           });
         });
 

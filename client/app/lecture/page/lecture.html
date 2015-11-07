@@ -18,14 +18,21 @@
   </div>
 </div>
 
-<div class="container">
-  <user-profile user="lecture.hostUser"></user-profile>
-  <user-profile user="user" ng-repeat="user in lecture.managers"></user-profile>
 </div>
 
 <div class="container">
-  <lesson lesson="lesson" ng-repeat="lesson in lecture.lessons"></lesson>
-  <div ui-calendar ng-model="events"></div>
+  <div class="row">
+    <div class="col-md-3">
+      <user-profile user="lecture.hostUser"></user-profile>
+      <user-profile user="user" ng-repeat="user in lecture.managers"></user-profile>
+    </div>
+    <div class="col-md-3">
+      <lesson lesson="lesson" ng-repeat="lesson in lecture.lessons"></lesson>
+    </div>
+    <div class="col-md-6">
+      <div calendar="lecture.lessons" current="current"></div>
+    </div>
+  </div>
 </div>
 
 
