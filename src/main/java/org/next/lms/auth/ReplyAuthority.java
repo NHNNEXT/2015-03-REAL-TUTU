@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class ReplyAuthority {
-    public boolean updateRight(Reply fromDB, UserInfo userInfo) {
-        return fromDB.getWriter().getUserInfo().getId().equals(userInfo.getId());
+public class ReplyAuthority extends Authority {
+    public void checkUpdateRight(Reply fromDB, UserInfo userInfo) {
+        rightCheck(fromDB.getWriter().getUserInfo().getId().equals(userInfo.getId()));
     }
 
-    public boolean deleteRight(Reply fromDB, UserInfo userInfo) {
-        return fromDB.getWriter().getUserInfo().getId().equals(userInfo.getId());
+    public void checkDeleteRight(Reply fromDB, UserInfo userInfo) {
+        rightCheck(fromDB.getWriter().getUserInfo().getId().equals(userInfo.getId()));
     }
 }

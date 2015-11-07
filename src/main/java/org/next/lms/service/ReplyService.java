@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
+import static org.next.infra.util.CommonUtils.assureNotNull;
 
 @Service
 public class ReplyService {
@@ -33,9 +34,7 @@ public class ReplyService {
         Long id = reply.getId();
         if (id != null)
             return updateReply(reply, userInfo);
-        Content content = contentRepository.findOne(contentId);
-        if (content == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
+        Content content = assureNotNull(contentRepository.findOne(contentId));
         reply.setWriter(userInfo.getLoginAccount());
         reply.setContent(content);
         reply.setWriteDate(new Date());
@@ -44,24 +43,20 @@ public class ReplyService {
     }
 
     private CommonJsonResponse updateReply(Reply reply, UserInfo userInfo) {
-        Reply fromDB = replyRepository.findOne(reply.getId());
-        if (!replyAuthority.updateRight(fromDB, userInfo))
-            return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
-
-        if (fromDB == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
+        Reply fromDB = assureNotNull(replyRepository.findOne(reply.getId()));
+        replyAuthority.checkUpdateRight(fromDB, userInfo);
         fromDB.update(reply);
         replyRepository.save(fromDB);
         return successJsonResponse(new ReplyDto(fromDB));
     }
 
     public CommonJsonResponse deleteReply(Long id, UserInfo userInfo) {
-        if (id == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
-        Reply reply = replyRepository.findOne(id);
-        if (!replyAuthority.deleteRight(reply, userInfo))
-            return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
-        replyRepository.delete(reply);
+        assureNotNull(id);
+        Reply reply = assureNotNull(replyRepository.findOne(id));
+        replyAuthority.checkDeleteRight(reply, userInfo);
+        reply.setContent(null);
+        reply.setWriteDate(null);
+        replyRepository.save(reply);
         return successJsonResponse();
     }
 }

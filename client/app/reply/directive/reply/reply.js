@@ -13,9 +13,9 @@ angular.module('clientApp')
           replyBroker.save({body: $scope.reply.body, id: $scope.reply.id});
         };
         $scope.delete = function (id) {
+          if (!confirm("삭제하시겠습니까?"))
+            return;
           replyBroker.deleteReply(id).then(function () {
-            if (!confirm("삭제하시겠습니까?"))
-              return;
             $scope.replies.remove($scope.reply);
           });
         };

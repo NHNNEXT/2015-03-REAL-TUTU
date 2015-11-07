@@ -6,6 +6,7 @@ import org.next.lms.content.domain.Reply;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class ReplyDto {
@@ -14,10 +15,10 @@ public class ReplyDto {
         this.body = reply.getBody();
         this.writeDate = reply.getWriteDate();
         this.writer = new UserSummaryDto(reply.getWriter().getUserInfo());
-        reply.getLikes().forEach(like->likes.add(like.getUserInfo().getId()));
+        this.likes = reply.getLikes().stream().map(like -> like.getUserInfo().getId()).collect(Collectors.toList());
     }
 
-    private List<Long> likes = new ArrayList<>();
+    private List<Long> likes;
 
     private Long id;
 

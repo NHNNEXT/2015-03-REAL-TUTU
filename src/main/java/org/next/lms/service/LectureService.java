@@ -2,7 +2,6 @@ package org.next.lms.service;
 
 import org.next.infra.broker.UserInfoBroker;
 import org.next.infra.common.dto.CommonJsonResponse;
-import org.next.infra.reponse.ResponseCode;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.UserInfo;
 import org.next.infra.user.repository.UserInfoRepository;
@@ -13,8 +12,6 @@ import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.Lesson;
 import org.next.lms.repository.LectureRepository;
 import org.next.lms.repository.UserEnrolledLectureRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
+import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.util.CommonUtils.parseList;
 
 @Service
@@ -48,8 +46,7 @@ public class LectureService {
     public CommonJsonResponse save(Lecture lecture, String managerIds, String lessonString, HttpSession session) {
         UserInfo userInfo = userInfoBroker.getUserInfo(session);
         if (lecture.getId() != null) {
-            if (!lectureAuthority.updateRight(userInfo, lectureRepository.findOne(lecture.getId())))
-                return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
+            lectureAuthority.checkUpdateRight(userInfo, assureNotNull(lectureRepository.findOne(lecture.getId())));
         } else
             lecture.setHostUser(userInfo);
 
@@ -66,23 +63,28 @@ public class LectureService {
         return successJsonResponse(new LectureDto(lecture));
     }
 
-    public LectureDto getDtoById(Long lectureId) {
+    public LectureDto getById(Long lectureId) {
         return new LectureDto(lectureRepository.findOne(lectureId));
     }
 
-    public List<LectureDto> getDtoList() {
-        List<LectureDto> result = new ArrayList<>();
-        lectureRepository.findAll().forEach(lecture -> result.add(new LectureDto(lecture)));
-        return result;
+    public List<LectureDto> getList() {
+        return lectureRepository.findAll().stream().map(LectureDto::new).collect(Collectors.toList());
     }
 
     public CommonJsonResponse enroll(Long id, HttpSession session) {
         LoginAccount user = userInfoBroker.getLoginAccount(session);
-        Lecture lecture = lectureRepository.findOne(id);
+        Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         UserEnrolledLecture relation = new UserEnrolledLecture();
         relation.setLecture(lecture);
         relation.setUserInfo(user.getUserInfo());
         userEnrolledLectureRepository.save(relation);
         return successJsonResponse();
+    }
+
+    public CommonJsonResponse delete(Long id, HttpSession session) {
+        LoginAccount user = userInfoBroker.getLoginAccount(session);
+        Lecture lecture = assureNotNull(lectureRepository.findOne(id));
+        lectureAuthority.checkDeleteRight(user, lecture);
+        return null;
     }
 }

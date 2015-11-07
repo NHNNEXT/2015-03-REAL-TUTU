@@ -1,7 +1,6 @@
 package org.next.lms.controller;
 
 import org.next.infra.common.dto.CommonJsonResponse;
-import org.next.lms.dto.LectureDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.service.LectureService;
 import org.slf4j.Logger;
@@ -33,8 +32,8 @@ public class LectureController {
     @RequestMapping(method = RequestMethod.GET)
     public CommonJsonResponse getLectureInfo(Long id) {
         if (id == null)
-            return successJsonResponse(lectureService.getDtoList());
-        return successJsonResponse(lectureService.getDtoById(id));
+            return successJsonResponse(lectureService.getList());
+        return successJsonResponse(lectureService.getById(id));
     }
 
 
@@ -42,6 +41,11 @@ public class LectureController {
     @RequestMapping(method = RequestMethod.POST)
     public CommonJsonResponse saveLecture(String lessonString, Lecture lecture, String managerIds, HttpSession session) {
         return lectureService.save(lecture, managerIds, lessonString, session);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public CommonJsonResponse deleteLecture(Long id, HttpSession session) {
+        return lectureService.delete(id, session);
     }
 
     @RequestMapping(value = "/enroll", method = RequestMethod.POST)

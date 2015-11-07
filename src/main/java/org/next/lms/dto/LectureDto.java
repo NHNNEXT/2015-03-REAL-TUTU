@@ -6,6 +6,9 @@ import org.next.lms.lecture.domain.Lecture;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Getter
 public class LectureDto {
@@ -13,29 +16,17 @@ public class LectureDto {
 
     public LectureDto(Lecture lecture) {
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
-        this.managers = new ArrayList<>();
-        lecture.getManagers().forEach(referenceTable -> {
-            managers.add(new UserSummaryDto(referenceTable.getUserInfo()));
-        });
-        this.enrolledStudent = new ArrayList<>();
-        lecture.getEnrolledStudent().forEach(referenceTable -> {
-            enrolledStudent.add(new UserSummaryDto(referenceTable.getUserInfo()));
-        });
-        contents = new ArrayList<>();
-        lecture.getContents().forEach(content -> {
-            contents.add(new ContentSummaryDto(content));
-        });
-        this.lessons = new ArrayList<>();
-        lecture.getLessons().forEach(lesson -> {
-            lessons.add(new LessonDto(lesson));
-        });
+        this.managers = lecture.getManagers().stream().map(referenceTable -> new UserSummaryDto(referenceTable.getUserInfo())).collect(toList());
+        this.enrolledStudent = lecture.getEnrolledStudent().stream().map(referenceTable -> new UserSummaryDto(referenceTable.getUserInfo())).collect(toList());
+        this.contents = lecture.getContents().stream().map(ContentSummaryDto::new).collect(toList());
+        this.lessons = lecture.getLessons().stream().map(LessonDto::new).collect(toList());
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.majorType = lecture.getMajorType();
-        lecture.getLikes().forEach(like->likes.add(like.getUserInfo().getId()));
+        this.likes = lecture.getLikes().stream().map(like -> like.getUserInfo().getId()).collect(toList());
     }
 
-    private List<Long> likes = new ArrayList<>();
+    private List<Long> likes;
     private UserSummaryDto hostUser;
     private List<UserSummaryDto> managers;
     private List<UserSummaryDto> enrolledStudent;

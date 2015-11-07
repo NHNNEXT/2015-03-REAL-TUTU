@@ -12,12 +12,13 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class ContentAuthority {
-    public boolean updateRight(Content fromDB, UserInfo userInfo) {
-        return fromDB.getWriter().getUserInfo().equals(userInfo);
+public class ContentAuthority extends Authority {
+    public void checkUpdateRight(Content fromDB, UserInfo userInfo) {
+        rightCheck(fromDB.getWriter().getUserInfo().equals(userInfo));
     }
 
-    public boolean deleteRight(Content content, UserInfo userInfo) {
-        return content.getWriter().getUserInfo().equals(userInfo);
+    public void checkDeleteRight(Content content, UserInfo userInfo) {
+        rightCheck((content.getWriter().getUserInfo().equals(userInfo)));
     }
+
 }

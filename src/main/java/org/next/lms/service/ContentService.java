@@ -4,16 +4,12 @@ import org.next.infra.common.dto.CommonJsonResponse;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.user.domain.UserInfo;
 import org.next.lms.auth.LectureAuthority;
-import org.next.lms.auth.ReplyAuthority;
 import org.next.lms.content.domain.Content;
-import org.next.lms.content.domain.Reply;
 import org.next.lms.dto.ContentDto;
 import org.next.lms.dto.ContentSummaryDto;
-import org.next.lms.dto.ReplyDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.repository.ContentRepository;
 import org.next.lms.repository.LectureRepository;
-import org.next.lms.repository.ReplyRepository;
 import org.next.lms.auth.ContentAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
 
@@ -58,8 +55,7 @@ public class ContentService {
         if (lecture == null)
             return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
 
-        if (!lectureAuthority.hasAuthority(lecture, userInfo))
-            return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
+        lectureAuthority.checkUpdateRight(lecture, userInfo);
 
         if (content.getId() != null)
             return update(content, userInfo, lecture);
@@ -74,27 +70,24 @@ public class ContentService {
 
     private CommonJsonResponse update(Content content, UserInfo userInfo, Lecture lecture) {
         Content fromDB = contentRepository.findOne(content.getId());
-        if (!contentAuthority.updateRight(fromDB, userInfo))
-            return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
+        contentAuthority.checkUpdateRight(fromDB, userInfo);
         fromDB.update(content);
         contentRepository.save(fromDB);
         return successJsonResponse();
     }
 
     public List<ContentSummaryDto> getList() {
-        List<ContentSummaryDto> dtoList = new ArrayList<>();
-        List<Content> list = contentRepository.findAll();
-        list.forEach(content -> dtoList.add(new ContentSummaryDto(content)));
-        return dtoList;
+        return contentRepository.findAll().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
     }
 
     public CommonJsonResponse delete(Long id, UserInfo userInfo) {
         Content content = contentRepository.findOne(id);
         if (content == null)
             return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
-        if (!contentAuthority.deleteRight(content, userInfo))
-            return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
-        contentRepository.delete(id);
+        contentAuthority.checkDeleteRight(content, userInfo);
+        content.setLecture(null);
+        content.setWriter(null);
+        contentRepository.save(content);
         return successJsonResponse();
     }
 }

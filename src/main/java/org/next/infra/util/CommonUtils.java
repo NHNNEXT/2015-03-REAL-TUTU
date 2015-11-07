@@ -1,6 +1,7 @@
 package org.next.infra.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.next.lms.exception.WrongAcessExeption;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +11,15 @@ public class CommonUtils {
     public static boolean notNull(Object obj) {
         return obj != null;
     }
+
+    public static <T> T assureNotNull(T obj) {
+        if (obj == null)
+            throw new WrongAcessExeption();
+        return (T) obj;
+    }
+
+
+
 
     public static <T> List<T> parseList(Class<T> clazz, String arrayString) {
         ObjectMapper mapper = new ObjectMapper();

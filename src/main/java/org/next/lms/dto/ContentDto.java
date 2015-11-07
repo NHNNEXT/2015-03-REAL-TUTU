@@ -7,13 +7,13 @@ import org.next.lms.content.domain.Reply;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class ContentDto {
 
     public ContentDto(Content content) {
-        this.replies = new ArrayList<>();
-        content.getReplies().forEach(reply -> replies.add(new ReplyDto(reply)));
+        this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
         this.writer = new UserSummaryDto(content.getWriter().getUserInfo());
         this.lectureName = content.getLecture().getName();
         this.lectureId = content.getLecture().getId();
@@ -24,10 +24,10 @@ public class ContentDto {
         this.dueDate = content.getDueDate();
         this.type = content.getType();
         this.hits = content.getHits();
-        content.getLikes().forEach(like->likes.add(like.getUserInfo().getId()));
+        this.likes = content.getLikes().stream().map(like -> like.getUserInfo().getId()).collect(Collectors.toList());
     }
 
-    private List<Long> likes = new ArrayList<>();
+    private List<Long> likes;
 
     private String lectureName;
 

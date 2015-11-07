@@ -6,6 +6,7 @@ import org.next.lms.lecture.domain.Lesson;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class LessonDto {
@@ -16,18 +17,13 @@ public class LessonDto {
         this.description = lesson.getDescription();
         this.start = lesson.getStart();
         this.end = lesson.getEnd();
-        lesson.getLikes().forEach(like->likes.add(like.getUserInfo().getId()));
+        this.likes = lesson.getLikes().stream().map(like -> like.getUserInfo().getId()).collect(Collectors.toList());
     }
 
     private List<Long> likes = new ArrayList<>();
-
     private Long id;
-
     private String name;
-
     private String description;
-
     private Date start;
-
     private Date end;
 }
