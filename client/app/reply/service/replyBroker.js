@@ -5,13 +5,13 @@ angular
 /* @ngInject */
 function replyBroker(http) {
   this.save = save;
-  this.deleteReply = deleteReply;
+  this.remove = remove;
 
   function save(reply) {
     return http.post('/api/v1/reply', reply);
   }
 
-  function deleteReply(id) {
+  function remove(id) {
     return http.delete('/api/v1/reply', {id: id});
   }
 }

@@ -12,17 +12,22 @@
     .module('clientApp')
     .service('lectureBroker', lecture);
   /* @ngInject */
-  function lecture(http, responseCode) {
+  function lecture(http) {
     this.findById = findById;
     this.getList = getList;
-    this.create = create;
+    this.edit = edit;
     this.enroll = enroll;
+    this.remove = remove;
+
+    function remove(id) {
+      return http.delete('/api/v1/lecture', {id: id});
+    }
 
     function enroll(id) {
       return http.post('/api/v1/lecture/enroll', {id: id});
     }
 
-    function create(lecture) {
+    function edit(lecture) {
       lecture.contents = undefined;
       lecture.enrolledStudent = undefined;
       lecture.hostUser = undefined;

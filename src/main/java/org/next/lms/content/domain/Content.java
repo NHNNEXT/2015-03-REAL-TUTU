@@ -76,9 +76,14 @@ public class Content {
     }
 
     public void hits() {
-        if(hits == null)
+        if (hits == null)
             hits = 0L;
         hits++;
+    }
+
+    public void setDeleteState() {
+        this.writer = null;
+        this.lecture = null;
     }
 }
 

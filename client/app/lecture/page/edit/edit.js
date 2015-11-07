@@ -23,14 +23,16 @@
 
   /* @ngInject */
   function EditLectureController($scope, lectureBroker, user, alert, $state, types, $stateParams) {
-    $scope.create = create;
+
+    $scope.edit = edit;
     $scope.cancel = cancel;
-    _init();
     $scope.addLesson = addLesson;
     $scope.user = user;
     $scope.majorTypes = types.majorTypes;
+    $scope.push = push;
+    _init();
 
-    $scope.push = function (selected) {
+    $scope.push = function push(selected) {
       if (!selected || !selected.email)
         return;
       if (!$scope.managers.includes(selected)) {
@@ -58,7 +60,7 @@
       $scope.lesson = {};
 
       $scope.lecture = {
-        lessons: [],
+        lessons: []
       };
     }
 
@@ -72,19 +74,6 @@
         return;
       }
 
-      /*
-
-
-
-       형 어제 파일 업로드 못하고 있던거 지금 찾아보니 서블릿 버전이 바뀌어서 그렇대요
-       파일 업로드 기능 어떻게든 오늘내로는 완료시킬께요
-
-       - 태호 -
-
-
-
-
-       */
       if (!$scope.lesson.start || !$scope.lesson.end || !$scope.lesson.timeStart || !$scope.lesson.timeEnd) {
         alert.error("시간을 입력해주세요.");
         return;
@@ -122,8 +111,7 @@
       }
     }
 
-
-    function create(lecture) {
+    function edit(lecture) {
       var managerIds = [];
       var query = {};
       $scope.managers.forEach(function (manager) {
@@ -133,13 +121,13 @@
       angular.copy(lecture, query);
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
-      lectureBroker.create(query).then(function (result) {
+      lectureBroker.edit(query).then(function (result) {
         $state.go('lecture', {id: result.id});
       });
     }
 
     function cancel() {
-      $state.go('lectures')
+      $state.go('lectures');
     }
   }
 }());

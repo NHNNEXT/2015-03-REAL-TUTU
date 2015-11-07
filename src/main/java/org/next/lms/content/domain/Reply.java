@@ -46,4 +46,9 @@ public class Reply {
         this.writeDate = new Date();
         this.body = reply.body;
     }
+
+    public void setDeleteState() {
+        this.writer = null;
+        this.content = null;
+    }
 }

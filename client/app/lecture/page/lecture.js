@@ -3,15 +3,12 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('lecture', {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
-      controller: function ($scope, $stateParams, lectureBroker, user, alert) {
+      controller: function ($scope, $stateParams, lectureBroker, user, alert, $state) {
 
         $scope.user = user;
-
-        $scope.enroll = function (id) {
-          lectureBroker.enroll(id).then(function(){
-            alert.info('강의에 등록되었습니다.');
-          });
-        };
+        $scope.remove = remove;
+        $scope.enroll = enroll;
+        $scope.isEnrolled = isEnrolled;
 
         $scope.$watch(function () {
           return $stateParams.id;
@@ -21,7 +18,22 @@ angular.module('clientApp').config(function ($stateProvider) {
           });
         });
 
-        $scope.isEnrolled = function (id) {
+        function remove(id) {
+          if (!confirm("삭제하시겠습니까?"))
+            return;
+          lectureBroker.remove(id).then(function () {
+            alert.info('폐강 되었습니다.');
+            $state.go('lectures');
+          })
+        }
+
+        function enroll(id) {
+          lectureBroker.enroll(id).then(function () {
+            alert.info('강의에 등록되었습니다.');
+          });
+        }
+
+        function isEnrolled(id) {
           var lectures = user.lectures;
           if (!lectures)
             return false;
@@ -29,7 +41,7 @@ angular.module('clientApp').config(function ($stateProvider) {
             if (lectures[i].id === id)
               return true;
           return false;
-        };
+        }
 
       }
     });

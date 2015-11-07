@@ -54,8 +54,7 @@ public class ReplyService {
         assureNotNull(id);
         Reply reply = assureNotNull(replyRepository.findOne(id));
         replyAuthority.checkDeleteRight(reply, userInfo);
-        reply.setContent(null);
-        reply.setWriteDate(null);
+        reply.setDeleteState();
         replyRepository.save(reply);
         return successJsonResponse();
     }

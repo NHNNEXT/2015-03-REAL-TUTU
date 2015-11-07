@@ -1,7 +1,6 @@
 package org.next.lms.service;
 
 import org.next.infra.common.dto.CommonJsonResponse;
-import org.next.infra.reponse.ResponseCode;
 import org.next.infra.user.domain.UserInfo;
 import org.next.lms.auth.LectureAuthority;
 import org.next.lms.content.domain.Content;
@@ -14,12 +13,12 @@ import org.next.lms.auth.ContentAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.common.dto.CommonJsonResponse.successJsonResponse;
+import static org.next.infra.util.CommonUtils.assureNotNull;
 
 @Service
 public class ContentService {
@@ -39,21 +38,15 @@ public class ContentService {
 
 
     public ContentDto getDtoById(Long id) {
-        Content content = contentRepository.findOne(id);
-        if (content == null)
-            return null;
+        Content content = assureNotNull(contentRepository.findOne(id));
         content.hits();
         contentRepository.save(content);
         return new ContentDto(content);
     }
 
     public CommonJsonResponse save(Content content, UserInfo userInfo, Long lectureId) {
-        if (lectureId == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
-
-        Lecture lecture = lectureRepository.findOne(lectureId);
-        if (lecture == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
+        assureNotNull(lectureId);
+        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
 
         lectureAuthority.checkUpdateRight(lecture, userInfo);
 
@@ -81,12 +74,9 @@ public class ContentService {
     }
 
     public CommonJsonResponse delete(Long id, UserInfo userInfo) {
-        Content content = contentRepository.findOne(id);
-        if (content == null)
-            return new CommonJsonResponse(ResponseCode.WROING_ACCESS);
+        Content content = assureNotNull(contentRepository.findOne(id));
         contentAuthority.checkDeleteRight(content, userInfo);
-        content.setLecture(null);
-        content.setWriter(null);
+        content.setDeleteState();
         contentRepository.save(content);
         return successJsonResponse();
     }

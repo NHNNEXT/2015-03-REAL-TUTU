@@ -54,7 +54,7 @@ public class Lecture {
     private Integer majorType;
 
     public void addManagers(List<UserInfo> managers) {
-        managers.stream().forEach(managerUserInfo -> {
+        managers.forEach(managerUserInfo -> {
             UserManageLecture lecture = new UserManageLecture();
             lecture.setLecture(this);
             lecture.setUserInfo(managerUserInfo);
@@ -67,6 +67,12 @@ public class Lecture {
             item.setLecture(this);
             this.lessons.add(item);
         });
+    }
+
+    public void setDeleteState() {
+        this.hostUser = null;
+        this.managers = null;
+        this.enrolledStudent = null;
     }
 }
 

@@ -29,7 +29,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         $scope.delete = function (content) {
           if (!confirm("삭제하시겠습니까?"))
             return;
-          contentBroker.delete(content.id).then(function () {
+          contentBroker.remove(content.id).then(function () {
             $state.go('lecture', {id: content.lectureId});
           });
         };

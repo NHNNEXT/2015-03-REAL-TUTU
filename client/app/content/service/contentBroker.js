@@ -5,13 +5,13 @@
     .module('clientApp')
     .service('contentBroker', contentBroker);
   /* @ngInject */
-  function contentBroker(http, responseCode) {
+  function contentBroker(http) {
     this.findById = findById;
     this.getList = getList;
     this.edit = edit;
-    this.delete = deleteContent;
+    this.remove = remove;
 
-    function deleteContent(id) {
+    function remove(id) {
       return http.delete('/api/v1/content', {id: id});
     }
 
@@ -24,7 +24,7 @@
       return http.get('/api/v1/content', {id: id});
     }
 
-    function getList(callback) {
+    function getList() {
       return http.get('/api/v1/content/list');
     }
   }

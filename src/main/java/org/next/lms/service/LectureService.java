@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,6 +84,8 @@ public class LectureService {
         LoginAccount user = userInfoBroker.getLoginAccount(session);
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkDeleteRight(user, lecture);
-        return null;
+        lecture.setDeleteState();
+        lectureRepository.save(lecture);
+        return successJsonResponse();
     }
 }
