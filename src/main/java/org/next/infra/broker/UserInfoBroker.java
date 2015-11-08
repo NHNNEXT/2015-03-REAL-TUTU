@@ -20,7 +20,7 @@ public class UserInfoBroker {
     public LoginAccount getLoginAccount(HttpSession session) {
         Long id = (Long) session.getAttribute(LOGIN_ACCOUNT_ID);
         if (id == null)
-            throw new LoginNeededException();
+            return null;
         return loginAccountRepository.findOne(id);
     }
 

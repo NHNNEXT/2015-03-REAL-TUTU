@@ -13,7 +13,7 @@ public class Handler {
     public
     @ResponseBody
     CommonJsonResponse loginException(Exception e) {
-        return new CommonJsonResponse(ResponseCode.UNAUTHORIZED_REQUEST);
+        return new CommonJsonResponse(ResponseCode.LOGIN_NEEDED);
     }
 
     @ExceptionHandler(WrongAcessExeption.class)
