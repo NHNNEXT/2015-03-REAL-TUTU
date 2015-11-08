@@ -23,18 +23,6 @@ user-profile.content {
 .underlined {
   border-bottom: 1px solid #000;
 }
-.list-group-item- {
-  position: relative;
-  display: block;
-  padding: 20px 15px;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: none;
-  border-top: 1px solid #eee;
-}
-.list-group-item-:first-child {
-  border-top: none;
-}
 .box {
   box-shadow: 1px 1px 1px silver;
   margin: 10px;

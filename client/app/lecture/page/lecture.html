@@ -22,14 +22,10 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-      <user-profile user="lecture.hostUser"></user-profile>
-      <user-profile user="user" ng-repeat="user in lecture.managers"></user-profile>
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-5">
       <lesson lesson="lesson" ng-repeat="lesson in lecture.lessons"></lesson>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
       <div calendar="lecture.lessons" current="current"></div>
     </div>
   </div>

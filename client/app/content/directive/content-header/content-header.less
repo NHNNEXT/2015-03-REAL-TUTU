@@ -1,0 +1,73 @@
+[content-header] {
+  .type {
+    display: inline-block;
+    min-width: 20px;
+    border-bottom: 1px solid #00c3bd;
+    margin-bottom: 12px;
+    line-height: 14px;
+    font-size: 13px;
+    color: #00c3bd;
+  }
+
+  .icon {
+    overflow: hidden;
+    width: 120px;
+    position: absolute;
+    float: right;
+    margin-top: 5px;
+    right: 0;
+    top: 25px;
+  }
+
+  .header {
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -1px;
+  }
+  .moveto:hover {
+    .header {
+      text-decoration: underline;
+    }
+  }
+
+  .body {
+    display: -webkit-box;
+    max-height: 43px;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    padding-top: 6px;
+  }
+
+  .icons {
+    display: block;
+    padding-top: 20px;
+    font-size: 12px;
+    color: #959595;
+    letter-spacing: -1px;
+    .dot {
+      display: inline-block;
+      width: 2px;
+      height: 2px;
+      margin: 8px 8px 0;
+      background-color: #aaa;
+      vertical-align: top;
+    }
+  }
+
+}
+
+.list-group-item- {
+  position: relative;
+  display: block;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: none;
+  border-top: 1px solid #eee;
+  padding: 25px 0 30px;
+}
+
+.list-group-item-:first-child {
+  border-top: none;
+}
