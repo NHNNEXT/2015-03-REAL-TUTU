@@ -4,11 +4,15 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/content/:id",
       headerClass:'not-transparent',
       templateUrl: "/content/page/content.html",
-      controller: function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state) {
+      controller: function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state, $sce) {
 
         $scope.user = user;
         $scope.content = {replies: []};
         $scope.contentTypes = types.contentTypes;
+
+        $scope.body = function () {
+          return $sce.trustAsHtml($scope.content.body);
+        };
 
         $scope.$watch(function () {
           return $stateParams.id;

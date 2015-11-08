@@ -53,8 +53,14 @@ public class InfraUserService {
         return new CommonJsonResponse(ResponseCode.SUCCESS, new UserDto(user));
     }
 
-    public CommonJsonResponse getUser(Long id) {
-        LoginAccount user = loginAccountRepository.findOne(id);
+    public CommonJsonResponse getUser(String id) {
+        LoginAccount user;
+        try {
+            Long longId = Long.parseLong(id);
+            user = loginAccountRepository.findOne(longId);
+        } catch (NumberFormatException e) {
+            user = loginAccountRepository.findByEmailId(id);
+        }
         if (user == null)
             return new CommonJsonResponse(ResponseCode.GetSessionUser.EMPTY);
         return new CommonJsonResponse(ResponseCode.SUCCESS, new UserSummaryDto(user.getUserInfo()));

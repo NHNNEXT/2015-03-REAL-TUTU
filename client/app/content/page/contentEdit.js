@@ -16,16 +16,19 @@ angular.module('clientApp').config(function ($stateProvider) {
         return;
       }
       contentBroker.findById(id).then(function (result) {
+        $scope.content = {};
         angular.copy(result, $scope.content);
-        $scope.content.dueDate = new Date($scope.content.dueDate);
+        if ($scope.content.dueDate)
+          $scope.content.dueDate = new Date($scope.content.dueDate);
         $scope.content.writeDate = new Date($scope.content.writeDate);
         $scope.types = JSON.parse(result.types);
       });
     });
 
     $scope.edit = function (content) {
-      contentBroker.edit(content).then(function () {
-        $state.go('lecture', {id: content.lectureId});
+      contentBroker.edit(content).then(function (response) {
+        var id = content.id === undefined ? response.id : content.id;
+        $state.go('content', {id: id});
       });
     };
 
@@ -36,12 +39,12 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/content/:id/edit",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller,
-      headerClass:'not-transparent'
+      headerClass: 'not-transparent'
     })
     .state('contentNew', {
       url: "/content/write",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller,
-      headerClass:'not-transparent'
+      headerClass: 'not-transparent'
     });
 });

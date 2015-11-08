@@ -8,7 +8,10 @@ angular.module('clientApp').directive('modTextarea', function () {
       modRight: '=',
       modSave: '='
     },
-    controller: function ($scope) {
+    controller: function ($scope, $sce) {
+      $scope.body = function () {
+        return $sce.trustAsHtml($scope.ngModel);
+      };
       $scope.save = function () {
         $scope.mod = false;
         if (typeof $scope.modSave !== "function")

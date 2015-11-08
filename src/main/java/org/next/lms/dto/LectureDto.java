@@ -1,6 +1,7 @@
 package org.next.lms.dto;
 
 import lombok.Getter;
+import org.next.lms.content.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.Lecture;
 
 import java.util.ArrayList;
@@ -40,4 +41,5 @@ public class LectureDto {
     private String name;
     private Integer majorType;
     private String playTime;
+
 }

@@ -17,6 +17,7 @@
 
     function edit(content) {
       content.writer = undefined;
+      content.replies = undefined;
       return http.post('/api/v1/content', content, true);
     }
 

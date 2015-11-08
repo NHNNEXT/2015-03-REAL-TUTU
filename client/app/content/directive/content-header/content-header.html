@@ -3,7 +3,7 @@
   <div class="header"><span ng-bind="content.title"></span>
     <span class="dueDate" ng-show="types[content.type].dueDate && content.dueDate">(마감 : {{content.dueDate.fromNow()}})</span>
   </div>
-  <div class="body" ng-bind="content.body"></div>
+  <div class="body" ng-bind="content.body.removeTags()"></div>
 </div>
 
 <div class="icons">

@@ -34,6 +34,7 @@
       'subscript',
       'superscript'
     ],
+    ['font'],
     ['font-size'],
     [
       'font-color',
@@ -156,20 +157,22 @@
           scope.cssClass = scope.cssClasses[0];
         }
         scope.fonts = [
-          'Georgia',
-          'Palatino Linotype',
-          'Times New Roman',
-          'Arial',
+          //'Georgia',
+          //'Palatino Linotype',
+          //'Times New Roman',
+          'Noto Sans',
+          'Nanum Myeongjo',
+          //'Arial',
           'Helvetica',
-          'Arial Black',
-          'Comic Sans MS',
-          'Impact',
-          'Lucida Sans Unicode',
-          'Tahoma',
-          'Trebuchet MS',
-          'Verdana',
-          'Courier New',
-          'Lucida Console',
+          //'Arial Black',
+          //'Comic Sans MS',
+          //'Impact',
+          //'Lucida Sans Unicode',
+          //'Tahoma',
+          //'Trebuchet MS',
+          //'Verdana',
+          //'Courier New',
+          //'Lucida Console',
           'Helvetica Neue'
         ].sort();
         scope.font = scope.fonts[6];

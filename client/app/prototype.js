@@ -2,7 +2,7 @@ Date.prototype.format = function (f) {
   return moment().format(f);
 };
 
-Number.prototype.toYMD = function(){
+Number.prototype.toYMD = function () {
   return new Date(this).toYMD();
 };
 
@@ -14,7 +14,7 @@ Date.prototype.getDateString = function () {
   return this.format("YYYY년 MM월 DD일");
 };
 
-Date.prototype.fromNow = function(){
+Date.prototype.fromNow = function () {
   return moment(this).fromNow();
 };
 
@@ -120,4 +120,8 @@ Number.prototype.toDay = function () {
 
 String.prototype.newLine = function () {
   return this.replace(/\n/g, '<br>');
+};
+
+String.prototype.removeTags = function () {
+  return this.replace(/(<([^>]+)>)/ig, "");
 };

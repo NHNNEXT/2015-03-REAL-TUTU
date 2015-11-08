@@ -1,5 +1,5 @@
 <span ng-show="!mod">
-   <span ng-bind-html="ngModel || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true"
+   <span ng-bind-html="body() || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true"
                                                                  class="fa fa-pencil"></i></small>
 </span>
 <span ng-show="mod && modRight">

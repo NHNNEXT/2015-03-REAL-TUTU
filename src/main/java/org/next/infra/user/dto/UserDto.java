@@ -5,6 +5,7 @@ import org.next.infra.user.domain.AccountStateType;
 import org.next.infra.user.domain.LoginAccount;
 import org.next.infra.user.domain.UserInfo;
 import org.next.lms.dto.LectureDto;
+import org.next.lms.dto.Lectures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class UserDto {
     private String major;
     private String introduce;
     private String profileUrl;
-    private List<LectureDto> lectures;
+    private Lectures lectures;
 
     public UserDto(LoginAccount loginAccount) {
         setLoginAccountInfo(loginAccount);
@@ -50,7 +51,6 @@ public class UserDto {
         this.introduce = userInfo.getIntroduce();
         this.phoneNumber = userInfo.getPhoneNumber();
         this.major = userInfo.getMajor();
-        this.lectures = new ArrayList<>();
-        userInfo.getEnrolledLectures().forEach(lecture -> lectures.add(new LectureDto(lecture.getLecture())));
+        this.lectures = new Lectures(userInfo);
     }
 }

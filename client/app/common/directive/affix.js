@@ -2,8 +2,7 @@ angular.module('clientApp')
   .directive('affix', function ($timeout) {
     return {
       restrict: 'A',
-      link: function postLink(s, e, a) {
-        console.log(1);
+      link: function (s, e, a) {
         $timeout(function () {
           $(e).affix({
             offset: a.affix

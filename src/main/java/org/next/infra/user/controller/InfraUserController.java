@@ -29,7 +29,7 @@ public class InfraUserController {
 
     @PermitAll
     @RequestMapping(method = RequestMethod.GET)
-    public CommonJsonResponse getUserInfo(HttpSession session, Long id) {
+    public CommonJsonResponse getUserInfo(HttpSession session, String id) {
         if (id == null)
             return infraUserService.getSessionUser(session);
         return infraUserService.getUser(id);
