@@ -2,6 +2,7 @@ angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('content', {
       url: "/content/:id",
+      headerClass:'not-transparent',
       templateUrl: "/content/page/content.html",
       controller: function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state) {
 

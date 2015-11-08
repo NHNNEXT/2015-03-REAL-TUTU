@@ -3,13 +3,11 @@
   angular.module('clientApp').config(function ($stateProvider) {
     $stateProvider
       .state('lectureEdit', {
-        headerClass: 'navbar-fixed-top navbar-transparent',
         url: "/lecture/:id/edit",
         templateUrl: "/lecture/page/edit/edit.html",
         controller: EditLectureController
       })
       .state('lectureNew', {
-        headerClass: 'navbar-fixed-top navbar-transparent',
         url: "/lecture/new",
         templateUrl: "/lecture/page/edit/edit.html",
         controller: EditLectureController
@@ -52,14 +50,17 @@
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
-      if (!id)
+      if (!id) {
+        var lecture = $scope.lecture = {};
+        lecture.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
+        lecture.lessons = [];
+        lecture.managers = [];
         return;
+      }
       lectureBroker.findById(id).then(function (lecture) {
         $scope.lecture = lecture;
         if (!$scope.lecture.lessons)
           return;
-        if (!$scope.lecture.types)
-          $scope.lecture.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
         $scope.lecture.lessons.forEach(function (lesson) {
           lesson.start = new Date(lesson.start);
           lesson.end = new Date(lesson.end);
@@ -70,11 +71,6 @@
     function _init() {
       $scope.week = [];
       $scope.lesson = {};
-
-      $scope.lecture = {
-        lessons: [],
-        managers: []
-      };
     }
 
     function addLesson() {

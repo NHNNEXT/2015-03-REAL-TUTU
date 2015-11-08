@@ -135,12 +135,12 @@
               <strong>시간</strong>
 
               <div class="wrapper">
-                <input readonly="true" type="datetime" placeholder="시작" date-time format="hh:mm" max-view="hours"
+                <input readonly="true" type="datetime" placeholder="시작" date-time format="HH:mm" max-view="hours"
                        view="hours" class="form-control date"
                        ng-model="lesson.timeStart"></div>
               ~
               <div class="wrapper">
-                <input readonly="true" type="datetime" placeholder="끝" date-time format="hh:mm" max-view="hours"
+                <input readonly="true" type="datetime" placeholder="끝" date-time format="HH:mm" max-view="hours"
                        view="hours" class="form-control date"
                        ng-model="lesson.timeEnd">
               </div>
@@ -151,12 +151,12 @@
             <strong>시간</strong>
 
             <div class="wrapper">
-              <input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy. MM. dd. hh:mm" view="date"
+              <input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy. MM. dd. HH:mm" view="date"
                      ng-model="lesson.start" class="form-control date">
             </div>
             ~
             <div class="wrapper">
-              <input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy. MM. dd. hh:mm" view="date"
+              <input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy. MM. dd. HH:mm" view="date"
                      ng-model="lesson.end" class="form-control date">
             </div>
           </div>
@@ -168,7 +168,7 @@
         </div>
         <div class="panel-footer">
 
-          <div class="btn btn-primary full-width" ng-click="addLesson()">수업 등록</div>
+          <div class="btn btn-default full-width" ng-click="addLesson()">수업 추가</div>
         </div>
       </div>
     </div>

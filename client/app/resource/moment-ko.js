@@ -54,4 +54,3 @@
   });
   return ko;
 }));
-moment.locale('ko');

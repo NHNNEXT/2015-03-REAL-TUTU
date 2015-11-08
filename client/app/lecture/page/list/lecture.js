@@ -9,7 +9,6 @@
   $stateProvider
     .state('lectures', {
       url: "/lectures",
-      headerClass:'navbar-fixed-top navbar-transparent',
       templateUrl: "/lecture/page/list/lectureList.html",
       controller: "LectureController",
       controllerAS: "lecture"

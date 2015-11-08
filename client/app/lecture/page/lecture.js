@@ -2,6 +2,7 @@ angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('lecture', {
       url: "/lecture/:id",
+      headerClass:'not-transparent',
       templateUrl: "/lecture/page/lecture.html",
       controller: function ($scope, $stateParams, lectureBroker, user, alert, $state, types, $timeout) {
 

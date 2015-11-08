@@ -1,9 +1,12 @@
+<div class="top-block"></div>
 <section>
   <div class="container">
     <h2 ng-bind="lecture.name"></h2>
     <div class="info">
-      {{types.majorTypes[lecture.majorType]}}
-      <span class="bar"></span>
+      <span ng-show="lecture.majorType">
+        {{types.majorTypes[lecture.majorType]}}
+        <span class="bar"></span>
+      </span>
       <like type="LECTURE" like="lecture.likes" target="lecture.id"></like>
       <span class="bar"></span>
       게시물 {{lecture.contents.length}}
@@ -25,7 +28,7 @@
   </div>
 </section>
 
-<div class="lecture-menu">
+<div affix="183" class="lecture-menu">
   <div class="container">
     <ul ng-init="tab=0">
       <li ng-class="{active:tab===0}" ng-click="tab=0">게시물</li>

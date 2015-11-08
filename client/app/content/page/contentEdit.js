@@ -35,11 +35,13 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('contentEdit', {
       url: "/content/:id/edit",
       templateUrl: "/content/page/contentEdit.html",
-      controller: controller
+      controller: controller,
+      headerClass:'not-transparent'
     })
     .state('contentNew', {
       url: "/content/write",
       templateUrl: "/content/page/contentEdit.html",
-      controller: controller
+      controller: controller,
+      headerClass:'not-transparent'
     });
 });
