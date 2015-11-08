@@ -3,25 +3,29 @@
     <div class="title">
       <span ng-bind="lecture.name"></span>
     </div>
-
     <div class="info">
       {{types.majorTypes[lecture.majorType]}}
       <span class="bar"></span>
-      수강생 {{lecture.enrolledStudent.length}}
+      <like type="LECTURE" like="lecture.likes" target="lecture.id"></like>
       <span class="bar"></span>
       게시물 {{lecture.contents.length}}
       <span class="bar"></span>
-      <like type="LECTURE" like="lecture.likes" target="lecture.id"></like>
-    <span ng-hide="isEnrolled(lecture.id)" ng-click="enroll(lecture.id)">
-          <span class="bar"></span>수강하기</span>
-      <!--[TODO] Description 로직-->
-      <p>{{lecture.description}}</p>
+      수강생 {{lecture.enrolledStudent.length}}
+      <span ng-hide="isEnrolled(lecture.id)" ng-click="enroll(lecture.id)">
+      <span class="bar"></span>수강하기</span></span>
+
+      <span ng-show="user.id === lecture.hostUser.id">
+        <span class="bar"></span>
+        <span ui-sref="lectureEdit({id:lecture.id})">강의수정</span>
+        <span class="bar"></span>
+        <span ng-click="remove(lecture.id)">폐강</span>
+      </span>
     </div>
 
-
-    <div ng-show="user.id === lecture.hostUser.id"><span ui-sref="lectureEdit({id:lecture.id})">수정</span>
-      <span ng-click="remove(lecture.id)">삭제</span></div>
+    <!--[TODO] Description 로직-->
+    <p>{{lecture.description}}</p>
   </div>
+</div>
 </div>
 
 <div class="lecture-menu">
@@ -29,42 +33,23 @@
     <ul ng-init="tab=0">
       <li ng-class="{active:tab===0}" ng-click="tab=0">게시물</li>
       <li ng-class="{active:tab===1}" ng-click="tab=1">수업</li>
+      <li ng-class="{active:tab===2}" ng-click="tab=2">교수</li>
+      <li ng-class="{active:tab===3}" ng-click="tab=3">수강생</li>
     </ul>
   </div>
 </div>
 
 <div ng-switch="tab">
-  <div ng-switch-when="1" class="container">
-    <div class="row margin-bottom"></div>
-    <div class="row">
-      <div class="col-md-7">
-        <div calendar="lecture.lessons" current="current"></div>
-      </div>
-      <div class="col-md-5">
-        <lesson lesson="lesson" ng-repeat="lesson in lecture.lessons"></lesson>
-      </div>
-    </div>
-  </div>
-
   <div ng-switch-when="0" class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="info">
-          <span ng-click="query.type=undefined"><a class="black">전체</a></span>
-          <span class="bar"></span>
-          <span ng-click="query.type=0"><a class="black">강의자료</a></span>
-          <span class="bar"></span>
-          <span ng-click="query.type=1"><a class="black">질문</a></span>
-          <span class="bar"></span>
-          <span ng-click="query.type=2"><a class="black">과제</a></span>
-          <span class="bar"></span>
-          <span ui-sref="contentNew({lectureId:lecture.id})"><a class="black">글쓰기</a></span>
-        </div>
-        <content-list contents="lecture.contents" query="query"></content-list>
-      </div>
-      <div class="col-md-4">
-
-      </div>
-    </div>
+    <ng-include src="'/lecture/page/parts/contents.html'"></ng-include>
+  </div>
+  <div ng-switch-when="1" class="container">
+    <ng-include src="'/lecture/page/parts/lessons.html'"></ng-include>
+  </div>
+  <div ng-switch-when="2" class="container">
+    <ng-include src="'/lecture/page/parts/prof.html'"></ng-include>
+  </div>
+  <div ng-switch-when="3" class="container">
+    <ng-include src="'/lecture/page/parts/students.html'"></ng-include>
   </div>
 </div>

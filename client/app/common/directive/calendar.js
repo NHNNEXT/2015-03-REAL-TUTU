@@ -15,7 +15,7 @@ angular.module('clientApp')
             },
             editable: true,
             eventLimit: true,
-            defaultDate: scope.$eval(attrs.current),
+            defaultDate: new Date(),
             events: scope.$eval(attrs.calendar)
           });
         });

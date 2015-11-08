@@ -1,4 +1,10 @@
 [content-header] {
+
+  .dueDate {
+    font-size: 80%;
+    opacity: 0.7;
+  }
+
   .type {
     display: inline-block;
     min-width: 20px;
@@ -16,7 +22,7 @@
     float: right;
     margin-top: 5px;
     right: 0;
-    top: 25px;
+    top: 50px;
   }
 
   .header {
@@ -31,18 +37,17 @@
   }
 
   .body {
-    display: -webkit-box;
     max-height: 43px;
-    -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
+    display: block;
     padding-top: 6px;
+    max-width: 70%;
   }
 
   .icons {
     display: block;
-    padding-top: 20px;
     font-size: 12px;
     color: #959595;
     letter-spacing: -1px;

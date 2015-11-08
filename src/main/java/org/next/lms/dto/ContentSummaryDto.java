@@ -18,7 +18,12 @@ public class ContentSummaryDto {
         this.dueDate = content.getDueDate();
         this.type = content.getType();
         this.hits = content.getHits();
+        this.body = content.getBody();
+        if (this.body.length() > 100)
+            this.body = this.body.substring(0, 100);
     }
+
+    private String body;
 
     private Long hits;
 

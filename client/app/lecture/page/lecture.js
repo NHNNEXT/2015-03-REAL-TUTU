@@ -3,33 +3,33 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('lecture', {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
-      controller: function ($scope, $stateParams, lectureBroker, user, alert, $state, types) {
+      controller: function ($scope, $stateParams, lectureBroker, user, alert, $state, types, $timeout) {
 
         $scope.types = types;
         $scope.user = user;
         $scope.remove = remove;
         $scope.enroll = enroll;
         $scope.isEnrolled = isEnrolled;
+        $scope.setKey = setKey;
 
-        $scope.current = new Date();
-        $scope.view = 'month';
+        function setKey(key) {
+          if (!$scope.query)
+            $scope.query = {};
+          $scope.query.type = key;
+          console.log(key);
+        }
 
         $scope.$watch(function () {
           return $stateParams.id;
         }, function (id) {
           lectureBroker.findById(id).then(function (lecture) {
             $scope.lecture = lecture;
-            var i = 0;
-            var date = 0;
+            $scope.lecture.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
             $scope.lecture.lessons.forEach(function (lesson) {
-              i++;
-              date += lesson.start;
-              date += lesson.end;
               lesson.title = lesson.name;
               lesson.start = new Date(lesson.start);
               lesson.end = new Date(lesson.end);
             });
-            $scope.current = new Date(date / i / 2);
           });
         });
 

@@ -5,7 +5,7 @@
       <div class="btn btn-primary " ng-click="edit(lecture)">저장하기</div>
       <div class="btn btn-warning" ng-click="cancel()">취소</div>
     </div>
-    <h2>강의 등록</h2>
+    <h2>강의 <span ng-show="lecture.id===undefined">등록</span><span ng-show="lecture.id!==undefined">수정</span></h2>
   </div>
 </div>
 
@@ -48,6 +48,26 @@
         </div>
       </div>
 
+      <div class="panel panel-primary">
+        <div class="panel-heading">게시물 타입</div>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="type in lecture.types">
+            <input class="form-control block margin-right" ng-model="type.name" placeholder="타입명">
+            <input type="checkbox" ng-model="type.dueDate"> 기한
+            <span class="margin-right"></span>
+            <input type="checkbox" ng-model="type.attach"> 첨부파일
+            <span class="margin-right"></span>
+            <input type="checkbox" ng-model="type.youtube"> 동영상
+          </li>
+        </ul>
+        <div class="panel-footer">
+          <div class="input-group">
+            <input class="form-control" placeholder="타입명" ng-model="type.name">
+            <div class="input-group-addon" ng-click="newType(type)">타입추가+</div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="col-md-6">
       <div class="panel panel-primary margin-top">
@@ -56,7 +76,7 @@
         </div>
         <div class="panel-body">
           <div ng-repeat="lesson in lecture.lessons |orderBy:'start'">
-            <lesson-edit lesson="lesson" lessons="lecture.lessons" index="$index" style="display:inline-block"></lesson-edit>
+            <lesson-edit lesson="lesson" lessons="lecture.lessons" index="$index"></lesson-edit>
           </div>
           <div ng-show="lecture.lessons.length==0">등록된 수업이 없습니다.</div>
 

@@ -30,6 +30,7 @@
     $scope.user = user;
     $scope.majorTypes = types.majorTypes;
     $scope.push = push;
+    $scope.newType = newType;
     _init();
 
     function push(selected) {
@@ -40,6 +41,14 @@
       }
     }
 
+    function newType(type) {
+      if (!$scope.lecture.types)
+        $scope.lecture.types = [];
+      $scope.lecture.types.push($scope.type);
+      $scope.type = {};
+    }
+
+
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
@@ -47,8 +56,11 @@
         return;
       lectureBroker.findById(id).then(function (lecture) {
         $scope.lecture = lecture;
+
         if (!$scope.lecture.lessons)
           return;
+        if (!$scope.lecture.types)
+          $scope.lecture.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
         $scope.lecture.lessons.forEach(function (lesson) {
           lesson.start = new Date(lesson.start);
           lesson.end = new Date(lesson.end);
@@ -62,7 +74,7 @@
 
       $scope.lecture = {
         lessons: [],
-        managers : []
+        managers: []
       };
     }
 

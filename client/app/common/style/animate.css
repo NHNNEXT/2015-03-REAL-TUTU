@@ -21,7 +21,7 @@
   height: 0px;
 }
 .fade-in-out {
-  transition: 1s linear all;
+  transition: 0.3s linear all;
   opacity: 1;
 }
 .fade-in-out.ng-hide {
