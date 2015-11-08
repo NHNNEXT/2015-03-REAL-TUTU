@@ -3,7 +3,7 @@
     <div class="info pull-right">
       <div class="search-bar" ng-class="{active:searching}">
         <input ng-show="searching" class="fade-in-out" id="search" ng-model="keyword" placeholder="검색어">
-        <i class="fa" ng-class="{'fa-times':searching, 'fa-search':!searching}" ng-click="searching=!searching;" focus-to="#search"></i>
+        <i class="fa" ng-class="{'fa-times':searching, 'fa-search':!searching}" ng-click="searching=!searching;"></i>
       </div>
       <span class="margin-right"></span>
       <i ng-click="toWritePage()" class="fa fa-pencil"></i>

@@ -8,7 +8,7 @@
  * Factory in the clientApp.
  */
 angular.module('clientApp')
-  .factory('http', function ($http, $q, responseCode, user) {
+  .factory('http', function ($http, $q, responseCode, user, modal, alert) {
     var http = function (method, url, params, success, error) {
       var options = {
         method: method, url: url,
@@ -32,10 +32,26 @@ angular.module('clientApp')
       $http(options).success(function (response) {
         if (!success)
           return;
-        if (response.code === responseCode.SUCCESS) {
-          success(response.result);
+        switch (response.code) {
+          case responseCode.SUCCESS:
+            success(response.result);
+            break;
+          case responseCode.UNAUTHORIZED_REQUEST:
+            alert.warning("권한이 없습니다.");
+            break;
+          case responseCode.LOGIN_NEEDED:
+            alert.warning("로그인이 필요한 서비스입니다.");
+            modal.login();
+            break;
+          case responseCode.WROING_ACCESS:
+            alert.warning("뚜찌빠찌뽀찌 뚜찌빠찌");
+            modal.login();
+            break;
+          default:
+            error(response);
+            break;
         }
-        error(response);
+
       }).error(function (e) {
         if (!error)
           return;

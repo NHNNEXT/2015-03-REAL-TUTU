@@ -41,10 +41,10 @@ angular.module('clientApp').controller('userLoginController', function ($scope, 
     }
     userBroker.register(user).then(function () {
       alert.success('가입되었습니다.');
-      modal.close();
+      modal.login();
     }, function (response) {
       if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
-        alert.info('이미 가입한 이메일입니다.');
+        alert.warning('이미 가입한 이메일입니다.');
       }
     });
   };
