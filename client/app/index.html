@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="/lesson/directive/lesson/lesson.css"/>
   <link rel="stylesheet" href="/lesson/directive/lesson-edit/lesson-edit.css"/>
   <link rel="stylesheet" href="/content/directive/content-header/content-header.css"/>
+  <link rel="stylesheet" href="/lecture/page/lecture.css"/>
 
   <!-- endbuild -->
 </head>
@@ -49,7 +50,7 @@
 
 <!--<div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert.alert}}</div>-->
 
-<div ui-view ng-class="state.current.uiViewClass"></div>
+<div ui-view ng-class="state.current.name"></div>
 
 <!--<div class="footer">-->
   <!--<div class="container">-->

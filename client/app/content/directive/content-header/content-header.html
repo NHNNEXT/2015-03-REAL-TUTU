@@ -7,7 +7,7 @@
 <div class="icons">
   By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span>
   <span class="dot"></span>
-  좋아요 {{content.likes}}
+  <like type="CONTENT" like="content.likes" target="content.id"></like>
   <span class="dot"></span>
   댓글 {{content.replies}}
   <span class="dot"></span>

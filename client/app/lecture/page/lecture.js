@@ -3,8 +3,9 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('lecture', {
       url: "/lecture/:id",
       templateUrl: "/lecture/page/lecture.html",
-      controller: function ($scope, $stateParams, lectureBroker, user, alert, $state) {
+      controller: function ($scope, $stateParams, lectureBroker, user, alert, $state, types) {
 
+        $scope.types = types;
         $scope.user = user;
         $scope.remove = remove;
         $scope.enroll = enroll;

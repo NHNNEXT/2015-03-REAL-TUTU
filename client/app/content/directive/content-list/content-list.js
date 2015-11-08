@@ -3,7 +3,8 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        contents: '='
+        contents: '=',
+        query:'='
       },
       templateUrl: '/content/directive/content-list/content-list.html',
       controller: function ($scope, types) {
