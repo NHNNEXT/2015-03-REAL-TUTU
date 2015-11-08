@@ -1,30 +1,27 @@
 angular.module('clientApp').config(function ($stateProvider) {
   var controller = function ($stateParams, $scope, contentBroker, types, user, $state) {
     $scope.user = user;
-    $scope.content = {type: $stateParams.type, lectureId: $stateParams.lectureId};
-    $scope.contentTypes = types.contentTypes;
-
 
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
-      if (!id)
+      if (!id) {
+        if (!user.currentLecture) {
+          $state.go('mylectures');
+          return;
+        }
+        $scope.types = user.currentLecture.types;
+
+        $scope.content = {type: 0, lectureId: user.currentLecture.id, lectureName: user.currentLecture.name};
         return;
+      }
       contentBroker.findById(id).then(function (result) {
         angular.copy(result, $scope.content);
         $scope.content.dueDate = new Date($scope.content.dueDate);
         $scope.content.writeDate = new Date($scope.content.writeDate);
+        $scope.types = JSON.parse(result.types);
       });
     });
-
-    function getLectureTypes(id) {
-      console.log(user.lectures);
-      if (!user.lectures)
-        return;
-      for (var i = 0; i < user.lectures.length; i++)
-        if (user.lectures[i].id == id)
-          return JSON.parse(user.lectures[i].types);
-    }
 
     $scope.edit = function (content) {
       contentBroker.edit(content).then(function () {
@@ -32,43 +29,16 @@ angular.module('clientApp').config(function ($stateProvider) {
       });
     };
 
-    $scope.$watch(function () {
-      return user.lectures;
-    }, function (lectures) {
-      $scope.lectures = [];
-      $scope.names = {};
-      if (!lectures)
-        return;
-      lectures.forEach(function (lecture) {
-        $scope.lectures.pushIfNotExist(lecture.id);
-        $scope.names[lecture.id] = lecture.name;
-      });
-    });
-
-    $scope.$watch(function () {
-      return $stateParams.lectureId;
-    }, function (id) {
-      if (!$scope.content)
-        $scope.content = {};
-      $scope.content.lectureId = id;
-    });
-
-    $scope.$watch('content.lectureId', function (id) {
-      console.log(id);
-      $scope.types = getLectureTypes(id);
-      if($scope.types == null){
-        $scope.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
-      }
-    });
   };
+
   $stateProvider
     .state('contentEdit', {
-      url: "/content/:id/edit?:type?:lectureId",
+      url: "/content/:id/edit",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller
     })
     .state('contentNew', {
-      url: "/content/write?:type?:lectureId",
+      url: "/content/write",
       templateUrl: "/content/page/contentEdit.html",
       controller: controller
     });

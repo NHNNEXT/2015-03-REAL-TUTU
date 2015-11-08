@@ -18,7 +18,6 @@ angular.module('clientApp')
             content.dueDate = new Date(content.dueDate);
           });
         });
-        $scope.icons = $scope.types.contentIcons;
       }
     };
   });

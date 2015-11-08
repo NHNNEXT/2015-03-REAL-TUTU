@@ -1,12 +1,14 @@
 <div class="sub-header">
   <div class="container">
-    <drop-down options="lectures" names="names" ng-model="content.lectureId" drop-class="none"></drop-down>
+    <span ng-bind="content.lectureName"></span>
   </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="box">
+
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
         <div class="input-group margin-vertical">
           <div class="input-group-addon" data-toggle="dropdown">
             {{contentTypes[content.type]||"구분"}}
@@ -19,33 +21,29 @@
           <input ng-model="content.title" class="form-control" placeholder="제목">
         </div>
 
-        <div class="margin-bottom" ng-show="content.tags.length!=0">
-          <span ng-repeat="tag in content.tags"><span class="label label-info">{{tag}}
-          <i class="fa fa-times" ng-click="content.tags.remove(tag)"></i></span>  </span>
-        </div>
-
         <div class="input-group" ng-show="types[content.type].dueDate">
           <div class="input-group-addon">기한</div>
           <input class="form-control"
                  placeholder="기한" type="datetime" date-time
                  ng-model="content.dueDate" max-view="date">
         </div>
-
-        <div class="divider"></div>
-        <wysiwyg ng-model="content.body" textarea-class="form-control"
-                 textarea-height="250px"
-                 textarea-required enable-bootstrap-title="true"></wysiwyg>
-
-        <div class="btn btn-primary margin-vertical full-width" ng-click="edit(content)">작성완료</div>
-
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="panel-body">
-        <user-profile class="content" user="user"></user-profile>
       </div>
     </div>
   </div>
+</section>
 
-</div>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <wysiwyg ng-model="content.body" textarea-class="form-control"
+                 textarea-height="250px"
+                 textarea-required enable-bootstrap-title="true"></wysiwyg>
+        <div class="btn btn-primary margin-vertical full-width" ng-click="edit(content)">작성완료</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 

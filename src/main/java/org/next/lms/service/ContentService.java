@@ -61,8 +61,6 @@ public class ContentService {
     }
 
     private CommonJsonResponse update(Content content, UserInfo userInfo, Lecture lecture) {
-        contentAuthority.checkUpdateRight(content, userInfo);
-
         Content fromDB = contentRepository.findOne(content.getId());
         contentAuthority.checkUpdateRight(fromDB, userInfo);
         fromDB.update(content);

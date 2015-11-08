@@ -11,6 +11,12 @@ angular.module('clientApp').config(function ($stateProvider) {
         $scope.enroll = enroll;
         $scope.isEnrolled = isEnrolled;
         $scope.setKey = setKey;
+        $scope.toWritePage = toWritePage;
+
+        function toWritePage(){
+          user.currentLecture = $scope.lecture;
+          $state.go('contentNew');
+        }
 
         function setKey(key) {
           if (!$scope.query)
