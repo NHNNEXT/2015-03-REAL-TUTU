@@ -56,7 +56,6 @@
         return;
       lectureBroker.findById(id).then(function (lecture) {
         $scope.lecture = lecture;
-
         if (!$scope.lecture.lessons)
           return;
         if (!$scope.lecture.types)

@@ -17,12 +17,12 @@ INSERT INTO LOGIN_ACCOUNT VALUES(5, 'test7@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj
 INSERT INTO LOGIN_ACCOUNT VALUES(6, 'test89@test.com', '$2a$10$MXqrDkWCTHiURcE1Kj6rX.D.5s.NSzIwp8iF1EpkJ.l9hV2jhxaFC', 'ACTIVE', 6);
 
 
-insert into lecture (LECTURE_ID , 	DATE,  	TYPE,  	NAME,  	HOST_USER_ID) values (null, '2015-11-11', 0, '자구알',  1);
-insert into lecture (LECTURE_ID , 	DATE,  	TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 1, '네트워크',  2);
-insert into lecture (LECTURE_ID , 	DATE,  	TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 2, '실전프',  3);
-insert into lecture (LECTURE_ID , 	DATE,  	TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 0, 'abc',  3);
-insert into lecture (LECTURE_ID , 	DATE,  	TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 1, '인문사회학',  1);
-insert into lecture (LECTURE_ID , 	DATE,  	TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 2, '그래픽스',  3);
+insert into lecture (LECTURE_ID , 	DATE,  	MAJOR_TYPE,  	NAME,  	HOST_USER_ID) values (null, '2015-11-11', 0, '자구알',  1);
+insert into lecture (LECTURE_ID , 	DATE,  	MAJOR_TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 1, '네트워크',  2);
+insert into lecture (LECTURE_ID , 	DATE,  	MAJOR_TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 2, '실전프',  3);
+insert into lecture (LECTURE_ID , 	DATE,  	MAJOR_TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 0, 'abc',  3);
+insert into lecture (LECTURE_ID , 	DATE,  	MAJOR_TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 1, '인문사회학',  1);
+insert into lecture (LECTURE_ID , 	DATE,  	MAJOR_TYPE,  	NAME,  	HOST_USER_ID) values (null,'2015-11-11', 2, '그래픽스',  3);
 
 insert into lesson values (null, '샘플수업','2015-10-11', '샘플강의','2015-10-09',  1);
 insert into lesson values (null, '샘플수업','2015-10-11', '샘플강의','2015-10-09',  1);

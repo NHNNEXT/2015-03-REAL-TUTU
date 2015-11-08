@@ -1,6 +1,8 @@
-<div class="type">{{types.contentTypes[content.type]}}</div>
+<div class="type">{{types[content.type].name}}</div>
 <div class="moveto" ui-sref="content({id:content.id})">
-  <div class="header"><span ng-bind="content.title"></span> <span class="dueDate" ng-show="content.dueDate">(마감 : {{content.dueDate.fromNow()}})</span></div>
+  <div class="header"><span ng-bind="content.title"></span>
+    <span class="dueDate" ng-show="types[content.type].dueDate && content.dueDate">(마감 : {{content.dueDate.fromNow()}})</span>
+  </div>
   <div class="body" ng-bind="content.body"></div>
 </div>
 

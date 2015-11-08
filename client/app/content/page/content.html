@@ -3,41 +3,59 @@
     <span ng-bind="content.lectureName" ui-sref="lecture({id:content.lectureId})"></span>
   </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="box">
-        <h1>
-          <span ng-bind="content.title"></span>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 ng-bind="content.title"></h2>
+        <span class="info">
+          {{contentTypes[content.type]}}
+          <span class="bar"></span>
+          조회수 {{content.hits}}
+          <span class="bar"></span>
+          댓글 {{content.replies.length}}
+          <span class="bar"></span>
+          <like type="CONTENT" like="content.likes" target="content.id"></like>
           <span ng-show="content.writer.id === user.id">
-            <small ui-sref="contentEdit({id:content.id})">수정</small>
-            <small ng-click="delete(content)">삭제</small>
+            <span class="bar"></span>
+            <span ui-sref="contentEdit({id:content.id})">수정</span>
+            <span class="bar"></span>
+            <span ng-click="delete(content)">삭제</span>
           </span>
-        </h1>
-        <span class="label label-warning">{{contentTypes[content.type]}}</span>
-        <h5>{{content.date.toYMD()}}</h5>
-        <ul class="icons">
-          <li>
-            <i class="fa fa-eye"></i> {{content.hits}}
-          </li>
-          <li>
-            <i class="fa fa-comment"></i> {{content.replies.length}}
-          </li>
-          <li>
-            <like type="CONTENT" like="content.likes" target="content.id"></like>
-          </li>
-        </ul>
+          <span ng-show="content.date">
+          <span class="bar"></span>
+          <span>{{content.date.toYMD()}}</span>
+          </span>
+        </span>
 
         <div class="divider" ng-show="content.type===2">
           <p>제출기한 : {{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
         </div>
+      </div>
+      <div class="col-md-4">
+        <user-profile class="content" user="content.writer"></user-profile>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="divider"></div>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
         <p ng-bind-html="content.body"></p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="divider"></div>
 
-        <span class="underlined">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <span class="underlined">
           <span ng-switch="content.type">
                <span ng-switch-when="2">제출이력</span>
                <span ng-switch-default>댓글</span>
@@ -61,11 +79,6 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="panel-body">
-        <user-profile class="content" user="user"></user-profile>
-      </div>
-    </div>
   </div>
-
-</div>
+  </div>
+</section>

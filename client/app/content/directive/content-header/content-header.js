@@ -3,11 +3,9 @@ angular.module('clientApp')
     return {
       restrict: 'A',
       scope: {
-        content: '='
+        content: '=',
+        types: '='
       },
       templateUrl: '/content/directive/content-header/content-header.html',
-      controller: function ($scope, types) {
-          $scope.types = types;
-      }
     };
   });

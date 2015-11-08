@@ -1,8 +1,6 @@
-<div class="lecture-header">
+<section>
   <div class="container">
-    <div class="title">
-      <span ng-bind="lecture.name"></span>
-    </div>
+    <h2 ng-bind="lecture.name"></h2>
     <div class="info">
       {{types.majorTypes[lecture.majorType]}}
       <span class="bar"></span>
@@ -25,8 +23,7 @@
     <!--[TODO] Description 로직-->
     <p>{{lecture.description}}</p>
   </div>
-</div>
-</div>
+</section>
 
 <div class="lecture-menu">
   <div class="container">

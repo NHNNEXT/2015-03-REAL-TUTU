@@ -4,6 +4,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     $scope.content = {type: $stateParams.type, lectureId: $stateParams.lectureId};
     $scope.contentTypes = types.contentTypes;
 
+
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
@@ -16,6 +17,14 @@ angular.module('clientApp').config(function ($stateProvider) {
       });
     });
 
+    function getLectureTypes(id) {
+      console.log(user.lectures);
+      if (!user.lectures)
+        return;
+      for (var i = 0; i < user.lectures.length; i++)
+        if (user.lectures[i].id == id)
+          return JSON.parse(user.lectures[i].types);
+    }
 
     $scope.edit = function (content) {
       contentBroker.edit(content).then(function () {
@@ -42,6 +51,14 @@ angular.module('clientApp').config(function ($stateProvider) {
       if (!$scope.content)
         $scope.content = {};
       $scope.content.lectureId = id;
+    });
+
+    $scope.$watch('content.lectureId', function (id) {
+      console.log(id);
+      $scope.types = getLectureTypes(id);
+      if($scope.types == null){
+        $scope.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
+      }
     });
   };
   $stateProvider

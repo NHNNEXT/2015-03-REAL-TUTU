@@ -16,7 +16,6 @@ angular.module('clientApp').config(function ($stateProvider) {
           if (!$scope.query)
             $scope.query = {};
           $scope.query.type = key;
-          console.log(key);
         }
 
         $scope.$watch(function () {
@@ -24,7 +23,6 @@ angular.module('clientApp').config(function ($stateProvider) {
         }, function (id) {
           lectureBroker.findById(id).then(function (lecture) {
             $scope.lecture = lecture;
-            $scope.lecture.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
             $scope.lecture.lessons.forEach(function (lesson) {
               lesson.title = lesson.name;
               lesson.start = new Date(lesson.start);

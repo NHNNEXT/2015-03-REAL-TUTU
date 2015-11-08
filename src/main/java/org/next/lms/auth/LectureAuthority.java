@@ -16,11 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LectureAuthority extends Authority {
     public void checkUpdateRight(Lecture lecture, UserInfo userInfo) {
-        rightCheck(lecture.getHostUser().equals(userInfo) || lecture.getManagers().contains(userInfo) || lecture.getEnrolledStudent().contains(userInfo));
-    }
-
-    public void checkUpdateRight(UserInfo userInfo, Lecture one) {
-        rightCheck(one.getHostUser().getId().equals(userInfo.getId()));
+        rightCheck(lecture.getHostUser().equals(userInfo) || lecture.getManagers().contains(userInfo) || lecture.getEnrolledStudent().stream().anyMatch(relation -> relation.getUserInfo().equals(userInfo)));
     }
 
     public void checkDeleteRight(LoginAccount user, Lecture lecture) {

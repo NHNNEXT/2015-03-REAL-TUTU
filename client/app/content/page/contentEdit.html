@@ -14,7 +14,7 @@
           <ul class="dropdown-menu">
             <li ng-click="content.type=undefined"><a>구분</a></li>
             <li class="divider"></li>
-            <li ng-repeat="(key,type) in contentTypes" ng-click="content.type=key"><a>{{type}}</a></li>
+            <li ng-repeat="(key,type) in types" ng-click="content.type=key"><a>{{type.name}}</a></li>
           </ul>
           <input ng-model="content.title" class="form-control" placeholder="제목">
         </div>
@@ -24,7 +24,7 @@
           <i class="fa fa-times" ng-click="content.tags.remove(tag)"></i></span>  </span>
         </div>
 
-        <div class="input-group" ng-show="content.type===2">
+        <div class="input-group" ng-show="types[content.type].dueDate">
           <div class="input-group-addon">기한</div>
           <input class="form-control"
                  placeholder="기한" type="datetime" date-time

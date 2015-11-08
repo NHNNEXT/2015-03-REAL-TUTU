@@ -77,7 +77,7 @@ public class LectureService {
 
     private CommonJsonResponse updateLecture(Lecture lecture, UserInfo userInfo, String managerIds, String lessonString) {
         Lecture fromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
-        lectureAuthority.checkUpdateRight(userInfo, fromDB);
+        lectureAuthority.checkUpdateRight(fromDB, userInfo);
         fromDB.update(lecture);
         List<Long> managerIdList = assureNotNull(parseList(Long.class, managerIds));
         List<UserInfo> managers = managerIdList.stream().map(userInfoRepository::findOne).collect(Collectors.toList());

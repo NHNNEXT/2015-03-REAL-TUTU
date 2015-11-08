@@ -45,13 +45,12 @@ public class ContentService {
     }
 
     public CommonJsonResponse save(Content content, UserInfo userInfo, Long lectureId) {
-        assureNotNull(lectureId);
-        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-
-        lectureAuthority.checkUpdateRight(lecture, userInfo);
+        Lecture lecture = lectureRepository.findOne(lectureId);
 
         if (content.getId() != null)
             return update(content, userInfo, lecture);
+
+        lectureAuthority.checkUpdateRight(lecture, userInfo);
 
         content.setWriter(userInfo.getLoginAccount());
         content.setWriteDate(new Date());
@@ -62,6 +61,8 @@ public class ContentService {
     }
 
     private CommonJsonResponse update(Content content, UserInfo userInfo, Lecture lecture) {
+        contentAuthority.checkUpdateRight(content, userInfo);
+
         Content fromDB = contentRepository.findOne(content.getId());
         contentAuthority.checkUpdateRight(fromDB, userInfo);
         fromDB.update(content);

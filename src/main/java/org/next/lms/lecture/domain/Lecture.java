@@ -47,7 +47,10 @@ public class Lecture {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "TYPE")
+    @Column(name = "TYPES")
+    private String types;
+
+    @Column(name = "MAJOR_TYPE")
     private Integer majorType;
 
     @Temporal(TemporalType.DATE)
@@ -79,6 +82,8 @@ public class Lecture {
     public void update(Lecture lecture) {
         if (lecture.name != null)
             this.name = lecture.name;
+        if (lecture.types != null)
+            this.types = lecture.types;
         if (lecture.majorType != null)
             this.majorType = lecture.majorType;
         if (lecture.date != null)
