@@ -123,5 +123,5 @@ String.prototype.newLine = function () {
 };
 
 String.prototype.removeTags = function () {
-  return this.replace(/(<([^>]+)>)/ig, "");
+  return this.replace(/(<([^>]+)>)|(<[^<]+)$/ig, "");
 };

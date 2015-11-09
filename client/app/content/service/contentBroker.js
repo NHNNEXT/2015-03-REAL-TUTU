@@ -5,7 +5,7 @@
     .module('clientApp')
     .service('contentBroker', contentBroker);
   /* @ngInject */
-  function contentBroker(http) {
+  function contentBroker(http, $q) {
     this.findById = findById;
     this.getList = getList;
     this.edit = edit;
@@ -22,7 +22,12 @@
     }
 
     function findById(id) {
-      return http.get('/api/v1/content', {id: id});
+      return $q(function(resolve){
+        http.get('/api/v1/content', {id: id}).then(function(content){
+          content.types = JSON.parse(content.types);
+          resolve(content);
+        });
+      });
     }
 
     function getList() {

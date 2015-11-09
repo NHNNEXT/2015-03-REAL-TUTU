@@ -21,7 +21,7 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
     private List<UserLikesLesson> likes = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 

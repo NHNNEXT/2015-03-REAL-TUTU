@@ -21,7 +21,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         if ($scope.content.dueDate)
           $scope.content.dueDate = new Date($scope.content.dueDate);
         $scope.content.writeDate = new Date($scope.content.writeDate);
-        $scope.types = JSON.parse(result.types);
+        $scope.types = result.types;
       });
     });
 
