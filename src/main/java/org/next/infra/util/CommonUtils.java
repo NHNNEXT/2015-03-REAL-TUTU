@@ -1,7 +1,7 @@
 package org.next.infra.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.next.lms.exception.WrongAcessExeption;
+import org.next.infra.exception.WrongAccessException;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ public class CommonUtils {
 
     public static <T> T assureNotNull(T obj) {
         if (obj == null)
-            throw new WrongAcessExeption();
+            throw new WrongAccessException();
         return (T) obj;
     }
 

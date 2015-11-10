@@ -1,12 +1,10 @@
 package org.next.infra.reponse;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ResponseCode {
-
     public static final Integer SUCCESS = 0;
     public static final Integer WROING_ACCESS = 1;
     public static final Integer LOGIN_NEEDED = 13;
@@ -62,7 +60,6 @@ public class ResponseCode {
             (`ノ )　　Lﾉ
 
 
-                                Directed By Sungho. Park
 
      */
 

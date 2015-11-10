@@ -1,12 +1,5 @@
 package org.next;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.next.infra.util.CommonUtils;
-import org.next.lms.lecture.domain.Lesson;
-
-import java.io.IOException;
-import java.util.List;
-
 public class Test {
     @org.junit.Test
     public void testName() throws Exception {
