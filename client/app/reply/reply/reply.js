@@ -6,7 +6,7 @@ angular.module('clientApp')
         reply: '=',
         replies: '='
       },
-      templateUrl: '/reply/directive/reply/reply.html',
+      templateUrl: '/reply/reply/reply.html',
       controller: function (user, $scope, replyBroker) {
         $scope.user = user;
         $scope.save = function () {

@@ -5,6 +5,6 @@ angular.module('clientApp')
       scope: {
         user: '='
       },
-      templateUrl: '/user/directive/user-profile/user-profile.html'
+      templateUrl: '/user/profile/user-profile/user-profile.html'
     };
   });

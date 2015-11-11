@@ -2,7 +2,7 @@ angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('profile', {
       url: "/profile/:id",
-      templateUrl: "/user/page/profile.html",
+      templateUrl: "/user/profile/profile.html",
       controller: function ($scope, user, $stateParams, userBroker, alert) {
 
         $scope.uploadCallback = uploadCallback;

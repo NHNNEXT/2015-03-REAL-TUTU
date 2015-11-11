@@ -7,6 +7,6 @@ angular.module('clientApp')
         index: '=',
         lessons: '='
       },
-      templateUrl: '/lesson/directive/lesson-edit/lesson-edit.html'
+      templateUrl: '/lesson/lesson-edit/lesson-edit.html'
     };
   });

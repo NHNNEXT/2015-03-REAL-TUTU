@@ -33,10 +33,10 @@
   <link rel="stylesheet" href="/common/directive/mod-input/mod-input.css"/>
   <link rel="stylesheet" href="/common/directive/auto-complete/auto-complete.css"/>
   <link rel="stylesheet" href="/common/directive/upload-img/upload-img.css"/>
-  <link rel="stylesheet" href="/user/directive/user-profile/user-profile.css"/>
-  <link rel="stylesheet" href="/user/page/profile.css"/>
-  <link rel="stylesheet" href="/lesson/directive/lesson/lesson.css"/>
-  <link rel="stylesheet" href="/lesson/directive/lesson-edit/lesson-edit.css"/>
+  <link rel="stylesheet" href="/user/profile/user-profile/user-profile.css"/>
+  <link rel="stylesheet" href="/user/profile/profile.css"/>
+  <link rel="stylesheet" href="/lesson/lesson/lesson.css"/>
+  <link rel="stylesheet" href="/lesson/lesson-edit/lesson-edit.css"/>
   <link rel="stylesheet" href="/content/content-header/content-header.css"/>
   <link rel="stylesheet" href="/lecture/view/lecture.css"/>
 
@@ -61,7 +61,7 @@
     </ul>
     <ul class="menu" ng-show="user.isLogged()">
       <li ui-sref="mylectures">내 강의</li>
-      <li>로그아웃</li>
+      <li ng-click="logout()">로그아웃</li>
     </ul>
     <ul class="menu" ng-show="!user.isLogged()">
       <li ng-click="login()">로그인</li>
@@ -174,12 +174,12 @@
 <script src="/content/view/content.js"></script>
 <script src="/content/contentBroker.js"></script>
 
-<script src="/user/service/user.js"></script>
-<script src="/user/service/userBroker.js"></script>
-<script src="/user/directive/user-profile/user-profile.js"></script>
-<script src="/user/directive/user-profile-dropdown/user-profile.js"></script>
-<script src="/user/directive/my-profile/my-profile.js"></script>
-<script src="/user/page/profile.js"></script>
+<script src="/user/user.js"></script>
+<script src="/user/userBroker.js"></script>
+<script src="/user/profile/user-profile/user-profile.js"></script>
+<script src="/user/profile/user-profile-dropdown/user-profile.js"></script>
+<script src="/user/profile/my-profile/my-profile.js"></script>
+<script src="/user/profile/profile.js"></script>
 <script src="/user/auth/auth.js"></script>
 
 <script src="/lecture/edit/edit.js"></script>
@@ -189,11 +189,11 @@
 <script src="/lecture/lecture-table/lecture-table.js"></script>
 <script src="/lecture/lectureBroker.js"></script>
 
-<script src="/lesson/directive/lesson/lesson.js"></script>
-<script src="/lesson/directive/lesson-edit/lesson-edit.js"></script>
+<script src="/lesson/lesson/lesson.js"></script>
+<script src="/lesson/lesson-edit/lesson-edit.js"></script>
 
-<script src="/reply/directive/reply/reply.js"></script>
-<script src="/reply/service/replyBroker.js"></script>
+<script src="/reply/reply/reply.js"></script>
+<script src="/reply/replyBroker.js"></script>
 <!-- endbuild -->
 
 <script>

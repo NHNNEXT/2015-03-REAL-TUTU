@@ -11,11 +11,6 @@ angular.module('clientApp')
       },
       templateUrl: '/common/directive/auto-complete/auto-complete.html',
       link: function (s, e, a) {
-        angular.element($('body')).bind('click', function () {
-          s.selecting = false;
-          if (!s.$$phase)
-            s.$apply();
-        });
         var ajax;
         s.result = [];
         s.index = 0;
@@ -30,45 +25,18 @@ angular.module('clientApp')
             s.action(each);
           }
           s.$eval(s.action);
-          if (!s.$$phase)
-            s.$apply();
-        };
-        s.hover = function (i) {
-          s.index = i;
         };
 
-        e.bind('keypress keydown', function (e) {
-          s.selecting = true;
-          if (e.keyCode === 38) {
-            s.index--;
-            if (s.index < 0)
-              s.index = s.result.length - 1;
-            if (!s.$$phase)
-              s.$apply();
-            return;
-          }
-          if (e.keyCode === 40) {
-            s.index++;
-            if (s.index > s.result.length - 1)
-              s.index = 0;
-            if (!s.$$phase)
-              s.$apply();
-            return;
-          }
-          if (e.keyCode === 13) {
-            s.select(s.result[s.index]);
-            if (!s.$$phase)
-              s.$apply();
-          }
-          if (!s.keyword)
-            return;
+        s.search = function (keyword) {
           $timeout.cancel(ajax);
           ajax = $timeout(function () {
-            http.get(s.src, {keyword: s.keyword}).then(function (result) {
+            http.get(s.src, {keyword: keyword}).then(function (result) {
               s.result = result;
             });
           });
-        });
+        };
+
+
       }
     };
   });

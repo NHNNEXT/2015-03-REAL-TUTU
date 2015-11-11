@@ -1,15 +1,56 @@
-<div class="jumbotron bg">
-  <div class="top-block"></div>
-  <div class="container">
-    <div class="pull-right margin-top">
-      <div class="btn btn-primary " ng-click="edit(lecture)">저장하기</div>
-      <div class="btn btn-warning" ng-click="cancel()">취소</div>
-    </div>
-    <h2>강의 <span ng-show="lecture.id===undefined">등록</span><span ng-show="lecture.id!==undefined">수정</span></h2>
-  </div>
-</div>
+<section>
+  <div class="btn btn-primary " ng-click="edit(lecture)">저장하기</div>
+  <div class="btn btn-warning" ng-click="cancel()">취소</div>
+  <h2>강의 <span ng-show="lecture.id===undefined">등록</span><span ng-show="lecture.id!==undefined">수정</span></h2>
+
+
+  <md-tabs md-dynamic-height md-border-bottom>
+    <md-tab label="기본정보">
+      <md-content class="md-padding">
+        <md-input-container>
+          <label>강의명</label>
+          <input ng-model="lecture.name">
+        </md-input-container>
+        <md-input-container>
+          <label>구분</label>
+          <md-select ng-model="lecture.majorType">
+            <md-option ng-repeat="(key, type) in majorTypes" value="{{key}}">
+              {{type}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </md-content>
+    </md-tab>
+    <md-tab label="수업">
+      <md-content class="md-padding">
+      </md-content>
+    </md-tab>
+    <md-tab label="교수">
+      <md-content class="md-padding">
+        <auto-complete placeholder="교수 등록" src="/api/v1/user/find" action="push"
+                       template="/common/directive/auto-complete/template/user.html"></auto-complete>
+        <div>
+          <user-profile user="user"></user-profile>
+        </div>
+
+        <div ng-repeat="manager in lecture.managers">
+          <user-profile user="manager"></user-profile>
+          <i class="fa fa-times" ng-click="lecture.managers.remove(manager)"></i>
+        </div>
+
+      </md-content>
+    </md-tab>
+    <md-tab label="수강생">
+      <md-content class="md-padding">
+      </md-content>
+    </md-tab>
+  </md-tabs>
+</section>
+
 
 <div class="container">
+
+
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-primary margin-top">
@@ -33,18 +74,10 @@
       <div class="panel panel-primary">
         <div class="panel-heading">교수진</div>
         <div class="panel-body">
-          <div>
-            <user-profile user="user"></user-profile>
-          </div>
 
-          <div ng-repeat="manager in lecture.managers">
-            <user-profile user="manager"></user-profile>
-            <i class="fa fa-times" ng-click="lecture.managers.remove(manager)"></i>
-          </div>
         </div>
         <div class="panel-footer">
-          <auto-complete placeholder="교수 등록" src="/api/v1/user/find" action="push"
-                         template="/common/directive/auto-complete/template/user.html"></auto-complete>
+
         </div>
       </div>
 
@@ -61,6 +94,7 @@
         <div class="panel-footer">
           <div class="input-group">
             <input class="form-control" placeholder="타입명" ng-model="type.name">
+
             <div class="input-group-addon" ng-click="newType(type)">타입추가+</div>
           </div>
         </div>

@@ -8,3 +8,7 @@ auto-complete ul {
   position: absolute;
   width: 100%;
 }
+.md-autocomplete-suggestions li {
+  height: inherit;
+  line-height: inherit;
+}

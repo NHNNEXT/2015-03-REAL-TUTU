@@ -1,8 +1,15 @@
-<input class="form-control" placeholder="{{placeholder}}" ng-model="keyword"
-       ng-click="selecting=true;$event.stopPropagation();">
-<ul class="list-group">
-  <li class="list-group-item" ng-show="result.length>0 && selecting" ng-repeat="each in result"
-      ng-class="{active:$index==index}" ng-mouseover="hover($index)" ng-click="select(each)">
+<md-autocomplete
+  ng-disabled="ctrl.isDisabled"
+  md-no-cache="ctrl.noCache"
+  md-selected-item="ctrl.selectedItem"
+  md-search-text="keyword"
+  md-search-text-change="search(keyword)"
+  md-selected-item-change="select(each)"
+  md-items="each in result"
+  md-item-text="each.name"
+  md-min-length="0"
+  placeholder="{{placeholder}}">
+  <md-item-template>
     <ng-include src="template"></ng-include>
-  </li>
-</ul>
+  </md-item-template>
+</md-autocomplete>
