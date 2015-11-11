@@ -1,5 +1,18 @@
-<img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
-<mod-textarea ng-model="reply.body" mod-right="user.id==reply.writer.id" mod-save="save"></mod-textarea>
-<like type="REPLY" like="reply.likes" target="reply.id"></like>
-<small ng-show="user.id==reply.writer.id" ng-click="delete(reply.id)">삭제</small>
-<small>{{reply.writeDate.toYMD()}}</small>
+<div class="photo">
+  <img ng-src="{{reply.writer.profileUrl || '/resource/profile.png'}}">
+</div>
+<div class="info">
+  <div class="info_append">
+    <strong class="tit_userid">
+      {{reply.writer.name}}
+    </strong>
+    <span class="txt_time">53분전</span>
+  </div>
+  <div class="body">
+    <mod-textarea ng-model="reply.body" mod-right="user.id==reply.writer.id" mod-save="save"></mod-textarea>
+    <div class="comment_setting" ng-show="user.id==reply.writer.id">
+      <span class="btn_set">수정</span>
+      <span class="btn_set" ng-click="delete(reply.id)">삭제</span>
+    </div>
+  </div>
+</div>
