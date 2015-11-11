@@ -2,6 +2,7 @@ package org.next.infra.uploadfile.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
 import org.next.infra.view.JsonView;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.reponse.ResponseCode;
@@ -16,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static org.next.infra.view.JsonView.successJsonResponse;
 import static org.next.infra.view.DownloadView.downloadView;
@@ -87,5 +87,11 @@ public class FileService {
         UploadedFile fileInfoFromDb = uploadFileRepository.findByUglyFileName(uglifiedFileName);
 
         return downloadView(fileInStorage, fileInfoFromDb.getOriginalFileName());
+    }
+
+    public GroupedUploadFileDto getUploadFileList(User user) {
+        List<UploadedFile> uploadedFileList = uploadFileRepository.findByUploadUserId(user.getId());
+
+        return new GroupedUploadFileDto(uploadedFileList);
     }
 }
