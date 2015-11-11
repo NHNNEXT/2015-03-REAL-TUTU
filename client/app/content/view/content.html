@@ -1,8 +1,5 @@
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <h2 ng-bind="content.title"></h2>
+  <h2 ng-bind="content.title"></h2>
         <span class="info">
           {{content.types[content.type].name}}
           <span class="bar"></span>
@@ -23,14 +20,12 @@
           </span>
         </span>
 
-        <div class="divider" ng-show="content.type===2">
-          <p>제출기한 : {{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <user-profile class="content" user="content.writer"></user-profile>
-      </div>
-    </div>
+  <div class="divider" ng-show="content.type===2">
+    <p>제출기한 : {{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
+  </div>
+  </div>
+  <div class="col-md-4">
+    <user-profile class="content" user="content.writer"></user-profile>
   </div>
 </section>
 
@@ -60,16 +55,18 @@
             <div reply="reply" replies="content.replies"></div>
           </li>
           <li class="list-group-item- wrap">
-            <user-profile user="user"></user-profile>
-            <wysiwyg ng-model="reply.body" textarea-class="form-control"
-                     textarea-height="250px"
-                     textarea-required enable-bootstrap-title="true"></wysiwyg>
-            <div class="btn btn-primary margin-vertical full-width" ng-click="writeReply(reply)">
-              <span ng-switch="content.type">
-                    <span ng-switch-when="2">제출하기</span>
-                    <span ng-switch-default>댓글달기</span>
-                  </span></div>
-          </li>
+
+            <div layout="row">
+              <user-profile user="user" flex="10"></user-profile>
+              <md-input-container class="md-block" flex="50">
+                <label>댓글</label>
+                <textarea ng-model="reply.body" columns="2" md-maxlength="300"></textarea>
+              </md-input-container>
+              <md-input-container>
+                <md-button class="md-raised md-primary" ng-click="writeReply(reply)">댓글달기</md-button>
+              </md-input-container>
+            </div>
+
         </ul>
       </div>
     </div>

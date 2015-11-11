@@ -1,4 +1,4 @@
-<user-profile user="reply.writer"></user-profile>
+<img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
 <mod-textarea ng-model="reply.body" mod-right="user.id==reply.writer.id" mod-save="save"></mod-textarea>
 <like type="REPLY" like="reply.likes" target="reply.id"></like>
 <small ng-show="user.id==reply.writer.id" ng-click="delete(reply.id)">삭제</small>
