@@ -142,3 +142,6 @@ input.form-control.block {
   width: 200px;
   display: inline-block;
 }
+.padding-bottom-s {
+  padding-bottom: 10px;
+}

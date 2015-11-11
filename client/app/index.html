@@ -9,54 +9,78 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="/common/style/animate.css"/>
+  <link rel="stylesheet" href="/common/style/menu.css"/>
   <link rel="stylesheet" href="/common/style/bootstrap.css"/>
   <link rel="stylesheet" href="/common/style/index.css"/>
   <link rel="stylesheet" href="/common/style/component.css"/>
   <link rel="stylesheet" href="/common/style/icons.css"/>
   <link rel="stylesheet" href="/common/style/flaty.min.css"/>
+  <link rel="stylesheet" href="/common/style/meterial.css"/>
   <link rel="stylesheet" href="/common/page/main/main.css"/>
   <link rel="stylesheet" href="/common/directive/drop-down/drop-down.css"/>
   <link rel="stylesheet" href="/common/directive/mod-input/mod-input.css"/>
   <link rel="stylesheet" href="/common/directive/auto-complete/auto-complete.css"/>
   <link rel="stylesheet" href="/common/directive/upload-img/upload-img.css"/>
   <link rel="stylesheet" href="/user/directive/user-profile/user-profile.css"/>
-  <link rel="stylesheet" href="/user/modal/form.css"/>
   <link rel="stylesheet" href="/user/page/profile.css"/>
   <link rel="stylesheet" href="/lesson/directive/lesson/lesson.css"/>
   <link rel="stylesheet" href="/lesson/directive/lesson-edit/lesson-edit.css"/>
-  <link rel="stylesheet" href="/content/directive/content-header/content-header.css"/>
-  <link rel="stylesheet" href="/lecture/page/lecture.css"/>
+  <link rel="stylesheet" href="/content/content-header/content-header.css"/>
+  <link rel="stylesheet" href="/lecture/view/lecture.css"/>
 
   <!-- endbuild -->
 </head>
-<body ng-app="clientApp" ng-controller="root">
+<body ng-app="clientApp" class="layout-row">
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
-<header ng-include="'/common/part/header/header.html'" class="header"></header>
+<!--<header ng-include="'/common/part/header/header.html'" class="header"></header>-->
 
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
+            ng-cloak flex>
+  <md-toolbar class="md-theme-indigo">
+    <h1 class="md-toolbar-tools">NEXUS</h1>
+  </md-toolbar>
+  <md-content layout-padding ng-controller="sideController">
+    <ul class="menu">
+      <li ui-sref="lectures">전체 강의</li>
+    </ul>
+    <ul class="menu" ng-show="user.isLogged()">
+      <li ui-sref="mylectures">내 강의</li>
+      <li>로그아웃</li>
+    </ul>
+    <ul class="menu" ng-show="!user.isLogged()">
+      <li ng-click="login()">로그인</li>
+      <li ng-click="register()">회원가입</li>
+    </ul>
+  </md-content>
+</md-sidenav>
+
+<div role="main" layout="column" flex>
+  <md-content layout-padding md-scroll-y ui-view ng-class="state.current.name">
+  </md-content>
+</div>
 <!--<div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert.alert}}</div>-->
 
-<div ui-view ng-class="state.current.name"></div>
 
 <!--<div class="footer">-->
-  <!--<div class="container">-->
-    <!--<p>2015-03-REAL-TUTU 강의 관리 시스템 개발(박성호,황정민,하태호)</p>-->
-  <!--</div>-->
+<!--<div class="container">-->
+<!--<p>2015-03-REAL-TUTU 강의 관리 시스템 개발(박성호,황정민,하태호)</p>-->
+<!--</div>-->
 <!--</div>-->
 
 
@@ -64,8 +88,8 @@
 <script>
   !function (A, n, g, u, l, a, r) {
     A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-      (A[l].q = A[l].q || []).push(arguments)
-    }, A[l].l = +new Date, a = n.createElement(g),
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
       r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
   }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
@@ -96,6 +120,9 @@
 <script src="/bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
 <script src="/bower_components/moment/moment.js"></script>
 <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+<script src="/bower_components/angular-aria/angular-aria.js"></script>
+<script src="/bower_components/angular-material/angular-material.js"></script>
+<script src="/bower_components/angular-messages/angular-messages.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -104,18 +131,19 @@
 <script src="/resource/moment-ko.js"></script>
 
 <script src="/app.js"></script>
-<script src="/etc.js"></script>
 <script src="/prototype.js"></script>
 
 
-<script src="/common/root.js"></script>
 <script src="/common/service/regex.js"></script>
 <script src="/common/service/alert.js"></script>
 <script src="/common/service/http.js"></script>
 <script src="/common/service/responseCode.js"></script>
 <script src="/common/service/modal/modal.js"></script>
 <script src="/common/service/types.js"></script>
+<script src="/common/service/dialog.js"></script>
 <script src="/common/service/interceptor/httpInterceptor.js"></script>
+
+<script src="/common/controller/sideController.js"></script>
 
 <script src="/common/directive/mod-input/mod-input.js"></script>
 <script src="/common/directive/mod-textarea/mod-textarea.js"></script>
@@ -140,13 +168,11 @@
 <script src="/common/page/main/main.js"></script>
 
 
-
-
-<script src="/content/directive/content-list/content-list.js"></script>
-<script src="/content/page/contentEdit.js"></script>
-<script src="/content/page/content.js"></script>
-<script src="/content/service/contentBroker.js"></script>
-<script src="/content/directive/content-header/content-header.js"></script>
+<script src="/content/content-list/content-list.js"></script>
+<script src="/content/content-header/content-header.js"></script>
+<script src="/content/edit/edit.js"></script>
+<script src="/content/view/content.js"></script>
+<script src="/content/contentBroker.js"></script>
 
 <script src="/user/service/user.js"></script>
 <script src="/user/service/userBroker.js"></script>
@@ -154,15 +180,14 @@
 <script src="/user/directive/user-profile-dropdown/user-profile.js"></script>
 <script src="/user/directive/my-profile/my-profile.js"></script>
 <script src="/user/page/profile.js"></script>
-<script src="/user/modal/user.js"></script>
+<script src="/user/auth/auth.js"></script>
 
-<script src="/lecture/page/edit/edit.js"></script>
-<script src="/lecture/page/mylectures/mylectures.js"></script>
-<script src="/lecture/page/lecture.js"></script>
-<script src="/lecture/page/list/lecture.js"></script>
-<script src="/lecture/page/list/lecture.controller.js"></script>
-<script src="/lecture/directive/lecture-table/lecture-table.js"></script>
-<script src="/lecture/service/lectureBroker.js"></script>
+<script src="/lecture/edit/edit.js"></script>
+<script src="/lecture/view//mylist/mylist.js"></script>
+<script src="/lecture/view/lecture.js"></script>
+<script src="/lecture/view/list/list.js"></script>
+<script src="/lecture/lecture-table/lecture-table.js"></script>
+<script src="/lecture/lectureBroker.js"></script>
 
 <script src="/lesson/directive/lesson/lesson.js"></script>
 <script src="/lesson/directive/lesson-edit/lesson-edit.js"></script>
@@ -173,23 +198,22 @@
 
 <script>
   console.log(
-
-  "%c                             ___-------___  \n" +
-  "                         _-~~             ~~-_\n"+
-  "                      _-~                    /~-_ \n"+
-  "   /^\\__/^\\         /~  \\                   /    \\ \n"+
-  " /|  O|| O|        /      \\_______________/        \\ \n"+
-  "| |___||__|      /       /                \\          \\ \n"+
-  "|          \\    /      /    DAN HO PARK     \\          \\ \n"+
-  "|   (_______) /______/                        \\_________ \\ \n"+
-  "|         / /         \\                      /            \\ \n"+
-  " \\         \\^\\\\         \\                  /               \\     / \n"+
-  "   \\         ||           \\______________/      _-_       //\\__//\n"+
-  "     \\       ||------_-~~-_ ------------- \\ --/~   ~\\    || __/\n"+
-  "       ~-----||====/~     |==================|       |/~~~~~\n"+
-  "        (_(__/  ./     /                    \\_\\      \\.\n"+
-  "               (_(___/                         \\_____)_)\n"
-  , 'color: green; display: block;');
+    "%c                             ___-------___  \n" +
+    "                         _-~~             ~~-_\n" +
+    "                      _-~                    /~-_ \n" +
+    "   /^\\__/^\\         /~  \\                   /    \\ \n" +
+    " /|  O|| O|        /      \\_______________/        \\ \n" +
+    "| |___||__|      /       /                \\          \\ \n" +
+    "|          \\    /      /    DAN HO PARK     \\          \\ \n" +
+    "|   (_______) /______/                        \\_________ \\ \n" +
+    "|         / /         \\                      /            \\ \n" +
+    " \\         \\^\\\\         \\                  /               \\     / \n" +
+    "   \\         ||           \\______________/      _-_       //\\__//\n" +
+    "     \\       ||------_-~~-_ ------------- \\ --/~   ~\\    || __/\n" +
+    "       ~-----||====/~     |==================|       |/~~~~~\n" +
+    "        (_(__/  ./     /                    \\_\\      \\.\n" +
+    "               (_(___/                         \\_____)_)\n"
+    , 'color: green; display: block;');
 </script>
 </body>
 </html>

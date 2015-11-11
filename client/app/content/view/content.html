@@ -1,0 +1,78 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 ng-bind="content.title"></h2>
+        <span class="info">
+          {{content.types[content.type].name}}
+          <span class="bar"></span>
+          조회수 {{content.hits}}
+          <span class="bar"></span>
+          댓글 {{content.replies.length}}
+          <span class="bar"></span>
+          <like type="CONTENT" like="content.likes" target="content.id"></like>
+          <span ng-show="content.writer.id === user.id">
+            <span class="bar"></span>
+            <span ui-sref="contentEdit({id:content.id})">수정</span>
+            <span class="bar"></span>
+            <span ng-click="delete(content)">삭제</span>
+          </span>
+          <span ng-show="content.date">
+          <span class="bar"></span>
+          <span>{{content.date.toYMD()}}</span>
+          </span>
+        </span>
+
+        <div class="divider" ng-show="content.type===2">
+          <p>제출기한 : {{content.dueDate.toYMD()}}까지 ({{remainDay(content.dueDate)}}일 남음)</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <user-profile class="content" user="content.writer"></user-profile>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p ng-bind-html="body()"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <span class="underlined">
+          <span ng-switch="content.type">
+               <span ng-switch-when="2">제출이력</span>
+               <span ng-switch-default>댓글</span>
+          </span>
+          ({{content.replies.length}})</span>
+        <ul class="list-group">
+          <li ng-repeat="reply in content.replies" class="list-group-item wrap reply">
+            <div reply="reply" replies="content.replies"></div>
+          </li>
+          <li class="list-group-item- wrap">
+            <user-profile user="user"></user-profile>
+            <wysiwyg ng-model="reply.body" textarea-class="form-control"
+                     textarea-height="250px"
+                     textarea-required enable-bootstrap-title="true"></wysiwyg>
+            <div class="btn btn-primary margin-vertical full-width" ng-click="writeReply(reply)">
+              <span ng-switch="content.type">
+                    <span ng-switch-when="2">제출하기</span>
+                    <span ng-switch-default>댓글달기</span>
+                  </span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>

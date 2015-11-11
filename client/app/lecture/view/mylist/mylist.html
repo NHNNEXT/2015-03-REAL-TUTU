@@ -1,0 +1,20 @@
+<section>
+  <h2>내 강의 </h2>
+
+  <div class="input-group">
+    <input type="text" class="form-control" ng-model="query">
+
+    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+  </div>
+</section>
+
+<section>
+  <h2>개설 강의</h2>
+  <lecture-table lectures="user.lectures.hosted" query="query"></lecture-table>
+
+  <h2>교수 강의</h2>
+  <lecture-table lectures="user.lectures.managed" query="query"></lecture-table>
+
+  <h2>수강 강의</h2>
+  <lecture-table lectures="user.lectures.enrolled" query="query"></lecture-table>
+</section>

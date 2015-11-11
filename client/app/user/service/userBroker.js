@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .service('userBroker', function (user, http, modal, responseCode, alert, $q) {
+  .service('userBroker', function (user, http, dialog) {
     this.login = function () {
       return http.post('/api/v1/user/login', user);
     };
@@ -9,9 +9,9 @@ angular.module('clientApp')
     };
 
     this.logout = function () {
-      http.get('/api/v1/user/logout').then(function(){
+      http.get('/api/v1/user/logout').then(function () {
         angular.copy({}, user);
-        modal.login();
+        dialog.login();
       });
     };
 
@@ -29,7 +29,6 @@ angular.module('clientApp')
 
   }).run(function (userBroker, user) {
     userBroker.getSessionUser().then(function (result) {
-      angular.copy(result, user); // 있으면 카피하고 로그온 설정
-      user.logged = true;
+      angular.copy(result, user);
     });
   });

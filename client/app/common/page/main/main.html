@@ -1,4 +1,3 @@
-<div class="jumbotron main bg">
   <div class="container">
     <h1 class="main-title"> N E X U S </h1>
     <br>
@@ -10,9 +9,7 @@
       <div class="input-group-addon"><i class="fa fa-search"></i></div>
     </div>
   </div>
-</div>
 
-<div class="container cube">
   <div class="panel-body" freewall>
     <div ng-repeat="content in contents | filter:query" class="tile" ng-style="content.style;">
       <i class="fa" ng-class="types.contentIcons[content.type]"></i> {{types.contentTypes[content.type]}}
@@ -22,4 +19,3 @@
 
     </div>
   </div>
-</div>

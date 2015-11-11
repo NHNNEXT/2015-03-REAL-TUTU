@@ -1,0 +1,45 @@
+<md-dialog aria-label="Nexus" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>로그인</h2>
+      <span flex></span>
+      <md-button class="md-icon-button"  dialog="cancel">
+        <md-icon md-svg-src="/resource/icon/ic_close.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px;min-width:350px; ">
+    <div class="md-dialog-content">
+      <form name="loginForm">
+        <md-input-container class="md-block">
+          <label>이메일</label>
+          <input required type="email" name="email" ng-model="user.email"
+                 ng-pattern="/^.+@.+\..+$/"/>
+
+          <div ng-messages="loginForm.email.$error" role="alert">
+            <div ng-message-exp="'pattern'">
+              이메일 형식이 맞지 않습니다.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>패스워드</label>
+          <input required type="password" name="password" ng-model="user.password"
+                 minlength="8" maxlength="20"/>
+
+          <div ng-messages="loginForm.password.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              패스워드는 8자~20자입니다.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block margin-top padding-bottom-s">
+          <md-button class="md-raised" ng-click="login(user)">로그인</md-button>
+        </md-input-container>
+      </form>
+      <div class="center">
+        <small>아이디가 없으신가요?  <span dialog="register" class="link">여기</span>를 눌러 회원가입</small>
+      </div>
+    </div>
+  </md-dialog-content>
+</md-dialog>
