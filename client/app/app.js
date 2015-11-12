@@ -41,7 +41,7 @@
           $state.go(redirect);
       }
     });
-  }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider, $mdThemingProvider) {
+  }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider) {
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false

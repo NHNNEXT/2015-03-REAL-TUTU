@@ -66,6 +66,7 @@ if (!Array.prototype.includes) {
   };
 }
 
+/* jshint ignore:start */
 Array.prototype.ignoreTypeIncludes = function (searchElement /*, fromIndex*/) {
   'use strict';
   var O = Object(this);
@@ -94,6 +95,7 @@ Array.prototype.ignoreTypeIncludes = function (searchElement /*, fromIndex*/) {
   }
   return false;
 };
+/* jshint ignore:end */
 
 Array.prototype.toggle = function (el) {
   if (this.includes(el)) {
@@ -102,6 +104,8 @@ Array.prototype.toggle = function (el) {
   }
   this.push(el);
 };
+
+
 
 Array.prototype.remove = function (el) {
   if (!this.includes(el))

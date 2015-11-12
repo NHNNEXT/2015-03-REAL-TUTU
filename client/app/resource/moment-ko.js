@@ -1,7 +1,5 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
-    typeof define === 'function' && define.amd ? define(['moment'], factory) :
-      factory(global.moment)
+      factory(global.moment);
 }(this, function (moment) {
   'use strict';
   var ko = moment.defineLocale('ko', {
@@ -48,7 +46,7 @@
     isPM: function (token) {
       return token === '오후';
     },
-    meridiem: function (hour, minute, isUpper) {
+    meridiem: function (hour) {
       return hour < 12 ? '오전' : '오후';
     }
   });

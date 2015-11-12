@@ -11,7 +11,12 @@
   "undef": true,
   "unused": true,
   "globals": {
-    "angular": false
+    "angular": false,
+    "$": true,
+    "moment": true,
+    "bowser": true,
+    "freewall": true,
+    "confirm": true
   },
   "validthis": true
 }

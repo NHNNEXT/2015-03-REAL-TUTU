@@ -9,40 +9,40 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <!-- endbuild -->
+  <!-- include: "type": "css", "files": "**/*.css" -->
+  <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
+  <link href="/common.directive.drop-down/drop-down.css" rel="stylesheet" type="text/css">
+  <link href="/common.directive.mod-input/mod-input.css" rel="stylesheet" type="text/css">
+  <link href="/common.directive.upload-img/upload-img.css" rel="stylesheet" type="text/css">
+  <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/component.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/flaty.min.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/index.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
+  <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
+  <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
+  <link href="/lesson.directive.lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
+  <link href="/lesson.directive.lesson/lesson.css" rel="stylesheet" type="text/css">
+  <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
+  <link href="/resource/flaty.css" rel="stylesheet" type="text/css">
+  <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
+  <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
+  <!-- /include -->
   <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="/common/style/animate.css"/>
-  <link rel="stylesheet" href="/common/style/menu.css"/>
-  <link rel="stylesheet" href="/common/style/profile.css"/>
-  <link rel="stylesheet" href="/common/style/bootstrap.css"/>
-  <link rel="stylesheet" href="/common/style/index.css"/>
-  <link rel="stylesheet" href="/common/style/component.css"/>
-  <link rel="stylesheet" href="/common/style/icons.css"/>
-  <link rel="stylesheet" href="/common/style/flaty.min.css"/>
-  <link rel="stylesheet" href="/common/style/meterial.css"/>
-  <link rel="stylesheet" href="/common/page/main/main.css"/>
-  <link rel="stylesheet" href="/common/directive/drop-down/drop-down.css"/>
-  <link rel="stylesheet" href="/common/directive/mod-input/mod-input.css"/>
-  <link rel="stylesheet" href="/common/directive/auto-complete/auto-complete.css"/>
-  <link rel="stylesheet" href="/common/directive/upload-img/upload-img.css"/>
-  <link rel="stylesheet" href="/user/profile/user-profile/user-profile.css"/>
-  <link rel="stylesheet" href="/user/profile/profile.css"/>
-  <link rel="stylesheet" href="/lesson/lesson/lesson.css"/>
-  <link rel="stylesheet" href="/lesson/lesson-edit/lesson-edit.css"/>
-  <link rel="stylesheet" href="/content/content-header/content-header.css"/>
-  <link rel="stylesheet" href="/lecture/view/lecture.css"/>
-  <link rel="stylesheet" href="/reply/reply/reply.css"/>
-
-
   <!-- endbuild -->
 </head>
 <body ng-app="clientApp" class="layout-row">
@@ -58,7 +58,7 @@
   <md-toolbar class="md-theme-indigo">
     <h1 class="md-toolbar-tools">NEXUS</h1>
   </md-toolbar>
-  <md-content ng-controller="sideController">
+  <md-content ng-controller="menuController">
     <div layout-padding>
       <ul class="menu" ng-show="user.isLogged()">
         <li ui-sref="lectures">전체 강의</li>
@@ -137,73 +137,63 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!-- include: "type": "js", "files": "**/*.js" -->
+<script src="/app.js"></script>
+<script src="/common.controller/menuController.js"></script>
+<script src="/common.directive.auto-complete/auto-complete.js"></script>
+<script src="/common.directive.drop-down/drop-down.js"></script>
+<script src="/common.directive.like/like.js"></script>
+<script src="/common.directive.mod-input/mod-input.js"></script>
+<script src="/common.directive.mod-textarea/mod-textarea.js"></script>
+<script src="/common.directive.upload-img/upload-img.js"></script>
+<script src="/common.directive/affix.js"></script>
+<script src="/common.directive/calendar.js"></script>
+<script src="/common.directive/freewall.js"></script>
+<script src="/common.directive/menu.js"></script>
+<script src="/common.directive/ngenter.js"></script>
+<script src="/common.page.main/main.controller.js"></script>
+<script src="/common.page.main/main.route.js"></script>
+<script src="/common.page.notfound/notfound.route.js"></script>
+<script src="/common.service/alert.js"></script>
+<script src="/common.service/confirm.js"></script>
+<script src="/common.service/dialog.js"></script>
+<script src="/common.service/http.js"></script>
+<script src="/common.service/httpInterceptor.js"></script>
+<script src="/common.service/responseCode.js"></script>
+<script src="/common.service/types.js"></script>
+<script src="/content.directive.content-header/content-header.js"></script>
+<script src="/content.directive.content-list/content-list.js"></script>
+<script src="/content.page.detail/detail.controller.js"></script>
+<script src="/content.page.detail/detail.route.js"></script>
+<script src="/content.page.edit/edit.controller.js"></script>
+<script src="/content.page.edit/edit.route.js"></script>
+<script src="/content.service/contentBroker.js"></script>
+<script src="/lecture.directive.lecture-table/lecture-table.js"></script>
+<script src="/lecture.page.detail/lecture.js"></script>
+<script src="/lecture.page.detail/lecture.route.js"></script>
+<script src="/lecture.page.edit/edit.controller.js"></script>
+<script src="/lecture.page.edit/edit.route.js"></script>
+<script src="/lecture.page.list/list.js"></script>
+<script src="/lecture.page.mylist/mylist.js"></script>
+<script src="/lecture.service/lectureBroker.js"></script>
+<script src="/lesson.directive.lesson-edit/lesson-edit.js"></script>
+<script src="/lesson.directive.lesson/lesson.js"></script>
+<script src="/message.page.list/list.js"></script>
+<script src="/message.service.broker/messageBroker.js"></script>
+<script src="/prototype.js"></script>
+<script src="/reply.directive.reply/reply.js"></script>
+<script src="/reply.service/replyBroker.js"></script>
 <script src="/resource/angular-wysiwyg.js"></script>
 <script src="/resource/moment-ko.js"></script>
-
-<script src="/app.js"></script>
-<script src="/prototype.js"></script>
-
-
-<script src="/common/service/regex.js"></script>
-<script src="/common/service/alert.js"></script>
-<script src="/common/service/http.js"></script>
-<script src="/common/service/responseCode.js"></script>
-<script src="/common/service/modal/modal.js"></script>
-<script src="/common/service/types.js"></script>
-<script src="/common/service/dialog.js"></script>
-<script src="/common/service/interceptor/httpInterceptor.js"></script>
-
-<script src="/common/controller/sideController.js"></script>
-
-<script src="/common/directive/mod-input/mod-input.js"></script>
-<script src="/common/directive/mod-textarea/mod-textarea.js"></script>
-<script src="/common/directive/menu.js"></script>
-<script src="/common/directive/auto-complete/auto-complete.js"></script>
-<script src="/common/directive/ngenter.js"></script>
-<!--<script src="/common/directive/textarea.js"></script>-->
-<script src="/common/directive/sort.js"></script>
-<script src="/common/directive/ngregex.js"></script>
-<script src="/common/directive/like/like.js"></script>
-<script src="/common/directive/drop-down/drop-down.js"></script>
-<script src="/common/directive/upload-img/upload-img.js"></script>
-<script src="/common/directive/freewall.js"></script>
-<script src="/common/directive/calendar.js"></script>
-<script src="/common/directive/affix.js"></script>
-
-<script src="/common/part/header/header.js"></script>
-<!--<script src="/common/part/alert/alert.js"></script>-->
-
-
-<script src="/common/page/notfound/notfound.js"></script>
-<script src="/common/page/main/main.js"></script>
-
-
-<script src="/content/content-list/content-list.js"></script>
-<script src="/content/content-header/content-header.js"></script>
-<script src="/content/edit/edit.js"></script>
-<script src="/content/view/content.js"></script>
-<script src="/content/contentBroker.js"></script>
-
-<script src="/user/user.js"></script>
-<script src="/user/userBroker.js"></script>
-<script src="/user/profile/user-profile/user-profile.js"></script>
-<script src="/user/profile/user-profile-dropdown/user-profile.js"></script>
-<script src="/user/profile/my-profile/my-profile.js"></script>
-<script src="/user/profile/profile.js"></script>
-<script src="/user/auth/auth.js"></script>
-
-<script src="/lecture/edit/edit.js"></script>
-<script src="/lecture/view//mylist/mylist.js"></script>
-<script src="/lecture/view/lecture.js"></script>
-<script src="/lecture/view/list/list.js"></script>
-<script src="/lecture/lecture-table/lecture-table.js"></script>
-<script src="/lecture/lectureBroker.js"></script>
-
-<script src="/lesson/lesson/lesson.js"></script>
-<script src="/lesson/lesson-edit/lesson-edit.js"></script>
-
-<script src="/reply/reply/reply.js"></script>
-<script src="/reply/replyBroker.js"></script>
+<script src="/user.controller/auth.controller.js"></script>
+<script src="/user.directive.my-profile/my-profile.js"></script>
+<script src="/user.directive.user-profile-dropdown/user-profile.js"></script>
+<script src="/user.directive.user-profile/user-profile.js"></script>
+<script src="/user.page.profile/profile.controller.js"></script>
+<script src="/user.page.profile/profile.route.js"></script>
+<script src="/user.service/user.js"></script>
+<script src="/user.service/userBroker.js"></script>
+<!-- /include -->
 <!-- endbuild -->
 
 <script>

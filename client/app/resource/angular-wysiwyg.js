@@ -23,6 +23,7 @@
  use compile fuction instead of $compile
  move button elements to js objects and use doc fragments
  */
+/* jshint ignore: start */
 (function (angular, undefined) {
   'use strict';
   var DEFAULT_MENU = [
@@ -1079,3 +1080,4 @@
     }
   });
 }(angular));
+/* jshint ignore: end */

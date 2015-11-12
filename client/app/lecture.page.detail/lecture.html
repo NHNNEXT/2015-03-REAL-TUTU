@@ -1,0 +1,47 @@
+<section>
+  <h2 ng-bind="lecture.name"></h2>
+
+  <div class="info margin-bottom">
+      <span ng-show="lecture.majorType">
+        {{types.majorTypes[lecture.majorType]}}
+        <span class="bar"></span>
+      </span>
+    <like type="LECTURE" like="lecture.likes" target="lecture.id"></like>
+    <span class="bar"></span>
+    게시물 {{lecture.contents.length}}
+    <span class="bar"></span>
+    수강생 {{lecture.enrolledStudent.length}}
+      <span ng-hide="isEnrolled(lecture.id)" ng-click="enroll(lecture.id)">
+      <span class="bar"></span>수강하기</span></span>
+
+      <span ng-show="user.id === lecture.hostUser.id">
+        <span class="bar"></span>
+        <span ui-sref="lectureEdit({id:lecture.id})">강의수정</span>
+        <span class="bar"></span>
+        <span ng-click="remove(lecture.id)">폐강</span>
+      </span>
+  </div>
+
+  <md-tabs md-dynamic-height md-border-bottom>
+    <md-tab label="글">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.detail/part/contents.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label="수업">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.detail/part/lessons.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label="교수">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.detail/part/prof.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label="수강생">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.detail/part/students.html'"></ng-include>
+      </md-content>
+    </md-tab>
+  </md-tabs>
+</section>

@@ -38,8 +38,8 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        files: ['<%= yeoman.app %>/{,*/}*.js'],
+        tasks: ['newer:jshint:all', 'includeSource'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -50,9 +50,9 @@ module.exports = function (grunt) {
       },
       less: {
         files: [
-          '<%= yeoman.app %>/**/*.less',
+          '<%= yeoman.app %>/{,*/}*.less'
         ],
-        tasks: ['less'],
+        tasks: ['less', 'includeSource'],
         options: {
           interrupt: true
         }
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/{,*/}*.js',
           '<%= yeoman.app %>/{,*/}*.css'
         ]
-      }
+      },
     },
 
     // The actual grunt server settings
@@ -141,7 +141,7 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/{,*/}*.js'
         ]
       },
       test: {
@@ -242,43 +242,13 @@ module.exports = function (grunt) {
       }
     },
 
-    // Compiles Sass to CSS and generates necessary files if requested
-    //compass: {
-    //  options: {
-    //    sassDir: '<%= yeoman.app %>/styles',
-    //    cssDir: '.tmp/styles',
-    //    generatedImagesDir: '.tmp/images/generated',
-    //    imagesDir: '<%= yeoman.app %>/images',
-    //    javascriptsDir: '<%= yeoman.app %>/scripts',
-    //    fontsDir: '<%= yeoman.app %>/styles/fonts',
-    //    importPath: './bower_components',
-    //    httpImagesPath: '/images',
-    //    httpGeneratedImagesPath: '/images/generated',
-    //    httpFontsPath: '/styles/fonts',
-    //    relativeAssets: false,
-    //    assetCacheBuster: false,
-    //    raw: 'Sass::Script::Number.precision = 10\n'
-    //  },
-    //  dist: {
-    //    options: {
-    //      generatedImagesDir: '<%= yeoman.dist %>/images/generated'
-    //    }
-    //  },
-    //  server: {
-    //    options: {
-    //      sourcemap: true
-    //    }
-    //  }
-    //},
-
     // Renames files for browser caching purposes
     filerev: {
       dist: {
         src: [
-          '/<%= yeoman.dist %>/scripts/{,*/}*.js',
-          '/<%= yeoman.dist %>/styles/{,*/}*.css',
-          '/<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '/<%= yeoman.dist %>/styles/fonts/*'
+          '/<%= yeoman.dist %>/{,*/}*.js',
+          '/<%= yeoman.dist %>/{,*/}*.css',
+          '/<%= yeoman.dist %>/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
         ]
       }
     },
@@ -305,8 +275,8 @@ module.exports = function (grunt) {
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
-      js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
+      css: ['<%= yeoman.dist %>/{,*/}*.css'],
+      js: ['<%= yeoman.dist %>/{,*/}*.js'],
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>',
@@ -384,31 +354,49 @@ module.exports = function (grunt) {
       }
     },
 
-    // ngtemplates: {
-    //   dist: {
-    //     options: {
-    //       module: 'clientApp',
-    //       htmlmin: '<%= htmlmin.dist.options %>',
-    //       usemin: 'scripts/scripts.js'
-    //     },
-    //     cwd: '<%= yeoman.app %>',
-    //     src: 'views/{,*/}*.html',
-    //     dest: '.tmp/templateCache.js'
-    //   }
-    // },
+    includeSource: {
+      options: {
+        basePath: 'app',
+        baseUrl: '/'
+      },
+      templates: {
+        html: {
+          js: '<script src="{filePath}"></script>',
+          css: '<link rel="stylesheet" type="text/css" href="{filePath}" />'
+        }
+      },
+      myTarget: {
+        files: {
+          'app/index.html': 'app/index.html'
+        }
+      }
+    },
+
+    ngtemplates: {
+      dist: {
+        options: {
+          module: 'clientApp',
+          htmlmin: '<%= htmlmin.dist.options %>',
+          usemin: 'scripts/scripts.js'
+        },
+        cwd: '<%= yeoman.app %>',
+        src: 'views/{,}*.html',
+        dest: '.tmp/templateCache.js'
+      }
+    },
 
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
-    // ngAnnotate: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '.tmp/concat/scripts',
-    //       src: '*.js',
-    //       dest: '.tmp/concat/scripts'
-    //     }]
-    //   }
-    // },
+    ngAnnotate: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          src: '*.js',
+          dest: '.tmp/concat/scripts'
+        }]
+      }
+    },
 
     // Replace Google CDN references
     cdnify: {
@@ -516,7 +504,7 @@ module.exports = function (grunt) {
     'autoprefixer',
     // 'ngtemplates',
     'concat',
-    // 'ngAnnotate',
+    'ngAnnotate',
     'copy:dist',
     'cdnify',
     'cssmin',
