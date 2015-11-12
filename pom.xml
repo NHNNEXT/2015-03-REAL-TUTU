@@ -21,7 +21,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <java.version>1.8</java.version>
+
+        <plugin.version.maven-war-plugin>2.6</plugin.version.maven-war-plugin>
+        <plugin.version.maven-compiler-plugin>3.2</plugin.version.maven-compiler-plugin>
     </properties>
 
     <dependencies>
@@ -84,6 +88,7 @@
     </dependencies>
 
     <build>
+        <finalName>ROOT</finalName>
         <resources>
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
@@ -100,6 +105,25 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${plugin.version.maven-war-plugin}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.version.maven-compiler-plugin}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>
