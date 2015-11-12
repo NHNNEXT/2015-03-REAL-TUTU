@@ -22,8 +22,8 @@ public class FileUploadController {
     private FileService fileService;
 
     @RequestMapping
-    public JsonView uploadFile(MultipartFile file, HttpSession session){
+    public JsonView uploadFile(MultipartFile file, Long contentId, HttpSession session){
         User user = sessionUtil.getLoggedUser(session);
-        return fileService.upload(file, user);
+        return fileService.upload(file, user, contentId);
     }
 }

@@ -1,12 +1,16 @@
 package org.next.infra.uploadfile.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.next.infra.repository.ContentRepository;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
 import org.next.infra.view.JsonView;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.reponse.ResponseCode;
+import org.next.lms.content.Content;
 import org.next.lms.user.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -35,7 +39,10 @@ public class FileService {
     @Autowired
     private UploadFileRepository uploadFileRepository;
 
-    public JsonView upload(MultipartFile file, User userAccount) {
+    @Autowired
+    private ContentRepository contentRepository;
+
+    public JsonView upload(MultipartFile file, User userAccount, Long contentId) {
         if(file.isEmpty())
             return new JsonView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
@@ -49,18 +56,20 @@ public class FileService {
         try {
             file.transferTo(fileStorePath);
         } catch (IllegalStateException | IOException e) {
+            log.debug("{}", e.getCause());
             return new JsonView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
 
-        saveFileInfo(file, userAccount, uglifiedFileName);
+        saveFileInfo(file, uglifiedFileName, contentId, userAccount);
 
         return successJsonResponse(uglifiedFileName);
     }
 
-    private void saveFileInfo(MultipartFile file, User user, String fileName) {
+    private void saveFileInfo(MultipartFile file, String fileName, Long contentId, User user) {
         UploadedFile fileInfo = new UploadedFile();
         fileInfo.setOriginalFileName(getNormalizedFileName(file));
         fileInfo.setUglyFileName(fileName);
+        fileInfo.setContent(contentRepository.findOne(contentId));
         fileInfo.setUploadUser(user);
         uploadFileRepository.save(fileInfo);
     }
