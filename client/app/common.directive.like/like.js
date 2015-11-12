@@ -8,6 +8,7 @@ angular.module('clientApp')
         target: '='
       },
       templateUrl: '/common.directive.like/like.html',
+      /* @ngInject */
       controller: function ($scope, http, user, responseCode, $timeout) {
         $scope.getClass = function () {
           if ($scope.like.includes(user.id))

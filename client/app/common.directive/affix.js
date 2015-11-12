@@ -1,4 +1,5 @@
 angular.module('clientApp')
+  /* @ngInject */
   .directive('affix', function ($timeout) {
     return {
       restrict: 'A',

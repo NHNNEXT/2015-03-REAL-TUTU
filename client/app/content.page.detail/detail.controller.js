@@ -1,7 +1,5 @@
-/**
- * Created by park on 15. 11. 12..
- */
 angular.module('clientApp').controller('contentDetailController',
+  /* @ngInject */
 function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state, $sce, confirm) {
   $scope.user = user;
   $scope.content = {replies: []};

@@ -1,4 +1,5 @@
 angular.module('clientApp')
+  /* @ngInject */
   .service('userBroker', function (user, http, dialog) {
     this.login = function () {
       return http.post('/api/v1/user/login', user);
@@ -27,7 +28,9 @@ angular.module('clientApp')
       return http.get('/api/v1/user', {id: id});
     };
 
-  }).run(function (userBroker, user) {
+  }).run(
+  /* @ngInject */
+  function (userBroker, user) {
     userBroker.getSessionUser().then(function (result) {
       angular.copy(result, user);
     });

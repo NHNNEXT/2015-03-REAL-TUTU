@@ -7,6 +7,7 @@ angular.module('clientApp')
         replies: '='
       },
       templateUrl: '/reply.directive.reply/reply.html',
+      /* @ngInject */
       controller: function (user, $scope, replyBroker, confirm) {
         $scope.user = user;
         $scope.modify = function () {

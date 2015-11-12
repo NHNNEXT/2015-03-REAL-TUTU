@@ -25,7 +25,9 @@ angular.module('clientApp')
     this.cancel = function() {
       $mdDialog.cancel();
     };
-  }).directive('dialog', function (dialog) {
+  })
+  /* @ngInject */
+  .directive('dialog', function (dialog) {
     return {
       restrict: 'A',
       link: function (s, e, a) {

@@ -1,4 +1,5 @@
 angular.module('clientApp')
+  /* @ngInject */
   .factory('http', function ($http, $q, responseCode, user, dialog, alert) {
     var http = function (method, url, params, success, error) {
       var options = {

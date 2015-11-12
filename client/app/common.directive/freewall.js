@@ -1,4 +1,5 @@
 angular.module('clientApp')
+  /* @ngInject */
   .directive('freewall', function ($timeout, $window) {
     return {
       restrict: 'A',

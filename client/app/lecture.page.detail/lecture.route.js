@@ -1,5 +1,6 @@
 angular
   .module('clientApp')
+  /* @ngInject */
   .controller('lectureDetailController', function ($scope, $stateParams, lectureBroker, user, alert, $state, types, confirm) {
 
     $scope.types = types;

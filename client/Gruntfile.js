@@ -73,7 +73,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/{,*/}*.js',
           '<%= yeoman.app %>/{,*/}*.css'
         ]
-      },
+      }
     },
 
     // The actual grunt server settings
@@ -210,7 +210,16 @@ module.exports = function (grunt) {
               css: '<link rel="stylesheet" href="/{{filePath}}" />'
             }
           }
-        }
+        },
+        exclude: [
+          '/bower_components/angular/angular.js',
+          '/bower_components/angular-animate/angular-animate.js',
+          '/bower_components/angular-cookies/angular-cookies.js',
+          '/bower_components/angular-resource/angular-resource.js',
+          '/bower_components/angular-sanitize/angular-sanitize.js',
+          '/bower_components/angular-touch/angular-touch.js',
+          '/bower_components/angular-messages/angular-messages.js'
+        ]
       },
       test: {
         devDependencies: true,
@@ -348,7 +357,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html'],
+          src: ['/{,*/}*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -375,13 +384,14 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
+          prefix: '/',
           module: 'clientApp',
-          htmlmin: '<%= htmlmin.dist.options %>',
-          usemin: 'scripts/scripts.js'
+          htmlmin: '<%= htmlmin.dist.options %>'
+          //usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
-        src: 'views/{,}*.html',
-        dest: '.tmp/templateCache.js'
+        src: ['**/*.html', '!index.html'],
+        dest: 'app/template.js'
       }
     },
 
@@ -498,11 +508,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'jshint:all',
     'wiredep',
+    'ngtemplates',
+    'includeSource',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    // 'ngtemplates',
     'concat',
     'ngAnnotate',
     'copy:dist',

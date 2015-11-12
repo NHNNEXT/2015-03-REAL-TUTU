@@ -9,6 +9,7 @@ angular.module('clientApp')
         types: '='
       },
       templateUrl: '/content.directive.content-list/content-list.html',
+      /* @ngInject */
       controller: function ($scope) {
         $scope.$watch('contents', function (contents) {
           if (!contents)

@@ -5,3 +5,4 @@
 /bower_components
 /app/uploads/*.*
 /app/**/*.css
+/app/template.js

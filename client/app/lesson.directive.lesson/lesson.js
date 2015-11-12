@@ -1,5 +1,4 @@
 angular.module('clientApp')
-  /* @ngInject */
   .directive('lesson', function () {
     return {
       restrict: 'E',

@@ -1,3 +1,4 @@
+/* @ngInject */
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('content', {

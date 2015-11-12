@@ -18,7 +18,7 @@
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
-    'wysiwyg.module',
+    //'wysiwyg.module',
     'datePicker',
     'ngFileUpload',
     'restangular',
@@ -59,9 +59,3 @@
 
   });
 }());
-
-
-
-
-
-

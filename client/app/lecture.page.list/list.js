@@ -16,7 +16,7 @@
     }
   }
 
-
+  /* @ngInject */
   function config($stateProvider) {
     $stateProvider
       .state('lectures', {

@@ -1,3 +1,4 @@
+/* @ngInject */
 angular.module('clientApp').controller('authController', function ($scope, user, alert, userBroker, dialog, responseCode) {
   $scope.user = user;
 

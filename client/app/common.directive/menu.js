@@ -1,12 +1,5 @@
-'use strict';
-
-/**
- * @ngdoc directive
- * @name clientApp.directive:menu
- * @description
- * # menu
- */
 angular.module('clientApp')
+  /* @ngInject */
   .directive('menu', function ($compile, $state) {
     return {
       restrict: 'E',

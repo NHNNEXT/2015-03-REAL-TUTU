@@ -1,5 +1,6 @@
 angular
   .module('clientApp')
+  /* @ngInject */
   .controller('mainController', function ($scope, user, contentBroker, types) {
     $scope.user = user;
     $scope.types = types;

@@ -11,6 +11,7 @@ angular.module('clientApp')
         names: '='
       },
       templateUrl: '/common.directive.drop-down/drop-down.html',
+      /* @ngInject */
       controller: function ($scope) {
         $scope.setSelected = function (option) {
           $scope.ngModel = option;

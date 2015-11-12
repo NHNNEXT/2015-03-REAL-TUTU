@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <link rel="icon" href="/favicon.ico"/>
-  <!-- build:css(.) styles/vendor.css -->
+  <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <!-- endbuild -->
+
+  <!-- build:css({.tmp,app}) /styles/main.css -->
   <!-- include: "type": "css", "files": "**/*.css" -->
   <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.drop-down/drop-down.css" rel="stylesheet" type="text/css">
@@ -42,7 +44,6 @@
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
-  <!-- build:css(.tmp) styles/main.css -->
   <!-- endbuild -->
 </head>
 <body ng-app="clientApp" class="layout-row">
@@ -51,7 +52,6 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!--<header ng-include="'/common/part/header/header.html'" class="header"></header>-->
 
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
             ng-cloak flex>
@@ -84,15 +84,6 @@
   <md-content layout-padding md-scroll-y ui-view ng-class="state.current.name">
   </md-content>
 </div>
-<!--<div ng-controller="AlertCtrl" id="alert" ng-show="showing" ng-click="showing=!showing">{{alert.alert}}</div>-->
-
-
-<!--<div class="footer">-->
-<!--<div class="container">-->
-<!--<p>2015-03-REAL-TUTU 강의 관리 시스템 개발(박성호,황정민,하태호)</p>-->
-<!--</div>-->
-<!--</div>-->
-
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -107,15 +98,16 @@
   ga('send', 'pageview');
 </script>
 
-<!-- build:js(.) scripts/vendor.js -->
-<!-- bower:js -->
-<script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/angular/angular.js"></script>
 <script src="/bower_components/angular-animate/angular-animate.js"></script>
 <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="/bower_components/angular-resource/angular-resource.js"></script>
 <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="/bower_components/angular-touch/angular-touch.js"></script>
+<script src="/bower_components/angular-messages/angular-messages.js"></script>
+<!-- build:js(.) /scripts/vendor.js -->
+<!-- bower:js -->
+<script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="/bower_components/lodash/lodash.js"></script>
@@ -127,16 +119,14 @@
 <script src="/bower_components/bowser/bowser.js"></script>
 <script src="/bower_components/freewall/freewall.js"></script>
 <script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-<script src="/bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
-<script src="/bower_components/moment/moment.js"></script>
 <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
-<script src="/bower_components/angular-messages/angular-messages.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+<!-- build:js({.tmp,app}) /scripts/scripts.js -->
 <!-- include: "type": "js", "files": "**/*.js" -->
 <script src="/app.js"></script>
 <script src="/common.controller/menuController.js"></script>
@@ -185,6 +175,7 @@
 <script src="/reply.service/replyBroker.js"></script>
 <script src="/resource/angular-wysiwyg.js"></script>
 <script src="/resource/moment-ko.js"></script>
+<script src="/template.js"></script>
 <script src="/user.controller/auth.controller.js"></script>
 <script src="/user.directive.my-profile/my-profile.js"></script>
 <script src="/user.directive.user-profile-dropdown/user-profile.js"></script>

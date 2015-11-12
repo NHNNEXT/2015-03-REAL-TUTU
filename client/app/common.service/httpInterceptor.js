@@ -7,7 +7,7 @@
   angular
     .module('clientApp')
     .factory('httpInterceptor',httpInterceptor);
-
+  /* @ngInject */
   function httpInterceptor($q) {
 
     return {

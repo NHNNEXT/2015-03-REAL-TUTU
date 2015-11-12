@@ -1,4 +1,5 @@
 angular.module('clientApp').controller('contentEditController',
+  /* @ngInject */
   function ($stateParams, $scope, contentBroker, types, user, $state) {
     $scope.user = user;
 

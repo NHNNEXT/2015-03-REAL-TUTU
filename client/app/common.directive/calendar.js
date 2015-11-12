@@ -2,6 +2,7 @@ angular.module('clientApp')
   .directive('calendar', function () {
     return {
       restrict: 'A',
+      /* @ngInject */
       link: function (scope, element, attrs) {
         if (!attrs.calendar)
           return;

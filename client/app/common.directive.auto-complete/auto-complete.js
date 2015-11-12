@@ -1,4 +1,5 @@
 angular.module('clientApp')
+  /* @ngInject */
   .directive('autoComplete', function ($timeout, http) {
     return {
       restrict: 'E',

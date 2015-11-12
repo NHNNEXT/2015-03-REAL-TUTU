@@ -8,6 +8,7 @@ angular.module('clientApp')
         query: '='
       },
       templateUrl: '/lecture.directive.lecture-table/lecture-table.html',
+      /* @ngInject */
       controller: function ($scope, types) {
         $scope.key = 'name';
         var majorTypes = types.majorTypes;

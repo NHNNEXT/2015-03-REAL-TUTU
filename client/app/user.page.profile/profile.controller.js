@@ -1,4 +1,5 @@
 angular.module('clientApp')
+  /* @ngInject */
   .controller('profileController', function ($scope, user, $stateParams, userBroker, alert) {
 
     $scope.uploadCallback = uploadCallback;

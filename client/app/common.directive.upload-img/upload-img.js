@@ -10,6 +10,7 @@ angular.module('clientApp')
         default: '@'
       },
       templateUrl: "/common.directive.upload-img/upload-img.html",
+      /* @ngInject */
       controller: function ($scope, Upload, alert) {
         $scope.progress = 0;
         $scope.$watch('file', function (file) {

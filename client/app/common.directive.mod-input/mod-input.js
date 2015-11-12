@@ -9,6 +9,7 @@ angular.module('clientApp').directive('modInput', function () {
       modRight: '=',
       modSave: '='
     },
+    /* @ngInject */
     controller: function ($scope) {
       $scope.save = function () {
         $scope.mod = false;
