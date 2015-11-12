@@ -9,8 +9,14 @@ angular.module('clientApp')
       templateUrl: '/reply/reply/reply.html',
       controller: function (user, $scope, replyBroker) {
         $scope.user = user;
-        $scope.save = function () {
-          replyBroker.save({body: $scope.reply.body, id: $scope.reply.id});
+        $scope.modify = function () {
+          if ($scope.mod) {
+            replyBroker.save({body: $scope.reply.body, id: $scope.reply.id}).then(function(){
+              $scope.mod = false;
+            });
+            return;
+          }
+          $scope.mod = true;
         };
         $scope.delete = function (id) {
           if (!confirm("삭제하시겠습니까?"))

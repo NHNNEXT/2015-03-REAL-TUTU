@@ -9,19 +9,20 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="/common/style/animate.css"/>
   <link rel="stylesheet" href="/common/style/menu.css"/>
+  <link rel="stylesheet" href="/common/style/profile.css"/>
   <link rel="stylesheet" href="/common/style/bootstrap.css"/>
   <link rel="stylesheet" href="/common/style/index.css"/>
   <link rel="stylesheet" href="/common/style/component.css"/>
@@ -57,18 +58,25 @@
   <md-toolbar class="md-theme-indigo">
     <h1 class="md-toolbar-tools">NEXUS</h1>
   </md-toolbar>
-  <md-content layout-padding ng-controller="sideController">
-    <ul class="menu">
-      <li ui-sref="lectures">전체 강의</li>
-    </ul>
-    <ul class="menu" ng-show="user.isLogged()">
-      <li ui-sref="mylectures">내 강의</li>
-      <li ng-click="logout()">로그아웃</li>
-    </ul>
-    <ul class="menu" ng-show="!user.isLogged()">
-      <li ng-click="login()">로그인</li>
-      <li ng-click="register()">회원가입</li>
-    </ul>
+  <md-content ng-controller="sideController">
+    <div layout-padding>
+      <ul class="menu" ng-show="user.isLogged()">
+        <li ui-sref="lectures">전체 강의</li>
+        <li ui-sref="mylectures">내 강의 </li>
+        <md-divider></md-divider>
+      </ul>
+
+      <ul class="menu" ng-show="user.isLogged()">
+        <li ui-sref="profile({id:user.id})">내 프로필</li>
+        <li ui-sref="mylectures">소식 <span class="red">new</span></li>
+        <md-divider></md-divider>
+        <li ng-click="logout()">로그아웃</li>
+      </ul>
+      <ul class="menu" ng-show="!user.isLogged()">
+        <li ng-click="login()">로그인</li>
+        <li ng-click="register()">회원가입</li>
+      </ul>
+    </div>
   </md-content>
 </md-sidenav>
 

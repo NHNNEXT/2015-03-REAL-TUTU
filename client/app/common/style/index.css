@@ -109,6 +109,9 @@ h1 small {
 .white {
   color: white;
 }
+.red {
+  color: red;
+}
 [sort] {
   cursor: pointer;
 }

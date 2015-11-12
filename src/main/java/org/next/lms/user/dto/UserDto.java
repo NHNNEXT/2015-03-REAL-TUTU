@@ -15,7 +15,7 @@ public class UserDto {
     private String major;
     private String introduce;
     private String profileUrl;
-    private LectureListDto lectureListDto;
+    private LectureListDto lectures;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -26,7 +26,7 @@ public class UserDto {
         this.introduce = user.getIntroduce();
         this.phoneNumber = user.getPhoneNumber();
         this.major = user.getMajor();
-        this.lectureListDto = new LectureListDto(user);
+        this.lectures = new LectureListDto(user);
     }
 
 }

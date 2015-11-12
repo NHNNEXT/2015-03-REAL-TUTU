@@ -7,6 +7,8 @@ Number.prototype.toYMD = function () {
 };
 
 Date.prototype.toYMD = function () {
+  if (new Date().isSameDay(this))
+    return this.fromNow();
   return this.getDateString() + " (" + this.getDayKR() + ") " + this.getTimeString();
 };
 
