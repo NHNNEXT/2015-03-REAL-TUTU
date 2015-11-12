@@ -13,8 +13,10 @@ spring.jpa.generate-ddl=false
 spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.hibernate.naming-strategy=org.hibernate.cfg.ImprovedNamingStrategy
+
+#사용중인 DB에 따라 취사선택
 #spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+#spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 #==========================================#
 #  HTTP encoding (HttpEncodingProperties)
