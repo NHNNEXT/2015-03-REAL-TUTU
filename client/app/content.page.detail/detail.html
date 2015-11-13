@@ -8,7 +8,7 @@
           댓글 {{content.replies.length}}
           <span class="bar"></span>
           <like type="CONTENT" like="content.likes" target="content.id"></like>
-          <span ng-show="content.writer.id === user.id">
+          <span ng-show="content.writer.id === rootUser.id">
             <span class="bar"></span>
             <span ui-sref="contentEdit({id:content.id})">수정</span>
             <span class="bar"></span>
@@ -30,13 +30,7 @@
 </section>
 
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <p ng-bind-html="body()"></p>
-      </div>
-    </div>
-  </div>
+  <p ng-bind-html="body()"></p>
 </section>
 
 
@@ -49,7 +43,7 @@
   </div>
   <div class="reply-write" layout="row">
     <div class="photo" flex>
-      <img class="profile" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
+      <img class="profile" ng-src="{{rootUser.profileUrl || '/resource/profile.png'}}">
     </div>
     <div class="info" flex>
       <div class="body">

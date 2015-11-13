@@ -1,8 +1,8 @@
 angular.module('clientApp')
   /* @ngInject */
-  .service('userBroker', function (user, http, dialog) {
+  .service('userBroker', function (rootUser, http, dialog) {
     this.login = function () {
-      return http.post('/api/v1/user/login', user);
+      return http.post('/api/v1/user/login', rootUser);
     };
 
     this.register = function (user) {
@@ -11,7 +11,7 @@ angular.module('clientApp')
 
     this.logout = function () {
       http.get('/api/v1/user/logout').then(function () {
-        angular.copy({}, user);
+        angular.copy({}, rootUser);
         dialog.login();
       });
     };
@@ -30,8 +30,8 @@ angular.module('clientApp')
 
   }).run(
   /* @ngInject */
-  function (userBroker, user) {
+  function (userBroker, rootUser) {
     userBroker.getSessionUser().then(function (result) {
-      angular.copy(result, user);
+      angular.copy(result, rootUser);
     });
   });

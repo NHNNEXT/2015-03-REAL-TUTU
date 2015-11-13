@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .controller('profileController', function ($scope, user, $stateParams, userBroker, alert) {
+  .controller('profileController', function ($scope, rootUser, $stateParams, userBroker, alert) {
 
     $scope.uploadCallback = uploadCallback;
     $scope.update = update;
@@ -14,16 +14,16 @@ angular.module('clientApp')
     function update() {
       userBroker.update($scope.user).then(function (result) {
         alert.success("회원 정보가 수정되었습니다.");
-        angular.merge(user, result);
+        angular.merge(rootUser, result);
         //바인딩이 끊어져서 할수없이 강제 입력;
-        angular.element($('my-profile')).scope().user = user;
+        angular.element($('my-profile')).scope().rootUser = rootUser;
       });
     }
 
     function isRootUser() {
-      if (!user.isLogged())
+      if (!rootUser.isLogged())
         return;
-      return user.id === $scope.user.id;
+      return rootUser.id === $scope.user.id;
     }
 
     $scope.user = {};

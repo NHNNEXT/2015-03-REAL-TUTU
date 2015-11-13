@@ -5,8 +5,8 @@ angular.module('clientApp').config(function ($stateProvider) {
       url: "/mylectures",
       templateUrl: "/lecture.page.mylist/mylist.html",
       /* @ngInject */
-      controller: function ($scope, user) {
-        $scope.user = user;
+      controller: function ($scope, rootUser) {
+        $scope.rootUser = rootUser;
 
       }
     });

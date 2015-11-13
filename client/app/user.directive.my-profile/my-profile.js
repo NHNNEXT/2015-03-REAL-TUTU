@@ -4,7 +4,7 @@ angular.module('clientApp')
       restrict: 'E',
       templateUrl: '/user.directive.my-profile/my-profile.html',
       /* @ngInject */
-      controller: function (user, $scope, userBroker) {
+      controller: function ($scope, userBroker) {
         $scope.logout = userBroker.logout;
       }
     };

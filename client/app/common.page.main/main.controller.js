@@ -1,8 +1,8 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('mainController', function ($scope, user, contentBroker, types) {
-    $scope.user = user;
+  .controller('mainController', function ($scope, rootUser, contentBroker, types) {
+    $scope.rootUser = rootUser;
     $scope.types = types;
 
     contentBroker.getList().then(function (list) {

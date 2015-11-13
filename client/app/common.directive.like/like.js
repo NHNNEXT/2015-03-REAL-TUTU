@@ -9,15 +9,15 @@ angular.module('clientApp')
       },
       templateUrl: '/common.directive.like/like.html',
       /* @ngInject */
-      controller: function ($scope, http, user, responseCode, $timeout) {
+      controller: function ($scope, http, rootUser, responseCode, $timeout) {
         $scope.getClass = function () {
-          if ($scope.like.includes(user.id))
+          if ($scope.like.includes(rootUser.id))
             return 'fa-heart';
           return 'fa-heart-o';
         };
 
         $timeout(function () {
-          $scope.heartClass = $scope.like.ignoreTypeIncludes(user.id) ? 'fa-heart' : 'fa-heart-o';
+          $scope.heartClass = $scope.like.ignoreTypeIncludes(rootUser.id) ? 'fa-heart' : 'fa-heart-o';
         });
 
         if (!$scope.like)
@@ -30,12 +30,12 @@ angular.module('clientApp')
           }, true).then(function () {
           }, function (response) {
             if (response.code === responseCode.Like.ADD) {
-              $scope.like.push(user.id);
+              $scope.like.push(rootUser.id);
               $scope.heartClass = 'fa-heart';
               return;
             }
             if (response.code === responseCode.Like.REMOVE) {
-              $scope.like.remove(user.id);
+              $scope.like.remove(rootUser.id);
               $scope.heartClass = 'fa-heart-o';
             }
           });

@@ -9,14 +9,14 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -35,20 +35,11 @@
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
-  <link href="/common/page/main/main.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/component.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/menu.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
-  <link href="/content/content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
-  <link href="/lecture/view/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lesson.directive.lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
   <link href="/lesson.directive.lesson/lesson.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
-  <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/flaty.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/froala_editor.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/froala_style.min.css" rel="stylesheet" type="text/css">
@@ -70,8 +61,6 @@
   <link href="/resource/scdate/sc-date-time.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 </head>
@@ -81,27 +70,26 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
-
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
-            ng-cloak flex>
+<!--md-is-locked-open="$mdMedia('gt-md')"-->
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak flex>
   <md-toolbar class="md-theme-indigo">
     <h1 class="md-toolbar-tools">NEXUS</h1>
   </md-toolbar>
   <md-content ng-controller="menuController">
     <div layout-padding>
-      <ul class="menu" ng-show="user.isLogged()">
+      <ul class="menu" ng-show="rootUser.isLogged()">
         <li ui-sref="lectures">전체 강의</li>
-        <li ui-sref="mylectures">내 강의 </li>
+        <li ui-sref="mylectures">내 강의</li>
         <md-divider></md-divider>
       </ul>
 
-      <ul class="menu" ng-show="user.isLogged()">
-        <li ui-sref="profile({id:user.id})">내 프로필</li>
-        <li ui-sref="mylectures">소식 <span class="red">new</span></li>
+      <ul class="menu" ng-show="rootUser.isLogged()">
+        <li ui-sref="profile({id:rootUser.id})">내 프로필</li>
+        <li ui-sref="messages">소식 <span class="red">new</span></li>
         <md-divider></md-divider>
         <li ng-click="logout()">로그아웃</li>
       </ul>
-      <ul class="menu" ng-show="!user.isLogged()">
+      <ul class="menu" ng-show="!rootUser.isLogged()">
         <li ng-click="login()">로그인</li>
         <li ng-click="register()">회원가입</li>
       </ul>
@@ -110,7 +98,20 @@
 </md-sidenav>
 
 <div role="main" layout="column" flex>
-  <md-content layout-padding md-scroll-y ui-view ng-class="state.current.name">
+  <md-content ng-controller="headerController">
+    <md-toolbar>
+      <div class="md-toolbar-tools centered">
+        <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
+          <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
+        </md-button>
+        <h2>
+          <span>{{state.current.header}}</span>
+        </h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+  </md-content>
+  <md-content md-scroll-y ui-view>
   </md-content>
 </div>
 
@@ -160,6 +161,7 @@
 <!-- build:js({.tmp,app}) /scripts/scripts.js -->
 <!-- include: "type": "js", "files": "**/*.js" -->
 <script src="/app.js"></script>
+<script src="/common.controller/headerController.js"></script>
 <script src="/common.controller/menuController.js"></script>
 <script src="/common.directive.auto-complete/auto-complete.js"></script>
 <script src="/common.directive.drop-down/drop-down.js"></script>
@@ -199,8 +201,10 @@
 <script src="/lecture.service/lectureBroker.js"></script>
 <script src="/lesson.directive.lesson-edit/lesson-edit.js"></script>
 <script src="/lesson.directive.lesson/lesson.js"></script>
-<script src="/message.page.list/list.js"></script>
-<script src="/message.service.broker/messageBroker.js"></script>
+<script src="/message.page.list/messages.controller.js"></script>
+<script src="/message.page.list/messages.js"></script>
+<script src="/message.service/message.model.js"></script>
+<script src="/message.service/messageBroker.js"></script>
 <script src="/prototype.js"></script>
 <script src="/reply.directive.reply/reply.js"></script>
 <script src="/reply.service/replyBroker.js"></script>
@@ -240,7 +244,8 @@
 <script src="/user.directive.user-profile/user-profile.js"></script>
 <script src="/user.page.profile/profile.controller.js"></script>
 <script src="/user.page.profile/profile.route.js"></script>
-<script src="/user.service/user.js"></script>
+<script src="/user.service/rootuser.js"></script>
+<script src="/user.service/user.model.js"></script>
 <script src="/user.service/userBroker.js"></script>
 <!-- /include -->
 <!-- endbuild -->

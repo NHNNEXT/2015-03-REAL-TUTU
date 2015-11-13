@@ -8,8 +8,8 @@ angular.module('clientApp')
       },
       templateUrl: '/reply.directive.reply/reply.html',
       /* @ngInject */
-      controller: function (user, $scope, replyBroker, confirm) {
-        $scope.user = user;
+      controller: function (rootUser, $scope, replyBroker, confirm) {
+        $scope.rootUser = rootUser;
         $scope.modify = function () {
           if ($scope.mod) {
             replyBroker.save({body: $scope.reply.body, id: $scope.reply.id}).then(function(){

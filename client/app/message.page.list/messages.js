@@ -2,7 +2,9 @@
 angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('messages', {
+      header: "새 소식",
       url: "/messages",
-      templateUrl: "/message.page.list/list.html"
+      controller: 'messagesController',
+      templateUrl: "/message.page.list/messages.html"
     });
 });

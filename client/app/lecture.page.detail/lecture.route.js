@@ -1,10 +1,10 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('lectureDetailController', function ($scope, $stateParams, lectureBroker, user, alert, $state, types, confirm) {
+  .controller('lectureDetailController', function ($scope, $stateParams, lectureBroker, rootUser, alert, $state, types, confirm) {
 
     $scope.types = types;
-    $scope.user = user;
+    $scope.rootUser = rootUser;
     $scope.remove = remove;
     $scope.enroll = enroll;
     $scope.isEnrolled = isEnrolled;
@@ -12,7 +12,7 @@ angular
     $scope.toWritePage = toWritePage;
 
     function toWritePage() {
-      user.currentLecture = $scope.lecture;
+      rootUser.currentLecture = $scope.lecture;
       $state.go('contentNew');
     }
 
@@ -51,7 +51,7 @@ angular
     }
 
     function isEnrolled(id) {
-      var lectures = user.lectures;
+      var lectures = rootUser.lectures;
       if (!lectures)
         return false;
       for (var i = 0; i < lectures.length; i++)

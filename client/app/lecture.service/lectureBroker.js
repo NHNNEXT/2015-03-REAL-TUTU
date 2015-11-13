@@ -5,7 +5,7 @@
     .module('clientApp')
     .service('lectureBroker', lectureBroker);
   /* @ngInject */
-  function lectureBroker(http, user, $q) {
+  function lectureBroker(http, rootUser, $q) {
     this.findById = findById;
     this.getList = getList;
     this.edit = edit;
@@ -17,7 +17,7 @@
     }
 
     function enroll(id) {
-      if (!user.loginCheck())
+      if (!rootUser.loginCheck())
         return;
       return http.post('/api/v1/lecture/enroll', {id: id}, true);
     }

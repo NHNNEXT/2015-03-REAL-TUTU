@@ -14,7 +14,7 @@
       <span ng-hide="isEnrolled(lecture.id)" ng-click="enroll(lecture.id)">
       <span class="bar"></span>수강하기</span></span>
 
-      <span ng-show="user.id === lecture.hostUser.id">
+      <span ng-show="rootUser.id === lecture.hostUser.id">
         <span class="bar"></span>
         <span ui-sref="lectureEdit({id:lecture.id})">강의수정</span>
         <span class="bar"></span>

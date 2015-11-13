@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="comment_setting" ng-show="user.id==reply.writer.id && !mod">
+      <div class="comment_setting" ng-show="rootUser.id==reply.writer.id && !mod">
         <span class="btn_set" ng-click="modify()">수정</span>
         <span class="btn_set" ng-click="delete(reply.id)">삭제</span>
       </div>

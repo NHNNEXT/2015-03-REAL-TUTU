@@ -2,12 +2,12 @@ angular
   .module('clientApp')
   .controller('editLectureController',
   /* @ngInject */
-  function EditLectureController($scope, lectureBroker, user, alert, $state, types, $stateParams) {
+  function EditLectureController($scope, lectureBroker, rootUser, alert, $state, types, $stateParams) {
 
     $scope.edit = edit;
     $scope.cancel = cancel;
     $scope.addLesson = addLesson;
-    $scope.user = user;
+    $scope.rootUser = rootUser;
     $scope.majorTypes = types.majorTypes;
     $scope.push = push;
     $scope.newType = newType;
@@ -27,7 +27,6 @@ angular
       $scope.lecture.types.push($scope.type);
       $scope.type = {};
     }
-
 
     $scope.$watch(function () {
       return $stateParams.id;

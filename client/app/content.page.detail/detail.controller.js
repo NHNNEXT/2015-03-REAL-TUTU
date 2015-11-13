@@ -1,7 +1,7 @@
 angular.module('clientApp').controller('contentDetailController',
   /* @ngInject */
-function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state, $sce, confirm) {
-  $scope.user = user;
+function ($scope, rootUser, contentBroker, $stateParams, types, replyBroker, $state, $sce, confirm) {
+  $scope.rootUser = rootUser;
   $scope.content = {replies: []};
   $scope.contentTypes = types.contentTypes;
 

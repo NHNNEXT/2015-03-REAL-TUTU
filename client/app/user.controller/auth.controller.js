@@ -1,6 +1,6 @@
 /* @ngInject */
-angular.module('clientApp').controller('authController', function ($scope, user, alert, userBroker, dialog, responseCode) {
-  $scope.user = user;
+angular.module('clientApp').controller('authController', function ($scope, rootUser, alert, userBroker, dialog, responseCode) {
+  $scope.rootUser = rootUser;
 
   $scope.login = function (user) {
     if ($scope.loginForm.$invalid) {
