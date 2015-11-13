@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
   <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="/bower_components/FroalaWysiwygEditor/css/froala_editor.min.css" />
+  <link rel="stylesheet" href="/bower_components/FroalaWysiwygEditor/css/froala_content.min.css" />
+  <link rel="stylesheet" href="/bower_components/FroalaWysiwygEditor/css/froala_style.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -98,6 +101,7 @@
   ga('send', 'pageview');
 </script>
 
+<script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/angular/angular.js"></script>
 <script src="/bower_components/angular-animate/angular-animate.js"></script>
 <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
@@ -107,7 +111,6 @@
 <script src="/bower_components/angular-messages/angular-messages.js"></script>
 <!-- build:js(.) /scripts/vendor.js -->
 <!-- bower:js -->
-<script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="/bower_components/lodash/lodash.js"></script>
@@ -119,9 +122,27 @@
 <script src="/bower_components/bowser/bowser.js"></script>
 <script src="/bower_components/freewall/freewall.js"></script>
 <script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+<script src="/bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
 <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/froala_editor.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/block_styles.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/char_counter.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/colors.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/entities.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/file_upload.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/font_family.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/font_size.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/fullscreen.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/inline_styles.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/lists.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/media_manager.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/tables.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/urls.min.js"></script>
+<script src="/bower_components/FroalaWysiwygEditor/js/plugins/video.min.js"></script>
+<script src="/bower_components/angular-froala/src/angular-froala.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -173,9 +194,7 @@
 <script src="/prototype.js"></script>
 <script src="/reply.directive.reply/reply.js"></script>
 <script src="/reply.service/replyBroker.js"></script>
-<script src="/resource/angular-wysiwyg.js"></script>
 <script src="/resource/moment-ko.js"></script>
-<script src="/template.js"></script>
 <script src="/user.controller/auth.controller.js"></script>
 <script src="/user.directive.my-profile/my-profile.js"></script>
 <script src="/user.directive.user-profile-dropdown/user-profile.js"></script>

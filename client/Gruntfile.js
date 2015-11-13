@@ -164,7 +164,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      template:'<%= yeoman.app %>/template.js'
     },
 
     // Add vendor prefixed styles
@@ -212,6 +213,7 @@ module.exports = function (grunt) {
           }
         },
         exclude: [
+          '/bower_components/jquery/dist/jquery.js',
           '/bower_components/angular/angular.js',
           '/bower_components/angular-animate/angular-animate.js',
           '/bower_components/angular-cookies/angular-cookies.js',
@@ -328,9 +330,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/images',
+          cwd: '<%= yeoman.app %>/resource',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.dist %>/resource'
         }]
       }
     },
@@ -339,9 +341,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/images',
+          cwd: '<%= yeoman.app %>/resource',
           src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.dist %>/resource'
         }]
       }
     },
@@ -523,7 +525,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'clean:template'
   ]);
 
   grunt.registerTask('default', [

@@ -1,11 +1,3 @@
-/**
- * @ngdoc overview
- * @name clientApp
- * @description
- * # clientApp
- *
- * Main module of the application.
- */
 (function () {
   'use strict';
   angular.module('clientApp', [
@@ -18,7 +10,7 @@
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
-    //'wysiwyg.module',
+    'froala',
     'datePicker',
     'ngFileUpload',
     'restangular',
@@ -27,7 +19,6 @@
   ]).run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState) {
-        //function (event, toState, toParams, fromState, fromParams) {
         $state.current = toState;
       }
     );
