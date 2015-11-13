@@ -25,3 +25,4 @@ image/
 
 #config
 **/config.properties
+application.properties

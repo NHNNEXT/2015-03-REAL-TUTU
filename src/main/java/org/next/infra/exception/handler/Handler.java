@@ -23,7 +23,7 @@ public class Handler {
     public
     @ResponseBody
     JsonView wrongAccessException(Exception e) {
-        return new JsonView(ResponseCode.WROING_ACCESS);
+        return new JsonView(ResponseCode.WRONG_ACCESS);
     }
 
     @ExceptionHandler(HasNoRightException.class)

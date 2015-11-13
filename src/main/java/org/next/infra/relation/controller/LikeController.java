@@ -56,7 +56,7 @@ public class LikeController {
     @RequestMapping(method = RequestMethod.POST)
     public JsonView like(Integer type, Long id, HttpSession session) {
         if (type == null || id == null)
-            return new JsonView(ResponseCode.WROING_ACCESS);
+            return new JsonView(ResponseCode.WRONG_ACCESS);
         User user = sessionUtil.getLoggedUser(session);
 
         if (Objects.equals(type, ResponseCode.Like.CONTENT))
@@ -68,7 +68,7 @@ public class LikeController {
         if (Objects.equals(type, ResponseCode.Like.REPLY))
             return likeReply(id, user);
 
-        return new JsonView(ResponseCode.WROING_ACCESS);
+        return new JsonView(ResponseCode.WRONG_ACCESS);
     }
 
     private JsonView likeContent(Long id, User user) {
