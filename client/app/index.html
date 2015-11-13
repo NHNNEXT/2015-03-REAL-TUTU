@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
   <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="/bower_components/sc-date-time/dist/sc-date-time.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -25,18 +24,23 @@
   <!-- include: "type": "css", "files": "**/*.css" -->
   <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.drop-down/drop-down.css" rel="stylesheet" type="text/css">
+  <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.mod-input/mod-input.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.upload-img/upload-img.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
   <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
   <link href="/common.style/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="/common.style/component.css" rel="stylesheet" type="text/css">
-  <link href="/common.style/flaty.min.css" rel="stylesheet" type="text/css">
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
+  <link href="/common/page/main/main.css" rel="stylesheet" type="text/css">
+  <link href="/common/style/component.css" rel="stylesheet" type="text/css">
+  <link href="/common/style/menu.css" rel="stylesheet" type="text/css">
+  <link href="/common/style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
+  <link href="/content/content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture/view/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lesson.directive.lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
@@ -46,19 +50,24 @@
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/flaty.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/emoticons.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/file.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/froala_editor.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/froala_style.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/fullscreen.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/image.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/image_manager.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/line_breaker.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/table.min.css" rel="stylesheet" type="text/css">
-  <link href="/resource/froala/css/video.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/char_counter.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/code_view.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/colors.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/emoticons.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/file.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/fullscreen.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/image.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/image_manager.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/line_breaker.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/table.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/plugins/video.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/themes/dark.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/themes/gray.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/themes/red.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/themes/royal.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/scdate/sc-date-time.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
   <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
@@ -144,7 +153,6 @@
 <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
-<script src="/bower_components/sc-date-time/dist/sc-date-time.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -225,6 +233,7 @@
 <script src="/resource/froala/plugin/url.min.js"></script>
 <script src="/resource/froala/plugin/video.min.js"></script>
 <script src="/resource/moment-ko.js"></script>
+<script src="/resource/scdate/sc-date-time.js"></script>
 <script src="/user.controller/auth.controller.js"></script>
 <script src="/user.directive.my-profile/my-profile.js"></script>
 <script src="/user.directive.user-profile-dropdown/user-profile.js"></script>

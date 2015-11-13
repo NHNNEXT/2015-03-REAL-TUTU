@@ -1,2 +1,13 @@
-<span>{{date.getDateString()}}</span><span>{{date.getTimeString()}}{{date}}</span>
-<time-date-picker ng-model="date"></time-date-picker>
+<div class="md-datepicker-input-container">
+  <div ng-click="open=!open;">
+  <span class="md-datepicker-input right">
+  <label ng-class="{on:date!==undefined}">{{placeholder}}</label>
+  <span ng-show="date" style="margin-left: -17px;">{{date | date:'yyyy월 MM월 dd일'}}</span>
+  <span ng-show="date">{{date | date:'HH:mm'}}</span>
+  </span>
+    <button ng-show="!open" class="md-datepicker-triangle-button md-icon-button md-button" type="button">
+      <div class="md-datepicker-expand-triangle"></div>
+    </button>
+  </div>
+  <time-date-picker autosave="true" ng-model="date" ng-show="open" class="fade-in-out"></time-date-picker>
+</div>

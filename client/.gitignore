@@ -6,3 +6,4 @@
 /app/uploads/*.*
 /app/**/*.css
 /app/template.js
+!/app/resource/**/*.css

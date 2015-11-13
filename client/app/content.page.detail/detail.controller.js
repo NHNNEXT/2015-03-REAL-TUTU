@@ -19,12 +19,6 @@ function ($scope, user, contentBroker, $stateParams, types, replyBroker, $state,
     });
   });
 
-  $scope.remainDay = function (date) {
-    var remain = parseInt((new Date() - date) / 1000 / 60 / 60 / 24 * 10) / 10;
-    if (remain < 0)
-      return 0;
-    return remain;
-  };
 
   $scope.delete = function (content) {
     if (!confirm("삭제하시겠습니까?"))

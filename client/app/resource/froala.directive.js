@@ -13,7 +13,6 @@ angular.module('clientApp')
             "'Nanum Myeongjo',serif": '나눔 명조'
           },
           toolbarInline: true,
-          zIndex: 100,
           spellcheck: false,
           toolbarButtons: ['fontFamily', 'fontSize', 'bold', 'underline', 'strikeThrough', 'emoticons', '-',
             'color', 'align', 'insertLink', 'insertImage', 'insertTable', 'html']

@@ -15,20 +15,15 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
-
-  <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-  <input-datepicker></input-datepicker>
-  <div class="input-group" ng-show="types[content.type].dueDate">
-    <div class="input-group-addon">기한</div>
-    <input class="form-control"
-           placeholder="기한" type="datetime" date-time
-           ng-model="content.dueDate" max-view="date">
+  <div layout="row" ng-show="types[content.type].dueDate">
+    <input-datepicker placeholder="기한"></input-datepicker>
   </div>
 </section>
 
 <section>
 
   <div froala ng-model="content.body"></div>
-  <!--<div froala-toolbar ng-model="content.body"></div>-->
-  <div class="btn btn-primary margin-vertical full-width" ng-click="edit(content)">작성완료</div>
+  <md-input-container>
+    <md-button ng-click="edit(content)" class="md-raised md-primary">작성완료</md-button>
+  </md-input-container>
 </section>
