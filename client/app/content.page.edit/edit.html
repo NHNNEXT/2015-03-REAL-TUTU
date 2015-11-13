@@ -1,16 +1,23 @@
 <section>
-  <div class="input-group margin-vertical">
-    <div class="input-group-addon" data-toggle="dropdown">
-      {{types[content.type].name||"구분"}}
-      <span class="caret"></span></div>
-    <ul class="dropdown-menu">
-      <li ng-click="content.type=undefined"><a>구분</a></li>
-      <li class="divider"></li>
-      <li ng-repeat="(key,type) in types" ng-click="content.type=key"><a>{{type.name}}</a></li>
-    </ul>
-    <input ng-model="content.title" class="form-control" placeholder="제목">
+
+  <div layout="row">
+    <md-input-container flex="20">
+      <label>구분</label>
+      <md-select ng-model="content.type">
+        <md-option ng-repeat="(key,type) in types" value="{{key}}">
+          {{type.name}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <md-input-container flex="80">
+      <label>제목</label>
+      <input ng-model="content.title">
+    </md-input-container>
   </div>
 
+  <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+  <input-datepicker></input-datepicker>
   <div class="input-group" ng-show="types[content.type].dueDate">
     <div class="input-group-addon">기한</div>
     <input class="form-control"
@@ -19,10 +26,9 @@
   </div>
 </section>
 
-
 <section>
-  <wysiwyg ng-model="content.body" textarea-class="form-control"
-           textarea-height="250px"
-           textarea-required enable-bootstrap-title="true"></wysiwyg>
+
+  <div froala ng-model="content.body"></div>
+  <!--<div froala-toolbar ng-model="content.body"></div>-->
   <div class="btn btn-primary margin-vertical full-width" ng-click="edit(content)">작성완료</div>
 </section>

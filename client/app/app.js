@@ -10,11 +10,11 @@
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
-    'froala',
     'datePicker',
     'ngFileUpload',
     'restangular',
     'toastr',
+    'scDateTime',
     'anim-in-out'
   ]).run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeSuccess',
@@ -32,7 +32,7 @@
           $state.go(redirect);
       }
     });
-  }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider) {
+  }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider, $mdThemingProvider) {
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
@@ -44,9 +44,19 @@
       closeButton: true
     });
     $httpProvider.interceptors.push('httpInterceptor');
-    //$mdThemingProvider.theme('default')
-    //  .primaryPalette('pink')
-    //  .accentPalette('orange').dark();
+    $mdThemingProvider.theme('default');
+      //.primaryPalette('pink')
+      //.accentPalette('orange');
 
+  }).value('froalaConfig', {
+    placeholder: '글을 작성해 주세요.',
+    language: 'ko',
+    imageUploadURL: '/api/v1/upload',
+    fontList: {
+      "'Nanum Gothic', sans-serif": '본고딕',
+      "'Nanum Myeongjo', serif": '나눔명조'
+    },
+    buttons: ['fontFamily', 'fontSize', 'bold', 'italic', 'underline', 'strikeThrough', "sep", '|', 'color', '|', 'paragraphFormat', 'align', 'outdent', 'indent', 'insertImage', 'html']
   });
 }());
+

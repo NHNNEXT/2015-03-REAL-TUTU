@@ -17,9 +17,7 @@
   <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
   <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="/bower_components/FroalaWysiwygEditor/css/froala_editor.min.css" />
-  <link rel="stylesheet" href="/bower_components/FroalaWysiwygEditor/css/froala_content.min.css" />
-  <link rel="stylesheet" href="/bower_components/FroalaWysiwygEditor/css/froala_style.min.css" />
+  <link rel="stylesheet" href="/bower_components/sc-date-time/dist/sc-date-time.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -40,12 +38,31 @@
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
+  <link href="/lecture/view/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lesson.directive.lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
   <link href="/lesson.directive.lesson/lesson.css" rel="stylesheet" type="text/css">
+  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
+  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
+  <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/flaty.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/emoticons.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/file.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/froala_style.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/fullscreen.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/image.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/image_manager.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/line_breaker.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/table.min.css" rel="stylesheet" type="text/css">
+  <link href="/resource/froala/css/video.min.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
+  <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
+  <link href="/user/profile/user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 </head>
@@ -127,22 +144,7 @@
 <script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/froala_editor.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/block_styles.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/char_counter.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/colors.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/entities.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/file_upload.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/font_family.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/font_size.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/fullscreen.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/inline_styles.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/lists.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/media_manager.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/tables.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/urls.min.js"></script>
-<script src="/bower_components/FroalaWysiwygEditor/js/plugins/video.min.js"></script>
-<script src="/bower_components/angular-froala/src/angular-froala.js"></script>
+<script src="/bower_components/sc-date-time/dist/sc-date-time.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -153,6 +155,7 @@
 <script src="/common.controller/menuController.js"></script>
 <script src="/common.directive.auto-complete/auto-complete.js"></script>
 <script src="/common.directive.drop-down/drop-down.js"></script>
+<script src="/common.directive.input-datepicker/input-datepicker.js"></script>
 <script src="/common.directive.like/like.js"></script>
 <script src="/common.directive.mod-input/mod-input.js"></script>
 <script src="/common.directive.mod-textarea/mod-textarea.js"></script>
@@ -175,9 +178,8 @@
 <script src="/content.directive.content-header/content-header.js"></script>
 <script src="/content.directive.content-list/content-list.js"></script>
 <script src="/content.page.detail/detail.controller.js"></script>
-<script src="/content.page.detail/detail.route.js"></script>
 <script src="/content.page.edit/edit.controller.js"></script>
-<script src="/content.page.edit/edit.route.js"></script>
+<script src="/content.route/content.route.js"></script>
 <script src="/content.service/contentBroker.js"></script>
 <script src="/lecture.directive.lecture-table/lecture-table.js"></script>
 <script src="/lecture.page.detail/lecture.js"></script>
@@ -194,6 +196,34 @@
 <script src="/prototype.js"></script>
 <script src="/reply.directive.reply/reply.js"></script>
 <script src="/reply.service/replyBroker.js"></script>
+<script src="/resource/froala.directive.js"></script>
+<script src="/resource/froala.toolbar.directive.js"></script>
+<script src="/resource/froala/froala_editor.min.js"></script>
+<script src="/resource/froala/ko.js"></script>
+<script src="/resource/froala/plugin/align.min.js"></script>
+<script src="/resource/froala/plugin/char_counter.min.js"></script>
+<script src="/resource/froala/plugin/code_view.min.js"></script>
+<script src="/resource/froala/plugin/colors.min.js"></script>
+<script src="/resource/froala/plugin/emoticons.min.js"></script>
+<script src="/resource/froala/plugin/entities.min.js"></script>
+<script src="/resource/froala/plugin/file.min.js"></script>
+<script src="/resource/froala/plugin/font_family.min.js"></script>
+<script src="/resource/froala/plugin/font_size.min.js"></script>
+<script src="/resource/froala/plugin/fullscreen.min.js"></script>
+<script src="/resource/froala/plugin/image.min.js"></script>
+<script src="/resource/froala/plugin/image_manager.min.js"></script>
+<script src="/resource/froala/plugin/inline_style.min.js"></script>
+<script src="/resource/froala/plugin/ko.js"></script>
+<script src="/resource/froala/plugin/line_breaker.min.js"></script>
+<script src="/resource/froala/plugin/link.min.js"></script>
+<script src="/resource/froala/plugin/lists.min.js"></script>
+<script src="/resource/froala/plugin/paragraph_format.min.js"></script>
+<script src="/resource/froala/plugin/paragraph_style.min.js"></script>
+<script src="/resource/froala/plugin/quote.min.js"></script>
+<script src="/resource/froala/plugin/save.min.js"></script>
+<script src="/resource/froala/plugin/table.min.js"></script>
+<script src="/resource/froala/plugin/url.min.js"></script>
+<script src="/resource/froala/plugin/video.min.js"></script>
 <script src="/resource/moment-ko.js"></script>
 <script src="/user.controller/auth.controller.js"></script>
 <script src="/user.directive.my-profile/my-profile.js"></script>

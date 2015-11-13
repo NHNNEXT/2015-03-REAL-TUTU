@@ -2,7 +2,7 @@ package org.next.infra.uploadfile.controller;
 
 import org.next.infra.uploadfile.service.FileService;
 import org.next.infra.util.SessionUtil;
-import org.next.infra.view.JsonView;
+import org.next.infra.view.UploadView;
 import org.next.lms.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ public class FileUploadController {
     private FileService fileService;
 
     @RequestMapping
-    public JsonView uploadFile(MultipartFile file, HttpSession session){
+    public UploadView uploadFile(MultipartFile file, HttpSession session){
         User user = sessionUtil.getLoggedUser(session);
         return fileService.upload(file, user);
     }

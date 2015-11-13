@@ -5,6 +5,7 @@ import org.next.infra.uploadfile.UploadedFile;
 import org.next.infra.view.JsonView;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.reponse.ResponseCode;
+import org.next.infra.view.UploadView;
 import org.next.lms.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,12 +33,15 @@ public class FileService {
     @Value("${FILE_UPLOAD_PATH}")
     private String FILE_STORAGE_DIRECTORY;
 
+    @Value("${RELATIVE_PATH}")
+    private String RELATIVE_PATH;
+
     @Autowired
     private UploadFileRepository uploadFileRepository;
 
-    public JsonView upload(MultipartFile file, User userAccount) {
-        if(file.isEmpty())
-            return new JsonView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
+    public UploadView upload(MultipartFile file, User userAccount) {
+        if (file.isEmpty())
+            return new UploadView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
         Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
         ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
@@ -49,12 +53,12 @@ public class FileService {
         try {
             file.transferTo(fileStorePath);
         } catch (IllegalStateException | IOException e) {
-            return new JsonView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
+            return new UploadView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
 
         saveFileInfo(file, userAccount, uglifiedFileName);
 
-        return successJsonResponse(uglifiedFileName);
+        return new UploadView(RELATIVE_PATH + uglifiedFileName);
     }
 
     private void saveFileInfo(MultipartFile file, User user, String fileName) {
@@ -72,7 +76,7 @@ public class FileService {
     private void ensureFileSaveDirectoryExist(String fileSaveDirectoryPath) {
         File fileSaveDirectory = new File(fileSaveDirectoryPath);
 
-        if(!fileSaveDirectory.exists()) {
+        if (!fileSaveDirectory.exists()) {
             fileSaveDirectory.mkdirs();
         }
     }

@@ -7,7 +7,7 @@ angular.module('clientApp').config(function ($stateProvider) {
       controller: 'editLectureController'
     })
     .state('lectureNew', {
-      url: "/lecture/new",
+      url: "/newLecture",
       templateUrl: "/lecture.page.edit/edit.html",
       controller: 'editLectureController'
     });

@@ -8,9 +8,6 @@ import org.next.infra.reponse.ResponseCode;
 @NoArgsConstructor
 public class JsonView {
 
-    public static final String DEFAULT_ERROR_MESSAGE = "Error.";
-    public static final String DEFAULT_SUCCESS_MESSAGE = "Success.";
-
     private String err;
     private Object result;
     private Integer code;
@@ -22,10 +19,6 @@ public class JsonView {
     public JsonView(Integer code, Object object) {
         this.code = code;
         this.result = object;
-    }
-
-    public static JsonView errorJsonResponse() {
-        return errorJsonResponse(DEFAULT_ERROR_MESSAGE);
     }
 
     public static JsonView errorJsonResponse(String errorMessage) {
