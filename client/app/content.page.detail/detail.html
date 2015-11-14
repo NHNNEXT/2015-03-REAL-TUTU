@@ -12,7 +12,7 @@
             <span class="bar"></span>
             <span ui-sref="contentEdit({id:content.id})">수정</span>
             <span class="bar"></span>
-            <span ng-click="delete(content)">삭제</span>
+            <span ng-click="content.remove()">삭제</span>
           </span>
           <span ng-show="content.date">
           <span class="bar"></span>
@@ -30,7 +30,7 @@
 </section>
 
 <section>
-  <p ng-bind-html="body()"></p>
+  <p ng-bind-html="content.getBodyAsHtml()"></p>
 </section>
 
 

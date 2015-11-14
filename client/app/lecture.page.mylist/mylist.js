@@ -7,7 +7,6 @@ angular.module('clientApp').config(function ($stateProvider) {
       /* @ngInject */
       controller: function ($scope, rootUser) {
         $scope.rootUser = rootUser;
-
       }
     });
 });

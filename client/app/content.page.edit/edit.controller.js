@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentEditController',
   /* @ngInject */
-  function ($stateParams, $scope, contentBroker, types, rootUser, $state) {
+  function ($stateParams, $scope, Content, types, rootUser, $state) {
     $scope.rootUser = rootUser;
 
     $scope.$watch(function () {
@@ -16,20 +16,7 @@ angular.module('clientApp').controller('contentEditController',
         $scope.content = {type: 0, lectureId: rootUser.currentLecture.id, lectureName: rootUser.currentLecture.name};
         return;
       }
-      contentBroker.findById(id).then(function (result) {
-        $scope.content = {};
-        angular.copy(result, $scope.content);
-        if ($scope.content.dueDate)
-          $scope.content.dueDate = new Date($scope.content.dueDate);
-        $scope.content.writeDate = new Date($scope.content.writeDate);
-        $scope.types = result.types;
-      });
+      $scope.content = new Content(id);
     });
 
-    $scope.edit = function (content) {
-      contentBroker.edit(content).then(function (response) {
-        var id = content.id === undefined ? response.id : content.id;
-        $state.go('content', {id: id});
-      });
-    };
   });

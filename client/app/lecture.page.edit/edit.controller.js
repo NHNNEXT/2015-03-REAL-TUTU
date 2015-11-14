@@ -7,6 +7,7 @@ angular
     $scope.edit = edit;
     $scope.cancel = cancel;
     $scope.addLesson = addLesson;
+
     $scope.rootUser = rootUser;
     $scope.majorTypes = types.majorTypes;
     $scope.push = push;

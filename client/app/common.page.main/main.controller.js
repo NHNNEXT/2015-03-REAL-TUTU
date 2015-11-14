@@ -1,11 +1,11 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('mainController', function ($scope, rootUser, contentBroker, types) {
+  .controller('mainController', function ($scope, rootUser, Content, types) {
     $scope.rootUser = rootUser;
     $scope.types = types;
 
-    contentBroker.getList().then(function (list) {
+    Content.getList().then(function (list) {
       $scope.contents = list;
       list.forEach(function (content) {
         content.style = ranStyle(content);
