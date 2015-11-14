@@ -9,6 +9,7 @@ import org.next.infra.relation.UserLikesContent;
 import org.next.infra.relation.UserLikesLecture;
 import org.next.infra.relation.UserLikesLesson;
 import org.next.infra.relation.UserLikesReply;
+import org.next.lms.message.Message;
 import org.next.lms.reply.Reply;
 import org.next.lms.user.state.AccountState;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,9 @@ import java.util.List;
 @Entity
 @Table(name = "USER")
 public class User {
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Message> messages = new ArrayList<>();
 
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();

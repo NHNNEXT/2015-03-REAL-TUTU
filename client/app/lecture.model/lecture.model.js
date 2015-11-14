@@ -81,7 +81,7 @@ angular.module('clientApp')
 
     Lecture.getList = function () {
       return $q(function (resolve) {
-        http.get('/api/v1/lecture/list').then(function (response) {
+        http.get('/api/v1/lecture').then(function (response) {
           var result = [];
           if (response.forEach === undefined)
             return;
