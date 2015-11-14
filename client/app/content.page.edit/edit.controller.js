@@ -13,10 +13,16 @@ angular.module('clientApp').controller('contentEditController',
         }
         $scope.types = rootUser.currentLecture.types;
 
-        $scope.content = {type: 0, lectureId: rootUser.currentLecture.id, lectureName: rootUser.currentLecture.name};
+        $scope.content = new Content({type: 0, lectureId: rootUser.currentLecture.id, lectureName: rootUser.currentLecture.name});
         return;
       }
       $scope.content = new Content(id);
     });
 
+    $scope.edit = function (content) {
+      content.save().then(function (response) {
+        var id = content.id === undefined ? response.id : content.id;
+        $state.go('content', {id: id});
+      });
+    };
   });

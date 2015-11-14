@@ -1,10 +1,14 @@
 angular.module('clientApp')
-  .factory('Content', function (http, $sce, $q) {
-    function Content(id) {
-      if (id === undefined)
+  .factory('Content', function (http, $sce, $q, $state) {
+    function Content(param) {
+      if (param === undefined)
         return;
+      if (typeof param === "object") {
+        this.setProperties(param);
+        return;
+      }
       var self = this;
-      http.get('/api/v1/content', {id: id}).then(function (result) {
+      http.get('/api/v1/content', {id: param}).then(function (result) {
         self.setProperties(result);
       });
     }
@@ -18,8 +22,10 @@ angular.module('clientApp')
       this.id = obj.id;
       this.title = obj.title;
       this.body = obj.body;
-      this.writeDate = new Date(obj.writeDate);
-      this.dueDate = new Date(obj.dueDate);
+      if (obj.writeDate !== undefined)
+        this.writeDate = new Date(obj.writeDate);
+      if (obj.dueDate !== undefined)
+        this.dueDate = new Date(obj.dueDate);
       this.type = obj.type;
       this.hits = obj.hits;
       this.likes = obj.likes;
@@ -49,15 +55,26 @@ angular.module('clientApp')
       return $sce.trustAsHtml(this.body);
     };
 
-    Content.prototype.update = function () {
+    Content.prototype.save = function () {
       var query = {};
-      return http.post('/api/v1/content', query, true);
+      query.id = this.id;
+      query.title = this.title;
+      query.body = this.body;
+      query.lectureId = this.lectureId;
+      query.dueDate = this.dueDate;
+      query.type = this.type;
+      if (this.id === undefined)
+        return http.post('/api/v1/content', query, true);
+      return http.put('/api/v1/content', query, true);
     };
 
     Content.prototype.remove = function () {
       if (!confirm("삭제하시겠습니까?"))
         return;
-      return http.delete('/api/v1/content', {id: this.id}, true);
+      var self = this;
+      http.delete('/api/v1/content', {id: this.id}, true).then(function () {
+        $state.go('lecture', {id: self.lectureId});
+      });
     };
 
     return Content;

@@ -37,7 +37,6 @@ angular.module('clientApp')
             break;
           case responseCode.WROING_ACCESS:
             alert.warning("뚜찌빠찌뽀찌 뚜찌빠찌");
-            dialog.login();
             break;
           default:
             error(response);

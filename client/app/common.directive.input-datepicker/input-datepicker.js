@@ -13,11 +13,6 @@ angular.module('clientApp')
         };
         elem.on('click', handler);
 
-        s.$on('$destroy', function () {
-          elem.off('click', handler);
-          $document.off(hide);
-        });
-
         $document.on('click', hide);
 
         function hide(){
