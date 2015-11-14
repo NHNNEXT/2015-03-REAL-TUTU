@@ -20,7 +20,7 @@ public class ContentSummaryDto {
         this.type = content.getType();
         this.hits = content.getHits();
         this.body = content.getBody();
-        if (this.body.length() > 100)
+        if (this.body != null && this.body.length() > 100)
             this.body = this.body.substring(0, 100);
     }
 

@@ -9,15 +9,17 @@ function ($scope, rootUser, Content, $stateParams, types, Reply) {
     return $stateParams.id;
   }, function (id) {
     $scope.content = new Content(id);
+    $scope.reply = new Reply();
+    $scope.reply.contentId = id;
   });
 
-  $scope.reply = new Reply();
   $scope.writeReply = function (reply) {
     reply.contentId = $stateParams.id;
     reply.save().then(function (result) {
       reply.id = result.id;
       $scope.content.replies.push(reply);
       $scope.reply = new Reply();
+      $scope.reply.contentId = $scope.content.id;
     });
   };
 });

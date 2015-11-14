@@ -8,16 +8,18 @@ angular.module('clientApp')
       },
       templateUrl: '/reply.directive.reply/reply.html',
       /* @ngInject */
-      controller: function (rootUser, $scope, replyBroker, confirm) {
+      controller: function (rootUser, $scope, confirm) {
         $scope.rootUser = rootUser;
         $scope.modify = function () {
           if ($scope.mod) {
-            $scope.reply.save();
+            $scope.reply.save().then(function () {
+              $scope.mod = false;
+            });
             return;
           }
           $scope.mod = true;
         };
-        $scope.delete = function (id) {
+        $scope.delete = function () {
           if (!confirm("삭제하시겠습니까?"))
             return;
           $scope.reply.remove().then(function () {

@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Content', function (http, $sce, $q, $state, confirm) {
+  .factory('Content', function (http, $sce, $q, $state, confirm, Reply) {
     function Content(param) {
       if (param === undefined)
         return;
@@ -15,7 +15,13 @@ angular.module('clientApp')
     }
 
     Content.prototype.setProperties = function (obj) {
-      this.replies = obj.replies;
+      this.replies = [];
+      if(obj.replies !==undefined && obj.replies.forEach !== undefined){
+        var self = this;
+        obj.replies.forEach(function(reply){
+          self.replies.push(new Reply(reply));
+        });
+      }
       this.repliesSize = obj.repliesSize;
       this.writer = obj.writer;
       this.lectureName = obj.lectureName;

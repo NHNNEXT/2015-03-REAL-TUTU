@@ -1,5 +1,6 @@
 package org.next.lms.reply.service;
 
+import org.next.infra.exception.WrongAccessException;
 import org.next.infra.view.JsonView;
 import org.next.lms.user.User;
 import org.next.lms.reply.auth.ReplyAuth;
@@ -29,10 +30,7 @@ public class ReplyService {
     @Autowired
     private ReplyAuth replyAuth;
 
-    public JsonView saveReply(Reply reply, User user, Long contentId) {
-        Long id = reply.getId();
-        if (id != null)
-            return updateReply(reply, user);
+    public JsonView save(Reply reply, User user, Long contentId) {
         Content content = assureNotNull(contentRepository.findOne(contentId));
         reply.setWriter(user);
         reply.setContent(content);
@@ -41,7 +39,7 @@ public class ReplyService {
         return successJsonResponse(new ReplyDto(reply));
     }
 
-    private JsonView updateReply(Reply reply, User user) {
+    public JsonView update(Reply reply, User user) {
         Reply fromDB = assureNotNull(replyRepository.findOne(reply.getId()));
         replyAuth.checkUpdateRight(fromDB, user);
         fromDB.update(reply);
@@ -57,4 +55,5 @@ public class ReplyService {
         replyRepository.save(reply);
         return successJsonResponse();
     }
+
 }

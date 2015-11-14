@@ -1,21 +1,16 @@
 angular.module('clientApp')
   /* @ngInject */
-  .controller('profileController', function ($scope, rootUser, $stateParams, userBroker, alert, User) {
+  .controller('profileController', function ($scope, rootUser, $stateParams, alert, User) {
 
     $scope.uploadCallback = uploadCallback;
-    $scope.update = update;
-    $scope.isRootUser = isRootUser;
 
     function uploadCallback(resp) {
       $scope.user.profileUrl = "/uploads/" + resp.data.result;
-      update();
     }
 
-    function isRootUser() {
-      if (!rootUser.isLogged())
-        return;
-      return rootUser.id === $scope.user.id;
-    }
+    $scope.update = function () {
+      rootUser.update($scope.user);
+    };
 
     $scope.$watch(function () {
       return $stateParams.id;

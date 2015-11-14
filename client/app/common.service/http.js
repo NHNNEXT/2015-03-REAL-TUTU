@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('http', function ($http, $q, responseCode, rootUser, dialog, alert) {
+  .factory('http', function ($http, $q, responseCode, dialog, alert) {
     var http = function (method, url, params, success, error) {
       var options = {
         method: method, url: url,
@@ -49,31 +49,23 @@ angular.module('clientApp')
         error(e);
       });
     };
-    http.get = function (url, params, loginNeeded) {
+    http.get = function (url, params) {
       return $q(function (resolve, reject) {
-        if (loginNeeded && !rootUser.loginCheck())
-          return;
         http("GET", url, params, resolve, reject);
       });
     };
-    http.post = function (url, params, loginNeeded) {
+    http.post = function (url, params) {
       return $q(function (resolve, reject) {
-        if (loginNeeded && !rootUser.loginCheck())
-          return;
         http("POST", url, params, resolve, reject);
       });
     };
-    http.put = function (url, params, loginNeeded) {
+    http.put = function (url, params) {
       return $q(function (resolve, reject) {
-        if (loginNeeded && !rootUser.loginCheck())
-          return;
         http("PUT", url, params, resolve, reject);
       });
     };
-    http.delete = function (url, params, loginNeeded) {
+    http.delete = function (url, params) {
       return $q(function (resolve, reject) {
-        if (loginNeeded && !rootUser.loginCheck())
-          return;
         http("DELETE", url, params, resolve, reject);
       });
     };

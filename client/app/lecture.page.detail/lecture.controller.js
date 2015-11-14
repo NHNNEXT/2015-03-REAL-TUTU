@@ -1,12 +1,10 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types, confirm) {
+  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types) {
 
     $scope.types = types;
     $scope.rootUser = rootUser;
-    $scope.remove = remove;
-    $scope.enroll = enroll;
     $scope.isEnrolled = isEnrolled;
     $scope.setKey = setKey;
     $scope.toWritePage = toWritePage;

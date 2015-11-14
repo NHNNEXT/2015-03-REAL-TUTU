@@ -1,8 +1,8 @@
 /* @ngInject */
-angular.module('clientApp').controller('authController', function ($scope, rootUser, alert, dialog, responseCode) {
+angular.module('clientApp').controller('authController', function ($scope, rootUser, alert) {
   $scope.rootUser = rootUser;
 
-  $scope.login = function (user) {
+  $scope.login = function () {
     if ($scope.loginForm.$invalid) {
       alert.warning('정보를 입력해주세요.');
       return;
@@ -10,7 +10,7 @@ angular.module('clientApp').controller('authController', function ($scope, rootU
     rootUser.login();
   };
 
-  $scope.register = function (user) {
+  $scope.register = function () {
     if ($scope.loginForm.$invalid) {
       alert.warning('정보를 입력해주세요.');
       return;

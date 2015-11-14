@@ -1,17 +1,17 @@
 <section>
   <h1>
-    <mod-input ng-model="user.name" mod-right="isRootUser()" placeholder="이름" mod-save="rootUser.update"></mod-input>
+    <mod-input ng-model="user.name" mod-right="user.isRootUser()" placeholder="이름" mod-save="update"></mod-input>
   </h1>
   <div class="profile-img">
-    <img ng-if="!isRootUser()" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
-    <upload-img ng-if="isRootUser()" ng-model="user.profileUrl" default="/resource/profile.png"
+    <img ng-if="!user.isRootUser()" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
+    <upload-img ng-if="user.isRootUser()" ng-model="user.profileUrl" default="/resource/profile.png"
                 done="uploadCallback"></upload-img>
   </div>
 </section>
 <section>
   <span ng-bind="user.email"></span>
-  <mod-input ng-model="user.studentId" mod-right="isRootUser()" placeholder="학번" mod-save="rootUser.update"></mod-input>
-  <mod-input ng-model="user.major" mod-right="isRootUser()" placeholder="전공" mod-save="rootUser.update"></mod-input>
-  <mod-input ng-model="user.phoneNumber" mod-right="isRootUser()" placeholder="전화번호" mod-save="rootUser.update"></mod-input>
-  <mod-textarea ng-model="user.introduce" mod-right="isRootUser()" mod-save="rootUser.update"></mod-textarea>
+  <mod-input ng-model="user.studentId" mod-right="user.isRootUser()" placeholder="학번" mod-save="update"></mod-input>
+  <mod-input ng-model="user.major" mod-right="user.isRootUser()" placeholder="전공" mod-save="update"></mod-input>
+  <mod-input ng-model="user.phoneNumber" mod-right="user.isRootUser()" placeholder="전화번호" mod-save="update"></mod-input>
+  <mod-textarea ng-model="user.introduce" mod-right="user.isRootUser()" mod-save="update"></mod-textarea>
 </section>

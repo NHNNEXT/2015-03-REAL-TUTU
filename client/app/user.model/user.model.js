@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('User', function (http, $q) {
+  .factory('User', function (http, $q, rootUser) {
     var User = function (obj) {
       if (obj === undefined)
         return;
@@ -15,6 +15,12 @@ angular.module('clientApp')
       this.phoneNumber = obj.phoneNumber;
       this.major = obj.major;
       this.introduce = obj.introduce;
+    };
+
+    User.prototype.isRootUser = function () {
+      if (!rootUser.isLogged())
+        return;
+      return rootUser.id === this.id;
     };
 
     User.findById = function (id) {

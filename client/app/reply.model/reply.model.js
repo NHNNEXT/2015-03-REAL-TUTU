@@ -1,11 +1,15 @@
 angular.module('clientApp')
-  .factory('Reply', function (http, User) {
+  .factory('Reply', function (http, User, $q) {
     var Reply = function (obj) {
       if (obj === undefined)
         return;
       if (typeof obj !== "object") {
         return;
       }
+      this.setProperties(obj);
+    };
+
+    Reply.prototype.setProperties = function (obj) {
       this.id = obj.id;
       this.body = obj.body;
       this.writeDate = new Date(obj.writeDate);
@@ -17,13 +21,26 @@ angular.module('clientApp')
       var query = {};
       query.id = this.id;
       query.body = this.body;
-      if (this.id === undefined)
-        return http.post('/api/v1/reply', query, true);
-      return http.put('/api/v1/reply', query, true);
+      var self = this;
+      if (this.id === undefined) {
+        query.contentId = this.contentId;
+        return $q(function (resolve) {
+          http.post('/api/v1/reply', query).then(function (result) {
+            self.setProperties(result);
+            resolve(self);
+          });
+        });
+      }
+      return $q(function (resolve) {
+        http.put('/api/v1/reply', query).then(function (result) {
+          self.setProperties(result);
+          resolve(self);
+        });
+      });
     };
 
     Reply.prototype.remove = function () {
-      return http.delete('/api/v1/reply', {id: this.id}, true);
+      return http.delete('/api/v1/reply', {id: this.id});
     };
 
     return Reply;

@@ -25,8 +25,13 @@ public class ReplyController {
 
 //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView Reply(Reply reply, Long contentId, HttpSession session) {
-        return replyService.saveReply(reply, sessionUtil.getLoggedUser(session), contentId);
+    public JsonView save(Reply reply, Long contentId, HttpSession session) {
+        return replyService.save(reply, sessionUtil.getLoggedUser(session), contentId);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public JsonView update(Reply reply, HttpSession session) {
+        return replyService.update(reply, sessionUtil.getLoggedUser(session));
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

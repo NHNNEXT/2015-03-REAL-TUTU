@@ -77,8 +77,33 @@ angular.module('clientApp')
       });
     };
 
-    this.update = function () {
-      http.put('/api/v1/user', this, true).then(function (result) {
+    this.update = function (obj) {
+      if (obj.email !== undefined)
+        this.email = obj.email;
+      if (obj.profileUrl !== undefined)
+        this.profileUrl = obj.profileUrl;
+      if (obj.name !== undefined)
+        this.name = obj.name;
+      if (obj.studentId !== undefined)
+        this.studentId = obj.studentId;
+      if (obj.introduce !== undefined)
+        this.introduce = obj.introduce;
+      if (obj.phoneNumber !== undefined)
+        this.phoneNumber = obj.phoneNumber;
+      if (obj.major !== undefined)
+        this.major = obj.major;
+
+      var query = {};
+      query.id = this.id;
+      query.email = this.email;
+      query.profileUrl = this.profileUrl;
+      query.name = this.name;
+      query.studentId = this.studentId;
+      query.introduce = this.introduce;
+      query.phoneNumber = this.phoneNumber;
+      query.major = this.major;
+
+      http.put('/api/v1/user', query).then(function () {
         alert.success("회원 정보가 수정되었습니다.");
       });
     };
