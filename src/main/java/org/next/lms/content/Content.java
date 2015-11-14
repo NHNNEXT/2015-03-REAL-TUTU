@@ -1,6 +1,7 @@
 package org.next.lms.content;
 
 import lombok.*;
+import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.reply.Reply;
 import org.next.lms.lecture.Lecture;
 import org.next.infra.relation.UserLikesContent;
@@ -24,7 +25,7 @@ public class Content {
     private List<UserLikesContent> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Attachment> attachment = new ArrayList<>();
+    private List<UploadedFile> attachment = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();

@@ -1,7 +1,9 @@
 package org.next.infra.uploadfile.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.next.infra.repository.ContentRepository;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
 import org.next.infra.view.JsonView;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.reponse.ResponseCode;
@@ -17,8 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static org.next.infra.view.JsonView.successJsonResponse;
 import static org.next.infra.view.DownloadView.downloadView;
@@ -39,6 +40,9 @@ public class FileService {
     @Autowired
     private UploadFileRepository uploadFileRepository;
 
+    @Autowired
+    private ContentRepository contentRepository;
+
     public UploadView upload(MultipartFile file, User userAccount) {
         if (file.isEmpty())
             return new UploadView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
@@ -53,18 +57,40 @@ public class FileService {
         try {
             file.transferTo(fileStorePath);
         } catch (IllegalStateException | IOException e) {
+            log.debug("{}", e.getCause());
             return new UploadView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
-
-        saveFileInfo(file, userAccount, uglifiedFileName);
 
         return new UploadView(RELATIVE_PATH + uglifiedFileName);
     }
 
-    private void saveFileInfo(MultipartFile file, User user, String fileName) {
+
+    public JsonView upload(MultipartFile file, User userAccount, Long contentId) {
+        if (file.isEmpty())
+            return new JsonView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
+
+        Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
+        ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
+
+        String uglifiedFileName = uglifyFileName(file);
+
+        File fileStorePath = new File(FILE_STORAGE_DIRECTORY + uglifiedFileName);
+
+        try {
+            file.transferTo(fileStorePath);
+        } catch (IllegalStateException | IOException e) {
+            log.debug("{}", e.getCause());
+            return new JsonView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
+        }
+        saveFileInfo(file, uglifiedFileName, contentId, userAccount);
+        return successJsonResponse(uglifiedFileName);
+    }
+
+    private void saveFileInfo(MultipartFile file, String fileName, Long contentId, User user) {
         UploadedFile fileInfo = new UploadedFile();
         fileInfo.setOriginalFileName(getNormalizedFileName(file));
         fileInfo.setUglyFileName(fileName);
+        fileInfo.setContent(contentRepository.findOne(contentId));
         fileInfo.setUploadUser(user);
         uploadFileRepository.save(fileInfo);
     }
@@ -91,5 +117,11 @@ public class FileService {
         UploadedFile fileInfoFromDb = uploadFileRepository.findByUglyFileName(uglifiedFileName);
 
         return downloadView(fileInStorage, fileInfoFromDb.getOriginalFileName());
+    }
+
+    public GroupedUploadFileDto getUploadFileList(User user) {
+        List<UploadedFile> uploadedFileList = uploadFileRepository.findByUploadUserId(user.getId());
+
+        return new GroupedUploadFileDto(uploadedFileList);
     }
 }

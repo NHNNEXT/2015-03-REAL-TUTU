@@ -1,6 +1,7 @@
 package org.next.infra.uploadfile;
 
 import lombok.*;
+import org.next.lms.content.Content;
 import org.next.lms.user.User;
 
 import javax.persistence.*;
@@ -14,6 +15,10 @@ import java.util.Date;
 @Entity
 @Table(name = "UPLOADED_FILE")
 public class UploadedFile {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CONTENT_ID")
+    private Content content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UPLOAD_USER_ID")
