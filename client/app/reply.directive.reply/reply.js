@@ -12,9 +12,7 @@ angular.module('clientApp')
         $scope.rootUser = rootUser;
         $scope.modify = function () {
           if ($scope.mod) {
-            replyBroker.save({body: $scope.reply.body, id: $scope.reply.id}).then(function(){
-              $scope.mod = false;
-            });
+            $scope.reply.save();
             return;
           }
           $scope.mod = true;
@@ -22,7 +20,7 @@ angular.module('clientApp')
         $scope.delete = function (id) {
           if (!confirm("삭제하시겠습니까?"))
             return;
-          replyBroker.remove(id).then(function () {
+          $scope.reply.remove().then(function () {
             $scope.replies.remove($scope.reply);
           });
         };

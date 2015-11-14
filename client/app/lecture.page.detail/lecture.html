@@ -11,14 +11,14 @@
     게시물 {{lecture.contents.length}}
     <span class="bar"></span>
     수강생 {{lecture.enrolledStudent.length}}
-      <span ng-hide="isEnrolled(lecture.id)" ng-click="enroll(lecture.id)">
+      <span ng-hide="lecture.isEnrolled(lecture.id)" ng-click="lecture.enroll(lecture.id)">
       <span class="bar"></span>수강하기</span></span>
 
-      <span ng-show="rootUser.id === lecture.hostUser.id">
+      <span ng-show="lecture.isRootUser()">
         <span class="bar"></span>
         <span ui-sref="lectureEdit({id:lecture.id})">강의수정</span>
         <span class="bar"></span>
-        <span ng-click="remove(lecture.id)">폐강</span>
+        <span ng-click="lecture.remove()">폐강</span>
       </span>
   </div>
 

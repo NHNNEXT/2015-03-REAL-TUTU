@@ -47,6 +47,11 @@ public class ContentController {
         return contentService.save(content, sessionUtil.getLoggedUser(session), lectureId);
     }
 
+    @RequestMapping(method = RequestMethod.PUT)
+    public JsonView updateLecture(Content content, HttpSession session) {
+        return contentService.update(content, sessionUtil.getLoggedUser(session));
+    }
+
     @RequestMapping(method = RequestMethod.DELETE)
     public JsonView deleteLecture(Long id, HttpSession session) {
         return contentService.delete(id, sessionUtil.getLoggedUser(session));

@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentDetailController',
   /* @ngInject */
-function ($scope, rootUser, Content, $stateParams, types, replyBroker) {
+function ($scope, rootUser, Content, $stateParams, types, Reply) {
   $scope.rootUser = rootUser;
   $scope.content = {replies: []};
   $scope.contentTypes = types.contentTypes;
@@ -11,11 +11,13 @@ function ($scope, rootUser, Content, $stateParams, types, replyBroker) {
     $scope.content = new Content(id);
   });
 
+  $scope.reply = new Reply();
   $scope.writeReply = function (reply) {
     reply.contentId = $stateParams.id;
-    replyBroker.save(reply).then(function (result) {
-      $scope.content.replies.push(result);
-      $scope.reply = {};
+    reply.save().then(function (result) {
+      reply.id = result.id;
+      $scope.content.replies.push(reply);
+      $scope.reply = new Reply();
     });
   };
 });

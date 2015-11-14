@@ -1,5 +1,6 @@
 package org.next.lms.content.service;
 
+import org.next.infra.reponse.ResponseCode;
 import org.next.infra.view.JsonView;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
@@ -45,9 +46,8 @@ public class ContentService {
     }
 
     public JsonView save(Content content, User user, Long lectureId) {
-
-        if (content.getId() != null)
-            return update(content, user);
+        if (lectureId == null)
+            return new JsonView(ResponseCode.WRONG_ACCESS);
 
         Lecture lecture = lectureRepository.findOne(lectureId);
         lectureAuthority.checkUpdateRight(lecture, user);
@@ -60,7 +60,7 @@ public class ContentService {
         return successJsonResponse(new ContentDto(content));
     }
 
-    private JsonView update(Content content, User user) {
+    public JsonView update(Content content, User user) {
         Content fromDB = contentRepository.findOne(content.getId());
         contentAuthority.checkUpdateRight(fromDB, user);
         fromDB.update(content);
@@ -79,4 +79,5 @@ public class ContentService {
         contentRepository.save(content);
         return successJsonResponse();
     }
+
 }

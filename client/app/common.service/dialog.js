@@ -22,7 +22,7 @@ angular.module('clientApp')
       });
     };
 
-    this.cancel = function() {
+    this.close = function() {
       $mdDialog.cancel();
     };
   })

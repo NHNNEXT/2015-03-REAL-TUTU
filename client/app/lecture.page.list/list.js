@@ -7,10 +7,10 @@
     .config(config);
 
   /* @ngInject */
-  function LectureController($scope, lectureBroker) {
+  function LectureController($scope, Lecture) {
     _init();
     function _init() {
-      lectureBroker.getList().then(function (lectures) {
+      Lecture.getList().then(function (lectures) {
         $scope.lectures = lectures;
       });
     }

@@ -2,7 +2,7 @@ angular
   .module('clientApp')
   .controller('editLectureController',
   /* @ngInject */
-  function EditLectureController($scope, lectureBroker, rootUser, alert, $state, types, $stateParams) {
+  function EditLectureController($scope, Lecture, rootUser, alert, $state, types, $stateParams) {
 
     $scope.edit = edit;
     $scope.cancel = cancel;
@@ -39,15 +39,7 @@ angular
         lecture.managers = [];
         return;
       }
-      lectureBroker.findById(id).then(function (lecture) {
-        $scope.lecture = lecture;
-        if (!$scope.lecture.lessons)
-          return;
-        $scope.lecture.lessons.forEach(function (lesson) {
-          lesson.start = new Date(lesson.start);
-          lesson.end = new Date(lesson.end);
-        });
-      });
+     $scope.lecture = new Lecture(id);
     });
 
     function _init() {
@@ -112,9 +104,7 @@ angular
       query.managerIds = JSON.stringify(managerIds);
       query.lessonString = JSON.stringify(query.lessons);
       delete query.lessons;
-      lectureBroker.edit(query).then(function (result) {
-        $state.go('lecture', {id: result.id});
-      });
+      lecture.save();
     }
 
     function cancel() {

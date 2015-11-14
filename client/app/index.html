@@ -87,7 +87,7 @@
         <li ui-sref="profile({id:rootUser.id})">내 프로필</li>
         <li ui-sref="messages">소식 <span class="red">new</span></li>
         <md-divider></md-divider>
-        <li ng-click="logout()">로그아웃</li>
+        <li ng-click="rootUser.logout()">로그아웃</li>
       </ul>
       <ul class="menu" ng-show="!rootUser.isLogged()">
         <li ng-click="login()">로그인</li>
@@ -192,25 +192,25 @@
 <script src="/content.page.edit/edit.controller.js"></script>
 <script src="/content.route/content.route.js"></script>
 <script src="/lecture.directive.lecture-table/lecture-table.js"></script>
+<script src="/lecture.model/lecture.model.js"></script>
+<script src="/lecture.model/lectureBroker.js"></script>
 <script src="/lecture.page.detail/lecture.js"></script>
 <script src="/lecture.page.detail/lecture.route.js"></script>
 <script src="/lecture.page.edit/edit.controller.js"></script>
 <script src="/lecture.page.edit/edit.route.js"></script>
 <script src="/lecture.page.list/list.js"></script>
 <script src="/lecture.page.mylist/mylist.js"></script>
-<script src="/lecture.service/lecture.model.js"></script>
-<script src="/lecture.service/lectureBroker.js"></script>
 <script src="/lesson.directive.lesson-edit/lesson-edit.js"></script>
 <script src="/lesson.directive.lesson/lesson.js"></script>
-<script src="/lesson.service/lesson.model.js"></script>
+<script src="/lesson.model/lesson.model.js"></script>
 <script src="/message.page.list/messages.controller.js"></script>
 <script src="/message.page.list/messages.js"></script>
 <script src="/message.service/message.model.js"></script>
 <script src="/message.service/messageBroker.js"></script>
 <script src="/prototype.js"></script>
 <script src="/reply.directive.reply/reply.js"></script>
-<script src="/reply.service/reply.model.js"></script>
-<script src="/reply.service/replyBroker.js"></script>
+<script src="/reply.model/reply.model.js"></script>
+<script src="/reply.model/replyBroker.js"></script>
 <script src="/resource/froala.directive.js"></script>
 <script src="/resource/froala.toolbar.directive.js"></script>
 <script src="/resource/froala/froala_editor.min.js"></script>
@@ -245,11 +245,11 @@
 <script src="/user.directive.my-profile/my-profile.js"></script>
 <script src="/user.directive.user-profile-dropdown/user-profile.js"></script>
 <script src="/user.directive.user-profile/user-profile.js"></script>
+<script src="/user.model/rootuser.js"></script>
+<script src="/user.model/user.model.js"></script>
+<script src="/user.model/userBroker.js"></script>
 <script src="/user.page.profile/profile.controller.js"></script>
 <script src="/user.page.profile/profile.route.js"></script>
-<script src="/user.service/rootuser.js"></script>
-<script src="/user.service/user.model.js"></script>
-<script src="/user.service/userBroker.js"></script>
 <!-- /include -->
 <!-- endbuild -->
 

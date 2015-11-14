@@ -1,5 +1,6 @@
 angular.module('clientApp')
-  .factory('Content', function (http, $sce, $q, $state) {
+  /* @ngInject */
+  .factory('Content', function (http, $sce, $q, $state, confirm) {
     function Content(param) {
       if (param === undefined)
         return;
@@ -35,22 +36,6 @@ angular.module('clientApp')
       }
     };
 
-    Content.getList = function () {
-      return $q(function (resolve) {
-        http.get('/api/v1/content/list').then(function (response) {
-          var result = [];
-          if (response.forEach === undefined)
-            return;
-          response.forEach(function (each) {
-            var content = new Content();
-            content.setProperties(each);
-            result.push(content);
-          });
-          resolve(result);
-        });
-      });
-    };
-
     Content.prototype.getBodyAsHtml = function () {
       return $sce.trustAsHtml(this.body);
     };
@@ -76,6 +61,21 @@ angular.module('clientApp')
         $state.go('lecture', {id: self.lectureId});
       });
     };
+
+    Content.getList = function () {
+      return $q(function (resolve) {
+        http.get('/api/v1/content/list').then(function (response) {
+          var result = [];
+          if (response.forEach === undefined)
+            return;
+          response.forEach(function (each) {
+            result.push(new Content(each));
+          });
+          resolve(result);
+        });
+      });
+    };
+
 
     return Content;
   });

@@ -10,7 +10,7 @@ import java.util.Date;
 public class ContentSummaryDto {
 
     public ContentSummaryDto(Content content) {
-        this.replies = content.getReplies().size();
+        this.repliesSize = content.getReplies().size();
         this.writer = new UserSummaryDto(content.getWriter());
         this.lectureId = content.getLecture().getId();
         this.id = content.getId();
@@ -28,7 +28,7 @@ public class ContentSummaryDto {
 
     private Long hits;
 
-    private Integer replies;
+    private Integer repliesSize;
 
     private UserSummaryDto writer;
 

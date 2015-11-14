@@ -27,32 +27,18 @@ public class ContentDto {
         this.likes = content.getLikes().stream().map(like -> like.getId()).collect(Collectors.toList());
         this.types = content.getLecture().getTypes();
     }
-
     private String types;
-
     private List<Long> likes;
-
     private String lectureName;
-
     private Long hits;
-
     private List<ReplyDto> replies;
-
     private UserSummaryDto writer;
-
     private Integer type;
-
     private Long lectureId;
-
     private Long id;
-
     private String title;
-
     private String body;
-
     private Date writeDate;
-
     private Date dueDate;
-
     private Long like;
 }
