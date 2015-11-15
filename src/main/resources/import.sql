@@ -56,3 +56,4 @@ insert into content (content_id, hits, body, due_date, title, write_date, lectur
 insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'true');
 insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'true');
 insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'true');
+insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'false');

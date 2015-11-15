@@ -3,7 +3,7 @@ angular.module('clientApp')
 
 
     function Page(page, pageSize) {
-      this.page = page === undefined ? 1 : page;
+      this.page = page === undefined ? 0 : page;
       this.pageSize = pageSize === undefined ? 10 : pageSize;
     }
 
