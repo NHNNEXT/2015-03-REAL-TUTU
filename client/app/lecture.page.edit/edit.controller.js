@@ -64,17 +64,7 @@ angular
     };
 
     function save(lecture) {
-      console.log(lecture);
-      //var managerIds = [];
-      //var query = {};
-      //$scope.lecture.managers.forEach(function (manager) {
-      //  managerIds.push(manager.id);
-      //});
-      //angular.copy(lecture, query);
-      //query.managerIds = JSON.stringify(managerIds);
-      //query.lessonString = JSON.stringify(query.lessons);
-      //delete query.lessons;
-      //lecture.save();
+      lecture.save();
     }
 
     function cancel() {

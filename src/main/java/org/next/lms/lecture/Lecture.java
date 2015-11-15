@@ -27,10 +27,10 @@ public class Lecture {
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserLikesLecture> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<UserGroup> userGroups = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<ContentType> contentTypes = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
@@ -66,6 +66,12 @@ public class Lecture {
             this.majorType = lecture.majorType;
         if (lecture.registerPolicyType != null)
             this.registerPolicyType = lecture.registerPolicyType;
+        if (lecture.registerPolicyType != null)
+            this.registerPolicyType = lecture.registerPolicyType;
+        if (lecture.userGroups != null)
+            this.userGroups = lecture.userGroups;
+        if (lecture.registerPolicyType != null)
+            this.contentTypes = lecture.contentTypes;
     }
 }
 

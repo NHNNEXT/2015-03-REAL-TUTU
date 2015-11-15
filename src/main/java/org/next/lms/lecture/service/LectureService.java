@@ -38,12 +38,12 @@ public class LectureService {
 
     public JsonView save(Lecture lecture, User user) {
         lecture.setHostUser(user);
-        inMenu(lecture, user);
         lectureRepository.save(lecture);
+        inMenu(lecture, user);
         return successJsonResponse(new LectureDto(lecture));
     }
 
-    public JsonView updateLecture(Lecture lecture, User user, String lessonString) {
+    public JsonView updateLecture(Lecture lecture, User user) {
         Lecture fromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(fromDB, user);
         fromDB.update(lecture);

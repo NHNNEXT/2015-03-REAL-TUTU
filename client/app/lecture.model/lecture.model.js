@@ -91,11 +91,16 @@ angular.module('clientApp')
       });
     };
 
-    Lecture.prototype.save = function () {
+    Lecture.prototype.save = function (write, read) {
       var query = {};
       query.id = this.id;
       query.name = this.name;
       query.majorType = this.majorType;
+      query.registerPolicyType = this.registerPolicyType;
+      query.contentTypes = this.contentTypes;
+      query.userGroups = this.userGroups;
+      query.write = write;
+      query.read = read;
       if (query.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);

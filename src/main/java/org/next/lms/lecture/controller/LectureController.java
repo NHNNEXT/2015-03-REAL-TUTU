@@ -35,13 +35,13 @@ public class LectureController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView saveLecture(@RequestBody Lecture lecture, HttpSession session) {
+    public JsonView saveLecture(@RequestBody Lecture lecture,  HttpSession session) {
         return lectureService.save(lecture, sessionUtil.getLoggedUser(session));
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public JsonView updateLecture(@RequestBody Lecture lecture, HttpSession session) {
-        return lectureService.save(lecture, sessionUtil.getLoggedUser(session));
+        return lectureService.updateLecture(lecture, sessionUtil.getLoggedUser(session));
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
