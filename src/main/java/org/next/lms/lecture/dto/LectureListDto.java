@@ -10,11 +10,9 @@ import java.util.stream.Collectors;
 public class LectureListDto {
     List<LectureDto> hosted;
     List<LectureDto> enrolled;
-    List<LectureDto> managed;
 
     public LectureListDto(User user) {
         hosted = user.getHostLectures().stream().map(LectureDto::new).collect(Collectors.toList());
         enrolled = user.getEnrolledLectures().stream().map(relation -> new LectureDto(relation.getLecture())).collect(Collectors.toList());
-        managed = user.getManageLectures().stream().map(relation -> new LectureDto(relation.getLecture())).collect(Collectors.toList());
     }
 }

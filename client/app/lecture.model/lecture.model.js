@@ -23,16 +23,10 @@ angular.module('clientApp')
       this.hostUser = new User(param.hostUser);
       this.types = JSON.parse(param.types);
       var self = this;
-      if (param.managers.forEach !== undefined) {
-        self.managers = [];
-        param.managers.forEach(function (user) {
-          self.managers.push(new User(user));
-        });
-      }
-      if (param.enrolledStudent.forEach !== undefined) {
-        self.enrolledStudent = [];
-        param.enrolledStudent.forEach(function (user) {
-          self.enrolledStudent.push(new User(user));
+      if (param.users.forEach !== undefined) {
+        self.users = [];
+        param.users.forEach(function (user) {
+          self.users.push(new User(user));
         });
       }
       if (param.contents.forEach !== undefined) {
@@ -69,13 +63,11 @@ angular.module('clientApp')
       this.managers.forEach(function (manager) {
         managerIds.push(manager.id);
       });
-      query.managerIds = JSON.stringify(managerIds);
       query.lessonString = JSON.stringify(this.lessons);
       query.types = JSON.stringify(this.types);
       query.id = this.id;
       query.name = this.name;
       query.majorType = this.majorType;
-      query.date = new Date(this.date);
       return http.post('/api/v1/lecture', query, true);
     };
 

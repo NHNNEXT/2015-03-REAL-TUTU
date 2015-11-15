@@ -2,8 +2,13 @@ package org.next.lms.user.dto;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
+import org.next.lms.lecture.dto.LectureSummaryDto;
 import org.next.lms.user.User;
 import org.next.lms.lecture.dto.LectureListDto;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class UserDto {
@@ -16,8 +21,8 @@ public class UserDto {
     private String major;
     private String introduce;
     private String profileUrl;
-    private LectureListDto lectures;
     private Boolean news;
+    private List<LectureSummaryDto> lectures;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -28,7 +33,7 @@ public class UserDto {
         this.introduce = user.getIntroduce();
         this.phoneNumber = user.getPhoneNumber();
         this.major = user.getMajor();
-        this.lectures = new LectureListDto(user);
+        this.lectures = user.getInMenuLectures().stream().map(relation -> new LectureSummaryDto(relation.getLecture())).collect(Collectors.toList());
         this.news = user.getMessages().stream().filter(
                 message -> message.getRead() == null || !message.getRead()
         ).findAny().isPresent();

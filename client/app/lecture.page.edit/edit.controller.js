@@ -4,10 +4,10 @@ angular
   /* @ngInject */
   function EditLectureController($scope, Lecture, rootUser, alert, $state, types, $stateParams) {
 
-    $scope.edit = edit;
     $scope.cancel = cancel;
     $scope.addLesson = addLesson;
 
+    $scope.save = save;
     $scope.rootUser = rootUser;
     $scope.majorTypes = types.majorTypes;
     $scope.push = push;
@@ -33,7 +33,7 @@ angular
       return $stateParams.id;
     }, function (id) {
       if (!id) {
-        var lecture = $scope.lecture = {};
+        var lecture = $scope.lecture = new Lecture();
         lecture.types = [{name: "강의자료"}, {name: "질문"}, {name: "과제", dueDate: true}];
         lecture.lessons = [];
         lecture.managers = [];
@@ -94,7 +94,7 @@ angular
       }
     }
 
-    function edit(lecture) {
+    function save(lecture) {
       var managerIds = [];
       var query = {};
       $scope.lecture.managers.forEach(function (manager) {

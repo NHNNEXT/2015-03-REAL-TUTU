@@ -2,7 +2,7 @@ package org.next.lms.user;
 
 import lombok.*;
 import org.next.infra.relation.UserEnrolledLecture;
-import org.next.infra.relation.UserManageLecture;
+import org.next.infra.relation.UserInMenuLecture;
 import org.next.lms.content.Content;
 import org.next.lms.lecture.Lecture;
 import org.next.infra.relation.UserLikesContent;
@@ -21,9 +21,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"messages", "contents", "replies", "enrolledLectures", "manageLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
+@ToString(exclude = {"messages", "contents", "replies", "enrolledLectures", "inMenuLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"messages", "contents", "replies", "enrolledLectures", "manageLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
+@EqualsAndHashCode(exclude = {"messages", "contents", "replies", "enrolledLectures", "inMenuLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
 @Entity
 @Table(name = "USER")
 public class User {
@@ -44,7 +44,7 @@ public class User {
     private List<UserEnrolledLecture> enrolledLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserManageLecture> manageLectures = new ArrayList<>();
+    private List<UserInMenuLecture> inMenuLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserLikesLecture> likeLectures = new ArrayList<>();
@@ -89,6 +89,9 @@ public class User {
     @Column(name = "STATE")
     private AccountState state;
 
+    @Column(name = "MENU")
+    private String menu;
+
     @Lob
     @Column(name = "INTRODUCE")
     private String introduce;
@@ -106,6 +109,8 @@ public class User {
             this.major = passed.major;
         if (passed.introduce != null)
             this.introduce = passed.introduce;
+        if (passed.menu != null)
+            this.menu = passed.menu;
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
@@ -117,4 +122,5 @@ public class User {
     public boolean isPasswordCorrect(PasswordEncoder passwordEncoder, String password) {
         return this.password != null && passwordEncoder.matches(this.password, password);
     }
+
 }

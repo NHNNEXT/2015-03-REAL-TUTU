@@ -4,18 +4,14 @@
     <md-divider></md-divider>
     <message message="message" ng-repeat="message in messages"></message>
     <md-list-item>
-      <span ng-show="page.hasNext()" ng-click="more()">
-        <md-button>
-          <div class="md-list-item-text">
-            <h4>더보기</h4>
-          </div>
-        </md-button>
-      </span>
-      <span ng-show="!page.hasNext()">
+      <div class="md-list-item-text" ng-show="page.hasNext()" ng-click="move()">
         <div class="md-list-item-text">
-          <h4>마지막입니다.</h4>
+          <h4>더보기</h4>
         </div>
-      </span>
+      </div>
+      <div class="md-list-item-text" ng-show="!page.hasNext()">
+        <h4>마지막입니다.</h4>
+      </div>
     </md-list-item>
   </md-list>
 

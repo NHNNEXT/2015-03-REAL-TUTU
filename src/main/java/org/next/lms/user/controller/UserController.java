@@ -6,12 +6,10 @@ import org.next.lms.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpSession;
 
 import static org.next.infra.view.JsonView.successJsonResponse;
@@ -26,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getUserInfo(HttpSession session, String id) {
+    public JsonView getUser(HttpSession session, String id) {
         if (id == null)
             return userService.getSessionUser(session);
         return userService.getUser(id);
@@ -38,8 +36,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateUserInfo(User user, HttpSession session) {
-        return userService.updateUserInfo(user, session);
+    public JsonView updateUser(User user, HttpSession session) {
+        return userService.updateUser(user, session);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

@@ -80,8 +80,19 @@
     <div layout-padding>
       <ul class="menu" ng-show="rootUser.isLogged()">
         <li ui-sref="lectures">전체 강의</li>
-        <li ui-sref="mylectures">내 강의</li>
+      </ul>
+
+      <ul class="menu" ng-show="rootUser.isLogged()">
+        <li ng-click="open=!open">내 강의
+          <md-icon md-svg-src="/resource/icon/arrow.svg" class="arrow-icon" ng-class="{'open':!open}"></md-icon>
+        </li>
         <md-divider></md-divider>
+        <span ng-show="open">
+          <li ui-sref="lectures" class="child">내 강의 관리</li>
+          <md-divider></md-divider>
+          <li ng-repeat="lecture in rootUser.lectures" class="child">{{lecture}}</li>
+          <md-divider></md-divider>
+        </span>
       </ul>
 
       <ul class="menu" ng-show="rootUser.isLogged()">

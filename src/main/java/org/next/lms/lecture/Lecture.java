@@ -4,7 +4,7 @@ import lombok.*;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.infra.relation.UserEnrolledLecture;
-import org.next.infra.relation.UserManageLecture;
+import org.next.infra.relation.UserInMenuLecture;
 import org.next.infra.relation.UserLikesLecture;
 
 import javax.persistence.*;
@@ -12,9 +12,9 @@ import java.util.*;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "managers", "enrolledStudent", "contents", "likes", "lessons"})
+@ToString(exclude = {"hostUser", "users",  "contents", "likes", "lessons"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "managers", "enrolledStudent", "contents", "likes", "lessons"})
+@EqualsAndHashCode(exclude = {"hostUser", "users", "contents", "likes", "lessons"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -29,11 +29,8 @@ public class Lecture {
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Lesson> lessons = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<UserManageLecture> managers = new ArrayList<>();
-
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<UserEnrolledLecture> enrolledStudent = new ArrayList<>();
+    private List<UserEnrolledLecture> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
@@ -56,14 +53,6 @@ public class Lecture {
     @Column(name = "DATE")
     private Date date;
 
-    public void addManagers(List<User> managers) {
-        managers.forEach(managerUserInfo -> {
-            UserManageLecture relation = new UserManageLecture();
-            relation.setLecture(this);
-            relation.setUser(managerUserInfo);
-            this.managers.add(relation);
-        });
-    }
 
     public void addLessons(List<Lesson> lessons) {
         lessons.forEach(item -> {
@@ -74,8 +63,7 @@ public class Lecture {
 
     public void setDeleteState() {
         this.hostUser = null;
-        this.managers = null;
-        this.enrolledStudent = null;
+        this.users = null;
     }
 
     public void update(Lecture lecture) {

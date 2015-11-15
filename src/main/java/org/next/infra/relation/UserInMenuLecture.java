@@ -13,7 +13,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"id"})
 @Entity
 @Table(name = "USER_MANAGE_LECTURE")
-public class UserManageLecture {
+public class UserInMenuLecture {
 
     // Relation
     @ManyToOne(fetch = FetchType.LAZY)

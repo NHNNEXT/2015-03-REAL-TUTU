@@ -1,5 +1,7 @@
 package org.next.lms.lecture.service;
 
+import org.next.infra.relation.UserInMenuLecture;
+import org.next.infra.relation.repository.UserInMenuLectureRepository;
 import org.next.infra.view.JsonView;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
@@ -10,7 +12,6 @@ import org.next.lms.lecture.Lesson;
 import org.next.infra.repository.LectureRepository;
 import org.next.infra.repository.LessonRepository;
 import org.next.infra.relation.repository.UserEnrolledLectureRepository;
-import org.next.infra.relation.repository.UserManageLectureRepository;
 import org.next.lms.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,16 +28,13 @@ import static org.next.infra.util.CommonUtils.parseList;
 public class LectureService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private LectureRepository lectureRepository;
 
     @Autowired
     private UserEnrolledLectureRepository userEnrolledLectureRepository;
 
     @Autowired
-    private UserManageLectureRepository userManageLectureRepository;
+    private UserInMenuLectureRepository userInMenuLectureRepository;
 
     @Autowired
     private LessonRepository lessonRepository;
@@ -45,36 +43,24 @@ public class LectureService {
     private LectureAuth lectureAuthority;
 
 
-    public JsonView save(Lecture lecture, String managerIds, String lessonString, User user) {
+    public JsonView save(Lecture lecture, String lessonString, User user) {
         lecture.setDate(new Date());
 
-        if (lecture.getId() != null) {
-            return updateLecture(lecture, user, managerIds, lessonString);
-        }
-
-        List<Long> managerIdList = assureNotNull(parseList(Long.class, managerIds));
-        List<User> managers = managerIdList.stream().map(userRepository::findOne).collect(Collectors.toList());
-        lecture.addManagers(managers);
         List<Lesson> lessons = assureNotNull(parseList(Lesson.class, lessonString));
         lessons.forEach(lesson -> {
             lesson.setLecture(lecture);
             lessonRepository.save(lesson);
         });
-
         lecture.setHostUser(user);
-
+        inMenu(lecture, user);
         lectureRepository.save(lecture);
         return successJsonResponse(new LectureDto(lecture));
     }
 
-    private JsonView updateLecture(Lecture lecture, User user, String managerIds, String lessonString) {
+    public JsonView updateLecture(Lecture lecture, User user, String lessonString) {
         Lecture fromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(fromDB, user);
         fromDB.update(lecture);
-        List<Long> managerIdList = assureNotNull(parseList(Long.class, managerIds));
-        List<User> managers = managerIdList.stream().map(userRepository::findOne).collect(Collectors.toList());
-        userManageLectureRepository.deleteByLectureId(fromDB.getId());
-        fromDB.addManagers(managers);
         List<Lesson> lessons = assureNotNull(parseList(Lesson.class, lessonString));
         lessonRepository.deleteByLectureId(fromDB.getId());
         lessons.forEach(lesson -> {
@@ -100,7 +86,15 @@ public class LectureService {
         relation.setLecture(lecture);
         relation.setUser(user);
         userEnrolledLectureRepository.save(relation);
+        inMenu(lecture, user);
         return successJsonResponse();
+    }
+
+    private void inMenu(Lecture lecture, User user) {
+        UserInMenuLecture inMenu = new UserInMenuLecture();
+        inMenu.setLecture(lecture);
+        inMenu.setUser(user);
+        userInMenuLectureRepository.save(inMenu);
     }
 
     public JsonView delete(Long id, User user) {

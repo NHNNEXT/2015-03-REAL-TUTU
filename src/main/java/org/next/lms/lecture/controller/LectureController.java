@@ -27,7 +27,6 @@ public class LectureController {
     private SessionUtil sessionUtil;
 
 
-    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.GET)
     public JsonView getLectureInfo(Long id) {
         if (id == null)
@@ -35,11 +34,14 @@ public class LectureController {
         return successJsonResponse(lectureService.getById(id));
     }
 
-
-    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView saveLecture(String lessonString, Lecture lecture, String managerIds, HttpSession session) {
-        return lectureService.save(lecture, managerIds, lessonString, sessionUtil.getLoggedUser(session));
+    public JsonView saveLecture(String lessonString, Lecture lecture, HttpSession session) {
+        return lectureService.save(lecture, lessonString, sessionUtil.getLoggedUser(session));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public JsonView updateLecture(String lessonString, Lecture lecture, HttpSession session) {
+        return lectureService.save(lecture, lessonString, sessionUtil.getLoggedUser(session));
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

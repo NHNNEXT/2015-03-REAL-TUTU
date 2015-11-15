@@ -79,7 +79,7 @@ public class UserService {
         return new JsonView(ResponseCode.SUCCESS);
     }
 
-    public JsonView updateUserInfo(User passed, HttpSession session) {
+    public JsonView updateUser(User passed, HttpSession session) {
         User dbAccount = sessionUtil.getLoggedUser(session);
         if (dbAccount == null)
             return new JsonView(ResponseCode.GetSessionUser.EMPTY);

@@ -17,3 +17,20 @@ md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-ta
 //md-backdrop.md-opaque.md-default-theme, md-backdrop.md-opaque {
 //  background-color: transparent !important;
 //}
+
+li.child {
+  background: #eee;
+}
+
+
+.arrow-icon{
+  margin-left: auto;
+  speak: none;
+  vertical-align: middle;
+  transition: transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+}
+.arrow-icon.open {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
