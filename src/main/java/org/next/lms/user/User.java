@@ -21,9 +21,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"contents", "replies", "enrolledLectures", "manageLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
+@ToString(exclude = {"messages", "contents", "replies", "enrolledLectures", "manageLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"contents", "replies", "enrolledLectures", "manageLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
+@EqualsAndHashCode(exclude = {"messages", "contents", "replies", "enrolledLectures", "manageLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
 @Entity
 @Table(name = "USER")
 public class User {
@@ -109,7 +109,7 @@ public class User {
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
-        if(this.password == null) return;
+        if (this.password == null) return;
         this.password = passwordEncoder.encode(this.password);
 
     }

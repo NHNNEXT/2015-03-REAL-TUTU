@@ -32,6 +32,9 @@ public class Message {
     @Column(name = "TYPE")
     private Integer type;
 
+    @Column(name = "READ")
+    private Boolean read;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE")
     private Date date;

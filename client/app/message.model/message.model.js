@@ -6,11 +6,8 @@ angular.module('clientApp').factory('Message',
     function Message() {
     }
 
-    Message.getList = function(){
-      return http.get('/api/v1/message');
+    Message.getList = function (page) {
+      return http.get('/api/v1/message', {page: page});
     };
-
-
-
     return Message;
   });

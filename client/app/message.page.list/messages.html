@@ -1,11 +1,22 @@
 <section>
-  <md-content>
-    <md-list>
-      <md-subheader class="md-no-sticky">메시지</md-subheader>
-      <md-divider></md-divider>
-      <message message="message" ng-repeat="message in messages"></message>
-    </md-list>
-  </md-content>
-
+  <md-list>
+    <md-subheader class="md-no-sticky">메시지</md-subheader>
+    <md-divider></md-divider>
+    <message message="message" ng-repeat="message in messages"></message>
+    <md-list-item>
+      <span ng-show="page.hasNext()" ng-click="more()">
+        <md-button>
+          <div class="md-list-item-text">
+            <h4>더보기</h4>
+          </div>
+        </md-button>
+      </span>
+      <span ng-show="!page.hasNext()">
+        <div class="md-list-item-text">
+          <h4>마지막입니다.</h4>
+        </div>
+      </span>
+    </md-list-item>
+  </md-list>
 
 </section>
