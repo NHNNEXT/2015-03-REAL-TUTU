@@ -1,0 +1,43 @@
+<div layout="row" ng-repeat="contentType in lecture.contentTypes">
+  <md-input-container class="md-block" flex>
+    <label>게시물 타입</label>
+    <input ng-model="contentType.name">
+  </md-input-container>
+  <div flex>
+    시간
+    <md-checkbox ng-model="contentType.startTime">
+      시작
+    </md-checkbox>
+    <md-checkbox ng-model="contentType.endTime">
+      끝
+    </md-checkbox>
+  </div>
+  <div flex>
+    댓글 설정
+    <md-checkbox ng-model="contentType.onlyWriter">
+      작성자만 열람
+    </md-checkbox>
+    <md-checkbox ng-model="contentType.static">
+      통계
+    </md-checkbox>
+  </div>
+  <div flex>
+    기타
+    <md-checkbox ng-model="contentType.extendWrite">
+      일괄 등록
+    </md-checkbox>
+  </div>
+  <div flex>
+    <md-button ng-click="lecture.removeContentType(contentType)">삭제</md-button>
+  </div>
+
+</div>
+<div layout="row">
+  <md-input-container flex="80">
+    <label>게시물 타입</label>
+    <input ng-model="contentType.name">
+  </md-input-container>
+  <md-button ng-click="newContentType()" flex="20">
+    게시물 타입 추가하기
+  </md-button>
+</div>

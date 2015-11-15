@@ -2,8 +2,15 @@ angular.module('clientApp')
   /* @ngInject */
   .factory('Lecture', function (http, $state, confirm, User, Content, Lesson, $q, rootUser, alert) {
     function Lecture(param) {
-      if (param === undefined)
+      if (param === undefined) {
+        this.userGroups = [{name: "조교"}, {name: "수강생", defaultGroup: true}];
+        this.contentTypes = [
+          {name: "수업", startTime: true, endTime: true, extendWrite: true},
+          {name: "강의자료"}, {name: "질문"},
+          {name: "과제", endTime: true, static: true, onlyWriter: true}
+        ];
         return;
+      }
       if (typeof param === "object") {
         this.setProperties(param);
         return;
@@ -13,6 +20,40 @@ angular.module('clientApp')
         self.setProperties(result);
       });
     }
+
+    Lecture.prototype.defaultGroupSelect = function (index, select) {
+      this.userGroups.forEach(function (userGroup, i) {
+        if (i === index) {
+          userGroup.defaultGroup = true;
+          select[i] = false;
+          return;
+        }
+        userGroup.defaultGroup = false;
+        select[i] = false;
+      });
+    };
+
+    Lecture.prototype.removeUserGroup = function (el) {
+      if (this.userGroups.length < 2) {
+        alert.warning("최소 하나의 그룹은 있어야 합니다.");
+        return;
+      }
+      if (!confirm("삭제하시겠습니까?"))
+        return;
+      this.userGroups.remove(el);
+      if (this.userGroups[this.defaultGroup] === undefined)
+        this.defaultGroup = 0;
+    };
+
+    Lecture.prototype.removeContentType = function (el) {
+      if (this.contentTypes.length < 2) {
+        alert.warning("최소 하나의 타입은 있어야 합니다.");
+        return;
+      }
+      if (!confirm("삭제하시겠습니까?"))
+        return;
+      this.contentTypes.remove(el);
+    };
 
     Lecture.prototype.setProperties = function (param) {
       this.id = param.id;

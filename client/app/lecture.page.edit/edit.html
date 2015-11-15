@@ -1,211 +1,193 @@
 <section>
-  <div class="btn btn-primary " ng-click="save(lecture)">저장하기</div>
-  <div class="btn btn-warning" ng-click="cancel()">취소</div>
-  <h2>강의 <span ng-show="lecture.id===undefined">등록</span><span ng-show="lecture.id!==undefined">수정</span></h2>
-
-
   <md-tabs md-dynamic-height md-border-bottom>
     <md-tab label="기본정보">
       <md-content class="md-padding">
-        <md-input-container>
-          <label>강의명</label>
-          <input ng-model="lecture.name">
-        </md-input-container>
-        <md-input-container>
-          <label>구분</label>
-          <md-select ng-model="lecture.majorType">
-            <md-option ng-repeat="(key, type) in majorTypes" value="{{key}}">
-              {{type}}
-            </md-option>
-          </md-select>
-        </md-input-container>
+        <ng-include src="'/lecture.page.edit/part/default.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label="수업">
+    <md-tab label="게시물 타입">
       <md-content class="md-padding">
+        <ng-include src="'/lecture.page.edit/part/item.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label="교수">
+    <md-tab label="사용자 그룹">
       <md-content class="md-padding">
-        <auto-complete placeholder="교수 등록" src="/api/v1/user/find" action="push"
-                       template="/common.directive.auto-complete/template/user.html"></auto-complete>
-        <div>
-          <user-profile user="user"></user-profile>
-        </div>
-
-        <div ng-repeat="manager in lecture.managers">
-          <user-profile user="manager"></user-profile>
-          <i class="fa fa-times" ng-click="lecture.managers.remove(manager)"></i>
-        </div>
-
+        <ng-include src="'/lecture.page.edit/part/group.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label="수강생">
+    <md-tab label="권한 관리">
       <md-content class="md-padding">
+        <ng-include src="'/lecture.page.edit/part/right.html'"></ng-include>
       </md-content>
     </md-tab>
   </md-tabs>
+
+
+  <div layout="row">
+    <md-button class="md-raised" flex ng-click="save(lecture)">저장하기</md-button>
+    <md-button class="md-raised" flex ng-click="cancel()">취소</md-button>
+  </div>
 </section>
 
 
-<div class="container">
+<!--<div class="container">-->
 
 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-primary margin-top">
-        <div class="panel-heading">강의 정보</div>
-        <div class="panel-body">
-          <div class="input-group">
-            <div class="input-group-addon" data-toggle="dropdown">
-              {{majorTypes[lecture.majorType]||"구분"}}
-              <span class="caret"></span></div>
-            <ul class="dropdown-menu">
-              <li ng-click="lecture.majorType=undefined"><a>구분</a></li>
-              <li class="divider"></li>
-              <li ng-repeat="(key,type) in majorTypes" ng-click="lecture.majorType=key"><a>{{type}}</a></li>
-            </ul>
+<!--<div class="row">-->
+<!--<div class="col-md-6">-->
+<!--<div class="panel panel-primary margin-top">-->
+<!--<div class="panel-heading">강의 정보</div>-->
+<!--<div class="panel-body">-->
+<!--<div class="input-group">-->
+<!--<div class="input-group-addon" data-toggle="dropdown">-->
+<!--{{majorTypes[lecture.majorType]||"구분"}}-->
+<!--<span class="caret"></span></div>-->
+<!--<ul class="dropdown-menu">-->
+<!--<li ng-click="lecture.majorType=undefined"><a>구분</a></li>-->
+<!--<li class="divider"></li>-->
+<!--<li ng-repeat="(key,type) in majorTypes" ng-click="lecture.majorType=key"><a>{{type}}</a></li>-->
+<!--</ul>-->
 
 
-            <input type="text" class="form-control" id="Lname" ng-model="lecture.name" placeholder="강의명">
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-primary">
-        <div class="panel-heading">교수진</div>
-        <div class="panel-body">
+<!--<input type="text" class="form-control" id="Lname" ng-model="lecture.name" placeholder="강의명">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="panel panel-primary">-->
+<!--<div class="panel-heading">교수진</div>-->
+<!--<div class="panel-body">-->
 
-        </div>
-        <div class="panel-footer">
+<!--</div>-->
+<!--<div class="panel-footer">-->
 
-        </div>
-      </div>
+<!--</div>-->
+<!--</div>-->
 
-      <div class="panel panel-primary">
-        <div class="panel-heading">게시물 타입</div>
-        <ul class="list-group">
-          <li class="list-group-item" ng-repeat="type in lecture.types">
-            <input class="form-control block margin-right" ng-model="type.name" placeholder="타입명">
-            <input type="checkbox" ng-model="type.dueDate"> 기한
-            <span class="margin-right"></span>
-            <input type="checkbox" ng-model="type.attach"> 첨부파일
-          </li>
-        </ul>
-        <div class="panel-footer">
-          <div class="input-group">
-            <input class="form-control" placeholder="타입명" ng-model="type.name">
+<!--<div class="panel panel-primary">-->
+<!--<div class="panel-heading">게시물 타입</div>-->
+<!--<ul class="list-group">-->
+<!--<li class="list-group-item" ng-repeat="type in lecture.types">-->
+<!--<input class="form-control block margin-right" ng-model="type.name" placeholder="타입명">-->
+<!--<input type="checkbox" ng-model="type.dueDate"> 기한-->
+<!--<span class="margin-right"></span>-->
+<!--<input type="checkbox" ng-model="type.attach"> 첨부파일-->
+<!--</li>-->
+<!--</ul>-->
+<!--<div class="panel-footer">-->
+<!--<div class="input-group">-->
+<!--<input class="form-control" placeholder="타입명" ng-model="type.name">-->
 
-            <div class="input-group-addon" ng-click="newType(type)">타입추가+</div>
-          </div>
-        </div>
-      </div>
+<!--<div class="input-group-addon" ng-click="newType(type)">타입추가+</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
-    </div>
-    <div class="col-md-6">
-      <div class="panel panel-primary margin-top">
-        <div class="panel-heading">
-          수업
-        </div>
-        <div class="panel-body">
-          <div ng-repeat="lesson in lecture.lessons |orderBy:'start'">
-            <lesson-edit lesson="lesson" lessons="lecture.lessons" index="$index"></lesson-edit>
-          </div>
-          <div ng-show="lecture.lessons.length==0">등록된 수업이 없습니다.</div>
+<!--</div>-->
+<!--<div class="col-md-6">-->
+<!--<div class="panel panel-primary margin-top">-->
+<!--<div class="panel-heading">-->
+<!--수업-->
+<!--</div>-->
+<!--<div class="panel-body">-->
+<!--<div ng-repeat="lesson in lecture.lessons |orderBy:'start'">-->
+<!--<lesson-edit lesson="lesson" lessons="lecture.lessons" index="$index"></lesson-edit>-->
+<!--</div>-->
+<!--<div ng-show="lecture.lessons.length==0">등록된 수업이 없습니다.</div>-->
 
-          <div ng-init="addType='many'">
-            <div class="radio">
-              <label> <input type="radio" ng-model="addType" ng-value="'many'">일괄 등록</label>
-            </div>
-            <div class="radio">
-              <label> <input type="radio" ng-model="addType" ng-value="'one'">개별 등록</label>
-            </div>
-          </div>
+<!--<div ng-init="addType='many'">-->
+<!--<div class="radio">-->
+<!--<label> <input type="radio" ng-model="addType" ng-value="'many'">일괄 등록</label>-->
+<!--</div>-->
+<!--<div class="radio">-->
+<!--<label> <input type="radio" ng-model="addType" ng-value="'one'">개별 등록</label>-->
+<!--</div>-->
+<!--</div>-->
 
-          <div ng-show="addType==='many'">
-            <div class="margin-top">
-              <strong>기간</strong>
+<!--<div ng-show="addType==='many'">-->
+<!--<div class="margin-top">-->
+<!--<strong>기간</strong>-->
 
-              <div class="wrapper">
-                <input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy월 MM월 dd일" view="date"
-                       min-view="date"
-                       ng-model="lesson.start" class="form-control date">
-              </div>
-              ~
-              <div class="wrapper">
-                <input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy월 MM월 dd일" view="date"
-                       min-view="date"
-                       ng-model="lesson.end" class="form-control date">
-              </div>
+<!--<div class="wrapper">-->
+<!--<input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy월 MM월 dd일" view="date"-->
+<!--min-view="date"-->
+<!--ng-model="lesson.start" class="form-control date">-->
+<!--</div>-->
+<!--~-->
+<!--<div class="wrapper">-->
+<!--<input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy월 MM월 dd일" view="date"-->
+<!--min-view="date"-->
+<!--ng-model="lesson.end" class="form-control date">-->
+<!--</div>-->
 
-            </div>
+<!--</div>-->
 
-            <div class="margin-top">
-              <strong class="margin-right-s">매주</strong>
+<!--<div class="margin-top">-->
+<!--<strong class="margin-right-s">매주</strong>-->
 
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[0]">일
-              </span>
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[1]">월
-              </span>
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[2]">화
-              </span>
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[3]">수
-              </span>
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[4]">목
-              </span>
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[5]">금
-              </span>
-              <span class="margin-right-s">
-                <input type="checkbox" ng-model="week[6]">토
-              </span>
-            </div>
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[0]">일-->
+<!--</span>-->
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[1]">월-->
+<!--</span>-->
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[2]">화-->
+<!--</span>-->
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[3]">수-->
+<!--</span>-->
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[4]">목-->
+<!--</span>-->
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[5]">금-->
+<!--</span>-->
+<!--<span class="margin-right-s">-->
+<!--<input type="checkbox" ng-model="week[6]">토-->
+<!--</span>-->
+<!--</div>-->
 
-            <div class="margin-top">
-              <strong>시간</strong>
+<!--<div class="margin-top">-->
+<!--<strong>시간</strong>-->
 
-              <div class="wrapper">
-                <input readonly="true" type="datetime" placeholder="시작" date-time format="HH:mm" max-view="hours"
-                       view="hours" class="form-control date"
-                       ng-model="lesson.timeStart"></div>
-              ~
-              <div class="wrapper">
-                <input readonly="true" type="datetime" placeholder="끝" date-time format="HH:mm" max-view="hours"
-                       view="hours" class="form-control date"
-                       ng-model="lesson.timeEnd">
-              </div>
-            </div>
-          </div>
+<!--<div class="wrapper">-->
+<!--<input readonly="true" type="datetime" placeholder="시작" date-time format="HH:mm" max-view="hours"-->
+<!--view="hours" class="form-control date"-->
+<!--ng-model="lesson.timeStart"></div>-->
+<!--~-->
+<!--<div class="wrapper">-->
+<!--<input readonly="true" type="datetime" placeholder="끝" date-time format="HH:mm" max-view="hours"-->
+<!--view="hours" class="form-control date"-->
+<!--ng-model="lesson.timeEnd">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
-          <div ng-show="addType==='one'">
-            <strong>시간</strong>
+<!--<div ng-show="addType==='one'">-->
+<!--<strong>시간</strong>-->
 
-            <div class="wrapper">
-              <input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy. MM. dd. HH:mm" view="date"
-                     ng-model="lesson.start" class="form-control date">
-            </div>
-            ~
-            <div class="wrapper">
-              <input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy. MM. dd. HH:mm" view="date"
-                     ng-model="lesson.end" class="form-control date">
-            </div>
-          </div>
+<!--<div class="wrapper">-->
+<!--<input readonly="true" type="datetime" placeholder="시작" date-time format="yyyy. MM. dd. HH:mm" view="date"-->
+<!--ng-model="lesson.start" class="form-control date">-->
+<!--</div>-->
+<!--~-->
+<!--<div class="wrapper">-->
+<!--<input readonly="true" type="datetime" placeholder="끝" date-time format="yyyy. MM. dd. HH:mm" view="date"-->
+<!--ng-model="lesson.end" class="form-control date">-->
+<!--</div>-->
+<!--</div>-->
 
-          <div class="margin-top">
-            <input placeholder="주제" class="form-control" ng-model="lesson.name">
-            <textarea placeholder="내용" class="form-control" ng-model="lesson.description"></textarea>
-          </div>
-        </div>
-        <div class="panel-footer">
+<!--<div class="margin-top">-->
+<!--<input placeholder="주제" class="form-control" ng-model="lesson.name">-->
+<!--<textarea placeholder="내용" class="form-control" ng-model="lesson.description"></textarea>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="panel-footer">-->
 
-          <div class="btn btn-default full-width" ng-click="addLesson()">수업 추가</div>
-        </div>
-      </div>
-    </div>
+<!--<div class="btn btn-default full-width" ng-click="addLesson()">수업 추가</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
-  </div>
-</div>
+<!--</div>-->
+<!--</div>-->

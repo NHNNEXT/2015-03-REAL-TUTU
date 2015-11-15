@@ -1,0 +1,23 @@
+<md-data-table-container>
+  <table class="right-table" md-data-table>
+    <thead>
+    <tr>
+      <th></th>
+      <th ng-repeat="group in lecture.userGroups" name="{{group.name}}" ng-click="toggleUserGroup($index)"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="type in lecture.contentTypes">
+      <td ng-click="toggleContentTypes($index)">{{type.name}}</td>
+      <td ng-repeat="group in lecture.userGroups" name="{{group.name}}">
+        <md-checkbox ng-model="read[lecture.userGroups.indexOf(group)][lecture.contentTypes.indexOf(type)]">
+          읽기
+        </md-checkbox>
+        <md-checkbox ng-model="write[lecture.userGroups.indexOf(group)][lecture.contentTypes.indexOf(type)]">
+          쓰기
+        </md-checkbox>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</md-data-table-container>

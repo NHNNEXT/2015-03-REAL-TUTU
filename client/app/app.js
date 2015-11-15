@@ -10,6 +10,7 @@
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
+    'md.data.table',
     'datePicker',
     'ngFileUpload',
     'restangular',
@@ -45,8 +46,8 @@
     });
     $httpProvider.interceptors.push('httpInterceptor');
     $mdThemingProvider.theme('default');
-      //.primaryPalette('pink')
-      //.accentPalette('orange');
+    //.primaryPalette('pink')
+    //.accentPalette('orange');
 
   }).value('froalaConfig', {
     placeholder: '글을 작성해 주세요.',

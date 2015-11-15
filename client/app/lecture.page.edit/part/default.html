@@ -1,0 +1,20 @@
+<md-input-container>
+  <label>강의명</label>
+  <input ng-model="lecture.name">
+</md-input-container>
+<md-input-container>
+  <label>구분</label>
+  <md-select ng-model="lecture.majorType">
+    <md-option ng-repeat="(key, type) in majorTypes" value="{{key}}">
+      {{type}}
+    </md-option>
+  </md-select>
+</md-input-container>
+<md-input-container>
+  <label>가입정책</label>
+  <md-select ng-model="lecture.registerPolicyType">
+    <md-option ng-repeat="(key, type) in registerPoilicyTypes" value="{{key}}">
+      {{type}}
+    </md-option>
+  </md-select>
+</md-input-container>
