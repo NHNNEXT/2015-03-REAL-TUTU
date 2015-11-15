@@ -7,7 +7,6 @@ import org.next.lms.content.Content;
 import org.next.lms.lecture.Lecture;
 import org.next.infra.relation.UserLikesContent;
 import org.next.infra.relation.UserLikesLecture;
-import org.next.infra.relation.UserLikesLesson;
 import org.next.infra.relation.UserLikesReply;
 import org.next.lms.message.Message;
 import org.next.lms.reply.Reply;
@@ -51,9 +50,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserLikesContent> likeContents = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserLikesLesson> likeLessons = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserLikesReply> likeReplies = new ArrayList<>();

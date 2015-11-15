@@ -25,7 +25,6 @@ public class ContentDto {
         this.type = content.getType();
         this.hits = content.getHits();
         this.likes = content.getLikes().stream().map(like -> like.getId()).collect(Collectors.toList());
-        this.types = content.getLecture().getTypes();
     }
     private String types;
     private List<Long> likes;

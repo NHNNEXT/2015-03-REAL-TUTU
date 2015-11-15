@@ -12,20 +12,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id"})
 @Entity
-@Table(name = "USER_MANAGE_LECTURE")
+@Table(name = "USER_IN_MENU_LECTURE")
 public class UserInMenuLecture {
 
-    // Relation
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "USER_INFO_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @Id
-    @Column(name = "USER_HOST_LECTURE_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

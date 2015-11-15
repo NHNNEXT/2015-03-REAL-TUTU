@@ -15,15 +15,12 @@ public class LectureDto {
 
     public LectureDto(Lecture lecture) {
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
-        this.users = lecture.getUsers().stream().map(referenceTable -> new UserSummaryDto(referenceTable.getUser())).collect(toList());
+        this.users = lecture.getUserEnrolledLectures().stream().map(referenceTable -> new UserSummaryDto(referenceTable.getUser())).collect(toList());
         this.contents = lecture.getContents().stream().map(ContentSummaryDto::new).collect(toList());
-        this.lessons = lecture.getLessons().stream().map(LessonDto::new).collect(toList());
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.majorType = lecture.getMajorType();
         this.likes = lecture.getLikes().stream().map(like -> like.getUser().getId()).collect(toList());
-        this.date = lecture.getDate();
-        this.types = lecture.getTypes();
     }
 
     private String types;
@@ -33,7 +30,6 @@ public class LectureDto {
     private List<UserSummaryDto> managers;
     private List<UserSummaryDto> users;
     private List<ContentSummaryDto> contents;
-    private List<LessonDto> lessons;
     private Long id;
     private String name;
     private Integer majorType;

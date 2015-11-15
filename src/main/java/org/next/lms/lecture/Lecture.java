@@ -1,10 +1,11 @@
 package org.next.lms.lecture;
 
 import lombok.*;
+import org.next.lms.lecture.right.ContentType;
+import org.next.lms.lecture.right.UserGroup;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.infra.relation.UserEnrolledLecture;
-import org.next.infra.relation.UserInMenuLecture;
 import org.next.infra.relation.UserLikesLecture;
 
 import javax.persistence.*;
@@ -12,9 +13,9 @@ import java.util.*;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "users",  "contents", "likes", "lessons"})
+@ToString(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "userEnrolledLectures", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "users", "contents", "likes", "lessons"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "userEnrolledLectures", "contents"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -27,10 +28,13 @@ public class Lecture {
     private List<UserLikesLecture> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<Lesson> lessons = new ArrayList<>();
+    private List<UserGroup> userGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<UserEnrolledLecture> users = new ArrayList<>();
+    private List<ContentType> contentTypes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
@@ -43,38 +47,25 @@ public class Lecture {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "TYPES")
-    private String types;
-
     @Column(name = "MAJOR_TYPE")
     private Integer majorType;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATE")
-    private Date date;
+    @Column(name = "REGISTER_POLICY_TYPE")
+    private Integer registerPolicyType;
 
-
-    public void addLessons(List<Lesson> lessons) {
-        lessons.forEach(item -> {
-            item.setLecture(this);
-            this.lessons.add(item);
-        });
-    }
 
     public void setDeleteState() {
         this.hostUser = null;
-        this.users = null;
+        this.userEnrolledLectures = null;
     }
 
     public void update(Lecture lecture) {
         if (lecture.name != null)
             this.name = lecture.name;
-        if (lecture.types != null)
-            this.types = lecture.types;
         if (lecture.majorType != null)
             this.majorType = lecture.majorType;
-        if (lecture.date != null)
-            this.date = lecture.date;
+        if (lecture.registerPolicyType != null)
+            this.registerPolicyType = lecture.registerPolicyType;
     }
 }
 

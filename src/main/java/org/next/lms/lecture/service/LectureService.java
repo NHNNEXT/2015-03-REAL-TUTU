@@ -8,21 +8,16 @@ import org.next.lms.lecture.auth.LectureAuth;
 import org.next.infra.relation.UserEnrolledLecture;
 import org.next.lms.lecture.dto.LectureDto;
 import org.next.lms.lecture.Lecture;
-import org.next.lms.lecture.Lesson;
 import org.next.infra.repository.LectureRepository;
-import org.next.infra.repository.LessonRepository;
 import org.next.infra.relation.repository.UserEnrolledLectureRepository;
-import org.next.lms.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.view.JsonView.successJsonResponse;
 import static org.next.infra.util.CommonUtils.assureNotNull;
-import static org.next.infra.util.CommonUtils.parseList;
 
 @Service
 public class LectureService {
@@ -36,21 +31,12 @@ public class LectureService {
     @Autowired
     private UserInMenuLectureRepository userInMenuLectureRepository;
 
-    @Autowired
-    private LessonRepository lessonRepository;
 
     @Autowired
     private LectureAuth lectureAuthority;
 
 
-    public JsonView save(Lecture lecture, String lessonString, User user) {
-        lecture.setDate(new Date());
-
-        List<Lesson> lessons = assureNotNull(parseList(Lesson.class, lessonString));
-        lessons.forEach(lesson -> {
-            lesson.setLecture(lecture);
-            lessonRepository.save(lesson);
-        });
+    public JsonView save(Lecture lecture, User user) {
         lecture.setHostUser(user);
         inMenu(lecture, user);
         lectureRepository.save(lecture);
@@ -61,12 +47,6 @@ public class LectureService {
         Lecture fromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(fromDB, user);
         fromDB.update(lecture);
-        List<Lesson> lessons = assureNotNull(parseList(Lesson.class, lessonString));
-        lessonRepository.deleteByLectureId(fromDB.getId());
-        lessons.forEach(lesson -> {
-            lesson.setLecture(fromDB);
-            lessonRepository.save(lesson);
-        });
         lectureRepository.save(fromDB);
         return successJsonResponse(new LectureDto(fromDB));
     }

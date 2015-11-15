@@ -7,11 +7,9 @@ import org.next.infra.reponse.ResponseCode;
 import org.next.lms.user.User;
 import org.next.infra.relation.UserLikesContent;
 import org.next.infra.relation.UserLikesLecture;
-import org.next.infra.relation.UserLikesLesson;
 import org.next.infra.relation.UserLikesReply;
 import org.next.infra.relation.repository.UserLikesContentRepository;
 import org.next.infra.relation.repository.UserLikesLectureRepository;
-import org.next.infra.relation.repository.UserLikesLessonRepository;
 import org.next.infra.relation.repository.UserLikesReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +27,6 @@ public class LikeController {
     UserLikesContentRepository userLikesContentRepository;
 
     @Autowired
-    UserLikesLessonRepository userLikesLessonRepository;
-
-    @Autowired
     UserLikesLectureRepository userLikesLectureRepository;
 
     @Autowired
@@ -42,9 +37,6 @@ public class LikeController {
 
     @Autowired
     ContentRepository contentRepository;
-
-    @Autowired
-    LessonRepository lessonRepository;
 
     @Autowired
     LectureRepository lectureRepository;
@@ -63,8 +55,6 @@ public class LikeController {
             return likeContent(id, user);
         if (Objects.equals(type, ResponseCode.Like.LECTURE))
             return likeLecture(id, user);
-        if (Objects.equals(type, ResponseCode.Like.LESSON))
-            return likeLesson(id, user);
         if (Objects.equals(type, ResponseCode.Like.REPLY))
             return likeReply(id, user);
 
@@ -94,19 +84,6 @@ public class LikeController {
             return new JsonView(ResponseCode.Like.REMOVE);
         }
         userLikesLectureRepository.save(relation);
-        return new JsonView(ResponseCode.Like.ADD);
-    }
-
-    private JsonView likeLesson(Long id, User user) {
-        UserLikesLesson relation = new UserLikesLesson(user, lessonRepository.findOne(id));
-        if (user.getLikeLessons().contains(relation)) {
-            user.getLikeLessons().forEach(like -> {
-                if (Objects.equals(like.getLesson().getId(), id))
-                    userLikesLessonRepository.delete(like);
-            });
-            return new JsonView(ResponseCode.Like.REMOVE);
-        }
-        userLikesLessonRepository.save(relation);
         return new JsonView(ResponseCode.Like.ADD);
     }
 
