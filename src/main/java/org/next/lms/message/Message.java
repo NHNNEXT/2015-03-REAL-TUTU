@@ -29,6 +29,9 @@ public class Message {
     @Column(name = "MESSAGE")
     private String message;
 
+    @Column(name = "URL")
+    private String url;
+
     @Column(name = "TYPE")
     private Integer type;
 

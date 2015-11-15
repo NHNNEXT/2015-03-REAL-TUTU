@@ -1,13 +1,33 @@
 angular.module('clientApp').factory('Message',
   /* @ngInject */
-  function (http) {
+  function (http, $q) {
     //var types = ['알림','강의 메시지','다가올 일'];
 
-    function Message() {
+    function Message(obj) {
+      if (typeof obj !== "object")
+        return;
+      this.id = obj.id;
+      this.message = obj.message;
+      this.read = obj.read;
+      this.type = obj.type;
+      this.date = new Date(obj.date);
+      this.url = obj.url;
     }
 
+    Message.prototype.reading = function () {
+      http.put('/api/v1/message', {id: this.id});
+    };
+
     Message.getList = function (page) {
-      return http.get('/api/v1/message', {page: page});
+      return $q(function (resolve) {
+        http.get('/api/v1/message', {page: page}).then(function (result) {
+          var messages = [];
+          result.forEach(function (message) {
+            messages.push(new Message(message));
+          });
+          resolve(messages);
+        });
+      });
     };
     return Message;
   });

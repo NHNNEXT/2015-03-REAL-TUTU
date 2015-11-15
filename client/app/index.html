@@ -9,14 +9,14 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -86,7 +86,7 @@
 
       <ul class="menu" ng-show="rootUser.isLogged()">
         <li ui-sref="profile({id:rootUser.id})">내 프로필</li>
-        <li ui-sref="messages">소식 <span class="red">new</span></li>
+        <li ui-sref="messages">소식 <span class="red" ng-show="rootUser.news">new</span></li>
         <md-divider></md-divider>
         <li ng-click="rootUser.logout()">로그아웃</li>
       </ul>
@@ -99,19 +99,17 @@
 </md-sidenav>
 
 <div role="main" layout="column" flex>
-  <md-content ng-controller="headerController">
-    <md-toolbar>
-      <div class="md-toolbar-tools centered">
-        <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
-          <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
-        </md-button>
-        <h2>
-          <span>{{state.current.header}}</span>
-        </h2>
-        <span flex></span>
-      </div>
-    </md-toolbar>
-  </md-content>
+  <md-toolbar ng-controller="headerController">
+    <div class="md-toolbar-tools centered">
+      <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
+        <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
+      </md-button>
+      <h2>
+        <span>{{state.current.header}}</span>
+      </h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
   <md-content md-scroll-y ui-view>
   </md-content>
 </div>

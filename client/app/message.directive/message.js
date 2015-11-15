@@ -6,6 +6,11 @@ angular.module('clientApp').directive('message',
       templateUrl: '/message.directive/message.html',
       scope: {
         message: '='
+      }, controller: function ($scope, $location) {
+        $scope.move = function () {
+          $scope.message.reading();
+          $location.path($scope.message.url);
+        };
       }
     };
   });

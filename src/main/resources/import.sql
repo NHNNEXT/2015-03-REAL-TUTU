@@ -53,24 +53,6 @@ insert into content (content_id, hits, body, due_date, title, write_date, lectur
 insert into content (content_id, hits, body, due_date, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 2, 1, 1);
 insert into content (content_id, hits, body, due_date, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 2, 1, 0);
 
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
-insert into message (message, type, user_id) values('test', 0,1);
+insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'true');
+insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'true');
+insert into message (message, type, user_id, url, read) values('test', 0,1, '/content/1', 'true');

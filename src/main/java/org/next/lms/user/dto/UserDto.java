@@ -1,5 +1,6 @@
 package org.next.lms.user.dto;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import org.next.lms.user.User;
 import org.next.lms.lecture.dto.LectureListDto;
@@ -16,6 +17,7 @@ public class UserDto {
     private String introduce;
     private String profileUrl;
     private LectureListDto lectures;
+    private Boolean news;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -27,6 +29,9 @@ public class UserDto {
         this.phoneNumber = user.getPhoneNumber();
         this.major = user.getMajor();
         this.lectures = new LectureListDto(user);
+        this.news = user.getMessages().stream().filter(
+                message -> message.getRead() == null || !message.getRead()
+        ).findAny().isPresent();
     }
 
 }

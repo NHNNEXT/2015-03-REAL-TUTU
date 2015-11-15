@@ -1,6 +1,10 @@
 <md-list-item>
-  <div class="md-list-item-text">
-    <h4>{{message.message}}</h4>
+  <div class="md-list-item-text" ng-click="move()">
+
+    <h4>
+      {{message.message}}
+      <small><span ng-show="!message.read">미확인</span><span ng-show="message.read">확인</span></small>
+    </h4>
 
     <p>{{message.date.toYMD()}}</p>
   </div>

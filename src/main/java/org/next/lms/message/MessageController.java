@@ -23,4 +23,9 @@ public class MessageController {
         return messageService.getList(session, page);
     }
 
+    @RequestMapping(method = RequestMethod.PUT)
+    public JsonView read(HttpSession session, Long id) {
+        return messageService.read(session, id);
+    }
+
 }

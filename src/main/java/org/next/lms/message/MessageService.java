@@ -1,5 +1,6 @@
 package org.next.lms.message;
 
+import org.next.infra.reponse.ResponseCode;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.message.repository.MessageRepository;
@@ -29,5 +30,16 @@ public class MessageService {
         Pageable pageable = new PageRequest(page, pageSize);
         List<Message> messages = messageRepository.findByUserId(sessionUtil.getLoggedUser(session).getId(), pageable);
         return JsonView.successJsonResponse(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
+    }
+
+    public JsonView read(HttpSession session, Long id) {
+        Message message = messageRepository.findOne(id);
+        if (message == null)
+            return new JsonView(ResponseCode.WRONG_ACCESS);
+        if (!message.getUser().getId().equals(sessionUtil.getId(session)))
+            return new JsonView(ResponseCode.WRONG_ACCESS);
+        message.setRead(true);
+        messageRepository.save(message);
+        return new JsonView(ResponseCode.SUCCESS);
     }
 }

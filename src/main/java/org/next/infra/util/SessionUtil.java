@@ -21,16 +21,20 @@ public class SessionUtil {
     }
 
     public User getLoggedUser(HttpSession session) {
-        Long id = (Long) session.getAttribute(LOGIN_ACCOUNT_ID);
+        Long id = getId(session);
         if (id == null)
             throw new LoginNeededException();
         return userRepository.findOne(id);
     }
 
     public User getUser(HttpSession session) {
-        Long id = (Long) session.getAttribute(LOGIN_ACCOUNT_ID);
+        Long id = getId(session);
         if (id == null)
             return null;
         return userRepository.findOne(id);
+    }
+
+    public Long getId(HttpSession session) {
+        return (Long) session.getAttribute(LOGIN_ACCOUNT_ID);
     }
 }
