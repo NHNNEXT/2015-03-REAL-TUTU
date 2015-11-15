@@ -1,13 +1,19 @@
 angular.module('clientApp')
   /* @ngInject */
   .factory('http', function ($http, $q, responseCode, dialog, alert) {
-    var http = function (method, url, params, success, error) {
+    var http = function (method, url, params, success, error, json) {
       var options = {
-        method: method, url: url,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        method: method, url: url
       };
+      if (json)
+        options.headers = {'Content-Type': 'application/json'};
+      else
+        options.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
       if (method === "GET" || method === "DELETE")
         options.params = params;
+      else if (json)
+        options.data = params;
       else {
         options.transformRequest = function (obj) {
           var str = [];
@@ -54,14 +60,14 @@ angular.module('clientApp')
         http("GET", url, params, resolve, reject);
       });
     };
-    http.post = function (url, params) {
+    http.post = function (url, params, json) {
       return $q(function (resolve, reject) {
-        http("POST", url, params, resolve, reject);
+        http("POST", url, params, resolve, reject, json);
       });
     };
-    http.put = function (url, params) {
+    http.put = function (url, params, json) {
       return $q(function (resolve, reject) {
-        http("PUT", url, params, resolve, reject);
+        http("PUT", url, params, resolve, reject, json);
       });
     };
     http.delete = function (url, params) {

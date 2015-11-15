@@ -1,13 +1,13 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Lecture', function (http, $state, confirm, User, Content, Lesson, $q, rootUser, alert) {
+  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert) {
     function Lecture(param) {
       if (param === undefined) {
         this.userGroups = [{name: "조교"}, {name: "수강생", defaultGroup: true}];
         this.contentTypes = [
           {name: "수업", startTime: true, endTime: true, extendWrite: true},
           {name: "강의자료"}, {name: "질문"},
-          {name: "과제", endTime: true, static: true, onlyWriter: true}
+          {name: "과제", endTime: true, statistic: true, onlyWriter: true}
         ];
         return;
       }
@@ -62,7 +62,6 @@ angular.module('clientApp')
       this.likes = param.likes;
       this.date = new Date(param.date);
       this.hostUser = new User(param.hostUser);
-      this.types = JSON.parse(param.types);
       var self = this;
       if (param.users.forEach !== undefined) {
         self.users = [];
@@ -76,40 +75,30 @@ angular.module('clientApp')
           self.contents.push(new Content(content));
         });
       }
-      if (param.lessons.forEach !== undefined) {
-        self.lessons = [];
-        param.lessons.forEach(function (lesson) {
-          self.lessons.push(new Lesson(lesson));
-        });
-      }
     };
 
     Lecture.prototype.remove = function () {
       if (!confirm("삭제하시겠습니까?"))
         return;
-      http.delete('/api/v1/lecture', {id: this.id}, true).then(function () {
+      http.delete('/api/v1/lecture', {id: this.id}).then(function () {
         $state.go('lectures');
       });
     };
 
     Lecture.prototype.enroll = function () {
-      http.post('/api/v1/lecture/enroll', {id: this.id}, true).then(function () {
+      http.post('/api/v1/lecture/enroll', {id: this.id}).then(function () {
         alert.info('강의에 등록되었습니다.');
       });
     };
 
     Lecture.prototype.save = function () {
       var query = {};
-      var managerIds = [];
-      this.managers.forEach(function (manager) {
-        managerIds.push(manager.id);
-      });
-      query.lessonString = JSON.stringify(this.lessons);
-      query.types = JSON.stringify(this.types);
       query.id = this.id;
       query.name = this.name;
       query.majorType = this.majorType;
-      return http.post('/api/v1/lecture', query, true);
+      if (query.id === undefined)
+        return http.post('/api/v1/lecture', query, true);
+      return http.put('/api/v1/lecture', query, true);
     };
 
     Lecture.getList = function () {

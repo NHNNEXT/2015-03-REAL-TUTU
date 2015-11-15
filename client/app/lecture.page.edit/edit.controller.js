@@ -7,7 +7,7 @@ angular
       $scope.lecture = new Lecture();
       $scope.write = [[true, true, true, true], [false, false, true, true]];
       $scope.read = [[true, true, true, true], [true, true, true, true]];
-      $scope.select = [];
+      $scope.select = [false, true];
       $scope.defaultGroup = 1;
     }
 

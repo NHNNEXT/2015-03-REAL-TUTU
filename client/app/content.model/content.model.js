@@ -55,15 +55,15 @@ angular.module('clientApp')
       query.dueDate = this.dueDate;
       query.type = this.type;
       if (this.id === undefined)
-        return http.post('/api/v1/content', query, true);
-      return http.put('/api/v1/content', query, true);
+        return http.post('/api/v1/content', query);
+      return http.put('/api/v1/content', query);
     };
 
     Content.prototype.remove = function () {
       if (!confirm("삭제하시겠습니까?"))
         return;
       var self = this;
-      http.delete('/api/v1/content', {id: this.id}, true).then(function () {
+      http.delete('/api/v1/content', {id: this.id}).then(function () {
         $state.go('lecture', {id: self.lectureId});
       });
     };
