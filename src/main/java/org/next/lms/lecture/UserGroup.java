@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"writable", "readable", "lecture"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "lecture"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "lecture", "defaultGroup", "name"})
 @Entity
 @Table(name = "USER_GROUP")
 public class UserGroup {
@@ -40,4 +40,10 @@ public class UserGroup {
     private String name;
 
 
+    public void update(UserGroup userGroup) {
+        if(userGroup.defaultGroup != null)
+            this.defaultGroup = userGroup.defaultGroup;
+        if(userGroup.name != null)
+            this.name = userGroup.name;
+    }
 }

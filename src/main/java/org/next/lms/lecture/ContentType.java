@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"writable", "readable", "lecture"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "lecture"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "lecture", "endTime", "startTime", "extendWrite", "onlyWriter", "statistic", "name"})
 @Entity
 @Table(name = "CONTENT_TYPE")
 public class ContentType {
@@ -52,4 +52,18 @@ public class ContentType {
     private String name;
 
 
+    public void update(ContentType contentType) {
+        if(contentType.endTime != null)
+            this.endTime = contentType.endTime;
+        if(contentType.startTime != null)
+            this.startTime = contentType.startTime;
+        if(contentType.extendWrite != null)
+            this.extendWrite = contentType.extendWrite;
+        if(contentType.onlyWriter != null)
+            this.onlyWriter = contentType.onlyWriter;
+        if(contentType.statistic != null)
+            this.statistic = contentType.statistic;
+        if(contentType.name != null)
+            this.name = contentType.name;
+    }
 }

@@ -3,8 +3,10 @@ package org.next.lms.lecture;
 import lombok.*;
 import org.next.lms.lecture.auth.UserGroupCanReadContent;
 import org.next.lms.lecture.auth.UserGroupCanWriteContent;
+import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
+import org.next.lms.lecture.repository.UserGroupRepository;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.infra.relation.UserEnrolledLecture;
@@ -12,12 +14,14 @@ import org.next.infra.relation.UserLikesLecture;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
 @ToString(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents", "name", "majorType", "registerPolicyType"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -61,20 +65,59 @@ public class Lecture {
         this.users = null;
     }
 
-    public void update(Lecture lecture) {
+    public void update(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
         if (lecture.name != null)
             this.name = lecture.name;
         if (lecture.majorType != null)
             this.majorType = lecture.majorType;
         if (lecture.registerPolicyType != null)
             this.registerPolicyType = lecture.registerPolicyType;
-        if (lecture.registerPolicyType != null)
-            this.registerPolicyType = lecture.registerPolicyType;
-        if (lecture.userGroups != null)
-            this.userGroups = lecture.userGroups;
-        if (lecture.registerPolicyType != null)
-            this.contentTypes = lecture.contentTypes;
+        if (lecture.writable != null)
+            this.writable = lecture.writable;
+        if (lecture.readable != null)
+            this.readable = lecture.readable;
+        removeDeleted(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+        updateAndAddNew(lecture, userGroupRepository, contentTypeRepository);
     }
+
+    private void updateAndAddNew(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository) {
+        this.userGroups.removeIf(userGroup -> !lecture.getUserGroups().contains(userGroup));
+        lecture.getUserGroups().forEach(updatedUserGroup -> {
+            if (this.userGroups.contains(updatedUserGroup)) {
+                this.userGroups.stream().filter(updatedUserGroup::equals).findFirst().get().update(updatedUserGroup);
+            } else {
+                updatedUserGroup.setLecture(this);
+                this.userGroups.add(updatedUserGroup);
+            }
+        });
+        this.contentTypes.removeIf(contentType -> !lecture.getContentTypes().contains(contentType));
+        lecture.getContentTypes().forEach(updatedContentType -> {
+            if (this.contentTypes.contains(updatedContentType)) {
+                this.contentTypes.stream().filter(updatedContentType::equals).findFirst().get().update(updatedContentType);
+            } else {
+                updatedContentType.setLecture(this);
+                this.contentTypes.add(updatedContentType);
+            }
+        });
+    }
+
+    private void removeDeleted(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
+        List<UserGroup> deletedUserGroups = this.userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
+        deletedUserGroups.forEach(deletedUserGroup -> {
+            userGroupCanReadContentRepository.deleteByUserGroupId(deletedUserGroup.getId());
+            userGroupCanWriteContentRepository.deleteByUserGroupId(deletedUserGroup.getId());
+        });
+        this.userGroups.removeAll(deletedUserGroups);
+        userGroupRepository.delete(deletedUserGroups);
+        List<ContentType> deletedContentTypes = this.contentTypes.stream().filter(contentType -> !lecture.getContentTypes().contains(contentType)).collect(Collectors.toList());
+        deletedContentTypes.forEach(deletedContentType -> {
+            userGroupCanReadContentRepository.deleteByContentTypeId(deletedContentType.getId());
+            userGroupCanWriteContentRepository.deleteByContentTypeId(deletedContentType.getId());
+        });
+        this.contentTypes.removeAll(deletedContentTypes);
+        contentTypeRepository.delete(deletedContentTypes);
+    }
+
 
     @Transient
     private List<List<Boolean>> writable;
@@ -83,9 +126,16 @@ public class Lecture {
     private List<List<Boolean>> readable;
 
     public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
-        userGroups.forEach(userGroup -> userGroup.setLecture(this));
-        contentTypes.forEach(userGroup -> userGroup.setLecture(this));
-
+        userGroups.forEach(userGroup -> {
+            userGroup.setLecture(this);
+            userGroupCanReadContentRepository.deleteByUserGroupId(userGroup.getId());
+            userGroupCanWriteContentRepository.deleteByUserGroupId(userGroup.getId());
+        });
+        contentTypes.forEach(contentType -> {
+            contentType.setLecture(this);
+            userGroupCanReadContentRepository.deleteByContentTypeId(contentType.getId());
+            userGroupCanWriteContentRepository.deleteByContentTypeId(contentType.getId());
+        });
         for (int i = 0; i < userGroups.size(); i++) {
             for (int j = 0; j < contentTypes.size(); j++) {
                 if (writable.size() > i && writable.get(i).size() > j)

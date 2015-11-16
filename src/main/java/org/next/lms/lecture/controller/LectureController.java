@@ -34,12 +34,12 @@ public class LectureController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView saveLecture(@RequestBody Lecture lecture, HttpSession session) {
+    public JsonView save(@RequestBody Lecture lecture, HttpSession session) {
         return lectureService.save(lecture, session);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateLecture(@RequestBody Lecture lecture, HttpSession session) {
+    public JsonView update(@RequestBody Lecture lecture, HttpSession session) {
         return lectureService.update(lecture, session);
     }
 

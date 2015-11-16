@@ -4,8 +4,11 @@ import org.next.infra.relation.UserInMenuLecture;
 import org.next.infra.relation.repository.UserInMenuLectureRepository;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
+import org.next.lms.lecture.ContentType;
+import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
+import org.next.lms.lecture.repository.UserGroupRepository;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
 import org.next.infra.relation.UserEnrolledLecture;
@@ -43,6 +46,12 @@ public class LectureService {
     private LectureAuth lectureAuthority;
 
     @Autowired
+    private UserGroupRepository userGroupRepository;
+
+    @Autowired
+    private ContentTypeRepository contentTypeRepository;
+
+    @Autowired
     private UserGroupCanReadContentRepository userGroupCanReadContentRepository;
 
     @Autowired
@@ -64,10 +73,9 @@ public class LectureService {
         Lecture fromDB = lectureRepository.findOne(lecture.getId());
         lectureAuthority.checkUpdateRight(fromDB, user);
 
-        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
-
-        fromDB.update(lecture);
+        fromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
         lectureRepository.save(fromDB);
+        fromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
 
         return successJsonResponse(lecture.getId());
     }

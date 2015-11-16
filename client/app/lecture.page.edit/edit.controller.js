@@ -16,8 +16,8 @@ angular
     $scope.newUserGroup = function () {
       lecture.userGroups.push($scope.userGroup);
       if (lecture.writable.length < lecture.userGroups.length) {
-        lecture.writable.push(getTrueArray(lecture.contents.length));
-        lecture.readable.push(getTrueArray(lecture.contents.length));
+        lecture.writable.push(getTrueArray(lecture.contentTypes.length));
+        lecture.readable.push(getTrueArray(lecture.contentTypes.length));
       }
 
       $scope.userGroup = {};
@@ -26,6 +26,7 @@ angular
         var result = [];
         for (var i = 0; i < length; i++)
           result.push(true);
+        return result;
       }
     };
 

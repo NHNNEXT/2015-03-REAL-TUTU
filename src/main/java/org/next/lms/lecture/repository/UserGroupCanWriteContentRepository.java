@@ -5,4 +5,7 @@ import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserGroupCanWriteContentRepository extends JpaRepository<UserGroupCanWriteContent, Long> {
+    void deleteByUserGroupId(Long id);
+
+    void deleteByContentTypeId(Long id);
 }
