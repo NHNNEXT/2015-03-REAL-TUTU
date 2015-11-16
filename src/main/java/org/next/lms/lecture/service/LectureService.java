@@ -4,9 +4,6 @@ import org.next.infra.relation.UserInMenuLecture;
 import org.next.infra.relation.repository.UserInMenuLectureRepository;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
-import org.next.lms.lecture.auth.LectureHasAuthInfo;
-import org.next.lms.lecture.auth.UserGroupCanReadContent;
-import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.user.User;
@@ -52,27 +49,27 @@ public class LectureService {
     private UserGroupCanWriteContentRepository userGroupCanWriteContentRepository;
 
 
-    public JsonView save(LectureHasAuthInfo lectureHasAuthInfo, HttpSession session) {
+    public JsonView save(Lecture lecture, HttpSession session) {
         User user = sessionUtil.getLoggedUser(session);
-        Lecture lecture = lectureHasAuthInfo.getLecture();
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
-
-        lectureHasAuthInfo.setUserGroupCanReadContentRepository(userGroupCanReadContentRepository);
-        lectureHasAuthInfo.setUserGroupCanWriteContentRepository(userGroupCanWriteContentRepository);
-        lectureHasAuthInfo.setAuthorities();
+        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
 
         inMenu(lecture, user);
-        return successJsonResponse(new LectureDto(lecture));
+        return successJsonResponse(lecture.getId());
     }
 
-    public JsonView update(Lecture lecture, List<List<Boolean>> write, List<List<Boolean>> read, HttpSession session) {
+    public JsonView update(Lecture lecture, HttpSession session) {
         User user = sessionUtil.getLoggedUser(session);
-        Lecture fromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
+        Lecture fromDB = lectureRepository.findOne(lecture.getId());
         lectureAuthority.checkUpdateRight(fromDB, user);
+
+        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+
         fromDB.update(lecture);
         lectureRepository.save(fromDB);
-        return successJsonResponse(new LectureDto(fromDB));
+
+        return successJsonResponse(lecture.getId());
     }
 
 

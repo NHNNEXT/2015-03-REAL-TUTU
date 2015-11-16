@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LectureAuth extends Auth {
     public void checkUpdateRight(Lecture lecture, User user) {
-        rightCheck(lecture.getHostUser().equals(user) || lecture.getUserEnrolledLectures().contains(user) || lecture.getUserEnrolledLectures().stream().anyMatch(relation -> relation.getUser().equals(user)));
+        rightCheck(lecture.getHostUser().equals(user));
     }
 
     public void checkDeleteRight(User user, Lecture lecture) {
-        rightCheck(lecture.getHostUser().getId().equals(user.getId()));
+        rightCheck(lecture.getHostUser().equals(user));
     }
 }

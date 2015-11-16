@@ -3,6 +3,8 @@ package org.next.lms.lecture;
 import lombok.*;
 import org.next.lms.lecture.auth.UserGroupCanReadContent;
 import org.next.lms.lecture.auth.UserGroupCanWriteContent;
+import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
+import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.infra.relation.UserEnrolledLecture;
@@ -13,9 +15,9 @@ import java.util.*;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "userEnrolledLectures", "contents"})
+@ToString(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "userEnrolledLectures", "contents"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -34,7 +36,7 @@ public class Lecture {
     private List<ContentType> contentTypes = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
+    private List<UserEnrolledLecture> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
@@ -56,7 +58,7 @@ public class Lecture {
 
     public void setDeleteState() {
         this.hostUser = null;
-        this.userEnrolledLectures = null;
+        this.users = null;
     }
 
     public void update(Lecture lecture) {
@@ -73,6 +75,43 @@ public class Lecture {
         if (lecture.registerPolicyType != null)
             this.contentTypes = lecture.contentTypes;
     }
+
+    @Transient
+    private List<List<Boolean>> writable;
+
+    @Transient
+    private List<List<Boolean>> readable;
+
+    public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
+        userGroups.forEach(userGroup -> userGroup.setLecture(this));
+        contentTypes.forEach(userGroup -> userGroup.setLecture(this));
+
+        for (int i = 0; i < userGroups.size(); i++) {
+            for (int j = 0; j < contentTypes.size(); j++) {
+                if (writable.size() > i && writable.get(i).size() > j)
+                    if (writable.get(i).get(j))
+                        makeWriteAuth(userGroupCanWriteContentRepository, userGroups.get(i), contentTypes.get(j));
+                if (readable.size() > i && readable.get(i).size() > j)
+                    if (readable.get(i).get(j))
+                        makeReadAuth(userGroupCanReadContentRepository, userGroups.get(i), contentTypes.get(j));
+            }
+        }
+    }
+
+    private void makeReadAuth(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroup userGroup, ContentType contentType) {
+        UserGroupCanReadContent userGroupCanReadContent = new UserGroupCanReadContent();
+        userGroupCanReadContent.setUserGroup(userGroup);
+        userGroupCanReadContent.setContentType(contentType);
+        userGroupCanReadContentRepository.save(userGroupCanReadContent);
+    }
+
+    private void makeWriteAuth(UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroup userGroup, ContentType contentType) {
+        UserGroupCanWriteContent userGroupCanWriteContent = new UserGroupCanWriteContent();
+        userGroupCanWriteContent.setUserGroup(userGroup);
+        userGroupCanWriteContent.setContentType(contentType);
+        userGroupCanWriteContentRepository.save(userGroupCanWriteContent);
+    }
+
 
 }
 

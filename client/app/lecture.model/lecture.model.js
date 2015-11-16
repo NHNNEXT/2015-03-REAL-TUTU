@@ -9,16 +9,13 @@ angular.module('clientApp')
           {name: "강의자료"}, {name: "질문"},
           {name: "과제", endTime: true, statistic: true, onlyWriter: true}
         ];
+        this.writable = [[true, true, true, true], [false, false, true, true]];
+        this.readable = [[true, true, true, true], [true, true, true, true]];
         return;
       }
       if (typeof param === "object") {
         this.setProperties(param);
-        return;
       }
-      var self = this;
-      http.get('/api/v1/lecture', {id: param}).then(function (result) {
-        self.setProperties(result);
-      });
     }
 
     Lecture.prototype.defaultGroupSelect = function (index, select) {
@@ -59,22 +56,15 @@ angular.module('clientApp')
       this.id = param.id;
       this.name = param.name;
       this.majorType = param.majorType;
+      this.registerPolicyType = param.registerPolicyType;
       this.likes = param.likes;
-      this.date = new Date(param.date);
       this.hostUser = new User(param.hostUser);
-      var self = this;
-      if (param.users.forEach !== undefined) {
-        self.users = [];
-        param.users.forEach(function (user) {
-          self.users.push(new User(user));
-        });
-      }
-      if (param.contents.forEach !== undefined) {
-        self.contents = [];
-        param.contents.forEach(function (content) {
-          self.contents.push(new Content(content));
-        });
-      }
+      this.contentTypes = param.contentTypes;
+      this.userGroups = param.userGroups;
+      this.users = param.users;
+      this.contents = param.contents;
+      this.writable = param.writable;
+      this.readable = param.readable;
     };
 
     Lecture.prototype.remove = function () {
@@ -91,20 +81,29 @@ angular.module('clientApp')
       });
     };
 
-    Lecture.prototype.save = function (write, read) {
+    Lecture.prototype.save = function () {
       var query = {};
-      query.lecture = {};
-      query.lecture.id = this.id;
-      query.lecture.name = this.name;
-      query.lecture.lecturemajorType = this.majorType;
-      query.lecture.registerPolicyType = this.registerPolicyType;
-      query.lecture.contentTypes = this.contentTypes;
-      query.lecture.userGroups = this.userGroups;
-      query.write = write;
-      query.read = read;
-      if (query.id === undefined)
+      query.id = this.id;
+      query.name = this.name;
+      query.majorType = this.majorType;
+      query.registerPolicyType = this.registerPolicyType;
+      query.contentTypes = this.contentTypes;
+      query.userGroups = this.userGroups;
+      query.writable = this.writable;
+      query.readable = this.readable;
+      if (this.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);
+    };
+
+    Lecture.findById = function (id) {
+      return $q(function (resolve) {
+        http.get('/api/v1/lecture', {id: id}).then(function (result) {
+          var lecture = new Lecture();
+          lecture.setProperties(result);
+          resolve(lecture);
+        });
+      });
     };
 
     Lecture.getList = function () {

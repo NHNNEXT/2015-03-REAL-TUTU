@@ -23,7 +23,9 @@ angular
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
-      $scope.lecture = new Lecture(id);
+      Lecture.findById(id).then(function (fromDB) {
+        lecture = $scope.lecture = fromDB;
+      });
     });
 
 

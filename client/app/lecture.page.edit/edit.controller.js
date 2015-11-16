@@ -3,32 +3,41 @@ angular
   .controller('editLectureController',
   /* @ngInject */
   function EditLectureController($scope, Lecture, rootUser, alert, $state, types, $stateParams) {
+
+    var lecture;
+
     function _init() {
-      $scope.lecture = new Lecture();
-      $scope.write = [[true, true, true, true], [false, false, true, true]];
-      $scope.read = [[true, true, true, true], [true, true, true, true]];
+      lecture = $scope.lecture = new Lecture();
       $scope.select = [false, true];
-      $scope.defaultGroup = 1;
+      $scope.userGroup = {};
+      $scope.contentType = {};
     }
 
     $scope.newUserGroup = function () {
-      $scope.lecture.userGroups.push($scope.userGroup);
-      if ($scope.write.length < $scope.lecture.userGroups.length) {
-        $scope.write.push([true, true, true, true]);
-        $scope.read.push([true, true, true, true]);
+      lecture.userGroups.push($scope.userGroup);
+      if (lecture.writable.length < lecture.userGroups.length) {
+        lecture.writable.push(getTrueArray(lecture.contents.length));
+        lecture.readable.push(getTrueArray(lecture.contents.length));
       }
+
       $scope.userGroup = {};
+
+      function getTrueArray(length) {
+        var result = [];
+        for (var i = 0; i < length; i++)
+          result.push(true);
+      }
     };
 
     $scope.newContentType = function () {
-      $scope.lecture.contentTypes.push($scope.contentType);
+      lecture.contentTypes.push($scope.contentType);
       $scope.contentType = {};
-      if ($scope.write[0].length < $scope.lecture.contentTypes.length) {
-        $scope.write.forEach(function (write) {
-          write.push(true);
+      if (lecture.writable[0].length < lecture.contentTypes.length) {
+        lecture.writable.forEach(function (writable) {
+          writable.push(true);
         });
-        $scope.read.forEach(function (read) {
-          read.push(true);
+        lecture.readable.forEach(function (readable) {
+          readable.push(true);
         });
       }
     };
@@ -42,29 +51,31 @@ angular
     _init();
 
     $scope.toggleContentTypes = function (index) {
-      for (var i = 0; i < $scope.write.length; i++) {
-        for (var j = 0; j < $scope.write[i].length; j++) {
+      for (var i = 0; i < lecture.writable.length; i++) {
+        for (var j = 0; j < lecture.writable[i].length; j++) {
           if (index === j) {
-            $scope.write[i][j] = !$scope.write[i][j];
-            $scope.read[i][j] = !$scope.read[i][j];
+            lecture.writable[i][j] = !lecture.writable[i][j];
+            lecture.readable[i][j] = !lecture.readable[i][j];
           }
         }
       }
     };
 
     $scope.toggleUserGroup = function (index) {
-      for (var i = 0; i < $scope.write.length; i++) {
-        for (var j = 0; j < $scope.write[i].length; j++) {
+      for (var i = 0; i < lecture.writable.length; i++) {
+        for (var j = 0; j < lecture.writable[i].length; j++) {
           if (index === i) {
-            $scope.write[i][j] = !$scope.write[i][j];
-            $scope.read[i][j] = !$scope.read[i][j];
+            lecture.writable[i][j] = !lecture.writable[i][j];
+            lecture.readable[i][j] = !lecture.readable[i][j];
           }
         }
       }
     };
 
     function save(lecture) {
-      lecture.save($scope.write, $scope.read);
+      lecture.save().then(function (id) {
+        $state.go('lecture', {id: id});
+      });
     }
 
     function cancel() {
@@ -79,7 +90,9 @@ angular
         _init();
         return;
       }
-      $scope.lecture = new Lecture(id);
+      Lecture.findById(id).then(function (fromDB) {
+        lecture = $scope.lecture = fromDB;
+      });
     });
 
     //

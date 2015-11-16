@@ -15,11 +15,11 @@ import javax.persistence.*;
 @Table(name = "USER_GROUP_CAN_READ_CONTENT")
 public class UserGroupCanReadContent {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_GROUP_ID")
     private UserGroup userGroup;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTENT_TYPE_ID")
     private ContentType contentType;
 

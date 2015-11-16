@@ -17,6 +17,8 @@ angular.module('clientApp')
         };
 
         $timeout(function () {
+          if ($scope.like === undefined)
+            return;
           $scope.heartClass = $scope.like.ignoreTypeIncludes(rootUser.id) ? 'fa-heart' : 'fa-heart-o';
         });
 
@@ -27,7 +29,7 @@ angular.module('clientApp')
           http.post('/api/v1/like', {
             id: $scope.target,
             type: responseCode.Like[$scope.type]
-          }, true).then(function () {
+          }).then(function () {
           }, function (response) {
             if (response.code === responseCode.Like.ADD) {
               $scope.like.push(rootUser.id);

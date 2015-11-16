@@ -1,24 +1,15 @@
 package org.next.lms.lecture.dto;
 
 import lombok.Getter;
-import org.next.infra.relation.UserEnrolledLecture;
-import org.next.infra.relation.UserLikesLecture;
-import org.next.lms.content.Content;
 import org.next.lms.content.dto.ContentSummaryDto;
 import org.next.lms.lecture.ContentType;
 import org.next.lms.lecture.UserGroup;
-import org.next.lms.user.User;
-import org.next.lms.user.dto.UserDto;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.next.lms.lecture.Lecture;
 
-import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Getter
 public class LectureDto {
@@ -34,29 +25,54 @@ public class LectureDto {
         this.contents = lecture.getContents().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
         this.likes = lecture.getLikes().stream().map(like -> like.getId()).collect(Collectors.toList());
         this.contentTypes = lecture.getContentTypes().stream().map(ContentTypeDto::new).collect(Collectors.toList());
-        this.users = lecture.getUserEnrolledLectures().stream().map(relation -> new UserSummaryDto(relation.getUser())).collect(Collectors.toList());
+        this.users = lecture.getUsers().stream().map(relation -> new UserSummaryDto(relation.getUser())).collect(Collectors.toList());
         this.userGroups = lecture.getUserGroups().stream().map(UserGroupDto::new).collect(Collectors.toList());
+
+        makeWriteAndRead(lecture);
+
     }
 
-    private UserSummaryDto hostUser;
+    private void makeWriteAndRead(Lecture lecture) {
+        List<UserGroup> userGroups = lecture.getUserGroups();
+        List<ContentType> contentTypes = lecture.getContentTypes();
+        this.writable = new ArrayList<>();
+        this.readable = new ArrayList<>();
+        for (UserGroup userGroup : userGroups) {
+            List<Boolean> writable = new ArrayList<>();
+            List<Boolean> readable = new ArrayList<>();
+            for (int j = 0; j < contentTypes.size(); j++) {
+                final int finalJ = j;
+                writable.add(userGroup.getWritable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
+                readable.add(userGroup.getReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
+            }
+            this.writable.add(writable);
+            this.readable.add(readable);
+        }
+    }
 
-    private List<Long> likes;
+    private final UserSummaryDto hostUser;
 
-    private List<UserGroupDto> userGroups;
+    private final List<Long> likes;
 
-    private List<ContentTypeDto> contentTypes;
+    private final List<UserGroupDto> userGroups;
 
-    private List<UserSummaryDto> users;
+    private final List<ContentTypeDto> contentTypes;
 
-    private List<ContentSummaryDto> contents;
+    private final List<UserSummaryDto> users;
 
-    private Long id;
+    private final List<ContentSummaryDto> contents;
 
-    private String name;
+    private final Long id;
 
-    private Integer majorType;
+    private final String name;
 
-    private Integer registerPolicyType;
+    private final Integer majorType;
+
+    private final Integer registerPolicyType;
+
+    private List<List<Boolean>> writable;
+
+    private List<List<Boolean>> readable;
 
 
 }

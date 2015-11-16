@@ -10,10 +10,10 @@
     <tr ng-repeat="type in lecture.contentTypes">
       <td ng-click="toggleContentTypes($index)">{{type.name}}</td>
       <td ng-repeat="group in lecture.userGroups" name="{{group.name}}">
-        <md-checkbox ng-model="read[$index][$parent.$index]">
+        <md-checkbox ng-model="lecture.readable[$index][$parent.$index]">
           읽기
         </md-checkbox>
-        <md-checkbox ng-model="write[$index][$parent.$index]">
+        <md-checkbox ng-model="lecture.writable[$index][$parent.$index]">
           쓰기
         </md-checkbox>
       </td>

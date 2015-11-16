@@ -2,7 +2,6 @@ package org.next.lms.lecture.controller;
 
 import org.next.infra.view.JsonView;
 import org.next.lms.lecture.Lecture;
-import org.next.lms.lecture.auth.LectureHasAuthInfo;
 import org.next.lms.lecture.service.LectureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +34,13 @@ public class LectureController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView saveLecture(@RequestBody LectureHasAuthInfo lectureHasAuthInfo, HttpSession session) {
-        return lectureService.save(lectureHasAuthInfo, session);
+    public JsonView saveLecture(@RequestBody Lecture lecture, HttpSession session) {
+        return lectureService.save(lecture, session);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateLecture(@RequestBody Lecture lecture, @RequestBody List<List<Boolean>> write, @RequestBody List<List<Boolean>> read, HttpSession session) {
-        return lectureService.update(lecture, write, read, session);
+    public JsonView updateLecture(@RequestBody Lecture lecture, HttpSession session) {
+        return lectureService.update(lecture, session);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
