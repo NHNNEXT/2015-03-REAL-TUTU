@@ -16,7 +16,9 @@ angular.module('clientApp').controller('contentEditController',
         $scope.content = new Content({type: 0, lectureId: rootUser.currentLecture.id, lectureName: rootUser.currentLecture.name});
         return;
       }
-      $scope.content = new Content(id);
+      Content.findById(id).then(function(content){
+        $scope.content = content;
+      });
     });
 
     $scope.edit = function (content) {

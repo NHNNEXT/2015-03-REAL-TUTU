@@ -18,6 +18,16 @@ angular.module('clientApp')
       }
     }
 
+
+    Lecture.findById = function (id) {
+      return $q(function (resolve) {
+        http.get('/api/v1/lecture', {id: id}).then(function (result) {
+          resolve(new Lecture(result));
+        });
+      });
+    };
+
+
     Lecture.prototype.defaultGroupSelect = function (index, select) {
       this.userGroups.forEach(function (userGroup, i) {
         if (i === index) {
@@ -94,16 +104,6 @@ angular.module('clientApp')
       if (this.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);
-    };
-
-    Lecture.findById = function (id) {
-      return $q(function (resolve) {
-        http.get('/api/v1/lecture', {id: id}).then(function (result) {
-          var lecture = new Lecture();
-          lecture.setProperties(result);
-          resolve(lecture);
-        });
-      });
     };
 
     Lecture.getList = function () {

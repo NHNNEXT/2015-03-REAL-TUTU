@@ -6,19 +6,22 @@ angular.module('clientApp')
         return;
       if (typeof param === "object") {
         this.setProperties(param);
-        return;
       }
-      var self = this;
-      http.get('/api/v1/content', {id: param}).then(function (result) {
-        self.setProperties(result);
-      });
     }
+
+    Content.findById = function (id) {
+      return $q(function (resolve) {
+        http.get('/api/v1/content', {id: id}).then(function (result) {
+          resolve(new Content(result));
+        });
+      });
+    };
 
     Content.prototype.setProperties = function (obj) {
       this.replies = [];
-      if(obj.replies !==undefined && obj.replies.forEach !== undefined){
+      if (obj.replies !== undefined && obj.replies.forEach !== undefined) {
         var self = this;
-        obj.replies.forEach(function(reply){
+        obj.replies.forEach(function (reply) {
           self.replies.push(new Reply(reply));
         });
       }

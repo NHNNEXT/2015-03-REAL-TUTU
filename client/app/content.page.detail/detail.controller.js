@@ -8,7 +8,9 @@ function ($scope, rootUser, Content, $stateParams, types, Reply) {
   $scope.$watch(function () {
     return $stateParams.id;
   }, function (id) {
-    $scope.content = new Content(id);
+    Content.findById(id).then(function(content){
+      $scope.content = content;
+    });
     $scope.reply = new Reply();
     $scope.reply.contentId = id;
   });
