@@ -6,6 +6,23 @@ angular
 
     var lecture;
 
+    $scope.$watch(function () {
+      return $stateParams.id;
+    }, function (id) {
+      if (!id) {
+        _init();
+        return;
+      }
+      $scope.select = [];
+      Lecture.findById(id).then(function (fromDB) {
+        lecture = $scope.lecture = fromDB;
+        lecture.userGroups.forEach(function(userGroup){
+          $scope.select.push(userGroup.defaultGroup)
+        });
+      });
+    });
+
+
     function _init() {
       lecture = $scope.lecture = new Lecture();
       $scope.select = [false, true];
@@ -84,17 +101,6 @@ angular
     }
 
 
-    $scope.$watch(function () {
-      return $stateParams.id;
-    }, function (id) {
-      if (!id) {
-        _init();
-        return;
-      }
-      Lecture.findById(id).then(function (fromDB) {
-        lecture = $scope.lecture = fromDB;
-      });
-    });
 
     //
     //function addLesson() {
