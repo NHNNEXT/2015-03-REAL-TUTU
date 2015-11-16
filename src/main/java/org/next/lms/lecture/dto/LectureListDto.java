@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 @Getter
 public class LectureListDto {
-    List<LectureDto> hosted;
-    List<LectureDto> enrolled;
+    private List<LectureDto> hosted;
+    private List<LectureDto> enrolled;
 
     public LectureListDto(User user) {
         hosted = user.getHostLectures().stream().map(LectureDto::new).collect(Collectors.toList());

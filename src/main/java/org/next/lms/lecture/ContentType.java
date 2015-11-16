@@ -1,7 +1,9 @@
-package org.next.lms.lecture.right;
+package org.next.lms.lecture;
 
 import lombok.*;
 import org.next.lms.lecture.Lecture;
+import org.next.lms.lecture.auth.UserGroupCanReadContent;
+import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 
 import javax.persistence.*;
 import java.util.ArrayList;

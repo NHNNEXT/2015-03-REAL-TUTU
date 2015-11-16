@@ -1,6 +1,8 @@
-package org.next.lms.lecture.right;
+package org.next.lms.lecture.auth;
 
 import lombok.*;
+import org.next.lms.lecture.ContentType;
+import org.next.lms.lecture.UserGroup;
 
 import javax.persistence.*;
 

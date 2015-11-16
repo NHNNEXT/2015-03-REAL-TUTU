@@ -20,9 +20,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"messages", "contents", "replies", "enrolledLectures", "inMenuLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
+@ToString(exclude = {"messages", "contents", "replies", "enrolledLectures", "inMenuLectures", "hostLectures", "likeLectures", "likeContents", "likeReplies"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"messages", "contents", "replies", "enrolledLectures", "inMenuLectures", "hostLectures", "likeLectures", "likeContents", "likeLessons", "likeReplies"})
+@EqualsAndHashCode(exclude = {"messages", "contents", "replies", "enrolledLectures", "inMenuLectures", "hostLectures", "likeLectures", "likeContents", "likeReplies"})
 @Entity
 @Table(name = "USER")
 public class User {

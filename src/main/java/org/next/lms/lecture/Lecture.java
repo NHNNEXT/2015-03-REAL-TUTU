@@ -1,8 +1,8 @@
 package org.next.lms.lecture;
 
 import lombok.*;
-import org.next.lms.lecture.right.ContentType;
-import org.next.lms.lecture.right.UserGroup;
+import org.next.lms.lecture.auth.UserGroupCanReadContent;
+import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.infra.relation.UserEnrolledLecture;
@@ -73,6 +73,7 @@ public class Lecture {
         if (lecture.registerPolicyType != null)
             this.contentTypes = lecture.contentTypes;
     }
+
 }
 
 

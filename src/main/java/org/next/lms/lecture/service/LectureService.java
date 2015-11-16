@@ -2,7 +2,13 @@ package org.next.lms.lecture.service;
 
 import org.next.infra.relation.UserInMenuLecture;
 import org.next.infra.relation.repository.UserInMenuLectureRepository;
+import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
+import org.next.lms.lecture.auth.LectureHasAuthInfo;
+import org.next.lms.lecture.auth.UserGroupCanReadContent;
+import org.next.lms.lecture.auth.UserGroupCanWriteContent;
+import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
+import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
 import org.next.infra.relation.UserEnrolledLecture;
@@ -13,6 +19,8 @@ import org.next.infra.relation.repository.UserEnrolledLectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,19 +39,35 @@ public class LectureService {
     @Autowired
     private UserInMenuLectureRepository userInMenuLectureRepository;
 
+    @Autowired
+    private SessionUtil sessionUtil;
 
     @Autowired
     private LectureAuth lectureAuthority;
 
+    @Autowired
+    private UserGroupCanReadContentRepository userGroupCanReadContentRepository;
 
-    public JsonView save(Lecture lecture, User user) {
+    @Autowired
+    private UserGroupCanWriteContentRepository userGroupCanWriteContentRepository;
+
+
+    public JsonView save(LectureHasAuthInfo lectureHasAuthInfo, HttpSession session) {
+        User user = sessionUtil.getLoggedUser(session);
+        Lecture lecture = lectureHasAuthInfo.getLecture();
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
+
+        lectureHasAuthInfo.setUserGroupCanReadContentRepository(userGroupCanReadContentRepository);
+        lectureHasAuthInfo.setUserGroupCanWriteContentRepository(userGroupCanWriteContentRepository);
+        lectureHasAuthInfo.setAuthorities();
+
         inMenu(lecture, user);
         return successJsonResponse(new LectureDto(lecture));
     }
 
-    public JsonView updateLecture(Lecture lecture, User user) {
+    public JsonView update(Lecture lecture, List<List<Boolean>> write, List<List<Boolean>> read, HttpSession session) {
+        User user = sessionUtil.getLoggedUser(session);
         Lecture fromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(fromDB, user);
         fromDB.update(lecture);
@@ -60,7 +84,8 @@ public class LectureService {
         return lectureRepository.findAll().stream().map(LectureDto::new).collect(Collectors.toList());
     }
 
-    public JsonView enroll(Long id, User user) {
+    public JsonView enroll(Long id, HttpSession session) {
+        User user = sessionUtil.getLoggedUser(session);
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         UserEnrolledLecture relation = new UserEnrolledLecture();
         relation.setLecture(lecture);
@@ -77,11 +102,14 @@ public class LectureService {
         userInMenuLectureRepository.save(inMenu);
     }
 
-    public JsonView delete(Long id, User user) {
+    public JsonView delete(Long id, HttpSession session) {
+        User user = sessionUtil.getLoggedUser(session);
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkDeleteRight(user, lecture);
         lecture.setDeleteState();
         lectureRepository.save(lecture);
         return successJsonResponse();
     }
+
+
 }

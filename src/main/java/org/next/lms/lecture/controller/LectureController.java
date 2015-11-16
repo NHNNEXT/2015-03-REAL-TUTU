@@ -1,8 +1,8 @@
 package org.next.lms.lecture.controller;
 
-import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.lecture.Lecture;
+import org.next.lms.lecture.auth.LectureHasAuthInfo;
 import org.next.lms.lecture.service.LectureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.next.infra.view.JsonView.successJsonResponse;
 
@@ -23,9 +26,6 @@ public class LectureController {
     @Autowired
     private LectureService lectureService;
 
-    @Autowired
-    private SessionUtil sessionUtil;
-
 
     @RequestMapping(method = RequestMethod.GET)
     public JsonView getLectureInfo(Long id) {
@@ -35,22 +35,22 @@ public class LectureController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView saveLecture(@RequestBody Lecture lecture,  HttpSession session) {
-        return lectureService.save(lecture, sessionUtil.getLoggedUser(session));
+    public JsonView saveLecture(@RequestBody LectureHasAuthInfo lectureHasAuthInfo, HttpSession session) {
+        return lectureService.save(lectureHasAuthInfo, session);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateLecture(@RequestBody Lecture lecture, HttpSession session) {
-        return lectureService.updateLecture(lecture, sessionUtil.getLoggedUser(session));
+    public JsonView updateLecture(@RequestBody Lecture lecture, @RequestBody List<List<Boolean>> write, @RequestBody List<List<Boolean>> read, HttpSession session) {
+        return lectureService.update(lecture, write, read, session);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     public JsonView deleteLecture(Long id, HttpSession session) {
-        return lectureService.delete(id, sessionUtil.getLoggedUser(session));
+        return lectureService.delete(id, session);
     }
 
     @RequestMapping(value = "/enroll", method = RequestMethod.POST)
     public JsonView enroll(Long id, HttpSession session) {
-        return lectureService.enroll(id, sessionUtil.getLoggedUser(session));
+        return lectureService.enroll(id, session);
     }
 }

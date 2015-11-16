@@ -93,12 +93,13 @@ angular.module('clientApp')
 
     Lecture.prototype.save = function (write, read) {
       var query = {};
-      query.id = this.id;
-      query.name = this.name;
-      query.majorType = this.majorType;
-      query.registerPolicyType = this.registerPolicyType;
-      query.contentTypes = this.contentTypes;
-      query.userGroups = this.userGroups;
+      query.lecture = {};
+      query.lecture.id = this.id;
+      query.lecture.name = this.name;
+      query.lecture.lecturemajorType = this.majorType;
+      query.lecture.registerPolicyType = this.registerPolicyType;
+      query.lecture.contentTypes = this.contentTypes;
+      query.lecture.userGroups = this.userGroups;
       query.write = write;
       query.read = read;
       if (query.id === undefined)

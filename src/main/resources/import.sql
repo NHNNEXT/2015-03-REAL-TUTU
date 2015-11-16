@@ -12,24 +12,6 @@ insert into lecture (lecture_id,  major_type, name, host_user_id) values (null, 
 insert into lecture (lecture_id,  major_type, name, host_user_id) values (null, 1, 'korean',  1);
 insert into lecture (lecture_id,  major_type, name, host_user_id) values (null, 2, 'graphics',  3);
 
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  1);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  1);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  1);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  1);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  2);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  2);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  2);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  2);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  3);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  3);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  3);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  4);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  4);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  4);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  4);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  5);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  5);
-insert into lesson (lesson_id,description,end,name,start,lecture_id) values (null, 'sample','2015-10-11', 'sample','2015-10-09',  5);
 
 insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id) values (null, 1,1);
 insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id) values (null, 2,1);

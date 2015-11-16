@@ -64,7 +64,7 @@ angular
     };
 
     function save(lecture) {
-      lecture.save();
+      lecture.save($scope.write, $scope.read);
     }
 
     function cancel() {
