@@ -1,7 +1,7 @@
 package org.next.lms.lecture.dto;
 
 import lombok.Getter;
-import org.next.lms.lecture.ContentType;
+import org.next.lms.content.ContentType;
 
 @Getter
 public class ContentTypeDto {

@@ -1,4 +1,4 @@
-package org.next.lms.lecture;
+package org.next.lms.content;
 
 import lombok.*;
 import org.next.lms.lecture.Lecture;

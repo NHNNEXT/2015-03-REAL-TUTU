@@ -1,6 +1,7 @@
 package org.next.lms.lecture;
 
 import lombok.*;
+import org.next.lms.content.ContentType;
 import org.next.lms.lecture.auth.UserGroupCanReadContent;
 import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 import org.next.lms.lecture.repository.ContentTypeRepository;
@@ -9,19 +10,17 @@ import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
-import org.next.infra.relation.UserEnrolledLecture;
 import org.next.infra.relation.UserLikesLecture;
 
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Getter
 @Setter
 @ToString(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents", "name", "majorType", "registerPolicyType"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents", "name", "majorType", "registerPolicy"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -56,8 +55,8 @@ public class Lecture {
     @Column(name = "MAJOR_TYPE")
     private Integer majorType;
 
-    @Column(name = "REGISTER_POLICY_TYPE")
-    private Integer registerPolicyType;
+    @Column(name = "REGISTER_POLICY")
+    private Integer registerPolicy;
 
 
     public void setDeleteState() {
@@ -70,8 +69,8 @@ public class Lecture {
             this.name = lecture.name;
         if (lecture.majorType != null)
             this.majorType = lecture.majorType;
-        if (lecture.registerPolicyType != null)
-            this.registerPolicyType = lecture.registerPolicyType;
+        if (lecture.registerPolicy != null)
+            this.registerPolicy = lecture.registerPolicy;
         if (lecture.writable != null)
             this.writable = lecture.writable;
         if (lecture.readable != null)

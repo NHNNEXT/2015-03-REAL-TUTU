@@ -35,9 +35,12 @@ public class ResponseCode {
         public static final Integer CONTENT = 9;
         public static final Integer LECTURE = 10;
         public static final Integer REPLY = 11;
-        public static final Integer LESSON = 12;
         public static final Integer ADD = 14;
         public static final Integer REMOVE = 15;
+    }
+
+    public static final class Enroll {
+        public static final Integer WAITING_FOR_APPROVAL = 16;
     }
 
 

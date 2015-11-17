@@ -9,12 +9,12 @@
       <i ui-sref="contentNew({lectureId:lecture.id})" class="fa fa-pencil"></i>
     </div>
     <div class="info">
-      <span ng-click="query.type=undefined"><a class="black">전체</a></span>
+      <span ng-click="setType()"><a class="black">전체</a></span>
       <span ng-repeat="(key, type) in lecture.contentTypes">
         <span class="bar"></span>
-        <span ng-click="setKey(key)"><a class="black">{{type.name}}</a></span>
+        <span ng-click="setType(type)"><a class="black">{{type.name}}</a></span>
       </span>
     </div>
-    <content-list keyword="keyword" contents="lecture.contents" query="query"></content-list>
+    <content-list keyword="keyword" contents="contents"></content-list>
   </div>
 </div>

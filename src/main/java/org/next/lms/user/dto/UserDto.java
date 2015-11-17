@@ -4,7 +4,6 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import org.next.lms.lecture.dto.LectureSummaryDto;
 import org.next.lms.user.User;
-import org.next.lms.lecture.dto.LectureListDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class UserDto {
         this.introduce = user.getIntroduce();
         this.phoneNumber = user.getPhoneNumber();
         this.major = user.getMajor();
-        this.lectures = user.getInMenuLectures().stream().map(relation -> new LectureSummaryDto(relation.getLecture())).collect(Collectors.toList());
+        this.lectures = user.getEnrolledLectures().stream().map(LectureSummaryDto::new).collect(Collectors.toList());
         this.news = user.getMessages().stream().filter(
                 message -> message.getRead() == null || !message.getRead()
         ).findAny().isPresent();

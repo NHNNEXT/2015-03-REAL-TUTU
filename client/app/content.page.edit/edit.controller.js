@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentEditController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture) {
+  function ($stateParams, $scope, Content, types, rootUser, $state) {
     $scope.rootUser = rootUser;
 
     $scope.$watch(function () {

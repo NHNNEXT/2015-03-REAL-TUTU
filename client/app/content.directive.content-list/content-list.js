@@ -4,7 +4,6 @@ angular.module('clientApp')
       restrict: 'E',
       scope: {
         contents: '=',
-        query: '=',
         keyword: '='
       },
       templateUrl: '/content.directive.content-list/content-list.html',

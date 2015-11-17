@@ -26,6 +26,7 @@
   <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.drop-down/drop-down.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
+  <link href="/common.directive.like/like.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.mod-input/mod-input.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.upload-img/upload-img.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
@@ -103,10 +104,12 @@
         </li>
         <md-divider></md-divider>
         <span ng-show="open">
-          <li ui-sref="mylectures" class="child">내 강의 관리</li>
+          <li ui-sref="mylectures" class="child">전체 목록</li>
           <md-divider></md-divider>
-          <li ng-repeat="lecture in rootUser.lectures" class="child">{{lecture}}</li>
-          <md-divider ng-show="rootUser.lectures.length>0"></md-divider>
+          <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child" ui-sref="lecture({id:lecture.id})">
+            {{lecture.name}}
+          </li>
+          <md-divider ng-show="lectures.length>0"></md-divider>
         </span>
       </ul>
 
@@ -219,12 +222,11 @@
 <script src="/content.page.edit/edit.controller.js"></script>
 <script src="/content.page.edit/write.controller.js"></script>
 <script src="/content.route/content.route.js"></script>
-<script src="/lecture.directive.lecture-table/lecture-table.js"></script>
+<script src="/lecture.directive.lecture-list/lecture-list.js"></script>
 <script src="/lecture.model/lecture.model.js"></script>
 <script src="/lecture.page.detail/lecture.controller.js"></script>
 <script src="/lecture.page.detail/lecture.route.js"></script>
 <script src="/lecture.page.edit/edit.controller.js"></script>
-<script src="/lecture.page.edit/edit.route.js"></script>
 <script src="/lecture.page.list/list.js"></script>
 <script src="/lecture.page.mylist/mylist.js"></script>
 <script src="/message.directive/message.js"></script>

@@ -1,4 +1,4 @@
-package org.next.infra.relation;
+package org.next.lms.lecture;
 
 import lombok.*;
 import org.next.lms.user.User;
@@ -28,4 +28,19 @@ public class UserEnrolledLecture {
     @Column(name = "USER_ENROLLED_LECTURE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+
+    @Column(name = "APPROVAL_STATE")
+    private Integer approvalState;
+
+    @Column(name = "SIDE_MENU")
+    private Boolean sideMenu;
+
+    public void sideMenuToggle() {
+        if (this.sideMenu == null) {
+            this.sideMenu = true;
+            return;
+        }
+        this.sideMenu = !this.sideMenu;
+    }
 }

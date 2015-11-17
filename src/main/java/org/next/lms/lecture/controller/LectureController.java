@@ -25,12 +25,11 @@ public class LectureController {
     @Autowired
     private LectureService lectureService;
 
-
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getLectureInfo(Long id) {
+    public JsonView getLectureInfo(Long id, HttpSession session) {
         if (id == null)
             return successJsonResponse(lectureService.getList());
-        return successJsonResponse(lectureService.getById(id));
+        return successJsonResponse(lectureService.getById(id, session));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -51,5 +50,10 @@ public class LectureController {
     @RequestMapping(value = "/enroll", method = RequestMethod.POST)
     public JsonView enroll(Long id, HttpSession session) {
         return lectureService.enroll(id, session);
+    }
+
+    @RequestMapping(value = "/sideMenu", method = RequestMethod.POST)
+    public JsonView sideMenuToggle(Long lectureId, HttpSession session) {
+        return lectureService.sideMenuToggle(lectureId, session);
     }
 }

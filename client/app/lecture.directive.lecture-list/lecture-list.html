@@ -1,0 +1,9 @@
+<md-list>
+  <md-list-item class="md-2-line" ng-repeat="lecture in lectures | filter:query">
+    <div class="md-list-item-text">
+      <h3 ui-sref="lecture({id:lecture.id})">{{lecture.name}}</h3>
+
+      <p>{{majorTypes[lecture.majorType]}}</p>
+    </div>
+  </md-list-item>
+</md-list>

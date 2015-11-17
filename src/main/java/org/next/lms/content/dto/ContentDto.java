@@ -2,7 +2,6 @@ package org.next.lms.content.dto;
 
 import lombok.Getter;
 import org.next.lms.content.Content;
-import org.next.lms.lecture.ContentType;
 import org.next.lms.lecture.dto.ContentTypeDto;
 import org.next.lms.reply.dto.ReplyDto;
 import org.next.lms.user.dto.UserSummaryDto;

@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert) {
+  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode) {
     function Lecture(param) {
       if (param === undefined) {
         this.userGroups = [{name: "조교"}, {name: "수강생", defaultGroup: true}];
@@ -66,12 +66,13 @@ angular.module('clientApp')
       this.id = param.id;
       this.name = param.name;
       this.majorType = param.majorType;
-      this.registerPolicyType = param.registerPolicyType;
+      this.registerPolicy = param.registerPolicy;
       this.likes = param.likes;
       this.hostUser = new User(param.hostUser);
       this.contentTypes = param.contentTypes;
       this.userGroups = param.userGroups;
       this.users = param.users;
+      this.watingUsers = param.watingUsers;
       this.contents = param.contents;
       this.writable = param.writable;
       this.readable = param.readable;
@@ -87,7 +88,10 @@ angular.module('clientApp')
 
     Lecture.prototype.enroll = function () {
       http.post('/api/v1/lecture/enroll', {id: this.id}).then(function () {
-        alert.info('강의에 등록되었습니다.');
+        alert.info('등록되었습니다.');
+      }, function(response){
+        if(response.code === responseCode.Enroll.WAITING_FOR_APPROVAL)
+          alert.info('참가 요청하였습니다. 승인을 기다립니다.');
       });
     };
 
@@ -96,7 +100,7 @@ angular.module('clientApp')
       query.id = this.id;
       query.name = this.name;
       query.majorType = this.majorType;
-      query.registerPolicyType = this.registerPolicyType;
+      query.registerPolicy = this.registerPolicy;
       query.contentTypes = this.contentTypes;
       query.userGroups = this.userGroups;
       query.writable = this.writable;
