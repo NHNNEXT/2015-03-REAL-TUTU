@@ -17,7 +17,7 @@ angular
       Lecture.findById(id).then(function (fromDB) {
         lecture = $scope.lecture = fromDB;
         lecture.userGroups.forEach(function(userGroup){
-          $scope.select.push(userGroup.defaultGroup)
+          $scope.select.push(userGroup.defaultGroup);
         });
       });
     });
@@ -100,54 +100,5 @@ angular
       $state.go('lectures');
     }
 
-
-
-    //
-    //function addLesson() {
-    //  var newLesson = {};
-    //  if ($scope.addType === 'one') {
-    //    rangeCheck($scope.lesson.start, $scope.lesson.end);
-    //    angular.copy($scope.lesson, newLesson);
-    //    $scope.lecture.lessons.push(newLesson);
-    //    $scope.showAddLesson = false;
-    //    return;
-    //  }
-    //
-    //  if (!$scope.lesson.start || !$scope.lesson.end || !$scope.lesson.timeStart || !$scope.lesson.timeEnd) {
-    //    alert.error("시간을 입력해주세요.");
-    //    return;
-    //  }
-    //  rangeCheck($scope.lesson.start, $scope.lesson.end);
-    //  rangeCheck($scope.lesson.timeStart, $scope.lesson.timeEnd);
-    //  var start = $scope.lesson.start, end = new Date($scope.lesson.end);
-    //  end.setDate(end.getDate() + 1);
-    //  for (var date = new Date(start); date < end; date.setDate(date.getDate() + 1)) {
-    //    if (!$scope.week[date.getDay()])
-    //      continue;
-    //    var lessonStart = new Date(date);
-    //    lessonStart.setHours($scope.lesson.timeStart.getHours());
-    //    lessonStart.setMinutes($scope.lesson.timeStart.getMinutes());
-    //    var lessonEnd = new Date(date);
-    //    lessonEnd.setHours($scope.lesson.timeEnd.getHours());
-    //    lessonEnd.setMinutes($scope.lesson.timeEnd.getMinutes());
-    //    newLesson = {};
-    //    angular.copy($scope.lesson, newLesson);
-    //    newLesson.start = lessonStart;
-    //    newLesson.end = lessonEnd;
-    //    delete newLesson.timeStart;
-    //    delete newLesson.timeEnd;
-    //    $scope.lecture.lessons.push(newLesson);
-    //  }
-    //}
-    //
-    //function rangeCheck(start, end) {
-    //  if (!start || !end)
-    //    return;
-    //  if (start > end) {
-    //    var tmp = new Date(start);
-    //    start.setTime(end.getTime());
-    //    end.setTime(tmp.getTime());
-    //  }
-    //}
 
   });

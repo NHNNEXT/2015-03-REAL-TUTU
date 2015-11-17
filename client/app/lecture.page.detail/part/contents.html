@@ -6,15 +6,15 @@
         <i class="fa" ng-class="{'fa-times':searching, 'fa-search':!searching}" ng-click="searching=!searching;"></i>
       </div>
       <span class="margin-right"></span>
-      <i ng-click="toWritePage()" class="fa fa-pencil"></i>
+      <i ui-sref="contentNew({lectureId:lecture.id})" class="fa fa-pencil"></i>
     </div>
     <div class="info">
       <span ng-click="query.type=undefined"><a class="black">전체</a></span>
-      <span ng-repeat="(key, type) in lecture.types">
+      <span ng-repeat="(key, type) in lecture.contentTypes">
         <span class="bar"></span>
         <span ng-click="setKey(key)"><a class="black">{{type.name}}</a></span>
       </span>
     </div>
-    <content-list types="lecture.types" keyword="keyword" contents="lecture.contents" query="query"></content-list>
+    <content-list types="lecture.contentTypes" keyword="keyword" contents="lecture.contents" query="query"></content-list>
   </div>
 </div>

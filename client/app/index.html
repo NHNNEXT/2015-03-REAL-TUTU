@@ -32,7 +32,6 @@
   <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
   <link href="/common.style/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="/common.style/component.css" rel="stylesheet" type="text/css">
-  <link href="/common.style/flaty.min.css" rel="stylesheet" type="text/css">
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
@@ -40,14 +39,8 @@
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
-  <link href="/lesson.directive.lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson.directive.lesson/lesson.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
-  <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
-  <link href="/resource/flaty.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
@@ -79,8 +72,6 @@
   <link href="/resource/scdate/sc-date-time.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 </head>
@@ -110,7 +101,7 @@
           <li ui-sref="mylectures" class="child">내 강의 관리</li>
           <md-divider></md-divider>
           <li ng-repeat="lecture in rootUser.lectures" class="child">{{lecture}}</li>
-          <md-divider></md-divider>
+          <md-divider ng-show="rootUser.lectures.length>0"></md-divider>
         </span>
       </ul>
 

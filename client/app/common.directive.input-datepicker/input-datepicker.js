@@ -4,7 +4,8 @@ angular.module('clientApp')
       restrict: 'E',
       scope: {
         ngModel: '=',
-        placeholder: '@'
+        placeholder: '@',
+        mode: '@'
       },
       templateUrl: '/common.directive.input-datepicker/input-datepicker.html',
       link: function (s, elem) {
@@ -15,7 +16,7 @@ angular.module('clientApp')
 
         $document.on('click', hide);
 
-        function hide(){
+        function hide() {
           s.open = false;
           s.$apply();
         }

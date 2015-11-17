@@ -1,10 +1,9 @@
 <section>
-
   <div layout="row">
     <md-input-container flex="20">
       <label>구분</label>
       <md-select ng-model="content.type">
-        <md-option ng-repeat="(key,type) in types" value="{{key}}">
+        <md-option ng-repeat="(key,type) in content.contentTypes" value="{{key}}">
           {{type.name}}
         </md-option>
       </md-select>
@@ -15,13 +14,24 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
-  <div layout="row" ng-show="types[content.type].dueDate">
-    <input-datepicker placeholder="기한"></input-datepicker>
+  <div layout="row" ng-show="!extendWrite || !content.contentTypes[content.type].extendWrite" class="margin-top">
+    <div ng-show="content.contentTypes[content.type].startTime" flex>
+      <input-datepicker placeholder="시작"></input-datepicker>
+    </div>
+    <div ng-show="content.contentTypes[content.type].endTime" flex>
+      <input-datepicker placeholder="마감" flex></input-datepicker>
+    </div>
+  </div>
+  <div class="margin-top margin-bottom" layout="row" ng-show="content.contentTypes[content.type].extendWrite">
+    <md-checkbox ng-model="extendWrite">
+      일괄입력
+    </md-checkbox>
+  </div>
+  <div ng-show="content.contentTypes[content.type].extendWrite && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
 </section>
 
 <section>
-
   <div froala ng-model="content.body"></div>
   <md-input-container>
     <md-button ng-click="edit(content)" class="md-raised md-primary">작성완료</md-button>

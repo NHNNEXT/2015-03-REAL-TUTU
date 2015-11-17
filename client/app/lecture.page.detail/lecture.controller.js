@@ -7,12 +7,7 @@ angular
     $scope.rootUser = rootUser;
     $scope.isEnrolled = isEnrolled;
     $scope.setKey = setKey;
-    $scope.toWritePage = toWritePage;
 
-    function toWritePage() {
-      rootUser.currentLecture = $scope.lecture;
-      $state.go('contentNew');
-    }
 
     function setKey(key) {
       if (!$scope.query)
@@ -24,7 +19,7 @@ angular
       return $stateParams.id;
     }, function (id) {
       Lecture.findById(id).then(function (fromDB) {
-        lecture = $scope.lecture = fromDB;
+        $scope.lecture = fromDB;
       });
     });
 

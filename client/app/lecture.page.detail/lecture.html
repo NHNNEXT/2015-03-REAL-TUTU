@@ -2,7 +2,7 @@
   <h2 ng-bind="lecture.name"></h2>
 
   <div class="info margin-bottom">
-      <span ng-show="lecture.majorType">
+      <span ng-show="lecture.majorType!==undefined">
         {{types.majorTypes[lecture.majorType]}}
         <span class="bar"></span>
       </span>
@@ -23,22 +23,22 @@
   </div>
 
   <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab label="글">
+    <md-tab label="전체 목록">
       <md-content class="md-padding">
         <ng-include src="'/lecture.page.detail/part/contents.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label="수업">
+    <md-tab label="시간표">
       <md-content class="md-padding">
         <ng-include src="'/lecture.page.detail/part/lessons.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label="교수">
+    <md-tab label="타임라인">
       <md-content class="md-padding">
         <ng-include src="'/lecture.page.detail/part/prof.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label="수강생">
+    <md-tab label="참여자">
       <md-content class="md-padding">
         <ng-include src="'/lecture.page.detail/part/students.html'"></ng-include>
       </md-content>

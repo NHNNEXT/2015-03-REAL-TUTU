@@ -13,7 +13,7 @@ Date.prototype.toYMD = function () {
 };
 
 Date.prototype.getDateString = function () {
-  return this.format("YYYY년 MM월 DD일");
+  return moment(this).format("YYYY년 MM월 DD일");
 };
 
 Date.prototype.fromNow = function () {
@@ -21,7 +21,7 @@ Date.prototype.fromNow = function () {
 };
 
 Date.prototype.getTimeString = function () {
-  return this.format("hh:mm");
+  return moment(this).format("HH:mm");
 };
 
 Date.prototype.isSameDay = function (date) {
@@ -32,6 +32,20 @@ Date.prototype.isSameDay = function (date) {
 
 Date.prototype.getDayKR = function () {
   return ["일", "월", "화", "수", "목", "금", "토"][this.getDay()];
+};
+
+Date.prototype.range = function (date) {
+  var early, late;
+  if (this <= date) {
+    early = this;
+    late = date;
+  } else {
+    early = date;
+    late = this;
+  }
+  if (this.isSameDay(date))
+    return this.getDateString() + " (" + this.getDayKR() + ") " + early.getTimeString() + " ~ " + late.getTimeString();
+  return early.toYMD() + " ~ " + late.toYMD();
 };
 
 
@@ -104,7 +118,6 @@ Array.prototype.toggle = function (el) {
   }
   this.push(el);
 };
-
 
 
 Array.prototype.remove = function (el) {
