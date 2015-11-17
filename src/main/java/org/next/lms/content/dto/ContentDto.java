@@ -2,6 +2,8 @@ package org.next.lms.content.dto;
 
 import lombok.Getter;
 import org.next.lms.content.Content;
+import org.next.lms.lecture.ContentType;
+import org.next.lms.lecture.dto.ContentTypeDto;
 import org.next.lms.reply.dto.ReplyDto;
 import org.next.lms.user.dto.UserSummaryDto;
 
@@ -21,23 +23,24 @@ public class ContentDto {
         this.title = content.getTitle();
         this.body = content.getBody();
         this.writeDate = content.getWriteDate();
-        this.dueDate = content.getDueDate();
-        this.type = content.getType();
+        this.startTime = content.getStartTime();
+        this.endTime = content.getEndTime();
+        this.type = new ContentTypeDto(content.getLecture().getContentTypes().get(content.getType()));
         this.hits = content.getHits();
         this.likes = content.getLikes().stream().map(like -> like.getId()).collect(Collectors.toList());
     }
-    private String types;
     private List<Long> likes;
     private String lectureName;
     private Long hits;
     private List<ReplyDto> replies;
     private UserSummaryDto writer;
-    private Integer type;
+    private ContentTypeDto type;
     private Long lectureId;
     private Long id;
     private String title;
     private String body;
     private Date writeDate;
-    private Date dueDate;
+    private Date startTime;
+    private Date endTime;
     private Long like;
 }

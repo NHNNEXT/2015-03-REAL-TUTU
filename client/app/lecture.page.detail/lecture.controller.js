@@ -21,6 +21,10 @@ angular
       Lecture.findById(id).then(function (fromDB) {
         $scope.lecture = fromDB;
         $state.current.header = fromDB.name;
+        fromDB.contents.forEach(function (content) {
+          content.startTime = new Date(content.startTime);
+          content.endTime = new Date(content.endTime);
+        });
       });
     });
 

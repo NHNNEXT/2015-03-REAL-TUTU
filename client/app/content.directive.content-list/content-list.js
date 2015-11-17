@@ -5,8 +5,7 @@ angular.module('clientApp')
       scope: {
         contents: '=',
         query: '=',
-        keyword: '=',
-        types: '='
+        keyword: '='
       },
       templateUrl: '/content.directive.content-list/content-list.html',
       /* @ngInject */

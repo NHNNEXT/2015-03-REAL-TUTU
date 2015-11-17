@@ -5,27 +5,29 @@
   </md-input-container>
   <div flex>
     시간
-    <md-checkbox ng-model="contentType.startTime">
-      시작
-    </md-checkbox>
-    <md-checkbox ng-model="contentType.endTime">
-      끝
-    </md-checkbox>
+    <div class="sub-setting">
+      <md-checkbox ng-model="contentType.startTime">
+        시작
+      </md-checkbox>
+      <md-checkbox ng-model="contentType.endTime">
+        <span ng-show="contentType.startTime">끝</span>
+        <span ng-show="!contentType.startTime">마감</span>
+      </md-checkbox>
+      <md-checkbox ng-model="contentType.extendWrite" ng-disabled="!contentType.startTime && !contentType.endTime">
+        일괄 등록 사용
+      </md-checkbox>
+    </div>
   </div>
   <div flex>
-    댓글 설정
-    <md-checkbox ng-model="contentType.onlyWriter">
-      작성자만 열람
-    </md-checkbox>
-    <md-checkbox ng-model="contentType.statistic">
-      통계
-    </md-checkbox>
-  </div>
-  <div flex>
-    기타
-    <md-checkbox ng-model="contentType.extendWrite" ng-disabled="!contentType.startTime || !contentType.endTime">
-      일괄 등록
-    </md-checkbox>
+    댓글
+    <div class="sub-setting">
+      <md-checkbox ng-model="contentType.onlyWriter">
+        작성자만 열람
+      </md-checkbox>
+      <md-checkbox ng-model="contentType.statistic">
+        통계
+      </md-checkbox>
+    </div>
   </div>
   <div flex>
     <md-button ng-click="lecture.removeContentType(contentType)">삭제</md-button>

@@ -1,7 +1,7 @@
 <section>
   <h2 ng-bind="content.title"></h2>
         <span class="info">
-          {{content.types[content.type].name}}
+          {{content.type.name}}
           <span class="bar"></span>
           조회수 {{content.hits}}
           <span class="bar"></span>
@@ -20,8 +20,11 @@
           </span>
         </span>
 
-  <div class="divider" ng-show="content.type===2">
-    <p>제출기한 : {{content.dueDate.toYMD()}}까지</p>
+  <div class="divider" ng-show="content.type.startTime || content.type.endTime">
+    <span class="dueDate" ng-show="content.type.endTime || content.type.startTime">
+      <span ng-if="!content.type.startTime">마감 : {{content.endTime.fromNow()}}</span>
+      <span ng-if="content.type.startTime">{{content.startTime.range(content.endTime)}}</span>
+    </span>
   </div>
   </div>
   <div class="col-md-4">

@@ -1,12 +1,8 @@
 <section>
   <div layout="row">
-    <md-input-container flex="20">
+    <md-input-container flex>
       <label>구분</label>
-      <md-select ng-model="content.type">
-        <md-option ng-repeat="(key,type) in content.contentTypes" value="{{key}}">
-          {{type.name}}
-        </md-option>
-      </md-select>
+      <input ng-model="content.type.name" disabled>
     </md-input-container>
 
     <md-input-container flex="80">
@@ -14,20 +10,13 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
-  <div layout="row" ng-show="!extendWrite || !content.contentTypes[content.type].extendWrite" class="margin-top">
-    <div ng-show="content.contentTypes[content.type].startTime" flex>
-      <input-datepicker placeholder="시작"></input-datepicker>
+  <div layout="row"  class="margin-top">
+    <div ng-show="content.type.startTime" flex>
+      <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
     </div>
-    <div ng-show="content.contentTypes[content.type].endTime" flex>
-      <input-datepicker placeholder="마감" flex></input-datepicker>
+    <div ng-show="content.type.endTime" flex>
+      <input-datepicker placeholder="{{placeholder}}" ng-model="content.endTime"></input-datepicker>
     </div>
-  </div>
-  <div class="margin-top margin-bottom" layout="row" ng-show="content.contentTypes[content.type].extendWrite">
-    <md-checkbox ng-model="extendWrite">
-      일괄입력
-    </md-checkbox>
-  </div>
-  <div ng-show="content.contentTypes[content.type].extendWrite && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
 </section>
 

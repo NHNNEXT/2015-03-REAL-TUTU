@@ -3,8 +3,8 @@ angular.module('clientApp').config(function ($stateProvider) {
   $stateProvider
     .state('contentNew', {
       url: "/content/:lectureId/write",
-      templateUrl: "/content.page.edit/edit.html",
-      controller: 'contentEditController'
+      templateUrl: "/content.page.edit/write.html",
+      controller: 'contentWriteController'
     })
     .state('content', {
       url: "/content/:id",

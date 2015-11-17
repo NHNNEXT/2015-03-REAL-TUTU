@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentDetailController',
   /* @ngInject */
-function ($scope, rootUser, Content, $stateParams, types, Reply) {
+function ($scope, rootUser, Content, $stateParams, types, Reply, $state) {
   $scope.rootUser = rootUser;
   $scope.content = {replies: []};
   $scope.contentTypes = types.contentTypes;
@@ -10,6 +10,7 @@ function ($scope, rootUser, Content, $stateParams, types, Reply) {
   }, function (id) {
     Content.findById(id).then(function(content){
       $scope.content = content;
+      $state.current.header = content.lectureName;
     });
     $scope.reply = new Reply();
     $scope.reply.contentId = id;

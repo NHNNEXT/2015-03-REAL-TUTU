@@ -1,15 +1,15 @@
 <div layout="row" class="margin-top">
-  <div ng-show="content.contentTypes[content.type].startTime" flex>
+  <div ng-show="contentTypes[content.type].startTime" flex>
     <input-datepicker placeholder="시작 날짜" ng-model="range.startDate" mode="date"></input-datepicker>
   </div>
-  <div ng-show="content.contentTypes[content.type].endTime" flex>
-    <input-datepicker placeholder="마감 날짜" ng-model="range.endDate" mode="date"></input-datepicker>
+  <div ng-show="contentTypes[content.type].endTime" flex>
+    <input-datepicker placeholder="끝 날짜" ng-model="range.endDate" mode="date"></input-datepicker>
   </div>
-  <div ng-show="content.contentTypes[content.type].startTime" flex>
+  <div ng-show="contentTypes[content.type].startTime" flex>
     <input-datepicker placeholder="시작 시간" ng-model="range.startTime" mode="time"></input-datepicker>
   </div>
-  <div ng-show="content.contentTypes[content.type].endTime" flex>
-    <input-datepicker placeholder="마감 시간" ng-model="range.endTime" mode="time"></input-datepicker>
+  <div ng-show="contentTypes[content.type].endTime" flex>
+    <input-datepicker placeholder="끝 시간" ng-model="range.endTime" mode="time"></input-datepicker>
   </div>
 </div>
 <div layout="row" class="margin-top">
@@ -34,16 +34,12 @@
   <md-checkbox ng-model="range.week[6]">
     토
   </md-checkbox>
-
-  <md-checkbox ng-model="preview" class="margin-left">
-    날짜 보기
-  </md-checkbox>
 </div>
 
-<div class="row" ng-show="preview">
+<div class="row">
   <md-list>
     <md-list-item ng-repeat="time in times">
-      <div class="md-list-item-text">{{$index+1}}. {{time.start.range(time.end)}}</div>
+      <div class="sub-setting md-list-item-text">{{$index+1}}. {{time.startTime.range(time.endTime)}}</div>
     </md-list-item>
   </md-list>
 </div>

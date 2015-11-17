@@ -1,6 +1,6 @@
 <div class="panel-body">
   <ul class="list-group">
-    <li content-header types="types" content="content" ng-repeat="content in filtered = (contents | filter:query | filter:keyword |orderBy:'-writeDate')" class="row list-group-item-">
+    <li content-header content="content" ng-repeat="content in filtered = (contents | filter:query | filter:keyword |orderBy:'-writeDate')" class="row list-group-item-">
     <li ng-show="filtered.length==0" class="row list-group-item-">결과가 없습니다.</li>
   </ul>
 </div>

@@ -61,18 +61,22 @@ public class Content {
     private Date writeDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DUE_DATE")
-    private Date dueDate;
+    @Column(name = "START_TIME")
+    private Date startTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "END_TIME")
+    private Date endTime;
 
     public void update(Content content) {
         if (content.title != null)
             this.title = content.title;
         if (content.body != null)
             this.body = content.body;
-        if (content.dueDate != null)
-            this.dueDate = content.dueDate;
-        if (content.type != null)
-            this.type = content.type;
+        if (content.startTime != null)
+            this.startTime = content.startTime;
+        if (content.endTime != null)
+            this.endTime = content.endTime;
     }
 
     public void hits() {

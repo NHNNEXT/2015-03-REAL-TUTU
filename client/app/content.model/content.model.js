@@ -34,29 +34,34 @@ angular.module('clientApp')
       this.body = obj.body;
       if (obj.writeDate !== undefined)
         this.writeDate = new Date(obj.writeDate);
-      if (obj.dueDate !== undefined)
-        this.dueDate = new Date(obj.dueDate);
-      this.type = obj.type;
+      if (obj.startTime !== undefined)
+        this.startTime = new Date(obj.startTime);
+      if (obj.endTime !== undefined)
+        this.endTime = new Date(obj.endTime);
+      this.type = obj.type; //타입오브젝트
       this.hits = obj.hits;
       this.likes = obj.likes;
-      try {
-        this.types = JSON.parse(obj.types);
-      } catch (e) {
-      }
     };
 
     Content.prototype.getBodyAsHtml = function () {
       return $sce.trustAsHtml(this.body);
     };
 
-    Content.prototype.save = function () {
+    Content.prototype.getQuery = function(){
       var query = {};
       query.id = this.id;
       query.title = this.title;
       query.body = this.body;
       query.lectureId = this.lectureId;
-      query.dueDate = this.dueDate;
-      query.type = this.type;
+      query.endTime = this.endTime;
+      query.startTime = this.startTime;
+      if (this.id === undefined)
+        query.type = this.type;
+      return query;
+    };
+
+    Content.prototype.save = function () {
+      var query = this.getQuery();
       if (this.id === undefined)
         return http.post('/api/v1/content', query);
       return http.put('/api/v1/content', query);

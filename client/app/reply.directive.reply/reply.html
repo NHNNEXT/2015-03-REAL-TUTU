@@ -10,7 +10,10 @@
       <span class="txt_time">{{reply.writeDate.toYMD()}}</span>
     </div>
     <div class="body">
-      <div ng-bind-html="reply.body.newLine()" ng-show="!mod"></div>
+      <span ng-show="!mod">
+      <span ng-bind-html="reply.body.newLine()"></span>
+      <like type="REPLY" like="reply.likes" target="reply.id"></like>
+      </span>
       <div class="box-area" ng-show="mod">
         <md-input-container>
           <textarea ng-model="reply.body" aria-label="reply"></textarea>
