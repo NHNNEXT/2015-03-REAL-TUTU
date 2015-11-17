@@ -22,9 +22,9 @@ angular
     }
 
     var tabIndexes = {
-      list:0,
-      timetable:1,
-      timeline:2
+      list: 0,
+      timetable: 1,
+      timeline: 2
     };
 
     $scope.$watch(function () {

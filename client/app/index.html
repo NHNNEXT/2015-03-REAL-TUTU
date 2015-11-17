@@ -33,7 +33,6 @@
   <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
   <link href="/common.style/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="/common.style/component.css" rel="stylesheet" type="text/css">
-  <link href="/common.style/flaty.min.css" rel="stylesheet" type="text/css">
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
@@ -41,10 +40,6 @@
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
-  <link href="/lesson.directive.lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson.directive.lesson/lesson.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
@@ -99,7 +94,7 @@
       </ul>
 
       <ul class="menu" ng-show="rootUser.isLogged()">
-        <li ng-click="open=!open">내 강의
+        <li ng-click="open=!open" ng-init="open=true">내 강의
           <md-icon md-svg-src="/resource/icon/arrow.svg" class="arrow-icon" ng-class="{'open':!open}"></md-icon>
         </li>
         <md-divider></md-divider>
@@ -134,7 +129,7 @@
         <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
       </md-button>
       <h2>
-        <span>{{state.current.header}}</span>
+        <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
       </h2>
       <span flex></span>
     </div>

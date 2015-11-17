@@ -5,6 +5,11 @@ angular.module('clientApp')
       scope: {
         user: '='
       },
-      templateUrl: '/user.directive.user-profile/user-profile.html'
+      templateUrl: '/user.directive.user-profile/user-profile.html',
+      controller : function($scope){
+        $scope.openMenu = function($mdOpenMenu, ev) {
+          $mdOpenMenu(ev);
+        };
+      }
     };
   });

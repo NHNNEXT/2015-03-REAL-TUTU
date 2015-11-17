@@ -1,5 +1,7 @@
 <section>
-  <h2 ng-bind="content.title"></h2>
+  <div layout="row">
+    <div flex="80">
+      <h2 ng-bind="content.title"></h2>
         <span class="info">
           {{content.type.name}}
           <span class="bar"></span>
@@ -8,10 +10,9 @@
           댓글 {{content.replies.length}}
           <span class="bar"></span>
           <like type="CONTENT" like="content.likes" target="content.id"></like>
-          <span ng-show="content.writer.id === rootUser.id">
-            <span class="bar"></span>
+          <span class="pull-right" ng-show="content.writer.id === rootUser.id">
             <span ui-sref="contentEdit({id:content.id})">수정</span>
-            <span class="bar"></span>
+            <span class="dot"></span>
             <span ng-click="content.remove()">삭제</span>
           </span>
           <span ng-show="content.date">
@@ -20,16 +21,19 @@
           </span>
         </span>
 
-  <div class="divider" ng-show="content.type.startTime || content.type.endTime">
+      <div class="info margin-top-s" ng-show="content.type.startTime || content.type.endTime">
     <span class="dueDate" ng-show="content.type.endTime || content.type.startTime">
       <span ng-if="!content.type.startTime">마감 : {{content.endTime.fromNow()}}</span>
       <span ng-if="content.type.startTime">{{content.startTime.range(content.endTime)}}</span>
     </span>
+      </div>
+    </div>
+
+    <div flex="20">
+      <user-profile class="content" user="content.writer"></user-profile>
+    </div>
   </div>
-  </div>
-  <div class="col-md-4">
-    <user-profile class="content" user="content.writer"></user-profile>
-  </div>
+</section>
 </section>
 
 <section>

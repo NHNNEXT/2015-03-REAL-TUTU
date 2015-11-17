@@ -1,12 +1,15 @@
 <section>
-  <span class="btn btn-primary pull-right" ui-sref="lectureNew">강의 등록</span>
 
-  <h2>전체 강의 </h2>
-
-  <div class="input-group">
-    <input type="text" class="form-control" ng-model="query">
-
-    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+  <div layout="row" layout-padding>
+    <md-input-container flex>
+      <label>검색어</label>
+      <input type="text" ng-model="query">
+    </md-input-container>
   </div>
-  <lecture-table lectures="lectures" query="query"></lecture-table>
+
+  <lecture-list lectures="lectures" query="query"></lecture-list>
+
+  <md-button ui-sref="lectureNew" class="md-raised">
+    새 강의
+  </md-button>
 </section>

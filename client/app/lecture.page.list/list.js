@@ -20,6 +20,7 @@
   function config($stateProvider) {
     $stateProvider
       .state('lectures', {
+        header: "전체 강의 목록",
         url: "/lectures",
         templateUrl: "/lecture.page.list/list.html",
         controller: "LectureController",

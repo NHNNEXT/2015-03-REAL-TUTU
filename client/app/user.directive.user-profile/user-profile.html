@@ -1,4 +1,13 @@
-<img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
-<span ui-sref="profile({id:user.id})">{{user.name || '이름'}}({{user.email||'이메일'}})</span>
-
-
+<md-menu>
+  <md-button ng-click="openMenu($mdOpenMenu, $event)">
+    <img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
+    <span>{{user.name || '이름'}}</span>
+  </md-button>
+  <md-menu-content width="3">
+    <md-menu-item>
+      <md-button ui-sref="profile({id:user.id})">
+        프로필 페이지
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>
