@@ -53,17 +53,18 @@ public class ContentType {
 
 
     public void update(ContentType contentType) {
-        if(contentType.endTime != null)
+        if (contentType.endTime != null)
             this.endTime = contentType.endTime;
-        if(contentType.startTime != null)
+        if (contentType.startTime != null)
             this.startTime = contentType.startTime;
-        if(contentType.extendWrite != null)
-            this.extendWrite = contentType.extendWrite;
-        if(contentType.onlyWriter != null)
+        if (contentType.extendWrite) {
+            this.extendWrite = this.startTime && this.endTime;
+        }
+        if (contentType.onlyWriter != null)
             this.onlyWriter = contentType.onlyWriter;
-        if(contentType.statistic != null)
+        if (contentType.statistic != null)
             this.statistic = contentType.statistic;
-        if(contentType.name != null)
+        if (contentType.name != null)
             this.name = contentType.name;
     }
 }

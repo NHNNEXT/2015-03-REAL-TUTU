@@ -20,6 +20,7 @@ angular
     }, function (id) {
       Lecture.findById(id).then(function (fromDB) {
         $scope.lecture = fromDB;
+        $state.current.header = fromDB.name;
       });
     });
 

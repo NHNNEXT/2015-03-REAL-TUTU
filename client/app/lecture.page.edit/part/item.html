@@ -23,7 +23,7 @@
   </div>
   <div flex>
     기타
-    <md-checkbox ng-model="contentType.extendWrite">
+    <md-checkbox ng-model="contentType.extendWrite" ng-disabled="!contentType.startTime || !contentType.endTime">
       일괄 등록
     </md-checkbox>
   </div>
