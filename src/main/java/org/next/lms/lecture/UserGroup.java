@@ -24,6 +24,10 @@ public class UserGroup {
     @OneToMany(mappedBy = "userGroup", fetch = FetchType.LAZY)
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userGroup", fetch = FetchType.LAZY)
+    private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;

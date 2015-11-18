@@ -72,7 +72,7 @@ angular.module('clientApp')
       this.contentTypes = param.contentTypes;
       this.userGroups = param.userGroups;
       this.users = param.users;
-      this.watingUsers = param.watingUsers;
+      this.waitingUsers = param.waitingUsers;
       this.contents = param.contents;
       this.writable = param.writable;
       this.readable = param.readable;
@@ -109,6 +109,25 @@ angular.module('clientApp')
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);
     };
+
+    Lecture.prototype.approval = function(userId){
+      var query = {};
+      query.id = this.id;
+      query.userId = userId;
+      http.post('/api/v1/lecture/approval', query).then(function(){
+        alert.success("가입되었습니다.");
+      });
+    };
+
+    Lecture.prototype.reject = function(userId){
+      var query = {};
+      query.id = this.id;
+      query.userId = userId;
+      http.post('/api/v1/lecture/reject', query).then(function(){
+        alert.info("가입 신청을 거절하였습니다.");
+      });
+    };
+
 
     Lecture.getList = function () {
       return $q(function (resolve) {

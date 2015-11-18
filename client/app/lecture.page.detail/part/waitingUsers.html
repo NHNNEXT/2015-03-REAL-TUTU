@@ -1,0 +1,16 @@
+<md-list>
+  <md-list-item ng-show="lecture.waitingUsers.length===0">
+    신청자가 없습니다.
+  </md-list-item>
+  <md-list-item ng-repeat="user in lecture.waitingUsers">
+    <div flex layout="column" layout-align="center start">
+      <user-profile user="user"></user-profile>
+    </div>
+    <div flex layout="column" layout-align="center end">
+      <div layout="row">
+        <md-button class="md-raised" ng-click="lecture.approval(user.id)">승인</md-button>
+        <md-button class="md-raised" ng-click="lecture.reject(user.id)">거절</md-button>
+      </div>
+    </div>
+  </md-list-item>
+</md-list>

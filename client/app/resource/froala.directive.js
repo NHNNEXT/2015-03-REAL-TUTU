@@ -14,6 +14,7 @@ angular.module('clientApp')
           },
           toolbarInline: true,
           spellcheck: false,
+          imageUploadURL: '/api/v1/upload',
           toolbarButtons: ['fontFamily', 'fontSize', 'bold', 'underline', 'strikeThrough', 'emoticons', '-',
             'color', 'align', 'insertLink', 'insertImage', 'insertTable', 'html']
         });

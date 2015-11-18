@@ -1,9 +1,12 @@
 package org.next.lms.user.dto;
 
 import lombok.Getter;
+import lombok.Setter;
+import org.next.lms.lecture.dto.UserGroupDto;
 import org.next.lms.user.User;
 
 @Getter
+@Setter
 public class UserSummaryDto {
 
     public UserSummaryDto(User user) {
@@ -17,20 +20,22 @@ public class UserSummaryDto {
         this.introduce = user.getIntroduce();
     }
 
-    private Long id;
+    private UserGroupDto group;
 
-    private String email;
+    private final Long id;
 
-    private String name;
+    private final String email;
 
-    private String profileUrl;
+    private final String name;
 
-    private String studentId;
+    private final String profileUrl;
 
-    private String phoneNumber;
+    private final String studentId;
 
-    private String major;
+    private final String phoneNumber;
 
-    private String introduce;
+    private final String major;
+
+    private final String introduce;
 
 }

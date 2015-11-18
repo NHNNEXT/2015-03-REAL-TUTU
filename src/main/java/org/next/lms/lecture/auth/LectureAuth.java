@@ -20,4 +20,12 @@ public class LectureAuth extends Auth {
     public void checkDeleteRight(User user, Lecture lecture) {
         rightCheck(lecture.getHostUser().equals(user));
     }
+
+    public void checkApprovalRight(User user, Lecture lecture) {
+        rightCheck(lecture.getHostUser().equals(user));
+    }
+
+    public void checkGroupChangeRight(User user, Lecture lecture) {
+        rightCheck(lecture.getHostUser().equals(user));
+    }
 }

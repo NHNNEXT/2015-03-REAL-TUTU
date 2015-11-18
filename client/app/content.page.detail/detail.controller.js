@@ -12,7 +12,7 @@ angular.module('clientApp').controller('contentDetailController',
         $scope.content = content;
         $state.current.header = content.lectureName;
         $state.current.headerClick = function () {
-          $state.go('lecture', {id: $scope.content.lectureId})
+          $state.go('lecture', {id: $scope.content.lectureId});
         };
       });
       $scope.reply = new Reply();

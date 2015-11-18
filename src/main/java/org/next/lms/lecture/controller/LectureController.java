@@ -56,4 +56,19 @@ public class LectureController {
     public JsonView sideMenuToggle(Long lectureId, HttpSession session) {
         return lectureService.sideMenuToggle(lectureId, session);
     }
+
+    @RequestMapping(value = "/approval", method = RequestMethod.POST)
+    public JsonView approval(Long id, Long userId, HttpSession session) {
+        return lectureService.approval(id, userId, session);
+    }
+
+    @RequestMapping(value = "/reject", method = RequestMethod.POST)
+    public JsonView reject(Long id, Long userId, HttpSession session) {
+        return lectureService.reject(id, userId, session);
+    }
+
+    @RequestMapping(value = "/userGroup", method = RequestMethod.PUT)
+    public JsonView userGroup(Long lectureId, Long groupId, Long userId, HttpSession session) {
+        return lectureService.userGroupChange(lectureId, groupId, userId,  session);
+    }
 }

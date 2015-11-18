@@ -7,6 +7,7 @@ import org.next.lms.content.dto.ContentSummaryDto;
 import org.next.lms.content.ContentType;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
+import org.next.lms.user.User;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.next.lms.lecture.Lecture;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class LectureDto {
+
 
     public LectureDto(Lecture lecture, Boolean host) {
         this.id = lecture.getId();
@@ -30,11 +32,19 @@ public class LectureDto {
         this.contentTypes = lecture.getContentTypes().stream().map(ContentTypeDto::new).collect(Collectors.toList());
         this.users = new ArrayList<>();
         this.waitingUsers = new ArrayList<>();
+        this.rejectUsers = new ArrayList<>();
         lecture.getUsers().forEach(relation -> {
+            UserSummaryDto user = new UserSummaryDto(relation.getUser());
+            UserGroup userGroup = relation.getUserGroup();
+            if (userGroup == null)
+                userGroup = lecture.getUserGroups().stream().filter(UserGroup::getDefaultGroup).findFirst().get();
+            user.setGroup(new UserGroupDto(userGroup));
             if (ApprovalState.OK.equals(relation.getApprovalState()))
-                users.add(new UserSummaryDto(relation.getUser()));
+                users.add(user);
             if (ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState()))
-                waitingUsers.add(new UserSummaryDto(relation.getUser()));
+                waitingUsers.add(user);
+            if (ApprovalState.REJECT.equals(relation.getApprovalState()))
+                rejectUsers.add(user);
         });
         this.userGroups = lecture.getUserGroups().stream().map(UserGroupDto::new).collect(Collectors.toList());
 
@@ -72,6 +82,8 @@ public class LectureDto {
     private final List<UserSummaryDto> users;
 
     private final List<UserSummaryDto> waitingUsers;
+
+    private final List<UserSummaryDto> rejectUsers;
 
     private final List<ContentSummaryDto> contents;
 

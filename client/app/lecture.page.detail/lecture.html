@@ -25,24 +25,24 @@
   </div>
 
   <md-tabs md-selected="tabIndex" md-dynamic-height md-border-bottom>
-    <md-tab label=" 전체 " md-on-select="state('list')">
+    <md-tab label=" 목록 " md-on-select="state('list')">
       <md-content class="md-padding">
         <ng-include src="'/lecture.page.detail/part/contents.html'"></ng-include>
       </md-content>
     </md-tab>
-    <md-tab label=" 시간 " md-on-select="state('timetable')">
+    <md-tab label=" 스케줄 " md-on-select="state('timetable')">
       <md-content class="md-padding">
-        <ng-include src="'/lecture.page.detail/part/lessons.html'"></ng-include>
-      </md-content>
-    </md-tab>
-    <md-tab label=" 타임 라인 " md-on-select="state('timeline')">
-      <md-content class="md-padding">
-        <ng-include src="'/lecture.page.detail/part/prof.html'"></ng-include>
+        <ng-include src="'/lecture.page.detail/part/timetable.html'"></ng-include>
       </md-content>
     </md-tab>
     <md-tab label=" 참여자 " md-on-select="state('users')">
       <md-content class="md-padding">
-        <ng-include src="'/lecture.page.detail/part/students.html'"></ng-include>
+        <ng-include src="'/lecture.page.detail/part/users.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label=" 참여신청 " ng-if="lecture.hostUser.isRootUser()" md-on-select="state('requestUsers')">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.detail/part/waitingUsers.html'"></ng-include>
       </md-content>
     </md-tab>
   </md-tabs>

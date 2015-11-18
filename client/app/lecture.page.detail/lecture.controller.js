@@ -1,12 +1,20 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types) {
+  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types, $timeout, http) {
 
     $scope.types = types;
     $scope.rootUser = rootUser;
     $scope.isEnrolled = isEnrolled;
     $scope.setType = setType;
+    $scope.groupChange = groupChange;
+    $scope.openIfRootUser = openIfRootUser;
+
+    function openIfRootUser(o, e) {
+      if (!$scope.lecture.hostUser.isRootUser())
+        return;
+      o(e);
+    }
 
 
     function setType(type) {
@@ -24,7 +32,8 @@ angular
     var tabIndexes = {
       list: 0,
       timetable: 1,
-      timeline: 2
+      users: 2,
+      request: 4
     };
 
     $scope.$watch(function () {
@@ -32,7 +41,9 @@ angular
     }, function (tab) {
       if (!tab)
         return;
-      $scope.tabIndex = tabIndexes[tab];
+      $timeout(function () {
+        $scope.tabIndex = tabIndexes[tab];
+      }, 200);
     });
 
 
@@ -61,6 +72,16 @@ angular
         if (lectures[i].id === id)
           return true;
       return false;
+    }
+
+    function groupChange(group, user) {
+      var query = {};
+      query.groupId = group.id;
+      query.userId = user.id;
+      query.lectureId = $scope.lecture.id;
+      http.put('/api/v1/lecture/userGroup', query).then(function (group) {
+        user.group = group;
+      });
     }
 
   });

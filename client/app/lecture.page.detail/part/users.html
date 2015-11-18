@@ -1,0 +1,21 @@
+<md-list>
+  <md-list-item ng-repeat="user in lecture.users">
+    <div flex layout="column" layout-align="center start">
+      <user-profile user="user"></user-profile>
+    </div>
+    <div flex layout="column" layout-align="center end">
+      <md-menu>
+        <md-button ng-click="openIfRootUser($mdOpenMenu,$event)">
+          {{user.group.name}}
+        </md-button>
+        <md-menu-content width="3">
+          <md-menu-item ng-repeat="group in lecture.userGroups">
+            <md-button ng-click="groupChange(group, user)">
+              {{group.name}}
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </md-list-item>
+</md-list>

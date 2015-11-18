@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Table(name = "USER_ENROLLED_LECTURE")
 public class UserEnrolledLecture {
 
-    // Relation
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
@@ -24,17 +23,21 @@ public class UserEnrolledLecture {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_GROUP_ID")
+    private UserGroup userGroup;
+
     @Id
     @Column(name = "USER_ENROLLED_LECTURE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @Column(name = "APPROVAL_STATE")
     private Integer approvalState;
 
     @Column(name = "SIDE_MENU")
     private Boolean sideMenu;
+
 
     public void sideMenuToggle() {
         if (this.sideMenu == null) {
