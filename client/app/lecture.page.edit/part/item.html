@@ -30,7 +30,7 @@
     </div>
   </div>
   <div flex>
-    <md-button ng-click="lecture.removeContentType(contentType)">삭제</md-button>
+    <md-button aria-label="remove" ng-click="lecture.removeContentType(contentType)">삭제</md-button>
   </div>
 
 </div>
@@ -39,7 +39,7 @@
     <label>게시물 타입</label>
     <input ng-model="contentType.name">
   </md-input-container>
-  <md-button ng-click="newContentType()" flex="20">
+  <md-button aria-label="new" ng-click="newContentType()" flex="20">
     게시물 타입 추가하기
   </md-button>
 </div>

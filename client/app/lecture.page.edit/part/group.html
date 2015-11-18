@@ -9,7 +9,7 @@
     </md-checkbox>
   </div>
   <div flex="20">
-    <md-button ng-click="lecture.removeUserGroup(userGroup)">삭제</md-button>
+    <md-button aria-label="remove" ng-click="lecture.removeUserGroup(userGroup)">삭제</md-button>
   </div>
 </div>
 <div layout="row">
@@ -17,7 +17,7 @@
     <label>그룹</label>
     <input ng-model="userGroup.name">
   </md-input-container>
-  <md-button ng-click="newUserGroup()" flex="20">
+  <md-button aria-label="new" ng-click="newUserGroup()" flex="20">
     그룹 추가하기
   </md-button>
 </div>

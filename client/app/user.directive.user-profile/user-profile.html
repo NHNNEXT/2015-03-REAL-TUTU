@@ -1,11 +1,11 @@
 <md-menu>
-  <md-button ng-click="$mdOpenMenu($event)">
+  <md-button aria-label="open" ng-click="$mdOpenMenu($event)">
     <img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
     <span>{{user.name || '이름'}}</span>
   </md-button>
   <md-menu-content width="3">
     <md-menu-item>
-      <md-button ui-sref="profile({id:user.id})">
+      <md-button aria-label="to profile" ui-sref="profile({id:user.id})">
         프로필 페이지
       </md-button>
     </md-menu-item>

@@ -5,12 +5,12 @@
     </div>
     <div flex layout="column" layout-align="center end">
       <md-menu>
-        <md-button ng-click="openIfRootUser($mdOpenMenu,$event)">
+        <md-button ng-click="openIfRootUser($mdOpenMenu,$event)" aria-label="to page">
           {{user.group.name}}
         </md-button>
         <md-menu-content width="3">
           <md-menu-item ng-repeat="group in lecture.userGroups">
-            <md-button ng-click="groupChange(group, user)">
+            <md-button  ng-click="groupChange(group, user)" aria-label="to profile page">
               {{group.name}}
             </md-button>
           </md-menu-item>
