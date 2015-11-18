@@ -29,11 +29,14 @@ public class Message {
     @Column(name = "MESSAGE")
     private String message;
 
+    @Column(name = "TYPE")
+    private MessageType type;
+
+    @Column(name = "TYPE_ID")
+    private Long typeId;
+
     @Column(name = "URL")
     private String url;
-
-    @Column(name = "TYPE")
-    private Integer type;
 
     @Column(name = "READ")
     private Boolean read;

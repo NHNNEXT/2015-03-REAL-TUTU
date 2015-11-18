@@ -10,14 +10,11 @@
           댓글 {{content.replies.length}}
           <span class="bar"></span>
           <like type="CONTENT" like="content.likes" target="content.id"></like>
-          <span class="pull-right" ng-show="content.writer.id === rootUser.id">
+          <span  ng-show="content.writer.id === rootUser.id">
+            <span class="bar"></span>
             <span ui-sref="contentEdit({id:content.id})">수정</span>
             <span class="dot"></span>
             <span ng-click="content.remove()">삭제</span>
-          </span>
-          <span ng-show="content.date">
-          <span class="bar"></span>
-          <span>{{content.date.toYMD()}}</span>
           </span>
         </span>
 

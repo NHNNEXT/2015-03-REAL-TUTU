@@ -1,8 +1,8 @@
-package org.next.infra.relation;
+package org.next.lms.like;
 
 import lombok.*;
 import org.next.lms.user.User;
-import org.next.lms.content.Content;
+import org.next.lms.reply.Reply;
 
 import javax.persistence.*;
 
@@ -12,24 +12,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @Entity
-@Table(name = "USER_LIKES_CONTENT")
-public class UserLikesContent {
+@Table(name = "USER_LIKES_REPLY")
+public class UserLikesReply {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CONTENT_ID")
-    private Content content;
+    @JoinColumn(name = "REPLY_ID")
+    private Reply reply;
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public UserLikesContent(User user, Content content) {
+    public UserLikesReply(User user, Reply reply) {
         this.user = user;
-        this.content = content;
+        this.reply = reply;
     }
-
 }

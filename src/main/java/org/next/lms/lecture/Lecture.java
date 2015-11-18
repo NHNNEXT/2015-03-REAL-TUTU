@@ -10,7 +10,7 @@ import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
-import org.next.infra.relation.UserLikesLecture;
+import org.next.lms.like.UserLikesLecture;
 
 import javax.persistence.*;
 import java.util.*;

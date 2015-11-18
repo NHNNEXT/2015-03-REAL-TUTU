@@ -4,6 +4,9 @@ import org.next.infra.reponse.ResponseCode;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.content.dto.Contents;
+import org.next.lms.lecture.UserEnrolledLecture;
+import org.next.lms.message.MessageService;
+import org.next.lms.message.template.newContentMessageTemplate;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
 import org.next.lms.content.Content;
@@ -43,6 +46,8 @@ public class ContentService {
     @Autowired
     private SessionUtil sessionUtil;
 
+    @Autowired
+    MessageService messageService;
 
     public ContentDto getDtoById(Long id) {
         Content content = assureNotNull(contentRepository.findOne(id));
@@ -64,6 +69,7 @@ public class ContentService {
         content.setLecture(lecture);
 
         contentRepository.save(content);
+        messageService.newMessage(content.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
         return successJsonResponse(new ContentDto(content));
     }
 

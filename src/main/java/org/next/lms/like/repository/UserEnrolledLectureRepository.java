@@ -1,4 +1,4 @@
-package org.next.infra.relation.repository;
+package org.next.lms.like.repository;
 
 import org.next.lms.lecture.UserEnrolledLecture;
 import org.springframework.data.jpa.repository.JpaRepository;

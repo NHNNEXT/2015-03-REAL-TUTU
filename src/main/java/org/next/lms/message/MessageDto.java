@@ -12,7 +12,7 @@ public class MessageDto {
     private Long id;
     private String message;
     private Boolean read;
-    private Integer type;
+    private MessageType type;
     private Date date;
 
     public MessageDto(Message message) {

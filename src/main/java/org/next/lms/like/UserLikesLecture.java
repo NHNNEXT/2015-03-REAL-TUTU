@@ -1,4 +1,4 @@
-package org.next.infra.relation;
+package org.next.lms.like;
 
 import lombok.*;
 import org.next.lms.user.User;

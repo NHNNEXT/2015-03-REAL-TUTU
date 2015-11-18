@@ -4,7 +4,7 @@ import lombok.*;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.reply.Reply;
 import org.next.lms.lecture.Lecture;
-import org.next.infra.relation.UserLikesContent;
+import org.next.lms.like.UserLikesContent;
 import org.next.lms.user.User;
 
 import javax.persistence.*;

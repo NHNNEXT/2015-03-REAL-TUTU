@@ -1,16 +1,19 @@
-package org.next.infra.relation.controller;
+package org.next.lms.like.controller;
 
 import org.next.infra.util.SessionUtil;
 import org.next.infra.repository.*;
 import org.next.infra.view.JsonView;
 import org.next.infra.reponse.ResponseCode;
+import org.next.lms.message.MessageService;
+import org.next.lms.message.template.UserLikesContentTemplate;
+import org.next.lms.message.template.UserLikesReplyTemplate;
 import org.next.lms.user.User;
-import org.next.infra.relation.UserLikesContent;
-import org.next.infra.relation.UserLikesLecture;
-import org.next.infra.relation.UserLikesReply;
-import org.next.infra.relation.repository.UserLikesContentRepository;
-import org.next.infra.relation.repository.UserLikesLectureRepository;
-import org.next.infra.relation.repository.UserLikesReplyRepository;
+import org.next.lms.like.UserLikesContent;
+import org.next.lms.like.UserLikesLecture;
+import org.next.lms.like.UserLikesReply;
+import org.next.lms.like.repository.UserLikesContentRepository;
+import org.next.lms.like.repository.UserLikesLectureRepository;
+import org.next.lms.like.repository.UserLikesReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +47,8 @@ public class LikeController {
     @Autowired
     SessionUtil sessionUtil;
 
+    @Autowired
+    MessageService messageService;
 
     @RequestMapping(method = RequestMethod.POST)
     public JsonView like(Integer type, Long id, HttpSession session) {
@@ -71,6 +76,7 @@ public class LikeController {
             return new JsonView(ResponseCode.Like.REMOVE);
         }
         userLikesContentRepository.save(relation);
+        messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentTemplate(relation.getContent(), user, relation.getContent().getLikes().size()));
         return new JsonView(ResponseCode.Like.ADD);
     }
 
@@ -97,6 +103,7 @@ public class LikeController {
             return new JsonView(ResponseCode.Like.REMOVE);
         }
         userLikesReplyRepository.save(relation);
+        messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyTemplate(relation.getReply(), user, relation.getReply().getLikes().size()));
         return new JsonView(ResponseCode.Like.ADD);
     }
 }

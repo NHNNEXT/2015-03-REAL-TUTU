@@ -12,13 +12,17 @@ import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
+import org.next.lms.message.MessageService;
+import org.next.lms.message.template.EnrollRequestTemplate;
+import org.next.lms.message.template.newEnrollMessageTemplate;
+import org.next.lms.message.template.newEnrollRejectMessageTemplate;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
 import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.dto.LectureDto;
 import org.next.lms.lecture.Lecture;
 import org.next.infra.repository.LectureRepository;
-import org.next.infra.relation.repository.UserEnrolledLectureRepository;
+import org.next.lms.like.repository.UserEnrolledLectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +42,8 @@ public class LectureService {
     @Autowired
     private UserEnrolledLectureRepository userEnrolledLectureRepository;
 
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private SessionUtil sessionUtil;
@@ -105,15 +111,35 @@ public class LectureService {
             relation.setApprovalState(ApprovalState.OK);
             relation.setSideMenu(true);
             userEnrolledLectureRepository.save(relation);
+            messageService.newMessage(lecture.getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newEnrollMessageTemplate());
             return successJsonResponse();
         } else if (lecture.getRegisterPolicy().equals(RegisterPolicy.NEED_APPROVAL)) {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
+            messageService.newMessage(lecture.getHostUser(), new EnrollRequestTemplate());
             return new JsonView(ResponseCode.Enroll.WAITING_FOR_APPROVAL);
         }
         return new JsonView(ResponseCode.WRONG_ACCESS);
-
     }
+
+
+    public JsonView approval(Long id, Long userId, HttpSession session) {
+        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, session);
+        userEnrolledLecture.setApprovalState(ApprovalState.OK);
+        userEnrolledLectureRepository.save(userEnrolledLecture);
+        messageService.newMessage(userEnrolledLecture.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newEnrollMessageTemplate());
+        return successJsonResponse();
+    }
+
+    public JsonView reject(Long id, Long userId, HttpSession session) {
+        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, session);
+        userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
+        userEnrolledLectureRepository.save(userEnrolledLecture);
+        messageService.newMessage(userEnrolledLecture.getUser(), new newEnrollRejectMessageTemplate());
+        return successJsonResponse();
+    }
+
+
 
     private UserEnrolledLecture enroll(User user, Lecture lecture) {
         UserEnrolledLecture relation = new UserEnrolledLecture();
@@ -121,6 +147,8 @@ public class LectureService {
         relation.setUser(user);
         return relation;
     }
+
+
 
 
     public JsonView delete(Long id, HttpSession session) {
@@ -140,19 +168,6 @@ public class LectureService {
         return successJsonResponse(userEnrolledLecture.getSideMenu());
     }
 
-    public JsonView approval(Long id, Long userId, HttpSession session) {
-        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, session);
-        userEnrolledLecture.setApprovalState(ApprovalState.OK);
-        userEnrolledLectureRepository.save(userEnrolledLecture);
-        return successJsonResponse();
-    }
-
-    public JsonView reject(Long id, Long userId, HttpSession session) {
-        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, session);
-        userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
-        userEnrolledLectureRepository.save(userEnrolledLecture);
-        return successJsonResponse();
-    }
 
     private UserEnrolledLecture getUserEnrolledLecture(Long id, Long userId, HttpSession session) {
         User user = sessionUtil.getLoggedUser(session);

@@ -1,13 +1,11 @@
 package org.next.lms.lecture.dto;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
-import org.next.infra.relation.UserLikesLecture;
+import org.next.lms.like.UserLikesLecture;
 import org.next.lms.content.dto.ContentSummaryDto;
 import org.next.lms.content.ContentType;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
-import org.next.lms.user.User;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.next.lms.lecture.Lecture;
 

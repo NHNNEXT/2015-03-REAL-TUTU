@@ -1,8 +1,6 @@
 angular.module('clientApp').factory('Message',
   /* @ngInject */
   function (http, $q) {
-    //var types = ['알림','강의 메시지','다가올 일'];
-
     function Message(obj) {
       if (typeof obj !== "object")
         return;

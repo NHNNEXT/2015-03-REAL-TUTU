@@ -3,7 +3,11 @@ package org.next.lms.message;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
+import org.next.lms.content.Content;
 import org.next.lms.message.repository.MessageRepository;
+import org.next.lms.message.template.MessageTemplate;
+import org.next.lms.message.template.UserLikesContentTemplate;
+import org.next.lms.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,4 +46,20 @@ public class MessageService {
         messageRepository.save(message);
         return new JsonView(ResponseCode.SUCCESS);
     }
+
+    public void newMessage(List<User> users, MessageTemplate template) {
+        users.forEach(user->{
+            Message message = template.getMessage();
+            message.setUser(user);
+            messageRepository.save(template.getMessage());
+        });
+    }
+
+    public void newMessage(User user, MessageTemplate template) {
+        Message message = template.getMessage();
+        message.setUser(user);
+        messageRepository.save(message);
+    }
+
+
 }
