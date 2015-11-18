@@ -28,9 +28,7 @@ public class UserDto {
         this.email = user.getEmail();
         this.profileUrl = user.getProfileUrl();
         this.name = user.getName();
-        this.studentId = user.getStudentId();
         this.introduce = user.getIntroduce();
-        this.phoneNumber = user.getPhoneNumber();
         this.major = user.getMajor();
         this.lectures = user.getEnrolledLectures().stream().map(LectureSummaryDto::new).collect(Collectors.toList());
         this.news = user.getMessages().stream().filter(

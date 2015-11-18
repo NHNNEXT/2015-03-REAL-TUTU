@@ -4,6 +4,7 @@ angular.module('clientApp').config(function ($stateProvider) {
     .state('main', {
       url: "/",
       templateUrl: "/common.page.main/main.html",
-      controller: 'mainController'
+      controller: 'mainController',
+      header: "NEXUS"
     });
 });

@@ -1,11 +1,19 @@
 <span ng-show="!mod">
-   <span ng-bind="ngModel || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true" class="fa fa-pencil"></i></small>
+   <span ng-bind="ngModel || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true"
+                                                            class="fa fa-pencil"></i></small>
 </span>
 <span ng-show="mod && modRight">
-  <div class="input-group">
-    <input class="form-control" maxlength="{{maxlength}}" placeholder="{{placeholder}}" ng-model="ngModel"
-           ng-enter="save()">
-    <i class="input-group-addon fa fa-check" ng-click="save()"></i>
+  <div layout="row">
+    <md-input-container flex>
+      <label>{{placeholder}}</label>
+      <input maxlength="{{maxlength}}" placeholder="{{placeholder}}" ng-model="ngModel"
+             ng-enter="save()">
+    </md-input-container>
+    <md-button class="md-icon-button">
+      <md-icon>
+        <i class="input-group-addon fa fa-2x fa-check" ng-click="save()"></i>
+      </md-icon>
+    </md-button>
   </div>
 </span>
 

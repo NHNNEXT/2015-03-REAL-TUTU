@@ -2,7 +2,7 @@
   <md-list>
     <md-subheader class="md-no-sticky">메시지</md-subheader>
     <md-divider></md-divider>
-    <message message="message" ng-repeat="message in messages"></message>
+    <message message="message" ng-repeat="message in messages | orderBy:'-date'"></message>
     <md-list-item>
       <div class="md-list-item-text" ng-show="page.hasNext()" ng-click="move()">
         <div class="md-list-item-text">

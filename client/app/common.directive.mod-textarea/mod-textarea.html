@@ -1,11 +1,19 @@
 <span ng-show="!mod">
-   <span ng-bind-html="body() || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true"
+   <span ng-bind-html="ngModel.newLine() || placeholder"></span> <small><i ng-show="modRight" ng-click="mod=true"
                                                                  class="fa fa-pencil"></i></small>
 </span>
 <span ng-show="mod && modRight">
-  <wysiwyg ng-model="ngModel" textarea-class="form-control"
-           textarea-height="250px"
-           textarea-required enable-bootstrap-title="true"></wysiwyg>
-  <div class="btn btn-primary margin-vertical full-width" ng-click="save()">작성완료</div>
+    <div layout="row">
+      <md-input-container flex>
+        <label>{{placeholder}}</label>
+        <textarea ng-model="ngModel" md-maxlength="150"></textarea>
+      </md-input-container>
+      <md-input-container flex>
+      <md-button class="md-icon-button">
+        <md-icon>
+          <i class="input-group-addon fa fa-2x fa-check" ng-click="save()"></i>
+        </md-icon>
+      </md-button>
+    </div>
 </span>
 

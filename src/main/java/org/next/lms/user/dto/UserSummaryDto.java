@@ -14,8 +14,6 @@ public class UserSummaryDto {
         this.name = user.getName();
         this.profileUrl = user.getProfileUrl();
         this.email = user.getEmail();
-        this.studentId = user.getStudentId();
-        this.phoneNumber = user.getPhoneNumber();
         this.major = user.getMajor();
         this.introduce = user.getIntroduce();
     }
@@ -29,10 +27,6 @@ public class UserSummaryDto {
     private final String name;
 
     private final String profileUrl;
-
-    private final String studentId;
-
-    private final String phoneNumber;
 
     private final String major;
 

@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
   <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
   <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
   <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
   <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css" />
   <!-- endbower -->
@@ -82,7 +81,7 @@
 <!--md-is-locked-open="$mdMedia('gt-md')"-->
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak flex>
   <md-toolbar class="md-theme-indigo">
-    <h1 class="md-toolbar-tools">NEXUS</h1>
+    <h1 class="md-toolbar-tools" ui-sref="main">NEXUS</h1>
   </md-toolbar>
   <md-content ng-controller="menuController">
     <div layout-padding>
@@ -165,13 +164,11 @@
 <script src="/bower_components/restangular/dist/restangular.js"></script>
 <script src="/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 <script src="/bower_components/bowser/bowser.js"></script>
-<script src="/bower_components/freewall/freewall.js"></script>
 <script src="/bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
-<script src="/bower_components/moment/moment.js"></script>
-<script src="/bower_components/fullcalendar/dist/fullcalendar.js"></script>
 <script src="/bower_components/angular-aria/angular-aria.js"></script>
 <script src="/bower_components/angular-material/angular-material.js"></script>
 <script src="/bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -187,10 +184,6 @@
 <script src="/common.directive.mod-input/mod-input.js"></script>
 <script src="/common.directive.mod-textarea/mod-textarea.js"></script>
 <script src="/common.directive.upload-img/upload-img.js"></script>
-<script src="/common.directive/affix.js"></script>
-<script src="/common.directive/calendar.js"></script>
-<script src="/common.directive/freewall.js"></script>
-<script src="/common.directive/menu.js"></script>
 <script src="/common.directive/ngenter.js"></script>
 <script src="/common.page.main/main.controller.js"></script>
 <script src="/common.page.main/main.route.js"></script>
@@ -255,8 +248,6 @@
 <script src="/resource/moment-ko.js"></script>
 <script src="/resource/scdate/sc-date-time.js"></script>
 <script src="/user.controller/auth.controller.js"></script>
-<script src="/user.directive.my-profile/my-profile.js"></script>
-<script src="/user.directive.user-profile-dropdown/user-profile.js"></script>
 <script src="/user.directive.user-profile/user-profile.js"></script>
 <script src="/user.model/rootuser.js"></script>
 <script src="/user.model/user.model.js"></script>

@@ -5,6 +5,7 @@ import org.next.infra.view.JsonView;
 import org.next.infra.reponse.ResponseCode;
 import org.next.lms.user.*;
 import org.next.lms.user.dto.UserDto;
+import org.next.lms.user.dto.UserPageDto;
 import org.next.lms.user.repository.UserRepository;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.next.lms.user.state.AccountState;
@@ -48,8 +49,8 @@ public class UserService {
             user = userRepository.findByEmail(id);
         }
         if (user == null)
-            return new JsonView(ResponseCode.GetSessionUser.EMPTY);
-        return new JsonView(ResponseCode.SUCCESS, new UserSummaryDto(user));
+            return new JsonView(ResponseCode.WRONG_ACCESS);
+        return new JsonView(ResponseCode.SUCCESS, new UserPageDto(user));
     }
 
 

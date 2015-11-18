@@ -27,7 +27,7 @@ public class UserLikesContentTemplate implements MessageTemplate {
 
 
     public String getMessageString() {
-        if (size > 1)
+        if (size > 3)
             return String.format(single, user.getName(), content.getTitle());
 
         return String.format(multi, user.getName(), size - 1, content.getTitle());

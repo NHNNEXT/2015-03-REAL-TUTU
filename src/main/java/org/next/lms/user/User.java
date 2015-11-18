@@ -69,20 +69,17 @@ public class User {
     @Column(name = "PROFILE_URL")
     private String profileUrl;
 
-    @Column(name = "STUDENT_ID")
-    private String studentId;
-
-    @Column(name = "PHONE_NUMBER")
-    private String phoneNumber;
+//    @Column(name = "STUDENT_ID")
+//    private String studentId;
+//
+//    @Column(name = "PHONE_NUMBER")
+//    private String phoneNumber;
 
     @Column(name = "MAJOR")
     private String major;
 
     @Column(name = "STATE")
     private AccountState state;
-
-    @Column(name = "MENU")
-    private String menu;
 
     @Lob
     @Column(name = "INTRODUCE")
@@ -93,16 +90,10 @@ public class User {
             this.name = passed.name;
         if (passed.profileUrl != null)
             this.profileUrl = passed.profileUrl;
-        if (passed.studentId != null)
-            this.studentId = passed.studentId;
-        if (passed.phoneNumber != null)
-            this.phoneNumber = passed.phoneNumber;
         if (passed.major != null)
             this.major = passed.major;
         if (passed.introduce != null)
             this.introduce = passed.introduce;
-        if (passed.menu != null)
-            this.menu = passed.menu;
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {

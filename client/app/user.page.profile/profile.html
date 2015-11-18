@@ -1,17 +1,38 @@
 <section>
-  <h1>
-    <mod-input ng-model="user.name" mod-right="user.isRootUser()" placeholder="이름" mod-save="update"></mod-input>
-  </h1>
-  <div class="profile-img">
-    <img ng-if="!user.isRootUser()" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
-    <upload-img ng-if="user.isRootUser()" ng-model="user.profileUrl" default="/resource/profile.png"
-                done="uploadCallback"></upload-img>
+  <div layout="row" class="profile">
+    <div layout="column">
+      <div class="profile-img">
+        <img ng-if="!user.isRootUser()" ng-src="{{user.profileUrl || '/resource/profile.png'}}">
+        <upload-img ng-if="user.isRootUser()" ng-model="user.profileUrl" default="/resource/profile.png"
+                    done="uploadCallback"></upload-img>
+      </div>
+    </div>
+    <div layout="column">
+      <h2>
+        <mod-input ng-model="user.name" mod-right="user.isRootUser()" placeholder="이름" mod-save="update"></mod-input>
+      </h2>
+      <p>
+        <mod-textarea ng-model="user.introduce" mod-right="user.isRootUser()" placeholder="소개말"
+                      mod-save="update"></mod-textarea>
+      </p>
+      <div class="info margin-bottom">
+        {{user.email}}
+        <span class="bar"></span>
+        <mod-input ng-model="user.major" mod-right="user.isRootUser()" placeholder="전공" mod-save="update"></mod-input>
+
+      </div>
+    </div>
   </div>
-</section>
-<section>
-  <span ng-bind="user.email"></span>
-  <mod-input ng-model="user.studentId" mod-right="user.isRootUser()" placeholder="학번" mod-save="update"></mod-input>
-  <mod-input ng-model="user.major" mod-right="user.isRootUser()" placeholder="전공" mod-save="update"></mod-input>
-  <mod-input ng-model="user.phoneNumber" mod-right="user.isRootUser()" placeholder="전화번호" mod-save="update"></mod-input>
-  <mod-textarea ng-model="user.introduce" mod-right="user.isRootUser()" mod-save="update"></mod-textarea>
+  <md-tabs md-selected="tabIndex" md-dynamic-height md-border-bottom>
+    <md-tab label=" 올린 게시물 ">
+      <md-content class="md-padding">
+        <content-list keyword="keyword" contents="user.writeContents"></content-list>
+      </md-content>
+    </md-tab>
+    <md-tab label=" 참여 강의 ">
+      <md-content class="md-padding">
+        <lecture-list lectures="user.lectures" query="query"></lecture-list>
+      </md-content>
+    </md-tab>
+  </md-tabs>
 </section>

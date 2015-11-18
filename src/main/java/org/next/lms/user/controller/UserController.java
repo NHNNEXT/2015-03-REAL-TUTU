@@ -24,10 +24,13 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getUser(HttpSession session, String id) {
-        if (id == null)
-            return userService.getSessionUser(session);
+    public JsonView getUser(String id) {
         return userService.getUser(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/session")
+    public JsonView getSessionUser(HttpSession session) {
+            return userService.getSessionUser(session);
     }
 
     @RequestMapping(method = RequestMethod.POST)

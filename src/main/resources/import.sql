@@ -1,9 +1,9 @@
-insert into user (major, name, phone_number, profile_url, student_id, email,password) values('webserver1', 'hong', '010-1234-1234', NULL, '141414','test1@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name, phone_number, profile_url, student_id, email,password) values('webserver2', 'honggildong', '010-1234-1234', NULL, '141414','test2@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name, phone_number, profile_url, student_id, email,password) values('webserver3', 'hwangjungmin', '010-1234-1234', NULL, '141414','test3@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name, phone_number, profile_url, student_id, email,password) values('webserver4', 'hwangjungmin', '010-1234-1234', NULL, '141414','test4@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name, phone_number, profile_url, student_id, email,password) values('webserver5', 'hjungmin', '010-1234-1234', NULL, '141414','test5@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name, phone_number, profile_url, student_id, email,password) values('webserver6', 'hngungmin', '010-1234-1234', NULL, '141414','test6@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+insert into user (major, name,  profile_url, email,password) values('webserver1', 'hong',  NULL, 'test1@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+insert into user (major, name,  profile_url, email,password) values('webserver2', 'honggildong',  NULL, 'test2@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+insert into user (major, name, profile_url,  email,password) values('webserver3', 'hwangjungmin', NULL, 'test3@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+insert into user (major, name,  profile_url, email,password) values('webserver4', 'hwangjungmin', NULL, 'test4@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+insert into user (major, name,  profile_url, email,password) values('webserver5', 'hjungmin',  NULL, 'test5@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+insert into user (major, name,  profile_url, email,password) values('webserver6', 'hngungmin', NULL, 'test6@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
 
 insert into lecture (lecture_id,  major_type, name, host_user_id, register_policy) values (null, 0, 'jagual',  1, 1);
 insert into lecture (lecture_id,  major_type, name, host_user_id, register_policy) values (null, 1, 'network',  2, 0);

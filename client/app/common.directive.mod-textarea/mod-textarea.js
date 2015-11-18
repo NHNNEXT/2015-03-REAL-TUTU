@@ -10,9 +10,6 @@ angular.module('clientApp').directive('modTextarea', function () {
     },
     /* @ngInject */
     controller: function ($scope, $sce) {
-      $scope.body = function () {
-        return $sce.trustAsHtml($scope.ngModel);
-      };
       $scope.save = function () {
         $scope.mod = false;
         if (typeof $scope.modSave !== "function")

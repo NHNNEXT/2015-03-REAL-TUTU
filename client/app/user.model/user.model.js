@@ -15,6 +15,8 @@ angular.module('clientApp')
       this.phoneNumber = obj.phoneNumber;
       this.major = obj.major;
       this.introduce = obj.introduce;
+      this.writeContents = obj.writeContents;
+      this.lectures = obj.lectures;
     };
 
     User.prototype.isRootUser = function () {

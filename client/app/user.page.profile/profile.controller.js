@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .controller('profileController', function ($scope, rootUser, $stateParams, alert, User) {
+  .controller('profileController', function ($scope, rootUser, $stateParams, alert, User, $state) {
 
     $scope.uploadCallback = uploadCallback;
 
@@ -19,6 +19,7 @@ angular.module('clientApp')
         return;
       User.findById(id).then(function (user) {
         $scope.user = user;
+        $state.current.header = user.name;
       });
     });
   });

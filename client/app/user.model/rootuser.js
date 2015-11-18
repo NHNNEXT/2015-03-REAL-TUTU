@@ -110,7 +110,7 @@ angular.module('clientApp')
     };
 
     function getSessionUser() {
-      return http.get('/api/v1/user').then(function (result) {
+      return http.get('/api/v1/user/session').then(function (result) {
         self.setProperties(result);
       });
     }

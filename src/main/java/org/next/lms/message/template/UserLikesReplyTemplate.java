@@ -28,7 +28,7 @@ public class UserLikesReplyTemplate implements MessageTemplate {
     }
 
     public String getMessageString() {
-        if (size > 1)
+        if (size > 3)
             return String.format(single, user.getName());
 
         return String.format(multi, user.getName(), size - 1);
