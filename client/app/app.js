@@ -16,10 +16,12 @@
     'toastr',
     'scDateTime',
     'anim-in-out'
-  ]).run(function ($rootScope, $state) {
+    /* @ngInject */
+  ]).run(function ($rootScope, $state, history, $location) {
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState) {
         $state.current = toState;
+        history.pushIfNotExist($location.path());
       }
     );
     $rootScope.$on('$stateChangeStart', function (event, toState) {
@@ -32,6 +34,7 @@
           $state.go(redirect);
       }
     });
+    /* @ngInject */
   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider, $mdThemingProvider) {
     $locationProvider.html5Mode({
       enabled: true,

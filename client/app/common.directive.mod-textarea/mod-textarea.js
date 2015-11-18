@@ -9,7 +9,7 @@ angular.module('clientApp').directive('modTextarea', function () {
       modSave: '='
     },
     /* @ngInject */
-    controller: function ($scope, $sce) {
+    controller: function ($scope) {
       $scope.save = function () {
         $scope.mod = false;
         if (typeof $scope.modSave !== "function")

@@ -9,12 +9,12 @@
   <link rel="icon" href="/favicon.ico"/>
   <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css" />
+  <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -97,7 +97,8 @@
         <span ng-show="open">
           <li ui-sref="mylectures" class="child">전체 목록</li>
           <md-divider></md-divider>
-          <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child" ui-sref="lecture({id:lecture.id})">
+          <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
+              ui-sref="lecture({id:lecture.id})">
             {{lecture.name}}
           </li>
           <md-divider ng-show="lectures.length>0"></md-divider>
@@ -124,10 +125,21 @@
       <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
         <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
       </md-button>
-      <h2>
-        <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
-      </h2>
-      <span flex></span>
+      <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
+      <md-menu md-position-mode="target-right target">
+        <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+          <md-icon md-menu-origin md-svg-icon="/resource/icon/nav_before.svg"></md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item ng-repeat="state in history | limitTo : 10">
+            <md-button>
+              <div layout="row">
+                <p flex ng-click="go(state)">{{state}}</p>
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
   </md-toolbar>
   <md-content md-scroll-y ui-view>
@@ -191,6 +203,7 @@
 <script src="/common.service/alert.js"></script>
 <script src="/common.service/confirm.js"></script>
 <script src="/common.service/dialog.js"></script>
+<script src="/common.service/history.js"></script>
 <script src="/common.service/http.js"></script>
 <script src="/common.service/httpInterceptor.js"></script>
 <script src="/common.service/page.js"></script>
