@@ -9,7 +9,6 @@
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'ui.bootstrap',
     'md.data.table',
     'datePicker',
     'ngFileUpload',

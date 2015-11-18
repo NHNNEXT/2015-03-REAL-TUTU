@@ -1,9 +1,0 @@
-<div ng-class="dropClass||'btn btn-default dropdown-toggle'" data-toggle="dropdown">
-  {{names[ngModel]||ngModel||placeholder||"전체"}}
-  <span class="caret"></span>
-</div>
-<ul class="dropdown-menu">
-  <li ng-click="setSelected()"><a>{{placeholder||"전체"}}</a></li>
-  <li class="divider"></li>
-  <li ng-repeat="option in options" ng-click="setSelected(option)"><a>{{names[option] || option}}</a></li>
-</ul>
