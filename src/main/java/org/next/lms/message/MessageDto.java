@@ -18,7 +18,7 @@ public class MessageDto {
     public MessageDto(Message message) {
         this.id = message.getId();
         this.message = message.getMessage();
-        this.read = message.getRead();
+        this.read = message.getChecked();
         this.type = message.getType();
         this.date = message.getDate();
         this.url = message.getUrl();

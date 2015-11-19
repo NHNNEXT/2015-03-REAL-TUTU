@@ -12,7 +12,7 @@ insert into user_group_can_read_content(id, content_type_id, user_group_id) valu
 
 insert into user_group_can_write_content(id, content_type_id, user_group_id) values(1, 1, 1),(2, 2, 1),(3, 3, 1),(4, 4, 1),(5, 3, 2),(6, 4, 2);
 
-insert into message(message_id, date, message, read, type, type_id, url, user_id) values(1, null, null, null, null, null, null, 1),(2, null, null, null, null, null, null, null),(3, null, null, null, null, null, null, null);
+insert into message(message_id, date, message, checked, type, type_id, url, user_id) values(1, null, null, false, null, null, null, 1),(2, null, null, false, null, null, null, null),(3, null, null, null, null, null, null, null);
 
 insert into content(content_id, body, end_time, hits, start_time, title, write_date, lecture_id, content_type, user_id) values (1, '<p>\ub0b4\uc6a9\uc774\uc788\uc5b4\uc57c\uc81c</p>', timestamp '2015-11-11 14:23:14.0', 5, timestamp '2015-11-01 15:24:14.0', '\uc54c\uace0\ub9ac\uc9982', timestamp '2015-11-19 15:24:34.601', 1, 1, 1),(2, null, timestamp '2015-11-04 16:24:58.867', null, timestamp '2015-11-04 14:24:58.867', '\uac00\ub098\ub2e4', timestamp '2015-11-19 15:25:20.642', 1, 1, 1),(3, null, timestamp '2015-11-11 16:24:58.867', null, timestamp '2015-11-11 14:24:58.867', '\uac00\ub098\ub2e4', timestamp '2015-11-19 15:25:20.647', 1, 1, 1),(4, null, timestamp '2015-11-18 16:24:58.867', null, timestamp '2015-11-18 14:24:58.867', '\uac00\ub098\ub2e4', timestamp '2015-11-19 15:25:20.654', 1, 1, 1),(5, null, timestamp '2015-11-25 16:24:58.867', null, timestamp '2015-11-25 14:24:58.867', '\uac00\ub098\ub2e4', timestamp '2015-11-19 15:25:20.661', 1, 1, 1);
 

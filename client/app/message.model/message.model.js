@@ -6,7 +6,7 @@ angular.module('clientApp').factory('Message',
         return;
       this.id = obj.id;
       this.message = obj.message;
-      this.read = obj.read;
+      this.checked = obj.checked;
       this.type = obj.type;
       this.date = new Date(obj.date);
       this.url = obj.url;

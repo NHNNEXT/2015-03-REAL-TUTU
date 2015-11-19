@@ -45,7 +45,7 @@ public class UserLikesContentTemplate implements MessageTemplate {
         message.setMessage(getMessageString());
         message.setUrl(getUrl());
         message.setDate(new Date());
-        message.setRead(false);
+        message.setChecked(false);
         return message;
     }
 }

@@ -39,8 +39,8 @@ public class Message {
     @Column(name = "URL")
     private String url;
 
-    @Column(name = "READ")
-    private Boolean read;
+    @Column(name = "CHECKED", nullable = false, columnDefinition = "boolean default false")
+    private Boolean checked = false;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE")

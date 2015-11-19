@@ -32,7 +32,7 @@ public class UserDto {
         this.major = user.getMajor();
         this.lectures = user.getEnrolledLectures().stream().map(LectureSummaryDto::new).collect(Collectors.toList());
         this.news = user.getMessages().stream().filter(
-                message -> message.getRead() == null || !message.getRead()
+                message -> !message.getChecked()
         ).findAny().isPresent();
     }
 

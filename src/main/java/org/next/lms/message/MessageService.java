@@ -42,7 +42,7 @@ public class MessageService {
             return new JsonView(ResponseCode.WRONG_ACCESS);
         if (!message.getUser().getId().equals(sessionUtil.getId(session)))
             return new JsonView(ResponseCode.WRONG_ACCESS);
-        message.setRead(true);
+        message.setChecked(true);
         messageRepository.save(message);
         return new JsonView(ResponseCode.SUCCESS);
     }
