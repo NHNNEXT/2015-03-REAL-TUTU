@@ -29,7 +29,7 @@ public class Message {
     @Column(name = "MESSAGE")
     private String message;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "TYPE")
     private MessageType type;
 
