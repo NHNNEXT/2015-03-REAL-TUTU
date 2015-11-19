@@ -8,9 +8,7 @@
       </div>
     </div>
     <div layout="column" flex>
-      <h2>
-        <mod-input ng-model="user.name" mod-right="user.isRootUser()" placeholder="이름" mod-save="update"></mod-input>
-      </h2>
+      <mod-input tag="h2" ng-model="user.name" mod-right="user.isRootUser()" placeholder="이름" mod-save="update"></mod-input>
       <p>
         <mod-textarea ng-model="user.introduce" mod-right="user.isRootUser()" placeholder="소개말"
                       mod-save="update"></mod-textarea>

@@ -5,7 +5,8 @@ angular.module('clientApp')
     $scope.uploadCallback = uploadCallback;
 
     function uploadCallback(resp) {
-      $scope.user.profileUrl = "/uploads/" + resp.data.result;
+      $scope.user.profileUrl = resp.data.link;
+      $scope.update();
     }
 
     $scope.update = function () {

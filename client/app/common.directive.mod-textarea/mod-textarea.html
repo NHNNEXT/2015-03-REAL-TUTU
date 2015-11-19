@@ -7,12 +7,11 @@
       <md-input-container flex>
         <label>{{placeholder}}</label>
         <textarea ng-model="ngModel" md-maxlength="150"></textarea>
-        <md-button class="md-icon-button" aria-label="done button">
-          <md-icon>
-            <i class="input-group-addon fa fa-2x fa-check" ng-click="save()"></i>
-          </md-icon>
-        </md-button>
       </md-input-container>
+      <md-button class="md-icon-button" aria-label="done button">
+        <md-icon md-svg-icon="/resource/icon/done.svg" ng-click="save()">
+        </md-icon>
+      </md-button>
     </div>
 </span>
 

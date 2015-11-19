@@ -1,8 +1,9 @@
-<img ng-show="!uploading" ngf-select ng-model="file" ngf-drop accept="image/*"
-     ngf-max-size="2MB" ng-src="{{ngModel||default}}">
+<div ng-show="!uploading" class="upload" ngf-select ng-model="file" ngf-drop accept="image/*"
+     ngf-max-size="2MB">
+<img ng-src="{{ngModel||default}}">
+<span>클릭 또는 드래그</span>
+</div>
 <img ng-show="uploading" ngf-src="file">
-<div ng-show="uploading" class="progress" ng-style="{opacity: progress/100}">
-  <div class="progress-bar" ng-style="{width: progress+'%'}">
-    <span class="sr-only">{{progress}}% Complete</span>
-  </div>
+<div ng-show="uploading" class="progress">
+  <md-progress-circular md-mode="determinate" value="progress"></md-progress-circular>
 </div>

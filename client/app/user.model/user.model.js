@@ -16,6 +16,15 @@ angular.module('clientApp')
       this.major = obj.major;
       this.introduce = obj.introduce;
       this.writeContents = obj.writeContents;
+      if (this.writeContents)
+        this.writeContents.forEach(function (each) {
+          if (each.writeDate !== undefined)
+            each.writeDate = new Date(each.writeDate);
+          if (each.startTime !== undefined)
+            each.startTime = new Date(each.startTime);
+          if (each.endTime !== undefined)
+            each.endTime = new Date(each.endTime);
+        });
       this.lectures = obj.lectures;
     };
 
