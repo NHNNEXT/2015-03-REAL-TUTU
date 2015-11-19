@@ -1,57 +1,21 @@
-insert into user (major, name,  profile_url, email,password) values('webserver1', 'hong',  NULL, 'test1@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name,  profile_url, email,password) values('webserver2', 'honggildong',  NULL, 'test2@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name, profile_url,  email,password) values('webserver3', 'hwangjungmin', NULL, 'test3@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name,  profile_url, email,password) values('webserver4', 'hwangjungmin', NULL, 'test4@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name,  profile_url, email,password) values('webserver5', 'hjungmin',  NULL, 'test5@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
-insert into user (major, name,  profile_url, email,password) values('webserver6', 'hngungmin', NULL, 'test6@test.com', '$2a$10$60D23xM6IX1LfL0rR0oVzOK0MdWPnxJjPV8UJMuAjX5e.zgpaYzPa');
+INSERT INTO PUBLIC.USER(USER_ID, EMAIL, INTRODUCE, MAJOR, NAME, PASSWORD, PROFILE_URL, STATE) VALUES (1, 'test1@test.com', NULL, NULL, STRINGDECODE('\uad501'), '$2a$10$9cbNBv55q2XuwkJrJKj/Q.OVkslkCeyZ9.W.WjX42XO/E42NCoiC.', NULL, NULL), (2, 'test2@test.com', NULL, NULL, STRINGDECODE('\ud5592'), '$2a$10$goiAscg/LGg.f48SyXMOGugdcyyDym1ZQdNDi3pktc7jk.i8LLgSe', NULL, NULL);
 
-insert into lecture (lecture_id,  major_type, name, host_user_id, register_policy) values (null, 0, 'jagual',  1, 1);
-insert into lecture (lecture_id,  major_type, name, host_user_id, register_policy) values (null, 1, 'network',  2, 0);
-insert into lecture (lecture_id,  major_type, name, host_user_id, register_policy) values (null, 2, 'real',  3, 1);
-insert into lecture (lecture_id,  major_type, name, host_user_id, register_policy) values (null, 0, 'abcd',  3, 0);
+INSERT INTO PUBLIC.LECTURE(LECTURE_ID, MAJOR_TYPE, NAME, REGISTER_POLICY, HOST_USER_ID) VALUES (1, 1, STRINGDECODE('\uc790\ub8cc\uad6c\uc870'), 1, 1);
 
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (true,'sub', 1);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (false,'stu', 1);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (true,'sub', 2);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (false,'stu', 2);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (true,'sub', 3);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (false,'stu', 3);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (true,'sub', 4);
-insert into user_group (DEFAULT_GROUP, NAME, 	LECTURE_ID) values (false,'stu', 4);
+INSERT INTO PUBLIC.USER_ENROLLED_LECTURE(USER_ENROLLED_LECTURE_ID, APPROVAL_STATE, SIDE_MENU, LECTURE_ID, USER_ID, USER_GROUP_ID) VALUES (1, NULL, TRUE, 1, 1, NULL), (2, 0, TRUE, 1, 2, NULL);
 
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, true, '수업', false, true, false, 1);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (false, false, '강의자료', false, false, false, 1);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, false, '과제', false, false, false, 1);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, true, '수업', false, true, false, 2);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (false, false, '강의자료', false, false, false, 2);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, false, '과제', false, false, false, 2);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, true, '수업', false, true, false, 3);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (false, false, '강의자료', false, false, false, 3);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, false, '과제', false, false, false, 3);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, true, '수업', false, true, false, 4);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (false, false, '강의자료', false, false, false, 4);
-insert into content_type (END_TIME,  	EXTEND_WRITE,  	NAME,  	ONLY_WRITER,  	START_TIME,  	STATISTIC,  	LECTURE_ID) values (true, false, '과제', false, false, false, 4);
+INSERT INTO PUBLIC.USER_GROUP(ID, DEFAULT_GROUP, NAME, LECTURE_ID) VALUES(1, FALSE, STRINGDECODE('\uc870\uad50'), 1),(2, TRUE, STRINGDECODE('\uc218\uac15\uc0dd'), 1);
 
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 1,1, 0);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 2,1, 1);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 3,1, 0);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 4,1, 1);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 1,2, 0);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 3,2, 1);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 4,2, 0);
-insert into user_enrolled_lecture (user_enrolled_lecture_id, lecture_id, user_id, approval_state) values (null, 4,3, 1);
+INSERT INTO PUBLIC.CONTENT_TYPE(ID, END_TIME, EXTEND_WRITE, NAME, ONLY_WRITER, START_TIME, STATISTIC, LECTURE_ID) VALUES(1, TRUE, TRUE, STRINGDECODE('\uc218\uc5c5'), NULL, TRUE, NULL, 1),(2, NULL, NULL, STRINGDECODE('\uac15\uc758\uc790\ub8cc'), NULL, NULL, NULL, 1),(3, NULL, NULL, STRINGDECODE('\uc9c8\ubb38'), NULL, NULL, NULL, 1),(4, TRUE, NULL, STRINGDECODE('\uacfc\uc81c'), TRUE, NULL, TRUE, 1);
 
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 1, 1, 0);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 1, 1, 1);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 1, 1, 2);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 1, 2, 0);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 1, 2, 1);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 1, 2, 0);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 2, 1, 0);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 2, 1, 1);
-insert into content (content_id, hits, body, end_time, title, write_date, lecture_id, user_id, type) values (null,0, 'test', '2015-11-15', 'title', '2015-10-11', 2, 1, 0);
+INSERT INTO PUBLIC.USER_GROUP_CAN_READ_CONTENT(ID, CONTENT_TYPE_ID, USER_GROUP_ID) VALUES(1, 1, 1),(2, 2, 1),(3, 3, 1),(4, 4, 1),(5, 1, 2),(6, 2, 2),(7, 3, 2),(8, 4, 2);
 
-insert into message (message,  user_id, url, read) values('test',1, '/content/1', 'true');
-insert into message (message,  user_id, url, read) values('test',1, '/content/1', 'true');
-insert into message (message,  user_id, url, read) values('test',1, '/content/1', 'true');
-insert into message (message,  user_id, url, read) values('test',1, '/content/1', 'false');
+INSERT INTO PUBLIC.USER_GROUP_CAN_WRITE_CONTENT(ID, CONTENT_TYPE_ID, USER_GROUP_ID) VALUES(1, 1, 1),(2, 2, 1),(3, 3, 1),(4, 4, 1),(5, 3, 2),(6, 4, 2);
+
+INSERT INTO PUBLIC.MESSAGE(MESSAGE_ID, DATE, MESSAGE, READ, TYPE, TYPE_ID, URL, USER_ID) VALUES(1, NULL, NULL, NULL, NULL, NULL, NULL, 1),(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+INSERT INTO PUBLIC.CONTENT(CONTENT_ID, BODY, END_TIME, HITS, START_TIME, TITLE, WRITE_DATE, LECTURE_ID, CONTENT_TYPE, USER_ID) VALUES (1, STRINGDECODE('<p>\ub0b4\uc6a9\uc774\uc788\uc5b4\uc57c\uc81c</p>'), TIMESTAMP '2015-11-11 14:23:14.0', 5, TIMESTAMP '2015-11-01 15:24:14.0', STRINGDECODE('\uc54c\uace0\ub9ac\uc9982'), TIMESTAMP '2015-11-19 15:24:34.601', 1, 1, 1),(2, NULL, TIMESTAMP '2015-11-04 16:24:58.867', NULL, TIMESTAMP '2015-11-04 14:24:58.867', STRINGDECODE('\uac00\ub098\ub2e4'), TIMESTAMP '2015-11-19 15:25:20.642', 1, 1, 1),(3, NULL, TIMESTAMP '2015-11-11 16:24:58.867', NULL, TIMESTAMP '2015-11-11 14:24:58.867', STRINGDECODE('\uac00\ub098\ub2e4'), TIMESTAMP '2015-11-19 15:25:20.647', 1, 1, 1),(4, NULL, TIMESTAMP '2015-11-18 16:24:58.867', NULL, TIMESTAMP '2015-11-18 14:24:58.867', STRINGDECODE('\uac00\ub098\ub2e4'), TIMESTAMP '2015-11-19 15:25:20.654', 1, 1, 1),(5, NULL, TIMESTAMP '2015-11-25 16:24:58.867', NULL, TIMESTAMP '2015-11-25 14:24:58.867', STRINGDECODE('\uac00\ub098\ub2e4'), TIMESTAMP '2015-11-19 15:25:20.661', 1, 1, 1);
+
+INSERT INTO PUBLIC.REPLY(REPLY_ID, BODY, WRITE_DATE, CONTENT_ID, WRITER_ID) VALUES(1, STRINGDECODE('\ud6c4\ud6d7'), TIMESTAMP '2015-11-19 15:27:06.497', 5, 1);
+
+INSERT INTO PUBLIC.USER_LIKES_REPLY(ID, REPLY_ID, USER_ID) VALUES(1, 1, 1);

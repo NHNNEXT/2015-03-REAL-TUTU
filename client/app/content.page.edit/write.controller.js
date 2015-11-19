@@ -10,17 +10,19 @@ angular.module('clientApp').controller('contentWriteController',
       $scope.content = new Content();
       if (id === undefined)
         return;
-      Lecture.findById($stateParams.lectureId).then(function (lecture) {
+      Lecture.findLectureTypeById($stateParams.lectureId).then(function (lecture) {
         $scope.contentTypes = lecture.contentTypes;
         $scope.content.lectureId = lecture.id;
         $state.current.header = lecture.name;
       });
     });
 
-    $scope.$watch('content.type', function (type) {
+    $scope.$watch('key', function (key) {
       if (!$scope.contentTypes)
         return;
-      if ($scope.contentTypes[type].startTime)
+      $scope.contentType = $scope.contentTypes[key];
+      $scope.content.type = $scope.contentType.id;
+      if ($scope.contentType.startTime)
         $scope.placeholder = "끝";
       else
         $scope.placeholder = "마감";
@@ -29,7 +31,7 @@ angular.module('clientApp').controller('contentWriteController',
     $scope.edit = function (content) {
       if ($scope.extendWrite) {
         var result = [];
-        $scope.times.forEach(function(time){
+        $scope.times.forEach(function (time) {
           var content = new Content($scope.content);
           content.startTime = time.startTime;
           content.endTime = time.endTime;
@@ -38,8 +40,8 @@ angular.module('clientApp').controller('contentWriteController',
         var query = {};
         query.contents = result;
         query.lectureId = $stateParams.lectureId;
-        http.post('/api/v1/content/list', query, true).then(function(){
-          $state.go('lecture', {id:$stateParams.lectureId});
+        http.post('/api/v1/content/list', query, true).then(function () {
+          $state.go('lecture', {id: $stateParams.lectureId});
         });
         return;
       }

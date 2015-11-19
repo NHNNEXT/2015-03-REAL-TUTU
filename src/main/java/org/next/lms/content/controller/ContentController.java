@@ -3,6 +3,7 @@ package org.next.lms.content.controller;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.content.Content;
+import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.content.dto.Contents;
 import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.controller.LectureController;
@@ -48,7 +49,7 @@ public class ContentController {
 
     //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView save(Content content, Long lectureId, HttpSession session) {
+    public JsonView save(ContentParameterDto content, Long lectureId, HttpSession session) {
         return contentService.save(content, session, lectureId);
     }
 

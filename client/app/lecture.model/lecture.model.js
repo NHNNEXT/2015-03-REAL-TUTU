@@ -18,16 +18,6 @@ angular.module('clientApp')
       }
     }
 
-
-    Lecture.findById = function (id) {
-      return $q(function (resolve) {
-        http.get('/api/v1/lecture', {id: id}).then(function (result) {
-          resolve(new Lecture(result));
-        });
-      });
-    };
-
-
     Lecture.prototype.defaultGroupSelect = function (index, select) {
       this.userGroups.forEach(function (userGroup, i) {
         if (i === index) {
@@ -139,6 +129,23 @@ angular.module('clientApp')
             result.push(new Lecture(each));
           });
           resolve(result);
+        });
+      });
+    };
+
+
+    Lecture.findById = function (id) {
+      return $q(function (resolve) {
+        http.get('/api/v1/lecture', {id: id}).then(function (result) {
+          resolve(new Lecture(result));
+        });
+      });
+    };
+
+    Lecture.findLectureTypeById = function (id) {
+      return $q(function (resolve) {
+        http.get('/api/v1/lecture/type', {id: id}).then(function (result) {
+          resolve(new Lecture(result));
         });
       });
     };

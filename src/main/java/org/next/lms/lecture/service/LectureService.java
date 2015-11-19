@@ -7,6 +7,7 @@ import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
 import org.next.lms.lecture.auth.RegisterPolicy;
 import org.next.lms.lecture.dto.LectureSummaryDto;
+import org.next.lms.lecture.dto.LectureTypeDto;
 import org.next.lms.lecture.dto.UserGroupDto;
 import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
@@ -92,6 +93,11 @@ public class LectureService {
         return new LectureDto(lecture, lecture.getHostUser().equals(user));
     }
 
+    public LectureTypeDto getTypeById(Long lectureId) {
+        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
+        return new LectureTypeDto(lecture);
+    }
+
 
 
     public List<LectureSummaryDto> getList() {
@@ -145,6 +151,7 @@ public class LectureService {
         UserEnrolledLecture relation = new UserEnrolledLecture();
         relation.setLecture(lecture);
         relation.setUser(user);
+        userEnrolledLectureRepository.save(relation);
         return relation;
     }
 

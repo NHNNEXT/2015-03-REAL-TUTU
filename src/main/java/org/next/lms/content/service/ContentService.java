@@ -3,8 +3,10 @@ package org.next.lms.content.service;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
+import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.content.dto.Contents;
 import org.next.lms.lecture.UserEnrolledLecture;
+import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.message.MessageService;
 import org.next.lms.message.template.newContentMessageTemplate;
 import org.next.lms.user.User;
@@ -49,6 +51,9 @@ public class ContentService {
     @Autowired
     MessageService messageService;
 
+    @Autowired
+    ContentTypeRepository contentTypeRepository;
+
     public ContentDto getDtoById(Long id) {
         Content content = assureNotNull(contentRepository.findOne(id));
         content.hits();
@@ -56,9 +61,11 @@ public class ContentService {
         return new ContentDto(content);
     }
 
-    public JsonView save(Content content, HttpSession session, Long lectureId) {
+    public JsonView save(ContentParameterDto contentParameterDto, HttpSession session, Long lectureId) {
         if (lectureId == null)
             return new JsonView(ResponseCode.WRONG_ACCESS);
+
+        Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
 
         User user = sessionUtil.getLoggedUser((session));
         Lecture lecture = lectureRepository.findOne(lectureId);
@@ -76,8 +83,8 @@ public class ContentService {
     public JsonView update(Content content, HttpSession session) {
         User user = sessionUtil.getLoggedUser((session));
         Content fromDB = contentRepository.findOne(content.getId());
-        contentAuthority.checkUpdateRight(fromDB, user);
         fromDB.update(content);
+        contentAuthority.checkUpdateRight(fromDB, user);
         contentRepository.save(fromDB);
         return successJsonResponse();
     }
@@ -100,7 +107,8 @@ public class ContentService {
         User user = sessionUtil.getLoggedUser((session));
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
         lectureAuthority.checkUpdateRight(lecture, user);
-        contents.getContents().forEach(content->{
+        contents.getContents().forEach(contentParameterDto->{
+            Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
             content.setWriter(user);
             content.setWriteDate(new Date());
             content.setLecture(lecture);

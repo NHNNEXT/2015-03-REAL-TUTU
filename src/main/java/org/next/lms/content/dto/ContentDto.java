@@ -3,6 +3,7 @@ package org.next.lms.content.dto;
 import lombok.Getter;
 import org.next.lms.content.Content;
 import org.next.lms.lecture.dto.ContentTypeDto;
+import org.next.lms.like.UserLikesContent;
 import org.next.lms.reply.dto.ReplyDto;
 import org.next.lms.user.dto.UserSummaryDto;
 
@@ -24,9 +25,9 @@ public class ContentDto {
         this.writeDate = content.getWriteDate();
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
-        this.type = new ContentTypeDto(content.getLecture().getContentTypes().get(content.getType()));
+        this.type = new ContentTypeDto(content.getType());
         this.hits = content.getHits();
-        this.likes = content.getLikes().stream().map(like -> like.getId()).collect(Collectors.toList());
+        this.likes = content.getLikes().stream().map(UserLikesContent::getId).collect(Collectors.toList());
     }
     private List<Long> likes;
     private String lectureName;

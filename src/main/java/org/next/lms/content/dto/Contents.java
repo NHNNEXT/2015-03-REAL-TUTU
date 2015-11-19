@@ -9,6 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Contents {
-    private List<Content> contents;
+    private List<ContentParameterDto> contents;
     private Long lectureId;
 }

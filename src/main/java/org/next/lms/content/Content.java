@@ -2,6 +2,7 @@ package org.next.lms.content;
 
 import lombok.*;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.reply.Reply;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.like.UserLikesContent;
@@ -14,9 +15,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "likes", "replies", "writer", "lecture"})
+@ToString(exclude = {"attachment", "likes", "replies", "writer", "lecture", "type"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "likes", "replies", "writer", "lecture"})
+@EqualsAndHashCode(exclude = {"attachment", "likes", "replies", "writer", "lecture", "type"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {
@@ -35,6 +36,10 @@ public class Content {
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CONTENT_TYPE")
+    private ContentType type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
 
@@ -49,8 +54,6 @@ public class Content {
     @Column(name = "hits")
     private Long hits;
 
-    @Column(name = "TYPE")
-    private Integer type;
 
     @Lob
     @Column(name = "BODY")
@@ -67,6 +70,17 @@ public class Content {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "END_TIME")
     private Date endTime;
+
+    public Content(ContentParameterDto contentParameterDto, ContentType type) {
+        this.lecture = contentParameterDto.getLecture();
+        this.id = contentParameterDto.getId();
+        this.title = contentParameterDto.getTitle();
+        this.body = contentParameterDto.getBody();
+        this.writeDate = new Date();
+        this.startTime = contentParameterDto.getStartTime();
+        this.endTime = contentParameterDto.getEndTime();
+        this.type = type;
+    }
 
     public void update(Content content) {
         if (content.title != null)

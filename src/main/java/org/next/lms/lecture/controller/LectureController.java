@@ -71,4 +71,9 @@ public class LectureController {
     public JsonView userGroup(Long lectureId, Long groupId, Long userId, HttpSession session) {
         return lectureService.userGroupChange(lectureId, groupId, userId,  session);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/type")
+    public JsonView getLectureType(Long id, HttpSession session) {
+        return successJsonResponse(lectureService.getTypeById(id));
+    }
 }

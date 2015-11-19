@@ -37,8 +37,8 @@ public class UserGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "DEFAULT_GROUP")
-    private Boolean defaultGroup;
+    @Column(name = "DEFAULT_GROUP", nullable = false, columnDefinition = "boolean default false")
+    private Boolean defaultGroup = false;
 
     @Column(name = "NAME")
     private String name;

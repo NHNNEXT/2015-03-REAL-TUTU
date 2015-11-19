@@ -24,6 +24,9 @@ public class ContentType {
     @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
+    private List<Content> contents = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;

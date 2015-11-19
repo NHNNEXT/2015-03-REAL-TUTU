@@ -19,7 +19,8 @@ public class ContentSummaryDto {
         this.writeDate = content.getWriteDate();
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
-        this.type = new ContentTypeDto(content.getLecture().getContentTypes().get(content.getType()));
+        if (content.getType() != null)
+            this.type = new ContentTypeDto(content.getType());
         this.hits = content.getHits();
         this.body = content.getBody();
         if (this.body != null && this.body.length() > 100)
