@@ -1,6 +1,6 @@
 #!/bin/sh
 SERVICE_NAME=lms
-PATH_TO_JAR=target/next-lms.jar
+PATH_TO_JAR=/root/2015-03-REAL-TUTU/target/next-lms.jar
 PID_PATH_NAME=/tmp/lms-pid
 case $1 in
     start)
