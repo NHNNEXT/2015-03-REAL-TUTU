@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ContentAuth extends Auth {
     public void checkUpdateRight(Content fromDB, User user) {
-        rightCheck(fromDB.getWriter().equals(user));
+        rightCheck(user.equals(fromDB.getWriter()));
     }
 
     public void checkDeleteRight(Content content, User user) {
-        rightCheck((content.getWriter().equals(user)));
+        rightCheck(user.equals(content.getWriter()));
     }
 
 }

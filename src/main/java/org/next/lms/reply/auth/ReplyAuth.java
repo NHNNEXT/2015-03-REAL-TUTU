@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReplyAuth extends Auth {
     public void checkUpdateRight(Reply fromDB, User user) {
-        rightCheck(fromDB.getWriter().getId().equals(user.getId()));
+        rightCheck(user.equals(fromDB.getWriter()));
     }
 
     public void checkDeleteRight(Reply fromDB, User user) {
-        rightCheck(fromDB.getWriter().getId().equals(user.getId()));
+        rightCheck(user.equals(fromDB.getWriter()));
     }
 }

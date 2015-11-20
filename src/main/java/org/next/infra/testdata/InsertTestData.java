@@ -2,7 +2,14 @@ package org.next.infra.testdata;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
+import org.next.infra.repository.ContentRepository;
+import org.next.infra.repository.LectureRepository;
+import org.next.lms.content.Content;
+import org.next.lms.content.dto.ContentParameterDto;
+import org.next.lms.content.dto.Contents;
+import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.Lecture;
+import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.service.LectureService;
 import org.next.lms.user.User;
 import org.next.lms.user.repository.UserRepository;
@@ -31,35 +38,52 @@ public class InsertTestData {
     @Autowired
     LectureService lectureService;
 
+    @Autowired
+    ContentService contentService;
+
+    @Autowired
+    LectureRepository lectureRepository;
+
+    @Autowired
+    ContentRepository contentRepository;
+
+    @Autowired
+    ContentTypeRepository contentTypeRepository;
+
     @Value("classpath:testdata/lectures.json")
     private Resource lectures;
 
     @Value("classpath:testdata/users.json")
     private Resource users;
 
+    @Value("classpath:testdata/contents.json")
+    private Resource contents;
+
     private ObjectMapper mapper;
 
     @PostConstruct
     public void insertData() throws IOException {
         mapper = new ObjectMapper();
-        int size = saveUsers();
-        saveLectures(size);
-    }
 
-    private int saveUsers() throws IOException {
+        // 유저
         List<User> users = mapper.readValue(toString(this.users), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
-        int size = users.size();
         users.forEach(userService::register);
-        return size;
-    }
 
-    private void saveLectures(int size) throws IOException {
-        List<User> users = userRepository.findAll();
+        // 수업
         List<Lecture> lectures = mapper.readValue(toString(this.lectures), mapper.getTypeFactory().constructCollectionType(List.class, Lecture.class));
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
             lecture.getContentTypes().forEach(contentType -> contentType.setLecture(lecture));
             lectureService.save(lecture, users.get(random(users.size() - 1)));
+        });
+
+        // 컨텐츠
+        List<ContentParameterDto> contentParameterDtoList = mapper.readValue(toString(this.contents), mapper.getTypeFactory().constructCollectionType(List.class, ContentParameterDto.class));
+        contentParameterDtoList.forEach(contentParameterDto -> {
+            Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
+            content.setLecture(lectures.get(0));
+            content.setWriter(users.get(0));
+            contentRepository.save(content);
         });
     }
 

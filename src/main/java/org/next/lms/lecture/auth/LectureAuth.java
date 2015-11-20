@@ -14,18 +14,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class LectureAuth extends Auth {
     public void checkUpdateRight(Lecture lecture, User user) {
-        rightCheck(lecture.getHostUser().equals(user));
+        rightCheck(user.equals(lecture.getHostUser()));
     }
 
     public void checkDeleteRight(User user, Lecture lecture) {
-        rightCheck(lecture.getHostUser().equals(user));
+        rightCheck(user.equals(lecture.getHostUser()));
     }
 
     public void checkApprovalRight(User user, Lecture lecture) {
-        rightCheck(lecture.getHostUser().equals(user));
+        rightCheck(user.equals(lecture.getHostUser()));
     }
 
     public void checkGroupChangeRight(User user, Lecture lecture) {
-        rightCheck(lecture.getHostUser().equals(user));
+        rightCheck(user.equals(lecture.getHostUser()));
     }
 }
