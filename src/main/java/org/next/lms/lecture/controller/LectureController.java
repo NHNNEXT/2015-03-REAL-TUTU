@@ -3,6 +3,8 @@ package org.next.lms.lecture.controller;
 import org.next.infra.view.JsonView;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.service.LectureService;
+import org.next.lms.user.User;
+import org.next.lms.user.inject.Logged;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,54 +28,54 @@ public class LectureController {
     private LectureService lectureService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getLectureInfo(Long id, HttpSession session) {
+    public JsonView getLectureInfo(Long id, @Logged User user) {
         if (id == null)
             return successJsonResponse(lectureService.getList());
-        return successJsonResponse(lectureService.getById(id, session));
+        return successJsonResponse(lectureService.getById(id, user));
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView save(@RequestBody Lecture lecture, HttpSession session) {
-        return lectureService.save(lecture, session);
+    public JsonView save(@RequestBody Lecture lecture, @Logged User user) {
+        return lectureService.save(lecture, user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView update(@RequestBody Lecture lecture, HttpSession session) {
-        return lectureService.update(lecture, session);
+    public JsonView update(@RequestBody Lecture lecture, @Logged User user) {
+        return lectureService.update(lecture, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonView deleteLecture(Long id, HttpSession session) {
-        return lectureService.delete(id, session);
+    public JsonView deleteLecture(Long id, @Logged User user) {
+        return lectureService.delete(id, user);
     }
 
     @RequestMapping(value = "/enroll", method = RequestMethod.POST)
-    public JsonView enroll(Long id, HttpSession session) {
-        return lectureService.enroll(id, session);
+    public JsonView enroll(Long id, @Logged User user) {
+        return lectureService.enroll(id, user);
     }
 
     @RequestMapping(value = "/sideMenu", method = RequestMethod.POST)
-    public JsonView sideMenuToggle(Long lectureId, HttpSession session) {
-        return lectureService.sideMenuToggle(lectureId, session);
+    public JsonView sideMenuToggle(Long lectureId, @Logged User user) {
+        return lectureService.sideMenuToggle(lectureId, user);
     }
 
     @RequestMapping(value = "/approval", method = RequestMethod.POST)
-    public JsonView approval(Long id, Long userId, HttpSession session) {
-        return lectureService.approval(id, userId, session);
+    public JsonView approval(Long id, Long userId, @Logged User user) {
+        return lectureService.approval(id, userId, user);
     }
 
     @RequestMapping(value = "/reject", method = RequestMethod.POST)
-    public JsonView reject(Long id, Long userId, HttpSession session) {
-        return lectureService.reject(id, userId, session);
+    public JsonView reject(Long id, Long userId, @Logged User user) {
+        return lectureService.reject(id, userId, user);
     }
 
     @RequestMapping(value = "/userGroup", method = RequestMethod.PUT)
-    public JsonView userGroup(Long lectureId, Long groupId, Long userId, HttpSession session) {
-        return lectureService.userGroupChange(lectureId, groupId, userId,  session);
+    public JsonView userGroup(Long lectureId, Long groupId, Long userId, @Logged User user) {
+        return lectureService.userGroupChange(lectureId, groupId, userId, user);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/type")
-    public JsonView getLectureType(Long id, HttpSession session) {
+    public JsonView getLectureType(Long id) {
         return successJsonResponse(lectureService.getTypeById(id));
     }
 }

@@ -2,6 +2,8 @@ package org.next.lms.message;
 
 
 import org.next.infra.view.JsonView;
+import org.next.lms.user.User;
+import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +21,13 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getList(HttpSession session, Integer page) {
-        return messageService.getList(session, page);
+    public JsonView getList(@Logged User user, Integer page) {
+        return messageService.getList(user, page);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView read(HttpSession session, Long id) {
-        return messageService.read(session, id);
+    public JsonView read(@Logged User user, Long id) {
+        return messageService.read(user, id);
     }
 
 }

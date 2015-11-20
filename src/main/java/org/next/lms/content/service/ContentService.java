@@ -1,7 +1,6 @@
 package org.next.lms.content.service;
 
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.content.dto.Contents;
@@ -18,6 +17,7 @@ import org.next.lms.lecture.Lecture;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.auth.ContentAuth;
+import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +46,6 @@ public class ContentService {
     LectureAuth lectureAuthority;
 
     @Autowired
-    private SessionUtil sessionUtil;
-
-    @Autowired
     MessageService messageService;
 
     @Autowired
@@ -61,13 +58,12 @@ public class ContentService {
         return new ContentDto(content);
     }
 
-    public JsonView save(ContentParameterDto contentParameterDto, HttpSession session, Long lectureId) {
+    public JsonView save(ContentParameterDto contentParameterDto, User user, Long lectureId) {
         if (lectureId == null)
             return new JsonView(ResponseCode.WRONG_ACCESS);
 
         Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
 
-        User user = sessionUtil.getLoggedUser((session));
         Lecture lecture = lectureRepository.findOne(lectureId);
         lectureAuthority.checkUpdateRight(lecture, user);
 
@@ -80,8 +76,7 @@ public class ContentService {
         return successJsonResponse(new ContentDto(content));
     }
 
-    public JsonView update(Content content, HttpSession session) {
-        User user = sessionUtil.getLoggedUser((session));
+    public JsonView update(Content content, User user) {
         Content fromDB = contentRepository.findOne(content.getId());
         fromDB.update(content);
         contentAuthority.checkUpdateRight(fromDB, user);
@@ -93,8 +88,7 @@ public class ContentService {
         return contentRepository.findAll().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
     }
 
-    public JsonView delete(Long id, HttpSession session) {
-        User user = sessionUtil.getLoggedUser((session));
+    public JsonView delete(Long id, User user) {
         Content content = assureNotNull(contentRepository.findOne(id));
         contentAuthority.checkDeleteRight(content, user);
         content.setDeleteState();
@@ -103,11 +97,10 @@ public class ContentService {
     }
 
 
-    public JsonView listSave(Contents contents, HttpSession session) {
-        User user = sessionUtil.getLoggedUser((session));
+    public JsonView listSave(Contents contents, User user) {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
         lectureAuthority.checkUpdateRight(lecture, user);
-        contents.getContents().forEach(contentParameterDto->{
+        contents.getContents().forEach(contentParameterDto -> {
             Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
             content.setWriter(user);
             content.setWriteDate(new Date());

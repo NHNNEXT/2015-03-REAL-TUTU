@@ -1,6 +1,5 @@
 package org.next.lms.like.controller;
 
-import org.next.infra.util.SessionUtil;
 import org.next.infra.repository.*;
 import org.next.infra.view.JsonView;
 import org.next.infra.reponse.ResponseCode;
@@ -14,6 +13,7 @@ import org.next.lms.like.UserLikesReply;
 import org.next.lms.like.repository.UserLikesContentRepository;
 import org.next.lms.like.repository.UserLikesLectureRepository;
 import org.next.lms.like.repository.UserLikesReplyRepository;
+import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,16 +45,12 @@ public class LikeController {
     LectureRepository lectureRepository;
 
     @Autowired
-    SessionUtil sessionUtil;
-
-    @Autowired
     MessageService messageService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView like(Integer type, Long id, HttpSession session) {
+    public JsonView like(Integer type, Long id, @Logged User user) {
         if (type == null || id == null)
             return new JsonView(ResponseCode.WRONG_ACCESS);
-        User user = sessionUtil.getLoggedUser(session);
 
         if (Objects.equals(type, ResponseCode.Like.CONTENT))
             return likeContent(id, user);

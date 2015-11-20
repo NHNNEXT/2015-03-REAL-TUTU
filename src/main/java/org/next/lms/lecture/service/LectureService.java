@@ -1,7 +1,6 @@
 package org.next.lms.lecture.service;
 
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
@@ -47,9 +46,6 @@ public class LectureService {
     private MessageService messageService;
 
     @Autowired
-    private SessionUtil sessionUtil;
-
-    @Autowired
     private LectureAuth lectureAuthority;
 
     @Autowired
@@ -65,8 +61,7 @@ public class LectureService {
     private UserGroupCanWriteContentRepository userGroupCanWriteContentRepository;
 
 
-    public JsonView save(Lecture lecture, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    public JsonView save(Lecture lecture, User user) {
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
         lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
@@ -74,8 +69,7 @@ public class LectureService {
         return successJsonResponse(lecture.getId());
     }
 
-    public JsonView update(Lecture lecture, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    public JsonView update(Lecture lecture, User user) {
         Lecture fromDB = lectureRepository.findOne(lecture.getId());
         lectureAuthority.checkUpdateRight(fromDB, user);
 
@@ -87,9 +81,8 @@ public class LectureService {
     }
 
 
-    public LectureDto getById(Long lectureId, HttpSession session) {
+    public LectureDto getById(Long lectureId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-        User user = sessionUtil.getUser(session);
         return new LectureDto(lecture, lecture.getHostUser().equals(user));
     }
 
@@ -99,13 +92,11 @@ public class LectureService {
     }
 
 
-
     public List<LectureSummaryDto> getList() {
         return lectureRepository.findAll().stream().map(LectureSummaryDto::new).collect(Collectors.toList());
     }
 
-    public JsonView enroll(Long id, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    public JsonView enroll(Long id, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
 
         if (lecture.getRegisterPolicy().equals(RegisterPolicy.INVITE_ONLY))
@@ -129,22 +120,21 @@ public class LectureService {
     }
 
 
-    public JsonView approval(Long id, Long userId, HttpSession session) {
-        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, session);
+    public JsonView approval(Long id, Long userId, User user) {
+        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
         userEnrolledLectureRepository.save(userEnrolledLecture);
         messageService.newMessage(userEnrolledLecture.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new EnrollMessageTemplate());
         return successJsonResponse();
     }
 
-    public JsonView reject(Long id, Long userId, HttpSession session) {
-        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, session);
+    public JsonView reject(Long id, Long userId, User user) {
+        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
         userEnrolledLectureRepository.save(userEnrolledLecture);
         messageService.newMessage(userEnrolledLecture.getUser(), new EnrollRejectMessageTemplate());
         return successJsonResponse();
     }
-
 
 
     private UserEnrolledLecture enroll(User user, Lecture lecture) {
@@ -155,11 +145,7 @@ public class LectureService {
         return relation;
     }
 
-
-
-
-    public JsonView delete(Long id, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    public JsonView delete(Long id, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkDeleteRight(user, lecture);
         lecture.setDeleteState();
@@ -167,27 +153,24 @@ public class LectureService {
         return successJsonResponse();
     }
 
-    public JsonView sideMenuToggle(Long lectureId, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
-        UserEnrolledLecture userEnrolledLecture = user.getEnrolledLectures().stream().filter(relation->relation.getLecture().getId().equals(lectureId)).findFirst().get();
+    public JsonView sideMenuToggle(Long lectureId, User user) {
+        UserEnrolledLecture userEnrolledLecture = user.getEnrolledLectures().stream().filter(relation -> relation.getLecture().getId().equals(lectureId)).findFirst().get();
         userEnrolledLecture.sideMenuToggle();
         userEnrolledLectureRepository.save(userEnrolledLecture);
         return successJsonResponse(userEnrolledLecture.getSideMenu());
     }
 
 
-    private UserEnrolledLecture getUserEnrolledLecture(Long id, Long userId, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    private UserEnrolledLecture getUserEnrolledLecture(Long id, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkApprovalRight(user, lecture);
         return lecture.getUsers().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get();
     }
 
-    public JsonView userGroupChange(Long lectureId, Long groupId, Long userId, HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    public JsonView userGroupChange(Long lectureId, Long groupId, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         lectureAuthority.checkGroupChangeRight(user, lecture);
-        UserEnrolledLecture userEnrolledLecture = lecture.getUsers().stream().filter(relation->relation.getUser().getId().equals(userId)).findFirst().get();
+        UserEnrolledLecture userEnrolledLecture = lecture.getUsers().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get();
         UserGroup group = lecture.getUserGroups().stream().filter(userGroup -> userGroup.getId().equals(groupId)).findFirst().get();
         userEnrolledLecture.setUserGroup(group);
         userEnrolledLectureRepository.save(userEnrolledLecture);

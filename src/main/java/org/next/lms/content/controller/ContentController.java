@@ -1,12 +1,13 @@
 package org.next.lms.content.controller;
 
-import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.lms.content.Content;
 import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.content.dto.Contents;
 import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.controller.LectureController;
+import org.next.lms.user.User;
+import org.next.lms.user.inject.Logged;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-
-import java.util.List;
 
 import static org.next.infra.view.JsonView.successJsonResponse;
 
@@ -31,7 +29,6 @@ public class ContentController {
     private ContentService contentService;
 
 
-    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.GET)
     public JsonView getContent(Long id) {
         return successJsonResponse(contentService.getDtoById(id));
@@ -43,23 +40,22 @@ public class ContentController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public JsonView saveContentList(@RequestBody Contents contents, HttpSession session) {
-        return contentService.listSave(contents, session);
+    public JsonView saveContentList(@RequestBody Contents contents, @Logged User user) {
+        return contentService.listSave(contents, user);
     }
 
-    //    @Secured({"ROLE_AUTHORIZED", "ROLE_SYSTEM_MANAGER"})
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView save(ContentParameterDto content, Long lectureId, HttpSession session) {
-        return contentService.save(content, session, lectureId);
+    public JsonView save(ContentParameterDto content, Long lectureId, @Logged User user) {
+        return contentService.save(content, user, lectureId);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateLecture(Content content, HttpSession session) {
-        return contentService.update(content, session);
+    public JsonView updateLecture(Content content, @Logged User user) {
+        return contentService.update(content, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonView deleteLecture(Long id, HttpSession session) {
-        return contentService.delete(id, session);
+    public JsonView deleteLecture(Long id, @Logged User user) {
+        return contentService.delete(id, user);
     }
 }

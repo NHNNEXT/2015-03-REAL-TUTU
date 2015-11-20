@@ -2,6 +2,7 @@ package org.next.lms.user.controller;
 
 import org.next.infra.view.JsonView;
 import org.next.lms.user.User;
+import org.next.lms.user.inject.Logged;
 import org.next.lms.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/session")
-    public JsonView getSessionUser(HttpSession session) {
-            return userService.getSessionUser(session);
+    public JsonView getSessionUser(@Logged(makeLoginNeededException = false) User user) {
+        return userService.getSessionUser(user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -39,13 +40,13 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateUser(User user, HttpSession session) {
-        return userService.updateUser(user, session);
+    public JsonView updateUser(User passed, @Logged User fromSession) {
+        return userService.updateUser(passed, fromSession);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonView withdrawalUser(HttpSession session) {
-        return userService.withdrawal(session);
+    public JsonView withdrawalUser(@Logged User user) {
+        return userService.withdrawal(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

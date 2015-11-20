@@ -1,11 +1,11 @@
 package org.next.lms.user.service;
 
-import org.next.infra.util.SessionUtil;
 import org.next.infra.view.JsonView;
 import org.next.infra.reponse.ResponseCode;
 import org.next.lms.user.*;
 import org.next.lms.user.dto.UserDto;
 import org.next.lms.user.dto.UserPageDto;
+import org.next.lms.user.inject.LoggedUserInjector;
 import org.next.lms.user.repository.UserRepository;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.next.lms.user.state.AccountState;
@@ -27,14 +27,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private SessionUtil sessionUtil;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public JsonView getSessionUser(HttpSession session) {
-        User user = sessionUtil.getUser(session);
+
+    public JsonView getSessionUser(User user) {
         if (user == null)
             return new JsonView(ResponseCode.GetSessionUser.EMPTY);
         return new JsonView(ResponseCode.SUCCESS, new UserDto(user));
@@ -66,7 +64,7 @@ public class UserService {
         if (!user.isPasswordCorrect(passwordEncoder, dbUser.getPassword())) {
             return new JsonView(ResponseCode.Login.WRONG_PASSWORD);
         }
-        sessionUtil.setUserIdToSession(session, dbUser.getId());
+        LoggedUserInjector.setUserIdToSession(session, dbUser.getId());
         return new JsonView(ResponseCode.SUCCESS, new UserDto(dbUser));
     }
 
@@ -80,8 +78,7 @@ public class UserService {
         return new JsonView(ResponseCode.SUCCESS);
     }
 
-    public JsonView updateUser(User passed, HttpSession session) {
-        User dbAccount = sessionUtil.getLoggedUser(session);
+    public JsonView updateUser(User passed, User dbAccount) {
         if (dbAccount == null)
             return new JsonView(ResponseCode.GetSessionUser.EMPTY);
         dbAccount.update(passed);
@@ -89,8 +86,7 @@ public class UserService {
         return successJsonResponse(new UserSummaryDto(dbAccount));
     }
 
-    public JsonView withdrawal(HttpSession session) {
-        User user = sessionUtil.getLoggedUser(session);
+    public JsonView withdrawal(User user) {
         user.setState(AccountState.WITHDRAWAL);
         return successJsonResponse();
     }

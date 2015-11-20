@@ -29,5 +29,7 @@ public class WebInitializer implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping(ROOT);
         dispatcher.setInitParameter("throwExceptionIfNoHandlerFound", TRUE);
+
+
     }
 }
