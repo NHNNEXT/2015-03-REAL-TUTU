@@ -5,9 +5,7 @@ import org.next.infra.view.JsonView;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
 import org.next.lms.lecture.auth.RegisterPolicy;
-import org.next.lms.lecture.dto.LectureSummaryDto;
-import org.next.lms.lecture.dto.LectureTypeDto;
-import org.next.lms.lecture.dto.UserGroupDto;
+import org.next.lms.lecture.dto.*;
 import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
@@ -19,7 +17,6 @@ import org.next.lms.message.template.EnrollRejectMessageTemplate;
 import org.next.lms.user.User;
 import org.next.lms.lecture.auth.LectureAuth;
 import org.next.lms.lecture.UserEnrolledLecture;
-import org.next.lms.lecture.dto.LectureDto;
 import org.next.lms.lecture.Lecture;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.like.repository.UserEnrolledLectureRepository;
@@ -83,7 +80,9 @@ public class LectureService {
 
     public LectureDto getById(Long lectureId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-        return new LectureDto(lecture, lecture.getHostUser().equals(user));
+        if (lecture.getHostUser().equals(user))
+            return new LectureForHostUserDto(lecture);
+        return new LectureDto(lecture);
     }
 
     public LectureTypeDto getTypeById(Long lectureId) {

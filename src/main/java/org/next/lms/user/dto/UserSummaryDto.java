@@ -2,6 +2,7 @@ package org.next.lms.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.dto.UserGroupDto;
 import org.next.lms.user.User;
 
@@ -31,5 +32,6 @@ public class UserSummaryDto {
     private final String major;
 
     private final String introduce;
+
 
 }

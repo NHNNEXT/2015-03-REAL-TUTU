@@ -28,7 +28,7 @@ public class LectureController {
     private LectureService lectureService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getLectureInfo(Long id, @Logged User user) {
+    public JsonView getLecture(Long id, @Logged(makeLoginNeededException = false) User user) {
         if (id == null)
             return successJsonResponse(lectureService.getList());
         return successJsonResponse(lectureService.getById(id, user));
