@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 
+import static java.lang.Math.random;
 import static java.lang.Math.toIntExact;
 
 @Component
@@ -53,10 +54,12 @@ public class InsertTestData {
     }
 
     private void saveLectures(int size) throws IOException {
+        List<User> users = userRepository.findAll();
         List<Lecture> lectures = mapper.readValue(toString(this.lectures), mapper.getTypeFactory().constructCollectionType(List.class, Lecture.class));
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
-            lectureService.save(lecture, userRepository.findOne((long) random(size)));
+            lecture.getContentTypes().forEach(contentType -> contentType.setLecture(lecture));
+            lectureService.save(lecture, users.get(random(users.size() - 1)));
         });
     }
 

@@ -1,6 +1,254 @@
 [
   {
+    "name": "자구알",
+    "majorType": "1",
+    "registerPolicy": "1",
+    "contentTypes": [
+      {
+        "name": "수업",
+        "startTime": true,
+        "endTime": true,
+        "extendWrite": true
+      },
+      {
+        "name": "강의자료"
+      },
+      {
+        "name": "질문"
+      },
+      {
+        "name": "과제",
+        "endTime": true,
+        "statistic": true,
+        "onlyWriter": true
+      }
+    ],
+    "userGroups": [
+      {
+        "name": "조교"
+      },
+      {
+        "name": "수강생",
+        "defaultGroup": true
+      }
+    ],
+    "writable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "readable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ]
+  },
+  {
+    "name": "실전프",
+    "majorType": "1",
+    "registerPolicy": "1",
+    "contentTypes": [
+      {
+        "name": "수업",
+        "startTime": true,
+        "endTime": true,
+        "extendWrite": true
+      },
+      {
+        "name": "강의자료"
+      },
+      {
+        "name": "질문"
+      },
+      {
+        "name": "과제",
+        "endTime": true,
+        "statistic": true,
+        "onlyWriter": true
+      }
+    ],
+    "userGroups": [
+      {
+        "name": "조교"
+      },
+      {
+        "name": "수강생",
+        "defaultGroup": true
+      }
+    ],
+    "writable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "readable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ]
+  },
+  {
+    "name": "선형대수",
+    "majorType": "1",
+    "registerPolicy": "1",
+    "contentTypes": [
+      {
+        "name": "수업",
+        "startTime": true,
+        "endTime": true,
+        "extendWrite": true
+      },
+      {
+        "name": "강의자료"
+      },
+      {
+        "name": "질문"
+      },
+      {
+        "name": "과제",
+        "endTime": true,
+        "statistic": true,
+        "onlyWriter": true
+      }
+    ],
+    "userGroups": [
+      {
+        "name": "조교"
+      },
+      {
+        "name": "수강생",
+        "defaultGroup": true
+      }
+    ],
+    "writable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "readable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ]
+  },
+  {
     "name": "강의1",
+    "majorType": "1",
+    "registerPolicy": "1",
+    "contentTypes": [
+      {
+        "name": "수업",
+        "startTime": true,
+        "endTime": true,
+        "extendWrite": true
+      },
+      {
+        "name": "강의자료"
+      },
+      {
+        "name": "질문"
+      },
+      {
+        "name": "과제",
+        "endTime": true,
+        "statistic": true,
+        "onlyWriter": true
+      }
+    ],
+    "userGroups": [
+      {
+        "name": "조교"
+      },
+      {
+        "name": "수강생",
+        "defaultGroup": true
+      }
+    ],
+    "writable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "readable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ]
+  },
+  {
+    "name": "그래픽스1",
     "majorType": "1",
     "registerPolicy": "1",
     "contentTypes": [
