@@ -6,7 +6,7 @@
     </md-input-container>
   </div>
   <md-list>
-    <md-list-item class="md-2-line" ng-repeat="lecture in rootUser.lectures | filter:query">
+    <md-list-item class="md-2-line" ng-repeat="lecture in rootUser.lectures | filter:query" ng-click="$event.stopPropagation()">
       <div class="md-list-item-text" layout="column">
         <h3 ui-sref="lecture({id:lecture.id})">{{lecture.name}}</h3>
 
@@ -16,7 +16,7 @@
         <user-profile user="lecture.hostUser"></user-profile>
       </div>
       <div layout="column">
-        <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture)" class="margin-top">
+        <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()" class="margin-top">
           메뉴 등록
         </md-checkbox>
       </div>
