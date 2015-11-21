@@ -14,6 +14,7 @@ public class ContentSummaryDto {
         this.repliesSize = content.getReplies().size();
         this.writer = new UserSummaryDto(content.getWriter());
         this.lectureId = content.getLecture().getId();
+        this.lectureName = content.getLecture().getName();
         this.id = content.getId();
         this.title = content.getTitle();
         this.writeDate = content.getWriteDate();
@@ -29,23 +30,25 @@ public class ContentSummaryDto {
 
     private String body;
 
-    private Long hits;
-
-    private Integer repliesSize;
-
-    private UserSummaryDto writer;
-
     private ContentTypeDto type;
 
-    private Long lectureId;
+    private final String lectureName;
 
-    private Long id;
+    private final Long hits;
 
-    private String title;
+    private final Integer repliesSize;
 
-    private Date writeDate;
+    private final UserSummaryDto writer;
 
-    private Date startTime;
+    private final Long lectureId;
 
-    private Date endTime;
+    private final Long id;
+
+    private final String title;
+
+    private final Date writeDate;
+
+    private final Date startTime;
+
+    private final Date endTime;
 }

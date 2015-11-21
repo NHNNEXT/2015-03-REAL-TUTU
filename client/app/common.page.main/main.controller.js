@@ -1,27 +1,17 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('mainController', function ($scope, rootUser, Content, types) {
+  .controller('mainController', function ($scope, rootUser, Content) {
     $scope.rootUser = rootUser;
-    $scope.types = types;
-
+    var classes = ['gray', 'green', 'yellow', 'blue', 'purple', 'red'];
     Content.getList().then(function (list) {
       $scope.contents = list;
-      list.forEach(function (content) {
-        content.style = ranStyle(content);
+      list.forEach(function (content, i) {
+        content.row = 2;
+        content.col = 2;
+        content.class = classes[i % classes.length];
       });
     });
 
-    function ranStyle(content) {
-      var style = {};
-      style.width = ['200px', '300px', '400px'][ranInt(3)];
-      style.height = ['200px', '300px', '250px'][ranInt(3)];
-      style['background-color'] = ["#149c82", "#e74c3c", "#3498db"][content.type];
-      return style;
-    }
-
-    function ranInt(int) {
-      return parseInt(Math.random() * int);
-    }
 
   });
