@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('http', function ($http, $q, responseCode, dialog, alert) {
+  .factory('http', function ($http, $q, responseCode, dialog, alert, history) {
     var http = function (method, url, params, success, error, json) {
       var options = {
         method: method, url: url
@@ -36,6 +36,7 @@ angular.module('clientApp')
             break;
           case responseCode.UNAUTHORIZED_REQUEST:
             alert.warning("권한이 없습니다.");
+            history.back();
             break;
           case responseCode.LOGIN_NEEDED:
             alert.warning("로그인이 필요한 서비스입니다.");

@@ -51,8 +51,9 @@ public class ContentService {
     @Autowired
     ContentTypeRepository contentTypeRepository;
 
-    public ContentDto getDtoById(Long id) {
+    public ContentDto getDtoById(Long id, User user) {
         Content content = assureNotNull(contentRepository.findOne(id));
+        contentAuthority.checkReadRight(content, user);
         content.hits();
         contentRepository.save(content);
         return new ContentDto(content);
@@ -65,11 +66,11 @@ public class ContentService {
         Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
 
         Lecture lecture = lectureRepository.findOne(lectureId);
-        lectureAuthority.checkUpdateRight(lecture, user);
-
         content.setWriter(user);
         content.setWriteDate(new Date());
         content.setLecture(lecture);
+
+        contentAuthority.checkWriteRight(content, user);
 
         contentRepository.save(content);
         messageService.newMessage(content.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());

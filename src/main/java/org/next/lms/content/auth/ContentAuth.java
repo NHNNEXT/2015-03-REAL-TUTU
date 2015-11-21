@@ -22,4 +22,19 @@ public class ContentAuth extends Auth {
         rightCheck(user.equals(content.getWriter()));
     }
 
+    public void checkReadRight(Content content, User user) {
+        rightCheck(content.getLecture().getHostUser().equals(user) || isReadable(content, user));
+    }
+
+    private boolean isReadable(Content content, User user) {
+        return content.getType().getReadable().stream().filter(readable -> readable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
+    }
+
+    public void checkWriteRight(Content content, User user) {
+        rightCheck(content.getLecture().getHostUser().equals(user) || isWritable(content, user));
+    }
+
+    private boolean isWritable(Content content, User user) {
+        return content.getType().getWritable().stream().filter(writable -> writable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
+    }
 }

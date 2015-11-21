@@ -79,11 +79,13 @@ public class InsertTestData {
 
         // 컨텐츠
         List<ContentParameterDto> contentParameterDtoList = mapper.readValue(toString(this.contents), mapper.getTypeFactory().constructCollectionType(List.class, ContentParameterDto.class));
-        contentParameterDtoList.forEach(contentParameterDto -> {
-            Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
-            content.setLecture(lectures.get(0));
-            content.setWriter(users.get(0));
-            contentRepository.save(content);
+        lectures.forEach(lecture -> {
+            contentParameterDtoList.forEach(contentParameterDto -> {
+                Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
+                content.setLecture(lecture);
+                content.setWriter(users.get(random(users.size() - 1)));
+                contentRepository.save(content);
+            });
         });
     }
 

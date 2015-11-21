@@ -30,8 +30,8 @@ public class ContentController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getContent(Long id) {
-        return successJsonResponse(contentService.getDtoById(id));
+    public JsonView getContent(Long id, @Logged(makeLoginNeededException = false) User user) {
+        return successJsonResponse(contentService.getDtoById(id, user));
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)

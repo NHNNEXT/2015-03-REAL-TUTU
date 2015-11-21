@@ -24,16 +24,6 @@
         history.pushIfNotExist($location.path());
       }
     );
-    $rootScope.$on('$stateChangeStart', function (event, toState) {
-      var redirect = toState.redirectTo;
-      if (redirect) {
-        event.preventDefault();
-        if (angular.isFunction(redirect))
-          redirect.call($state);
-        else
-          $state.go(redirect);
-      }
-    });
     /* @ngInject */
   }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider, $mdThemingProvider) {
     $locationProvider.html5Mode({
