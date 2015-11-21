@@ -21,8 +21,8 @@ angular.module('clientApp').directive('modInput', function ($compile) {
     link: function (s, e, a) {
       var tag = a.tag === undefined ? "span" : a.tag;
       var el = "<span ng-show=\"!mod\">" + "<" + tag + "> <span ng-bind=\"ngModel || placeholder\"></span>" +
-        " <small><i ng-show=\"modRight\" ng-click=\"mod=true\"" +
-        "class=\"fa fa-pencil\"></i></small></span>" + "</ " + tag + ">" ;
+        " <small ng-show=\"modRight\" ng-click=\"mod=true\"" +
+        "> 수정 </small></span>" + "</ " + tag + ">" ;
       var newDirective = angular.element(el);
       e.prepend(newDirective);
       $compile(newDirective)(s);

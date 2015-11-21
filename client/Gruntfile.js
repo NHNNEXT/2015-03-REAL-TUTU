@@ -165,7 +165,7 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp',
-      template:'<%= yeoman.app %>/template.js'
+      template: '<%= yeoman.app %>/template.js'
     },
 
     // Add vendor prefixed styles
@@ -392,7 +392,7 @@ module.exports = function (grunt) {
           //usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
-        src: ['**/*.html', '!index.html'],
+        src: ['**/*.html', '**/*.svg', '!index.html'],
         dest: 'app/template.js'
       }
     },

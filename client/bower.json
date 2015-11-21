@@ -10,7 +10,6 @@
     "angular-sanitize": "1.4.7",
     "angular-touch": "1.4.7",
     "angular-ui-router": "~0.2.15",
-    "components-font-awesome": "~4.4.0",
     "angular-datepicker": "~1.0.20",
     "ng-file-upload": "~9.1.1",
     "restangular": "~1.5.1",
