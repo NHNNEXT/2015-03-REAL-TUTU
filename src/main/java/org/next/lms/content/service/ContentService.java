@@ -56,7 +56,7 @@ public class ContentService {
         contentAuthority.checkReadRight(content, user);
         content.hits();
         contentRepository.save(content);
-        return new ContentDto(content);
+        return new ContentDto(content, user);
     }
 
     public JsonView save(ContentParameterDto contentParameterDto, User user, Long lectureId) {
@@ -74,7 +74,7 @@ public class ContentService {
 
         contentRepository.save(content);
         messageService.newMessage(content.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
-        return successJsonResponse(new ContentDto(content));
+        return successJsonResponse(new ContentDto(content, user));
     }
 
     public JsonView update(Content content, User user) {

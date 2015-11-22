@@ -5,6 +5,7 @@ import org.next.lms.content.Content;
 import org.next.lms.lecture.dto.ContentTypeDto;
 import org.next.lms.like.UserLikesContent;
 import org.next.lms.reply.dto.ReplyDto;
+import org.next.lms.user.User;
 import org.next.lms.user.dto.UserSummaryDto;
 
 import java.util.Date;
@@ -14,8 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 public class ContentDto {
 
-    public ContentDto(Content content) {
-        this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
+    public ContentDto(Content content, User user) {
         this.writer = new UserSummaryDto(content.getWriter());
         this.lectureName = content.getLecture().getName();
         this.lectureId = content.getLecture().getId();
@@ -28,7 +28,13 @@ public class ContentDto {
         this.type = new ContentTypeDto(content.getType());
         this.hits = content.getHits();
         this.likes = content.getLikes().stream().map(UserLikesContent::getId).collect(Collectors.toList());
+        if (!content.getType().getOnlyWriter() || content.getLecture().getHostUser().equals(user)) { // 작성자만 읽기 || Lecture 호스트유저일 경우
+            this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
+            return;
+        }
+        this.replies = content.getReplies().stream().filter(reply -> reply.getWriter().equals(user)).map(ReplyDto::new).collect(Collectors.toList());
     }
+
     private List<Long> likes;
     private String lectureName;
     private Long hits;
