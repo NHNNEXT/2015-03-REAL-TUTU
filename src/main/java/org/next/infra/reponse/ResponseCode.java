@@ -9,6 +9,7 @@ public class ResponseCode {
     public static final Integer WRONG_ACCESS = 1;
     public static final Integer LOGIN_NEEDED = 13;
     public static final Integer UNAUTHORIZED_REQUEST = 100;
+    public static final Integer PATTERN_NOT_MATCHED = 101;
 
 
     public static final class Register {

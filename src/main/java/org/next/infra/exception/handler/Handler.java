@@ -1,5 +1,6 @@
 package org.next.infra.exception.handler;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.next.infra.exception.HasNoRightException;
 import org.next.infra.exception.LoginNeededException;
 import org.next.infra.exception.WrongAccessException;
@@ -32,4 +33,13 @@ public class Handler {
     JsonView hasNoRightException(Exception e) {
         return new JsonView(ResponseCode.UNAUTHORIZED_REQUEST);
     }
+
+    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    public
+    @ResponseBody
+    JsonView patternNotMatched(Exception e) {
+        return new JsonView(ResponseCode.PATTERN_NOT_MATCHED);
+    }
+
+
 }

@@ -13,9 +13,14 @@ import org.next.lms.user.state.AccountState;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -56,10 +61,12 @@ public class User {
     private Long id;
 
     @NotNull(message = "User Email Must Not Be Null")
+    @Pattern(regexp = "^.+@.+\\..+$") // javascript: ^.+@.+\..+$
     @Column(name = "EMAIL")
     private String email;
 
     @NotNull(message = "User Password Must Not Be Null")
+    // 패스워드는 인크립트시 유효성 체크를 해야 하므로, 아래 메서드에서 체크
     @Column(name = "PASSWORD")
     private String password;
 
@@ -68,12 +75,6 @@ public class User {
 
     @Column(name = "PROFILE_URL")
     private String profileUrl;
-
-//    @Column(name = "STUDENT_ID")
-//    private String studentId;
-//
-//    @Column(name = "PHONE_NUMBER")
-//    private String phoneNumber;
 
     @Column(name = "MAJOR")
     private String major;
@@ -98,6 +99,10 @@ public class User {
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         if (this.password == null) return;
+        if (!this.password.matches("^\\w{6,20}$")) {
+            Set<ConstraintViolation<String>> errors = new HashSet<>();
+            throw new ConstraintViolationException(errors);
+        }
         this.password = passwordEncoder.encode(this.password);
 
     }

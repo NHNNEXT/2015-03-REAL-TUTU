@@ -23,7 +23,7 @@ public class ContentAuth extends Auth {
     }
 
     public void checkReadRight(Content content, User user) {
-        rightCheck(content.getLecture().getHostUser().equals(user) || isReadable(content, user));
+        rightCheck(content.getWriter().equals(user) || content.getLecture().getHostUser().equals(user) || isReadable(content, user));
     }
 
     private boolean isReadable(Content content, User user) {
