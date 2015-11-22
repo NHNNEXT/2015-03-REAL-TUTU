@@ -18,7 +18,7 @@ public class LoggedUserInjector implements HandlerMethodArgumentResolver {
         session.setAttribute(LOGIN_ACCOUNT_ID, id);
     }
 
-    private static final String LOGIN_ACCOUNT_ID = "loginAccountId";
+    public static final String LOGIN_ACCOUNT_ID = "loginAccountId";
 
     UserRepository userRepository;
 
