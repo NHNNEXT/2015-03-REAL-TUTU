@@ -100,8 +100,10 @@ angular.module('clientApp')
       http.post('/api/v1/lecture/enroll', {id: this.id}).then(function () {
         alert.info('등록되었습니다.');
       }, function (response) {
-        if (response.code === responseCode.Enroll.WAITING_FOR_APPROVAL)
+        if (response.code === responseCode.Enroll.WAITING_FOR_APPROVAL) {
           alert.info('참가 요청하였습니다. 승인을 기다립니다.');
+          rootUser.waitingLectures.push(response.result);
+        }
       });
     };
 

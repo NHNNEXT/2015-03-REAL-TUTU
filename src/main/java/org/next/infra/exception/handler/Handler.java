@@ -50,12 +50,12 @@ public class Handler {
         return new JsonView(ResponseCode.PATTERN_NOT_MATCHED, e.getMessage());
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public
-    @ResponseBody
-    JsonView nullPointer(NullPointerException e) {
-        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
-    }
+//    @ExceptionHandler(NullPointerException.class)
+//    public
+//    @ResponseBody
+//    JsonView nullPointer(NullPointerException e) {
+//        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
+//    }
 
 
 }

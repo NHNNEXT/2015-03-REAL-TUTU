@@ -113,7 +113,7 @@ public class LectureService {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
             messageService.newMessage(lecture.getHostUser(), new EnrollRequestTemplate());
-            return new JsonView(ResponseCode.Enroll.WAITING_FOR_APPROVAL);
+            return new JsonView(ResponseCode.Enroll.WAITING_FOR_APPROVAL, new LectureSummaryDto(lecture));
         }
         return new JsonView(ResponseCode.WRONG_ACCESS);
     }

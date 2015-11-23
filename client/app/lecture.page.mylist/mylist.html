@@ -6,7 +6,8 @@
     </md-input-container>
   </div>
   <md-list>
-    <md-list-item class="md-2-line" ng-repeat="lecture in rootUser.lectures | filter:query" ng-click="$event.stopPropagation()">
+    <md-list-item class="md-2-line" ng-repeat="lecture in rootUser.lectures | filter:query"
+                  ng-click="$event.stopPropagation()">
       <div class="md-list-item-text" layout="column">
         <h3 ui-sref="lecture({id:lecture.id})">{{lecture.name}}</h3>
 
@@ -16,11 +17,35 @@
         <user-profile user="lecture.hostUser"></user-profile>
       </div>
       <div layout="column">
-        <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()" class="margin-top">
+        <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()"
+                     class="margin-top">
           메뉴 등록
         </md-checkbox>
       </div>
       <md-divider ng-if="!$last"></md-divider>
     </md-list-item>
   </md-list>
+  <div ng-show="rootUser.waitingLectures.length>0">
+    <md-subheader class="md-primary">가입 승인 대기중인 강의</md-subheader>
+    <md-list>
+      <md-list-item class="md-2-line" ng-repeat="lecture in rootUser.waitingLectures | filter:query"
+                    ng-click="$event.stopPropagation()">
+        <div class="md-list-item-text" layout="column">
+          <h3 ui-sref="lecture({id:lecture.id})">{{lecture.name}}</h3>
+
+          <p>{{majorTypes[lecture.majorType]}}</p>
+        </div>
+        <div layout="column">
+          <user-profile user="lecture.hostUser"></user-profile>
+        </div>
+        <div layout="column">
+          <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()"
+                       class="margin-top">
+            메뉴 등록
+          </md-checkbox>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+  </div>
 </section>

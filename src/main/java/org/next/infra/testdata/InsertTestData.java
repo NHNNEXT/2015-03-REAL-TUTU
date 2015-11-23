@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.Content;
+import org.next.lms.content.ContentType;
 import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.content.dto.Contents;
 import org.next.lms.content.service.ContentService;
@@ -72,10 +73,12 @@ public class InsertTestData {
 
         // 컨텐츠
         List<Content> contents = mapper.readValue(new File("./src/main/resources/testdata/contents.json"), mapper.getTypeFactory().constructCollectionType(List.class, Content.class));
+        ContentType type = contentTypeRepository.findOne(1L);
         lectures.forEach(lecture -> {
             contents.forEach(content -> {
                 content.setLecture(lecture);
                 content.setWriter(users.get(random(users.size() - 1)));
+                content.setType(type);
                 contentRepository.save(content);
             });
         });

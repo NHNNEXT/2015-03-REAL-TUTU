@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('http', function ($http, $q, responseCode, dialog, alert, history) {
+  .factory('http', function ($http, $q, responseCode, dialog, alert) {
     var http = function (method, url, params, success, error, json) {
       var options = {
         method: method, url: url
@@ -36,7 +36,6 @@ angular.module('clientApp')
             break;
           case responseCode.UNAUTHORIZED_REQUEST:
             alert.warning("권한이 없습니다.");
-            history.back();
             break;
           case responseCode.PATTERN_NOT_MATCHED:
             var message = response.result === undefined ? "유효하지 않은 입력입니다." : response.result;

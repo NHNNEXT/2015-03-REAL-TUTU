@@ -1,7 +1,14 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('mainController', function ($scope, rootUser, Content) {
+  .controller('mainController', function ($scope, rootUser, Content, $state) {
+    $scope.$watch(function () {
+      return rootUser.id;
+    }, function (id) {
+      if (id !== undefined)
+        return;
+      $state.go('loginneed');
+    });
     $scope.rootUser = rootUser;
     var classes = ['gray', 'green', 'yellow', 'blue', 'purple', 'red'];
     Content.getList().then(function (list) {

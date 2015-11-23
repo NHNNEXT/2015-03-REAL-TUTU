@@ -17,11 +17,10 @@
     'scDateTime',
     'anim-in-out'
     /* @ngInject */
-  ]).run(function ($rootScope, $state, history, $location) {
+  ]).run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState) {
         $state.current = toState;
-        history.pushIfNotExist($location.path());
       }
     );
     /* @ngInject */

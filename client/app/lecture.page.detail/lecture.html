@@ -19,7 +19,7 @@
           <md-button class="md-raised" ng-show="!lecture.isWaiting()"
             ng-click="lecture.enroll(lecture.id)">
             참여신청</md-button>
-          <md-button class="md-raised">
+          <md-button class="md-raised" ng-show="lecture.isWaiting()">
             가입 승인 대기중</md-button>
         </span>
       </span>
