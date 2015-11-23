@@ -86,6 +86,7 @@ public class ResponseCode {
         } catch (IllegalAccessException e) {
             // TODO Return Error명 논의필요
             log.error("ResponseCode Json Map 파싱 과정에서 오류 발생");
+            throw new RuntimeException("[Return Error명 논의필요] ResponseCode Json Map 파싱 과정에서 오류 발생");
         }
     }
 
