@@ -1,11 +1,9 @@
 package org.next.lms.user.dto;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import org.next.lms.lecture.dto.LectureSummaryDto;
 import org.next.lms.user.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
