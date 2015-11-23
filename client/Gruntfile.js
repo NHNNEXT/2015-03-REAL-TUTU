@@ -392,7 +392,7 @@ module.exports = function (grunt) {
           //usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
-        src: ['**/*.html', '**/*.svg', '!index.html'],
+        src: ['**/*.html', '!index.html'],
         dest: 'app/template.js'
       }
     },
@@ -486,7 +486,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
-      'includeSource',
+      'less',
       'concurrent:server',
       'autoprefixer:server',
       'configureProxies:livereload',
@@ -514,7 +514,7 @@ module.exports = function (grunt) {
     'jshint:all',
     'wiredep',
     'ngtemplates',
-    'includeSource',
+    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
