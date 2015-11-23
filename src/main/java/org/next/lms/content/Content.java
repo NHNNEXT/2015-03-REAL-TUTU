@@ -31,6 +31,8 @@ public class Content {
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
 
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User writer;
