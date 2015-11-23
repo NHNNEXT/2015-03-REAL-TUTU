@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 @Setter
 public class UserPageDto {
 
-    ;
-
     public UserPageDto(User user) {
         this.id = user.getId();
         this.name = user.getName();
