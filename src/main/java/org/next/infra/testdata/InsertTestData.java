@@ -61,7 +61,7 @@ public class InsertTestData {
 
     private ObjectMapper mapper;
 
-    @PostConstruct
+//    @PostConstruct
     public void insertData() throws IOException {
         mapper = new ObjectMapper();
 
