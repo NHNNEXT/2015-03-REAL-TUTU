@@ -5,7 +5,6 @@ angular
 
     $scope.types = types;
     $scope.rootUser = rootUser;
-    $scope.isEnrolled = isEnrolled;
     $scope.setType = setType;
     $scope.groupChange = groupChange;
     $scope.openIfRootUser = openIfRootUser;
@@ -63,16 +62,6 @@ angular
       });
     });
 
-
-    function isEnrolled(id) {
-      var lectures = rootUser.lectures;
-      if (!lectures)
-        return false;
-      for (var i = 0; i < lectures.length; i++)
-        if (lectures[i].id === id)
-          return true;
-      return false;
-    }
 
     function groupChange(group, user) {
       var query = {};

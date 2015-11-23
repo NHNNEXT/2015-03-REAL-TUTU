@@ -14,11 +14,11 @@
         <md-input-container class="md-block">
           <label>이름</label>
           <input required type="text" name="name" ng-model="rootUser.name"
-                 minlength="2"/>
+                 ng-pattern="/\S{2,10}/"/>
 
           <div ng-messages="loginForm.name.$error" role="alert">
-            <div ng-message-exp="['minlength', required]">
-              이름을 입력해주세요.
+            <div ng-message-exp="['pattern', required]">
+              이름은 2~10자로 입력해주세요.
             </div>
           </div>
         </md-input-container>

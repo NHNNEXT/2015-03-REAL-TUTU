@@ -15,10 +15,14 @@
       참여자 {{lecture.users.length}}
     </div>
     <div flex class="right">
-      <span ng-hide="lecture.hostUser.isRootUser()||lecture.isEnrolled(lecture.id)"
+      <span ng-hide="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
+          <md-button class="md-raised" ng-show="!lecture.isWaiting()"
             ng-click="lecture.enroll(lecture.id)">
-      참여신청</span></span>
-
+            참여신청</md-button>
+          <md-button class="md-raised">
+            가입 승인 대기중</md-button>
+        </span>
+      </span>
       <span ng-show="lecture.hostUser.isRootUser()">
         <span ui-sref="lectureEdit({id:lecture.id})">강의수정</span>
         <span class="bar"></span>

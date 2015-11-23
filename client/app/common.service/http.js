@@ -38,11 +38,15 @@ angular.module('clientApp')
             alert.warning("권한이 없습니다.");
             history.back();
             break;
+          case responseCode.PATTERN_NOT_MATCHED:
+            var message = response.result === undefined ? "유효하지 않은 입력입니다." : response.result;
+            alert.warning(message);
+            break;
           case responseCode.LOGIN_NEEDED:
             alert.warning("로그인이 필요한 서비스입니다.");
             dialog.login();
             break;
-          case responseCode.WROING_ACCESS:
+          case responseCode.WRONG_ACCESS:
             alert.warning("뚜찌빠찌뽀찌 뚜찌빠찌");
             break;
           default:

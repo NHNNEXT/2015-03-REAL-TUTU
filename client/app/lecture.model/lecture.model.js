@@ -30,6 +30,26 @@ angular.module('clientApp')
       });
     };
 
+    Lecture.prototype.isEnrolled = function () {
+      var lectures = rootUser.lectures;
+      if (!lectures)
+        return false;
+      for (var i = 0; i < lectures.length; i++)
+        if (lectures[i].id === this.id)
+          return true;
+      return false;
+    };
+
+    Lecture.prototype.isWaiting = function () {
+      var lectures = rootUser.waitingLectures;
+      if (!lectures)
+        return false;
+      for (var i = 0; i < lectures.length; i++)
+        if (lectures[i].id === this.id)
+          return true;
+      return false;
+    };
+
     Lecture.prototype.removeUserGroup = function (el) {
       if (this.userGroups.length < 2) {
         alert.warning("최소 하나의 그룹은 있어야 합니다.");
@@ -79,8 +99,8 @@ angular.module('clientApp')
     Lecture.prototype.enroll = function () {
       http.post('/api/v1/lecture/enroll', {id: this.id}).then(function () {
         alert.info('등록되었습니다.');
-      }, function(response){
-        if(response.code === responseCode.Enroll.WAITING_FOR_APPROVAL)
+      }, function (response) {
+        if (response.code === responseCode.Enroll.WAITING_FOR_APPROVAL)
           alert.info('참가 요청하였습니다. 승인을 기다립니다.');
       });
     };
@@ -100,20 +120,20 @@ angular.module('clientApp')
       return http.put('/api/v1/lecture', query, true);
     };
 
-    Lecture.prototype.approval = function(userId){
+    Lecture.prototype.approval = function (userId) {
       var query = {};
       query.id = this.id;
       query.userId = userId;
-      http.post('/api/v1/lecture/approval', query).then(function(){
+      http.post('/api/v1/lecture/approval', query).then(function () {
         alert.success("가입되었습니다.");
       });
     };
 
-    Lecture.prototype.reject = function(userId){
+    Lecture.prototype.reject = function (userId) {
       var query = {};
       query.id = this.id;
       query.userId = userId;
-      http.post('/api/v1/lecture/reject', query).then(function(){
+      http.post('/api/v1/lecture/reject', query).then(function () {
         alert.info("가입 신청을 거절하였습니다.");
       });
     };

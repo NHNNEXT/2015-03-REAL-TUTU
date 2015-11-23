@@ -20,6 +20,7 @@ angular.module('clientApp')
       self.studentId = obj.studentId;
       self.introduce = obj.introduce;
       self.phoneNumber = obj.phoneNumber;
+      self.waitingLectures = obj.waitingLectures;
       self.major = obj.major;
       self.lectures = obj.lectures;
     };
