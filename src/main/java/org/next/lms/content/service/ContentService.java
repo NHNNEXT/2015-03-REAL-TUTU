@@ -62,17 +62,8 @@ public class ContentService {
     public JsonView save(ContentParameterDto contentParameterDto, User user, Long lectureId) {
         if (lectureId == null)
             return new JsonView(ResponseCode.WRONG_ACCESS);
-
-        Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
-
-        Lecture lecture = lectureRepository.findOne(lectureId);
-        content.setWriter(user);
-        content.setWriteDate(new Date());
-        content.setLecture(lecture);
-
-        contentAuthority.checkWriteRight(content, user);
-
-        contentRepository.save(content);
+        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
+        Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
         messageService.newMessage(content.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
         return successJsonResponse(new ContentDto(content, user));
     }
@@ -81,6 +72,7 @@ public class ContentService {
         Content fromDB = contentRepository.findOne(content.getId());
         fromDB.update(content);
         contentAuthority.checkUpdateRight(fromDB, user);
+        content.fieldCheck();
         contentRepository.save(fromDB);
         return successJsonResponse();
     }
@@ -102,11 +94,7 @@ public class ContentService {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
         lectureAuthority.checkUpdateRight(lecture, user);
         contents.getContents().forEach(contentParameterDto -> {
-            Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
-            content.setWriter(user);
-            content.setWriteDate(new Date());
-            content.setLecture(lecture);
-            contentRepository.save(content);
+            contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
         });
         return successJsonResponse();
     }

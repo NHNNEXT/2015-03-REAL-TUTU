@@ -6,6 +6,7 @@ import org.next.lms.lecture.auth.UserGroupCanReadContent;
 import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +37,22 @@ public class ContentType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "END_TIME")
-    private Boolean endTime;
+    @Column(name = "END_TIME", nullable = false, columnDefinition = "boolean default false")
+    private Boolean endTime = false;
 
-    @Column(name = "START_TIME")
-    private Boolean startTime;
+    @Column(name = "START_TIME", nullable = false, columnDefinition = "boolean default false")
+    private Boolean startTime = false;
 
-    @Column(name = "EXTEND_WRITE")
-    private Boolean extendWrite;
+    @Column(name = "EXTEND_WRITE", nullable = false, columnDefinition = "boolean default false")
+    private Boolean extendWrite = false;
 
-    @Column(name = "ONLY_WRITER")
-    private Boolean onlyWriter;
+    @Column(name = "ONLY_WRITER", nullable = false, columnDefinition = "boolean default false")
+    private Boolean onlyWriter = false;
 
-    @Column(name = "STATISTIC")
-    private Boolean statistic;
+    @Column(name = "STATISTIC", nullable = false, columnDefinition = "boolean default false")
+    private Boolean statistic = false;
 
+    @NotNull(message = "게시물 분류 이름을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
 

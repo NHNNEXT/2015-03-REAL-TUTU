@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.infra.auth.Auth;
+import org.next.lms.content.ContentType;
+import org.next.lms.lecture.Lecture;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.springframework.stereotype.Component;
@@ -26,15 +28,17 @@ public class ContentAuth extends Auth {
         rightCheck(content.getWriter().equals(user) || content.getLecture().getHostUser().equals(user) || isReadable(content, user));
     }
 
+    public void checkWriteRight(ContentType contentType, User user) {
+        rightCheck(contentType.getLecture().getHostUser().equals(user) || isWritable(contentType, user));
+    }
+
     private boolean isReadable(Content content, User user) {
         return content.getType().getReadable().stream().filter(readable -> readable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
     }
 
-    public void checkWriteRight(Content content, User user) {
-        rightCheck(content.getLecture().getHostUser().equals(user) || isWritable(content, user));
+    private boolean isWritable(ContentType contentType, User user) {
+        return contentType.getWritable().stream().filter(writable -> writable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
     }
 
-    private boolean isWritable(Content content, User user) {
-        return content.getType().getWritable().stream().filter(writable -> writable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
-    }
+
 }

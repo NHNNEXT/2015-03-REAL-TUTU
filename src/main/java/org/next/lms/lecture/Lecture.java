@@ -11,8 +11,10 @@ import org.next.lms.lecture.repository.UserGroupRepository;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.lms.like.UserLikesLecture;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
@@ -49,12 +52,15 @@ public class Lecture {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "강의명을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
 
+    @NotNull(message = "전공 분류를 선택해주세요.")
     @Column(name = "MAJOR_TYPE")
     private Integer majorType;
 
+    @NotNull(message = "가입 정책을 선택해주세요.")
     @Column(name = "REGISTER_POLICY")
     private Integer registerPolicy;
 
@@ -100,6 +106,7 @@ public class Lecture {
         });
     }
 
+    @Transactional
     private void removeDeleted(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
         List<UserGroup> deletedUserGroups = this.userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
         deletedUserGroups.forEach(deletedUserGroup -> {

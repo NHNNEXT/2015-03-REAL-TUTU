@@ -6,6 +6,7 @@ import org.next.lms.like.UserLikesReply;
 import org.next.lms.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "내용을 입력해주세요.")
     @Column(name = "BODY")
     private String body;
 

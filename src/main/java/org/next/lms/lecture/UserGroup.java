@@ -1,11 +1,11 @@
 package org.next.lms.lecture;
 
 import lombok.*;
-import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.auth.UserGroupCanReadContent;
 import org.next.lms.lecture.auth.UserGroupCanWriteContent;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +40,7 @@ public class UserGroup {
     @Column(name = "DEFAULT_GROUP", nullable = false, columnDefinition = "boolean default false")
     private Boolean defaultGroup = false;
 
+    @NotNull(message = "그룹 이름을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
 

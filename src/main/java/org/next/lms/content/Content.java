@@ -1,6 +1,7 @@
 package org.next.lms.content;
 
 import lombok.*;
+import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.reply.Reply;
@@ -9,6 +10,7 @@ import org.next.lms.like.UserLikesContent;
 import org.next.lms.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +34,6 @@ public class Content {
     private List<Reply> replies = new ArrayList<>();
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User writer;
@@ -50,6 +51,7 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "제목을 입력해주세요.")
     @Column(name = "TITLE")
     private String title;
 
@@ -57,6 +59,7 @@ public class Content {
     private Long hits;
 
 
+    @NotNull(message = "내용을 입력해주세요.")
     @Lob
     @Column(name = "BODY")
     private String body;
@@ -73,16 +76,6 @@ public class Content {
     @Column(name = "END_TIME")
     private Date endTime;
 
-    public Content(ContentParameterDto contentParameterDto, ContentType type) {
-        this.lecture = contentParameterDto.getLecture();
-        this.id = contentParameterDto.getId();
-        this.title = contentParameterDto.getTitle();
-        this.body = contentParameterDto.getBody();
-        this.writeDate = new Date();
-        this.startTime = contentParameterDto.getStartTime();
-        this.endTime = contentParameterDto.getEndTime();
-        this.type = type;
-    }
 
     public void update(Content content) {
         if (content.title != null)
@@ -104,6 +97,13 @@ public class Content {
     public void setDeleteState() {
         this.writer = null;
         this.lecture = null;
+    }
+
+    public void fieldCheck() {
+        if (type.getEndTime() && this.endTime == null)
+            throw new PatternNotMatchedException("시간을 입력해주세요.");
+        if (type.getStartTime() && this.startTime == null)
+            throw new PatternNotMatchedException("시간을 입력해주세요.");
     }
 }
 

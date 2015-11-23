@@ -1,6 +1,7 @@
 package org.next.lms.user;
 
 import lombok.*;
+import org.next.infra.exception.PatternNotMatchedException;
 import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.content.Content;
 import org.next.lms.lecture.Lecture;
@@ -14,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -60,16 +60,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull(message = "User Email Must Not Be Null")
-    @Pattern(regexp = "^.+@.+\\..+$") // javascript: ^.+@.+\..+$
+    @NotNull(message = "이메일을 입력해주세요.")
+    @Pattern(regexp = "^.+@.+\\..+$", message = "이메일 형식이 맞지 않습니다.") // javascript: ^.+@.+\..+$
     @Column(name = "EMAIL")
     private String email;
 
-    @NotNull(message = "User Password Must Not Be Null")
+    @NotNull(message = "패스워드를 입력해주세요.")
     // 패스워드는 인크립트시 유효성 체크를 해야 하므로, 아래 메서드에서 체크
     @Column(name = "PASSWORD")
     private String password;
 
+    @NotNull(message = "이름을 입력해주세요.")
+    @Pattern(regexp = "\\S{2,10}", message = "이름은 2~10자입니다.")
     @Column(name = "NAME")
     private String name;
 
@@ -99,10 +101,8 @@ public class User {
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         if (this.password == null) return;
-        if (!this.password.matches("^\\w{6,20}$")) {
-            Set<ConstraintViolation<String>> errors = new HashSet<>();
-            throw new ConstraintViolationException(errors);
-        }
+        if (!this.password.matches("^\\w{6,20}$"))
+            throw new PatternNotMatchedException("패스워드는 6~20자 입니다.");
         this.password = passwordEncoder.encode(this.password);
 
     }

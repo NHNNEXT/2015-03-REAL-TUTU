@@ -1,6 +1,7 @@
 package org.next.lms.user.dto;
 
 import lombok.Getter;
+import org.next.lms.lecture.auth.ApprovalState;
 import org.next.lms.lecture.dto.LectureSummaryDto;
 import org.next.lms.user.User;
 
@@ -20,6 +21,7 @@ public class UserDto {
     private String profileUrl;
     private Boolean news;
     private List<LectureSummaryDto> lectures;
+    private List<LectureSummaryDto> waitingLectures;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -28,7 +30,8 @@ public class UserDto {
         this.name = user.getName();
         this.introduce = user.getIntroduce();
         this.major = user.getMajor();
-        this.lectures = user.getEnrolledLectures().stream().map(LectureSummaryDto::new).collect(Collectors.toList());
+        this.lectures = user.getEnrolledLectures().stream().filter(relation-> ApprovalState.OK.equals(relation.getApprovalState())).map(LectureSummaryDto::new).collect(Collectors.toList());
+        this.waitingLectures = user.getEnrolledLectures().stream().filter(relation-> ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState())).map(LectureSummaryDto::new).collect(Collectors.toList());
         this.news = user.getMessages().stream().filter(
                 message -> !message.getChecked()
         ).findAny().isPresent();
