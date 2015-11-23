@@ -486,7 +486,6 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
-      'less',
       'concurrent:server',
       'autoprefixer:server',
       'configureProxies:livereload',
@@ -514,7 +513,6 @@ module.exports = function (grunt) {
     'jshint:all',
     'wiredep',
     'ngtemplates',
-    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
