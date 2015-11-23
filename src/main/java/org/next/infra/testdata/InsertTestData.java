@@ -1,5 +1,6 @@
 package org.next.infra.testdata;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.next.infra.repository.ContentRepository;
@@ -16,10 +17,12 @@ import org.next.lms.user.repository.UserRepository;
 import org.next.lms.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -50,27 +53,17 @@ public class InsertTestData {
     @Autowired
     ContentTypeRepository contentTypeRepository;
 
-    @Value("classpath:testdata/lectures.json")
-    private Resource lectures;
 
-    @Value("classpath:testdata/users.json")
-    private Resource users;
-
-    @Value("classpath:testdata/contents.json")
-    private Resource contents;
-
-    private ObjectMapper mapper;
-
-//    @PostConstruct
+    @PostConstruct
     public void insertData() throws IOException {
-        mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
         // 유저
-        List<User> users = mapper.readValue(toString(this.users), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+        List<User> users = mapper.readValue(new File("./src/main/resources/testdata/users.json"), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
         users.forEach(userService::register);
 
         // 수업
-        List<Lecture> lectures = mapper.readValue(toString(this.lectures), mapper.getTypeFactory().constructCollectionType(List.class, Lecture.class));
+        List<Lecture> lectures = mapper.readValue(new File("./src/main/resources/testdata/lectures.json"), mapper.getTypeFactory().constructCollectionType(List.class, Lecture.class));
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
             lecture.getContentTypes().forEach(contentType -> contentType.setLecture(lecture));
@@ -78,7 +71,7 @@ public class InsertTestData {
         });
 
         // 컨텐츠
-        List<ContentParameterDto> contentParameterDtoList = mapper.readValue(toString(this.contents), mapper.getTypeFactory().constructCollectionType(List.class, ContentParameterDto.class));
+        List<ContentParameterDto> contentParameterDtoList = mapper.readValue(new File("./src/main/resources/testdata/contents.json"), mapper.getTypeFactory().constructCollectionType(List.class, ContentParameterDto.class));
         lectures.forEach(lecture -> {
             contentParameterDtoList.forEach(contentParameterDto -> {
                 Content content = contentParameterDto.getTypeDeclaredContent(contentTypeRepository);
@@ -89,10 +82,6 @@ public class InsertTestData {
         });
     }
 
-
-    private String toString(Resource lectures) throws IOException {
-        return IOUtils.toString(lectures.getInputStream(), "utf-8");
-    }
 
     private Integer random(Integer i) {
         return toIntExact(Math.round((Math.random() * i)));
