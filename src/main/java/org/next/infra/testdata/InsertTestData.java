@@ -33,26 +33,25 @@ import static java.lang.Math.toIntExact;
 public class InsertTestData {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    LectureService lectureService;
+    private LectureService lectureService;
 
     @Autowired
-    ContentService contentService;
+    private ContentService contentService;
 
     @Autowired
-    LectureRepository lectureRepository;
+    private LectureRepository lectureRepository;
 
     @Autowired
-    ContentRepository contentRepository;
+    private ContentRepository contentRepository;
 
     @Autowired
-    ContentTypeRepository contentTypeRepository;
-
+    private ContentTypeRepository contentTypeRepository;
 
     @PostConstruct
     public void insertData() throws IOException {
@@ -80,7 +79,6 @@ public class InsertTestData {
             });
         });
     }
-
 
     private Integer random(Integer i) {
         return toIntExact(Math.round((Math.random() * i)));

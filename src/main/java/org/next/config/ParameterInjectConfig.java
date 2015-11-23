@@ -29,7 +29,7 @@ import java.util.List;
 public class ParameterInjectConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
