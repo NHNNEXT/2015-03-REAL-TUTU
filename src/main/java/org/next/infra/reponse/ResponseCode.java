@@ -1,16 +1,18 @@
 package org.next.infra.reponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class ResponseCode {
     public static final Integer SUCCESS = 0;
     public static final Integer WRONG_ACCESS = 1;
     public static final Integer LOGIN_NEEDED = 13;
     public static final Integer UNAUTHORIZED_REQUEST = 100;
     public static final Integer PATTERN_NOT_MATCHED = 101;
-
 
     public static final class Register {
         public static final Integer ALREADY_EXIST_EMAIL = 2;
@@ -71,28 +73,29 @@ public class ResponseCode {
     private static Map<String, ?> responseCode;
 
     static {
-        try {
-            responseCode = toJsonMap();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        responseCode = toJsonMap();
     }
 
     public static Map<String, ?> getResponseCodeMap() {
         return responseCode;
     }
 
-    private static Map<String, ?> toJsonMap() throws IllegalAccessException {
-        return parseClass(ResponseCode.class);
+    private static Map<String, ?> toJsonMap() {
+        try {
+            return parseClass(ResponseCode.class);
+        } catch (IllegalAccessException e) {
+            // TODO Return Error명 논의필요
+            log.error("ResponseCode Json Map 파싱 과정에서 오류 발생");
+            throw new RuntimeException("[Return Error명 논의필요] ResponseCode Json Map 파싱 과정에서 오류 발생");
+        }
     }
 
     private static Map<String, Object> parseClass(Class clazz) throws IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
         for (Field field : clazz.getFields())
             map.put(field.getName(), field.get(null));
-        for (Class cLass : clazz.getDeclaredClasses())
-            map.put(cLass.getSimpleName(), parseClass(cLass));
+        for (Class innerClass : clazz.getDeclaredClasses())
+            map.put(innerClass.getSimpleName(), parseClass(innerClass));
         return map;
     }
-
 }

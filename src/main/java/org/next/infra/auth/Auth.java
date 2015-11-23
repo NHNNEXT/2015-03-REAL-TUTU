@@ -4,10 +4,9 @@ import org.next.infra.exception.HasNoRightException;
 
 public class Auth {
 
-    public void rightCheck(boolean right) {
+    protected final void rightCheck(boolean right) throws HasNoRightException {
         if (right)
             return;
         throw new HasNoRightException();
     }
-
 }

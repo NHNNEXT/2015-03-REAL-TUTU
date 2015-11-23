@@ -1,14 +1,9 @@
 package org.next.infra.testdata;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.Content;
-import org.next.lms.content.ContentType;
-import org.next.lms.content.dto.ContentParameterDto;
-import org.next.lms.content.dto.Contents;
 import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.repository.ContentTypeRepository;
@@ -17,9 +12,6 @@ import org.next.lms.user.User;
 import org.next.lms.user.repository.UserRepository;
 import org.next.lms.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -27,44 +19,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static java.lang.Math.random;
-import static java.lang.Math.toIntExact;
+import static org.next.infra.util.CommonUtils.random;
 
 @Component
 public class InsertTestData {
 
-    @Autowired
-    UserService userService;
+    public static final String TEST_DATA_PATH = "./src/main/resources/testdata/";
 
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
+
 
     @Autowired
-    LectureService lectureService;
+    private LectureService lectureService;
+
 
     @Autowired
-    ContentService contentService;
-
-    @Autowired
-    LectureRepository lectureRepository;
-
-    @Autowired
-    ContentRepository contentRepository;
-
-    @Autowired
-    ContentTypeRepository contentTypeRepository;
+    private ContentRepository contentRepository;
 
 
     @PostConstruct
     public void insertData() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
 
         // 유저
-        List<User> users = mapper.readValue(new File("./src/main/resources/testdata/users.json"), mapper.getTypeFactory().constructCollectionType(List.class, User.class));
+        List<User> users = JsonDataToList(TEST_DATA_PATH + "users.json", User.class);
         users.forEach(userService::register);
 
         // 수업
-        List<Lecture> lectures = mapper.readValue(new File("./src/main/resources/testdata/lectures.json"), mapper.getTypeFactory().constructCollectionType(List.class, Lecture.class));
+        List<Lecture> lectures = JsonDataToList(TEST_DATA_PATH + "lectures.json", Lecture.class);
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
             lecture.getContentTypes().forEach(contentType -> contentType.setLecture(lecture));
@@ -72,21 +54,19 @@ public class InsertTestData {
         });
 
         // 컨텐츠
-        List<Content> contents = mapper.readValue(new File("./src/main/resources/testdata/contents.json"), mapper.getTypeFactory().constructCollectionType(List.class, Content.class));
-        ContentType type = contentTypeRepository.findOne(1L);
+        List<Content> contents = JsonDataToList(TEST_DATA_PATH + "contents.json", Content.class);
+
         lectures.forEach(lecture -> {
             contents.forEach(content -> {
                 content.setLecture(lecture);
                 content.setWriter(users.get(random(users.size() - 1)));
-                content.setType(type);
                 contentRepository.save(content);
             });
         });
     }
 
-
-    private Integer random(Integer i) {
-        return toIntExact(Math.round((Math.random() * i)));
+    private <T> List<T> JsonDataToList(String jsonFilePath, Class type) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(new File(jsonFilePath), mapper.getTypeFactory().constructCollectionType(List.class, type));
     }
-
 }

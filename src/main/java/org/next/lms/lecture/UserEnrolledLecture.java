@@ -35,6 +35,9 @@ public class UserEnrolledLecture {
     @Column(name = "APPROVAL_STATE")
     private Integer approvalState;
 
+    // TODO 사이드바 표시 여부를 나타내는 flag라면
+    // display on sidebar
+    // show on sidebar 와 같은 변수명을 사용해보면 어떨까요?
     @Column(name = "SIDE_MENU")
     private Boolean sideMenu;
 

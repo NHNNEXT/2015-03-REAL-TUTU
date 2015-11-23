@@ -6,6 +6,8 @@ import org.next.infra.exception.WrongAccessException;
 import java.io.IOException;
 import java.util.List;
 
+import static java.lang.Math.toIntExact;
+
 public class CommonUtils {
 
     public static boolean notNull(Object obj) {
@@ -18,9 +20,6 @@ public class CommonUtils {
         return (T) obj;
     }
 
-
-
-
     public static <T> List<T> parseList(Class<T> clazz, String arrayString) {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -30,4 +29,13 @@ public class CommonUtils {
         }
     }
 
+    /**
+     * Get Random Generated Number
+     *
+     * @param maxValue Upper boundary of the random values
+     * @return value of 0 to maxValue
+     */
+    public static int random(int maxValue) {
+        return toIntExact(Math.round((Math.random() * maxValue)));
+    }
 }
