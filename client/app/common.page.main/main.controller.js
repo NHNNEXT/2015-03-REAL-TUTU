@@ -2,6 +2,10 @@ angular
   .module('clientApp')
   /* @ngInject */
   .controller('mainController', function ($scope, rootUser, Content, $state) {
+
+    $scope.tags = [];
+    $scope.Qtags = [{name:"abc"},{name:"abcd"}]
+
     $scope.$watch(function () {
       return rootUser.id;
     }, function (id) {

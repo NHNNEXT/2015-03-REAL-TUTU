@@ -13,7 +13,6 @@ angular.module('clientApp')
           e.stopPropagation();
         };
         elem.on('click', handler);
-
         $document.on('click', hide);
 
         function hide() {
