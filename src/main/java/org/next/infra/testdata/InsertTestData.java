@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.Content;
+import org.next.lms.content.ContentType;
 import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.repository.ContentTypeRepository;
@@ -56,10 +57,13 @@ public class InsertTestData {
         // 컨텐츠
         List<Content> contents = JsonDataToList(TEST_DATA_PATH + "contents.json", Content.class);
 
+
         lectures.forEach(lecture -> {
+            ContentType type = lecture.getContentTypes().get(0);
             contents.forEach(content -> {
                 content.setLecture(lecture);
                 content.setWriter(users.get(random(users.size() - 1)));
+                content.setType(type);
                 contentRepository.save(content);
             });
         });
