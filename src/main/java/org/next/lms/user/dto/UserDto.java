@@ -11,17 +11,17 @@ import java.util.stream.Collectors;
 @Getter
 public class UserDto {
 
-    private Long id;
-    private String email;
-    private String name;
+    private final Long id;
+    private final String email;
+    private final String name;
     private String studentId;
     private String phoneNumber;
-    private String major;
-    private String introduce;
-    private String profileUrl;
-    private Boolean news;
-    private List<LectureSummaryDto> lectures;
-    private List<LectureSummaryDto> waitingLectures;
+    private final String major;
+    private final String introduce;
+    private final String profileUrl;
+    private final Boolean news;
+    private final List<LectureSummaryDto> lectures;
+    private final List<LectureSummaryDto> waitingLectures;
 
     public UserDto(User user) {
         this.id = user.getId();

@@ -10,6 +10,19 @@ import java.util.Date;
 @Getter
 public class ContentSummaryDto {
 
+    private String body;
+    private ContentTypeDto type;
+    private final String lectureName;
+    private final Long hits;
+    private final Integer repliesSize;
+    private final UserSummaryDto writer;
+    private final Long lectureId;
+    private final Long id;
+    private final String title;
+    private final Date writeDate;
+    private final Date startTime;
+    private final Date endTime;
+
     public ContentSummaryDto(Content content) {
         this.repliesSize = content.getReplies().size();
         this.writer = new UserSummaryDto(content.getWriter());
@@ -27,28 +40,4 @@ public class ContentSummaryDto {
         if (this.body != null && this.body.length() > 100)
             this.body = this.body.substring(0, 100);
     }
-
-    private String body;
-
-    private ContentTypeDto type;
-
-    private final String lectureName;
-
-    private final Long hits;
-
-    private final Integer repliesSize;
-
-    private final UserSummaryDto writer;
-
-    private final Long lectureId;
-
-    private final Long id;
-
-    private final String title;
-
-    private final Date writeDate;
-
-    private final Date startTime;
-
-    private final Date endTime;
 }

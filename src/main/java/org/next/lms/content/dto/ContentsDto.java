@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Contents {
+public class ContentsDto {
     private List<ContentParameterDto> contents;
     private Long lectureId;
 }

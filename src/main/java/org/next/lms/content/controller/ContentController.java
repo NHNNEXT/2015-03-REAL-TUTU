@@ -3,7 +3,7 @@ package org.next.lms.content.controller;
 import org.next.infra.view.JsonView;
 import org.next.lms.content.Content;
 import org.next.lms.content.dto.ContentParameterDto;
-import org.next.lms.content.dto.Contents;
+import org.next.lms.content.dto.ContentsDto;
 import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.controller.LectureController;
 import org.next.lms.user.User;
@@ -40,7 +40,7 @@ public class ContentController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public JsonView saveContentList(@RequestBody Contents contents, @Logged User user) {
+    public JsonView saveContentList(@RequestBody ContentsDto contents, @Logged User user) {
         return contentService.listSave(contents, user);
     }
 

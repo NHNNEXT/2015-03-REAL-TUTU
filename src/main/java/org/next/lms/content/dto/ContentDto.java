@@ -15,6 +15,21 @@ import java.util.stream.Collectors;
 @Getter
 public class ContentDto {
 
+    private final List<Long> likes;
+    private final String lectureName;
+    private final Long hits;
+    private final List<ReplyDto> replies;
+    private final UserSummaryDto writer;
+    private final ContentTypeDto type;
+    private final Long lectureId;
+    private final Long id;
+    private final String title;
+    private final String body;
+    private final Date writeDate;
+    private final Date startTime;
+    private final Date endTime;
+    private Long like;
+
     public ContentDto(Content content, User user) {
         this.writer = new UserSummaryDto(content.getWriter());
         this.lectureName = content.getLecture().getName();
@@ -34,19 +49,4 @@ public class ContentDto {
         }
         this.replies = content.getReplies().stream().filter(reply -> reply.getWriter().equals(user)).map(ReplyDto::new).collect(Collectors.toList());
     }
-
-    private List<Long> likes;
-    private String lectureName;
-    private Long hits;
-    private List<ReplyDto> replies;
-    private UserSummaryDto writer;
-    private ContentTypeDto type;
-    private Long lectureId;
-    private Long id;
-    private String title;
-    private String body;
-    private Date writeDate;
-    private Date startTime;
-    private Date endTime;
-    private Long like;
 }

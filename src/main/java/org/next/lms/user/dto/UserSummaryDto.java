@@ -10,6 +10,14 @@ import org.next.lms.user.User;
 @Setter
 public class UserSummaryDto {
 
+    private UserGroupDto group;
+    private final Long id;
+    private final String email;
+    private final String name;
+    private final String profileUrl;
+    private final String major;
+    private final String introduce;
+
     public UserSummaryDto(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -18,20 +26,4 @@ public class UserSummaryDto {
         this.major = user.getMajor();
         this.introduce = user.getIntroduce();
     }
-
-    private UserGroupDto group;
-
-    private final Long id;
-
-    private final String email;
-
-    private final String name;
-
-    private final String profileUrl;
-
-    private final String major;
-
-    private final String introduce;
-
-
 }

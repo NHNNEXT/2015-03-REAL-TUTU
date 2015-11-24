@@ -13,6 +13,11 @@ import java.util.List;
 @Getter
 public class LectureForHostUserDto extends LectureDto {
 
+    private final List<UserSummaryDto> waitingUsers;
+    private final List<UserSummaryDto> rejectUsers;
+    private List<List<Boolean>> writable;
+    private List<List<Boolean>> readable;
+
     public LectureForHostUserDto(Lecture lecture) {
         super(lecture);
         this.waitingUsers = new ArrayList<>();
@@ -48,13 +53,4 @@ public class LectureForHostUserDto extends LectureDto {
             this.readable.add(readable);
         }
     }
-
-    private final List<UserSummaryDto> waitingUsers;
-
-    private final List<UserSummaryDto> rejectUsers;
-
-    private List<List<Boolean>> writable;
-
-    private List<List<Boolean>> readable;
-
 }
