@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 @RestController
@@ -72,7 +71,7 @@ public class LikeController {
             return new JsonView(ResponseCode.Like.REMOVE);
         }
         userLikesContentRepository.save(relation);
-        messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentTemplate(relation.getContent(), user, relation.getContent().getLikes().size()));
+        messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentTemplate(relation.getContent(), user, relation.getContent().getUserLikesContents().size()));
         return new JsonView(ResponseCode.Like.ADD);
     }
 
@@ -99,7 +98,7 @@ public class LikeController {
             return new JsonView(ResponseCode.Like.REMOVE);
         }
         userLikesReplyRepository.save(relation);
-        messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyTemplate(relation.getReply(), user, relation.getReply().getLikes().size()));
+        messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyTemplate(relation.getReply(), user, relation.getReply().getUserLikesReplies().size()));
         return new JsonView(ResponseCode.Like.ADD);
     }
 }

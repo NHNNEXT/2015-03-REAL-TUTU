@@ -13,20 +13,16 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"tag", "contentHaveTags", "lectureHaveTags"})
 @Entity
 @Table(name = "TAG")
 public class Tag {
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
     private List<ContentHaveTag> contentHaveTags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
     private List<LectureHaveTag> lectureHaveTags = new ArrayList<>();
-
-
-
-
 
 
     @Id
@@ -37,10 +33,5 @@ public class Tag {
     @NotNull(message = "태그를을 입력해주세요.")
     @Column(name = "TAG")
     private String tag;
-
-
-
-
-
 
 }

@@ -27,7 +27,7 @@ public class ContentDto {
         this.endTime = content.getEndTime();
         this.type = new ContentTypeDto(content.getType());
         this.hits = content.getHits();
-        this.likes = content.getLikes().stream().map(UserLikesContent::getId).collect(Collectors.toList());
+        this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         if (!content.getType().getOnlyWriter() || content.getLecture().getHostUser().equals(user)) { // 작성자만 읽기 || Lecture 호스트유저일 경우
             this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
             return;

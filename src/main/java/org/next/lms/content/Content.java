@@ -7,6 +7,7 @@ import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.reply.Reply;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.like.UserLikesContent;
+import org.next.lms.tag.ContentHaveTag;
 import org.next.lms.user.User;
 
 import javax.persistence.*;
@@ -17,21 +18,25 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "likes", "replies", "writer", "lecture", "type"})
+@ToString(exclude = {"attachment", "userLikesContents", "replies", "writer", "lecture", "type"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "likes", "replies", "writer", "lecture", "type"})
+@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "replies", "writer", "lecture", "type"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
-    private List<UserLikesContent> likes = new ArrayList<>();
+    private List<UserLikesContent> userLikesContents = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UploadedFile> attachment = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    private List<ContentHaveTag> contentHaveTags = new ArrayList<>();
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)

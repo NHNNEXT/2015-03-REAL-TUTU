@@ -2,16 +2,13 @@ package org.next.lms.lecture.dto;
 
 import lombok.Getter;
 import org.next.lms.content.ContentType;
-import org.next.lms.content.dto.ContentSummaryDto;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
-import org.next.lms.like.UserLikesLecture;
 import org.next.lms.user.dto.UserSummaryDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class LectureForHostUserDto extends LectureDto {
@@ -20,7 +17,7 @@ public class LectureForHostUserDto extends LectureDto {
         super(lecture);
         this.waitingUsers = new ArrayList<>();
         this.rejectUsers = new ArrayList<>();
-        lecture.getUsers().forEach(relation -> {
+        lecture.getUserEnrolledLectures().forEach(relation -> {
             UserSummaryDto user = new UserSummaryDto(relation.getUser());
             UserGroup userGroup = relation.getUserGroup();
             if (userGroup == null)

@@ -17,12 +17,9 @@ import org.next.lms.lecture.Lecture;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.auth.ContentAuth;
-import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +61,7 @@ public class ContentService {
             return new JsonView(ResponseCode.WRONG_ACCESS);
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
-        messageService.newMessage(content.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
+        messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
         return successJsonResponse(new ContentDto(content, user));
     }
 
