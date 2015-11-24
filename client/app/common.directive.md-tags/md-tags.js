@@ -1,79 +1,60 @@
 (function () {
-  "use strict";
-
-  angular
-    .module('clientApp')
-    .directive('mdTags', MdContactChips);
-
-
-  var MD_CONTACT_CHIPS_TEMPLATE = '\
-      <md-chips class="md-contact-chips"\
-          ng-model="chips"\
-          md-require-match="false">\
-          {{$mdChipsCtrl.selectedChip}}\
-          <md-autocomplete\
-              md-menu-class="md-contact-chips-suggestions"\
-              md-items="item in items"\
-              md-selected-item="selected"\
-              md-search-text="text"\
-              md-selected-item-change="select(selected, $mdChipsCtrl.selectedChip)"\
-              placeholder="{{placeholder}}">\
-            <div class="md-contact-suggestion">\
-              <span class="md-contact-name" md-highlight-text="searchText">\
-                {{item}}{{$mdChipsCtrl.selectedChip}}\
-              </span>\
-            </div>\
-          </md-autocomplete>\
-          <md-chip-template>\
-            <div class="md-contact-name">\
-              {{item}}\
-            </div>\
-          </md-chip-template>\
-      </md-chips>\
-      {{chips}}{{selected}}\
-      \
-      ';
+  angular.module('clientApp')
+    .directive('mdTags', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          ngModel: '=',
+          match: '=',
+          placeholder: '@'
+        },
+        bindToController: true,
+        controllerAs: 'ctrl',
+        templateUrl: '/common.directive.md-tags/md-tags.html',
+        controller: tagCtrl
+      };
+    });
 
 
-  function MdContactChips() {
-    return {
-      template: function () {
-        return MD_CONTACT_CHIPS_TEMPLATE;
-      },
-      restrict: 'E',
-      controller: function ($scope) {
-        $scope.chips = [1, 2, 3];
-        var searchText;
-        $scope.chips.add = $scope.chips.push;
-        $scope.chips.push = function (input) {
-          if (searchText === undefined) {
-            searchText = input;
-            return;
-          }
-          var selectedValue = input;
-          console.log(searchText, selectedValue);
-          searchText = undefined;
+  /* @ngInject */
+  function tagCtrl(http) {
+    var self = this;
+    this.ngModel = [];
+    this.result = [];
+    this.ngModel.add = this.ngModel.push;
 
-        };
-        $scope.items = [1, 2, 3, 4];
-        $scope.select = function (a, b) {
-          console.log(a,b);
-          //$scope.chips.push(a);
-        };
-      },
-      scope: {
-        contactQuery: '&mdContacts',
-        placeholder: '@',
-        secondaryPlaceholder: '@',
-        contactName: '@mdContactName',
-        contactImage: '@mdContactImage',
-        contactEmail: '@mdContactEmail',
-        contacts: '=ngModel',
-        requireMatch: '=?mdRequireMatch',
-        highlightFlags: '@?mdHighlightFlags'
+    this.ngModel.push = function (chip) {
+      if (angular.element($("md-virtual-repeat-container:not(.ng-hide) li[md-virtual-repeat].selected")).length) return;
+      chip = transform(chip);
+      self.ngModel.add(chip);
+
+      function transform(chip) {
+        if (angular.isObject(chip)) {
+          return chip;
+        }
+        return {tag: chip}
       }
     };
 
+    this.querySearch = function (keyword) {
+      return http.get('/api/v1/tag', {keyword: keyword}).then(function (result) {
+        if (self.result === null || self.result === "null")
+          return;
+        return result;
+      });
+    };
+
+    this.search = function () {
+      if (self.keyword === undefined || self.keyword === "") {
+        self.result = [];
+        return;
+      }
+      http.get(self.src, {keyword: self.keyword}).then(function (result) {
+        if (self.result === null || self.result === "null")
+          return;
+        self.result = result;
+      });
+    };
   }
 
 })();
