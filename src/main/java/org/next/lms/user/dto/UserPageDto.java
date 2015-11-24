@@ -17,6 +17,16 @@ import java.util.stream.Collectors;
 @Setter
 public class UserPageDto {
 
+    private UserGroupDto group;
+    private final List<ContentSummaryDto> writeContents;
+    private final List<LectureSummaryDto> lectures;
+    private final Long id;
+    private final String email;
+    private final String name;
+    private final String profileUrl;
+    private final String major;
+    private final String introduce;
+
     public UserPageDto(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -27,24 +37,4 @@ public class UserPageDto {
         this.lectures = user.getEnrolledLectures().stream().map(relation->new LectureSummaryDto(relation.getLecture())).collect(Collectors.toList());
         this.writeContents = user.getContents().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
     }
-
-    private UserGroupDto group;
-
-    private final List<ContentSummaryDto> writeContents;
-
-    private final List<LectureSummaryDto> lectures;
-
-
-    private final Long id;
-
-    private final String email;
-
-    private final String name;
-
-    private final String profileUrl;
-
-    private final String major;
-
-    private final String introduce;
-
 }

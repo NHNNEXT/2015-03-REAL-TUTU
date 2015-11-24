@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 @Getter
 public class LectureTypeDto {
 
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
     private List<ContentTypeDto> contentTypes;
 
     public LectureTypeDto(Lecture lecture) {

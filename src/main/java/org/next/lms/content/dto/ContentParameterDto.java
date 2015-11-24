@@ -19,23 +19,14 @@ import static org.next.infra.util.CommonUtils.assureNotNull;
 public class ContentParameterDto {
 
     private Lecture lecture;
-
     private Long id;
-
     private String title;
-
     private String body;
-
     private Date writeDate;
-
     private Date startTime;
-
     private Date endTime;
-
     private Long type;
-
     private Content content;
-
 
     public Content saveContent(Lecture lecture, User user, ContentRepository contentRepository, ContentTypeRepository contentTypeRepository, ContentAuth contentAuthority) {
         if (type == null)

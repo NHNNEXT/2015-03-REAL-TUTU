@@ -3,7 +3,7 @@ package org.next.lms.content.service;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.view.JsonView;
 import org.next.lms.content.dto.ContentParameterDto;
-import org.next.lms.content.dto.Contents;
+import org.next.lms.content.dto.ContentsDto;
 import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.message.MessageService;
@@ -17,12 +17,9 @@ import org.next.lms.lecture.Lecture;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.auth.ContentAuth;
-import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,7 +87,7 @@ public class ContentService {
     }
 
 
-    public JsonView listSave(Contents contents, User user) {
+    public JsonView listSave(ContentsDto contents, User user) {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
         lectureAuthority.checkUpdateRight(lecture, user);
         contents.getContents().forEach(contentParameterDto -> {

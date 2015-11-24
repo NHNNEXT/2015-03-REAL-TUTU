@@ -10,6 +10,13 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ReplyDto {
+
+    private final List<Long> likes;
+    private final Long id;
+    private final String body;
+    private final Date writeDate;
+    private final UserSummaryDto writer;
+
     public ReplyDto(Reply reply) {
         this.id = reply.getId();
         this.body = reply.getBody();
@@ -17,14 +24,4 @@ public class ReplyDto {
         this.writer = new UserSummaryDto(reply.getWriter());
         this.likes = reply.getLikes().stream().map(like -> like.getUser().getId()).collect(Collectors.toList());
     }
-
-    private List<Long> likes;
-
-    private Long id;
-
-    private String body;
-
-    private Date writeDate;
-
-    private UserSummaryDto writer;
 }
