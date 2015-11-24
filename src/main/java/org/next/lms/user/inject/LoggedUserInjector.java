@@ -20,7 +20,7 @@ public class LoggedUserInjector implements HandlerMethodArgumentResolver {
 
     public static final String LOGIN_ACCOUNT_ID = "loginAccountId";
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public LoggedUserInjector(UserRepository userRepository) {
         this.userRepository = userRepository;
