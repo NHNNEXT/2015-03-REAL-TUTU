@@ -12,7 +12,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"userGroup", "contentType"})
 @Entity
-@Table(name = "USER_GROUP_CAN_READ_CONTENT")
+@Table(name = "USER_GROUP_CAN_READ_CONTENT", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"USER_GROUP_ID", "CONTENT_TYPE_ID"})
+})
 public class UserGroupCanReadContent {
 
     @ManyToOne(fetch = FetchType.LAZY)

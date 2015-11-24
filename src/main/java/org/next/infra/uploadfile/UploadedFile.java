@@ -13,7 +13,9 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"uploadUser"})
 @Entity
-@Table(name = "UPLOADED_FILE")
+@Table(name = "UPLOADED_FILE", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"UGLY_FILE_NAME"})
+})
 public class UploadedFile {
 
     @ManyToOne(fetch = FetchType.LAZY)

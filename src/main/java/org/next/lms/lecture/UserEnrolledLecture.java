@@ -12,7 +12,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"lecture", "user"})
 @Entity
-@Table(name = "USER_ENROLLED_LECTURE")
+@Table(name = "USER_ENROLLED_LECTURE", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"LECTURE_ID", "USER_ID"})
+})
 public class UserEnrolledLecture {
 
     @ManyToOne(fetch = FetchType.LAZY)
