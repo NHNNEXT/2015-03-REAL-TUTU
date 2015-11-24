@@ -6,20 +6,15 @@ import org.junit.runner.RunWith;
 import org.next.NextLectureManagerApplication;
 import org.next.infra.reponse.ResponseCode;
 import org.next.lms.user.inject.LoggedUserInjector;
-import org.next.lms.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockServletContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.nio.charset.Charset;
-
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -46,19 +41,21 @@ public class UserControllerTest {
     public void testGetUser() throws Exception {
         this.mockMvc.perform(get("/api/v1/user")
                 .param("id", "1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS))
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.SUCCESS))
                 .andExpect(jsonPath("$.result.email").value("test1@test.com"));
     }
+
+
 
     @Test
     public void testGetByEmailUser() throws Exception {
         this.mockMvc.perform(get("/api/v1/user")
                 .param("id", "test1@test.com"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS))
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.SUCCESS))
                 .andExpect(jsonPath("$.result.id").value(1));
     }
 
@@ -66,17 +63,17 @@ public class UserControllerTest {
     public void testGetSessionUser() throws Exception {
         this.mockMvc.perform(get("/api/v1/user/session")
                 .sessionAttr(LoggedUserInjector.LOGIN_ACCOUNT_ID, 1L))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.SUCCESS));
     }
 
     @Test
     public void testGetSessionUserEmpty() throws Exception {
         this.mockMvc.perform(get("/api/v1/user/session"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.GetSessionUser.EMPTY));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.GetSessionUser.EMPTY));
     }
 
     @Test
@@ -84,27 +81,28 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/api/v1/user")
                 .param("email", "email")
                 .param("password", "password"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.PATTERN_NOT_MATCHED));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.PATTERN_NOT_MATCHED));
     }
 
     @Test
     public void testPasswordPatternWrongRegister() throws Exception {
         this.mockMvc.perform(post("/api/v1/user").param("email", "email").param("password", "1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.PATTERN_NOT_MATCHED));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.PATTERN_NOT_MATCHED));
     }
 
     @Test
     public void testSuccessRegister() throws Exception {
         this.mockMvc.perform(post("/api/v1/user")
+                .param("name", "testName")
                 .param("email", "email@email.com")
                 .param("password", "password"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.SUCCESS));
     }
 
     @Test
@@ -122,9 +120,9 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/api/v1/user/login")
                 .param("email", "test1@test.com")
                 .param("password", "password"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.SUCCESS));
     }
 
     @Test
@@ -132,9 +130,9 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/api/v1/user/login")
                 .param("email", "test1123@test.com")
                 .param("password", "password"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.Login.NOT_EXIST_EMAIL));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.Login.NOT_EXIST_EMAIL));
     }
 
     @Test
@@ -142,10 +140,20 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/api/v1/user/login")
                 .param("email", "test1@test.com")
                 .param("password", "password1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.code").value(ResponseCode.Login.WRONG_PASSWORD));
+                .andExpect(okResponse())
+                .andExpect(jsonResponse())
+                .andExpect(responseCode(ResponseCode.Login.WRONG_PASSWORD));
     }
 
+    private ResultMatcher okResponse() {
+        return status().isOk();
+    }
 
+    private ResultMatcher responseCode(int expectResponseCode) {
+        return jsonPath("$.code").value(expectResponseCode);
+    }
+
+    private ResultMatcher jsonResponse() {
+        return content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8");
+    }
 }

@@ -101,7 +101,7 @@ public class User {
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         if (this.password == null) return;
-        if (!this.password.matches("^\\w{6,20}$"))
+        if (!this.password.matches("^\\S{6,20}$"))
             throw new PatternNotMatchedException("패스워드는 6~20자 입니다.");
         this.password = passwordEncoder.encode(this.password);
 
