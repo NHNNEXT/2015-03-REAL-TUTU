@@ -8,6 +8,7 @@ import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
+import org.next.lms.tag.LectureHaveTag;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.lms.like.UserLikesLecture;
@@ -20,9 +21,9 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents"})
+@ToString(exclude = {"hostUser", "userGroups", "contentTypes", "userLikesLectures", "userEnrolledLectures", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "likes", "users", "contents", "name", "majorType", "registerPolicy"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -33,7 +34,10 @@ public class Lecture {
     private User hostUser;
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<UserLikesLecture> likes = new ArrayList<>();
+    private List<UserLikesLecture> userLikesLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<LectureHaveTag> lectureHaveTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<UserGroup> userGroups = new ArrayList<>();
@@ -42,7 +46,7 @@ public class Lecture {
     private List<ContentType> contentTypes = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<UserEnrolledLecture> users = new ArrayList<>();
+    private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
@@ -67,7 +71,7 @@ public class Lecture {
 
     public void setDeleteState() {
         this.hostUser = null;
-        this.users = null;
+        this.userEnrolledLectures = null;
     }
 
     public void update(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {

@@ -1,7 +1,7 @@
 package org.next.lms.tag;
 
 import lombok.*;
-import org.next.lms.content.Content;
+import org.next.lms.lecture.Lecture;
 
 import javax.persistence.*;
 
@@ -11,8 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "CONTENT_HAVE_TAG")
-public class ContentHaveTag {
+@Table(name = "LECTURE_HAVE_TAG")
+public class LectureHaveTag {
 
     @Id
     @Column(name = "ID")
@@ -24,7 +24,7 @@ public class ContentHaveTag {
     private Tag tag;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CONTENT_ID")
-    private Content content;
+    @JoinColumn(name = "LECTURE_ID")
+    private Lecture lecture;
 
 }

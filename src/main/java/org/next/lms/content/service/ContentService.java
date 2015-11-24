@@ -61,7 +61,7 @@ public class ContentService {
             return new JsonView(ResponseCode.WRONG_ACCESS);
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
-        messageService.newMessage(content.getLecture().getUsers().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
+        messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
         return successJsonResponse(new ContentDto(content, user));
     }
 

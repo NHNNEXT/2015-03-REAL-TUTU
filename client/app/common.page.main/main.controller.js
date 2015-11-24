@@ -2,6 +2,15 @@ angular
   .module('clientApp')
   /* @ngInject */
   .controller('mainController', function ($scope, rootUser, Content, $state) {
+
+    $scope.tags = [];
+
+    $scope.addTag = function (tag) {
+      if (tag === undefined || tag.tag === undefined)
+        return;
+      $scope.tags.pushIfNotExist(tag.tag);
+    };
+
     $scope.$watch(function () {
       return rootUser.id;
     }, function (id) {

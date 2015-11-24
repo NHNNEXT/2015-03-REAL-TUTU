@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.content.Content;
+import org.next.lms.content.ContentType;
 import org.next.lms.content.service.ContentService;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.service.LectureService;
+import org.next.lms.tag.Tag;
+import org.next.lms.tag.repository.TagRepository;
 import org.next.lms.user.User;
 import org.next.lms.user.repository.UserRepository;
 import org.next.lms.user.service.UserService;
@@ -37,6 +40,9 @@ public class InsertTestData {
     @Autowired
     private ContentRepository contentRepository;
 
+    @Autowired
+    private TagRepository tagRepository;
+
 
     @PostConstruct
     public void insertData() throws IOException {
@@ -57,12 +63,18 @@ public class InsertTestData {
         List<Content> contents = JsonDataToList(TEST_DATA_PATH + "contents.json", Content.class);
 
         lectures.forEach(lecture -> {
+            ContentType type = lecture.getContentTypes().get(0);
             contents.forEach(content -> {
                 content.setLecture(lecture);
                 content.setWriter(users.get(random(users.size() - 1)));
+                content.setType(type);
                 contentRepository.save(content);
             });
         });
+
+        // 태그
+        List<Tag> tags = JsonDataToList(TEST_DATA_PATH + "tags.json", Tag.class);
+        tagRepository.save(tags);
     }
 
     private <T> List<T> JsonDataToList(String jsonFilePath, Class type) throws IOException {

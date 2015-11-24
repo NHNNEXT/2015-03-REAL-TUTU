@@ -13,15 +13,15 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"content", "likes", "writer"})
+@ToString(exclude = {"content", "userLikesReplies", "writer"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"content", "likes", "writer"})
+@EqualsAndHashCode(exclude = {"content", "userLikesReplies", "writer"})
 @Entity
 @Table(name = "Reply")
 public class Reply {
 
     @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY)
-    private List<UserLikesReply> likes = new ArrayList<>();
+    private List<UserLikesReply> userLikesReplies = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTENT_ID")

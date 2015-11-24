@@ -22,6 +22,6 @@ public class ReplyDto {
         this.body = reply.getBody();
         this.writeDate = reply.getWriteDate();
         this.writer = new UserSummaryDto(reply.getWriter());
-        this.likes = reply.getLikes().stream().map(like -> like.getUser().getId()).collect(Collectors.toList());
+        this.likes = reply.getUserLikesReplies().stream().map(like -> like.getUser().getId()).collect(Collectors.toList());
     }
 }
