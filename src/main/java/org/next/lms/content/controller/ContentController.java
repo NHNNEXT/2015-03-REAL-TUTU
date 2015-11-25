@@ -29,7 +29,7 @@ public class ContentController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Result getContent(Long id, @Logged(makeLoginNeededException = false) User user) {
-        return contentService.getDtoById(id, user);
+        return contentService.getContentDtoById(id, user);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -39,12 +39,12 @@ public class ContentController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Result saveContentList(@RequestBody ContentsDto contents, @Logged User user) {
-        return contentService.listSave(contents, user);
+        return contentService.saveContents(contents, user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Result save(ContentParameterDto content, Long lectureId, @Logged User user) {
-        return contentService.save(content, user, lectureId);
+        return contentService.saveContent(content, user, lectureId);
     }
 
     @RequestMapping(method = RequestMethod.PUT)

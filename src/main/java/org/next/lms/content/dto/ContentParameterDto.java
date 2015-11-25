@@ -42,7 +42,7 @@ public class ContentParameterDto {
         content.setWriteDate(new Date());
         content.setStartTime(this.startTime);
         content.setEndTime(this.endTime);
-        content.fieldCheck();
+        content.validateFields();
         contentRepository.save(content);
         return content;
     }
