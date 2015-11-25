@@ -3,9 +3,12 @@ package org.next.lms.content.dto;
 import lombok.Getter;
 import org.next.lms.content.Content;
 import org.next.lms.lecture.dto.ContentTypeDto;
+import org.next.lms.tag.dto.TagDto;
 import org.next.lms.user.dto.UserSummaryDto;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class ContentSummaryDto {
@@ -22,6 +25,7 @@ public class ContentSummaryDto {
     private final Date writeDate;
     private final Date startTime;
     private final Date endTime;
+    private final List<TagDto> tags;
 
     public ContentSummaryDto(Content content) {
         this.repliesSize = content.getReplies().size();
@@ -39,5 +43,6 @@ public class ContentSummaryDto {
         this.body = content.getBody();
         if (this.body != null && this.body.length() > 100)
             this.body = this.body.substring(0, 100);
+        this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
     }
 }

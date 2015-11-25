@@ -1,6 +1,6 @@
 package org.next.lms.user.service;
 
-import org.next.infra.view.JsonView;
+import org.next.infra.result.Result;
 import org.next.infra.reponse.ResponseCode;
 import org.next.lms.user.*;
 import org.next.lms.user.dto.UserDto;
@@ -18,7 +18,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.next.infra.view.JsonView.successJsonResponse;
+import static org.next.infra.result.Result.success;
 
 @Service
 @Transactional
@@ -32,13 +32,13 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-    public JsonView getSessionUser(User user) {
+    public Result getSessionUser(User user) {
         if (user == null)
-            return new JsonView(ResponseCode.GetSessionUser.EMPTY);
-        return new JsonView(ResponseCode.SUCCESS, new UserDto(user));
+            return new Result(ResponseCode.GetSessionUser.EMPTY);
+        return new Result(ResponseCode.SUCCESS, new UserDto(user));
     }
 
-    public JsonView getUser(String id) {
+    public Result getUser(String id) {
         User user;
         try {
             Long longId = Long.parseLong(id);
@@ -47,74 +47,55 @@ public class UserService {
             user = userRepository.findByEmail(id);
         }
         if (user == null)
-            return new JsonView(ResponseCode.WRONG_ACCESS);
-        return new JsonView(ResponseCode.SUCCESS, new UserPageDto(user));
+            return new Result(ResponseCode.WRONG_ACCESS);
+        return new Result(ResponseCode.SUCCESS, new UserPageDto(user));
     }
 
 
-    public JsonView login(User user, HttpSession session) {
+    public Result login(User user, HttpSession session) {
         User dbUser = userRepository.findByEmail(user.getEmail());
 
         if (dbUser == null)
-            return new JsonView(ResponseCode.Login.NOT_EXIST_EMAIL);
+            return new Result(ResponseCode.Login.NOT_EXIST_EMAIL);
 
         if (AccountState.WITHDRAWAL.equals(dbUser.getState()))
-            return new JsonView(ResponseCode.Login.WITHDRAWAL_ACCOUNT);
+            return new Result(ResponseCode.Login.WITHDRAWAL_ACCOUNT);
 
         if (!user.isPasswordCorrect(passwordEncoder, dbUser.getPassword())) {
-            return new JsonView(ResponseCode.Login.WRONG_PASSWORD);
+            return new Result(ResponseCode.Login.WRONG_PASSWORD);
         }
         LoggedUserInjector.setUserIdToSession(session, dbUser.getId());
-        return new JsonView(ResponseCode.SUCCESS, new UserDto(dbUser));
+        return new Result(ResponseCode.SUCCESS, new UserDto(dbUser));
     }
 
-    public JsonView register(User user) {
+    public Result register(User user) {
         if (userRepository.findByEmail(user.getEmail()) != null) {
-            return new JsonView(ResponseCode.Register.ALREADY_EXIST_EMAIL);
+            return new Result(ResponseCode.Register.ALREADY_EXIST_EMAIL);
         }
         user.encryptPassword(passwordEncoder);
         userRepository.save(user);
 
-        return new JsonView(ResponseCode.SUCCESS);
+        return new Result(ResponseCode.SUCCESS);
     }
 
-    public JsonView updateUser(User passed, User dbAccount) {
+    public Result updateUser(User passed, User dbAccount) {
         if (dbAccount == null)
-            return new JsonView(ResponseCode.GetSessionUser.EMPTY);
+            return new Result(ResponseCode.GetSessionUser.EMPTY);
         dbAccount.update(passed);
         userRepository.save(dbAccount);
-        return successJsonResponse(new UserSummaryDto(dbAccount));
+        return success(new UserSummaryDto(dbAccount));
     }
 
-    public JsonView withdrawal(User user) {
+    public Result withdrawal(User user) {
         user.setState(AccountState.WITHDRAWAL);
-        return successJsonResponse();
+        return success();
     }
 
-//    private void setLoginStatus(User user, LoginToken loginToken) {
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(loginToken.getEmail(), loginToken.getPassword(), new SimpleGrantedAuthority(""));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//    }
-//
-//    private List<GrantedAuthority> getAuthorities(LoginAccount dbAccount) {
-//        return dbAccount.getUserAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getAuthorityType().toString())).collect(Collectors.toList());
-//    }
-//
-//
-//    private Authority getAuthority(AuthorityType authorityType) {
-//        return authorityRepository.findByAuthorityType(authorityType);
-//    }
-//
-//    private boolean alreadyJoined(LoginToken loginToken) {
-//        LoginAccount dbAccount = getByEmailId(loginToken);
-//        return dbAccount != null;
-//    }
 
-
-    public List<UserSummaryDto> findByNameLike(String keyword) {
+    public Result findByNameLike(String keyword) {
         List<UserSummaryDto> result = new ArrayList<>();
         userRepository.findByNameContaining(keyword).forEach(userInfo -> result.add(new UserSummaryDto(userInfo)));
-        return result;
+        return success(result);
     }
 
 }

@@ -10,10 +10,10 @@
           댓글 {{content.replies.length}}
           <span class="bar"></span>
           <like type="CONTENT" like="content.likes" target="content.id"></like>
-          <span  ng-show="content.writer.id === rootUser.id">
+          <span ng-show="content.writer.id === rootUser.id">
             <span class="bar"></span>
             <span ui-sref="contentEdit({id:content.id})">수정</span>
-            <span class="dot"></span>
+            <span class="bar"></span>
             <span ng-click="content.remove()">삭제</span>
           </span>
         </span>
@@ -31,12 +31,17 @@
     </div>
   </div>
 </section>
-</section>
+
 
 <section>
   <p ng-bind-html="content.getBodyAsHtml()"></p>
 </section>
 
+<section>
+  <div layout="row">
+    <md-tags placeholder="태그" ng-model="content.tags" type="content" md-id="content.id" flex></md-tags>
+  </div>
+</section>
 
 <section>
   <div layout="row">

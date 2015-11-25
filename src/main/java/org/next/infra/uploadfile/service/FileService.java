@@ -4,10 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
-import org.next.infra.view.JsonView;
+import org.next.infra.result.Result;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.view.UploadView;
+import org.next.infra.result.UploadResult;
 import org.next.lms.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,9 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static org.next.infra.view.JsonView.successJsonResponse;
 import static org.next.infra.view.DownloadView.downloadView;
 import static org.next.infra.util.MultipartFileUtils.getNormalizedFileName;
+import static org.next.infra.result.Result.success;
 
 @Slf4j
 @Service
@@ -43,9 +43,9 @@ public class FileService {
     @Autowired
     private ContentRepository contentRepository;
 
-    public UploadView upload(MultipartFile file, User userAccount) {
+    public UploadResult upload(MultipartFile file, User userAccount) {
         if (file.isEmpty())
-            return new UploadView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
+            return new UploadResult(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
         Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
         ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
@@ -58,16 +58,16 @@ public class FileService {
             file.transferTo(fileStorePath);
         } catch (IllegalStateException | IOException e) {
             log.debug("{}", e.getCause());
-            return new UploadView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
+            return new UploadResult(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
 
-        return new UploadView(RELATIVE_PATH + uglifiedFileName);
+        return new UploadResult(RELATIVE_PATH + uglifiedFileName);
     }
 
 
-    public JsonView upload(MultipartFile file, User userAccount, Long contentId) {
+    public Result upload(MultipartFile file, User userAccount, Long contentId) {
         if (file.isEmpty())
-            return new JsonView(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
+            return new Result(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
         Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
         ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
@@ -80,10 +80,10 @@ public class FileService {
             file.transferTo(fileStorePath);
         } catch (IllegalStateException | IOException e) {
             log.debug("{}", e.getCause());
-            return new JsonView(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
+            return new Result(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
         saveFileInfo(file, uglifiedFileName, contentId, userAccount);
-        return successJsonResponse(uglifiedFileName);
+        return success(uglifiedFileName);
     }
 
     private void saveFileInfo(MultipartFile file, String fileName, Long contentId, User user) {

@@ -5,6 +5,7 @@ import org.next.lms.content.Content;
 import org.next.lms.lecture.dto.ContentTypeDto;
 import org.next.lms.like.UserLikesContent;
 import org.next.lms.reply.dto.ReplyDto;
+import org.next.lms.tag.dto.TagDto;
 import org.next.lms.user.User;
 import org.next.lms.user.dto.UserSummaryDto;
 
@@ -28,6 +29,7 @@ public class ContentDto {
     private final Date writeDate;
     private final Date startTime;
     private final Date endTime;
+    private final List<TagDto> tags;
     private Long like;
 
     public ContentDto(Content content, User user) {
@@ -43,6 +45,7 @@ public class ContentDto {
         this.type = new ContentTypeDto(content.getType());
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
+        this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
         if (!content.getType().getOnlyWriter() || content.getLecture().getHostUser().equals(user)) { // 작성자만 읽기 || Lecture 호스트유저일 경우
             this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
             return;

@@ -8,7 +8,6 @@ import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
-import org.next.lms.tag.LectureHaveTag;
 import org.next.lms.user.User;
 import org.next.lms.content.Content;
 import org.next.lms.like.UserLikesLecture;
@@ -35,9 +34,6 @@ public class Lecture {
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserLikesLecture> userLikesLectures = new ArrayList<>();
-
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
-    private List<LectureHaveTag> lectureHaveTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<UserGroup> userGroups = new ArrayList<>();

@@ -1,7 +1,7 @@
 package org.next.lms.like.controller;
 
 import org.next.infra.repository.*;
-import org.next.infra.view.JsonView;
+import org.next.infra.result.Result;
 import org.next.infra.reponse.ResponseCode;
 import org.next.lms.message.MessageService;
 import org.next.lms.message.template.UserLikesContentTemplate;
@@ -47,9 +47,9 @@ public class LikeController {
     MessageService messageService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView like(Integer type, Long id, @Logged User user) {
+    public Result like(Integer type, Long id, @Logged User user) {
         if (type == null || id == null)
-            return new JsonView(ResponseCode.WRONG_ACCESS);
+            return new Result(ResponseCode.WRONG_ACCESS);
 
         if (Objects.equals(type, ResponseCode.Like.CONTENT))
             return likeContent(id, user);
@@ -58,47 +58,47 @@ public class LikeController {
         if (Objects.equals(type, ResponseCode.Like.REPLY))
             return likeReply(id, user);
 
-        return new JsonView(ResponseCode.WRONG_ACCESS);
+        return new Result(ResponseCode.WRONG_ACCESS);
     }
 
-    private JsonView likeContent(Long id, User user) {
+    private Result likeContent(Long id, User user) {
         UserLikesContent relation = new UserLikesContent(user, contentRepository.findOne(id));
         if (user.getLikeContents().contains(relation)) {
             user.getLikeContents().forEach(like -> {
                 if (Objects.equals(like.getContent().getId(), id))
                     userLikesContentRepository.delete(like);
             });
-            return new JsonView(ResponseCode.Like.REMOVE);
+            return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesContentRepository.save(relation);
         messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentTemplate(relation.getContent(), user, relation.getContent().getUserLikesContents().size()));
-        return new JsonView(ResponseCode.Like.ADD);
+        return new Result(ResponseCode.Like.ADD);
     }
 
-    private JsonView likeLecture(Long id, User user) {
+    private Result likeLecture(Long id, User user) {
         UserLikesLecture relation = new UserLikesLecture(user, lectureRepository.findOne(id));
         if (user.getLikeLectures().contains(relation)) {
             user.getLikeLectures().forEach(like -> {
                 if (Objects.equals(like.getLecture().getId(), id))
                     userLikesLectureRepository.delete(like);
             });
-            return new JsonView(ResponseCode.Like.REMOVE);
+            return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesLectureRepository.save(relation);
-        return new JsonView(ResponseCode.Like.ADD);
+        return new Result(ResponseCode.Like.ADD);
     }
 
-    private JsonView likeReply(Long id, User user) {
+    private Result likeReply(Long id, User user) {
         UserLikesReply relation = new UserLikesReply(user, replyRepository.findOne(id));
         if (user.getLikeReplies().contains(relation)) {
             user.getLikeReplies().forEach(like -> {
                 if (Objects.equals(like.getReply().getId(), id))
                     userLikesReplyRepository.delete(like);
             });
-            return new JsonView(ResponseCode.Like.REMOVE);
+            return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesReplyRepository.save(relation);
         messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyTemplate(relation.getReply(), user, relation.getReply().getUserLikesReplies().size()));
-        return new JsonView(ResponseCode.Like.ADD);
+        return new Result(ResponseCode.Like.ADD);
     }
 }

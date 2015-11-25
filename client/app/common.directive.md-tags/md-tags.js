@@ -6,7 +6,10 @@
         scope: {
           ngModel: '=',
           match: '=',
-          placeholder: '@'
+          placeholder: '@',
+          readonly: '=',
+          mdId: '=',
+          type: '@'
         },
         bindToController: true,
         controllerAs: 'ctrl',
@@ -17,24 +20,43 @@
 
 
   /* @ngInject */
-  function tagCtrl(http) {
+  function tagCtrl(http, $scope) {
     var self = this;
-    this.ngModel = [];
-    this.result = [];
-    this.ngModel.add = this.ngModel.push;
 
-    this.ngModel.push = function (chip) {
-      if (angular.element($("md-virtual-repeat-container:not(.ng-hide) li[md-virtual-repeat].selected")).length) return;
-      chip = transform(chip);
-      self.ngModel.add(chip);
+    self.ngModel = [];
+    self.result = [];
 
-      function transform(chip) {
-        if (angular.isObject(chip)) {
-          return chip;
+    $scope.$watch(function () {
+      return self.ngModel;
+    }, function (model) {
+      if (model.push !== Array.prototype.push)
+        return;
+      model.add = model.push;
+      model.push = function (chip) {
+        if (angular.element($("md-virtual-repeat-container:not(.ng-hide) li[md-virtual-repeat].selected")).length)
+          return;
+        chip = transform(chip);
+        var ignore = false;
+        model.forEach(function (each) {
+          if (each.id != undefined && each.id === chip.id)
+            ignore = true;
+          if (each.text === chip.text)
+            ignore = true;
+        });
+        if (ignore)
+          return;
+        model.add(chip);
+
+        function transform(chip) {
+          if (angular.isObject(chip)) {
+            return chip;
+          }
+          return {text: chip};
         }
-        return {tag: chip}
-      }
-    };
+      };
+
+    });
+
 
     this.querySearch = function (keyword) {
       return http.get('/api/v1/tag', {keyword: keyword}).then(function (result) {

@@ -2,7 +2,9 @@ package org.next.lms.tag;
 
 
 import lombok.*;
+import org.next.lms.content.Content;
 import org.next.lms.like.UserLikesContent;
+import org.next.lms.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,25 +15,22 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"tag", "contentHaveTags", "lectureHaveTags"})
+@EqualsAndHashCode(exclude = {"id", "content"})
 @Entity
 @Table(name = "TAG")
 public class Tag {
 
-    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
-    private List<ContentHaveTag> contentHaveTags = new ArrayList<>();
-
-    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
-    private List<LectureHaveTag> lectureHaveTags = new ArrayList<>();
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CONTENT_ID")
+    private Content content;
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull(message = "태그를을 입력해주세요.")
-    @Column(name = "TAG")
-    private String tag;
+    @NotNull(message = "태그를 입력해주세요.")
+    @Column(name = "TEXT")
+    private String text;
 
 }

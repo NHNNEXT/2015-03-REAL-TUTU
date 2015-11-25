@@ -1,6 +1,6 @@
 package org.next.lms.content.controller;
 
-import org.next.infra.view.JsonView;
+import org.next.infra.result.Result;
 import org.next.lms.content.Content;
 import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.content.dto.ContentsDto;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import static org.next.infra.view.JsonView.successJsonResponse;
-
 @RestController
 @RequestMapping("/api/v1/content")
 public class ContentController {
@@ -30,32 +28,32 @@ public class ContentController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getContent(Long id, @Logged(makeLoginNeededException = false) User user) {
-        return successJsonResponse(contentService.getDtoById(id, user));
+    public Result getContent(Long id, @Logged(makeLoginNeededException = false) User user) {
+        return contentService.getDtoById(id, user);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public JsonView getContentList() {
-        return successJsonResponse(contentService.getList());
+    public Result getContentList(@Logged User user) {
+        return contentService.getList(user);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public JsonView saveContentList(@RequestBody ContentsDto contents, @Logged User user) {
+    public Result saveContentList(@RequestBody ContentsDto contents, @Logged User user) {
         return contentService.listSave(contents, user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView save(ContentParameterDto content, Long lectureId, @Logged User user) {
+    public Result save(ContentParameterDto content, Long lectureId, @Logged User user) {
         return contentService.save(content, user, lectureId);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateLecture(Content content, @Logged User user) {
+    public Result updateLecture(Content content, @Logged User user) {
         return contentService.update(content, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonView deleteLecture(Long id, @Logged User user) {
+    public Result deleteLecture(Long id, @Logged User user) {
         return contentService.delete(id, user);
     }
 }

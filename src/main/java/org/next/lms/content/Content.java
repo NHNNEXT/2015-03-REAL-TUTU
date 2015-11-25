@@ -7,7 +7,7 @@ import org.next.lms.content.dto.ContentParameterDto;
 import org.next.lms.reply.Reply;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.like.UserLikesContent;
-import org.next.lms.tag.ContentHaveTag;
+import org.next.lms.tag.Tag;
 import org.next.lms.user.User;
 
 import javax.persistence.*;
@@ -35,9 +35,7 @@ public class Content {
     private List<Reply> replies = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
-    private List<ContentHaveTag> contentHaveTags = new ArrayList<>();
-
-
+    private List<Tag> tags = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")

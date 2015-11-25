@@ -5,11 +5,9 @@ import org.next.lms.tag.Tag;
 
 @Getter
 public class TagDto {
-    private final String tag;
-    private final Long id;
+    private final String text;
 
     public TagDto(Tag tag) {
-        this.id = tag.getId();
-        this.tag = tag.getTag();
+        this.text = tag.getText();
     }
 }
