@@ -23,6 +23,7 @@ import org.next.lms.like.repository.UserEnrolledLectureRepository;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
@@ -61,7 +62,7 @@ public class LectureService {
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
         lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
-        enroll(user, lecture);
+        getEnrollRelation(user, lecture);
         return success(lecture.getId());
     }
 
@@ -100,7 +101,7 @@ public class LectureService {
         if (lecture.getRegisterPolicy().equals(RegisterPolicy.INVITE_ONLY))
             return new Result(ResponseCode.WRONG_ACCESS);
 
-        UserEnrolledLecture relation = enroll(user, lecture);
+        UserEnrolledLecture relation = getEnrollRelation(user, lecture);
 
         if (lecture.getRegisterPolicy().equals(RegisterPolicy.NO_ADDITIONAL)) {
             relation.setApprovalState(ApprovalState.OK);
@@ -135,11 +136,15 @@ public class LectureService {
     }
 
 
-    private UserEnrolledLecture enroll(User user, Lecture lecture) {
-        UserEnrolledLecture relation = new UserEnrolledLecture();
-        relation.setLecture(lecture);
-        relation.setUser(user);
-        userEnrolledLectureRepository.save(relation);
+    @Transactional
+    public UserEnrolledLecture getEnrollRelation(User user, Lecture lecture) {
+        UserEnrolledLecture relation = userEnrolledLectureRepository.findOneByUserIdAndLectureId(user.getId(), lecture.getId());
+        if (relation == null) {
+            relation = new UserEnrolledLecture();
+            relation.setLecture(lecture);
+            relation.setUser(user);
+            userEnrolledLectureRepository.save(relation);
+        }
         return relation;
     }
 

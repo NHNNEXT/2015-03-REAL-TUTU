@@ -49,12 +49,12 @@ public class InsertTestData {
     public void insertData() {
 
         // 유저
-        List<User> users = JsonDataToList(TEST_DATA_PATH + "users.json", User.class);
+        List<User> users = JsonDataToList("users.json", User.class);
         users.forEach(userService::register);
         Loop<User> userLoop = new Loop<>(users);
 
         // 수업
-        List<Lecture> lectures = JsonDataToList(TEST_DATA_PATH + "lectures.json", Lecture.class);
+        List<Lecture> lectures = JsonDataToList("lectures.json", Lecture.class);
         Loop<Lecture> lectureLoop = new Loop<>(lectures);
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
@@ -63,32 +63,26 @@ public class InsertTestData {
         });
 
         // 수업 등록
-        users.forEach(user->{
-            UserEnrolledLecture userEnrolledLecture = new UserEnrolledLecture();
-            userEnrolledLecture.setUser(user);
+        users.forEach(user -> {
+            UserEnrolledLecture userEnrolledLecture = lectureService.getEnrollRelation(user, lectureLoop.next());
             userEnrolledLecture.setApprovalState(ApprovalState.OK);
-            userEnrolledLecture.setLecture(lectureLoop.next());
             userEnrolledLectureRepository.save(userEnrolledLecture);
-            userEnrolledLecture = new UserEnrolledLecture();
+            userEnrolledLecture = lectureService.getEnrollRelation(user, lectureLoop.next());
             userEnrolledLecture.setApprovalState(ApprovalState.WAITING_APPROVAL);
-            userEnrolledLecture.setUser(user);
-            userEnrolledLecture.setLecture(lectureLoop.next());
             userEnrolledLectureRepository.save(userEnrolledLecture);
-            userEnrolledLecture = new UserEnrolledLecture();
+            userEnrolledLecture = lectureService.getEnrollRelation(user, lectureLoop.next());
             userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
-            userEnrolledLecture.setUser(user);
-            userEnrolledLecture.setLecture(lectureLoop.next());
             userEnrolledLectureRepository.save(userEnrolledLecture);
         });
 
 
         // 태그
-        List<Tag> tags = JsonDataToList(TEST_DATA_PATH + "tags.json", Tag.class);
+        List<Tag> tags = JsonDataToList("tags.json", Tag.class);
         Loop<Tag> tagLoop = new Loop<>(tags);
 
         // 컨텐츠
         lectures.forEach(lecture -> {
-            List<Content> contents = JsonDataToList(TEST_DATA_PATH + "contents.json", Content.class);
+            List<Content> contents = JsonDataToList("contents.json", Content.class);
             Loop<ContentType> contentTypeIterator = new Loop<>(lecture.getContentTypes());
             contents.forEach(content -> {
                 content.setLecture(lecture);
@@ -114,7 +108,7 @@ public class InsertTestData {
     private <T> List<T> JsonDataToList(String jsonFilePath, Class type) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(new File(jsonFilePath), mapper.getTypeFactory().constructCollectionType(List.class, type));
+            return mapper.readValue(new File(TEST_DATA_PATH + jsonFilePath), mapper.getTypeFactory().constructCollectionType(List.class, type));
         } catch (IOException e) {
             return new ArrayList<>();
         }

@@ -9,8 +9,8 @@ import org.next.lms.tag.dto.TagUpdateDto;
 import org.next.lms.tag.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 
 
