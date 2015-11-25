@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class LectureTypeDto {
+public class SupportContentTypeDto {
 
     private final Long id;
     private final String name;
     private List<ContentTypeDto> contentTypes;
 
-    public LectureTypeDto(Lecture lecture) {
+    public SupportContentTypeDto(Lecture lecture) {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.contentTypes = lecture.getContentTypes().stream().map(ContentTypeDto::new).collect(Collectors.toList());

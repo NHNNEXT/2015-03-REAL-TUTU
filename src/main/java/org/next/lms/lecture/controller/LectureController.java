@@ -24,7 +24,7 @@ public class LectureController {
     public Result getLecture(Long id, @Logged(makeLoginNeededException = false) User user) {
         if (id == null)
             return lectureService.getList();
-        return lectureService.getById(id, user);
+        return lectureService.getLectureById(id, user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -69,6 +69,6 @@ public class LectureController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/type")
     public Result getLectureType(Long id) {
-        return lectureService.getTypeById(id);
+        return lectureService.getSupportContentTypeById(id);
     }
 }

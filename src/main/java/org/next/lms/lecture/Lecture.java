@@ -65,6 +65,7 @@ public class Lecture {
     private Integer registerPolicy;
 
 
+    // TODO 삭제된 상태라고 보기 어려운것 같다
     public void setDeleteState() {
         this.hostUser = null;
         this.userEnrolledLectures = null;

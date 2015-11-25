@@ -78,16 +78,16 @@ public class LectureService {
     }
 
 
-    public Result getById(Long lectureId, User user) {
+    public Result getLectureById(Long lectureId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         if (lecture.getHostUser().equals(user))
             return success(new LectureForHostUserDto(lecture));
         return success(new LectureDto(lecture));
     }
 
-    public Result getTypeById(Long lectureId) {
+    public Result getSupportContentTypeById(Long lectureId) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-        return success(new LectureTypeDto(lecture));
+        return success(new SupportContentTypeDto(lecture));
     }
 
 
@@ -105,13 +105,15 @@ public class LectureService {
 
         if (lecture.getRegisterPolicy().equals(RegisterPolicy.NO_ADDITIONAL)) {
             relation.setApprovalState(ApprovalState.OK);
-            relation.setSideMenu(true);
+            relation.showLectureOnSideBar();
             userEnrolledLectureRepository.save(relation);
+
             messageService.newMessage(lecture.getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new EnrollMessageTemplate());
             return success();
         } else if (lecture.getRegisterPolicy().equals(RegisterPolicy.NEED_APPROVAL)) {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
+
             messageService.newMessage(lecture.getHostUser(), new EnrollRequestTemplate());
             return new Result(ResponseCode.Enroll.WAITING_FOR_APPROVAL, new LectureSummaryDto(lecture));
         }
@@ -122,7 +124,7 @@ public class LectureService {
     public Result approval(Long id, Long userId, User user) {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
-        userEnrolledLectureRepository.save(userEnrolledLecture);
+
         messageService.newMessage(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new EnrollMessageTemplate());
         return success(new UserSummaryDto(userEnrolledLecture));
     }
@@ -130,7 +132,7 @@ public class LectureService {
     public Result reject(Long id, Long userId, User user) {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
-        userEnrolledLectureRepository.save(userEnrolledLecture);
+
         messageService.newMessage(userEnrolledLecture.getUser(), new EnrollRejectMessageTemplate());
         return success();
     }
@@ -138,12 +140,14 @@ public class LectureService {
 
     public UserEnrolledLecture getEnrollRelation(User user, Lecture lecture) {
         UserEnrolledLecture relation = userEnrolledLectureRepository.findOneByUserIdAndLectureId(user.getId(), lecture.getId());
-        if (relation == null) {
-            relation = new UserEnrolledLecture();
-            relation.setLecture(lecture);
-            relation.setUser(user);
-            userEnrolledLectureRepository.save(relation);
-        }
+        return relation != null ? relation : enrollLecture(user, lecture);
+    }
+
+    private UserEnrolledLecture enrollLecture(User user, Lecture lecture) {
+        UserEnrolledLecture relation = new UserEnrolledLecture();;
+        relation.setLecture(lecture);
+        relation.setUser(user);
+        userEnrolledLectureRepository.save(relation);
         return relation;
     }
 
@@ -151,14 +155,14 @@ public class LectureService {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkDeleteRight(user, lecture);
         lecture.setDeleteState();
-        lectureRepository.save(lecture);
+
         return success();
     }
 
     public Result sideMenuToggle(Long lectureId, User user) {
-        UserEnrolledLecture userEnrolledLecture = user.getEnrolledLectures().stream().filter(relation -> relation.getLecture().getId().equals(lectureId)).findFirst().get();
-        userEnrolledLecture.sideMenuToggle();
-        userEnrolledLectureRepository.save(userEnrolledLecture);
+        UserEnrolledLecture userEnrolledLecture = assureNotNull(user.getEnrolledLectures().stream().filter(relation -> relation.getLecture().getId().equals(lectureId)).findFirst().get());
+        userEnrolledLecture.toggleSideMenu();
+
         return success(userEnrolledLecture.getSideMenu());
     }
 
@@ -172,10 +176,10 @@ public class LectureService {
     public Result userGroupChange(Long lectureId, Long groupId, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         lectureAuthority.checkGroupChangeRight(user, lecture);
-        UserEnrolledLecture userEnrolledLecture = lecture.getUserEnrolledLectures().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get();
-        UserGroup group = lecture.getUserGroups().stream().filter(userGroup -> userGroup.getId().equals(groupId)).findFirst().get();
+        UserEnrolledLecture userEnrolledLecture = assureNotNull(lecture.getUserEnrolledLectures().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get());
+        UserGroup group = assureNotNull(lecture.getUserGroups().stream().filter(userGroup -> userGroup.getId().equals(groupId)).findFirst().get());
         userEnrolledLecture.setUserGroup(group);
-        userEnrolledLectureRepository.save(userEnrolledLecture);
+
         return success(new UserGroupDto(group));
     }
 }
