@@ -1,8 +1,8 @@
 package org.next.lms.like;
 
 import lombok.*;
-import org.next.lms.user.User;
 import org.next.lms.content.Content;
+import org.next.lms.user.User;
 
 import javax.persistence.*;
 

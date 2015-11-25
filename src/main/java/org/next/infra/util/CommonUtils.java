@@ -2,7 +2,6 @@ package org.next.infra.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.exception.WrongAccessException;
-import org.next.infra.result.Result;
 
 import java.io.IOException;
 import java.util.List;

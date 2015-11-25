@@ -1,25 +1,25 @@
 package org.next.lms.lecture.service;
 
 import org.next.infra.reponse.ResponseCode;
+import org.next.infra.repository.LectureRepository;
 import org.next.infra.result.Result;
+import org.next.lms.lecture.Lecture;
+import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.auth.ApprovalState;
+import org.next.lms.lecture.auth.LectureAuth;
 import org.next.lms.lecture.auth.RegisterPolicy;
 import org.next.lms.lecture.dto.*;
 import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
+import org.next.lms.like.repository.UserEnrolledLectureRepository;
 import org.next.lms.message.MessageService;
-import org.next.lms.message.template.EnrollRequestTemplate;
 import org.next.lms.message.template.EnrollMessageTemplate;
 import org.next.lms.message.template.EnrollRejectMessageTemplate;
+import org.next.lms.message.template.EnrollRequestTemplate;
 import org.next.lms.user.User;
-import org.next.lms.lecture.auth.LectureAuth;
-import org.next.lms.lecture.UserEnrolledLecture;
-import org.next.lms.lecture.Lecture;
-import org.next.infra.repository.LectureRepository;
-import org.next.lms.like.repository.UserEnrolledLectureRepository;
 import org.next.lms.user.dto.UserSummaryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
-import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.result.Result.success;
+import static org.next.infra.util.CommonUtils.assureNotNull;
 
 @Service
 @Transactional

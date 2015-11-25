@@ -1,6 +1,5 @@
 package org.next.lms.message.template;
 
-import lombok.extern.slf4j.Slf4j;
 import org.next.lms.content.Content;
 import org.next.lms.message.Message;
 import org.next.lms.message.MessageType;

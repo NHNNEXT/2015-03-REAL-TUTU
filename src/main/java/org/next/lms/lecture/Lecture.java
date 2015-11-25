@@ -1,6 +1,7 @@
 package org.next.lms.lecture;
 
 import lombok.*;
+import org.next.lms.content.Content;
 import org.next.lms.content.ContentType;
 import org.next.lms.lecture.auth.UserGroupCanReadContent;
 import org.next.lms.lecture.auth.UserGroupCanWriteContent;
@@ -8,14 +9,14 @@ import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.lecture.repository.UserGroupCanReadContentRepository;
 import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
-import org.next.lms.user.User;
-import org.next.lms.content.Content;
 import org.next.lms.like.UserLikesLecture;
+import org.next.lms.user.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter

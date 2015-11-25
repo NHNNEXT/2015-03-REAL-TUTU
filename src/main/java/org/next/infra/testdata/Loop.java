@@ -1,7 +1,6 @@
 package org.next.infra.testdata;
 
 import org.next.infra.exception.WrongAccessException;
-import org.next.lms.user.User;
 
 import java.util.Iterator;
 import java.util.List;

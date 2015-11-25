@@ -2,9 +2,9 @@ package org.next.lms.user;
 
 import lombok.*;
 import org.next.infra.exception.PatternNotMatchedException;
-import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.content.Content;
 import org.next.lms.lecture.Lecture;
+import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.like.UserLikesContent;
 import org.next.lms.like.UserLikesLecture;
 import org.next.lms.like.UserLikesReply;
@@ -14,13 +14,10 @@ import org.next.lms.user.state.AccountState;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter

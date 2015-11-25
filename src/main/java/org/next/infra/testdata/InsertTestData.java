@@ -1,7 +1,6 @@
 package org.next.infra.testdata;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
 import org.next.infra.repository.ContentRepository;
 import org.next.lms.content.Content;
 import org.next.lms.content.ContentType;
@@ -20,7 +19,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

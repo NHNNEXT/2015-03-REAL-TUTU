@@ -1,7 +1,6 @@
 package org.next.lms.message;
 
 import lombok.*;
-import org.next.lms.content.Content;
 import org.next.lms.user.User;
 
 import javax.persistence.*;

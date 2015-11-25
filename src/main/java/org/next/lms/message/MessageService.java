@@ -1,6 +1,5 @@
 package org.next.lms.message;
 
-import org.next.infra.reponse.ResponseCode;
 import org.next.infra.result.Result;
 import org.next.lms.message.repository.MessageRepository;
 import org.next.lms.message.template.MessageTemplate;

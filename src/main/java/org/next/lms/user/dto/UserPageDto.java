@@ -3,14 +3,11 @@ package org.next.lms.user.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.next.lms.content.dto.ContentSummaryDto;
-import org.next.lms.lecture.Lecture;
-import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.dto.LectureSummaryDto;
 import org.next.lms.lecture.dto.UserGroupDto;
 import org.next.lms.user.User;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Getter

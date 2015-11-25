@@ -3,10 +3,9 @@ package org.next.lms.content;
 import lombok.*;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.uploadfile.UploadedFile;
-import org.next.lms.content.dto.ContentParameterDto;
-import org.next.lms.reply.Reply;
 import org.next.lms.lecture.Lecture;
 import org.next.lms.like.UserLikesContent;
+import org.next.lms.reply.Reply;
 import org.next.lms.tag.Tag;
 import org.next.lms.user.User;
 

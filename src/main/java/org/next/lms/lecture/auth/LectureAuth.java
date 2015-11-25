@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.infra.auth.Auth;
-import org.next.lms.user.User;
 import org.next.lms.lecture.Lecture;
+import org.next.lms.user.User;
 import org.springframework.stereotype.Component;
 
 @NoArgsConstructor

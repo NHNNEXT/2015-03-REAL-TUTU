@@ -3,13 +3,9 @@ package org.next.lms.tag;
 
 import lombok.*;
 import org.next.lms.content.Content;
-import org.next.lms.like.UserLikesContent;
-import org.next.lms.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

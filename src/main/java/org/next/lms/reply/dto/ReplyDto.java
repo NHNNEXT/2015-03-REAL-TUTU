@@ -3,7 +3,6 @@ package org.next.lms.reply.dto;
 import lombok.Getter;
 import org.next.lms.reply.Reply;
 import org.next.lms.user.dto.UserSummaryDto;
-import org.springframework.beans.factory.annotation.Required;
 
 import java.util.Date;
 import java.util.List;

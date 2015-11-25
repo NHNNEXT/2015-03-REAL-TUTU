@@ -2,7 +2,6 @@ package org.next.lms.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.UserGroup;
 import org.next.lms.lecture.dto.UserGroupDto;

@@ -1,7 +1,6 @@
 package org.next.lms.message;
 
 import lombok.Getter;
-import org.next.lms.user.dto.UserSummaryDto;
 
 import java.util.Date;
 

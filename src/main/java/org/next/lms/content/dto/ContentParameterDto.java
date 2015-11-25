@@ -1,6 +1,8 @@
 package org.next.lms.content.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.repository.ContentRepository;
 import org.next.lms.content.Content;

@@ -8,8 +8,8 @@ import org.next.infra.reponse.ResponseCode;
 @NoArgsConstructor
 public class Result {
 
-    private Object result;
     private Integer code;
+    private Object result;
 
     public Result(Integer code) {
         this.code = code;

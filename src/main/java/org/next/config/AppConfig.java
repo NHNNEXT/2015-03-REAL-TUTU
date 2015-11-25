@@ -1,11 +1,10 @@
 package org.next.config;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.filter.HttpPutFormContentFilter;
-
-import javax.servlet.FilterRegistration;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 
 @Import({ApplicationSecurityConfig.class, PersistenceConfig.class})
 @ComponentScan(
