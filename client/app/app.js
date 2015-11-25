@@ -16,7 +16,6 @@
     'toastr',
     'scDateTime',
     'anim-in-out',
-    'satellizer'
     /* @ngInject */
   ]).run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeSuccess',
@@ -40,18 +39,6 @@
     $mdThemingProvider.theme('default');
     //.primaryPalette('pink')
     //.accentPalette('orange');
-  }).config(function($authProvider) {
-
-    $authProvider.google({
-      clientId: '255146844316-5kqt3k3sksejf7i1l9alnv1bmv39usom.apps.googleusercontent.com'
-    });
   });
-    //$authProvider.oauth2({
-    //  name: 'youtube',
-    //  url: '/auth/foursquare',
-    //  clientId: '255146844316-5kqt3k3sksejf7i1l9alnv1bmv39usom.apps.googleusercontent.com',
-    //  redirectUri: window.location.origin,
-    //  authorizationEndpoint: 'https://foursquare.com/oauth2/authenticate',
-    //});
 }());
 
