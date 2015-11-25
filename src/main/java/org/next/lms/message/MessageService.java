@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.util.CommonUtils.assureTrue;
 
@@ -22,18 +23,15 @@ import static org.next.infra.util.CommonUtils.assureTrue;
 @Transactional
 public class MessageService {
 
+    public static final Integer pageSize = 10;
 
     @Autowired
     private MessageRepository messageRepository;
 
-    public static final Integer pageSize = 10;
-
     public Result getList(User user, Integer page) {
-        if (page == null)
-            page = 1;
         Pageable pageable = new PageRequest(page, pageSize);
         List<Message> messages = messageRepository.findByUserId(user.getId(), pageable);
-        return Result.success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
+        return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }
 
     public Result read(User user, Long id) {
@@ -41,7 +39,7 @@ public class MessageService {
         assureTrue(message.getUser().equals(user));
 
         message.setChecked(true);
-        return new Result(ResponseCode.SUCCESS);
+        return success();
     }
 
     public void newMessage(List<User> users, MessageTemplate template) {

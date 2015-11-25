@@ -166,7 +166,6 @@ public class LectureService {
         return success(userEnrolledLecture.getSideMenu());
     }
 
-
     private UserEnrolledLecture getUserEnrolledLectureWithAuthCheck(Long id, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkApprovalRight(user, lecture);

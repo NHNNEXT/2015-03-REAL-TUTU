@@ -7,6 +7,7 @@ import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -18,7 +19,7 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Result getList(@Logged User user, Integer page) {
+    public Result getList(@Logged User user, @RequestParam(defaultValue = "1") Integer page) {
         return messageService.getList(user, page);
     }
 

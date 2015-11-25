@@ -10,6 +10,7 @@ import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -17,6 +18,7 @@ import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
 
 @Service
+@Transactional
 public class ReplyService {
 
 
@@ -42,16 +44,15 @@ public class ReplyService {
         Reply fromDB = assureNotNull(replyRepository.findOne(reply.getId()));
         replyAuth.checkUpdateRight(fromDB, user);
         fromDB.update(reply);
-        replyRepository.save(fromDB);
+
         return success(new ReplyDto(fromDB));
     }
 
     public Result deleteReply(Long id, User user) {
-        assureNotNull(id);
         Reply reply = assureNotNull(replyRepository.findOne(id));
         replyAuth.checkDeleteRight(reply, user);
         reply.setDeleteState();
-        replyRepository.save(reply);
+
         return success();
     }
 

@@ -13,29 +13,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
+import static org.next.infra.result.Result.success;
+import static org.next.infra.util.CommonUtils.assureNotNull;
+
 
 @Service
+@Transactional
 public class TagService {
 
     @Autowired
-    TagRepository tagRepository;
-
+    private TagRepository tagRepository;
 
     @Autowired
-    ContentRepository contentRepository;
+    private ContentRepository contentRepository;
 
     public Result find(String keyword) {
-        return new Result(ResponseCode.SUCCESS, tagRepository.findByTextContaining(keyword).stream().map(TagDto::new).collect(Collectors.toList()));
+        return success(tagRepository.findByTextContaining(keyword).stream().map(TagDto::new).collect(Collectors.toList()));
     }
 
-    @Transactional
     public Result updateContent(TagUpdateDto tagUpdateDto) {
-        Content content = contentRepository.findOne(tagUpdateDto.getId());
+        Content content = assureNotNull(contentRepository.findOne(tagUpdateDto.getId()));
         tagRepository.deleteByContentId(tagUpdateDto.getId());
         tagUpdateDto.getTags().forEach(tag -> {
             tag.setContent(content);
             tagRepository.save(tag);
         });
-        return Result.success();
+        return success();
     }
 }

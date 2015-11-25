@@ -2,6 +2,7 @@ package org.next.lms.user.service;
 
 import org.next.infra.result.Result;
 import org.next.infra.reponse.ResponseCode;
+import org.next.infra.util.CommonUtils;
 import org.next.lms.user.*;
 import org.next.lms.user.dto.UserDto;
 import org.next.lms.user.dto.UserPageDto;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.next.infra.result.Result.success;
+import static org.next.infra.util.CommonUtils.assureNotNull;
 
 @Service
 @Transactional
@@ -35,7 +37,7 @@ public class UserService {
     public Result getSessionUser(User user) {
         if (user == null)
             return new Result(ResponseCode.GetSessionUser.EMPTY);
-        return new Result(ResponseCode.SUCCESS, new UserDto(user));
+        return success(new UserDto(user));
     }
 
     public Result getUser(String id) {
@@ -46,9 +48,8 @@ public class UserService {
         } catch (NumberFormatException e) {
             user = userRepository.findByEmail(id);
         }
-        if (user == null)
-            return new Result(ResponseCode.WRONG_ACCESS);
-        return new Result(ResponseCode.SUCCESS, new UserPageDto(user));
+        assureNotNull(user);
+        return success(new UserPageDto(user));
     }
 
 
@@ -61,11 +62,11 @@ public class UserService {
         if (AccountState.WITHDRAWAL.equals(dbUser.getState()))
             return new Result(ResponseCode.Login.WITHDRAWAL_ACCOUNT);
 
-        if (!user.isPasswordCorrect(passwordEncoder, dbUser.getPassword())) {
+        if (!user.isPasswordCorrect(passwordEncoder, dbUser.getPassword()))
             return new Result(ResponseCode.Login.WRONG_PASSWORD);
-        }
+
         LoggedUserInjector.setUserIdToSession(session, dbUser.getId());
-        return new Result(ResponseCode.SUCCESS, new UserDto(dbUser));
+        return success(new UserDto(dbUser));
     }
 
     public Result register(User user) {
@@ -75,7 +76,7 @@ public class UserService {
         user.encryptPassword(passwordEncoder);
         userRepository.save(user);
 
-        return new Result(ResponseCode.SUCCESS);
+        return success();
     }
 
     public Result updateUser(User passed, User dbAccount) {
@@ -91,11 +92,9 @@ public class UserService {
         return success();
     }
 
-
     public Result findByNameLike(String keyword) {
         List<UserSummaryDto> result = new ArrayList<>();
         userRepository.findByNameContaining(keyword).forEach(userInfo -> result.add(new UserSummaryDto(userInfo)));
         return success(result);
     }
-
 }
