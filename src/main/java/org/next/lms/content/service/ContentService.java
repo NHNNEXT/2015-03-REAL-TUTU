@@ -20,6 +20,7 @@ import org.next.lms.content.auth.ContentAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,8 +75,13 @@ public class ContentService {
         return successJsonResponse();
     }
 
-    public List<ContentSummaryDto> getList() {
-        return contentRepository.findAll().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
+    public List<ContentSummaryDto> getList(User user) {
+        List<ContentSummaryDto> contentSummaryDtos = new ArrayList<>();
+        user.getEnrolledLectures().forEach(
+                userEnrolledLecture -> userEnrolledLecture.getUserGroup().getReadable()
+                        .forEach(userGroupCanReadContent -> contentSummaryDtos.addAll(userGroupCanReadContent.getContentType().getContents().stream()
+                                .map(ContentSummaryDto::new).collect(Collectors.toList()))));
+        return contentSummaryDtos;
     }
 
     public JsonView delete(Long id, User user) {

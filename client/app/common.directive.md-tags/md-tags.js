@@ -1,8 +1,37 @@
 (function () {
-  angular.module('clientApp').factory('tagPush', function () {
-    return function (model) {
-      model.add = model.push;
+  angular.module('clientApp')
+    .directive('mdTags', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          ngModel: '=',
+          match: '=',
+          placeholder: '@',
+          readonly: '=',
+          mdId: '=',
+          type: '@'
+        },
+        bindToController: true,
+        controllerAs: 'ctrl',
+        templateUrl: '/common.directive.md-tags/md-tags.html',
+        controller: tagCtrl
+      };
+    });
 
+
+  /* @ngInject */
+  function tagCtrl(http, $scope) {
+    var self = this;
+
+    self.ngModel = [];
+    self.result = [];
+
+    $scope.$watch(function () {
+      return self.ngModel;
+    }, function (model) {
+      if (model.push !== Array.prototype.push)
+        return;
+      model.add = model.push;
       model.push = function (chip) {
         if (angular.element($("md-virtual-repeat-container:not(.ng-hide) li[md-virtual-repeat].selected")).length)
           return;
@@ -25,58 +54,9 @@
           return {text: chip};
         }
       };
-    };
-  });
 
-  angular.module('clientApp')
-    .directive('mdTags', function (tagPush) {
-      return {
-        restrict: 'E',
-        scope: {
-          ngModel: '=',
-          match: '=',
-          placeholder: '@',
-          readonly: '=',
-          mdId: '=',
-          type: '@'
-        },
-        bindToController: true,
-        controllerAs: 'ctrl',
-        templateUrl: '/common.directive.md-tags/md-tags.html',
-        controller: tagCtrl
-      };
     });
 
-
-  /* @ngInject */
-  function tagCtrl(http, $scope, tagPush) {
-    var self = this;
-
-    _init();
-
-
-    function _init() {
-      if (!self.ngModel)
-        self.ngModel = [];
-
-      self.result = [];
-      var url = {};
-      url.content = '/api/v1/tag/content';
-      url.lecture = '/api/v1/tag/lecture';
-
-      var init = false;
-      $scope.$watch(function () {
-        return self.ngModel;
-      }, function (model) {
-        if (!model)
-          return;
-        if (!init) {
-          init = true;
-          return;
-        }
-        http.post(url[self.type], {id: self.mdId, tags: self.ngModel}, true);
-      }, true);
-    }
 
     this.querySearch = function (keyword) {
       return http.get('/api/v1/tag', {keyword: keyword}).then(function (result) {

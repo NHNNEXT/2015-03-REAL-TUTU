@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Content', function (http, $sce, $q, $state, confirm, Reply, tagPush) {
+  .factory('Content', function (http, $sce, $q, $state, confirm, Reply) {
     function Content(param) {
       if (param === undefined)
         return;
@@ -33,8 +33,6 @@ angular.module('clientApp')
       this.title = obj.title;
       this.body = obj.body;
       this.tags = obj.tags === undefined ? [] : obj.tags;
-      tagPush(this.tags);
-
       if (obj.writeDate !== undefined)
         this.writeDate = new Date(obj.writeDate);
       if (obj.startTime !== undefined)

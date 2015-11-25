@@ -42,14 +42,14 @@ public class ExceptionHandlingController {
     public JsonView requireValueNull(PatternNotMatchedException e) {
         return new JsonView(ResponseCode.PATTERN_NOT_MATCHED, e.getMessage());
     }
-
-    @ExceptionHandler(NullPointerException.class)
-    public JsonView nullPointer(NullPointerException e) {
-        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
-    }
-
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public JsonView methodArgumentTypeMismatchException(NullPointerException e) {
-        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
-    }
+//
+//    @ExceptionHandler(NullPointerException.class)
+//    public JsonView nullPointer(NullPointerException e) {
+//        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
+//    }
+//
+//    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+//    public JsonView methodArgumentTypeMismatchException(NullPointerException e) {
+//        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
+//    }
 }

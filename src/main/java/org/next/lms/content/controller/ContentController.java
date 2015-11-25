@@ -35,8 +35,8 @@ public class ContentController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public JsonView getContentList() {
-        return successJsonResponse(contentService.getList());
+    public JsonView getContentList(@Logged User user) {
+        return successJsonResponse(contentService.getList(user));
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
