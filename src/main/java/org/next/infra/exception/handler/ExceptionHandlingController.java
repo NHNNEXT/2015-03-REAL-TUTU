@@ -6,6 +6,7 @@ import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.exception.WrongAccessException;
 import org.next.infra.result.Result;
 import org.next.infra.reponse.ResponseCode;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,11 @@ public class ExceptionHandlingController {
 
     @ExceptionHandler(WrongAccessException.class)
     public Result wrongAccessException(Exception e) {
+        return new Result(ResponseCode.WRONG_ACCESS);
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public Result InvalidDataAccessApiUsageException(Exception e) {
         return new Result(ResponseCode.WRONG_ACCESS);
     }
 
