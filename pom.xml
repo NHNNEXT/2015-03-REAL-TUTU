@@ -104,6 +104,10 @@
                     <include>**/application.properties</include>
                     <include>**/config.properties</include>
                     <include>**/logback.xml</include>
+                    <include>**/users.json</include>
+                    <include>**/lectures.json</include>
+                    <include>**/tags.json</include>
+                    <include>**/contents.json</include>
                 </includes>
             </resource>
         </resources>
