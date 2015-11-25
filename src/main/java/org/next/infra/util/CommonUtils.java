@@ -2,6 +2,7 @@ package org.next.infra.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.exception.WrongAccessException;
+import org.next.infra.result.Result;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,14 +11,15 @@ import static java.lang.Math.toIntExact;
 
 public class CommonUtils {
 
-    public static boolean notNull(Object obj) {
-        return obj != null;
-    }
-
     public static <T> T assureNotNull(T obj) {
         if (obj == null)
             throw new WrongAccessException();
-        return (T) obj;
+        return obj;
+    }
+
+    public static void assureTrue(boolean bool) {
+        if (!bool)
+            throw new WrongAccessException();
     }
 
     public static <T> List<T> parseList(Class<T> clazz, String arrayString) {

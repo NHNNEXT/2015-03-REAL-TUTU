@@ -58,9 +58,8 @@ public class Content {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "hits")
-    private Long hits;
-
+    @Column(name = "HITS")
+    private Long hits = 0L;
 
     @NotNull(message = "내용을 입력해주세요.")
     @Lob
@@ -91,18 +90,17 @@ public class Content {
             this.endTime = content.endTime;
     }
 
-    public void hits() {
-        if (hits == null)
-            hits = 0L;
-        hits++;
+    public void addReadCount() {
+        this.hits++;
     }
 
+    // TODO 수정필요해보임 -> 관계만 끊는다고 삭제가 되는것은 아닌것 같다
     public void setDeleteState() {
         this.writer = null;
         this.lecture = null;
     }
 
-    public void fieldCheck() {
+    public void validateFields() {
         if (type.getEndTime() && this.endTime == null)
             throw new PatternNotMatchedException("시간을 입력해주세요.");
         if (type.getStartTime() && this.startTime == null)

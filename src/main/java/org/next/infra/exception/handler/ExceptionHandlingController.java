@@ -6,6 +6,7 @@ import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.exception.WrongAccessException;
 import org.next.infra.result.Result;
 import org.next.infra.reponse.ResponseCode;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,18 +27,23 @@ public class ExceptionHandlingController {
         return new Result(ResponseCode.WRONG_ACCESS);
     }
 
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public Result InvalidDataAccessApiUsageException(Exception e) {
+        return new Result(ResponseCode.WRONG_ACCESS);
+    }
+
     @ExceptionHandler(HasNoRightException.class)
     public Result hasNoRightException(Exception e) {
         return new Result(ResponseCode.UNAUTHORIZED_REQUEST);
     }
 
     @ExceptionHandler(javax.validation.ConstraintViolationException.class)
-    public Result patternNotMatched(ConstraintViolationException e) {
+    public Result ConstraintViolationException(ConstraintViolationException e) {
         return new Result(ResponseCode.PATTERN_NOT_MATCHED, e.getConstraintViolations().iterator().next().getMessageTemplate());
     }
 
     @ExceptionHandler(PatternNotMatchedException.class)
-    public Result requireValueNull(PatternNotMatchedException e) {
+    public Result patternNotMatchedException(PatternNotMatchedException e) {
         return new Result(ResponseCode.PATTERN_NOT_MATCHED, e.getMessage());
     }
 //

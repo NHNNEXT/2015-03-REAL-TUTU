@@ -18,8 +18,8 @@ public class FileUploadController {
     private FileService fileService;
 
     @RequestMapping
-    public UploadResult uploadFile(MultipartFile file, @Logged User user){
-        return fileService.upload(file, user);
+    public UploadResult uploadFile(MultipartFile file){
+        return fileService.upload(file);
     }
 
     @RequestMapping(value="/content")

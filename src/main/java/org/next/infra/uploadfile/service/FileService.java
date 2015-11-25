@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.view.DownloadView.downloadView;
 import static org.next.infra.util.MultipartFileUtils.getNormalizedFileName;
 import static org.next.infra.result.Result.success;
@@ -43,10 +44,11 @@ public class FileService {
     @Autowired
     private ContentRepository contentRepository;
 
-    public UploadResult upload(MultipartFile file, User userAccount) {
-        if (file.isEmpty())
+    public UploadResult upload(MultipartFile file) {
+        if (file == null || file.isEmpty())
             return new UploadResult(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
+        // TODO Null Point말고 관리되는 다른 예외를 던져야 할것 같은데..
         Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
         ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
 
@@ -69,6 +71,7 @@ public class FileService {
         if (file.isEmpty())
             return new Result(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
+        // TODO Null Point말고 관리되는 다른 예외를 던져야 할것 같은데..
         Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
         ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
 
@@ -113,8 +116,8 @@ public class FileService {
     }
 
     public ModelAndView downloadFile(String uglifiedFileName) {
+        UploadedFile fileInfoFromDb = assureNotNull(uploadFileRepository.findByUglyFileName(uglifiedFileName));
         File fileInStorage = new File(FILE_STORAGE_DIRECTORY + uglifiedFileName);
-        UploadedFile fileInfoFromDb = uploadFileRepository.findByUglyFileName(uglifiedFileName);
 
         return downloadView(fileInStorage, fileInfoFromDb.getOriginalFileName());
     }

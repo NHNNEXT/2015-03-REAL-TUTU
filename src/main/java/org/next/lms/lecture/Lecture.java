@@ -131,6 +131,7 @@ public class Lecture {
     @Transient
     private List<List<Boolean>> readable;
 
+    // TODO 정체가 뭘까?
     public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
         userGroups.forEach(userGroup -> {
             userGroup.setLecture(this);

@@ -10,4 +10,5 @@ public interface MessageTemplate {
         return new Message();
     }
 
+    String getUrl();
 }

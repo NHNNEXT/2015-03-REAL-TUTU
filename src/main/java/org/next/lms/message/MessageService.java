@@ -9,16 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.next.infra.util.CommonUtils.assureNotNull;
+import static org.next.infra.util.CommonUtils.assureTrue;
+
 @Service
+@Transactional
 public class MessageService {
 
 
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
 
     public static final Integer pageSize = 10;
 
@@ -31,29 +37,25 @@ public class MessageService {
     }
 
     public Result read(User user, Long id) {
-        Message message = messageRepository.findOne(id);
-        if (message == null)
-            return new Result(ResponseCode.WRONG_ACCESS);
-        if (!message.getUser().equals(user))
-            return new Result(ResponseCode.WRONG_ACCESS);
+        Message message = assureNotNull(messageRepository.findOne(id));
+        assureTrue(message.getUser().equals(user));
+
         message.setChecked(true);
-        messageRepository.save(message);
         return new Result(ResponseCode.SUCCESS);
     }
 
     public void newMessage(List<User> users, MessageTemplate template) {
-        users.forEach(user->{
-            Message message = template.getMessage();
-            message.setUser(user);
-            messageRepository.save(template.getMessage());
-        });
+        users.forEach(user -> newMessage(user, template));
     }
 
     public void newMessage(User user, MessageTemplate template) {
+        saveMessage(user, template);
+    }
+
+    @Transactional(propagation = Propagation.NESTED)
+    private void saveMessage(User user, MessageTemplate template) {
         Message message = template.getMessage();
         message.setUser(user);
         messageRepository.save(message);
     }
-
-
 }

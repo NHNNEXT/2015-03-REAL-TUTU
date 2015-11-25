@@ -8,4 +8,9 @@ public class EnrollMessageTemplate implements MessageTemplate {
     public Message getMessage() {
         return new Message();
     }
+
+    @Override
+    public String getUrl() {
+        return null;
+    }
 }

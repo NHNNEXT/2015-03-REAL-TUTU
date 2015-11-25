@@ -31,6 +31,7 @@ import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.result.Result.success;
 
 @Service
+@Transactional
 public class LectureService {
 
     @Autowired
@@ -62,17 +63,16 @@ public class LectureService {
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
         lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
-        getEnrollRelation(user, lecture);
+        getEnrollRelation(user, lecture);   // TODO not void but ???
         return success(lecture.getId());
     }
 
     public Result update(Lecture lecture, User user) {
-        Lecture fromDB = lectureRepository.findOne(lecture.getId());
-        lectureAuthority.checkUpdateRight(fromDB, user);
+        Lecture lectureFromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
+        lectureAuthority.checkUpdateRight(lectureFromDB, user);
 
-        fromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
-        lectureRepository.save(fromDB);
-        fromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+        lectureFromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+        lectureFromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
 
         return success(lecture.getId());
     }
@@ -136,7 +136,6 @@ public class LectureService {
     }
 
 
-    @Transactional
     public UserEnrolledLecture getEnrollRelation(User user, Lecture lecture) {
         UserEnrolledLecture relation = userEnrolledLectureRepository.findOneByUserIdAndLectureId(user.getId(), lecture.getId());
         if (relation == null) {
