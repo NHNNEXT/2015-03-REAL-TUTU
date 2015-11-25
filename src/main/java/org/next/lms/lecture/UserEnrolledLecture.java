@@ -44,12 +44,15 @@ public class UserEnrolledLecture {
     @Column(name = "SIDE_MENU")
     private Boolean sideMenu;
 
-
-    public void sideMenuToggle() {
+    public void toggleSideMenu() {
         if (this.sideMenu == null) {
             this.sideMenu = true;
             return;
         }
         this.sideMenu = !this.sideMenu;
+    }
+
+    public void showLectureOnSideBar(){
+        this.sideMenu = true;
     }
 }
