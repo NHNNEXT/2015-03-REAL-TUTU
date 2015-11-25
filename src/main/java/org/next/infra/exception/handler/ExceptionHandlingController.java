@@ -32,12 +32,12 @@ public class ExceptionHandlingController {
     }
 
     @ExceptionHandler(javax.validation.ConstraintViolationException.class)
-    public Result patternNotMatched(ConstraintViolationException e) {
+    public Result ConstraintViolationException(ConstraintViolationException e) {
         return new Result(ResponseCode.PATTERN_NOT_MATCHED, e.getConstraintViolations().iterator().next().getMessageTemplate());
     }
 
     @ExceptionHandler(PatternNotMatchedException.class)
-    public Result requireValueNull(PatternNotMatchedException e) {
+    public Result patternNotMatchedException(PatternNotMatchedException e) {
         return new Result(ResponseCode.PATTERN_NOT_MATCHED, e.getMessage());
     }
 //
