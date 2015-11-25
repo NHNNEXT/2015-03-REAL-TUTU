@@ -1,22 +1,21 @@
 package org.next.lms.content.service;
 
-import org.next.infra.reponse.ResponseCode;
+import org.next.infra.repository.ContentRepository;
+import org.next.infra.repository.LectureRepository;
 import org.next.infra.result.Result;
+import org.next.lms.content.Content;
+import org.next.lms.content.auth.ContentAuth;
+import org.next.lms.content.dto.ContentDto;
 import org.next.lms.content.dto.ContentParameterDto;
+import org.next.lms.content.dto.ContentSummaryDto;
 import org.next.lms.content.dto.ContentsDto;
+import org.next.lms.lecture.Lecture;
 import org.next.lms.lecture.UserEnrolledLecture;
+import org.next.lms.lecture.auth.LectureAuth;
 import org.next.lms.lecture.repository.ContentTypeRepository;
 import org.next.lms.message.MessageService;
 import org.next.lms.message.template.newContentMessageTemplate;
 import org.next.lms.user.User;
-import org.next.lms.lecture.auth.LectureAuth;
-import org.next.lms.content.Content;
-import org.next.lms.content.dto.ContentDto;
-import org.next.lms.content.dto.ContentSummaryDto;
-import org.next.lms.lecture.Lecture;
-import org.next.infra.repository.ContentRepository;
-import org.next.infra.repository.LectureRepository;
-import org.next.lms.content.auth.ContentAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +57,6 @@ public class ContentService {
     }
 
     public Result save(ContentParameterDto contentParameterDto, User user, Long lectureId) {
-        if (lectureId == null)
-            return new Result(ResponseCode.WRONG_ACCESS);
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
         messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
