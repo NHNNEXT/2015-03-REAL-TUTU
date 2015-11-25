@@ -75,9 +75,8 @@ public class ContentService {
     public Result getList(User user) {
         List<ContentSummaryDto> contentSummaryDtos = new ArrayList<>();
         user.getEnrolledLectures().forEach(
-                userEnrolledLecture -> userEnrolledLecture.getUserGroup().getReadable()
-                        .forEach(userGroupCanReadContent -> contentSummaryDtos.addAll(userGroupCanReadContent.getContentType().getContents().stream()
-                                .map(ContentSummaryDto::new).collect(Collectors.toList()))));
+                userEnrolledLecture -> userEnrolledLecture.getLecture().getContents()
+                        .forEach(content -> contentSummaryDtos.add(new ContentSummaryDto(content))));
         return success(contentSummaryDtos);
     }
 

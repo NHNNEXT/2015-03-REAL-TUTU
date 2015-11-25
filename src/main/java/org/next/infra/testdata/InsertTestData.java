@@ -80,6 +80,7 @@ public class InsertTestData {
         users.forEach(user -> {
             UserEnrolledLecture userEnrolledLecture = lectureService.getEnrollRelation(user, lectureLoop.next());
             userEnrolledLecture.setApprovalState(ApprovalState.OK);
+            userEnrolledLecture.setSideMenu(true);
             userEnrolledLectureRepository.save(userEnrolledLecture);
             userEnrolledLecture = lectureService.getEnrollRelation(user, lectureLoop.next());
             userEnrolledLecture.setApprovalState(ApprovalState.WAITING_APPROVAL);

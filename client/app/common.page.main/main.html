@@ -1,6 +1,18 @@
 <section>
-  <md-tags placeholder="태그 추가" ng-model="tags"></md-tags>
-
+  <md-chips ng-model="main.selectedTags" md-autocomplete-snap
+            md-require-match="true">
+    <md-autocomplete
+      md-selected-item="items"
+      md-search-text="searchText"
+      md-items="item in main.tags | filter:searchText"
+      md-item-text="item.text"
+      placeholder="태그 검색">
+      <span md-highlight-text="searchText">{{item}}</span>
+    </md-autocomplete>
+    <md-chip-template>
+      <strong>{{$chip}}</strong>
+    </md-chip-template>
+  </md-chips>
 </section>
 
 <section class="main">
@@ -8,9 +20,12 @@
     md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
     md-row-height-gt-md="1:1" md-row-height="2:2"
     md-gutter="12px" md-gutter-gt-sm="8px">
-    <md-grid-tile ng-repeat="content in contents" ng-class="content.class"
+    <md-grid-tile ng-repeat="content in main.hasTag(main.contents)" ng-class="content.class"
                   md-rowspan="{{content.row}}" md-colspan="{{content.col}}" md-colspan-sm="1">
-      <h2 ui-sref="content({id:content.id})">{{content.title}}</h2>
+      <div class="center">
+        <h2 ui-sref="content({id:content.id})">{{content.title}}</h2>
+        <md-chip ng-repeat="tag in content.tags" class="margin-right">{{tag.text}}</md-chip>
+      </div>
       <md-grid-tile-footer>
         <h3 ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</h3>
       </md-grid-tile-footer>

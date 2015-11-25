@@ -30,7 +30,7 @@
       requireBase: false
     });
     RestangularProvider.setBaseUrl('/api/v1/');
-    $urlRouterProvider.otherwise("/notfound");
+    $urlRouterProvider.otherwise("/페이지를찾으려는노오오력이부족하다");
     angular.extend(toastrConfig, {
       timeOut: 3000,
       closeButton: true
