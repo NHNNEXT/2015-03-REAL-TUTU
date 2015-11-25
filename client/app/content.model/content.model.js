@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Content', function (http, $sce, $q, $state, confirm, Reply) {
+  .factory('Content', function (http, $sce, $q, $state, confirm, Reply, tagPush) {
     function Content(param) {
       if (param === undefined)
         return;
@@ -32,6 +32,9 @@ angular.module('clientApp')
       this.id = obj.id;
       this.title = obj.title;
       this.body = obj.body;
+      this.tags = obj.tags === undefined ? [] : obj.tags;
+      tagPush(this.tags);
+
       if (obj.writeDate !== undefined)
         this.writeDate = new Date(obj.writeDate);
       if (obj.startTime !== undefined)
@@ -47,7 +50,7 @@ angular.module('clientApp')
       return $sce.trustAsHtml(this.body);
     };
 
-    Content.prototype.getQuery = function(){
+    Content.prototype.getQuery = function () {
       var query = {};
       query.id = this.id;
       query.title = this.title;

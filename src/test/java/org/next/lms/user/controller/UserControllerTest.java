@@ -101,7 +101,8 @@ public class UserControllerTest {
     public void testSuccessRegister() throws Exception {
         this.mockMvc.perform(post("/api/v1/user")
                 .param("email", "email@email.com")
-                .param("password", "password"))
+                .param("password", "password")
+                .param("name", "name"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
                 .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS));

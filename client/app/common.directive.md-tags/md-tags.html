@@ -1,15 +1,15 @@
 <md-chips ng-model="ctrl.ngModel" md-autocomplete-snap
-          md-transform-chip="ctrl.transformChip($chip)"
+          readonly="ctrl.readonly"
           md-require-match="ctrl.match">
   <md-autocomplete
     md-selected-item="ctrl.selectedItem"
     md-search-text="ctrl.searchText"
     md-items="item in ctrl.querySearch(ctrl.searchText)"
-    md-item-text="item.tag"
-    placeholder="{{placeholder}}">
-    <span md-highlight-text="ctrl.searchText">{{item.tag}}</span>
+    md-item-text="item.text"
+    placeholder="{{ctrl.placeholder}}">
+    <span md-highlight-text="ctrl.searchText">{{item.text}}</span>
   </md-autocomplete>
   <md-chip-template>
-    <strong>{{$chip.tag}}</strong>
+    <strong>{{$chip.text}}</strong>
   </md-chip-template>
 </md-chips>
