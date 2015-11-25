@@ -1,6 +1,6 @@
 package org.next.lms.user.controller;
 
-import org.next.infra.view.JsonView;
+import org.next.infra.result.Result;
 import org.next.lms.user.User;
 import org.next.lms.user.inject.Logged;
 import org.next.lms.user.service.UserService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
-import static org.next.infra.view.JsonView.successJsonResponse;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -25,43 +24,43 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView getUser(String id) {
+    public Result getUser(String id) {
         return userService.getUser(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/session")
-    public JsonView getSessionUser(@Logged(makeLoginNeededException = false) User user) {
+    public Result getSessionUser(@Logged(makeLoginNeededException = false) User user) {
         return userService.getSessionUser(user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonView register(User user) {
+    public Result register(User user) {
         return userService.register(user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonView updateUser(User passed, @Logged User fromSession) {
+    public Result updateUser(User passed, @Logged User fromSession) {
         return userService.updateUser(passed, fromSession);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonView withdrawalUser(@Logged User user) {
+    public Result withdrawalUser(@Logged User user) {
         return userService.withdrawal(user);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public JsonView userLogin(User user, HttpSession session) {
+    public Result userLogin(User user, HttpSession session) {
         return userService.login(user, session);
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public JsonView userLogout(HttpSession session) {
+    public Result userLogout(HttpSession session) {
         session.invalidate();
-        return successJsonResponse();
+        return Result.success();
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public JsonView userAutoComplete(String keyword) {
-        return successJsonResponse(userService.findByNameLike(keyword));
+    public Result userAutoComplete(String keyword) {
+        return userService.findByNameLike(keyword);
     }
 }

@@ -1,11 +1,8 @@
 package org.next.lms.tag.controller;
 
-import org.next.infra.view.JsonView;
-import org.next.lms.reply.Reply;
+import org.next.infra.result.Result;
 import org.next.lms.tag.dto.TagUpdateDto;
 import org.next.lms.tag.service.TagService;
-import org.next.lms.user.User;
-import org.next.lms.user.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +17,12 @@ public class TagController {
     TagService tagService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public JsonView find(String keyword) {
+    public Result find(String keyword) {
         return tagService.find(keyword);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/content")
-    public JsonView update(@RequestBody TagUpdateDto tagUpdateDto) {
+    public Result update(@RequestBody TagUpdateDto tagUpdateDto) {
         return tagService.updateContent(tagUpdateDto);
     }
 

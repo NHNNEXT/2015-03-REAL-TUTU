@@ -1,7 +1,7 @@
 package org.next.lms.message;
 
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.view.JsonView;
+import org.next.infra.result.Result;
 import org.next.lms.message.repository.MessageRepository;
 import org.next.lms.message.template.MessageTemplate;
 import org.next.lms.user.User;
@@ -22,23 +22,23 @@ public class MessageService {
 
     public static final Integer pageSize = 10;
 
-    public JsonView getList(User user, Integer page) {
+    public Result getList(User user, Integer page) {
         if (page == null)
             page = 1;
         Pageable pageable = new PageRequest(page, pageSize);
         List<Message> messages = messageRepository.findByUserId(user.getId(), pageable);
-        return JsonView.successJsonResponse(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
+        return Result.success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }
 
-    public JsonView read(User user, Long id) {
+    public Result read(User user, Long id) {
         Message message = messageRepository.findOne(id);
         if (message == null)
-            return new JsonView(ResponseCode.WRONG_ACCESS);
+            return new Result(ResponseCode.WRONG_ACCESS);
         if (!message.getUser().equals(user))
-            return new JsonView(ResponseCode.WRONG_ACCESS);
+            return new Result(ResponseCode.WRONG_ACCESS);
         message.setChecked(true);
         messageRepository.save(message);
-        return new JsonView(ResponseCode.SUCCESS);
+        return new Result(ResponseCode.SUCCESS);
     }
 
     public void newMessage(List<User> users, MessageTemplate template) {

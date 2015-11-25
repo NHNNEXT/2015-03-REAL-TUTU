@@ -1,19 +1,19 @@
-package org.next.infra.view;
+package org.next.infra.result;
 
 import lombok.Getter;
 import org.next.infra.reponse.ResponseCode;
 
 @Getter
-public class UploadView {
+public class UploadResult {
 
     private Integer code;
     private String link;
 
-    public UploadView(Integer code) {
+    public UploadResult(Integer code) {
         this.code = code;
     }
 
-    public UploadView(String uglifiedFileName) {
+    public UploadResult(String uglifiedFileName) {
         this.code = ResponseCode.SUCCESS;
         this.link = uglifiedFileName;
     }
