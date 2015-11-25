@@ -18,7 +18,7 @@ public class MessageService {
 
 
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
 
     public static final Integer pageSize = 10;
 

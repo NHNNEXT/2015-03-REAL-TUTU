@@ -1,5 +1,6 @@
 package org.next.lms.message.template;
 
+import lombok.extern.slf4j.Slf4j;
 import org.next.lms.content.Content;
 import org.next.lms.message.Message;
 import org.next.lms.message.MessageType;
@@ -27,12 +28,12 @@ public class UserLikesContentTemplate implements MessageTemplate {
 
 
     public String getMessageString() {
-        if (size > 3)
+        if (size < 2)
             return String.format(single, user.getName(), content.getTitle());
-
         return String.format(multi, user.getName(), size - 1, content.getTitle());
     }
 
+    @Override
     public String getUrl() {
         return String.format(url, content.getId());
     }
