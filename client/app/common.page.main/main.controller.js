@@ -18,15 +18,19 @@
         var result = [];
         contents.forEach(function (content) {
           for (var i = 0; i < self.selectedTags.length; i++) {
-            if (!content.tags.find(function (tag) {
-                return tag.text === self.selectedTags[i];
-              }))
+            if (!find(content.tags, self.selectedTags[i]))
               return;
           }
           result.push(content);
         });
         return result;
       };
+
+      function find(array, text){
+        return array.find(function (tag) {
+          return tag.text === text;
+        });
+      }
 
       $scope.$watch(function () {
         return rootUser.id;
