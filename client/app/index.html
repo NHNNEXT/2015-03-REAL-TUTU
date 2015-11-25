@@ -108,6 +108,10 @@
               ui-sref="lecture({id:lecture.id})" ng-click="close()">
             {{lecture.name}}
           </li>
+          <li ng-repeat="lecture in lectures = ( rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"
+              ui-sref="lecture({id:lecture.id})" ng-click="close()">
+            {{lecture.name}}
+          </li>
           <md-divider ng-show="lectures.length>0"></md-divider>
         </span>
         </ul>

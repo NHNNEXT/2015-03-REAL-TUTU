@@ -4,7 +4,10 @@
       <user-profile user="user"></user-profile>
     </div>
     <div flex layout="column" layout-align="center end">
-      <md-menu>
+      <md-button ng-if="user.id===lecture.hostUser.id">
+        강의 개설자
+      </md-button>
+      <md-menu ng-hide="user.id===lecture.hostUser.id">
         <md-button ng-click="openIfRootUser($mdOpenMenu,$event)" aria-label="to page">
           {{user.group.name}}
         </md-button>
