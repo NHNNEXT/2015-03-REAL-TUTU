@@ -11,6 +11,8 @@ import org.next.lms.lecture.repository.UserGroupCanWriteContentRepository;
 import org.next.lms.lecture.repository.UserGroupRepository;
 import org.next.lms.like.UserLikesLecture;
 import org.next.lms.user.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -27,7 +29,6 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
@@ -128,12 +129,11 @@ public class Lecture {
 
 
     @Transient
-    private List<List<Boolean>> writable;
+    private List<List<Boolean>> writable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
 
     @Transient
-    private List<List<Boolean>> readable;
+    private List<List<Boolean>> readable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
 
-    // TODO 정체가 뭘까?
     public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
         userGroups.forEach(userGroup -> {
             userGroup.setLecture(this);
@@ -145,14 +145,36 @@ public class Lecture {
             userGroupCanReadContentRepository.deleteByContentTypeId(contentType.getId());
             userGroupCanWriteContentRepository.deleteByContentTypeId(contentType.getId());
         });
-        for (int i = 0; i < userGroups.size(); i++) {
-            for (int j = 0; j < contentTypes.size(); j++) {
-                if (writable.size() > i && writable.get(i).size() > j)
-                    if (writable.get(i).get(j))
-                        makeWriteAuth(userGroupCanWriteContentRepository, userGroups.get(i), contentTypes.get(j));
-                if (readable.size() > i && readable.get(i).size() > j)
-                    if (readable.get(i).get(j))
-                        makeReadAuth(userGroupCanReadContentRepository, userGroups.get(i), contentTypes.get(j));
+
+        createAuthTable(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+    }
+
+    /*
+        아래와 같이 생긴 모양의 권한 테이블을 생성하는 메서드
+
+        Readable 권한
+                        user group  |  user group
+        content Type |      O               O
+        content Type |      O               X
+
+
+        Writable 권한
+                        user group  |  user group
+        content Type |      O               O
+        content Type |      O               X
+
+    */
+    private void createAuthTable(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository) {
+        for (int userGrpIdx = 0; userGrpIdx < userGroups.size(); userGrpIdx++) {
+            for (int contentTypIdx = 0; contentTypIdx < contentTypes.size(); contentTypIdx++) {
+
+                if (userGrpIdx < writable.size() && contentTypIdx < writable.get(userGrpIdx).size())    // check table index range
+                    if (writable.get(userGrpIdx).get(contentTypIdx))
+                        makeWriteAuth(userGroupCanWriteContentRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
+
+                if (userGrpIdx < readable.size() && contentTypIdx < readable.get(userGrpIdx).size())    // check table index range
+                    if (readable.get(userGrpIdx).get(contentTypIdx))
+                        makeReadAuth(userGroupCanReadContentRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
             }
         }
     }

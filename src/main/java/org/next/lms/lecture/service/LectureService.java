@@ -63,7 +63,7 @@ public class LectureService {
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
         lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
-        getEnrollRelation(user, lecture);   // TODO not void but ???
+        enrollLecture(user, lecture);
         return success(lecture.getId());
     }
 
