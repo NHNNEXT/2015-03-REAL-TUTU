@@ -38,7 +38,7 @@
         chip = transform(chip);
         var ignore = false;
         model.forEach(function (each) {
-          if (each.id != undefined && each.id === chip.id)
+          if (each.id !== undefined && each.id === chip.id)
             ignore = true;
           if (each.text === chip.text)
             ignore = true;

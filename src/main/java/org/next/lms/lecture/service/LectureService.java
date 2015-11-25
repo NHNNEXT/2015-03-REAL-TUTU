@@ -20,6 +20,7 @@ import org.next.lms.lecture.UserEnrolledLecture;
 import org.next.lms.lecture.Lecture;
 import org.next.infra.repository.LectureRepository;
 import org.next.lms.like.repository.UserEnrolledLectureRepository;
+import org.next.lms.user.dto.UserSummaryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -118,15 +119,15 @@ public class LectureService {
 
 
     public Result approval(Long id, Long userId, User user) {
-        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, user);
+        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
         userEnrolledLectureRepository.save(userEnrolledLecture);
         messageService.newMessage(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new EnrollMessageTemplate());
-        return success();
+        return success(new UserSummaryDto(userEnrolledLecture));
     }
 
     public Result reject(Long id, Long userId, User user) {
-        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLecture(id, userId, user);
+        UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
         userEnrolledLectureRepository.save(userEnrolledLecture);
         messageService.newMessage(userEnrolledLecture.getUser(), new EnrollRejectMessageTemplate());
@@ -158,7 +159,7 @@ public class LectureService {
     }
 
 
-    private UserEnrolledLecture getUserEnrolledLecture(Long id, Long userId, User user) {
+    private UserEnrolledLecture getUserEnrolledLectureWithAuthCheck(Long id, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
         lectureAuthority.checkApprovalRight(user, lecture);
         return lecture.getUserEnrolledLectures().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get();

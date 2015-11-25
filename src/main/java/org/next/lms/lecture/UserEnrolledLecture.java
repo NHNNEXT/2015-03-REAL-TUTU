@@ -5,6 +5,7 @@ import org.next.lms.user.User;
 import org.next.lms.lecture.Lecture;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
