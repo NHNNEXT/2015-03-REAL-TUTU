@@ -2,7 +2,6 @@ package org.next.lms.message;
 
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.result.Result;
-import org.next.infra.util.CommonUtils;
 import org.next.lms.message.repository.MessageRepository;
 import org.next.lms.message.template.MessageTemplate;
 import org.next.lms.user.User;
@@ -16,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.next.infra.util.CommonUtils.requireNotNull;
-import static org.next.infra.util.CommonUtils.requireTrue;
+import static org.next.infra.util.CommonUtils.assureNotNull;
+import static org.next.infra.util.CommonUtils.assureTrue;
 
 @Service
 @Transactional
@@ -38,8 +37,8 @@ public class MessageService {
     }
 
     public Result read(User user, Long id) {
-        Message message = requireNotNull(messageRepository.findOne(id));
-        requireTrue(message.getUser().equals(user));
+        Message message = assureNotNull(messageRepository.findOne(id));
+        assureTrue(message.getUser().equals(user));
 
         message.setChecked(true);
         return new Result(ResponseCode.SUCCESS);
