@@ -27,7 +27,7 @@ public class TagService {
     private ContentRepository contentRepository;
 
     public Result find(String keyword) {
-        return success(tagRepository.findByTextContaining(keyword).stream().map(TagDto::new).collect(Collectors.toList()));
+        return success(tagRepository.findDistinctTextByTextContaining(keyword).stream().map(TagDto::new).collect(Collectors.toList()));
     }
 
     public Result updateContent(TagUpdateDto tagUpdateDto) {
