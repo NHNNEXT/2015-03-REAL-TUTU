@@ -12,9 +12,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"writable", "readable", "lecture"})
+@ToString(exclude = {"writable", "readable", "lecture", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "lecture", "endTime", "startTime", "extendWrite", "onlyWriter", "statistic", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "contents", "lecture", "endTime", "startTime", "extendWrite", "onlyWriter", "statistic", "name"})
 @Entity
 @Table(name = "CONTENT_TYPE")
 public class ContentType {

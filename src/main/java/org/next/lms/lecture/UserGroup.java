@@ -11,9 +11,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"writable", "readable", "lecture"})
+@ToString(exclude = {"writable", "readable", "userEnrolledLectures", "lecture"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "lecture", "defaultGroup", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "userEnrolledLectures", "lecture", "defaultGroup", "name"})
 @Entity
 @Table(name = "USER_GROUP")
 public class UserGroup {
@@ -46,9 +46,9 @@ public class UserGroup {
 
 
     public void update(UserGroup userGroup) {
-        if(userGroup.defaultGroup != null)
+        if (userGroup.defaultGroup != null)
             this.defaultGroup = userGroup.defaultGroup;
-        if(userGroup.name != null)
+        if (userGroup.name != null)
             this.name = userGroup.name;
     }
 }
