@@ -8,7 +8,7 @@ import org.next.infra.result.Result;
 import org.next.infra.result.UploadResult;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
-import org.next.lms.user.User;
+import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

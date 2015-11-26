@@ -1,0 +1,51 @@
+package org.next.lms.message.domain.template;
+
+import org.next.lms.content.domain.Content;
+import org.next.lms.message.domain.Message;
+import org.next.lms.message.domain.MessageType;
+import org.next.lms.user.domain.User;
+
+import java.util.Date;
+
+public class UserLikesContentTemplate implements MessageTemplate {
+
+    private static final String single = "%s님이 회원님의 '%s' 게시물을 좋아합니다.";
+
+    private static final String multi = "%s님 외 %d명이 회원님의 '%s' 게시물을 좋아합니다.";
+
+    private static final String url = "/content/%d";
+
+    private Content content;
+    private User user;
+    private Integer size;
+
+    public UserLikesContentTemplate(Content content, User user, Integer size) {
+        this.content = content;
+        this.user = user;
+        this.size = size;
+    }
+
+
+    public String getMessageString() {
+        if (size < 2)
+            return String.format(single, user.getName(), content.getTitle());
+        return String.format(multi, user.getName(), size - 1, content.getTitle());
+    }
+
+    @Override
+    public String getUrl() {
+        return String.format(url, content.getId());
+    }
+
+    @Override
+    public Message getMessage() {
+        Message message = new Message();
+        message.setType(MessageType.CONTENT);
+        message.setTypeId(content.getId());
+        message.setMessage(getMessageString());
+        message.setUrl(getUrl());
+        message.setDate(new Date());
+        message.setChecked(false);
+        return message;
+    }
+}
