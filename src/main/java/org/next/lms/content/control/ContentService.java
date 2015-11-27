@@ -61,7 +61,8 @@ public class ContentService {
         contentAuthority.checkWriteRight(content.getType(), user);
 
         messageService
-                .send(new NewContentCreatedMessage(lecture, content))
+                // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
+                .send(new NewContentCreatedMessage(lecture, content, 1))
                 .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
         return success(new ContentDto(content, user));
     }

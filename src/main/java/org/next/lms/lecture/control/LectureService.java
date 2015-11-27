@@ -117,7 +117,9 @@ public class LectureService {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
 
-            messageService.send(new LectureEnrollRequestMessage()).to(lecture.getHostUser());
+            messageService
+                    .send(new LectureEnrollRequestMessage(lecture, user, relation, Math.toIntExact(relation.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).count())))
+                    .to(lecture.getHostUser());
             return new Result(ResponseCode.Enroll.WAITING_FOR_APPROVAL, new LectureSummaryDto(lecture));
         }
         return new Result(ResponseCode.WRONG_ACCESS);

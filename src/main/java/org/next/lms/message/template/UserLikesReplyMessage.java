@@ -14,10 +14,10 @@ public class UserLikesReplyMessage extends MultipleEventReportMessageTemplate {
     private Reply reply;
     private User user;
 
-    public UserLikesReplyMessage(Reply reply, User user, int eventOccurrenceCount) {
+    public UserLikesReplyMessage(Reply reply, User user, Integer eventOccurrenceCount) {
+        super(eventOccurrenceCount);
         this.reply = reply;
         this.user = user;
-        this.eventOccurrenceCount = eventOccurrenceCount;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class UserLikesReplyMessage extends MultipleEventReportMessageTemplate {
 
     @Override
     protected String multipleEventMessage() {
-        return String.format(multipleEventMessageTemplate, user.getName(), eventOccurrenceCount - 1);
+        return String.format(multipleEventMessageTemplate, user.getName(), getEventOccurrenceCount() - 1);
     }
 
     @Override

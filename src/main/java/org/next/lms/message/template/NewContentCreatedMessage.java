@@ -18,7 +18,8 @@ public class NewContentCreatedMessage extends MultipleEventReportMessageTemplate
     private Lecture lecture;
     private Content content;
 
-    public NewContentCreatedMessage(Lecture lecture, Content content) {
+    public NewContentCreatedMessage(Lecture lecture, Content content, Integer eventOccurrenceCount) {
+        super(eventOccurrenceCount);
         this.lecture = lecture;
         this.content = content;
     }
@@ -46,7 +47,7 @@ public class NewContentCreatedMessage extends MultipleEventReportMessageTemplate
 
     @Override
     public String getUrl() {
-        if(eventOccurrenceCount < 2)
+        if(getEventOccurrenceCount() < 2)
             return String.format(singleEventUrlTemplate, content.getId());
         return String.format(multipleEventUrlTemplate, lecture.getId());
     }

@@ -15,9 +15,9 @@ public class UserLikesContentMessage extends MultipleEventReportMessageTemplate 
     private User user;
 
     public UserLikesContentMessage(Content content, User user, Integer eventOccurrenceCount) {
+        super(eventOccurrenceCount);
         this.content = content;
         this.user = user;
-        this.eventOccurrenceCount = eventOccurrenceCount;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class UserLikesContentMessage extends MultipleEventReportMessageTemplate 
 
     @Override
     protected String multipleEventMessage() {
-        return String.format(multipleEventMessageTemplate, user.getName(), eventOccurrenceCount - 1, content.getTitle());
+        return String.format(multipleEventMessageTemplate, user.getName(), getEventOccurrenceCount() - 1, content.getTitle());
     }
 
     @Override

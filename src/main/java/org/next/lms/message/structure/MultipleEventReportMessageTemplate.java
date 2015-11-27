@@ -5,7 +5,11 @@ import org.next.lms.message.domain.MessageType;
 
 public abstract class MultipleEventReportMessageTemplate extends MutableMessageTemplate {
 
-    protected Integer eventOccurrenceCount;
+    private Integer eventOccurrenceCount;
+
+    public MultipleEventReportMessageTemplate(Integer eventOccurrenceCount) {
+        this.eventOccurrenceCount = eventOccurrenceCount;
+    }
 
     @Override
     public Message getMessage() {
@@ -21,6 +25,10 @@ public abstract class MultipleEventReportMessageTemplate extends MutableMessageT
         if (eventOccurrenceCount < 2)
             return singleEventMessage();
         return multipleEventMessage();
+    }
+
+    public Integer getEventOccurrenceCount() {
+        return eventOccurrenceCount;
     }
 
     protected abstract String singleEventMessage();
