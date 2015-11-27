@@ -1,0 +1,32 @@
+AspectJ 설정방법
+
+1. Maven Dependency 추가
+
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-aop</artifactId>
+	</dependency>
+
+2. @EnableTransactionManagement와 @EnableLoadTimeWeaving 설정
+
+	아래 코드처럼 설정한다
+	
+	@SpringBootApplication
+	@EnableTransactionManagement(proxyTargetClass = true, mode = AdviceMode.ASPECTJ)
+	@EnableLoadTimeWeaving(aspectjWeaving = EnableLoadTimeWeaving.AspectJWeaving.ENABLED)
+	public class AspectjApplication {
+	    public static void main(String[] args) {
+	        SpringApplication.run(AspectjApplication.class, args);
+	    }
+	}
+
+3. 2개의 jar 파일을 다운로드 한다. 
+	
+	링크 1 : http://www.mvnrepository.com/artifact/org.springframework/spring-instrument/4.2.3.RELEASE
+	(RELEASE는 사용중인 스프링 버전에 맞도록 변경)
+
+	링크 2 : http://www.mvnrepository.com/artifact/org.aspectj/aspectjweaver/1.8.6
+
+4. 프로젝트 실행 VM 옵션에 아래 내용 추가 
+
+    -javaagent:경로/aspectjweaver-1.8.6.jar -javaagent:경로/spring-instrument-4.1.7.RELEASE.jar
