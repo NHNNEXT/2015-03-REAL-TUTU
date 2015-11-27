@@ -13,7 +13,7 @@ import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.infra.repository.ContentTypeRepository;
 import org.next.lms.message.control.MessageService;
-import org.next.lms.message.domain.template.NewContentCreatedMessage;
+import org.next.lms.message.template.NewContentCreatedMessage;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

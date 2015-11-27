@@ -4,7 +4,7 @@ import org.next.infra.result.Result;
 import org.next.infra.repository.MessageRepository;
 import org.next.lms.message.domain.Message;
 import org.next.lms.message.domain.MessageDto;
-import org.next.lms.message.domain.template.MessageTemplate;
+import org.next.lms.message.structure.MessageTemplate;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

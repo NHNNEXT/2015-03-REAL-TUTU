@@ -1,4 +1,4 @@
-package org.next.lms.message.domain.template;
+package org.next.lms.message.structure;
 
 public abstract class ImmutableMessageTemplate implements MessageTemplate {
 }

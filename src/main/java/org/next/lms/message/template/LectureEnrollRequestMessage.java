@@ -1,6 +1,7 @@
-package org.next.lms.message.domain.template;
+package org.next.lms.message.template;
 
 import org.next.lms.message.domain.Message;
+import org.next.lms.message.structure.MessageTemplate;
 
 public class LectureEnrollRequestMessage implements MessageTemplate {
 

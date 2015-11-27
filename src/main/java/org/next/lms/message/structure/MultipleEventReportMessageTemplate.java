@@ -1,4 +1,4 @@
-package org.next.lms.message.domain.template;
+package org.next.lms.message.structure;
 
 import org.next.lms.message.domain.Message;
 import org.next.lms.message.domain.MessageType;

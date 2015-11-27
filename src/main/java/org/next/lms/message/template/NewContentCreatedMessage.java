@@ -1,8 +1,9 @@
-package org.next.lms.message.domain.template;
+package org.next.lms.message.template;
 
 import org.next.lms.content.domain.Content;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.message.domain.MessageType;
+import org.next.lms.message.structure.MultipleEventReportMessageTemplate;
 
 import static org.next.infra.util.CommonUtils.ellipsis;
 

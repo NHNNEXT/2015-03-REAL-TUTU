@@ -1,6 +1,7 @@
-package org.next.lms.message.domain.template;
+package org.next.lms.message.template;
 
 import org.next.lms.message.domain.MessageType;
+import org.next.lms.message.structure.MultipleEventReportMessageTemplate;
 import org.next.lms.reply.domain.Reply;
 import org.next.lms.user.domain.User;
 
