@@ -46,4 +46,7 @@ public class Message {
     @Column(name = "DATE")
     private Date date = new Date();
 
+    public void read() {
+        this.checked = true;
+    }
 }

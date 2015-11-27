@@ -39,7 +39,7 @@ public class MessageService {
         Message message = assureNotNull(messageRepository.findOne(id));
         assureTrue(message.getReceiver().equals(user));
 
-        message.setChecked(true);
+        message.read();
         return success();
     }
 
