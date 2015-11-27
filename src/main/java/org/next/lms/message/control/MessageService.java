@@ -71,7 +71,6 @@ public class MessageService {
         saveMessage(receiver, template);
     }
 
-    @Transactional(propagation = Propagation.NESTED)
     private void saveMessage(User receiver, MessageTemplate template) {
         Message message = template.getMessage();
         message.setReceiver(receiver);
