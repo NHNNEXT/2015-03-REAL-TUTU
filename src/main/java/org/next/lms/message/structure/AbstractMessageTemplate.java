@@ -16,11 +16,4 @@ public abstract class AbstractMessageTemplate implements MessageTemplate {
     }
 
     protected abstract String getMessageString();
-
-    protected abstract MessageType messageType();
-
-    /**
-     *  메시지를 발생시킨 객체가 속한 DB Table의 PK
-     */
-    protected abstract Long pkAtBelongTypeTable();
 }

@@ -25,22 +25,22 @@ public class NewContentCreatedMessage extends MultipleEventReportMessageTemplate
     }
 
     @Override
-    protected String singleEventMessage() {
+    public String singleEventMessage() {
         return String.format(singleEventMessageTemplate, lecture.getName(), ellipsis(content.getTitle(), 30));
     }
 
     @Override
-    protected String multipleEventMessage() {
+    public String multipleEventMessage() {
         return String.format(multipleEventMessageTemplate, lecture.getName(), getEventOccurrenceCount());
     }
 
     @Override
-    protected MessageType messageType() {
+    public MessageType messageType() {
         return MessageType.NEW_CONTENT_CREATED;
     }
 
     @Override
-    protected Long pkAtBelongTypeTable() {
+    public Long pkAtBelongTypeTable() {
         return lecture.getId();
     }
 

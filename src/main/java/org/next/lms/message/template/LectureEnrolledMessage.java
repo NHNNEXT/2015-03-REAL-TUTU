@@ -21,12 +21,12 @@ public class LectureEnrolledMessage extends ImmutableMessageTemplate {
     }
 
     @Override
-    protected MessageType messageType() {
+    public MessageType messageType() {
         return MessageType.LECTURE_ENROLLED;
     }
 
     @Override
-    protected Long pkAtBelongTypeTable() {
+    public Long pkAtBelongTypeTable() {
         return lecture.getId();
     }
 

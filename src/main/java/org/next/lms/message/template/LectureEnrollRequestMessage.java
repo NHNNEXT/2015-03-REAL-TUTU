@@ -41,12 +41,12 @@ public class LectureEnrollRequestMessage extends MultipleEventReportMessageTempl
     }
 
     @Override
-    protected MessageType messageType() {
+    public MessageType messageType() {
         return MessageType.LECTURE_ENROLL_REQUEST;
     }
 
     @Override
-    protected Long pkAtBelongTypeTable() {
+    public Long pkAtBelongTypeTable() {
         return lecture.getId();
     }
 

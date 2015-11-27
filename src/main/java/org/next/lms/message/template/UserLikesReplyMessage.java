@@ -31,12 +31,12 @@ public class UserLikesReplyMessage extends MultipleEventReportMessageTemplate {
     }
 
     @Override
-    protected MessageType messageType() {
+    public MessageType messageType() {
         return MessageType.USER_LIKE_REPLY;
     }
 
     @Override
-    protected Long pkAtBelongTypeTable() {
+    public Long pkAtBelongTypeTable() {
         return reply.getContent().getId();
     }
 

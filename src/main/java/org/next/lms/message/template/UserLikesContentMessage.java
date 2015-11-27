@@ -34,12 +34,12 @@ public class UserLikesContentMessage extends MultipleEventReportMessageTemplate 
     }
 
     @Override
-    protected MessageType messageType() {
+    public MessageType messageType() {
         return MessageType.USER_LIKE_CONTENT;
     }
 
     @Override
-    protected Long pkAtBelongTypeTable() {
+    public Long pkAtBelongTypeTable() {
         return content.getId();
     }
 
