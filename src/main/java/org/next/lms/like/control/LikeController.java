@@ -12,8 +12,8 @@ import org.next.infra.repository.UserLikesContentRepository;
 import org.next.infra.repository.UserLikesLectureRepository;
 import org.next.infra.repository.UserLikesReplyRepository;
 import org.next.lms.message.control.MessageService;
-import org.next.lms.message.domain.template.UserLikesContentTemplate;
-import org.next.lms.message.domain.template.UserLikesReplyTemplate;
+import org.next.lms.message.domain.template.UserLikesContentMessageTemplate;
+import org.next.lms.message.domain.template.UserLikesReplyMessageTemplate;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.control.inject.Logged;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class LikeController {
             return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesContentRepository.save(relation);
-        messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentTemplate(relation.getContent(), user, relation.getContent().getUserLikesContents().size()));
+        messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentMessageTemplate(relation.getContent(), user, relation.getContent().getUserLikesContents().size()));
         return new Result(ResponseCode.Like.ADD);
     }
 
@@ -100,7 +100,7 @@ public class LikeController {
             return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesReplyRepository.save(relation);
-        messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyTemplate(relation.getReply(), user, relation.getReply().getUserLikesReplies().size()));
+        messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyMessageTemplate(relation.getReply(), user, relation.getReply().getUserLikesReplies().size()));
         return new Result(ResponseCode.Like.ADD);
     }
 }

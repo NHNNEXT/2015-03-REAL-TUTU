@@ -18,7 +18,7 @@ import org.next.infra.repository.UserEnrolledLectureRepository;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.template.EnrollMessageTemplate;
 import org.next.lms.message.domain.template.EnrollRejectMessageTemplate;
-import org.next.lms.message.domain.template.EnrollRequestTemplate;
+import org.next.lms.message.domain.template.EnrollRequestMessageTemplate;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +114,7 @@ public class LectureService {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
 
-            messageService.newMessage(lecture.getHostUser(), new EnrollRequestTemplate());
+            messageService.newMessage(lecture.getHostUser(), new EnrollRequestMessageTemplate());
             return new Result(ResponseCode.Enroll.WAITING_FOR_APPROVAL, new LectureSummaryDto(lecture));
         }
         return new Result(ResponseCode.WRONG_ACCESS);

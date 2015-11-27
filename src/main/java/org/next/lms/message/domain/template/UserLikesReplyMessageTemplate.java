@@ -4,7 +4,7 @@ import org.next.lms.message.domain.MessageType;
 import org.next.lms.reply.domain.Reply;
 import org.next.lms.user.domain.User;
 
-public class UserLikesReplyTemplate extends MultipleEventReportMessageTemplate {
+public class UserLikesReplyMessageTemplate extends MultipleEventReportMessageTemplate {
 
     private static final String singleEventMessageTemplate = "%s님이 회원님의 댓글을 좋아합니다.";
     private static final String multipleEventMessageTemplate = "%s님 외 %d명이 회원님의 댓글을 좋아합니다.";
@@ -13,7 +13,7 @@ public class UserLikesReplyTemplate extends MultipleEventReportMessageTemplate {
     private Reply reply;
     private User user;
 
-    public UserLikesReplyTemplate(Reply reply, User user, int eventOccurrenceCount) {
+    public UserLikesReplyMessageTemplate(Reply reply, User user, int eventOccurrenceCount) {
         this.reply = reply;
         this.user = user;
         this.eventOccurrenceCount = eventOccurrenceCount;

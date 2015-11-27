@@ -2,7 +2,7 @@ package org.next.lms.message.domain.template;
 
 import org.next.lms.message.domain.Message;
 
-public class EnrollRequestTemplate implements MessageTemplate {
+public class EnrollRequestMessageTemplate implements MessageTemplate {
 
 
 
