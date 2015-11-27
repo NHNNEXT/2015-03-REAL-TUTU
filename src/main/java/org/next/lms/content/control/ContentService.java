@@ -13,7 +13,7 @@ import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.infra.repository.ContentTypeRepository;
 import org.next.lms.message.control.MessageService;
-import org.next.lms.message.domain.template.newContentMessageTemplate;
+import org.next.lms.message.domain.template.NewContentCreatedMessage;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,7 +61,7 @@ public class ContentService {
         contentAuthority.checkWriteRight(content.getType(), user);
 
         messageService
-                .send(new newContentMessageTemplate(lecture, content))
+                .send(new NewContentCreatedMessage(lecture, content))
                 .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
         return success(new ContentDto(content, user));
     }

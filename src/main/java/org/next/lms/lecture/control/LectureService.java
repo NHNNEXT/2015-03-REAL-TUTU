@@ -16,9 +16,10 @@ import org.next.infra.repository.UserGroupCanWriteContentRepository;
 import org.next.infra.repository.UserGroupRepository;
 import org.next.infra.repository.UserEnrolledLectureRepository;
 import org.next.lms.message.control.MessageService;
-import org.next.lms.message.domain.template.EnrollMessageTemplate;
-import org.next.lms.message.domain.template.EnrollRejectMessageTemplate;
-import org.next.lms.message.domain.template.EnrollRequestMessageTemplate;
+import org.next.lms.message.domain.template.LectureEnrollApprovedMessage;
+import org.next.lms.message.domain.template.LectureEnrolledMessage;
+import org.next.lms.message.domain.template.LectureEnrollRejectMessage;
+import org.next.lms.message.domain.template.LectureEnrollRequestMessage;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,14 +110,14 @@ public class LectureService {
             userEnrolledLectureRepository.save(relation);
 
             messageService
-                    .send(new EnrollMessageTemplate())
+                    .send(new LectureEnrolledMessage())
                     .to(lecture.getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
             return success();
         } else if (lecture.getRegisterPolicy().equals(RegisterPolicy.NEED_APPROVAL)) {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
 
-            messageService.send(new EnrollRequestMessageTemplate()).to(lecture.getHostUser());
+            messageService.send(new LectureEnrollRequestMessage()).to(lecture.getHostUser());
             return new Result(ResponseCode.Enroll.WAITING_FOR_APPROVAL, new LectureSummaryDto(lecture));
         }
         return new Result(ResponseCode.WRONG_ACCESS);
@@ -128,7 +129,7 @@ public class LectureService {
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
 
         messageService
-                .send(new EnrollMessageTemplate())
+                .send(new LectureEnrollApprovedMessage())
                 .to(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
 
         return success(new UserSummaryDto(userEnrolledLecture));
@@ -139,7 +140,7 @@ public class LectureService {
         userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
 
         messageService
-                .send(new EnrollRejectMessageTemplate())
+                .send(new LectureEnrollRejectMessage())
                 .to(userEnrolledLecture.getUser());
         return success();
     }

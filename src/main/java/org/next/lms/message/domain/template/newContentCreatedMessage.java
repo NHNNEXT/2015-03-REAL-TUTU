@@ -6,7 +6,7 @@ import org.next.lms.message.domain.MessageType;
 
 import static org.next.infra.util.CommonUtils.ellipsis;
 
-public class newContentMessageTemplate extends MultipleEventReportMessageTemplate {
+public class NewContentCreatedMessage extends MultipleEventReportMessageTemplate {
 
     private static final String singleEventMessageTemplate = "'%s' 강의에 새로운 게시물 '%s' 가 등록되었습니다.";
     private static final String multipleEventMessageTemplate = "'%s' 강의에 '%d' 개의 새로운 게시물이 있습니다.";
@@ -17,7 +17,7 @@ public class newContentMessageTemplate extends MultipleEventReportMessageTemplat
     private Lecture lecture;
     private Content content;
 
-    public newContentMessageTemplate(Lecture lecture, Content content) {
+    public NewContentCreatedMessage(Lecture lecture, Content content) {
         this.lecture = lecture;
         this.content = content;
     }
@@ -35,7 +35,7 @@ public class newContentMessageTemplate extends MultipleEventReportMessageTemplat
 
     @Override
     protected MessageType messageType() {
-        return MessageType.NEW_CONTENT;
+        return MessageType.NEW_CONTENT_CREATED;
     }
 
     @Override

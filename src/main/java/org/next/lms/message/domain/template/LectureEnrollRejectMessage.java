@@ -2,10 +2,7 @@ package org.next.lms.message.domain.template;
 
 import org.next.lms.message.domain.Message;
 
-public class EnrollRequestMessageTemplate implements MessageTemplate {
-
-
-
+public class LectureEnrollRejectMessage implements MessageTemplate {
     @Override
     public Message getMessage() {
         return new Message();
