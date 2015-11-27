@@ -1,8 +1,8 @@
 package org.next.infra.uploadfile;
 
 import lombok.*;
-import org.next.lms.content.Content;
-import org.next.lms.user.User;
+import org.next.lms.content.domain.Content;
+import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
 import java.util.Date;

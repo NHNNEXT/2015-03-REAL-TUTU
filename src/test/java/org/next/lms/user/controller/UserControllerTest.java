@@ -5,21 +5,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.next.NextLectureManagerApplication;
 import org.next.infra.reponse.ResponseCode;
-import org.next.lms.user.inject.LoggedUserInjector;
-import org.next.lms.user.repository.UserRepository;
-import org.next.lms.user.state.AccountState;
+import org.next.lms.user.control.inject.LoggedUserInjector;
+import org.next.infra.repository.UserRepository;
+import org.next.lms.user.domain.AccountState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.web.context.WebApplicationContext;
-
-import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

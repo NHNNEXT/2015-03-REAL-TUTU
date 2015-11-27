@@ -1,7 +1,7 @@
 package org.next.config;
 
-import org.next.lms.user.inject.LoggedUserInjector;
-import org.next.lms.user.repository.UserRepository;
+import org.next.lms.user.control.inject.LoggedUserInjector;
+import org.next.infra.repository.UserRepository;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;

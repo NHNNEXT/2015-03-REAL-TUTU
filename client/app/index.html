@@ -10,17 +10,18 @@
 
   <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css" />
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css" />
-  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css" />
+  <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/angular-datepicker.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
+  <link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:css({.tmp,app}) /styles/main.css -->
   <!-- include: "type": "css", "files": "**/*.css" -->
+  <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.calendar/calendar.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.like/like.css" rel="stylesheet" type="text/css">
@@ -85,48 +86,37 @@
 <![endif]-->
 
 <!--md-is-locked-open="$mdMedia('gt-md')"-->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak flex>
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
+            ng-cloak flex>
   <div ng-controller="menuController">
     <md-toolbar class="md-theme-indigo">
       <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
     </md-toolbar>
     <md-content>
-      <div layout-padding>
-        <ul class="menu" ng-show="rootUser.isLogged()">
-          <li ui-sref="lectures" ng-click="close()">전체 강의</li>
-        </ul>
+      <ul class="menu" ng-show="rootUser.isLogged()">
+        <li ui-sref="lectures" ng-click="close()">전체 강의</li>
+      </ul>
+      <ul class="menu" ng-show="rootUser.isLogged()">
+        <li ui-sref="mylectures" ng-click="close()">내 강의</li>
+        <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
+            ui-sref="lecture({id:lecture.id})" ng-click="close()">
+          {{lecture.name}}
+        </li>
+        <li ng-repeat="lecture in lectures = ( rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"
+            ui-sref="lecture({id:lecture.id})" ng-click="close()">
+          {{lecture.name}}
+        </li>
+      </ul>
 
-        <ul class="menu" ng-show="rootUser.isLogged()">
-          <li ng-click="open=!open" ng-init="open=true">내 강의
-            <md-icon md-svg-src="/resource/icon/arrow.svg" class="arrow-icon" ng-class="{'open':!open}"></md-icon>
-          </li>
-          <md-divider></md-divider>
-        <span ng-show="open">
-          <li ui-sref="mylectures" ng-click="close()" class="child">전체 목록</li>
-          <md-divider></md-divider>
-          <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
-              ui-sref="lecture({id:lecture.id})" ng-click="close()">
-            {{lecture.name}}
-          </li>
-          <li ng-repeat="lecture in lectures = ( rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"
-              ui-sref="lecture({id:lecture.id})" ng-click="close()">
-            {{lecture.name}}
-          </li>
-          <md-divider ng-show="lectures.length>0"></md-divider>
-        </span>
-        </ul>
-
-        <ul class="menu" ng-show="rootUser.isLogged()">
-          <li ui-sref="profile({id:rootUser.id})" ng-click="close()">내 프로필</li>
-          <li ui-sref="messages" ng-click="close()">소식 <span class="red" ng-show="rootUser.news">new</span></li>
-          <md-divider></md-divider>
-          <li ng-click="rootUser.logout()">로그아웃</li>
-        </ul>
-        <ul class="menu" ng-show="!rootUser.isLogged()">
-          <li ng-click="login()">로그인</li>
-          <li ng-click="register()">회원가입</li>
-        </ul>
-      </div>
+      <ul class="menu" ng-show="rootUser.isLogged()">
+        <li ui-sref="profile({id:rootUser.id})" ng-click="close()">내 프로필</li>
+        <li ui-sref="messages" ng-click="close()">소식 <span class="red" ng-show="rootUser.news">new</span></li>
+        <li ng-click="rootUser.logout()">로그아웃</li>
+      </ul>
+      <ul class="menu" ng-show="!rootUser.isLogged()">
+        <li ng-click="login()">로그인</li>
+        <li ng-click="register()">회원가입</li>
+      </ul>
     </md-content>
   </div>
 </md-sidenav>
@@ -134,7 +124,7 @@
 <div role="main" layout="column" flex>
   <md-toolbar ng-controller="headerController">
     <div class="md-toolbar-tools centered">
-      <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
+      <md-button class="md-icon-button hide-gt-sm" aria-label="side nav tooggle" ng-click="toggleLeft()">
         <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
       </md-button>
       <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
