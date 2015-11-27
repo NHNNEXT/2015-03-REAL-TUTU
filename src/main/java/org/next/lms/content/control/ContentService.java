@@ -60,7 +60,9 @@ public class ContentService {
         Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
         contentAuthority.checkWriteRight(content.getType(), user);
 
-        messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate(lecture, content));
+        messageService
+                .send(new newContentMessageTemplate(lecture, content))
+                .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
         return success(new ContentDto(content, user));
     }
 

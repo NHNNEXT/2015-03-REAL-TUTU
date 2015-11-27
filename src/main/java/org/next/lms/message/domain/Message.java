@@ -13,13 +13,13 @@ import java.util.Date;
 @EqualsAndHashCode
 @Entity
 @Table(name = "Message", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"USER_ID", "TYPE", "PK_AT_BELONG_TYPE_TABLE"})
+        @UniqueConstraint(columnNames = {"RECEIVER_ID", "TYPE", "PK_AT_BELONG_TYPE_TABLE"})
 })
 public class Message {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "RECEIVER_ID")
+    private User receiver;
 
     @Id
     @Column(name = "MESSAGE_ID")

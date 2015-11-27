@@ -31,30 +31,50 @@ public class MessageService {
 
     public Result getList(User user, Integer page) {
         Pageable pageable = new PageRequest(page, pageSize);
-        List<Message> messages = messageRepository.findByUserId(user.getId(), pageable);
+        List<Message> messages = messageRepository.findByReceiverId(user.getId(), pageable);
         return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }
 
     public Result read(User user, Long id) {
         Message message = assureNotNull(messageRepository.findOne(id));
-        assureTrue(message.getUser().equals(user));
+        assureTrue(message.getReceiver().equals(user));
 
         message.setChecked(true);
         return success();
     }
 
-    public void newMessage(List<User> users, MessageTemplate template) {
-        users.forEach(user -> newMessage(user, template));
+    public MessageHolder send(MessageTemplate message) {
+        return new MessageHolder(message);
     }
 
-    public void newMessage(User user, MessageTemplate template) {
-        saveMessage(user, template);
+    public class MessageHolder {
+        private MessageTemplate message;
+
+        private MessageHolder(MessageTemplate message) {
+            this.message = message;
+        }
+
+        public void to(User receiver) {
+            sendMessageNow(receiver, message);
+        }
+
+        public void to(List<User> receivers) {
+            sendMessageNow(receivers, message);
+        }
+    }
+
+    private void sendMessageNow(List<User> receivers, MessageTemplate template) {
+        receivers.forEach(user -> sendMessageNow(user, template));
+    }
+
+    private void sendMessageNow(User receiver, MessageTemplate template) {
+        saveMessage(receiver, template);
     }
 
     @Transactional(propagation = Propagation.NESTED)
-    private void saveMessage(User user, MessageTemplate template) {
+    private void saveMessage(User receiver, MessageTemplate template) {
         Message message = template.getMessage();
-        message.setUser(user);
+        message.setReceiver(receiver);
         messageRepository.save(message);
     }
 }

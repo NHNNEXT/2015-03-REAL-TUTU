@@ -73,7 +73,10 @@ public class LikeController {
             return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesContentRepository.save(relation);
-        messageService.newMessage(relation.getContent().getWriter(), new UserLikesContentMessageTemplate(relation.getContent(), user, relation.getContent().getUserLikesContents().size()));
+
+        messageService
+                .send(new UserLikesContentMessageTemplate(relation.getContent(), user, relation.getContent().getUserLikesContents().size()))
+                .to(relation.getContent().getWriter());
         return new Result(ResponseCode.Like.ADD);
     }
 
@@ -100,7 +103,10 @@ public class LikeController {
             return new Result(ResponseCode.Like.REMOVE);
         }
         userLikesReplyRepository.save(relation);
-        messageService.newMessage(relation.getReply().getWriter(), new UserLikesReplyMessageTemplate(relation.getReply(), user, relation.getReply().getUserLikesReplies().size()));
+
+        messageService
+                .send(new UserLikesReplyMessageTemplate(relation.getReply(), user, relation.getReply().getUserLikesReplies().size()))
+                .to(relation.getReply().getWriter());
         return new Result(ResponseCode.Like.ADD);
     }
 }
