@@ -1,51 +1,46 @@
 package org.next.lms.message.domain.template;
 
 import org.next.lms.content.domain.Content;
-import org.next.lms.message.domain.Message;
 import org.next.lms.message.domain.MessageType;
 import org.next.lms.user.domain.User;
 
-import java.util.Date;
+public class UserLikesContentTemplate extends MultipleEventReportMessageTemplate {
 
-public class UserLikesContentTemplate implements MessageTemplate {
-
-    private static final String single = "%s님이 회원님의 '%s' 게시물을 좋아합니다.";
-
-    private static final String multi = "%s님 외 %d명이 회원님의 '%s' 게시물을 좋아합니다.";
-
-    private static final String url = "/content/%d";
+    private static final String singleEventMessageTemplate = "%s님이 회원님의 '%s' 게시물을 좋아합니다.";
+    private static final String multipleEventMessageTemplate = "%s님 외 %d명이 회원님의 '%s' 게시물을 좋아합니다.";
+    private static final String urlTemplate = "/content/%d";
 
     private Content content;
     private User user;
-    private Integer size;
 
-    public UserLikesContentTemplate(Content content, User user, Integer size) {
+    public UserLikesContentTemplate(Content content, User user, Integer eventOccurrenceCount) {
         this.content = content;
         this.user = user;
-        this.size = size;
+        this.eventOccurrenceCount = eventOccurrenceCount;
     }
 
+    @Override
+    protected String singleEventMessage() {
+        return String.format(singleEventMessageTemplate, user.getName(), content.getTitle());
+    }
 
-    public String getMessageString() {
-        if (size < 2)
-            return String.format(single, user.getName(), content.getTitle());
-        return String.format(multi, user.getName(), size - 1, content.getTitle());
+    @Override
+    protected String multipleEventMessage() {
+        return String.format(multipleEventMessageTemplate, user.getName(), eventOccurrenceCount - 1, content.getTitle());
+    }
+
+    @Override
+    protected MessageType messageType() {
+        return MessageType.USER_LIKE_CONTENT;
+    }
+
+    @Override
+    protected Long pkAtBelongTypeTable() {
+        return content.getId();
     }
 
     @Override
     public String getUrl() {
-        return String.format(url, content.getId());
-    }
-
-    @Override
-    public Message getMessage() {
-        Message message = new Message();
-        message.setType(MessageType.CONTENT);
-        message.setTypeId(content.getId());
-        message.setMessage(getMessageString());
-        message.setUrl(getUrl());
-        message.setDate(new Date());
-        message.setChecked(false);
-        return message;
+        return String.format(urlTemplate, content.getId());
     }
 }

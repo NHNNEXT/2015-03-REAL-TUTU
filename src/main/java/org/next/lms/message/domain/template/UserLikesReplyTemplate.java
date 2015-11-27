@@ -1,51 +1,46 @@
 package org.next.lms.message.domain.template;
 
-import org.next.lms.message.domain.Message;
 import org.next.lms.message.domain.MessageType;
 import org.next.lms.reply.domain.Reply;
 import org.next.lms.user.domain.User;
 
-import java.util.Date;
+public class UserLikesReplyTemplate extends MultipleEventReportMessageTemplate {
 
-public class UserLikesReplyTemplate implements MessageTemplate {
-
-    private static final String single = "%s님이 회원님의 댓글을 좋아합니다.";
-
-    private static final String multi = "%s님 외 %d명이 회원님의 댓글을 좋아합니다.";
-
-    private static final String url = "/content/%d";
+    private static final String singleEventMessageTemplate = "%s님이 회원님의 댓글을 좋아합니다.";
+    private static final String multipleEventMessageTemplate = "%s님 외 %d명이 회원님의 댓글을 좋아합니다.";
+    private static final String urlTemplate = "/content/%d";
 
     private Reply reply;
     private User user;
-    private Integer size;
 
-
-    public UserLikesReplyTemplate(Reply reply, User user, int size) {
+    public UserLikesReplyTemplate(Reply reply, User user, int eventOccurrenceCount) {
         this.reply = reply;
         this.user = user;
-        this.size = size;
-    }
-
-    public String getMessageString() {
-        if (size > 3)
-            return String.format(single, user.getName());
-
-        return String.format(multi, user.getName(), size - 1);
-    }
-
-    public String getUrl() {
-        return String.format(url, reply.getContent().getId());
+        this.eventOccurrenceCount = eventOccurrenceCount;
     }
 
     @Override
-    public Message getMessage() {
-        Message message = new Message();
-        message.setType(MessageType.REPLY);
-        message.setTypeId(reply.getContent().getId());
-        message.setMessage(getMessageString());
-        message.setUrl(getUrl());
-        message.setDate(new Date());
-        message.setChecked(false);
-        return message;
+    protected String singleEventMessage() {
+        return String.format(singleEventMessageTemplate, user.getName());
+    }
+
+    @Override
+    protected String multipleEventMessage() {
+        return String.format(multipleEventMessageTemplate, user.getName(), eventOccurrenceCount - 1);
+    }
+
+    @Override
+    protected MessageType messageType() {
+        return MessageType.USER_LIKE_REPLY;
+    }
+
+    @Override
+    protected Long pkAtBelongTypeTable() {
+        return reply.getContent().getId();
+    }
+
+    @Override
+    public String getUrl() {
+        return String.format(urlTemplate, reply.getContent().getId());
     }
 }

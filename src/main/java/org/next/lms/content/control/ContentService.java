@@ -59,7 +59,8 @@ public class ContentService {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
         contentAuthority.checkWriteRight(content.getType(), user);
-        messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
+
+        messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate(lecture, content));
         return success(new ContentDto(content, user));
     }
 
