@@ -132,7 +132,7 @@ public class LectureService {
 
         messageService
                 .send(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture()))
-                .to(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
+                .to(userEnrolledLecture.getUser());
 
         return success(new UserSummaryDto(userEnrolledLecture));
     }
