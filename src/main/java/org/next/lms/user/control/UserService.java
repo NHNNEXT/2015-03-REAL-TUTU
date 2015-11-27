@@ -82,7 +82,7 @@ public class UserService {
         if (dbAccount == null)
             return new Result(ResponseCode.GetSessionUser.EMPTY);
         dbAccount.update(passed);
-        userRepository.save(dbAccount);
+
         return success(new UserSummaryDto(dbAccount));
     }
 
