@@ -110,7 +110,7 @@ public class LectureService {
             userEnrolledLectureRepository.save(relation);
 
             messageService
-                    .send(new LectureEnrolledMessage())
+                    .send(new LectureEnrolledMessage(lecture))
                     .to(lecture.getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
             return success();
         } else if (lecture.getRegisterPolicy().equals(RegisterPolicy.NEED_APPROVAL)) {
@@ -131,7 +131,7 @@ public class LectureService {
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
 
         messageService
-                .send(new LectureEnrollApprovedMessage())
+                .send(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture()))
                 .to(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
 
         return success(new UserSummaryDto(userEnrolledLecture));
@@ -142,7 +142,7 @@ public class LectureService {
         userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
 
         messageService
-                .send(new LectureEnrollRejectMessage())
+                .send(new LectureEnrollRejectMessage(userEnrolledLecture.getLecture()))
                 .to(userEnrolledLecture.getUser());
         return success();
     }

@@ -12,9 +12,11 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "Message", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"RECEIVER_ID", "TYPE", "PK_AT_BELONG_TYPE_TABLE"})
-})
+@Table(name = "MESSAGE")
+// TODO Unique 논의 필요 -> Immutable Message 관련
+//@Table(name = "Message", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {"RECEIVER_ID", "TYPE", "PK_AT_BELONG_TYPE_TABLE"})
+//})
 public class Message {
 
     @ManyToOne(fetch = FetchType.LAZY)
