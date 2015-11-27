@@ -16,6 +16,9 @@
         <md-checkbox ng-model="lecture.writable[$index][$parent.$index]">
           쓰기
         </md-checkbox>
+        <md-checkbox ng-show="type.todo && !type.todoOpen" ng-model="lecture.todoReadable[$index][$parent.$index]">
+          제출 내용 열람
+        </md-checkbox>
       </td>
     </tr>
     </tbody>

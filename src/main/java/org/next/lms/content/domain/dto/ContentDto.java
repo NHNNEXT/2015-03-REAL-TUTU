@@ -46,10 +46,6 @@ public class ContentDto {
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
-        if (!content.getType().getOnlyWriter() || content.getLecture().getHostUser().equals(user)) { // 작성자만 읽기 || Lecture 호스트유저일 경우
-            this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
-            return;
-        }
-        this.replies = content.getReplies().stream().filter(reply -> reply.getWriter().equals(user)).map(ReplyDto::new).collect(Collectors.toList());
+        this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
     }
 }

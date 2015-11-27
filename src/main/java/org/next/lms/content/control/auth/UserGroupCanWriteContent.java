@@ -1,4 +1,4 @@
-package org.next.lms.lecture.control.auth;
+package org.next.lms.content.control.auth;
 
 import lombok.*;
 import org.next.lms.content.domain.ContentType;

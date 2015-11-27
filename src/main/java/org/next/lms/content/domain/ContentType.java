@@ -1,9 +1,10 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.next.lms.content.control.auth.UserGroupCanReadTodo;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.control.auth.UserGroupCanReadContent;
-import org.next.lms.lecture.control.auth.UserGroupCanWriteContent;
+import org.next.lms.content.control.auth.UserGroupCanReadContent;
+import org.next.lms.content.control.auth.UserGroupCanWriteContent;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,9 +13,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"writable", "readable", "lecture", "contents"})
+@ToString(exclude = {"writable", "readable", "lecture", "todoReadable", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "contents", "lecture", "endTime", "startTime", "extendWrite", "onlyWriter", "statistic", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "todoReadable", "contents", "lecture", "endTime", "startTime", "todo", "todoOpen", "reply", "name"})
 @Entity
 @Table(name = "CONTENT_TYPE")
 public class ContentType {
@@ -24,6 +25,9 @@ public class ContentType {
 
     @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
+
+    @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
+    private List<UserGroupCanReadTodo> todoReadable = new ArrayList<>();
 
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
@@ -43,16 +47,16 @@ public class ContentType {
     @Column(name = "START_TIME", nullable = false, columnDefinition = "boolean default false")
     private Boolean startTime = false;
 
-    @Column(name = "EXTEND_WRITE", nullable = false, columnDefinition = "boolean default false")
-    private Boolean extendWrite = false;
+    @Column(name = "TODO", nullable = false, columnDefinition = "boolean default false")
+    private Boolean todo = false;
 
-    @Column(name = "ONLY_WRITER", nullable = false, columnDefinition = "boolean default false")
-    private Boolean onlyWriter = false;
+    @Column(name = "TODO_OPEN", nullable = false, columnDefinition = "boolean default false")
+    private Boolean todoOpen = false;
 
-    @Column(name = "STATISTIC", nullable = false, columnDefinition = "boolean default false")
-    private Boolean statistic = false;
+    @Column(name = "REPLY", nullable = false, columnDefinition = "boolean default false")
+    private Boolean reply = false;
 
-    @NotNull(message = "게시물 분류 이름을 입력해주세요.")
+    @NotNull(message = "게시물 이름을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
 
@@ -62,13 +66,15 @@ public class ContentType {
             this.endTime = contentType.endTime;
         if (contentType.startTime != null)
             this.startTime = contentType.startTime;
-        if (contentType.extendWrite) {
-            this.extendWrite = this.startTime && this.endTime;
+        if (contentType.todo != null) {
+            this.todo = contentType.todo;
+            if (contentType.todo)
+                this.endTime = true;
         }
-        if (contentType.onlyWriter != null)
-            this.onlyWriter = contentType.onlyWriter;
-        if (contentType.statistic != null)
-            this.statistic = contentType.statistic;
+        if (contentType.todoOpen != null)
+            this.todoOpen = contentType.todoOpen;
+        if (contentType.reply != null)
+            this.reply = contentType.reply;
         if (contentType.name != null)
             this.name = contentType.name;
     }

@@ -1,8 +1,9 @@
 package org.next.lms.lecture.control;
 
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.repository.LectureRepository;
+import org.next.infra.repository.*;
 import org.next.infra.result.Result;
+import org.next.lms.content.control.auth.UserGroupCanReadTodo;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
@@ -10,11 +11,6 @@ import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.control.auth.RegisterPolicy;
 import org.next.lms.lecture.domain.dto.*;
-import org.next.infra.repository.ContentTypeRepository;
-import org.next.infra.repository.UserGroupCanReadContentRepository;
-import org.next.infra.repository.UserGroupCanWriteContentRepository;
-import org.next.infra.repository.UserGroupRepository;
-import org.next.infra.repository.UserEnrolledLectureRepository;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.template.EnrollMessageTemplate;
 import org.next.lms.message.domain.template.EnrollRejectMessageTemplate;
@@ -58,11 +54,17 @@ public class LectureService {
     @Autowired
     private UserGroupCanWriteContentRepository userGroupCanWriteContentRepository;
 
+    @Autowired
+    private UserGroupCanReadTodoRepository userGroupCanReadTodoRepository;
+
+    @Autowired
+    private ContentRepository contentRepository;
+
 
     public Result save(Lecture lecture, User user) {
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
-        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository);
         enrollLecture(user, lecture);
         return success(lecture.getId());
     }
@@ -71,8 +73,8 @@ public class LectureService {
         Lecture lectureFromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(lectureFromDB, user);
 
-        lectureFromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
-        lectureFromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository);
+        lectureFromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository, contentRepository);
+        lectureFromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository);
 
         return success(lecture.getId());
     }

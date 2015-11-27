@@ -9,18 +9,18 @@ public class ContentTypeDto {
     private final Long id;
     private final Boolean endTime;
     private final Boolean startTime;
-    private final Boolean extendWrite;
-    private final Boolean onlyWriter;
-    private final Boolean statistic;
+    private final Boolean todo;
+    private final Boolean todoOpen;
+    private final Boolean reply;
     private final String name;
 
     public ContentTypeDto(ContentType contentType) {
         this.id = contentType.getId();
         this.endTime = contentType.getEndTime();
         this.startTime = contentType.getStartTime();
-        this.extendWrite = contentType.getExtendWrite();
-        this.onlyWriter = contentType.getOnlyWriter();
-        this.statistic = contentType.getStatistic();
+        this.todo = contentType.getTodo();
+        this.todoOpen = contentType.getTodoOpen();
+        this.reply = contentType.getReply();
         this.name = contentType.getName();
     }
 }

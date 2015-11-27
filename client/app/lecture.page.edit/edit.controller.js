@@ -35,6 +35,7 @@ angular
         if (lecture.writable.length < lecture.userGroups.length) {
           lecture.writable.push(getTrueArray(lecture.contentTypes.length));
           lecture.readable.push(getTrueArray(lecture.contentTypes.length));
+          lecture.todoReadable.push(getTrueArray(lecture.contentTypes.length));
         }
 
         $scope.userGroup = {};
@@ -57,9 +58,19 @@ angular
           lecture.readable.forEach(function (readable) {
             readable.push(true);
           });
+          lecture.todoReadable.forEach(function (readable) {
+            readable.push(true);
+          });
         }
       };
 
+
+      $scope.endTimeCheck = function(contentType){
+        if(contentType.todo && !contentType.endTime){
+          alert.info("제출 기능은 마감시간이 필요합니다.");
+          contentType.endTime = true;
+        }
+      };
 
       $scope.cancel = cancel;
       $scope.save = save;
@@ -74,6 +85,7 @@ angular
             if (index === j) {
               lecture.writable[i][j] = !lecture.writable[i][j];
               lecture.readable[i][j] = !lecture.readable[i][j];
+              lecture.todoReadable[i][j] = !lecture.todoReadable[i][j];
             }
           }
         }
@@ -85,6 +97,7 @@ angular
             if (index === i) {
               lecture.writable[i][j] = !lecture.writable[i][j];
               lecture.readable[i][j] = !lecture.readable[i][j];
+              lecture.todoReadable[i][j] = !lecture.todoReadable[i][j];
             }
           }
         }
