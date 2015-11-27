@@ -1,9 +1,12 @@
 package org.next.lms.message.template;
 
+import org.next.infra.util.CommonUtils;
 import org.next.lms.content.domain.Content;
 import org.next.lms.message.domain.MessageType;
 import org.next.lms.message.structure.MultipleEventReportMessageTemplate;
 import org.next.lms.user.domain.User;
+
+import static org.next.infra.util.CommonUtils.ellipsis;
 
 public class UserLikesContentMessage extends MultipleEventReportMessageTemplate {
 
@@ -27,7 +30,7 @@ public class UserLikesContentMessage extends MultipleEventReportMessageTemplate 
 
     @Override
     protected String multipleEventMessage() {
-        return String.format(multipleEventMessageTemplate, user.getName(), getEventOccurrenceCount() - 1, content.getTitle());
+        return String.format(multipleEventMessageTemplate, user.getName(), getEventOccurrenceCount() - 1, ellipsis(content.getTitle(), 30));
     }
 
     @Override

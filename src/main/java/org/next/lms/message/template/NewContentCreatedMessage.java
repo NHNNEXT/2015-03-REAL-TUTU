@@ -31,8 +31,7 @@ public class NewContentCreatedMessage extends MultipleEventReportMessageTemplate
 
     @Override
     protected String multipleEventMessage() {
-        // TODO 몇개인지 알아내는 로직 필요
-        return String.format(multipleEventMessageTemplate, lecture.getName(), 1);
+        return String.format(multipleEventMessageTemplate, lecture.getName(), getEventOccurrenceCount());
     }
 
     @Override
