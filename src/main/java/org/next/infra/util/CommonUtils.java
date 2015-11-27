@@ -52,13 +52,13 @@ public class CommonUtils {
         if(text.length() <= 0 || length <= 0)
             throw new InvalidParameterException("length 는 0 이하일 수 없습니다");
 
-        String decoString = "...";
-        String reduced = null;
-
         if(text.length() > length){
-            reduced = text.substring(0, length);
+            String decoString = "...";
+            String reduced = text.substring(0, length);
             reduced += decoString;
+            return reduced;
         }
-        return reduced;
+
+        return text;
     }
 }
