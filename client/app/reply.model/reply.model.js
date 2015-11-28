@@ -43,5 +43,17 @@ angular.module('clientApp')
       return http.delete('/api/v1/reply', {id: this.id});
     };
 
+    Reply.getList = function (query) {
+      return http.get('/api/v1/reply', query).then(function (result) {
+        if (result === undefined || result.forEach === undefined)
+          return;
+        var replies = [];
+        result.forEach(function (reply) {
+          replies.push(new Reply(reply));
+        });
+        return replies;
+      });
+    };
+
     return Reply;
   });

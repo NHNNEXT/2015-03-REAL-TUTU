@@ -16,4 +16,5 @@ import org.springframework.context.annotation.Import;
         }
 )
 public class AppConfig {
+        public static final Integer pageSize = 10;
 }

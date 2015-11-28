@@ -3,12 +3,32 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        contentId:'=',
-        replies: '='
+        contentId: '='
       },
       templateUrl: '/reply.directive.replies/replies.html',
       /* @ngInject */
       controller: function (rootUser, $scope, Reply) {
+        $scope.replies = [];
+        $scope.more = function () {
+          var query = {};
+          query.contentId = $scope.contentId;
+          query.page = $scope.page;
+          Reply.getList(query).then(function (replies) {
+            $scope.page++;
+            $scope.moreReplyExist = replies.length === 10;
+            replies.forEach(function (reply) {
+              $scope.replies.push(reply);
+            });
+          });
+        };
+
+        $scope.page = 0;
+        $scope.$watch('contentId', function (id) {
+          if (!id)
+            return;
+          $scope.more();
+        });
+
         $scope.reply = new Reply();
         $scope.rootUser = rootUser;
         $scope.writeReply = function (reply) {

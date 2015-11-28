@@ -1,7 +1,8 @@
 <div layout="row">
   <span class="underlined">댓글 ({{replies.length}})</span>
 </div>
-<div ng-repeat="reply in replies" layout="row">
+<div ng-click="more()" class="more-reply" ng-show="moreReplyExist">댓글 더보기</div>
+<div ng-repeat="reply in replies | orderBy:'writeDate'" layout="row">
   <div reply="reply" replies="replies"></div>
 </div>
 <div class="reply-write" layout="row">

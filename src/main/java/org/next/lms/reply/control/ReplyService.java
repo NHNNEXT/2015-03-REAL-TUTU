@@ -1,5 +1,6 @@
 package org.next.lms.reply.control;
 
+import org.next.config.AppConfig;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.ReplyRepository;
 import org.next.infra.result.Result;
@@ -8,10 +9,15 @@ import org.next.lms.reply.domain.Reply;
 import org.next.lms.reply.domain.ReplyDto;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
@@ -51,8 +57,12 @@ public class ReplyService {
         Reply reply = assureNotNull(replyRepository.findOne(id));
         replyAuth.checkDeleteRight(reply, user);
         reply.setDeleteState();
-
         return success();
     }
 
+    public Result getList(Long contentId, int page) {
+        Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "writeDate");
+        List<Reply> replies = replyRepository.findByContentId(contentId, pageable);
+        return success(replies.stream().map(ReplyDto::new).collect(Collectors.toList()));
+    }
 }

@@ -1,5 +1,6 @@
 package org.next.lms.message.control;
 
+import org.next.config.AppConfig;
 import org.next.infra.result.Result;
 import org.next.infra.repository.MessageRepository;
 import org.next.lms.message.domain.Message;
@@ -24,13 +25,11 @@ import static org.next.infra.util.CommonUtils.assureTrue;
 @Transactional
 public class MessageService {
 
-    public static final Integer pageSize = 10;
-
     @Autowired
     private MessageRepository messageRepository;
 
     public Result getList(User user, Integer page) {
-        Pageable pageable = new PageRequest(page, pageSize);
+        Pageable pageable = new PageRequest(page, AppConfig.pageSize);
         List<Message> messages = messageRepository.findByUserId(user.getId(), pageable);
         return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }
