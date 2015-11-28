@@ -31,6 +31,9 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private MessageHolder messageHolder;
+
     public Result getList(User user, Integer page) {
         Pageable pageable = new PageRequest(page, pageSize);
         List<Message> messages = messageRepository.findByReceiverId(user.getId(), pageable);
@@ -46,32 +49,16 @@ public class MessageService {
     }
 
     public MessageHolder send(MessageTemplate message) {
-        return new MessageHolder(message);
+        messageHolder.setMessage(message);
+        messageHolder.setMessageService(this);
+        return messageHolder;
     }
 
-    @Transactional
-    public class MessageHolder {
-
-        private MessageTemplate message;
-
-        private MessageHolder(MessageTemplate message) {
-            this.message = message;
-        }
-
-        public void to(User receiver) {
-            sendMessageNow(receiver, message);
-        }
-
-        public void to(List<User> receivers) {
-            sendMessageNow(receivers, message);
-        }
-    }
-
-    private void sendMessageNow(List<User> receivers, MessageTemplate template) {
+    public void sendMessageNow(List<User> receivers, MessageTemplate template) {
         receivers.forEach(user -> sendMessageNow(user, template));
     }
 
-    private void sendMessageNow(User receiver, MessageTemplate template) {
+    public void sendMessageNow(User receiver, MessageTemplate template) {
         saveMessage(receiver, template);
     }
 
@@ -99,3 +86,4 @@ public class MessageService {
         messageRepository.save(message);
     }
 }
+
