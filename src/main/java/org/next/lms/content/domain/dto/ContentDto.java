@@ -19,7 +19,7 @@ public class ContentDto {
     private final List<Long> likes;
     private final String lectureName;
     private final Long hits;
-    private final List<ReplyDto> replies;
+    private final Integer repliesSize;
     private final UserSummaryDto writer;
     private final ContentTypeDto type;
     private final Long lectureId;
@@ -46,6 +46,6 @@ public class ContentDto {
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
-        this.replies = content.getReplies().stream().map(ReplyDto::new).collect(Collectors.toList());
+        this.repliesSize = content.getReplies().size();
     }
 }

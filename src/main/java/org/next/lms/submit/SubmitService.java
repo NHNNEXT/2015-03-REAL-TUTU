@@ -1,8 +1,8 @@
-package org.next.lms.reply.control;
+package org.next.lms.submit;
 
 import org.next.config.AppConfig;
 import org.next.infra.repository.ContentRepository;
-import org.next.infra.repository.ReplyRepository;
+import org.next.infra.repository.SubmitRepository;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
 import org.next.lms.reply.domain.Reply;
@@ -24,44 +24,44 @@ import static org.next.infra.util.CommonUtils.assureNotNull;
 
 @Service
 @Transactional
-public class ReplyService {
+public class SubmitService {
 
     @Autowired
     private ContentRepository contentRepository;
 
     @Autowired
-    private ReplyRepository replyRepository;
+    private SubmitRepository submitRepository;
 
     @Autowired
-    private ReplyAuth replyAuth;
+    private SubmitAuth submitAuth;
 
-    public Result save(Reply reply, User user, Long contentId) {
+    public Result save(Submit submit, User user, Long contentId) {
         Content content = assureNotNull(contentRepository.findOne(contentId));
-        reply.setWriter(user);
-        reply.setContent(content);
-        reply.setWriteDate(new Date());
-        replyRepository.save(reply);
-        return success(new ReplyDto(reply));
+        submit.setWriter(user);
+        submit.setContent(content);
+        submit.setWriteDate(new Date());
+        submitRepository.save(submit);
+        return success(new SubmitDto(submit));
     }
 
-    public Result update(Reply reply, User user) {
-        Reply fromDB = assureNotNull(replyRepository.findOne(reply.getId()));
-        replyAuth.checkUpdateRight(fromDB, user);
-        fromDB.update(reply);
+    public Result update(Submit submit, User user) {
+        Submit fromDB = assureNotNull(submitRepository.findOne(submit.getId()));
+        submitAuth.checkUpdateRight(fromDB, user);
+        fromDB.update(submit);
 
-        return success(new ReplyDto(fromDB));
+        return success(new SubmitDto(fromDB));
     }
 
     public Result deleteReply(Long id, User user) {
-        Reply reply = assureNotNull(replyRepository.findOne(id));
-        replyAuth.checkDeleteRight(reply, user);
-        reply.setDeleteState();
+        Submit submit = assureNotNull(submitRepository.findOne(id));
+        submitAuth.checkDeleteRight(submit, user);
+        submit.setDeleteState();
         return success();
     }
 
     public Result getList(Long contentId, int page) {
         Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "writeDate");
-        List<Reply> replies = replyRepository.findByContentId(contentId, pageable);
-        return success(replies.stream().map(ReplyDto::new).collect(Collectors.toList()));
+        List<Submit> submits = submitRepository.findByContentId(contentId, pageable);
+        return success(submits.stream().map(SubmitDto::new).collect(Collectors.toList()));
     }
 }

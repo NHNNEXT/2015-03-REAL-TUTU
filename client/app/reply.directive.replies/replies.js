@@ -3,7 +3,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        contentId: '='
+        content: '='
       },
       templateUrl: '/reply.directive.replies/replies.html',
       /* @ngInject */
@@ -11,7 +11,7 @@ angular.module('clientApp')
         $scope.replies = [];
         $scope.more = function () {
           var query = {};
-          query.contentId = $scope.contentId;
+          query.contentId = $scope.content.id;
           query.page = $scope.page;
           Reply.getList(query).then(function (replies) {
             $scope.page++;
@@ -23,7 +23,7 @@ angular.module('clientApp')
         };
 
         $scope.page = 0;
-        $scope.$watch('contentId', function (id) {
+        $scope.$watch('content', function (id) {
           if (!id)
             return;
           $scope.more();
@@ -32,12 +32,13 @@ angular.module('clientApp')
         $scope.reply = new Reply();
         $scope.rootUser = rootUser;
         $scope.writeReply = function (reply) {
-          reply.contentId = $scope.contentId;
+          reply.contentId = $scope.content.id;
           reply.save().then(function (result) {
             reply.id = result.id;
+            $scope.content.repliesSize++;
             $scope.replies.push(reply);
             $scope.reply = new Reply();
-            $scope.reply.contentId = $scope.contentId;
+            $scope.reply.contentId = $scope.content.id;
           });
         };
       }

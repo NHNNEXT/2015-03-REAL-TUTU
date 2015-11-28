@@ -1,5 +1,5 @@
 <div layout="row">
-  <span class="underlined">댓글 ({{replies.length}})</span>
+  <span class="underlined">댓글 ({{content.repliesSize}})</span>
 </div>
 <div ng-click="more()" class="more-reply" ng-show="moreReplyExist">댓글 더보기</div>
 <div ng-repeat="reply in replies | orderBy:'writeDate'" layout="row">

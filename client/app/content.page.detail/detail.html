@@ -7,7 +7,7 @@
           <span class="bar"></span>
           조회수 {{content.hits}}
           <span class="bar"></span>
-          댓글 {{content.replies.length}}
+          댓글 {{content.repliesSize}}
           <span class="bar"></span>
           <like type="CONTENT" like="content.likes" target="content.id"></like>
           <span ng-show="content.writer.id === rootUser.id">
@@ -43,6 +43,6 @@
   </div>
 </section>
 
-<section>
- <replies content-id="content.id"></replies>
+<section  ng-if="content.type.reply">
+ <replies content="content"></replies>
 </section>
