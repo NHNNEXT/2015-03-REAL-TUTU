@@ -1,5 +1,13 @@
 package org.next.lms.message.domain;
 
 public enum MessageType {
-    CONTENT, REPLY, LECTURE
+    USER_LIKE_CONTENT,
+    USER_LIKE_REPLY,
+    NEW_CONTENT_CREATED,
+
+    LECTURE_ENROLL_REQUEST,
+    LECTURE_ENROLL_APPROVED,
+    LECTURE_ENROLL_REJECT,
+    LECTURE_ENROLLED
+
 }

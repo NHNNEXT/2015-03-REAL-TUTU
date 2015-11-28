@@ -12,13 +12,16 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "Message")
+@Table(name = "MESSAGE")
+// TODO Unique 논의 필요 -> Immutable Message 관련
+//@Table(name = "Message", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {"RECEIVER_ID", "TYPE", "PK_AT_BELONG_TYPE_TABLE"})
+//})
 public class Message {
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "RECEIVER_ID")
+    private User receiver;
 
     @Id
     @Column(name = "MESSAGE_ID")
@@ -32,8 +35,8 @@ public class Message {
     @Column(name = "TYPE")
     private MessageType type;
 
-    @Column(name = "TYPE_ID")
-    private Long typeId;
+    @Column(name = "PK_AT_BELONG_TYPE_TABLE")
+    private Long pkAtBelongTypeTable;
 
     @Column(name = "URL")
     private String url;
@@ -43,6 +46,9 @@ public class Message {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE")
-    private Date date;
+    private Date date = new Date();
 
+    public void read() {
+        this.checked = true;
+    }
 }

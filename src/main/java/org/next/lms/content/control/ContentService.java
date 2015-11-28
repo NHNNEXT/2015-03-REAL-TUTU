@@ -13,7 +13,7 @@ import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.infra.repository.ContentTypeRepository;
 import org.next.lms.message.control.MessageService;
-import org.next.lms.message.domain.template.newContentMessageTemplate;
+import org.next.lms.message.template.NewContentCreatedMessage;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,11 @@ public class ContentService {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority);
         contentAuthority.checkWriteRight(content.getType(), user);
-        messageService.newMessage(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()), new newContentMessageTemplate());
+
+        messageService
+                // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
+                .send(new NewContentCreatedMessage(lecture, content, 1))
+                .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
         return success(new ContentDto(content, user));
     }
 

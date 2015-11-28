@@ -28,7 +28,7 @@ import java.util.List;
 @Table(name = "USER")
 public class User {
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
 
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY)
