@@ -17,6 +17,7 @@ public class LectureForHostUserDto extends LectureDto {
     private final List<UserSummaryDto> rejectUsers;
     private List<List<Boolean>> writable;
     private List<List<Boolean>> readable;
+    private List<List<Boolean>> todoReadable;
 
     public LectureForHostUserDto(Lecture lecture) {
         super(lecture);
@@ -41,16 +42,20 @@ public class LectureForHostUserDto extends LectureDto {
         List<ContentType> contentTypes = lecture.getContentTypes();
         this.writable = new ArrayList<>();
         this.readable = new ArrayList<>();
+        this.todoReadable = new ArrayList<>();
         for (UserGroup userGroup : userGroups) {
             List<Boolean> writable = new ArrayList<>();
             List<Boolean> readable = new ArrayList<>();
+            List<Boolean> todoReadable = new ArrayList<>();
             for (int j = 0; j < contentTypes.size(); j++) {
                 final int finalJ = j;
                 writable.add(userGroup.getWritable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
                 readable.add(userGroup.getReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
+                todoReadable.add(userGroup.getTodoReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
             }
             this.writable.add(writable);
             this.readable.add(readable);
+            this.todoReadable.add(todoReadable);
         }
     }
 }

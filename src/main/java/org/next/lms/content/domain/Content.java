@@ -33,7 +33,7 @@ public class Content {
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Tag> tags = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,7 +41,7 @@ public class Content {
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTENT_TYPE")
+    @JoinColumn(name = "CONTENT_TYPE_ID")
     private ContentType type;
 
     @ManyToOne(fetch = FetchType.LAZY)

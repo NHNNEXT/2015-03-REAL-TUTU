@@ -1,97 +1,50 @@
 [
   {
-    "name": "자구알",
-    "majorType": "1",
-    "registerPolicy": "1",
-    "contentTypes": [
-      {
-        "name": "수업",
-        "startTime": true,
-        "endTime": true,
-        "extendWrite": true
-      },
-      {
-        "name": "강의자료"
-      },
-      {
-        "name": "질문"
-      },
-      {
-        "name": "과제",
-        "endTime": true,
-        "statistic": true,
-        "onlyWriter": true
-      }
-    ],
-    "userGroups": [
-      {
-        "name": "조교"
-      },
-      {
-        "name": "수강생",
-        "defaultGroup": true
-      }
-    ],
-    "writable": [
-      [
-        true,
-        true,
-        true,
-        true
-      ],
-      [
-        false,
-        false,
-        true,
-        true
-      ]
-    ],
-    "readable": [
-      [
-        true,
-        true,
-        true,
-        true
-      ],
-      [
-        true,
-        true,
-        true,
-        true
-      ]
-    ]
-  },
-  {
     "name": "실전프",
-    "majorType": "1",
-    "registerPolicy": "1",
+    "majorType": 1,
+    "registerPolicy": 1,
     "contentTypes": [
       {
-        "name": "수업",
-        "startTime": true,
         "endTime": true,
-        "extendWrite": true
+        "startTime": true,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "수업"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "강의자료"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "질문"
       },
       {
-        "name": "과제",
         "endTime": true,
-        "statistic": true,
-        "onlyWriter": true
+        "startTime": false,
+        "todo": true,
+        "todoOpen": false,
+        "reply": true,
+        "name": "과제"
       }
     ],
     "userGroups": [
       {
+        "defaultGroup": false,
         "name": "조교"
       },
       {
-        "name": "수강생",
-        "defaultGroup": true
+        "defaultGroup": true,
+        "name": "수강생"
       }
     ],
     "writable": [
@@ -120,40 +73,69 @@
         true,
         true,
         true
+      ]
+    ],
+    "todoReadable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
       ]
     ]
   },
   {
     "name": "선형대수",
-    "majorType": "1",
-    "registerPolicy": "1",
+    "majorType": 1,
+    "registerPolicy": 1,
     "contentTypes": [
       {
-        "name": "수업",
-        "startTime": true,
         "endTime": true,
-        "extendWrite": true
+        "startTime": true,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "수업"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "강의자료"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "질문"
       },
       {
-        "name": "과제",
         "endTime": true,
-        "statistic": true,
-        "onlyWriter": true
+        "startTime": false,
+        "todo": true,
+        "todoOpen": false,
+        "reply": true,
+        "name": "과제"
       }
     ],
     "userGroups": [
       {
+        "defaultGroup": false,
         "name": "조교"
       },
       {
-        "name": "수강생",
-        "defaultGroup": true
+        "defaultGroup": true,
+        "name": "수강생"
       }
     ],
     "writable": [
@@ -182,40 +164,69 @@
         true,
         true,
         true
+      ]
+    ],
+    "todoReadable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
       ]
     ]
   },
   {
-    "name": "강의1",
-    "majorType": "1",
-    "registerPolicy": "1",
+    "name": "그래픽스",
+    "majorType": 1,
+    "registerPolicy": 1,
     "contentTypes": [
       {
-        "name": "수업",
-        "startTime": true,
         "endTime": true,
-        "extendWrite": true
+        "startTime": true,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "수업"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "강의자료"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "질문"
       },
       {
-        "name": "과제",
         "endTime": true,
-        "statistic": true,
-        "onlyWriter": true
+        "startTime": false,
+        "todo": true,
+        "todoOpen": false,
+        "reply": true,
+        "name": "과제"
       }
     ],
     "userGroups": [
       {
+        "defaultGroup": false,
         "name": "조교"
       },
       {
-        "name": "수강생",
-        "defaultGroup": true
+        "defaultGroup": true,
+        "name": "수강생"
       }
     ],
     "writable": [
@@ -244,40 +255,69 @@
         true,
         true,
         true
+      ]
+    ],
+    "todoReadable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
       ]
     ]
   },
   {
-    "name": "그래픽스1",
-    "majorType": "1",
-    "registerPolicy": "1",
+    "name": "인문사회학",
+    "majorType": 1,
+    "registerPolicy": 1,
     "contentTypes": [
       {
-        "name": "수업",
-        "startTime": true,
         "endTime": true,
-        "extendWrite": true
+        "startTime": true,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "수업"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "강의자료"
       },
       {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
         "name": "질문"
       },
       {
-        "name": "과제",
         "endTime": true,
-        "statistic": true,
-        "onlyWriter": true
+        "startTime": false,
+        "todo": true,
+        "todoOpen": false,
+        "reply": true,
+        "name": "과제"
       }
     ],
     "userGroups": [
       {
+        "defaultGroup": false,
         "name": "조교"
       },
       {
-        "name": "수강생",
-        "defaultGroup": true
+        "defaultGroup": true,
+        "name": "수강생"
       }
     ],
     "writable": [
@@ -306,6 +346,202 @@
         true,
         true,
         true
+      ]
+    ],
+    "todoReadable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ]
+  },
+  {
+    "name": "자바프로그래밍",
+    "majorType": 1,
+    "registerPolicy": 1,
+    "contentTypes": [
+      {
+        "endTime": true,
+        "startTime": true,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "수업"
+      },
+      {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "강의자료"
+      },
+      {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "질문"
+      },
+      {
+        "endTime": true,
+        "startTime": false,
+        "todo": true,
+        "todoOpen": false,
+        "reply": true,
+        "name": "과제"
+      }
+    ],
+    "userGroups": [
+      {
+        "defaultGroup": false,
+        "name": "조교"
+      },
+      {
+        "defaultGroup": true,
+        "name": "수강생"
+      }
+    ],
+    "writable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "readable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "todoReadable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ]
+  },
+  {
+    "name": "웹서버",
+    "majorType": 1,
+    "registerPolicy": 1,
+    "contentTypes": [
+      {
+        "endTime": true,
+        "startTime": true,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "수업"
+      },
+      {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "강의자료"
+      },
+      {
+        "endTime": false,
+        "startTime": false,
+        "todo": false,
+        "todoOpen": false,
+        "reply": true,
+        "name": "질문"
+      },
+      {
+        "endTime": true,
+        "startTime": false,
+        "todo": true,
+        "todoOpen": false,
+        "reply": true,
+        "name": "과제"
+      }
+    ],
+    "userGroups": [
+      {
+        "defaultGroup": false,
+        "name": "조교"
+      },
+      {
+        "defaultGroup": true,
+        "name": "수강생"
+      }
+    ],
+    "writable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "readable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "todoReadable": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
       ]
     ]
   }
