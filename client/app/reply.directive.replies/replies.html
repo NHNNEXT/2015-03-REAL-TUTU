@@ -1,0 +1,25 @@
+<div layout="row">
+  <span class="underlined">댓글 ({{replies.length}})</span>
+</div>
+<div ng-repeat="reply in replies" layout="row">
+  <div reply="reply" replies="replies"></div>
+</div>
+<div class="reply-write" layout="row">
+  <div class="photo" flex>
+    <img class="profile" ng-src="{{rootUser.profileUrl || '/resource/profile.png'}}">
+  </div>
+  <div class="info" flex>
+    <div class="body">
+      <div class="box-area">
+        <md-input-container>
+          <textarea ng-model="reply.body" aria-label="reply"></textarea>
+        </md-input-container>
+        <div class="write_append">
+          <div class="wrap_btn">
+            <md-button aria-label="done button" class="md-raised" ng-click="writeReply(reply)">작성 완료</md-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

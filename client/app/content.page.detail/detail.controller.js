@@ -22,17 +22,5 @@ angular.module('clientApp').controller('contentDetailController',
           $state.go('lecture', {id: $scope.content.lectureId});
         };
       });
-      $scope.reply = new Reply();
-      $scope.reply.contentId = id;
     });
-
-    $scope.writeReply = function (reply) {
-      reply.contentId = $stateParams.id;
-      reply.save().then(function (result) {
-        reply.id = result.id;
-        $scope.content.replies.push(reply);
-        $scope.reply = new Reply();
-        $scope.reply.contentId = $scope.content.id;
-      });
-    };
   });
