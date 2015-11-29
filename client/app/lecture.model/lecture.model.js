@@ -28,7 +28,7 @@ angular.module('clientApp')
         this.userGroups = [{"defaultGroup": false, "name": "조교"}, {"defaultGroup": true, "name": "수강생"}];
         this.writable = [[true, true, true, true], [false, false, true, true]];
         this.readable = [[true, true, true, true], [true, true, true, true]];
-        this.todoReadable = [[false, false, false, true], [false, false, false, false]];
+        this.submitReadable = [[false, false, false, true], [false, false, false, false]];
         return;
       }
       if (typeof param === "object") {
@@ -106,7 +106,7 @@ angular.module('clientApp')
       this.contents = param.contents;
       this.writable = param.writable;
       this.readable = param.readable;
-      this.todoReadable = param.todoReadable;
+      this.submitReadable = param.submitReadable;
     };
 
     Lecture.prototype.remove = function () {
@@ -138,7 +138,7 @@ angular.module('clientApp')
       query.userGroups = this.userGroups;
       query.writable = this.writable;
       query.readable = this.readable;
-      query.todoReadable = this.todoReadable;
+      query.submitReadable = this.submitReadable;
       if (this.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);

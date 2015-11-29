@@ -35,7 +35,7 @@ angular
         if (lecture.writable.length < lecture.userGroups.length) {
           lecture.writable.push(getTrueArray(lecture.contentTypes.length));
           lecture.readable.push(getTrueArray(lecture.contentTypes.length));
-          lecture.todoReadable.push(getTrueArray(lecture.contentTypes.length));
+          lecture.submitReadable.push(getTrueArray(lecture.contentTypes.length));
         }
 
         $scope.userGroup = {};
@@ -58,7 +58,7 @@ angular
           lecture.readable.forEach(function (readable) {
             readable.push(true);
           });
-          lecture.todoReadable.forEach(function (readable) {
+          lecture.submitReadable.forEach(function (readable) {
             readable.push(true);
           });
         }
@@ -85,7 +85,7 @@ angular
             if (index === j) {
               lecture.writable[i][j] = !lecture.writable[i][j];
               lecture.readable[i][j] = !lecture.readable[i][j];
-              lecture.todoReadable[i][j] = !lecture.todoReadable[i][j];
+              lecture.submitReadable[i][j] = !lecture.submitReadable[i][j];
             }
           }
         }
@@ -97,7 +97,7 @@ angular
             if (index === i) {
               lecture.writable[i][j] = !lecture.writable[i][j];
               lecture.readable[i][j] = !lecture.readable[i][j];
-              lecture.todoReadable[i][j] = !lecture.todoReadable[i][j];
+              lecture.submitReadable[i][j] = !lecture.submitReadable[i][j];
             }
           }
         }

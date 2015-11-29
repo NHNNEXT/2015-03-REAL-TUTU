@@ -27,7 +27,7 @@ public class ContentType {
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
     @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
-    private List<UserGroupCanReadSubmit> todoReadable = new ArrayList<>();
+    private List<UserGroupCanReadSubmit> submitReadable = new ArrayList<>();
 
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
