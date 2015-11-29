@@ -13,7 +13,7 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
-  <div layout="row" ng-show="!extendWrite || !contentType.extendWrite" class="margin-top">
+  <div layout="row" ng-show="!extendWrite || !contentType.hasDuration()" class="margin-top">
     <div ng-show="contentType.startTime" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
     </div>
@@ -21,12 +21,12 @@
       <input-datepicker placeholder="{{placeholder}}" ng-model="content.endTime" flex></input-datepicker>
     </div>
   </div>
-  <div class="margin-top margin-bottom" layout="row" ng-show="contentType.extendWrite">
+  <div class="margin-top margin-bottom" layout="row" ng-show="contentType.hasDuration()">
     <md-checkbox ng-model="extendWrite">
       일괄입력
     </md-checkbox>
   </div>
-  <div ng-show="contentType.extendWrite && extendWrite" ng-include="'/content.page.edit/extend.html'">
+  <div ng-show="contentType.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
 </section>
 

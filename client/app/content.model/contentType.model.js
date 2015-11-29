@@ -2,6 +2,7 @@ angular.module('clientApp')
   /* @ngInject */
   .factory('ContentType', function () {
     function ContentType(param) {
+      this.id = param.id;
       this.endTime = param.endTime;
       this.startTime = param.startTime;
       this.submitOpen = param.submitOpen;

@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentWriteController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentType) {
     $scope.rootUser = rootUser;
     $scope.addTimes = addTimes;
 
@@ -11,7 +11,10 @@ angular.module('clientApp').controller('contentWriteController',
       if (id === undefined)
         return;
       Lecture.findLectureTypeById($stateParams.lectureId).then(function (lecture) {
-        $scope.contentTypes = lecture.contentTypes;
+        $scope.contentTypes = [];
+        lecture.contentTypes.forEach(function (contentType) {
+          $scope.contentTypes.push(new ContentType(contentType));
+        });
         $scope.content.lectureId = lecture.id;
         $state.current.header = lecture.name;
       });
