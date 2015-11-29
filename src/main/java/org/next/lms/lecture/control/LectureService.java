@@ -87,9 +87,9 @@ public class LectureService {
         return success(new LectureDto(lecture));
     }
 
-    public Result getSupportContentTypeById(Long lectureId) {
+    public Result getWriteInfoById(Long lectureId) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-        return success(new SupportContentTypeDto(lecture));
+        return success(new WriteInfoDto(lecture));
     }
 
 

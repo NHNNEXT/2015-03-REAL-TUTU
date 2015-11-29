@@ -200,9 +200,9 @@ angular.module('clientApp')
       });
     };
 
-    Lecture.findLectureTypeById = function (id) {
+    Lecture.getWriteInfoById = function (id) {
       return $q(function (resolve) {
-        http.get('/api/v1/lecture/type', {id: id}).then(function (result) {
+        http.get('/api/v1/lecture/writeInfo', {id: id}).then(function (result) {
           resolve(new Lecture(result));
         });
       });

@@ -1,4 +1,5 @@
 <section>
+
   <div layout="row">
     <md-input-container flex="20">
       <label>구분</label>
@@ -13,6 +14,9 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
+
+
+
   <div layout="row" ng-show="!extendWrite || !contentType.hasDuration()" class="margin-top">
     <div ng-show="contentType.startTime" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
@@ -28,6 +32,12 @@
   </div>
   <div ng-show="contentType.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
+
+  <div layout="row" ng-show="contentType.submit">
+    제출
+  </div>
+
+
 </section>
 
 <section>

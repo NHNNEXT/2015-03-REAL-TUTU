@@ -69,8 +69,8 @@ public class LectureController {
         return lectureService.userGroupChange(lectureId, groupId, userId, user);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/type")
-    public Result getLectureType(Long id) {
-        return lectureService.getSupportContentTypeById(id);
+    @RequestMapping(method = RequestMethod.GET, value = "/writeInfo")
+    public Result getWriteInfoById(Long id) {
+        return lectureService.getWriteInfoById(id);
     }
 }

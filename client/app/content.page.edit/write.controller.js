@@ -10,7 +10,7 @@ angular.module('clientApp').controller('contentWriteController',
       $scope.content = new Content();
       if (id === undefined)
         return;
-      Lecture.findLectureTypeById($stateParams.lectureId).then(function (lecture) {
+      Lecture.getWriteInfoById($stateParams.lectureId).then(function (lecture) {
         $scope.contentTypes = [];
         lecture.contentTypes.forEach(function (contentType) {
           $scope.contentTypes.push(new ContentType(contentType));
