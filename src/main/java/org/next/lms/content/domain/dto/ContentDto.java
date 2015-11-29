@@ -50,10 +50,10 @@ public class ContentDto {
         this.repliesSize = content.getReplies().size();
         if (!content.getType().getSubmit())
             return;
-        boolean hasRightReadSubmits = content.getType().getSubmitReadable().stream()
+        boolean hasRightReadSubmits = user.equals(content.getLecture().getHostUser())
+                || content.getType().getSubmitReadable().stream()
                 .filter(userGroupCanReadSubmit -> userGroupCanReadSubmit.getUserGroup().getUserEnrolledLectures().stream()
-                        .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent()).findAny().isPresent()
-                || user.equals(content.getLecture().getHostUser());
+                        .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent()).findAny().isPresent();
         if (hasRightReadSubmits) {
             this.submitRequiredUsers = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
             return;
