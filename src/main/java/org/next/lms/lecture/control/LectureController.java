@@ -22,6 +22,9 @@ public class LectureController {
     @Autowired
     private LectureService lectureService;
 
+    @Autowired
+    private LectureSaveService lectureSaveService;
+
     @RequestMapping(method = RequestMethod.GET)
     public Result getLecture(Long id, @Logged(makeLoginNeededException = false) User user) {
         if (id == null)
@@ -31,12 +34,12 @@ public class LectureController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Result save(@RequestBody Lecture lecture, @Logged User user) {
-        return lectureService.save(lecture, user);
+        return lectureSaveService.save(lecture, user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     public Result update(@RequestBody Lecture lecture, @Logged User user) {
-        return lectureService.update(lecture, user);
+        return lectureSaveService.update(lecture, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

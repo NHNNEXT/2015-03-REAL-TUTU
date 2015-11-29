@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
@@ -41,43 +42,6 @@ public class LectureService {
 
     @Autowired
     private LectureAuth lectureAuthority;
-
-    @Autowired
-    private UserGroupRepository userGroupRepository;
-
-    @Autowired
-    private ContentTypeRepository contentTypeRepository;
-
-    @Autowired
-    private UserGroupCanReadContentRepository userGroupCanReadContentRepository;
-
-    @Autowired
-    private UserGroupCanWriteContentRepository userGroupCanWriteContentRepository;
-
-    @Autowired
-    private UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository;
-
-    @Autowired
-    private ContentRepository contentRepository;
-
-
-    public Result save(Lecture lecture, User user) {
-        lecture.setHostUser(user);
-        lectureRepository.save(lecture);
-        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository);
-        enrollLecture(user, lecture);
-        return success(lecture.getId());
-    }
-
-    public Result update(Lecture lecture, User user) {
-        Lecture lectureFromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
-        lectureAuthority.checkUpdateRight(lectureFromDB, user);
-
-        lectureFromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, contentRepository);
-        lectureFromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository);
-
-        return success(lecture.getId());
-    }
 
 
     public Result getLectureById(Long lectureId, User user) {
@@ -154,7 +118,7 @@ public class LectureService {
         return relation != null ? relation : enrollLecture(user, lecture);
     }
 
-    private UserEnrolledLecture enrollLecture(User user, Lecture lecture) {
+    UserEnrolledLecture enrollLecture(User user, Lecture lecture) {
         UserEnrolledLecture relation = new UserEnrolledLecture();;
         relation.setLecture(lecture);
         relation.setUser(user);

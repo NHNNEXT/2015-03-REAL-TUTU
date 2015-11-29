@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.repository.ContentRepository;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
+import org.next.lms.lecture.control.LectureSaveService;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.ApprovalState;
@@ -46,6 +47,9 @@ public class InsertTestData {
     @Autowired
     private LectureService lectureService;
 
+    @Autowired
+    private LectureSaveService lectureSaveService;
+
 
     @Autowired
     private ContentRepository contentRepository;
@@ -71,7 +75,7 @@ public class InsertTestData {
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
             lecture.getContentTypes().forEach(contentType -> contentType.setLecture(lecture));
-            lectureService.save(lecture, userLoop.next());
+            lectureSaveService.save(lecture, userLoop.next());
         });
 
         // 수업 등록

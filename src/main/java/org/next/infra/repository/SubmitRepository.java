@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface SubmitRepository extends JpaRepository<Submit, Long> {
     List<Submit> findByContentId(Long contentId, Pageable pageable);
+
+    void deleteByContentId(Long id);
 }
 

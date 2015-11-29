@@ -68,7 +68,7 @@ public class Lecture {
         this.userEnrolledLectures = null;
     }
 
-    public void update(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, ContentRepository contentRepository) {
+    public void update(Lecture lecture) {
         if (lecture.name != null)
             this.name = lecture.name;
         if (lecture.majorType != null)
@@ -81,67 +81,6 @@ public class Lecture {
             this.readable = lecture.readable;
         if (lecture.submitReadable != null)
             this.submitReadable = lecture.submitReadable;
-        removeRelations(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, contentRepository);
-        updateAndAddNew(lecture, userGroupRepository, contentTypeRepository);
-    }
-
-    private void updateAndAddNew(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository) {
-        lecture.getUserGroups().forEach(updatedUserGroup -> {
-            if (this.userGroups.contains(updatedUserGroup)) {
-                this.userGroups.stream().filter(updatedUserGroup::equals).findFirst().get().update(updatedUserGroup);
-            } else {
-                updatedUserGroup.setLecture(this);
-                this.userGroups.add(updatedUserGroup);
-            }
-        });
-        EnsureDefaultGroupExist();
-        lecture.getContentTypes().forEach(updatedContentType -> {
-            if (this.contentTypes.contains(updatedContentType)) {
-                this.contentTypes.stream().filter(updatedContentType::equals).findFirst().get().update(updatedContentType);
-            } else {
-                updatedContentType.setLecture(this);
-                this.contentTypes.add(updatedContentType);
-            }
-        });
-    }
-
-    private void EnsureDefaultGroupExist() {
-        if(!this.userGroups.stream().filter(UserGroup::getDefaultGroup).findAny().isPresent()){
-            this.userGroups.get(0).setDefaultGroup(true);
-        }
-    }
-
-    private void removeRelations(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, ContentRepository contentRepository) {
-        List<UserGroup> deletedUserGroups = this.userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
-        List<ContentType> deletedContentTypes = this.contentTypes.stream().filter(contentType -> !lecture.getContentTypes().contains(contentType)).collect(Collectors.toList());
-        deletedContentTypes.forEach(deletedContentType -> {
-            RemoveRights(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, deletedContentType);
-            RemoveAllContents(contentTypeRepository, contentRepository, deletedContentType); // TODO 로직변경
-        });
-        deletedUserGroups.forEach(deletedUserGroup -> {
-            RemoveRights(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, deletedUserGroup);
-        });
-        this.userGroups.removeAll(deletedUserGroups);
-        userGroupRepository.delete(deletedUserGroups);
-        this.contentTypes.removeAll(deletedContentTypes);
-        contentTypeRepository.delete(deletedContentTypes);
-    }
-
-    private void RemoveRights(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, UserGroup deletedUserGroup) {
-        userGroupCanReadContentRepository.deleteByUserGroupId(deletedUserGroup.getId());
-        userGroupCanWriteContentRepository.deleteByUserGroupId(deletedUserGroup.getId());
-        userGroupCanReadSubmitRepository.deleteByUserGroupId(deletedUserGroup.getId());
-    }
-
-    private void RemoveAllContents(ContentTypeRepository contentTypeRepository, ContentRepository contentRepository, ContentType deletedContentType) {
-        ContentType type = contentTypeRepository.findOne(deletedContentType.getId());
-        contentRepository.delete(type.getContents());
-    }
-
-    private void RemoveRights(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, ContentType deletedContentType) {
-        userGroupCanReadContentRepository.deleteByContentTypeId(deletedContentType.getId());
-        userGroupCanWriteContentRepository.deleteByContentTypeId(deletedContentType.getId());
-        userGroupCanReadSubmitRepository.deleteByContentTypeId(deletedContentType.getId());
     }
 
 
@@ -153,78 +92,6 @@ public class Lecture {
 
     @Transient
     private List<List<Boolean>> submitReadable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
-
-    public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository) {
-        userGroups.forEach(userGroup -> {
-            userGroup.setLecture(this);
-            userGroupCanReadContentRepository.deleteByUserGroupId(userGroup.getId());
-            userGroupCanReadSubmitRepository.deleteByUserGroupId(userGroup.getId());
-            userGroupCanWriteContentRepository.deleteByUserGroupId(userGroup.getId());
-        });
-        contentTypes.forEach(contentType -> {
-            contentType.setLecture(this);
-            userGroupCanReadContentRepository.deleteByContentTypeId(contentType.getId());
-            userGroupCanReadSubmitRepository.deleteByContentTypeId(contentType.getId());
-            userGroupCanWriteContentRepository.deleteByContentTypeId(contentType.getId());
-        });
-
-        createAuthTable(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository);
-    }
-
-    /*
-        아래와 같이 생긴 모양의 권한 테이블을 생성하는 메서드
-
-        Readable 권한
-                        user group  |  user group
-        content Type |      O               O
-        content Type |      O               X
-
-
-        Writable 권한
-                        user group  |  user group
-        content Type |      O               O
-        content Type |      O               X
-
-    */
-    private void createAuthTable(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository) {
-        for (int userGrpIdx = 0; userGrpIdx < userGroups.size(); userGrpIdx++) {
-            for (int contentTypIdx = 0; contentTypIdx < contentTypes.size(); contentTypIdx++) {
-
-                if (userGrpIdx < writable.size() && contentTypIdx < writable.get(userGrpIdx).size())    // check table index range
-                    if (writable.get(userGrpIdx).get(contentTypIdx))
-                        makeWriteAuth(userGroupCanWriteContentRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
-
-                if (userGrpIdx < readable.size() && contentTypIdx < readable.get(userGrpIdx).size())    // check table index range
-                    if (readable.get(userGrpIdx).get(contentTypIdx))
-                        makeReadAuth(userGroupCanReadContentRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
-
-                if (userGrpIdx < submitReadable.size() && contentTypIdx < submitReadable.get(userGrpIdx).size())    // check table index range
-                    if (submitReadable.get(userGrpIdx).get(contentTypIdx))
-                        makeReadSubmitAuth(userGroupCanReadSubmitRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
-            }
-        }
-    }
-
-    private void makeReadSubmitAuth(UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, UserGroup userGroup, ContentType contentType) {
-        UserGroupCanReadSubmit userGroupCanReadSubmit = new UserGroupCanReadSubmit();
-        userGroupCanReadSubmit.setUserGroup(userGroup);
-        userGroupCanReadSubmit.setContentType(contentType);
-        userGroupCanReadSubmitRepository.save(userGroupCanReadSubmit);
-    }
-
-    private void makeReadAuth(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroup userGroup, ContentType contentType) {
-        UserGroupCanReadContent userGroupCanReadContent = new UserGroupCanReadContent();
-        userGroupCanReadContent.setUserGroup(userGroup);
-        userGroupCanReadContent.setContentType(contentType);
-        userGroupCanReadContentRepository.save(userGroupCanReadContent);
-    }
-
-    private void makeWriteAuth(UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroup userGroup, ContentType contentType) {
-        UserGroupCanWriteContent userGroupCanWriteContent = new UserGroupCanWriteContent();
-        userGroupCanWriteContent.setUserGroup(userGroup);
-        userGroupCanWriteContent.setContentType(contentType);
-        userGroupCanWriteContentRepository.save(userGroupCanWriteContent);
-    }
 
 
 }
