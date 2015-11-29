@@ -17,7 +17,7 @@ angular.module('clientApp')
           $scope.submitId = submitdto.id;
           submitdto.submits.forEach(function (sumbit) {
             $scope.submits.push(new Submit(sumbit));
-          })
+          });
         });
 
         $scope.submit = new Submit();
