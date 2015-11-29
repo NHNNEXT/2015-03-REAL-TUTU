@@ -3,8 +3,8 @@
   <div layout="row">
     <md-input-container flex="20">
       <label>구분</label>
-      <md-select ng-model="key">
-        <md-option ng-repeat="(key, type) in contentTypes" value="{{key}}">
+      <md-select ng-model="content.type">
+        <md-option ng-repeat="(key, type) in contentTypes" value="{{type}}">
           {{type.name}}
         </md-option>
       </md-select>
@@ -14,7 +14,6 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
-
 
 
   <div layout="row" ng-show="!extendWrite || !contentType.hasDuration()" class="margin-top">
@@ -33,16 +32,35 @@
   <div ng-show="contentType.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
 
-  <div layout="row" ng-show="contentType.submit">
-    제출
-  </div>
 
+  <div layout="row" ng-show="contentType.submit">
+    <md-data-table-container>
+      <table md-data-table>
+        <thead md-order="query.order" md-trigger="onOrderChange">
+        <tr>
+          <th name="이름"></th>
+          <th name="이메일"></th>
+          <th name="그룹"></th>
+          <th name="제출대상"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr md-auto-select ng-repeat="user in content.users">
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.group.name}}</td>
+          <td><md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox></td>
+        </tr>
+        </tbody>
+      </table>
+    </md-data-table-container>
+  </div>
 
 </section>
 
 <section>
   <div froala ng-model="content.body"></div>
   <md-input-container>
-    <md-button aria-label="done button" ng-click="edit(content)" class="md-raised md-primary">작성완료</md-button>
+    <md-button aria-label="done button" ng-click="save(content)" class="md-raised md-primary">작성완료</md-button>
   </md-input-container>
 </section>

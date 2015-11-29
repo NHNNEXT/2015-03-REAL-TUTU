@@ -15,6 +15,7 @@ angular.module('clientApp')
       this.phoneNumber = obj.phoneNumber;
       this.major = obj.major;
       this.introduce = obj.introduce;
+      this.group = obj.group;
       this.writeContents = obj.writeContents;
       if (this.writeContents)
         this.writeContents.forEach(function (each) {

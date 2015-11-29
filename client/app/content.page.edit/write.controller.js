@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentWriteController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentType) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentType, User) {
     $scope.rootUser = rootUser;
     $scope.addTimes = addTimes;
 
@@ -10,13 +10,18 @@ angular.module('clientApp').controller('contentWriteController',
       $scope.content = new Content();
       if (id === undefined)
         return;
-      Lecture.getWriteInfoById($stateParams.lectureId).then(function (lecture) {
+      Lecture.getWriteInfoById($stateParams.lectureId).then(function (writeInfo) {
         $scope.contentTypes = [];
-        lecture.contentTypes.forEach(function (contentType) {
+        writeInfo.contentTypes.forEach(function (contentType) {
           $scope.contentTypes.push(new ContentType(contentType));
         });
-        $scope.content.lectureId = lecture.id;
-        $state.current.header = lecture.name;
+        $scope.content.users = [];
+        writeInfo.users.forEach(function(user){
+          $scope.content.users.push(new User(user));
+        });
+
+        $scope.content.lectureId = writeInfo.id;
+        $state.current.header = writeInfo.name;
       });
     });
 
@@ -31,7 +36,7 @@ angular.module('clientApp').controller('contentWriteController',
         $scope.placeholder = "마감";
     });
 
-    $scope.edit = function (content) {
+    $scope.save = function (content) {
       if ($scope.extendWrite) {
         var result = [];
         $scope.times.forEach(function (time) {

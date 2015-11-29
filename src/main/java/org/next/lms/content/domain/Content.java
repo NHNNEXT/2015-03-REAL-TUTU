@@ -7,6 +7,7 @@ import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.reply.domain.Reply;
 import org.next.lms.submit.Submit;
+import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
 
@@ -18,9 +19,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "userLikesContents", "replies", "submits", "writer", "lecture", "type"})
+@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "submits", "writer", "lecture", "type"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "replies", "submits", "writer", "lecture", "type"})
+@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "submits", "writer", "lecture", "type"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {
@@ -36,6 +37,9 @@ public class Content {
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Submit> submits = new ArrayList<>();
+
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    private List<UserHaveToSubmit> userHaveToSubmits = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Tag> tags = new ArrayList<>();

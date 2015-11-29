@@ -11,6 +11,7 @@ import org.next.lms.like.domain.UserLikesReply;
 import org.next.lms.message.domain.Message;
 import org.next.lms.reply.domain.Reply;
 import org.next.lms.submit.Submit;
+import org.next.lms.submit.UserHaveToSubmit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -21,9 +22,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"messages", "contents", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
+@ToString(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"messages", "contents", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
+@EqualsAndHashCode(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
 @Entity
 @Table(name = "USER")
 public class User {
@@ -42,6 +43,9 @@ public class User {
 
     @OneToMany(mappedBy = "hostUser", fetch = FetchType.LAZY)
     private List<Lecture> hostLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserHaveToSubmit> userHaveToSubmits = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserEnrolledLecture> enrolledLectures = new ArrayList<>();
