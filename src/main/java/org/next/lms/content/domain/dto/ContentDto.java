@@ -48,9 +48,20 @@ public class ContentDto {
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
-        if(!content.getType().getSubmit())
+        if (!content.getType().getSubmit())
             return;
-        this.submitRequiredUsers = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
+        boolean hasRightReadSubmits = content.getType().getSubmitReadable().stream()
+                .filter(userGroupCanReadSubmit -> userGroupCanReadSubmit.getUserGroup().getUserEnrolledLectures().stream()
+                        .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent()).findAny().isPresent()
+                || user.equals(content.getLecture().getHostUser());
+        if (hasRightReadSubmits) {
+            this.submitRequiredUsers = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
+            return;
+        }
+        if (content.getUserHaveToSubmits().stream().filter(haveToSubmit -> haveToSubmit.getUser().equals(user)).findAny().isPresent()) {
+            this.submitRequiredUsers = new ArrayList<>();
+            this.submitRequiredUsers.add(new UserHaveToSubmitDto(content.getUserHaveToSubmits().stream().filter(haveToSubmit -> haveToSubmit.getUser().equals(user)).findAny().get()));
+        }
 
     }
 }
