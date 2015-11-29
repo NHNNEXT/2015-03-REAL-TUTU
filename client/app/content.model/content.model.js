@@ -18,8 +18,8 @@ angular.module('clientApp')
     };
 
     Content.prototype.setProperties = function (obj) {
+      this.submitRequiredUsers = obj.submitRequiredUsers;
       this.repliesSize = obj.repliesSize;
-      this.submitsSize = obj.submitsSize;
       this.writer = obj.writer;
       this.lectureName = obj.lectureName;
       this.lectureId = obj.lectureId;
@@ -51,8 +51,19 @@ angular.module('clientApp')
       query.endTime = this.endTime;
       query.startTime = this.startTime;
       if (this.id === undefined)
-        query.type = this.type;
+        query.type = this.type.id;
+      if (this.type.submit) {
+        query.submitRequiredUsers = [];
+        this.users.forEach(function (user) {
+          if (user.submit)
+            query.submitRequiredUsers.push(user.id);
+        });
+      }
       return query;
+    };
+
+    Content.prototype.setType = function (type) {
+      this.type = type;
     };
 
     Content.prototype.save = function () {

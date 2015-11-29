@@ -17,14 +17,9 @@ public class SubmitController {
     @Autowired
     private SubmitService submitService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Result get(Long contentId, int page) {
-        return submitService.getList(contentId, page);
-    }
-
     @RequestMapping(method = RequestMethod.POST)
-    public Result save(Submit submit, Long contentId, @Logged User user) {
-        return submitService.save(submit, user, contentId);
+    public Result save(Submit submit, Long submitId, @Logged User user) {
+        return submitService.save(submit, user, submitId);
     }
 
     @RequestMapping(method = RequestMethod.PUT)

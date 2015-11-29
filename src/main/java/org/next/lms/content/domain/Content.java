@@ -19,9 +19,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "submits", "writer", "lecture", "type"})
+@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "type"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "submits", "writer", "lecture", "type"})
+@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "type"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {
@@ -34,9 +34,6 @@ public class Content {
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
-
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
-    private List<Submit> submits = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<UserHaveToSubmit> userHaveToSubmits = new ArrayList<>();

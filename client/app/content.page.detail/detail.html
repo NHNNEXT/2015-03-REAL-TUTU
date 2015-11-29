@@ -43,10 +43,17 @@
   </div>
 </section>
 
-<section  ng-if="content.type.submit">
-  <submits content="content"></submits>
+<section ng-if="content.type.submit">
+  <md-tabs md-dynamic-height md-border-bottom>
+
+    <md-tab ng-repeat="submitdto in content.submitRequiredUsers" label="{{submitdto.user.name}}">
+      <md-content class="md-padding">
+        <submits submitdto="submitdto"></submits>
+      </md-content>
+    </md-tab>
+  </md-tabs>
 </section>
 
-<section  ng-if="content.type.reply">
- <replies content="content"></replies>
+<section ng-if="content.type.reply">
+  <replies content="content"></replies>
 </section>

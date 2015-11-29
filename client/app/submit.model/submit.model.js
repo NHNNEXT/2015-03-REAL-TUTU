@@ -20,9 +20,9 @@ angular.module('clientApp')
       var query = {};
       query.id = this.id;
       query.body = this.body;
+      query.submitId = this.submitId;
       var self = this;
       if (this.id === undefined) {
-        query.contentId = this.contentId;
         return $q(function (resolve) {
           http.post('/api/v1/submit', query).then(function (result) {
             self.setProperties(result);

@@ -25,17 +25,6 @@ angular.module('clientApp').controller('contentWriteController',
       });
     });
 
-    $scope.$watch('key', function (key) {
-      if (!$scope.contentTypes)
-        return;
-      $scope.contentType = $scope.contentTypes[key];
-      $scope.content.type = $scope.contentType.id;
-      if ($scope.contentType.startTime)
-        $scope.placeholder = "끝";
-      else
-        $scope.placeholder = "마감";
-    });
-
     $scope.save = function (content) {
       if ($scope.extendWrite) {
         var result = [];

@@ -3,10 +3,12 @@ package org.next.lms.content.domain.dto;
 import lombok.Getter;
 import org.next.lms.content.domain.Content;
 import org.next.lms.like.domain.UserLikesContent;
+import org.next.lms.submit.UserHaveToSubmitDto;
 import org.next.lms.tag.domain.TagDto;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +20,6 @@ public class ContentDto {
     private final String lectureName;
     private final Long hits;
     private final Integer repliesSize;
-    private final Integer submitsSize;
     private final UserSummaryDto writer;
     private final ContentTypeDto type;
     private final Long lectureId;
@@ -30,6 +31,7 @@ public class ContentDto {
     private final Date endTime;
     private final List<TagDto> tags;
     private Long like;
+    private List<UserHaveToSubmitDto> submitRequiredUsers;
 
     public ContentDto(Content content, User user) {
         this.writer = new UserSummaryDto(content.getWriter());
@@ -46,6 +48,9 @@ public class ContentDto {
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
-        this.submitsSize = content.getSubmits().size();
+        if(!content.getType().getSubmit())
+            return;
+        this.submitRequiredUsers = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
+
     }
 }

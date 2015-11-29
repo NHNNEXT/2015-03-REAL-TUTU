@@ -3,8 +3,8 @@
   <div layout="row">
     <md-input-container flex="20">
       <label>구분</label>
-      <md-select ng-model="content.type">
-        <md-option ng-repeat="(key, type) in contentTypes" value="{{type}}">
+      <md-select ng-model="type">
+        <md-option ng-repeat="type in contentTypes" ng-click="content.setType(type)">
           {{type.name}}
         </md-option>
       </md-select>
@@ -16,24 +16,24 @@
   </div>
 
 
-  <div layout="row" ng-show="!extendWrite || !contentType.hasDuration()" class="margin-top">
-    <div ng-show="contentType.startTime" flex>
+  <div layout="row" ng-show="!extendWrite || !content.type.hasDuration()" class="margin-top">
+    <div ng-show="content.type.startTime" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
     </div>
-    <div ng-show="contentType.endTime" flex>
-      <input-datepicker placeholder="{{placeholder}}" ng-model="content.endTime" flex></input-datepicker>
+    <div ng-show="content.type.endTime" flex>
+      <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
     </div>
   </div>
-  <div class="margin-top margin-bottom" layout="row" ng-show="contentType.hasDuration()">
+  <div class="margin-top margin-bottom" layout="row" ng-show="content.type.hasDuration()">
     <md-checkbox ng-model="extendWrite">
       일괄입력
     </md-checkbox>
   </div>
-  <div ng-show="contentType.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
+  <div ng-show="content.type.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
 
 
-  <div layout="row" ng-show="contentType.submit">
+  <div layout="row" ng-show="content.type.submit">
     <md-data-table-container>
       <table md-data-table>
         <thead md-order="query.order" md-trigger="onOrderChange">
@@ -49,7 +49,9 @@
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
           <td>{{user.group.name}}</td>
-          <td><md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox></td>
+          <td>
+            <md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox>
+          </td>
         </tr>
         </tbody>
       </table>

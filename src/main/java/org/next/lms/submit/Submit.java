@@ -13,23 +13,23 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"content", "writer"})
+@ToString(exclude = {"userHaveToSubmit", "writer"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"content", "writer"})
+@EqualsAndHashCode(exclude = {"userHaveToSubmit", "writer"})
 @Entity
 @Table(name = "SUBMIT")
 public class Submit {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTENT_ID")
-    private Content content;
+    @JoinColumn(name = "USER_HAVE_TO_SUBMIT_ID")
+    private UserHaveToSubmit userHaveToSubmit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "WRITER_ID")
     private User writer;
 
     @Id
-    @Column(name = "SUBMIT_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -48,6 +48,6 @@ public class Submit {
 
     public void setDeleteState() {
         this.writer = null;
-        this.content = null;
+        this.userHaveToSubmit = null;
     }
 }

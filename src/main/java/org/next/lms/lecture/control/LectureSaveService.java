@@ -54,9 +54,6 @@ public class LectureSaveService {
     @Autowired
     private ReplyRepository replyRepository;
 
-    @Autowired
-    private SubmitRepository submitRepository;
-
 
     public Result save(Lecture lecture, User user) {
         lecture.setHostUser(user);
@@ -151,7 +148,6 @@ public class LectureSaveService {
         ContentType type = contentTypeRepository.findOne(deletedContentType.getId());
         deletedContentType.getContents().stream().forEach(content -> {
             replyRepository.deleteByContentId(content.getId());
-            submitRepository.deleteByContentId(content.getId());
         } );
         contentRepository.delete(type.getContents());
     }

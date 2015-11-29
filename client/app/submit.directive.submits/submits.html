@@ -1,6 +1,3 @@
-<div layout="row">
-  <span class="underlined">제출현황 ({{content.submitsSize}})</span>
-</div>
 <div ng-click="more()" class="more-submit" ng-show="moreSubmitExist">더보기</div>
 <div ng-repeat="submit in submits | orderBy:'writeDate'" layout="row">
   <div submit="submit" submits="submits"></div>
