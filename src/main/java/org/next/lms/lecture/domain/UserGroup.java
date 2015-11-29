@@ -2,7 +2,7 @@ package org.next.lms.lecture.domain;
 
 import lombok.*;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
-import org.next.lms.content.control.auth.UserGroupCanReadTodo;
+import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
 
 import javax.persistence.*;
@@ -12,9 +12,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"writable", "readable", "todoReadable", "userEnrolledLectures", "lecture"})
+@ToString(exclude = {"writable", "readable", "submitReadable", "userEnrolledLectures", "lecture"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "todoReadable", "userEnrolledLectures", "lecture", "defaultGroup", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "userEnrolledLectures", "lecture", "defaultGroup", "name"})
 
 @Entity
 @Table(name = "USER_GROUP")
@@ -27,7 +27,7 @@ public class UserGroup {
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
     @OneToMany(mappedBy = "userGroup", fetch = FetchType.LAZY)
-    private List<UserGroupCanReadTodo> todoReadable = new ArrayList<>();
+    private List<UserGroupCanReadSubmit> submitReadable = new ArrayList<>();
 
     @OneToMany(mappedBy = "userGroup", fetch = FetchType.LAZY)
     private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();

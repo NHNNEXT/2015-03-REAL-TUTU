@@ -19,6 +19,7 @@ angular.module('clientApp')
 
     Content.prototype.setProperties = function (obj) {
       this.repliesSize = obj.repliesSize;
+      this.submitsSize = obj.submitsSize;
       this.writer = obj.writer;
       this.lectureName = obj.lectureName;
       this.lectureId = obj.lectureId;

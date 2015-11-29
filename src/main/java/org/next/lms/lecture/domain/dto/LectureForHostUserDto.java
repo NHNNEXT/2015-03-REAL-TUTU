@@ -51,7 +51,7 @@ public class LectureForHostUserDto extends LectureDto {
                 final int finalJ = j;
                 writable.add(userGroup.getWritable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
                 readable.add(userGroup.getReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
-                todoReadable.add(userGroup.getTodoReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
+                todoReadable.add(userGroup.getSubmitReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
             }
             this.writable.add(writable);
             this.readable.add(readable);

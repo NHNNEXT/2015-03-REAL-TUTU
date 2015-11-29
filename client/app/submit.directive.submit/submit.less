@@ -1,0 +1,90 @@
+.more-submit{
+  text-align: center;
+  border-top: 1px solid #eee;
+  margin-top: 30px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  font-size: 80%;
+  color: #999;
+}
+
+[submit], .submit-write {
+  width: 100%;
+  float: left;
+  padding: 30px 0;
+  border-bottom: 1px solid #eee;
+  .photo {
+    overflow: visible;
+    float: left;
+    position: relative;
+    width: 42px;
+    height: 42px;
+    margin-left: 10px;
+    margin-top: 8px;
+    max-width: 50px;
+    img {
+      width: 42px;
+      height: 42px;
+      border-radius: 42px;
+    }
+  }
+  .info {
+    .info_append {
+      overflow: hidden;
+      width: 100%;
+      font-size: 12px;
+      line-height: 14px;
+    }
+    .list_comment .info_append .txt_time {
+      float: left;
+      color: #959595;
+    }
+    .body {
+      padding: 10px 10px 0 0;
+      font-size: 14px;
+      word-wrap: break-word;
+
+      .comment_setting {
+        position: absolute;
+        right: 18px;
+        top: -3px;
+        .btn_set {
+          display: inline;
+          float: left;
+          margin-left: 8px;
+          font-size: 12px;
+          color: #959595;
+        }
+      }
+    }
+    float: left;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .box-area {
+    md-input-container {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      textarea {
+        border: none;
+        padding: 10px 16px 0 16px;
+      }
+    }
+    position: relative;
+    border: 1px solid #eee;
+    background-color: #fff;
+    .write_append {
+      height: 60px;
+      padding: 10px 0 0;
+      .wrap_btn {
+        float: right;
+      }
+    }
+  }
+}
+
+[submit]:hover {
+  background: #f8f8f8;
+}
+

@@ -2,9 +2,7 @@ package org.next.lms.content.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.Content;
-import org.next.lms.lecture.domain.dto.ContentTypeDto;
 import org.next.lms.like.domain.UserLikesContent;
-import org.next.lms.reply.domain.ReplyDto;
 import org.next.lms.tag.domain.TagDto;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
@@ -20,6 +18,7 @@ public class ContentDto {
     private final String lectureName;
     private final Long hits;
     private final Integer repliesSize;
+    private final Integer submitsSize;
     private final UserSummaryDto writer;
     private final ContentTypeDto type;
     private final Long lectureId;
@@ -47,5 +46,6 @@ public class ContentDto {
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
+        this.submitsSize = content.getSubmits().size();
     }
 }

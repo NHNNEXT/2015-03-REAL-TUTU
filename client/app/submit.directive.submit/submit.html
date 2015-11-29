@@ -1,0 +1,32 @@
+<div layout="row">
+  <div class="photo" flex>
+    <img ng-src="{{submit.writer.profileUrl || '/resource/profile.png'}}">
+  </div>
+  <div class="info" flex>
+    <div class="info_append" ng-show="!mod">
+      <strong class="tit_userid">
+        {{submit.writer.name}}
+      </strong>
+      <span class="txt_time">{{submit.writeDate.toYMD()}}</span>
+    </div>
+    <div class="body">
+      <span ng-show="!mod">
+      <span ng-bind-html="submit.body.newLine()"></span>
+      </span>
+      <div class="box-area" ng-show="mod">
+        <md-input-container>
+          <textarea ng-model="submit.body" aria-label="submit"></textarea>
+        </md-input-container>
+        <div class="write_append">
+          <div class="wrap_btn">
+            <md-button aria-label="done" class="md-raised" ng-click="modify()">작성 완료</md-button>
+          </div>
+        </div>
+      </div>
+      <div class="comment_setting" ng-show="rootUser.id==submit.writer.id && !mod">
+        <span class="btn_set" ng-click="modify()">수정</span>
+        <span class="btn_set" ng-click="delete(submit.id)">삭제</span>
+      </div>
+    </div>
+  </div>
+</div>

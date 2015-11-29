@@ -7,32 +7,32 @@
       {
         "endTime": true,
         "startTime": true,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "수업"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "강의자료"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "질문"
       },
       {
         "endTime": true,
         "startTime": false,
-        "todo": true,
-        "todoOpen": false,
+        "submit": true,
+        "submitOpen": false,
         "reply": true,
         "name": "과제"
       }
@@ -75,7 +75,7 @@
         true
       ]
     ],
-    "todoReadable": [
+    "submitReadable": [
       [
         true,
         true,
@@ -98,32 +98,32 @@
       {
         "endTime": true,
         "startTime": true,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "수업"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "강의자료"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "질문"
       },
       {
         "endTime": true,
         "startTime": false,
-        "todo": true,
-        "todoOpen": false,
+        "submit": true,
+        "submitOpen": false,
         "reply": true,
         "name": "과제"
       }
@@ -166,7 +166,7 @@
         true
       ]
     ],
-    "todoReadable": [
+    "submitReadable": [
       [
         true,
         true,
@@ -189,32 +189,32 @@
       {
         "endTime": true,
         "startTime": true,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "수업"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "강의자료"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "질문"
       },
       {
         "endTime": true,
         "startTime": false,
-        "todo": true,
-        "todoOpen": false,
+        "submit": true,
+        "submitOpen": false,
         "reply": true,
         "name": "과제"
       }
@@ -257,7 +257,7 @@
         true
       ]
     ],
-    "todoReadable": [
+    "submitReadable": [
       [
         true,
         true,
@@ -280,32 +280,32 @@
       {
         "endTime": true,
         "startTime": true,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "수업"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "강의자료"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "질문"
       },
       {
         "endTime": true,
         "startTime": false,
-        "todo": true,
-        "todoOpen": false,
+        "submit": true,
+        "submitOpen": false,
         "reply": true,
         "name": "과제"
       }
@@ -348,7 +348,7 @@
         true
       ]
     ],
-    "todoReadable": [
+    "submitReadable": [
       [
         true,
         true,
@@ -371,32 +371,32 @@
       {
         "endTime": true,
         "startTime": true,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "수업"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "강의자료"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "질문"
       },
       {
         "endTime": true,
         "startTime": false,
-        "todo": true,
-        "todoOpen": false,
+        "submit": true,
+        "submitOpen": false,
         "reply": true,
         "name": "과제"
       }
@@ -439,7 +439,7 @@
         true
       ]
     ],
-    "todoReadable": [
+    "submitReadable": [
       [
         true,
         true,
@@ -462,32 +462,32 @@
       {
         "endTime": true,
         "startTime": true,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "수업"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "강의자료"
       },
       {
         "endTime": false,
         "startTime": false,
-        "todo": false,
-        "todoOpen": false,
+        "submit": false,
+        "submitOpen": false,
         "reply": true,
         "name": "질문"
       },
       {
         "endTime": true,
         "startTime": false,
-        "todo": true,
-        "todoOpen": false,
+        "submit": true,
+        "submitOpen": false,
         "reply": true,
         "name": "과제"
       }
@@ -530,7 +530,7 @@
         true
       ]
     ],
-    "todoReadable": [
+    "submitReadable": [
       [
         true,
         true,

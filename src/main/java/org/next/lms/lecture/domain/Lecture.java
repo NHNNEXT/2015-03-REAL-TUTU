@@ -2,14 +2,13 @@ package org.next.lms.lecture.domain;
 
 import lombok.*;
 import org.next.infra.repository.*;
-import org.next.lms.content.control.auth.UserGroupCanReadTodo;
+import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.user.domain.User;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -69,7 +68,7 @@ public class Lecture {
         this.userEnrolledLectures = null;
     }
 
-    public void update(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadTodoRepository userGroupCanReadTodoRepository, ContentRepository contentRepository) {
+    public void update(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, ContentRepository contentRepository) {
         if (lecture.name != null)
             this.name = lecture.name;
         if (lecture.majorType != null)
@@ -80,9 +79,9 @@ public class Lecture {
             this.writable = lecture.writable;
         if (lecture.readable != null)
             this.readable = lecture.readable;
-        if (lecture.todoReadable != null)
-            this.todoReadable = lecture.todoReadable;
-        removeRelations(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository, contentRepository);
+        if (lecture.submitReadable != null)
+            this.submitReadable = lecture.submitReadable;
+        removeRelations(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, contentRepository);
         updateAndAddNew(lecture, userGroupRepository, contentTypeRepository);
     }
 
@@ -112,15 +111,15 @@ public class Lecture {
         }
     }
 
-    private void removeRelations(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadTodoRepository userGroupCanReadTodoRepository, ContentRepository contentRepository) {
+    private void removeRelations(Lecture lecture, UserGroupRepository userGroupRepository, ContentTypeRepository contentTypeRepository, UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, ContentRepository contentRepository) {
         List<UserGroup> deletedUserGroups = this.userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
         List<ContentType> deletedContentTypes = this.contentTypes.stream().filter(contentType -> !lecture.getContentTypes().contains(contentType)).collect(Collectors.toList());
         deletedContentTypes.forEach(deletedContentType -> {
-            RemoveRights(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository, deletedContentType);
+            RemoveRights(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, deletedContentType);
             RemoveAllContents(contentTypeRepository, contentRepository, deletedContentType); // TODO 로직변경
         });
         deletedUserGroups.forEach(deletedUserGroup -> {
-            RemoveRights(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository, deletedUserGroup);
+            RemoveRights(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, deletedUserGroup);
         });
         this.userGroups.removeAll(deletedUserGroups);
         userGroupRepository.delete(deletedUserGroups);
@@ -128,10 +127,10 @@ public class Lecture {
         contentTypeRepository.delete(deletedContentTypes);
     }
 
-    private void RemoveRights(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadTodoRepository userGroupCanReadTodoRepository, UserGroup deletedUserGroup) {
+    private void RemoveRights(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, UserGroup deletedUserGroup) {
         userGroupCanReadContentRepository.deleteByUserGroupId(deletedUserGroup.getId());
         userGroupCanWriteContentRepository.deleteByUserGroupId(deletedUserGroup.getId());
-        userGroupCanReadTodoRepository.deleteByUserGroupId(deletedUserGroup.getId());
+        userGroupCanReadSubmitRepository.deleteByUserGroupId(deletedUserGroup.getId());
     }
 
     private void RemoveAllContents(ContentTypeRepository contentTypeRepository, ContentRepository contentRepository, ContentType deletedContentType) {
@@ -139,10 +138,10 @@ public class Lecture {
         contentRepository.delete(type.getContents());
     }
 
-    private void RemoveRights(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadTodoRepository userGroupCanReadTodoRepository, ContentType deletedContentType) {
+    private void RemoveRights(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, ContentType deletedContentType) {
         userGroupCanReadContentRepository.deleteByContentTypeId(deletedContentType.getId());
         userGroupCanWriteContentRepository.deleteByContentTypeId(deletedContentType.getId());
-        userGroupCanReadTodoRepository.deleteByContentTypeId(deletedContentType.getId());
+        userGroupCanReadSubmitRepository.deleteByContentTypeId(deletedContentType.getId());
     }
 
 
@@ -153,23 +152,23 @@ public class Lecture {
     private List<List<Boolean>> readable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
 
     @Transient
-    private List<List<Boolean>> todoReadable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
+    private List<List<Boolean>> submitReadable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
 
-    public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadTodoRepository userGroupCanReadTodoRepository) {
+    public void setAuthorities(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository) {
         userGroups.forEach(userGroup -> {
             userGroup.setLecture(this);
             userGroupCanReadContentRepository.deleteByUserGroupId(userGroup.getId());
-            userGroupCanReadTodoRepository.deleteByUserGroupId(userGroup.getId());
+            userGroupCanReadSubmitRepository.deleteByUserGroupId(userGroup.getId());
             userGroupCanWriteContentRepository.deleteByUserGroupId(userGroup.getId());
         });
         contentTypes.forEach(contentType -> {
             contentType.setLecture(this);
             userGroupCanReadContentRepository.deleteByContentTypeId(contentType.getId());
-            userGroupCanReadTodoRepository.deleteByContentTypeId(contentType.getId());
+            userGroupCanReadSubmitRepository.deleteByContentTypeId(contentType.getId());
             userGroupCanWriteContentRepository.deleteByContentTypeId(contentType.getId());
         });
 
-        createAuthTable(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository);
+        createAuthTable(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository);
     }
 
     /*
@@ -187,7 +186,7 @@ public class Lecture {
         content Type |      O               X
 
     */
-    private void createAuthTable(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadTodoRepository userGroupCanReadTodoRepository) {
+    private void createAuthTable(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroupCanWriteContentRepository userGroupCanWriteContentRepository, UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository) {
         for (int userGrpIdx = 0; userGrpIdx < userGroups.size(); userGrpIdx++) {
             for (int contentTypIdx = 0; contentTypIdx < contentTypes.size(); contentTypIdx++) {
 
@@ -199,18 +198,18 @@ public class Lecture {
                     if (readable.get(userGrpIdx).get(contentTypIdx))
                         makeReadAuth(userGroupCanReadContentRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
 
-                if (userGrpIdx < todoReadable.size() && contentTypIdx < todoReadable.get(userGrpIdx).size())    // check table index range
-                    if (todoReadable.get(userGrpIdx).get(contentTypIdx))
-                        makeReadTodoAuth(userGroupCanReadTodoRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
+                if (userGrpIdx < submitReadable.size() && contentTypIdx < submitReadable.get(userGrpIdx).size())    // check table index range
+                    if (submitReadable.get(userGrpIdx).get(contentTypIdx))
+                        makeReadSubmitAuth(userGroupCanReadSubmitRepository, userGroups.get(userGrpIdx), contentTypes.get(contentTypIdx));
             }
         }
     }
 
-    private void makeReadTodoAuth(UserGroupCanReadTodoRepository userGroupCanReadTodoRepository, UserGroup userGroup, ContentType contentType) {
-        UserGroupCanReadTodo userGroupCanReadTodo = new UserGroupCanReadTodo();
-        userGroupCanReadTodo.setUserGroup(userGroup);
-        userGroupCanReadTodo.setContentType(contentType);
-        userGroupCanReadTodoRepository.save(userGroupCanReadTodo);
+    private void makeReadSubmitAuth(UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository, UserGroup userGroup, ContentType contentType) {
+        UserGroupCanReadSubmit userGroupCanReadSubmit = new UserGroupCanReadSubmit();
+        userGroupCanReadSubmit.setUserGroup(userGroup);
+        userGroupCanReadSubmit.setContentType(contentType);
+        userGroupCanReadSubmitRepository.save(userGroupCanReadSubmit);
     }
 
     private void makeReadAuth(UserGroupCanReadContentRepository userGroupCanReadContentRepository, UserGroup userGroup, ContentType contentType) {

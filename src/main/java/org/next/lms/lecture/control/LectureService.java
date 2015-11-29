@@ -3,7 +3,6 @@ package org.next.lms.lecture.control;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
-import org.next.lms.content.control.auth.UserGroupCanReadTodo;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
@@ -56,7 +55,7 @@ public class LectureService {
     private UserGroupCanWriteContentRepository userGroupCanWriteContentRepository;
 
     @Autowired
-    private UserGroupCanReadTodoRepository userGroupCanReadTodoRepository;
+    private UserGroupCanReadSubmitRepository userGroupCanReadSubmitRepository;
 
     @Autowired
     private ContentRepository contentRepository;
@@ -65,7 +64,7 @@ public class LectureService {
     public Result save(Lecture lecture, User user) {
         lecture.setHostUser(user);
         lectureRepository.save(lecture);
-        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository);
+        lecture.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository);
         enrollLecture(user, lecture);
         return success(lecture.getId());
     }
@@ -74,8 +73,8 @@ public class LectureService {
         Lecture lectureFromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(lectureFromDB, user);
 
-        lectureFromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository, contentRepository);
-        lectureFromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadTodoRepository);
+        lectureFromDB.update(lecture, userGroupRepository, contentTypeRepository, userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository, contentRepository);
+        lectureFromDB.setAuthorities(userGroupCanReadContentRepository, userGroupCanWriteContentRepository, userGroupCanReadSubmitRepository);
 
         return success(lecture.getId());
     }

@@ -2,6 +2,7 @@ package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
+import org.next.lms.content.domain.dto.ContentTypeDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.like.domain.UserLikesLecture;

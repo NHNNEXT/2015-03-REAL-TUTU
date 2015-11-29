@@ -1,7 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
-import org.next.lms.content.control.auth.UserGroupCanReadTodo;
+import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
@@ -13,9 +13,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"writable", "readable", "lecture", "todoReadable", "contents"})
+@ToString(exclude = {"writable", "readable", "lecture", "submitReadable", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "todoReadable", "contents", "lecture", "endTime", "startTime", "todo", "todoOpen", "reply", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "endTime", "startTime", "submit", "submitOpen", "reply", "name"})
 @Entity
 @Table(name = "CONTENT_TYPE")
 public class ContentType {
@@ -27,7 +27,7 @@ public class ContentType {
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
     @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
-    private List<UserGroupCanReadTodo> todoReadable = new ArrayList<>();
+    private List<UserGroupCanReadSubmit> todoReadable = new ArrayList<>();
 
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
@@ -47,11 +47,11 @@ public class ContentType {
     @Column(name = "START_TIME", nullable = false, columnDefinition = "boolean default false")
     private Boolean startTime = false;
 
-    @Column(name = "TODO", nullable = false, columnDefinition = "boolean default false")
-    private Boolean todo = false;
+    @Column(name = "SUBMIT", nullable = false, columnDefinition = "boolean default false")
+    private Boolean submit = false;
 
-    @Column(name = "TODO_OPEN", nullable = false, columnDefinition = "boolean default false")
-    private Boolean todoOpen = false;
+    @Column(name = "SUBMIT_OPEN", nullable = false, columnDefinition = "boolean default false")
+    private Boolean submitOpen = false;
 
     @Column(name = "REPLY", nullable = false, columnDefinition = "boolean default false")
     private Boolean reply = false;
@@ -66,13 +66,13 @@ public class ContentType {
             this.endTime = contentType.endTime;
         if (contentType.startTime != null)
             this.startTime = contentType.startTime;
-        if (contentType.todo != null) {
-            this.todo = contentType.todo;
-            if (contentType.todo)
+        if (contentType.submit != null) {
+            this.submit = contentType.submit;
+            if (contentType.submit)
                 this.endTime = true;
         }
-        if (contentType.todoOpen != null)
-            this.todoOpen = contentType.todoOpen;
+        if (contentType.submitOpen != null)
+            this.submitOpen = contentType.submitOpen;
         if (contentType.reply != null)
             this.reply = contentType.reply;
         if (contentType.name != null)

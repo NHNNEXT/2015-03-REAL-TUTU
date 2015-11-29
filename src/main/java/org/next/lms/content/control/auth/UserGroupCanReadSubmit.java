@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Table(name = "USER_GROUP_CAN_READ_TODO", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"USER_GROUP_ID", "CONTENT_TYPE_ID"})
 })
-public class UserGroupCanReadTodo {
+public class UserGroupCanReadSubmit {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_GROUP_ID")
