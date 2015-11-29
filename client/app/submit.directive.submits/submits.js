@@ -10,7 +10,6 @@ angular.module('clientApp')
       controller: function (rootUser, $scope, Submit, User) {
 
         $scope.$watch('submitdto', function (submitdto) {
-          console.log(submitdto)
           if (!submitdto)
             return;
           $scope.user = new User(submitdto.user);
