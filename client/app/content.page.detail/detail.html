@@ -45,8 +45,7 @@
 
 <section ng-if="content.type.submit && content.submitRequiredUsers.length>0">
   <md-tabs md-dynamic-height md-border-bottom>
-
-    <md-tab ng-repeat="submitdto in content.submitRequiredUsers" label="{{submitdto.user.name}}">
+    <md-tab ng-repeat="submitdto in content.submitRequiredUsers" label="{{' '+submitdto.user.name+' '}}">
       <md-content class="md-padding">
         <submits submitdto="submitdto"></submits>
       </md-content>

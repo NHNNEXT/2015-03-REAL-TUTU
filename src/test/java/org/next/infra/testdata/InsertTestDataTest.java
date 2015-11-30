@@ -24,8 +24,7 @@ import static org.junit.Assert.*;
 @SpringApplicationConfiguration(classes = NextLectureManagerApplication.class)
 public class InsertTestDataTest {
 
-
     @Test
-    public void contextLoads() throws IOException {
+    public void contextLoads() {
     }
 }

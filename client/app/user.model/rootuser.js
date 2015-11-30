@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav) {
+  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm) {
     this.email = "test1@test.com";
     this.password = "password";
     getSessionUser();
@@ -56,16 +56,18 @@ angular.module('clientApp')
     this.register = function () {
       return http.post('/api/v1/user',
         {email: self.email, password: self.password, name: self.name}).then(function () {
-          alert.success('가입되었습니다.');
-          dialog.login();
-        }, function (response) {
-          if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
-            alert.error('이미 가입한 이메일입니다.');
-          }
-        });
+        alert.success('가입되었습니다.');
+        dialog.login();
+      }, function (response) {
+        if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
+          alert.error('이미 가입한 이메일입니다.');
+        }
+      });
     };
 
     this.logout = function () {
+      if (!confirm("로그아웃 하시겠습니까?"))
+        return;
       http.get('/api/v1/user/logout').then(function () {
         delete self.id;
         delete self.email;

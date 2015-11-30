@@ -13,7 +13,10 @@
         </md-input-container>
         <div class="write_append">
           <div class="wrap_btn">
-            <md-button aria-label="done button" class="md-raised" ng-click="writeSubmit(submit)">제출</md-button>
+            <md-button aria-label="done button" class="md-raised" ng-click="writeSubmit(submit)">
+              <span ng-show="user.isRootUser()">제출</span>
+              <span ng-show="!user.isRootUser()">도움말쓰기</span>
+            </md-button>
           </div>
         </div>
       </div>
