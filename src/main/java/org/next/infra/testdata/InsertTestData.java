@@ -15,8 +15,6 @@ import org.next.infra.repository.TagRepository;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.control.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
