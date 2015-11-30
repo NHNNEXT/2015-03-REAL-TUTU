@@ -28,17 +28,13 @@ import java.util.List;
 public class InsertTestData {
 
 
-    @Value("classpath:testdata/users.json")
-    Resource usersJson;
+    String usersJson;
 
-    @Value("classpath:testdata/contents.json")
-    Resource contentsJson;
+    String contentsJson;
 
-    @Value("classpath:testdata/lectures.json")
-    Resource lecturesJson;
+    String lecturesJson;
 
-    @Value("classpath:testdata/tags.json")
-    Resource tagsJson;
+    String tagsJson;
 
 
     @Autowired
@@ -63,6 +59,8 @@ public class InsertTestData {
 
     @PostConstruct
     public void insertData() {
+
+        makeStrings();
 
         // 유저
         List<User> users = JsonDataToList(usersJson, User.class);
@@ -122,10 +120,644 @@ public class InsertTestData {
 
     }
 
-    private <T> List<T> JsonDataToList(Resource json, Class type) {
+    private void makeStrings() {
+        usersJson = "[\n" +
+                "  {\n" +
+                "    \"email\": \"test1@test.com\",\n" +
+                "    \"password\": \"password\",\n" +
+                "    \"name\": \"황정민\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"email\": \"test2@test.com\",\n" +
+                "    \"password\": \"password\",\n" +
+                "    \"name\": \"하태호\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"email\": \"test3@test.com\",\n" +
+                "    \"password\": \"password\",\n" +
+                "    \"name\": \"가나다\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"email\": \"test4@test.com\",\n" +
+                "    \"password\": \"password\",\n" +
+                "    \"name\": \"라마바\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"email\": \"test5@test.com\",\n" +
+                "    \"password\": \"password\",\n" +
+                "    \"name\": \"테스트\"\n" +
+                "  }\n" +
+                "]";
+
+        contentsJson = "[\n" +
+                "  {\n" +
+                "    \"title\": \"벡터\",\n" +
+                "    \"body\": \"<p><u>기하학</u></p>\",\n" +
+                "    \"endTime\": \"2015-11-03T07:00:51.399Z\",\n" +
+                "    \"startTime\": \"2015-11-03T03:50:51.399Z\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"title\": \"벡터\",\n" +
+                "    \"body\": \"<p><u>기하학</u></p>\",\n" +
+                "    \"endTime\": \"2015-11-04T07:00:51.399Z\",\n" +
+                "    \"startTime\": \"2015-11-04T03:50:51.399Z\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"title\": \"벡터\",\n" +
+                "    \"body\": \"<p><u>기하학</u></p>\",\n" +
+                "    \"endTime\": \"2015-11-05T07:00:51.399Z\",\n" +
+                "    \"startTime\": \"2015-11-05T03:50:51.399Z\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"title\": \"벡터\",\n" +
+                "    \"body\": \"<p><u>기하학</u></p>\",\n" +
+                "    \"endTime\": \"2015-11-03T07:00:51.399Z\",\n" +
+                "    \"startTime\": \"2015-11-03T03:50:51.399Z\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"title\": \"벡터\",\n" +
+                "    \"body\": \"<p><u>기하학</u></p>\",\n" +
+                "    \"endTime\": \"2015-11-04T07:00:51.399Z\",\n" +
+                "    \"startTime\": \"2015-11-04T03:50:51.399Z\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"title\": \"벡터\",\n" +
+                "    \"body\": \"<p><u>기하학</u></p>\",\n" +
+                "    \"endTime\": \"2015-11-05T07:00:51.399Z\",\n" +
+                "    \"startTime\": \"2015-11-05T03:50:51.399Z\"\n" +
+                "  }\n" +
+                "]";
+
+        lecturesJson = "[\n" +
+                "  {\n" +
+                "    \"name\": \"실전프\",\n" +
+                "    \"majorType\": 1,\n" +
+                "    \"registerPolicy\": 1,\n" +
+                "    \"contentTypes\": [\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": true,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"수업\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"강의자료\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"질문\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": true,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"과제\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"userGroups\": [\n" +
+                "      {\n" +
+                "        \"defaultGroup\": false,\n" +
+                "        \"name\": \"조교\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"defaultGroup\": true,\n" +
+                "        \"name\": \"수강생\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"writable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        false,\n" +
+                "        false,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"readable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"submitReadable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        false\n" +
+                "      ]\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"선형대수\",\n" +
+                "    \"majorType\": 1,\n" +
+                "    \"registerPolicy\": 1,\n" +
+                "    \"contentTypes\": [\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": true,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"수업\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"강의자료\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"질문\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": true,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"과제\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"userGroups\": [\n" +
+                "      {\n" +
+                "        \"defaultGroup\": false,\n" +
+                "        \"name\": \"조교\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"defaultGroup\": true,\n" +
+                "        \"name\": \"수강생\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"writable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        false,\n" +
+                "        false,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"readable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"submitReadable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        false\n" +
+                "      ]\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"그래픽스\",\n" +
+                "    \"majorType\": 1,\n" +
+                "    \"registerPolicy\": 1,\n" +
+                "    \"contentTypes\": [\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": true,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"수업\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"강의자료\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"질문\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": true,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"과제\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"userGroups\": [\n" +
+                "      {\n" +
+                "        \"defaultGroup\": false,\n" +
+                "        \"name\": \"조교\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"defaultGroup\": true,\n" +
+                "        \"name\": \"수강생\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"writable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        false,\n" +
+                "        false,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"readable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"submitReadable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        false\n" +
+                "      ]\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"인문사회학\",\n" +
+                "    \"majorType\": 1,\n" +
+                "    \"registerPolicy\": 1,\n" +
+                "    \"contentTypes\": [\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": true,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"수업\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"강의자료\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"질문\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": true,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"과제\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"userGroups\": [\n" +
+                "      {\n" +
+                "        \"defaultGroup\": false,\n" +
+                "        \"name\": \"조교\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"defaultGroup\": true,\n" +
+                "        \"name\": \"수강생\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"writable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        false,\n" +
+                "        false,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"readable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"submitReadable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        false\n" +
+                "      ]\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"자바프로그래밍\",\n" +
+                "    \"majorType\": 1,\n" +
+                "    \"registerPolicy\": 1,\n" +
+                "    \"contentTypes\": [\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": true,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"수업\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"강의자료\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"질문\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": true,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"과제\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"userGroups\": [\n" +
+                "      {\n" +
+                "        \"defaultGroup\": false,\n" +
+                "        \"name\": \"조교\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"defaultGroup\": true,\n" +
+                "        \"name\": \"수강생\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"writable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        false,\n" +
+                "        false,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"readable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"submitReadable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        false\n" +
+                "      ]\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"웹서버\",\n" +
+                "    \"majorType\": 1,\n" +
+                "    \"registerPolicy\": 1,\n" +
+                "    \"contentTypes\": [\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": true,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"수업\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"강의자료\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": false,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": false,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"질문\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"endTime\": true,\n" +
+                "        \"startTime\": false,\n" +
+                "        \"submit\": true,\n" +
+                "        \"submitOpen\": false,\n" +
+                "        \"reply\": true,\n" +
+                "        \"name\": \"과제\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"userGroups\": [\n" +
+                "      {\n" +
+                "        \"defaultGroup\": false,\n" +
+                "        \"name\": \"조교\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"defaultGroup\": true,\n" +
+                "        \"name\": \"수강생\"\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"writable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        false,\n" +
+                "        false,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"readable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ]\n" +
+                "    ],\n" +
+                "    \"submitReadable\": [\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true\n" +
+                "      ],\n" +
+                "      [\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        true,\n" +
+                "        false\n" +
+                "      ]\n" +
+                "    ]\n" +
+                "  }\n" +
+                "]";
+
+        tagsJson = "[\n" +
+                "  {\n" +
+                "    \"text\": \"2015년 1학기\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"text\": \"자료구조\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"text\": \"질문\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"text\": \"시험\"\n" +
+                "  }\n" +
+                "]\n";
+
+    }
+
+    private <T> List<T> JsonDataToList(String json, Class type) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(json.getFile(), mapper.getTypeFactory().constructCollectionType(List.class, type));
+            return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, type));
         } catch (IOException e) {
             return new ArrayList<>();
         }
