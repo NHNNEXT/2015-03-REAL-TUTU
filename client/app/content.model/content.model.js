@@ -1,9 +1,11 @@
 angular.module('clientApp')
   /* @ngInject */
   .factory('Content', function (http, $sce, $q, $state, confirm) {
+    "use strict";
     function Content(param) {
-      if (param === undefined)
+      if (!param) {
         return;
+      }
       if (typeof param === "object") {
         this.setProperties(param);
       }
@@ -27,12 +29,15 @@ angular.module('clientApp')
       this.title = obj.title;
       this.tags = obj.tags === undefined ? [] : obj.tags;
         this.body = obj.body;
-      if (obj.writeDate)
+      if (obj.writeDate) {
         this.writeDate = new Date(obj.writeDate);
-      if (obj.startTime)
+      }
+      if (obj.startTime) {
         this.startTime = new Date(obj.startTime);
-      if (obj.endTime)
+      }
+      if (obj.endTime) {
         this.endTime = new Date(obj.endTime);
+      }
       this.type = obj.type; //타입오브젝트
       this.hits = obj.hits;
       this.likes = obj.likes;
@@ -61,21 +66,22 @@ angular.module('clientApp')
       }
       return query;
     };
-
     Content.prototype.setType = function (type) {
       this.type = type;
     };
 
     Content.prototype.save = function () {
       var query = this.getQuery();
-      if (this.id === undefined)
+      if (this.id === undefined) {
         return http.post('/api/v1/content', query);
+      }
       return http.put('/api/v1/content', query);
     };
 
     Content.prototype.remove = function () {
-      if (!confirm("삭제하시겠습니까?"))
+      if (!confirm("삭제하시겠습니까?")) {
         return;
+      }
       var self = this;
       http.delete('/api/v1/content', {id: this.id}).then(function () {
         $state.go('lecture', {id: self.lectureId});
@@ -86,8 +92,9 @@ angular.module('clientApp')
       return $q(function (resolve) {
         http.get('/api/v1/content/list').then(function (response) {
           var result = [];
-          if (response.forEach === undefined)
+          if (response.forEach === undefined) {
             return;
+          }
           response.forEach(function (each) {
             result.push(new Content(each));
           });
