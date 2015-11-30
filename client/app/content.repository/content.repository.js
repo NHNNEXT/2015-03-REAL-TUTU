@@ -3,115 +3,90 @@
  */
 angular.module('clientApp')
   /* @ngInject */
-  .service('ContentRepository', function (Content,http, $sce, $q, $state, confirm, Reply,Restangular) {
-
+  .service('ContentRepository', function (ContentFactory, http, $sce, $q, $state, confirm, Reply, queryService, containerSpecificationFactory) {
+    "use strict";
     this.findByContentID = findByContentID;
     this.findByLectureID = findByLectureID;
-    this.postContent = postContent;
-    this.contentList = {};
+    this.save = save;
+
+    var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
+    console.log(scheduleSpec);
+    //var noticeSepc = new ContainerSpecification("NOTICE");
+    //var todoSpec = new ContainerSpecification("SUBMIT");
+    //var mainTopSpec = scheduleSpec.and(noticeSepc);
 
     function findByContentID(contentID) {
-      var content = contentList[contentID];
-      if(content) {
-        return content;
-      } else {
-        contentList[contentID] =  JSON.parse(Restangular.one('content',contentID).get());
-        return contentList[contentID];
-      }
-    }
-
-    function ListContainAllLectureContent(LectureID) {
-      _.chain(contentList)
-        .sortBy('lectureId')
-        .matchesProperty('lectureId', LectureID)
-        .foreach()
-
-
-    }
-    function findByLectureID(LectureID) {
-      var ListContainAllLectureContent = false;
-
-
-      return Restangular.one('lecture',LectureID).getList('content');
-    }
-
-    function postContent(content) {
-      return Restangular
-    }
-
-    Content.prototype.setProperties = function (obj) {
-      this.replies = [];
-      if (obj.replies !== undefined && obj.replies.forEach !== undefined) {
-        var self = this;
-        obj.replies.forEach(function (reply) {
-          self.replies.push(new Reply(reply));
-        });
-      }
-      this.repliesSize = obj.repliesSize;
-      this.writer = obj.writer;
-      this.lectureName = obj.lectureName;
-      this.lectureId = obj.lectureId;
-      this.id = obj.id;
-      this.title = obj.title;
-      this.body = obj.body;
-      if (obj.writeDate !== undefined)
-        this.writeDate = new Date(obj.writeDate);
-      if (obj.startTime !== undefined)
-        this.startTime = new Date(obj.startTime);
-      if (obj.endTime !== undefined)
-        this.endTime = new Date(obj.endTime);
-      this.type = obj.type; //타입오브젝트
-      this.hits = obj.hits;
-      this.likes = obj.likes;
-    };
-
-    Content.prototype.getBodyAsHtml = function () {
-      return $sce.trustAsHtml(this.body);
-    };
-
-    Content.prototype.getQuery = function(){
-      var query = {};
-      query.id = this.id;
-      query.title = this.title;
-      query.body = this.body;
-      query.lectureId = this.lectureId;
-      query.endTime = this.endTime;
-      query.startTime = this.startTime;
-      if (this.id === undefined)
-        query.type = this.type;
-      return query;
-    };
-
-    Content.prototype.save = function () {
-      var query = this.getQuery();
-      if (this.id === undefined)
-        return http.post('/api/v1/content', query);
-      return http.put('/api/v1/content', query);
-    };
-
-    Content.prototype.remove = function () {
-      if (!confirm("삭제하시겠습니까?"))
-        return;
-      var self = this;
-      http.delete('/api/v1/content', {id: this.id}).then(function () {
-        $state.go('lecture', {id: self.lectureId});
-      });
-    };
-
-    Content.getList = function () {
       return $q(function (resolve) {
-        http.get('/api/v1/content/list').then(function (response) {
+        //Restangular.one('content',contentID).get()
+        http.get('/api/v1/content', {id: contentID}).then(function (result) {
+          resolve(new ContentFactory(result));
+        });
+      });
+    }
+
+    function findByLectureID(lectureID) {
+      return $q(function (resolve) {
+        //Restangular.one('lecture',LectureID).getList('content');
+        http.get('/api/v1/content/list', {lectureID: lectureID}).then(function (response) {
           var result = [];
-          if (response.forEach === undefined)
+          if (response.forEach) {
+            response.forEach(function (each) {
+              result.push(new ContentFactory(each));
+            });
+          }
+          else {
             return;
-          response.forEach(function (each) {
-            result.push(new Content(each));
-          });
+          }
           resolve(result);
         });
       });
-    };
+    }
 
+    //@todo: 나는 이걸 새로 고쳐야해
+    function save(content) {
+      queryService.contentSave(content);
+    }
 
-    return Content;
+    //function selectTodoTypeContent() {
+    //  this.isSatisfiedBy = function(candidate) {
+    //    if(!(candidate instanceof Content.Content)) return false;
+    //    return candidate.getSpecificationList().contains(requiredSpec);
+    //  };
+    //}
+
+    //
+    //Content.prototype.remove = function () {
+    //  if (!confirm("삭제하시겠습니까?"))
+    //    return;
+    //  var self = this;
+    //  http.delete('/api/v1/content', {id: this.id}).then(function () {
+    //    $state.go('lecture', {id: self.lectureId});
+    //  });
+    //};
+    //
+    //Content.getList = function () {
+    //  return $q(function (resolve) {
+    //    http.get('/api/v1/content/list').then(function (response) {
+    //      var result = [];
+    //      if (response.forEach === undefined)
+    //        return;
+    //      response.forEach(function (each) {
+    //        result.push(new ContentFactory(each));
+    //      });
+    //      resolve(result);
+    //    });
+    //  });
+    //};
+    //
+
+    //
+    //function findByContentIDAtList(contentID) {
+    //  var content = contentList[contentID];
+    //  if(content) {
+    //    return content;
+    //  } else {
+    //    contentList[contentID] =  JSON.parse(Restangular.one('content',contentID).get());
+    //    return contentList[contentID];
+    //  }
+    //}
   });
