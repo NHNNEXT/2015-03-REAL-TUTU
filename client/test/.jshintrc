@@ -4,8 +4,8 @@
   "curly": true,
   "eqeqeq": true,
   "esnext": true,
+  "latedef": false,
   "jasmine": true,
-  "latedef": true,
   "noarg": true,
   "node": true,
   "strict": true,
@@ -13,6 +13,13 @@
   "unused": true,
   "globals": {
     "angular": false,
-    "inject": false
-  }
+    "inject": false,
+    "$": true,
+    "moment": true,
+    "bowser": true,
+    "freewall": true,
+    "confirm": true,
+    "_": true
+  },
+  "validthis": true
 }
