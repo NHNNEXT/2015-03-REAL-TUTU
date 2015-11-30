@@ -24,26 +24,8 @@ import static org.junit.Assert.*;
 @SpringApplicationConfiguration(classes = NextLectureManagerApplication.class)
 public class InsertTestDataTest {
 
-    @Value("classpath:testdata/users.json")
-    Resource file;
 
     @Test
     public void contextLoads() throws IOException {
-
-        JacksonJsonParser parser = new JacksonJsonParser();
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-
-        System.out.println(IOUtils.toString(new FileInputStream(file.getFile()), "utf-8"));
     }
 }
