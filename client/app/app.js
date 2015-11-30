@@ -14,8 +14,8 @@
     'ngFileUpload',
     'restangular',
     'toastr',
-    'scDateTime',
-    'anim-in-out',
+    //'scDateTime',
+    'anim-in-out'
     /* @ngInject */
   ]).run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeSuccess',
