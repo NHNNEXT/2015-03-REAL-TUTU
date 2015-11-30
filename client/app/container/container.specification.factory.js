@@ -3,15 +3,13 @@ angular.module('clientApp')
   .factory('containerSpecificationFactory', function (Specification,Container) {
     "use strict";
 
-    /**
-     * {{NOTICE: *, SUBMIT: *, SCHEDULE: *, DEFAULT: *}}
-     */
-
     var types = {};
+
     /**
-     * @class
+     * @constructor
      * @implements {Specificable}
      * @augments Specification
+     * @param required
      */
     function ContainerSpecification(required) {
       var requiredType = required;
