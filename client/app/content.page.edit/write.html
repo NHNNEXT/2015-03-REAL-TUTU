@@ -16,24 +16,24 @@
   </div>
 
 
-  <div layout="row" ng-show="!extendWrite || !content.type.hasDuration()" class="margin-top">
-    <div ng-show="content.type.startTime" flex>
+  <div layout="row" ng-show="!extendWrite || !content.contentGroup.hasDuration()" class="margin-top">
+    <div ng-show="content.contentGroup.startTime" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
     </div>
-    <div ng-show="content.type.endTime" flex>
+    <div ng-show="content.contentGroup.endTime" flex>
       <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
     </div>
   </div>
-  <div class="margin-top margin-bottom" layout="row" ng-show="content.type.hasDuration()">
+  <div class="margin-top margin-bottom" layout="row" ng-show="content.contentGroup.hasDuration()">
     <md-checkbox ng-model="extendWrite">
       일괄입력
     </md-checkbox>
   </div>
-  <div ng-show="content.type.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
+  <div ng-show="content.contentGroup.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
   </div>
 
 
-  <div layout="row" ng-show="content.type.submit">
+  <div layout="row" ng-show="content.contentGroup.submit">
     <md-data-table-container>
       <table md-data-table>
         <thead md-order="query.order" md-trigger="onOrderChange">

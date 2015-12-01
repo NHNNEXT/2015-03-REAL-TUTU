@@ -81,7 +81,7 @@ angular.module('clientApp')
         this.defaultGroup = 0;
     };
 
-    Lecture.prototype.removecontentGroup = function (el) {
+    Lecture.prototype.removeContentGroup = function (el) {
       if (this.contentGroups.length < 2) {
         alert.warning("최소 하나의 타입은 있어야 합니다.");
         return;

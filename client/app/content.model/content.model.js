@@ -33,7 +33,7 @@ angular.module('clientApp')
         this.startTime = new Date(obj.startTime);
       if (obj.endTime !== undefined)
         this.endTime = new Date(obj.endTime);
-      this.type = obj.type; //타입오브젝트
+      this.contentGroup = obj.contentGroup; //타입오브젝트
       this.hits = obj.hits;
       this.likes = obj.likes;
     };
@@ -51,8 +51,8 @@ angular.module('clientApp')
       query.endTime = this.endTime;
       query.startTime = this.startTime;
       if (this.id === undefined)
-        query.type = this.type.id;
-      if (this.type.submit) {
+        query.contentGroup = this.contentGroup.id;
+      if (this.contentGroup.submit) {
         query.submitRequiredUsers = [];
         this.users.forEach(function (user) {
           if (user.submit)
@@ -62,8 +62,8 @@ angular.module('clientApp')
       return query;
     };
 
-    Content.prototype.setType = function (type) {
-      this.type = type;
+    Content.prototype.setContentGroup = function (contentGroup) {
+      this.contentGroup = contentGroup;
     };
 
     Content.prototype.save = function () {

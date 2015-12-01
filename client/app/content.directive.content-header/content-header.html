@@ -1,9 +1,9 @@
-<div class="type">{{content.type.name}}</div>
+<div class="type">{{content.contentGroup.name}}</div>
 <div class="moveto" ui-sref="content({id:content.id})">
   <div class="header"><span ng-bind="content.title"></span>
-    <span class="dueDate" ng-show="content.type.endTime || content.type.startTime">
-      <span ng-if="!content.type.startTime">(마감 : {{content.endTime.fromNow()}})</span>
-      <span ng-if="content.type.startTime">({{content.startTime.range(content.endTime)}})</span>
+    <span class="dueDate" ng-show="content.contentGroup.endTime || content.contentGroup.startTime">
+      <span ng-if="!content.contentGroup.startTime">(마감 : {{content.endTime.fromNow()}})</span>
+      <span ng-if="content.contentGroup.startTime">({{content.startTime.range(content.endTime)}})</span>
     </span>
   </div>
   <div class="body" ng-bind="content.body.removeTags()"></div>

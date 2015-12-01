@@ -13,13 +13,13 @@ public class WriteInfoDto {
 
     private final Long id;
     private final String name;
-    private List<ContentGroupDto> contentTypes;
+    private List<ContentGroupDto> contentGroups;
     private List<UserSummaryDto> users;
 
     public WriteInfoDto(Lecture lecture) {
         this.id = lecture.getId();
         this.name = lecture.getName();
-        this.contentTypes = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
+        this.contentGroups = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
         this.users = lecture.getUserEnrolledLectures().stream().map(UserSummaryDto::new).collect(Collectors.toList());
     }
 

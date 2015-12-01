@@ -2,7 +2,7 @@
   <div layout="row">
     <md-input-container flex>
       <label>구분</label>
-      <input ng-model="content.type.name" disabled>
+      <input ng-model="content.contentGroup.name" disabled>
     </md-input-container>
 
     <md-input-container flex="80">
@@ -11,10 +11,10 @@
     </md-input-container>
   </div>
   <div layout="row"  class="margin-top">
-    <div ng-show="content.type.startTime" flex>
+    <div ng-show="content.contentGroup.startTime" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
     </div>
-    <div ng-show="content.type.endTime" flex>
+    <div ng-show="content.contentGroup.endTime" flex>
       <input-datepicker placeholder="{{placeholder}}" ng-model="content.endTime"></input-datepicker>
     </div>
   </div>

@@ -16,14 +16,14 @@ angular
     }
 
 
-    function setType(type) {
-      if (!type) {
+    function setType(contentGroup) {
+      if (!contentGroup) {
         $scope.contents = $scope.lecture.contents;
         return;
       }
       $scope.contents = [];
       $scope.lecture.contents.forEach(function (content) {
-        if (content.type.id === type.id)
+        if (content.contentGroup.id === contentGroup.id)
           $scope.contents.push(content);
       });
     }

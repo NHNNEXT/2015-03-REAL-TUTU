@@ -3,7 +3,7 @@
     <div flex="80">
       <h2 ng-bind="content.title"></h2>
         <span class="info">
-          {{content.type.name}}
+          {{content.contentGroup.name}}
           <span class="bar"></span>
           조회수 {{content.hits}}
           <span class="bar"></span>
@@ -18,10 +18,10 @@
           </span>
         </span>
 
-      <div class="info margin-top-s" ng-show="content.type.startTime || content.type.endTime">
-    <span class="dueDate" ng-show="content.type.endTime || content.type.startTime">
-      <span ng-if="!content.type.startTime">마감 : {{content.endTime.fromNow()}}</span>
-      <span ng-if="content.type.startTime">{{content.startTime.range(content.endTime)}}</span>
+      <div class="info margin-top-s" ng-show="content.contentGroup.startTime || content.contentGroup.endTime">
+    <span class="dueDate" ng-show="content.contentGroup.endTime || content.contentGroup.startTime">
+      <span ng-if="!content.contentGroup.startTime">마감 : {{content.endTime.fromNow()}}</span>
+      <span ng-if="content.contentGroup.startTime">{{content.startTime.range(content.endTime)}}</span>
     </span>
       </div>
     </div>
@@ -43,7 +43,7 @@
   </div>
 </section>
 
-<section ng-if="content.type.submit && content.submitRequiredUsers.length>0">
+<section ng-if="content.contentGroup.submit && content.submitRequiredUsers.length>0">
   <md-tabs md-dynamic-height md-border-bottom>
     <md-tab ng-repeat="submitdto in content.submitRequiredUsers" label="{{' '+submitdto.user.name+' '}}">
       <md-content class="md-padding">
@@ -53,6 +53,6 @@
   </md-tabs>
 </section>
 
-<section ng-if="content.type.reply">
+<section ng-if="content.contentGroup.reply">
   <replies content="content"></replies>
 </section>
