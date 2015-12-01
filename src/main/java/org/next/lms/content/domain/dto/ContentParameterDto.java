@@ -31,17 +31,17 @@ public class ContentParameterDto {
     private Date writeDate;
     private Date startTime;
     private Date endTime;
-    private Long type;
+    private Long contentGroup;
     private Content content;
     private List<Long> submitRequiredUsers;
 
     public Content saveContent(Lecture lecture, User user, ContentRepository contentRepository, ContentGroupRepository contentGroupRepository, ContentAuth contentAuthority, UserRepository userRepository, UserHaveToSubmitRepository userHaveToSubmitRepository) {
-        if (type == null)
+        if (contentGroup == null)
             throw new PatternNotMatchedException("게시물 타입을 입력해야합니다.");
         content = new Content();
         content.setLecture(lecture);
         content.setWriter(user);
-        content.setType(assureNotNull(contentGroupRepository.findOne(type)));
+        content.setType(assureNotNull(contentGroupRepository.findOne(contentGroup)));
         contentAuthority.checkWriteRight(content.getType(), user);
         content.setId(this.id);
         content.setTitle(this.title);

@@ -86,12 +86,12 @@ public class LectureSaveService {
     private void updateContentGroups(Lecture lectureFromDB, Lecture lecture) {
         List<ContentGroup> updatedContentGroups = lecture.getContentGroups();
         List<ContentGroup> dbContentGroups = lectureFromDB.getContentGroups();
-        updatedContentGroups.forEach(updatedContentType -> {
-            if (!dbContentGroups.contains(updatedContentType)) {
-                dbContentGroups.add(updatedContentType);
-                updatedContentType.setLecture(lecture);
+        updatedContentGroups.forEach(updatedContentGroup -> {
+            if (!dbContentGroups.contains(updatedContentGroup)) {
+                dbContentGroups.add(updatedContentGroup);
+                updatedContentGroup.setLecture(lecture);
             } else {
-                dbContentGroups.stream().filter(updatedContentType::equals).findFirst().get().update(updatedContentType);
+                dbContentGroups.stream().filter(updatedContentGroup::equals).findFirst().get().update(updatedContentGroup);
             }
         });
     }
