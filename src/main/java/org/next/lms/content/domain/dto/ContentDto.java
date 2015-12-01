@@ -2,6 +2,7 @@ package org.next.lms.content.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.Content;
+import org.next.lms.content.domain.ContentType;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.submit.UserHaveToSubmitDto;
 import org.next.lms.tag.domain.TagDto;
@@ -48,7 +49,7 @@ public class ContentDto {
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
-        if (!content.getContentGroup().getContentType().getSubmit())
+        if (!ContentType.SUBMIT.equals(content.getContentGroup().getContentType()))
             return;
         boolean hasRightReadSubmits = user.equals(content.getLecture().getHostUser())
                 || content.getContentGroup().getSubmitReadable().stream()
