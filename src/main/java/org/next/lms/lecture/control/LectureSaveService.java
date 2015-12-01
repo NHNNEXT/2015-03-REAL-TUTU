@@ -57,6 +57,7 @@ public class LectureSaveService {
 
     public Result save(Lecture lecture, User user) {
         lecture.setHostUser(user);
+        lecture.getContentGroups().forEach(contentGroup -> contentGroup.setLecture(lecture));
         lectureRepository.save(lecture);
         setAuthorities(lecture);
         lectureService.enrollLecture(user, lecture);
