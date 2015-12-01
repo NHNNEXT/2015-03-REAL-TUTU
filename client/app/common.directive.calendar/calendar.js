@@ -10,7 +10,6 @@ angular.module('clientApp').directive('calendar', function () {
           return;
         var events = [];
         contents.forEach(function (content) {
-
           if (!content.startTime && !content.endTime)
             return;
           var event = {};

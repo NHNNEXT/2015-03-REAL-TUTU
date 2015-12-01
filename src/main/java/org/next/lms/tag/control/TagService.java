@@ -1,5 +1,6 @@
 package org.next.lms.tag.control;
 
+import org.next.config.AppConfig;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
@@ -7,6 +8,7 @@ import org.next.lms.tag.domain.TagDto;
 import org.next.lms.tag.domain.TagUpdateDto;
 import org.next.infra.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +29,7 @@ public class TagService {
     private ContentRepository contentRepository;
 
     public Result find(String keyword) {
-        return success(tagRepository.findDistinctTextByTextContaining(keyword).stream().map(TagDto::new).collect(Collectors.toList()));
+        return success(tagRepository.findTextDistinctByTextContaining(keyword).stream().map(TagDto::new).collect(Collectors.toList()));
     }
 
     public Result updateContent(TagUpdateDto tagUpdateDto) {

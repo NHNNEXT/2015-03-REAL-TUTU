@@ -10,6 +10,9 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,5 +31,14 @@ public class ExceptionTest {
     @Test(expected = InvalidDataAccessApiUsageException.class)
     public void 인자가_널이면_InvalidDataAccessApiUsageException_발생2() throws Exception {
         userRepository.findOne(null);
+    }
+
+    @PersistenceContext
+    private EntityManager em;
+
+
+    @Test
+    public void 인자가_널이면_InvalidDtion_발생2() throws Exception {
+        em.createNativeQuery("select distinct name from table ");
     }
 }

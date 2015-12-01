@@ -7,20 +7,20 @@ angular.module('clientApp')
           "submitOpen": false,
           "reply": true,
           "name": "수업",
-          "contentType":"SCHEDULE"
+          "contentType": "SCHEDULE"
         }, {
           "submitOpen": false,
           "reply": true,
           "name": "강의자료",
-          "contentType":"GENERAL"
+          "contentType": "GENERAL"
         }, {
           "submitOpen": false,
           "reply": true,
           "name": "공지",
-          "contentType":"NOTICE"
+          "contentType": "NOTICE"
         }, {
           "submitOpen": false, "reply": true, "name": "과제",
-          "contentType":"SUBMIT"
+          "contentType": "SUBMIT"
         }
         ];
         this.userGroups = [{"defaultGroup": false, "name": "조교"}, {"defaultGroup": true, "name": "수강생"}];
@@ -101,7 +101,9 @@ angular.module('clientApp')
       this.users = param.users;
       this.waitingUsers = param.waitingUsers;
       this.rejectUsers = param.rejectUsers;
-      this.contents = param.contents;
+      this.contents = param.contents.map(function (content) {
+        return new Content(content)
+      });
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;

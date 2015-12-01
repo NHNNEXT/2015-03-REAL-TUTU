@@ -55,10 +55,6 @@ angular
         $scope.lecture = fromDB;
         $state.current.header = fromDB.name;
         $scope.contents = fromDB.contents;
-        fromDB.contents.forEach(function (content) {
-          content.startTime = new Date(content.startTime);
-          content.endTime = new Date(content.endTime);
-        });
       });
     });
 

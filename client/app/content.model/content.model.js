@@ -27,11 +27,11 @@ angular.module('clientApp')
       this.title = obj.title;
       this.body = obj.body;
       this.tags = obj.tags === undefined ? [] : obj.tags;
-      if (obj.writeDate !== undefined)
+      if (obj.writeDate)
         this.writeDate = new Date(obj.writeDate);
-      if (obj.startTime !== undefined)
+      if (obj.startTime)
         this.startTime = new Date(obj.startTime);
-      if (obj.endTime !== undefined)
+      if (obj.endTime)
         this.endTime = new Date(obj.endTime);
       this.contentGroup = new ContentGroup(obj.contentGroup); //타입오브젝트
       this.hits = obj.hits;

@@ -10,6 +10,9 @@ angular.module('clientApp').controller('contentDetailController',
       Content.findById(id).then(function (content) {
         $scope.content = content;
 
+        $scope.tagReadOnly = true;
+        $scope.relativeReadOnly = true;
+
         $scope.$watch(function () {
           return $scope.content.tags;
         }, function () {
