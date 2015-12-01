@@ -2,6 +2,7 @@ package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.dto.ContentGroupDto;
+import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.user.domain.UserSummaryDto;
 
@@ -20,7 +21,7 @@ public class WriteInfoDto {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.contentGroups = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
-        this.users = lecture.getUserEnrolledLectures().stream().map(UserSummaryDto::new).collect(Collectors.toList());
+        this.users = lecture.getUserEnrolledLectures().stream().filter(userEnrolledLecture -> ApprovalState.OK.equals(userEnrolledLecture.getApprovalState())).map(UserSummaryDto::new).collect(Collectors.toList());
     }
 
 }

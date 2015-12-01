@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Content', function (http, $sce, $q, $state, confirm) {
+  .factory('Content', function (http, $sce, $q, $state, confirm, ContentGroup) {
     function Content(param) {
       if (param === undefined)
         return;
@@ -33,7 +33,7 @@ angular.module('clientApp')
         this.startTime = new Date(obj.startTime);
       if (obj.endTime !== undefined)
         this.endTime = new Date(obj.endTime);
-      this.contentGroup = obj.contentGroup; //타입오브젝트
+      this.contentGroup = new ContentGroup(obj.contentGroup); //타입오브젝트
       this.hits = obj.hits;
       this.likes = obj.likes;
     };

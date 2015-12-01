@@ -9,6 +9,7 @@ import org.next.infra.repository.UserHaveToSubmitRepository;
 import org.next.infra.repository.UserRepository;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.control.ContentAuth;
+import org.next.lms.content.domain.ContentType;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.infra.repository.ContentGroupRepository;
 import org.next.lms.submit.UserHaveToSubmit;
@@ -51,7 +52,7 @@ public class ContentParameterDto {
         content.setEndTime(this.endTime);
         content.validate();
         contentRepository.save(content);
-        if (content.getContentGroup().getContentType().getSubmit()) {
+        if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
             submitUserDeclare(content, userRepository, userHaveToSubmitRepository);
         }
         return content;
