@@ -30,8 +30,11 @@ public class UserDto {
         this.name = user.getName();
         this.introduce = user.getIntroduce();
         this.major = user.getMajor();
-        this.lectures = user.getEnrolledLectures().stream().filter(relation-> ApprovalState.OK.equals(relation.getApprovalState())).map(LectureSummaryDto::new).collect(Collectors.toList());
-        this.waitingLectures = user.getEnrolledLectures().stream().filter(relation-> ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState())).map(LectureSummaryDto::new).collect(Collectors.toList());
+        this.lectures = user.getEnrolledLectures().stream().filter(relation ->
+                ApprovalState.OK.equals(relation.getApprovalState())).map(LectureSummaryDto::new).collect(Collectors.toList());
+        this.waitingLectures = user.getEnrolledLectures().stream().filter(
+                relation -> ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState())
+        ).map(LectureSummaryDto::new).collect(Collectors.toList());
         this.news = user.getMessages().stream().filter(
                 message -> !message.getChecked()
         ).findAny().isPresent();

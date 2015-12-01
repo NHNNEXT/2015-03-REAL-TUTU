@@ -189,7 +189,588 @@ public class InsertTestData {
         lecturesJson =
                 "[\n" +
                         "  {\n" +
-                        "    \"name\": \"실전프\",\n" +
+                        "    \"name\": \"자구알\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"인문학\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"사회학\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"송곳\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"마지막\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"테스트\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"고만\",\n" +
+                        "    \"majorType\": 1,\n" +
+                        "    \"registerPolicy\": 1,\n" +
+                        "    \"contentGroups\": [\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SCHEDULE\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"수업\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"강의자료\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"GENERAL\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"질문\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"contentType\": \"SUBMIT\",\n" +
+                        "        \"submitOpen\": false,\n" +
+                        "        \"reply\": true,\n" +
+                        "        \"name\": \"과제\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"userGroups\": [\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": false,\n" +
+                        "        \"name\": \"조교\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"defaultGroup\": true,\n" +
+                        "        \"name\": \"수강생\"\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"writable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        false,\n" +
+                        "        false,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"readable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ]\n" +
+                        "    ],\n" +
+                        "    \"submitReadable\": [\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true\n" +
+                        "      ],\n" +
+                        "      [\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        true,\n" +
+                        "        false\n" +
+                        "      ]\n" +
+                        "    ]\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"고만..\",\n" +
                         "    \"majorType\": 1,\n" +
                         "    \"registerPolicy\": 1,\n" +
                         "    \"contentGroups\": [\n" +

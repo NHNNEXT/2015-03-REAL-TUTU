@@ -119,9 +119,10 @@ public class LectureService {
     }
 
     UserEnrolledLecture enrollLecture(User user, Lecture lecture) {
-        UserEnrolledLecture relation = new UserEnrolledLecture();;
+        UserEnrolledLecture relation = new UserEnrolledLecture();
         relation.setLecture(lecture);
         relation.setUser(user);
+        relation.setUserGroup(lecture.getUserGroups().stream().filter(UserGroup::getDefaultGroup).findAny().get());
         userEnrolledLectureRepository.save(relation);
         return relation;
     }

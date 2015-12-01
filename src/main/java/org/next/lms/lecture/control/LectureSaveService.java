@@ -6,6 +6,7 @@ import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
 import org.next.lms.content.domain.ContentGroup;
+import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserGroup;
@@ -58,9 +59,10 @@ public class LectureSaveService {
     public Result save(Lecture lecture, User user) {
         lecture.setHostUser(user);
         lecture.getContentGroups().forEach(contentGroup -> contentGroup.setLecture(lecture));
+        lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
         lectureRepository.save(lecture);
         setAuthorities(lecture);
-        lectureService.enrollLecture(user, lecture);
+        lectureService.enrollLecture(user, lecture).setApprovalState(ApprovalState.OK);
         return success(lecture.getId());
     }
 
