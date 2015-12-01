@@ -21,7 +21,7 @@ public class ContentDto {
     private final Long hits;
     private final Integer repliesSize;
     private final UserSummaryDto writer;
-    private final ContentTypeDto type;
+    private final ContentGroupDto contentGroup;
     private final Long lectureId;
     private final Long id;
     private final String title;
@@ -43,7 +43,7 @@ public class ContentDto {
         this.writeDate = content.getWriteDate();
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
-        this.type = new ContentTypeDto(content.getType());
+        this.contentGroup = new ContentGroupDto(content.getType());
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());

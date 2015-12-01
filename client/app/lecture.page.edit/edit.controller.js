@@ -27,15 +27,15 @@ angular
         lecture = $scope.lecture = new Lecture();
         $scope.select = [false, true];
         $scope.userGroup = {};
-        $scope.contentType = {};
+        $scope.contentGroup = {};
       }
 
       $scope.newUserGroup = function () {
         lecture.userGroups.push($scope.userGroup);
         if (lecture.writable.length < lecture.userGroups.length) {
-          lecture.writable.push(getTrueArray(lecture.contentTypes.length));
-          lecture.readable.push(getTrueArray(lecture.contentTypes.length));
-          lecture.submitReadable.push(getTrueArray(lecture.contentTypes.length));
+          lecture.writable.push(getTrueArray(lecture.contentGroups.length));
+          lecture.readable.push(getTrueArray(lecture.contentGroups.length));
+          lecture.submitReadable.push(getTrueArray(lecture.contentGroups.length));
         }
 
         $scope.userGroup = {};
@@ -48,10 +48,10 @@ angular
         }
       };
 
-      $scope.newContentType = function () {
-        lecture.contentTypes.push($scope.contentType);
-        $scope.contentType = {};
-        if (lecture.writable[0].length < lecture.contentTypes.length) {
+      $scope.newContentGroup = function () {
+        lecture.contentGroups.push($scope.contentGroup);
+        $scope.contentGroup = {};
+        if (lecture.writable[0].length < lecture.contentGroups.length) {
           lecture.writable.forEach(function (writable) {
             writable.push(true);
           });
@@ -65,10 +65,10 @@ angular
       };
 
 
-      $scope.endTimeCheck = function(contentType){
-        if(contentType.todo && !contentType.endTime){
+      $scope.endTimeCheck = function(contentGroup){
+        if(contentGroup.todo && !contentGroup.endTime){
           alert.info("제출 기능은 마감시간이 필요합니다.");
-          contentType.endTime = true;
+          contentGroup.endTime = true;
         }
       };
 
@@ -79,7 +79,7 @@ angular
       $scope.registerPoilicyTypes = types.registerPoilicyTypes;
       _init();
 
-      $scope.toggleContentTypes = function (index) {
+      $scope.toggleContentGroups = function (index) {
         for (var i = 0; i < lecture.writable.length; i++) {
           for (var j = 0; j < lecture.writable[i].length; j++) {
             if (index === j) {

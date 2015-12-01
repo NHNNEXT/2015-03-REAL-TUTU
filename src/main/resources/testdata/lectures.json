@@ -3,7 +3,7 @@
     "name": "실전프",
     "majorType": 1,
     "registerPolicy": 1,
-    "contentTypes": [
+    "contentGroups": [
       {
         "endTime": true,
         "startTime": true,
@@ -94,7 +94,7 @@
     "name": "선형대수",
     "majorType": 1,
     "registerPolicy": 1,
-    "contentTypes": [
+    "contentGroups": [
       {
         "endTime": true,
         "startTime": true,
@@ -185,7 +185,7 @@
     "name": "그래픽스",
     "majorType": 1,
     "registerPolicy": 1,
-    "contentTypes": [
+    "contentGroups": [
       {
         "endTime": true,
         "startTime": true,
@@ -276,7 +276,7 @@
     "name": "인문사회학",
     "majorType": 1,
     "registerPolicy": 1,
-    "contentTypes": [
+    "contentGroups": [
       {
         "endTime": true,
         "startTime": true,
@@ -367,7 +367,7 @@
     "name": "자바프로그래밍",
     "majorType": 1,
     "registerPolicy": 1,
-    "contentTypes": [
+    "contentGroups": [
       {
         "endTime": true,
         "startTime": true,
@@ -458,7 +458,7 @@
     "name": "웹서버",
     "majorType": 1,
     "registerPolicy": 1,
-    "contentTypes": [
+    "contentGroups": [
       {
         "endTime": true,
         "startTime": true,

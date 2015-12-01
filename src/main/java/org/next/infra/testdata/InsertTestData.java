@@ -3,7 +3,7 @@ package org.next.infra.testdata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.repository.ContentRepository;
 import org.next.lms.content.domain.Content;
-import org.next.lms.content.domain.ContentType;
+import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.control.LectureSaveService;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
@@ -70,7 +70,7 @@ public class InsertTestData {
         Loop<Lecture> lectureLoop = new Loop<>(lectures);
         lectures.forEach(lecture -> {
             lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
-            lecture.getContentTypes().forEach(contentType -> contentType.setLecture(lecture));
+            lecture.getContentGroups().forEach(contentGroup -> contentGroup.setLecture(lecture));
             lectureSaveService.save(lecture, userLoop.next());
         });
 
@@ -96,11 +96,11 @@ public class InsertTestData {
         // 컨텐츠
         lectures.forEach(lecture -> {
             List<Content> contents = JsonDataToList(contentsJson, Content.class);
-            Loop<ContentType> contentTypeIterator = new Loop<>(lecture.getContentTypes());
+            Loop<ContentGroup> contentGroupIterator = new Loop<>(lecture.getContentGroups());
             contents.forEach(content -> {
                 content.setLecture(lecture);
                 content.setWriter(userLoop.next());
-                content.setType(contentTypeIterator.next());
+                content.setType(contentGroupIterator.next());
                 contentRepository.save(content);
                 Tag tagData = tagLoop.next();
                 Tag tag = new Tag();
@@ -191,7 +191,7 @@ public class InsertTestData {
                 "    \"name\": \"실전프\",\n" +
                 "    \"majorType\": 1,\n" +
                 "    \"registerPolicy\": 1,\n" +
-                "    \"contentTypes\": [\n" +
+                "    \"contentGroups\": [\n" +
                 "      {\n" +
                 "        \"endTime\": true,\n" +
                 "        \"startTime\": true,\n" +
@@ -282,7 +282,7 @@ public class InsertTestData {
                 "    \"name\": \"선형대수\",\n" +
                 "    \"majorType\": 1,\n" +
                 "    \"registerPolicy\": 1,\n" +
-                "    \"contentTypes\": [\n" +
+                "    \"contentGroups\": [\n" +
                 "      {\n" +
                 "        \"endTime\": true,\n" +
                 "        \"startTime\": true,\n" +
@@ -373,7 +373,7 @@ public class InsertTestData {
                 "    \"name\": \"그래픽스\",\n" +
                 "    \"majorType\": 1,\n" +
                 "    \"registerPolicy\": 1,\n" +
-                "    \"contentTypes\": [\n" +
+                "    \"contentGroups\": [\n" +
                 "      {\n" +
                 "        \"endTime\": true,\n" +
                 "        \"startTime\": true,\n" +
@@ -464,7 +464,7 @@ public class InsertTestData {
                 "    \"name\": \"인문사회학\",\n" +
                 "    \"majorType\": 1,\n" +
                 "    \"registerPolicy\": 1,\n" +
-                "    \"contentTypes\": [\n" +
+                "    \"contentGroups\": [\n" +
                 "      {\n" +
                 "        \"endTime\": true,\n" +
                 "        \"startTime\": true,\n" +
@@ -555,7 +555,7 @@ public class InsertTestData {
                 "    \"name\": \"자바프로그래밍\",\n" +
                 "    \"majorType\": 1,\n" +
                 "    \"registerPolicy\": 1,\n" +
-                "    \"contentTypes\": [\n" +
+                "    \"contentGroups\": [\n" +
                 "      {\n" +
                 "        \"endTime\": true,\n" +
                 "        \"startTime\": true,\n" +
@@ -646,7 +646,7 @@ public class InsertTestData {
                 "    \"name\": \"웹서버\",\n" +
                 "    \"majorType\": 1,\n" +
                 "    \"registerPolicy\": 1,\n" +
-                "    \"contentTypes\": [\n" +
+                "    \"contentGroups\": [\n" +
                 "      {\n" +
                 "        \"endTime\": true,\n" +
                 "        \"startTime\": true,\n" +

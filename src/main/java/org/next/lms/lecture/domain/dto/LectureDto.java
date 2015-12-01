@@ -2,7 +2,7 @@ package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
-import org.next.lms.content.domain.dto.ContentTypeDto;
+import org.next.lms.content.domain.dto.ContentGroupDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.like.domain.UserLikesLecture;
@@ -17,7 +17,7 @@ public class LectureDto {
     private final UserSummaryDto hostUser;
     private final List<Long> likes;
     private final List<UserGroupDto> userGroups;
-    private final List<ContentTypeDto> contentTypes;
+    private final List<ContentGroupDto> contentTypes;
     private final List<UserSummaryDto> users;
     private final List<ContentSummaryDto> contents;
     private final Long id;
@@ -35,7 +35,7 @@ public class LectureDto {
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
         this.contents = lecture.getContents().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
         this.likes = lecture.getUserLikesLectures().stream().map(UserLikesLecture::getId).collect(Collectors.toList());
-        this.contentTypes = lecture.getContentTypes().stream().map(ContentTypeDto::new).collect(Collectors.toList());
+        this.contentTypes = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
         this.users = lecture.getUserEnrolledLectures().stream()
                 .filter(user -> ApprovalState.OK.equals(user.getApprovalState()))
                 .map(UserSummaryDto::new)

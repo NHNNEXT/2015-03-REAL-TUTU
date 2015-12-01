@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ContentSummaryDto {
 
     private String body;
-    private ContentTypeDto type;
+    private ContentGroupDto contentGroup;
     private final String lectureName;
     private final Long hits;
     private final Integer repliesSize;
@@ -37,7 +37,7 @@ public class ContentSummaryDto {
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
         if (content.getType() != null)
-            this.type = new ContentTypeDto(content.getType());
+            this.contentGroup = new ContentGroupDto(content.getType());
         this.hits = content.getHits();
         this.body = content.getBody();
         if (this.body != null && this.body.length() > 100)

@@ -7,8 +7,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="type in lecture.contentTypes">
-      <td ng-click="toggleContentTypes($index)">{{type.name}}</td>
+    <tr ng-repeat="type in lecture.contentGroup">
+      <td ng-click="toggleContentGroup($index)">{{type.name}}</td>
       <td ng-repeat="group in lecture.userGroups" name="{{group.name}}">
         <md-checkbox ng-model="lecture.readable[$index][$parent.$index]">
           읽기

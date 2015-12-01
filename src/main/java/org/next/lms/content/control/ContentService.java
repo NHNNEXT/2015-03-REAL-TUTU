@@ -35,7 +35,7 @@ public class ContentService {
     private LectureRepository lectureRepository;
 
     @Autowired
-    private ContentTypeRepository contentTypeRepository;
+    private ContentGroupRepository contentGroupRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -61,7 +61,7 @@ public class ContentService {
 
     public Result saveContent(ContentParameterDto contentParameterDto, User user, Long lectureId) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-        Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
+        Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
 
         messageService
                 // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
@@ -97,7 +97,7 @@ public class ContentService {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
         lectureAuthority.checkUpdateRight(lecture, user);
         contents.getContents().forEach(contentParameterDto -> {
-            contentParameterDto.saveContent(lecture, user, contentRepository, contentTypeRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
+            contentParameterDto.saveContent(lecture, user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
         });
         return success();
     }

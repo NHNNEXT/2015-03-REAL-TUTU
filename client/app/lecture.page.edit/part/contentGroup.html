@@ -1,36 +1,36 @@
-<div layout="row" ng-repeat="contentType in lecture.contentTypes">
+<div layout="row" ng-repeat="contentGroup in lecture.contentGroups">
   <md-input-container class="md-block" flex>
     <label>게시물 타입</label>
-    <input ng-model="contentType.name">
+    <input ng-model="contentGroup.name">
   </md-input-container>
   <div flex>
     시간
     <div class="sub-setting">
-      <md-checkbox ng-model="contentType.startTime">
+      <md-checkbox ng-model="contentGroup.startTime">
         시작
       </md-checkbox>
-      <md-checkbox ng-change="endTimeCheck(contentType)" ng-model="contentType.endTime">
-        <span ng-show="contentType.startTime">끝</span>
-        <span ng-show="!contentType.startTime">마감</span>
+      <md-checkbox ng-change="endTimeCheck(contentGroup)" ng-model="contentGroup.endTime">
+        <span ng-show="contentGroup.startTime">끝</span>
+        <span ng-show="!contentGroup.startTime">마감</span>
       </md-checkbox>
     </div>
   </div>
   <div flex>
     기능
     <div class="sub-setting">
-      <md-checkbox ng-model="contentType.reply">
+      <md-checkbox ng-model="contentGroup.reply">
         댓글
         <md-tooltip md-direction="right">
           댓글을 달 수 있습니다.
         </md-tooltip>
       </md-checkbox>
-      <md-checkbox ng-change="endTimeCheck(contentType)" ng-model="contentType.submit">
+      <md-checkbox ng-change="endTimeCheck(contentGroup)" ng-model="contentGroup.submit">
         제출
         <md-tooltip md-direction="right">
           마감 시간까지 제출을 받습니다.
         </md-tooltip>
       </md-checkbox>
-      <md-checkbox ng-show="contentType.submit" ng-model="contentType.submitOpen">
+      <md-checkbox ng-show="contentGroup.submit" ng-model="contentGroup.submitOpen">
         제출 내용 공개
         <md-tooltip md-direction="right">
           제출한 내용을 모든 참여자가 볼 수 있습니다.
@@ -39,16 +39,16 @@
     </div>
   </div>
   <div flex>
-    <md-button aria-label="remove" ng-click="lecture.removeContentType(contentType)">삭제</md-button>
+    <md-button aria-label="remove" ng-click="lecture.removeContentGroup(contentGroup)">삭제</md-button>
   </div>
 
 </div>
 <div layout="row">
   <md-input-container flex="80">
     <label>게시물 타입</label>
-    <input ng-model="contentType.name">
+    <input ng-model="contentGroup.name">
   </md-input-container>
-  <md-button aria-label="new" ng-click="newContentType()" flex="20">
+  <md-button aria-label="new" ng-click="newContentGroup()" flex="20">
     게시물 타입 추가하기
   </md-button>
 </div>

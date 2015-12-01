@@ -1,12 +1,8 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
-import org.next.infra.repository.*;
-import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.domain.Content;
-import org.next.lms.content.domain.ContentType;
-import org.next.lms.content.control.auth.UserGroupCanReadContent;
-import org.next.lms.content.control.auth.UserGroupCanWriteContent;
+import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.user.domain.User;
 
@@ -14,13 +10,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "userGroups", "contentTypes", "userLikesLectures", "userEnrolledLectures", "contents"})
+@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentTypes", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
@@ -36,7 +31,7 @@ public class Lecture {
     private List<UserGroup> userGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<ContentType> contentTypes = new ArrayList<>();
+    private List<ContentGroup> contentGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();

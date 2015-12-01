@@ -3,7 +3,7 @@ angular.module('clientApp')
   .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode) {
     function Lecture(param) {
       if (param === undefined) {
-        this.contentTypes = [{
+        this.contentGroups = [{
           "endTime": true,
           "startTime": true,
           "todo": false,
@@ -81,14 +81,14 @@ angular.module('clientApp')
         this.defaultGroup = 0;
     };
 
-    Lecture.prototype.removeContentType = function (el) {
-      if (this.contentTypes.length < 2) {
+    Lecture.prototype.removecontentGroup = function (el) {
+      if (this.contentGroups.length < 2) {
         alert.warning("최소 하나의 타입은 있어야 합니다.");
         return;
       }
       if (!confirm("삭제하시겠습니까?"))
         return;
-      this.contentTypes.remove(el);
+      this.contentGroups.remove(el);
     };
 
     Lecture.prototype.setProperties = function (param) {
@@ -98,7 +98,7 @@ angular.module('clientApp')
       this.registerPolicy = param.registerPolicy;
       this.likes = param.likes;
       this.hostUser = new User(param.hostUser);
-      this.contentTypes = param.contentTypes;
+      this.contentGroups = param.contentGroups;
       this.userGroups = param.userGroups;
       this.users = param.users;
       this.waitingUsers = param.waitingUsers;
@@ -134,7 +134,7 @@ angular.module('clientApp')
       query.name = this.name;
       query.majorType = this.majorType;
       query.registerPolicy = this.registerPolicy;
-      query.contentTypes = this.contentTypes;
+      query.contentGroups = this.contentGroups;
       query.userGroups = this.userGroups;
       query.writable = this.writable;
       query.readable = this.readable;

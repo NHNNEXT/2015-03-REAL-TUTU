@@ -1,7 +1,7 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('ContentType', function () {
-    function ContentType(param) {
+  .factory('ContentGroup', function () {
+    function ContentGroup(param) {
       this.id = param.id;
       this.endTime = param.endTime;
       this.startTime = param.startTime;
@@ -11,13 +11,13 @@ angular.module('clientApp')
       this.name = param.name;
     }
 
-    ContentType.prototype.hasTime = function(){
+    ContentGroup.prototype.hasTime = function(){
       return this.startTime || this.endTime;
     };
 
-    ContentType.prototype.hasDuration = function(){
+    ContentGroup.prototype.hasDuration = function(){
       return this.startTime && this.endTime;
     };
 
-    return ContentType;
+    return ContentGroup;
   });

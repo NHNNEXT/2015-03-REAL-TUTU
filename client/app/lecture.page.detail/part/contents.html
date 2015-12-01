@@ -1,7 +1,7 @@
 <div layout="row">
   <div class="info" flex>
     <span ng-click="setType()"><a class="black">전체</a></span>
-      <span ng-repeat="(key, type) in lecture.contentTypes">
+      <span ng-repeat="(key, type) in lecture.contentGroups">
         <span class="bar"></span>
         <span ng-click="setType(type)"><a class="black">{{type.name}}</a></span>
       </span>

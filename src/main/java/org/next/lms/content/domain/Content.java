@@ -6,7 +6,6 @@ import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.reply.domain.Reply;
-import org.next.lms.submit.Submit;
 import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
@@ -47,7 +46,7 @@ public class Content {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTENT_TYPE_ID")
-    private ContentType type;
+    private ContentGroup type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")

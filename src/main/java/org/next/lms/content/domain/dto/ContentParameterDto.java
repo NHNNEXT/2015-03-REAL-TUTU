@@ -10,11 +10,10 @@ import org.next.infra.repository.UserRepository;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.control.ContentAuth;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.infra.repository.ContentTypeRepository;
+import org.next.infra.repository.ContentGroupRepository;
 import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,13 +35,13 @@ public class ContentParameterDto {
     private Content content;
     private List<Long> submitRequiredUsers;
 
-    public Content saveContent(Lecture lecture, User user, ContentRepository contentRepository, ContentTypeRepository contentTypeRepository, ContentAuth contentAuthority, UserRepository userRepository, UserHaveToSubmitRepository userHaveToSubmitRepository) {
+    public Content saveContent(Lecture lecture, User user, ContentRepository contentRepository, ContentGroupRepository contentGroupRepository, ContentAuth contentAuthority, UserRepository userRepository, UserHaveToSubmitRepository userHaveToSubmitRepository) {
         if (type == null)
             throw new PatternNotMatchedException("게시물 타입을 입력해야합니다.");
         content = new Content();
         content.setLecture(lecture);
         content.setWriter(user);
-        content.setType(assureNotNull(contentTypeRepository.findOne(type)));
+        content.setType(assureNotNull(contentGroupRepository.findOne(type)));
         contentAuthority.checkWriteRight(content.getType(), user);
         content.setId(this.id);
         content.setTitle(this.title);

@@ -1,7 +1,8 @@
 package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
-import org.next.lms.content.domain.ContentType;
+import org.next.lms.content.domain.ContentGroup;
+import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.lecture.control.auth.ApprovalState;
@@ -39,7 +40,7 @@ public class LectureForHostUserDto extends LectureDto {
 
     private void makeWriteAndRead(Lecture lecture) {
         List<UserGroup> userGroups = lecture.getUserGroups();
-        List<ContentType> contentTypes = lecture.getContentTypes();
+        List<ContentGroup> contentGroups = lecture.getContentGroups();
         this.writable = new ArrayList<>();
         this.readable = new ArrayList<>();
         this.submitReadable = new ArrayList<>();
@@ -47,11 +48,11 @@ public class LectureForHostUserDto extends LectureDto {
             List<Boolean> writable = new ArrayList<>();
             List<Boolean> readable = new ArrayList<>();
             List<Boolean> submitReadable = new ArrayList<>();
-            for (int j = 0; j < contentTypes.size(); j++) {
+            for (int j = 0; j < contentGroups.size(); j++) {
                 final int finalJ = j;
-                writable.add(userGroup.getWritable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
-                readable.add(userGroup.getReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
-                submitReadable.add(userGroup.getSubmitReadable().stream().filter(relation -> relation.getContentType().equals(contentTypes.get(finalJ))).findAny().isPresent());
+                writable.add(userGroup.getWritable().stream().filter(relation -> relation.getContentGroup().equals(contentGroups.get(finalJ))).findAny().isPresent());
+                readable.add(userGroup.getReadable().stream().filter(relation -> relation.getContentGroup().equals(contentGroups.get(finalJ))).findAny().isPresent());
+                submitReadable.add(userGroup.getSubmitReadable().stream().filter(relation -> relation.getContentGroup().equals(contentGroups.get(finalJ))).findAny().isPresent());
             }
             this.writable.add(writable);
             this.readable.add(readable);

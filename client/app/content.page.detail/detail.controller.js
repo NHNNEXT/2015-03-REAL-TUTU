@@ -3,7 +3,6 @@ angular.module('clientApp').controller('contentDetailController',
   function ($scope, rootUser, Content, $stateParams, types, Reply, $state, http) {
     $scope.rootUser = rootUser;
     $scope.content = {replies: []};
-    $scope.contentTypes = types.contentTypes;
 
     $scope.$watch(function () {
       return $stateParams.id;

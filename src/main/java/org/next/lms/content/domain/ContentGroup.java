@@ -17,16 +17,16 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "endTime", "startTime", "submit", "submitOpen", "reply", "name"})
 @Entity
-@Table(name = "CONTENT_TYPE")
-public class ContentType {
+@Table(name = "CONTENT_GROUP")
+public class ContentGroup {
 
-    @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
     private List<UserGroupCanWriteContent> writable = new ArrayList<>();
 
-    @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
-    @OneToMany(mappedBy = "contentType", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
     private List<UserGroupCanReadSubmit> submitReadable = new ArrayList<>();
 
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
@@ -61,21 +61,22 @@ public class ContentType {
     private String name;
 
 
-    public void update(ContentType contentType) {
-        if (contentType.endTime != null)
-            this.endTime = contentType.endTime;
-        if (contentType.startTime != null)
-            this.startTime = contentType.startTime;
-        if (contentType.submit != null) {
-            this.submit = contentType.submit;
-            if (contentType.submit)
+    public void update(ContentGroup contentGroup) {
+        if (contentGroup.endTime != null)
+            this.endTime = contentGroup.endTime;
+        if (contentGroup.startTime != null)
+            this.startTime = contentGroup.startTime;
+        if (contentGroup.submit != null) {
+            this.submit = contentGroup.submit;
+            if (contentGroup.submit)
                 this.endTime = true;
         }
-        if (contentType.submitOpen != null)
-            this.submitOpen = contentType.submitOpen;
-        if (contentType.reply != null)
-            this.reply = contentType.reply;
-        if (contentType.name != null)
-            this.name = contentType.name;
+        if (contentGroup.submitOpen != null)
+            this.submitOpen = contentGroup.submitOpen;
+        if (contentGroup.reply != null)
+            this.reply = contentGroup.reply;
+        if (contentGroup.name != null)
+            this.name = contentGroup.name;
     }
+
 }

@@ -4,7 +4,7 @@
     <md-input-container flex="20">
       <label>구분</label>
       <md-select ng-model="type">
-        <md-option ng-repeat="type in contentTypes" ng-click="content.setType(type)">
+        <md-option ng-repeat="type in contentGroups" ng-click="content.setType(type)">
           {{type.name}}
         </md-option>
       </md-select>
