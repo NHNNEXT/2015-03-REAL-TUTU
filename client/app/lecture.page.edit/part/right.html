@@ -7,8 +7,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="type in lecture.contentGroup">
-      <td ng-click="toggleContentGroup($index)">{{type.name}}</td>
+    <tr ng-repeat="contentGroup in lecture.contentGroups">
+      <td ng-click="toggleContentGroup($index)">{{contentGroup.name}}</td>
       <td ng-repeat="group in lecture.userGroups" name="{{group.name}}">
         <md-checkbox ng-model="lecture.readable[$index][$parent.$index]">
           읽기
@@ -16,7 +16,7 @@
         <md-checkbox ng-model="lecture.writable[$index][$parent.$index]">
           쓰기
         </md-checkbox>
-        <md-checkbox ng-show="type.submit && !type.submitOpen" ng-model="lecture.submitReadable[$index][$parent.$index]">
+        <md-checkbox ng-show="contentGroup.contentType==='SUBMIT' && !contentGroup.submitOpen" ng-model="lecture.submitReadable[$index][$parent.$index]">
           제출 내용 열람
         </md-checkbox>
       </td>

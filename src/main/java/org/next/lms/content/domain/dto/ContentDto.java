@@ -43,15 +43,15 @@ public class ContentDto {
         this.writeDate = content.getWriteDate();
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
-        this.contentGroup = new ContentGroupDto(content.getType());
+        this.contentGroup = new ContentGroupDto(content.getContentGroup());
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
-        if (!content.getType().getSubmit())
+        if (!content.getContentGroup().getContentType().getSubmit())
             return;
         boolean hasRightReadSubmits = user.equals(content.getLecture().getHostUser())
-                || content.getType().getSubmitReadable().stream()
+                || content.getContentGroup().getSubmitReadable().stream()
                 .filter(userGroupCanReadSubmit -> userGroupCanReadSubmit.getUserGroup().getUserEnrolledLectures().stream()
                         .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent()).findAny().isPresent();
         if (hasRightReadSubmits) {

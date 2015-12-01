@@ -71,10 +71,10 @@ public class ContentService {
     }
 
     public Result update(Content content, User user) {
-        content.validateFields();
         Content contentFromDB = assureNotNull(contentRepository.findOne(content.getId()));
         contentAuthority.checkUpdateRight(contentFromDB, user);
         contentFromDB.update(content);
+        contentFromDB.validate();
         return success();
     }
 

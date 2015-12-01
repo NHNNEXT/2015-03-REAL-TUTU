@@ -4,27 +4,25 @@ angular.module('clientApp')
     function Lecture(param) {
       if (param === undefined) {
         this.contentGroups = [{
-          "endTime": true,
-          "startTime": true,
-          "todo": false,
-          "todoOpen": false,
+          "submitOpen": false,
           "reply": true,
-          "name": "수업"
+          "name": "수업",
+          "contentType":"SCHEDULE"
         }, {
-          "endTime": false,
-          "startTime": false,
-          "todo": false,
-          "todoOpen": false,
+          "submitOpen": false,
           "reply": true,
-          "name": "강의자료"
+          "name": "강의자료",
+          "contentType":"GENERAL"
         }, {
-          "endTime": false,
-          "startTime": false,
-          "todo": false,
-          "todoOpen": false,
+          "submitOpen": false,
           "reply": true,
-          "name": "질문"
-        }, {"endTime": true, "startTime": false, "todo": true, "todoOpen": false, "reply": true, "name": "과제"}];
+          "name": "공지",
+          "contentType":"NOTICE"
+        }, {
+          "submitOpen": false, "reply": true, "name": "과제",
+          "contentType":"SUBMIT"
+        }
+        ];
         this.userGroups = [{"defaultGroup": false, "name": "조교"}, {"defaultGroup": true, "name": "수강생"}];
         this.writable = [[true, true, true, true], [false, false, true, true]];
         this.readable = [[true, true, true, true], [true, true, true, true]];

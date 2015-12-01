@@ -18,9 +18,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "type"})
+@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "contentGroup"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "type"})
+@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "contentGroup"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {
@@ -46,7 +46,7 @@ public class Content {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTENT_TYPE_ID")
-    private ContentGroup type;
+    private ContentGroup contentGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
@@ -103,11 +103,8 @@ public class Content {
         this.lecture = null;
     }
 
-    public void validateFields() {
-        if (type.getEndTime() && this.endTime == null)
-            throw new PatternNotMatchedException("시간을 입력해주세요.");
-        if (type.getStartTime() && this.startTime == null)
-            throw new PatternNotMatchedException("시간을 입력해주세요.");
+    public void validate() {
+        this.contentGroup.getContentType().validate(this);
     }
 }
 

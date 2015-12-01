@@ -17,10 +17,10 @@
 
 
   <div layout="row" ng-show="!extendWrite || !content.contentGroup.hasDuration()" class="margin-top">
-    <div ng-show="content.contentGroup.startTime" flex>
+    <div ng-show="content.contentGroup.contentType.startTime" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
     </div>
-    <div ng-show="content.contentGroup.endTime" flex>
+    <div ng-show="content.contentGroup.contentType.endTime" flex>
       <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
     </div>
   </div>
@@ -33,7 +33,7 @@
   </div>
 
 
-  <div layout="row" ng-show="content.contentGroup.submit">
+  <div layout="row" ng-show="content.contentGroup.contentType.submit">
     <md-data-table-container>
       <table md-data-table>
         <thead md-order="query.order" md-trigger="onOrderChange">

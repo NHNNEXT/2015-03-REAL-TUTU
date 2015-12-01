@@ -1,21 +1,27 @@
 angular.module('clientApp')
   /* @ngInject */
   .factory('ContentGroup', function () {
+
+    var contentTypes = {
+      GENERAL: {},
+      NOTICE: {},
+      SUBMIT: {endTime: true, submit: true},
+      SCHEDULE: {startTime: true, endTime: true}
+    };
+
     function ContentGroup(param) {
       this.id = param.id;
-      this.endTime = param.endTime;
-      this.startTime = param.startTime;
+      this.contentType = contentTypes[param.contentType];
       this.submitOpen = param.submitOpen;
-      this.submit = param.submit;
       this.reply = param.reply;
       this.name = param.name;
     }
 
-    ContentGroup.prototype.hasTime = function(){
+    ContentGroup.prototype.hasTime = function () {
       return this.startTime || this.endTime;
     };
 
-    ContentGroup.prototype.hasDuration = function(){
+    ContentGroup.prototype.hasDuration = function () {
       return this.startTime && this.endTime;
     };
 

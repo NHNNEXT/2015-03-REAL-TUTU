@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"writable", "readable", "lecture", "submitReadable", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "endTime", "startTime", "submit", "submitOpen", "reply", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "contentType", "submitOpen", "reply", "name"})
 @Entity
 @Table(name = "CONTENT_GROUP")
 public class ContentGroup {
@@ -29,7 +29,7 @@ public class ContentGroup {
     @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
     private List<UserGroupCanReadSubmit> submitReadable = new ArrayList<>();
 
-    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,14 +41,9 @@ public class ContentGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "END_TIME", nullable = false, columnDefinition = "boolean default false")
-    private Boolean endTime = false;
-
-    @Column(name = "START_TIME", nullable = false, columnDefinition = "boolean default false")
-    private Boolean startTime = false;
-
-    @Column(name = "SUBMIT", nullable = false, columnDefinition = "boolean default false")
-    private Boolean submit = false;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CONTENT_TYPE", nullable = false)
+    private ContentType contentType = ContentType.GENERAL;
 
     @Column(name = "SUBMIT_OPEN", nullable = false, columnDefinition = "boolean default false")
     private Boolean submitOpen = false;
@@ -62,17 +57,10 @@ public class ContentGroup {
 
 
     public void update(ContentGroup contentGroup) {
-        if (contentGroup.endTime != null)
-            this.endTime = contentGroup.endTime;
-        if (contentGroup.startTime != null)
-            this.startTime = contentGroup.startTime;
-        if (contentGroup.submit != null) {
-            this.submit = contentGroup.submit;
-            if (contentGroup.submit)
-                this.endTime = true;
-        }
         if (contentGroup.submitOpen != null)
             this.submitOpen = contentGroup.submitOpen;
+        if (contentGroup.contentType != null)
+            this.contentType = contentGroup.contentType;
         if (contentGroup.reply != null)
             this.reply = contentGroup.reply;
         if (contentGroup.name != null)

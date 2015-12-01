@@ -52,7 +52,7 @@ angular.module('clientApp')
       query.startTime = this.startTime;
       if (this.id === undefined)
         query.contentGroup = this.contentGroup.id;
-      if (this.contentGroup.submit) {
+      if (this.contentGroup.contentType.submit) {
         query.submitRequiredUsers = [];
         this.users.forEach(function (user) {
           if (user.submit)

@@ -1,22 +1,39 @@
 <div layout="row" ng-repeat="contentGroup in lecture.contentGroups">
+  <md-input-container flex="10">
+    <label>구분</label>
+    <md-select ng-model="contentGroup.contentType">
+      <md-option value="GENERAL">
+        일반
+        <md-tooltip md-direction="right">
+          일반 게시물입니다.
+        </md-tooltip>
+      </md-option>
+      <md-option value="NOTICE">
+        공지
+        <md-tooltip md-direction="right">
+          공지에 표시됩니다.
+        </md-tooltip>
+      </md-option>
+      <md-option value="SUBMIT">
+        제출
+        <md-tooltip md-direction="right">
+          마감 기한을 정하여 제출받습니다.
+        </md-tooltip>
+      </md-option>
+      <md-option value="SCHEDULE">
+        일정
+        <md-tooltip md-direction="right">
+          시작시간과 끝시간을 지정할 수 있습니다.
+        </md-tooltip>
+      </md-option>
+    </md-select>
+  </md-input-container>
   <md-input-container class="md-block" flex>
     <label>게시물 타입</label>
     <input ng-model="contentGroup.name">
   </md-input-container>
   <div flex>
-    시간
-    <div class="sub-setting">
-      <md-checkbox ng-model="contentGroup.startTime">
-        시작
-      </md-checkbox>
-      <md-checkbox ng-change="endTimeCheck(contentGroup)" ng-model="contentGroup.endTime">
-        <span ng-show="contentGroup.startTime">끝</span>
-        <span ng-show="!contentGroup.startTime">마감</span>
-      </md-checkbox>
-    </div>
-  </div>
-  <div flex>
-    기능
+    선택사항
     <div class="sub-setting">
       <md-checkbox ng-model="contentGroup.reply">
         댓글
@@ -24,13 +41,7 @@
           댓글을 달 수 있습니다.
         </md-tooltip>
       </md-checkbox>
-      <md-checkbox ng-change="endTimeCheck(contentGroup)" ng-model="contentGroup.submit">
-        제출
-        <md-tooltip md-direction="right">
-          마감 시간까지 제출을 받습니다.
-        </md-tooltip>
-      </md-checkbox>
-      <md-checkbox ng-show="contentGroup.submit" ng-model="contentGroup.submitOpen">
+      <md-checkbox ng-show="contentGroup.contentType==='SUBMIT'" ng-model="contentGroup.submitOpen">
         제출 내용 공개
         <md-tooltip md-direction="right">
           제출한 내용을 모든 참여자가 볼 수 있습니다.

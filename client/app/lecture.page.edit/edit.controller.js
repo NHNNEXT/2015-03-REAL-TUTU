@@ -27,7 +27,7 @@ angular
         lecture = $scope.lecture = new Lecture();
         $scope.select = [false, true];
         $scope.userGroup = {};
-        $scope.contentGroup = {};
+        $scope.contentGroup = {contentType: "GENERAL"};
       }
 
       $scope.newUserGroup = function () {
@@ -50,7 +50,7 @@ angular
 
       $scope.newContentGroup = function () {
         lecture.contentGroups.push($scope.contentGroup);
-        $scope.contentGroup = {};
+        $scope.contentGroup = {contentType: "GENERAL"};
         if (lecture.writable[0].length < lecture.contentGroups.length) {
           lecture.writable.forEach(function (writable) {
             writable.push(true);
@@ -64,13 +64,6 @@ angular
         }
       };
 
-
-      $scope.endTimeCheck = function(contentGroup){
-        if(contentGroup.todo && !contentGroup.endTime){
-          alert.info("제출 기능은 마감시간이 필요합니다.");
-          contentGroup.endTime = true;
-        }
-      };
 
       $scope.cancel = cancel;
       $scope.save = save;

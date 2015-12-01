@@ -36,8 +36,8 @@ public class ContentSummaryDto {
         this.writeDate = content.getWriteDate();
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
-        if (content.getType() != null)
-            this.contentGroup = new ContentGroupDto(content.getType());
+        if (content.getContentGroup() != null)
+            this.contentGroup = new ContentGroupDto(content.getContentGroup());
         this.hits = content.getHits();
         this.body = content.getBody();
         if (this.body != null && this.body.length() > 100)

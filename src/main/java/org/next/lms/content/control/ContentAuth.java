@@ -33,7 +33,7 @@ public class ContentAuth extends Auth {
     }
 
     private boolean isReadable(Content content, User user) {
-        return content.getType().getReadable().stream().filter(readable -> readable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
+        return content.getContentGroup().getReadable().stream().filter(readable -> readable.getUserGroup().getUserEnrolledLectures().stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findFirst().isPresent()).findFirst().isPresent();
     }
 
     private boolean isWritable(ContentGroup contentGroup, User user) {

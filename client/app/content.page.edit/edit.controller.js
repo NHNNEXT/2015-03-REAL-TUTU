@@ -11,7 +11,7 @@ angular.module('clientApp').controller('contentEditController',
       Content.findById(id).then(function (content) {
         $scope.content = content;
         $state.current.header = content.lectureName;
-        if ($scope.content.contentGroup.startTime)
+        if ($scope.content.contentGroup.contentType.startTime)
           $scope.placeholder = "끝";
         else
           $scope.placeholder = "마감";

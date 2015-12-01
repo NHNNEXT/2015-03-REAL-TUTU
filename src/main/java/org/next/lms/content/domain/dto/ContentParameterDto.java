@@ -41,17 +41,17 @@ public class ContentParameterDto {
         content = new Content();
         content.setLecture(lecture);
         content.setWriter(user);
-        content.setType(assureNotNull(contentGroupRepository.findOne(contentGroup)));
-        contentAuthority.checkWriteRight(content.getType(), user);
+        content.setContentGroup(assureNotNull(contentGroupRepository.findOne(contentGroup)));
+        contentAuthority.checkWriteRight(content.getContentGroup(), user);
         content.setId(this.id);
         content.setTitle(this.title);
         content.setBody(this.body);
         content.setWriteDate(new Date());
         content.setStartTime(this.startTime);
         content.setEndTime(this.endTime);
-        content.validateFields();
+        content.validate();
         contentRepository.save(content);
-        if (content.getType().getSubmit()) {
+        if (content.getContentGroup().getContentType().getSubmit()) {
             submitUserDeclare(content, userRepository, userHaveToSubmitRepository);
         }
         return content;
