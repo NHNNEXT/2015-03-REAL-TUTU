@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.next.NextLectureManagerApplication;
 import org.next.infra.repository.UserRepository;
+import org.next.lms.tag.domain.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -12,6 +13,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,12 +37,4 @@ public class ExceptionTest {
         userRepository.findOne(null);
     }
 
-    @PersistenceContext
-    private EntityManager em;
-
-
-    @Test
-    public void 인자가_널이면_InvalidDtion_발생2() throws Exception {
-        em.createNativeQuery("select distinct name from table ");
-    }
 }

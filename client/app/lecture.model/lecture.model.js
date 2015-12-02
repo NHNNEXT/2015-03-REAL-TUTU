@@ -19,7 +19,9 @@ angular.module('clientApp')
           "name": "공지",
           "contentType": "NOTICE"
         }, {
-          "submitOpen": false, "reply": true, "name": "과제",
+          "submitOpen": false,
+          "reply": true,
+          "name": "과제",
           "contentType": "SUBMIT"
         }
         ];
@@ -101,9 +103,10 @@ angular.module('clientApp')
       this.users = param.users;
       this.waitingUsers = param.waitingUsers;
       this.rejectUsers = param.rejectUsers;
-      this.contents = param.contents.map(function (content) {
-        return new Content(content)
-      });
+      if (param.contents)
+        this.contents = param.contents.map(function (content) {
+          return new Content(content);
+        });
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;

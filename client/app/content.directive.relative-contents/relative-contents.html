@@ -2,15 +2,18 @@
   <md-subheader class="md-no-sticky">연관 게시물</md-subheader>
   <md-list-item class="md-2-line">
     <div class="md-list-item-text">
-      <h3 ui-sref="content({id:content.id})"> {{ content.title }} <span class="dot"></span> <small> {{ content.contentGroup.name }} <span class="dot"></span> By {{content.writer.name}}</small></h3>
-      <p ng-bind="content.body.removeTags()">  </p>
+      <h3 ui-sref="content({id:content.id})"> {{ content.title }} <span class="dot"></span>
+        <small> {{ content.contentGroup.name }} <span class="dot"></span> By {{content.writer.name}}</small>
+      </h3>
+      <p ng-bind="content.body.removeTags()"></p>
     </div>
   </md-list-item>
   <md-autocomplete ng-show="!readonly"
-    md-selected-item="ctrl.selectedItem"
-    md-search-text="ctrl.searchText"
-    md-items="item in ctrl.querySearch(ctrl.searchText)"
-    md-item-text="item.text"
-    placeholder="연관 게시물">
+                   md-selected-item="ctrl.selectedItem"
+                   md-search-text="ctrl.searchText"
+                   md-items="item in ctrl.querySearch(ctrl.searchText)"
+                   md-item-text="item.text"
+                   placeholder="연관 게시물">
     <span md-highlight-text="ctrl.searchText">{{item.text}}</span>
+  </md-autocomplete>
 </md-list>

@@ -35,26 +35,8 @@
       model.push = function (chip) {
         if (angular.element($("md-virtual-repeat-container:not(.ng-hide) li[md-virtual-repeat].selected")).length)
           return;
-        chip = transform(chip);
-        var ignore = false;
-        model.forEach(function (each) {
-          if (each.id !== undefined && each.id === chip.id)
-            ignore = true;
-          if (each.text === chip.text)
-            ignore = true;
-        });
-        if (ignore)
-          return;
         model.add(chip);
-
-        function transform(chip) {
-          if (angular.isObject(chip)) {
-            return chip;
-          }
-          return {text: chip};
-        }
       };
-
     });
 
 

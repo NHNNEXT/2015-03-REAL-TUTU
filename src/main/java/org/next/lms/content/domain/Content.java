@@ -37,7 +37,7 @@ public class Content {
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<UserHaveToSubmit> userHaveToSubmits = new ArrayList<>();
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Tag> tags = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -9,11 +9,13 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"id", "content"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id", "content"})
 @Entity
-@Table(name = "TAG")
+@Table(name = "TAG", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"CONTENT_ID", "TEXT"})
+})
 public class Tag {
 
     @ManyToOne(fetch = FetchType.LAZY)

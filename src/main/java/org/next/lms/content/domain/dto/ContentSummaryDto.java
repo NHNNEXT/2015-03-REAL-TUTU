@@ -2,7 +2,7 @@ package org.next.lms.content.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.Content;
-import org.next.lms.tag.domain.TagDto;
+import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.UserSummaryDto;
 
 import java.util.Date;
@@ -24,7 +24,7 @@ public class ContentSummaryDto {
     private final Date writeDate;
     private final Date startTime;
     private final Date endTime;
-    private final List<TagDto> tags;
+    private final List<String> tags;
 
     public ContentSummaryDto(Content content) {
         this.repliesSize = content.getReplies().size();
@@ -42,6 +42,6 @@ public class ContentSummaryDto {
         this.body = content.getBody();
         if (this.body != null && this.body.length() > 100)
             this.body = this.body.substring(0, 100);
-        this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
+        this.tags = content.getTags().stream().map(Tag::getText).collect(Collectors.toList());
     }
 }

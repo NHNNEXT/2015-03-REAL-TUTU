@@ -5,11 +5,11 @@
     md-selected-item="ctrl.selectedItem"
     md-search-text="ctrl.searchText"
     md-items="item in ctrl.querySearch(ctrl.searchText)"
-    md-item-text="item.text"
+
     placeholder="{{ctrl.placeholder}}">
-    <span md-highlight-text="ctrl.searchText">{{item.text}}</span>
+    <span md-highlight-text="ctrl.searchText">{{item}}</span>
   </md-autocomplete>
   <md-chip-template>
-    <strong>{{$chip.text}}</strong>
+    <strong>{{$chip}}</strong>
   </md-chip-template>
 </md-chips>

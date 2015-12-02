@@ -5,7 +5,7 @@ import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.submit.UserHaveToSubmitDto;
-import org.next.lms.tag.domain.TagDto;
+import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 
@@ -30,7 +30,7 @@ public class ContentDto {
     private final Date writeDate;
     private final Date startTime;
     private final Date endTime;
-    private final List<TagDto> tags;
+    private final List<String> tags;
     private Long like;
     private List<UserHaveToSubmitDto> submitRequiredUsers;
 
@@ -47,7 +47,7 @@ public class ContentDto {
         this.contentGroup = new ContentGroupDto(content.getContentGroup());
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
-        this.tags = content.getTags().stream().map(TagDto::new).collect(Collectors.toList());
+        this.tags = content.getTags().stream().map(Tag::getText).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
         if (!ContentType.SUBMIT.equals(content.getContentGroup().getContentType()))
             return;
