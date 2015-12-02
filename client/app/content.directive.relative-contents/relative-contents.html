@@ -1,20 +1,30 @@
 <md-list>
   <md-subheader class="md-no-sticky">연관 게시물</md-subheader>
-  <md-list-item class="md-2-line" ng-repeat="content in ctrl.contents">
+  <md-list-item class="md-2-line" ng-repeat="content in ctrl.relativeContents">
     <div class="md-list-item-text">
-      {{content}}
-      <h3 ui-sref="content({id:content.id})"> {{ content.title }} <span class="dot"></span>
-        <small> {{ content.contentGroup.name }} <span class="dot"></span> By {{content.writer.name}}</small>
-      </h3>
+      <div layout="row">
+        <h3 ui-sref="content({id:content.id})" flex> {{ content.title }} <span class="dot"></span>
+          <small> {{ content.contentGroup.name }} <span class="dot"></span> By {{content.writer.name}}</small>
+        </h3>
+        <div ng-show="!ctrl.readonly" flex=10 layout-align="end center">
+          <md-icon md-svg-src="/resource/icon/ic_close.svg" ng-click="ctrl.delete(content)"></md-icon>
+        </div>
+      </div>
       <p ng-bind="content.body.removeTags()"></p>
     </div>
   </md-list-item>
-  <md-autocomplete ng-show="!readonly"
+  <md-autocomplete ng-show="!ctrl.readonly"
                    md-selected-item="ctrl.selectedItem"
                    md-search-text="ctrl.searchText"
-                   md-items="item in ctrl.querySearch(ctrl.searchText)"
-                   md-item-text="item.text"
-                   placeholder="연관 게시물">
-    <span md-highlight-text="ctrl.searchText">{{item.text}}</span>
+                   md-items="content in ctrl.querySearch(ctrl.searchText)"
+                   md-item-text="content.title"
+                   md-selected-item-change="ctrl.select(ctrl.selectedItem)"
+                   placeholder="제목, 본문 내용으로 검색">
+    <md-item-template>
+      <h3><span md-highlight-text="ctrl.searchText">{{content.title}} </span>
+        <small>by {{content.writer.name}}</small>
+      </h3>
+      <div class="padding-bottom-s">{{content.body.removeTags()}}</div>
+    </md-item-template>
   </md-autocomplete>
 </md-list>

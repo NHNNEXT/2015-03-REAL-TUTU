@@ -46,6 +46,11 @@ public class ResponseCode {
         public static final Integer WAITING_FOR_APPROVAL = 16;
     }
 
+    public static final class ContentRelation {
+        public static final Integer ALREADY_EXIST = 29;
+        public static final Integer CANT_BIND_SELF = 30;
+    }
+
 
     /*
 

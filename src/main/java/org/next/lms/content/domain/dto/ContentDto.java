@@ -36,6 +36,7 @@ public class ContentDto {
     private final List<String> tags;
     private Long like;
     private List<UserHaveToSubmitDto> submitRequiredUsers;
+    private List<ContentSummaryDto> relativeContents;
 
     public ContentDto(Content content, User user) {
         this.writer = new UserSummaryDto(content.getWriter());
@@ -52,6 +53,9 @@ public class ContentDto {
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(Tag::getText).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
+        this.relativeContents = new ArrayList<>();
+        this.relativeContents.addAll(content.getLinkContents().stream().map(contentLinkContent -> new ContentSummaryDto(contentLinkContent.getLinkedContent())).collect(Collectors.toList()));
+        this.relativeContents.addAll(content.getLinkedContents().stream().map(contentLinkedContent -> new ContentSummaryDto(contentLinkedContent.getLinkContent())).collect(Collectors.toList()));
         if (!ContentType.SUBMIT.equals(content.getContentGroup().getContentType()))
             return;
         boolean hasRightReadSubmits = user.equals(content.getLecture().getHostUser())

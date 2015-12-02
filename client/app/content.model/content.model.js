@@ -2,7 +2,7 @@ angular.module('clientApp')
   /* @ngInject */
   .factory('Content', function (http, $sce, $q, $state, confirm, ContentGroup) {
     function Content(param) {
-      if (param === undefined)
+      if (param === undefined || param === null)
         return;
       if (typeof param === "object") {
         this.setProperties(param);
@@ -26,6 +26,7 @@ angular.module('clientApp')
       this.id = obj.id;
       this.title = obj.title;
       this.body = obj.body;
+      this.relativeContents = obj.relativeContents;
       this.tags = obj.tags === undefined ? [] : obj.tags;
       if (obj.writeDate)
         this.writeDate = new Date(obj.writeDate);

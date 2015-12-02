@@ -1,12 +1,15 @@
 package org.next.lms.content.control;
 
+import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
+import org.next.lms.content.domain.ContentDao;
 import org.next.lms.content.domain.dto.ContentDto;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.content.domain.dto.ContentListDto;
+import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
@@ -57,9 +60,11 @@ public class ContentService {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Autowired
+    ContentLinkContentRepository contentLinkContentRepository;
+
     public Result getContentDtoById(Long id, User user) {
-        Content content = assureNotNull(contentRepository.findOne(id));
-        contentAuthority.checkReadRight(content, user);
+        Content content = getCheckedContent(id, user);
         content.addReadCount();
         return success(new ContentDto(content, user));
     }
@@ -83,6 +88,10 @@ public class ContentService {
         return success();
     }
 
+    public Result getList(ContentDao contentDao) {
+        return success(contentDao.getList(entityManager).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
+    }
+
     public Result getList(User user) {
         List<ContentSummaryDto> contentSummaryDtos = new ArrayList<>();
         user.getEnrolledLectures().forEach(
@@ -104,6 +113,36 @@ public class ContentService {
         contents.getContents().forEach(contentParameterDto -> {
             contentParameterDto.saveContent(lecture, user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
         });
+        return success();
+    }
+
+    public Result makeRelation(Long contentId, Long linkContentId, User user) {
+        if(contentId.equals(linkContentId))
+            return new Result(ResponseCode.ContentRelation.CANT_BIND_SELF);
+        Content linkContent = getCheckedContent(contentId, user);
+        Content linkedContent = getCheckedContent(linkContentId, user);
+        if (null != contentLinkContentRepository.findByLinkContentIdAndLinkedContentId(contentId, linkContentId))
+            return new Result(ResponseCode.ContentRelation.ALREADY_EXIST);
+        if (null != contentLinkContentRepository.findByLinkContentIdAndLinkedContentId(linkContentId, contentId))
+            return new Result(ResponseCode.ContentRelation.ALREADY_EXIST);
+        ContentLinkContent contentLinkContent = new ContentLinkContent();
+        contentLinkContent.setLinkContent(linkContent);
+        contentLinkContent.setLinkedContent(linkedContent);
+        contentLinkContentRepository.save(contentLinkContent);
+        return success();
+    }
+
+    private Content getCheckedContent(Long contentId, User user) {
+        Content content = assureNotNull(contentRepository.findOne(contentId));
+        contentAuthority.checkReadRight(content, user);
+        return content;
+    }
+
+    public Result removeRelation(Long contentId, Long linkContentId, User user) {
+        getCheckedContent(contentId, user);
+        getCheckedContent(linkContentId, user);
+        contentLinkContentRepository.deleteByLinkContentIdAndLinkedContentId(linkContentId, contentId);
+        contentLinkContentRepository.deleteByLinkContentIdAndLinkedContentId(contentId, linkContentId);
         return success();
     }
 }

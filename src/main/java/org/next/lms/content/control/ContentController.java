@@ -2,6 +2,7 @@ package org.next.lms.content.control;
 
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
+import org.next.lms.content.domain.ContentDao;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.lecture.control.LectureController;
@@ -32,13 +33,23 @@ public class ContentController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Result getContentList(@Logged User user) {
-        return contentService.getList(user);
+    public Result getContentList(ContentDao contentDao) {
+        return contentService.getList(contentDao);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Result saveContentList(@RequestBody ContentListDto contents, @Logged User user) {
         return contentService.saveContents(contents, user);
+    }
+
+    @RequestMapping(value = "/relative", method = RequestMethod.POST)
+    public Result makeRelative(Long contentId, Long linkContentId, @Logged User user) {
+        return contentService.makeRelation(contentId, linkContentId, user);
+    }
+
+    @RequestMapping(value = "/relative", method = RequestMethod.DELETE)
+    public Result removeRelation(Long contentId, Long linkContentId, @Logged User user) {
+        return contentService.removeRelation(contentId, linkContentId, user);
     }
 
     @RequestMapping(method = RequestMethod.POST)

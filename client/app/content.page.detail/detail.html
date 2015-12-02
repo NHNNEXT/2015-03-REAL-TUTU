@@ -46,8 +46,8 @@
       <md-icon md-svg-src="/resource/icon/tag.svg"></md-icon>
     </md-button>
   </div>
-  <div layout="row">
-    <relative-contents content="content" readonly="relativeReadOnly"></relative-contents>
+  <div layout="row" ng-show="content.relativeContents.length>0 || !relativeReadOnly">
+    <relative-contents relative-contents="content.relativeContents" content="content" readonly="relativeReadOnly"></relative-contents>
   </div>
   <div layout="row">
     <md-tags placeholder="태그" ng-model="content.tags" type="content" md-id="content.id" readonly="tagReadOnly" flex></md-tags>
