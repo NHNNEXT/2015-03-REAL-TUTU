@@ -1,6 +1,3 @@
-/**
- * Created by itmnext13 on 2015. 11. 25..
- */
 angular.module('clientApp')
   /* @ngInject */
   .service('ContentRepository', function (ContentFactory, http, $sce, $q, $state, confirm, Reply, queryService, containerSpecificationFactory) {
@@ -8,18 +5,22 @@ angular.module('clientApp')
     this.findByContentID = findByContentID;
     this.findByLectureID = findByLectureID;
     this.save = save;
-
     var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
     console.log(scheduleSpec);
     //var noticeSepc = new ContainerSpecification("NOTICE");
     //var todoSpec = new ContainerSpecification("SUBMIT");
     //var mainTopSpec = scheduleSpec.and(noticeSepc);
+    //var idspec = new ContentSpecification("")
+
+    function selectSatisfying(contentSpecification) {
+      return contentSpecification.satisfyingElementsFrom(this);
+    }
 
     function findByContentID(contentID) {
       return $q(function (resolve) {
         //Restangular.one('content',contentID).get()
         http.get('/api/v1/content', {id: contentID}).then(function (result) {
-          resolve(new ContentFactory(result));
+          resolve(ContentFactory.ExistedContent(result));
         });
       });
     }
@@ -31,7 +32,7 @@ angular.module('clientApp')
           var result = [];
           if (response.forEach) {
             response.forEach(function (each) {
-              result.push(new ContentFactory(each));
+              result.push(ContentFactory.ExistedContent(each));
             });
           }
           else {

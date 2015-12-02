@@ -7,8 +7,12 @@ angular.module('clientApp')
      * @constructor
      */
     function Container() {
-      this.contentList = [];
-      this.typeList = [];
+      if(this instanceof Container) {
+        this.contentList = [];
+        this.typeList = [];
+      } else {
+        return new Container();
+      }
     }
 
     Container.prototype = {
@@ -33,6 +37,5 @@ angular.module('clientApp')
         }
       }
     };
-
     return Container;
   });

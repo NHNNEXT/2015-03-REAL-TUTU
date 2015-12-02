@@ -7,12 +7,12 @@ describe('Factory: containerSpecificationFactory', function () {
 
   // instantiate service
   var containerSpecificationFactory;
-  var Content;
+  var contentFactory;
   var Specification;
   var Container;
-  beforeEach(inject(function (_Specification_,_containerSpecificationFactory_,_ContentFactory_,_Container_) {
+  beforeEach(inject(function (_Specification_,_containerSpecificationFactory_,_contentFactory_,_Container_) {
     containerSpecificationFactory = _containerSpecificationFactory_;
-    Content = _ContentFactory_;
+    contentFactory = _contentFactory_;
     Specification = _Specification_;
     Container = _Container_;
   }));
@@ -32,7 +32,7 @@ describe('Factory: containerSpecificationFactory', function () {
       startTime: new Date("2011-06-09T15:20:00Z"),
       type: "NOTICE"
     };
-    var newbie = new Content(content);
+    var newbie = contentFactory.create(content);
     var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
     newbie.setContainerSpecification(scheduleSpec);
     expect(newbie.getContainerSpecification()).toBe(scheduleSpec);
@@ -61,7 +61,7 @@ describe('Factory: containerSpecificationFactory', function () {
     container1.setType(["SCHEDULE"]);
 
     var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
-    var newbie1 = new Content(content);
+    var newbie1 = contentFactory.create(content);
 
     newbie1.setContainerSpecification(scheduleSpec);
     expect(container1.canContain(newbie1)).toBe(true);
@@ -88,9 +88,9 @@ describe('Factory: containerSpecificationFactory', function () {
     var noticeSpec = containerSpecificationFactory.create("NOTICE");
 
     var mixSpec = scheduleSpec.and(submitSpec);
-    var newbie1 = new Content(content);
-    var newbie2 = new Content(content);
-    var newbie3 = new Content(content);
+    var newbie1 = contentFactory.create(content);
+    var newbie2 = contentFactory.create(content);
+    var newbie3 = contentFactory.create(content);
 
     newbie1.setContainerSpecification(submitSpec);
     newbie2.setContainerSpecification(mixSpec);
@@ -121,7 +121,7 @@ describe('Factory: containerSpecificationFactory', function () {
     var submitSpec1 = containerSpecificationFactory.create("SUBMIT_1");
     var submitSpec2 = containerSpecificationFactory.create("SUBMIT_2");
     var either = submitSpec1.or(submitSpec2);
-    var newbie1 = new Content(content);
+    var newbie1 = contentFactory.create(content);
     newbie1.setContainerSpecification(either);
     expect(container1.canContain(newbie1)).toBe(true);
   });

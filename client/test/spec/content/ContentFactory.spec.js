@@ -3,15 +3,15 @@
  */
 'use strict';
 
-describe('Factory: ContentFactory', function () {
+describe('Factory: contentFactory', function () {
 
   // load the service's module
   beforeEach(module('clientApp'));
 
   // instantiate service
-  var ContentFactory;
-  beforeEach(inject(function (_ContentFactory_) {
-    ContentFactory = _ContentFactory_;
+  var contentFactory;
+  beforeEach(inject(function (_contentFactory_) {
+    contentFactory = _contentFactory_;
   }));
 
   it('should make ProtoContent', function () {
@@ -24,7 +24,7 @@ describe('Factory: ContentFactory', function () {
       startTime: new Date("2011-06-09T15:20:00Z"),
       type: "NOTICE"
     };
-   var newbie = new ContentFactory(content);
+   var newbie = contentFactory.create(content);
     expect(newbie.title).toBe("test");
   });
 
@@ -38,7 +38,7 @@ describe('Factory: ContentFactory', function () {
       startTime: new Date("2011-06-09T15:20:00Z"),
       type: "NOTICE"
     };
-    var newbie = new ContentFactory(content);
+    var newbie =  contentFactory.create(content);
     expect("getContainerSpecification" in newbie).toBe(true);
   });
 
