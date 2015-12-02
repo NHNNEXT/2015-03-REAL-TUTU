@@ -1,22 +1,25 @@
 {
   "bitwise": true,
   "browser": true,
-  "curly": false,
+  "curly": true,
   "eqeqeq": true,
   "esnext": true,
   "latedef": false,
+  "jasmine": true,
   "noarg": true,
   "node": true,
-  "strict": false,
+  "strict": true,
   "undef": true,
   "unused": true,
   "globals": {
     "angular": false,
+    "inject": false,
     "$": true,
     "moment": true,
     "bowser": true,
     "freewall": true,
-    "confirm": true
+    "confirm": true,
+    "_": true
   },
   "validthis": true
 }
