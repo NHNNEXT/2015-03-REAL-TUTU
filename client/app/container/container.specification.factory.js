@@ -3,8 +3,7 @@ angular.module('clientApp')
   .factory('containerSpecificationFactory', function (Specification,Container) {
     "use strict";
 
-    var types = {};
-
+    var containerSpecificationList = {};
     /**
      * @constructor
      * @implements {Specificable}
@@ -12,30 +11,32 @@ angular.module('clientApp')
      * @param required
      */
     function ContainerSpecification(required) {
+      Specification.call(this);
+      this.res = required;
       var requiredType = required;
-      this.specificationList = [];
-      this.prototype = Specification.prototype;
-      this.constructor = Specification.constructor;
+
       this.isSatisfiedBy = function(candidate) {
         if(!(candidate instanceof Container)) {
           return false;
         }
-        return candidate.getSpecificationList().contains(requiredType);
+        return _.includes(candidate.getTypeList(), requiredType);
       };
     }
 
+    ContainerSpecification.prototype = _.create(Specification.prototype, {
+      'constructor': ContainerSpecification
+    });
+
     return {
       create: function(required) {
-        var type = types[required];
         // 저장소에 이미 있다면 그것을 리턴
-        if (type) {
-          return type;
+        var cs = _.get(containerSpecificationList, required);
+        if (typeof cs !== "undefined") {
+          return cs;
         }
-        // 없다면 생성하고 저장소에 저장
-        else {
-          type[required] = new ContainerSpecification(required);
-          return type[required];
-        }
+        cs = new ContainerSpecification(required);
+        _.set(containerSpecificationList, required, cs);
+        return cs;
       }
     };
   });

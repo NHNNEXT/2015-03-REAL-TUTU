@@ -1,24 +1,38 @@
-/**
- * Created by itmnext13 on 2015. 11. 30..
- */
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Container', function (SpecificationTarget) {
+  .factory('Container', function () {
     "use strict";
+
     /**
      * @constructor
      */
     function Container() {
       this.contentList = [];
-      this.specificationList = [];
+      this.typeList = [];
     }
-    _.mixin(Container.prototype, new SpecificationTarget());
-    _.mixin(Container.prototype, {
-      constructor: Container,
-      self: this,
+
+    Container.prototype = {
       canContain: function(content) {
-        return content.getSpecificationList().isSatisfiedBy(this.self);
+        return content.getContainerSpecification().isSatisfiedBy(this);
+      },
+      getTypeList: function() {
+        return this.typeList;
+      },
+      setType: function(required) {
+        var typeList = this.typeList;
+        if(Array.isArray(required)) {
+          _.forEach(required,function(type) {
+            if (!_.includes(typeList, type)) {
+              typeList.push(type);
+            }
+          });
+        }else {
+          if (!_.includes(typeList, required)) {
+            typeList.push(required);
+          }
+        }
       }
-    });
+    };
+
     return Container;
   });

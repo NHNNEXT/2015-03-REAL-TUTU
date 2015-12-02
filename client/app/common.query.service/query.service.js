@@ -16,10 +16,10 @@ angular.module('clientApp')
         body: content.body,
         lectureId: content.lectureId,
         endTime: content.endTime,
-        startTime: content.startTime
+        startTime: content.startTime,
+        type: content.type
       };
       if(!content.id) {
-        query.type = content.type;
         res = http.post(CONTENT, query);
       } else {
         query.id = content.id;

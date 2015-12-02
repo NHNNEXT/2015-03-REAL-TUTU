@@ -3,25 +3,20 @@ angular.module('clientApp')
   .factory('SpecificationTarget', function () {
     "use strict";
     function SpecificationTarget() {
+
+      var spec;
+
+      function setSpecification(specification) {
+        if (!spec) {
+          spec = specification;
+        }
+      }
+      function getSpecification() {
+        return spec;
+      }
+      this.setSpecification = setSpecification;
+      this.getSpecification = getSpecification;
     }
 
-    SpecificationTarget.prototype = {
-      constructor: SpecificationTarget,
-      specificationList: [],
-
-      /**
-       * @param specification
-       */
-      setSpecification: function (specification) {
-        this.specificationList.push(specification);
-      },
-
-      /**
-       * @returns {Array}
-       */
-      getSpecificationList: function () {
-        return this.specificationList;
-      }
-    };
     return SpecificationTarget;
   });
