@@ -82,9 +82,9 @@ angular.module('clientApp')
       });
     };
 
-    Content.getList = function () {
+    Content.getList = function (query) {
       return $q(function (resolve) {
-        http.get('/api/v1/content/list').then(function (response) {
+        http.get('/api/v1/content/list', query).then(function (response) {
           var result = [];
           if (response.forEach === undefined)
             return;

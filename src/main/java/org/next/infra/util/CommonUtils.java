@@ -31,6 +31,10 @@ public class CommonUtils {
         }
     }
 
+    public static String getLikeExpression(String word) {
+        return '%' + word + '%';
+    }
+
     /**
      * Get Random Generated Number
      *
@@ -44,15 +48,15 @@ public class CommonUtils {
     /**
      * 긴 문자열에 대해 말 줄임 처리를 수행한다
      *
-     * @param text 말 줄임 처리를 할 문자열
+     * @param text   말 줄임 처리를 할 문자열
      * @param length 생략되면 안되는 길이
      * @return 말줄임 처리된 문자열
      */
-    public static String ellipsis(String text, int length){
-        if(text.length() <= 0 || length <= 0)
+    public static String ellipsis(String text, int length) {
+        if (text.length() <= 0 || length <= 0)
             throw new InvalidParameterException("length 는 0 이하일 수 없습니다");
 
-        if(text.length() > length){
+        if (text.length() > length) {
             String decoString = "...";
             String reduced = text.substring(0, length);
             reduced += decoString;

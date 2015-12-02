@@ -3,6 +3,7 @@ package org.next.lms.content.domain;
 import lombok.*;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.reply.domain.Reply;
@@ -18,9 +19,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "contentGroup"})
+@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "replies", "writer", "lecture", "contentGroup"})
+@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
 @Entity
 @Table(name = "CONTENT")
 public class Content {
@@ -39,6 +40,13 @@ public class Content {
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Tag> tags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "linkedContent", fetch = FetchType.LAZY)
+    private List<ContentLinkContent> linkedContents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "linkContent", fetch = FetchType.LAZY)
+    private List<ContentLinkContent> linkContents = new ArrayList<>();
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")

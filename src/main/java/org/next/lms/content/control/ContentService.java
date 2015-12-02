@@ -6,7 +6,7 @@ import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.dto.ContentDto;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
-import org.next.lms.content.domain.dto.ContentsDto;
+import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +53,9 @@ public class ContentService {
 
     @Autowired
     private MessageService messageService;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     public Result getContentDtoById(Long id, User user) {
         Content content = assureNotNull(contentRepository.findOne(id));
@@ -93,7 +98,7 @@ public class ContentService {
         return success();
     }
 
-    public Result saveContents(ContentsDto contents, User user) {
+    public Result saveContents(ContentListDto contents, User user) {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
         lectureAuthority.checkUpdateRight(lecture, user);
         contents.getContents().forEach(contentParameterDto -> {

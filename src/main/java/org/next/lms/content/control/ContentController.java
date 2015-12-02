@@ -3,7 +3,7 @@ package org.next.lms.content.control;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.dto.ContentParameterDto;
-import org.next.lms.content.domain.dto.ContentsDto;
+import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.lecture.control.LectureController;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.control.inject.Logged;
@@ -37,7 +37,7 @@ public class ContentController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Result saveContentList(@RequestBody ContentsDto contents, @Logged User user) {
+    public Result saveContentList(@RequestBody ContentListDto contents, @Logged User user) {
         return contentService.saveContents(contents, user);
     }
 

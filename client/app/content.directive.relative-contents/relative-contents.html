@@ -1,7 +1,8 @@
 <md-list>
   <md-subheader class="md-no-sticky">연관 게시물</md-subheader>
-  <md-list-item class="md-2-line">
+  <md-list-item class="md-2-line" ng-repeat="content in ctrl.contents">
     <div class="md-list-item-text">
+      {{content}}
       <h3 ui-sref="content({id:content.id})"> {{ content.title }} <span class="dot"></span>
         <small> {{ content.contentGroup.name }} <span class="dot"></span> By {{content.writer.name}}</small>
       </h3>

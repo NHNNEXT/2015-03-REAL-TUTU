@@ -1,7 +1,5 @@
 package org.next.lms.tag.control;
 
-import org.hibernate.exception.ConstraintViolationException;
-import org.next.config.AppConfig;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
@@ -9,11 +7,11 @@ import org.next.lms.tag.domain.Tag;
 import org.next.lms.tag.domain.TagUpdateDto;
 import org.next.infra.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
@@ -29,11 +27,11 @@ public class TagService {
     @Autowired
     private ContentRepository contentRepository;
 
-    @Autowired
-    TagDao tagDao;
+    @PersistenceContext
+    EntityManager entityManager;
 
-    public Result find(String keyword) {
-        return success(tagDao.getTags(keyword));
+    public Result find(TagDao tagDao) {
+        return success(tagDao.getList(entityManager));
     }
 
     public Result updateContent(TagUpdateDto tagUpdateDto) {

@@ -16,8 +16,8 @@ public class TagController {
     TagService tagService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Result find(String keyword) {
-        return tagService.find(keyword);
+    public Result find(TagDao tagDao) {
+        return tagService.find(tagDao);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/content")
