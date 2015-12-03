@@ -1,0 +1,13 @@
+<div layout="row">
+  <input-datepicker placeholder="학기 시작" ng-model="term.start" mode="date" flex>
+  </input-datepicker>
+  <input-datepicker placeholder="학기 끝" ng-model="term.end" mode="date" flex>
+  </input-datepicker>
+  <md-input-container flex>
+    <label>학기명</label>
+    <input ng-model="term.name">
+  </md-input-container>
+</div>
+<div layout="row" layout-align="end center">
+  <md-button class="md-raised" ng-click="save()">등록하기</md-button>
+</div>

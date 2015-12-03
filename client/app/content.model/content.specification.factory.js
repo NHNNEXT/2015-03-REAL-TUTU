@@ -34,7 +34,7 @@ angular.module('clientApp')
 
     return {
       create: function(required) {
-        // 저장소에 이미 있다면 그것을 리턴
+        // 저장소에 이미 있다면 그것을 리턴git a
         var cs = _.get(contentSpecificationList, required);
         if (typeof cs !== "undefined") {
           return cs;

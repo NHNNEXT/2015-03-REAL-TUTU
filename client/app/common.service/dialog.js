@@ -12,16 +12,6 @@ angular.module('clientApp')
       });
     };
 
-    this.addTerm = function(ev){
-      $mdDialog.show({
-        controller: 'addTermController',
-        templateUrl: '/term.dialog/addterm.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: true
-      });
-    };
-
     this.register = function (ev) {
       $mdDialog.show({
         controller: 'authController',

@@ -14,9 +14,7 @@ angular.module('clientApp')
         container.add(content);
       });
     }
-
     /**
-     *
      * @param containers
      * @param content
      * @returns {container}

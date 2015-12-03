@@ -45,7 +45,11 @@ angular.module('clientApp')
 
     //@todo: 나는 이걸 새로 고쳐야해
     function save(content) {
-      queryService.contentSave(content);
+        return http.post('/api/v1/content', content);
+    }
+
+    function update(content) {
+      return http.put('/api/v1/content', content);
     }
 
     //function selectTodoTypeContent() {
