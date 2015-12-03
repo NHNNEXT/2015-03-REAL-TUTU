@@ -98,8 +98,10 @@ public class Lecture {
     private Long termId;
 
     public void setTerm(TermRepository termRepository) {
-        if (this.termId == null)
+        if (this.termId == null) {
+            this.term = null;
             return;
+        }
         this.term = termRepository.findOne(termId);
     }
 }
