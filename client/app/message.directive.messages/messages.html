@@ -1,0 +1,30 @@
+<md-menu md-position-mode="target-right target">
+  <md-button aria-label="messages" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+    <md-icon md-menu-origin md-svg-icon="/resource/icon/alerts.svg"></md-icon>
+  </md-button>
+  <md-menu-content width="4">
+    <md-menu-item ng-repeat="message in messages">
+      <md-button ng-click="ctrl.announceClick($index)">
+        <div layout="row">
+          <p flex ng-click="moveTo(message)">{{message.message}} <span class="red" ng-show="!message.checked">new</span>
+          </p>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-show="messages.length===10">
+      <md-button>
+        <div layout="row">
+          <p ui-sref="messages" flex>메시지 더보기</p>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item ng-show="messages.length===0">
+      <md-button>
+        <div layout="row">
+          <p flex>메시지가 없습니다.</p>
+        </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>
+<span class="news" ng-show="new">new</span>

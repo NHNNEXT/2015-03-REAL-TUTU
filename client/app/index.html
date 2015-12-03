@@ -21,6 +21,7 @@
 
   <!-- build:css({.tmp,app}) /styles/main.css -->
   <!-- include: "type": "css", "files": "**/*.css" -->
+  <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.calendar/calendar.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.like/like.css" rel="stylesheet" type="text/css">
@@ -38,6 +39,7 @@
   <link href="/content.directive.relative-contents/relative-contents.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
+  <link href="/message.directive.messages/messages.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
@@ -91,50 +93,11 @@
 <!--md-is-locked-open="$mdMedia('gt-md')"-->
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
             ng-cloak flex>
-  <div ng-controller="menuController">
-    <md-toolbar class="md-theme-indigo">
-      <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
-    </md-toolbar>
-    <md-content>
-      <ul class="menu" ng-show="rootUser.isLogged()">
-        <li ui-sref="lectures" ng-click="close()">전체 강의</li>
-      </ul>
-      <ul class="menu" ng-show="rootUser.isLogged()">
-        <li ui-sref="mylectures" ng-click="close()">내 강의</li>
-        <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
-            ui-sref="lecture({id:lecture.id})" ng-click="close()">
-          {{lecture.name}}
-        </li>
-        <li ng-repeat="lecture in lectures = ( rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"
-            ui-sref="lecture({id:lecture.id})" ng-click="close()">
-          {{lecture.name}}
-        </li>
-      </ul>
-
-      <ul class="menu" ng-show="rootUser.isLogged()">
-        <li ui-sref="profile({id:rootUser.id})" ng-click="close()">내 프로필</li>
-        <li ui-sref="messages" ng-click="close()">소식 <span class="red" ng-show="rootUser.news">new</span></li>
-        <li ng-click="rootUser.logout()">로그아웃</li>
-      </ul>
-      <ul class="menu" ng-show="!rootUser.isLogged()">
-        <li ng-click="login()">로그인</li>
-        <li ng-click="register()">회원가입</li>
-      </ul>
-    </md-content>
-  </div>
+  <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
 </md-sidenav>
 
 <div role="main" layout="column" flex>
-  <md-toolbar ng-controller="headerController">
-    <div class="md-toolbar-tools centered">
-      <md-button class="md-icon-button hide-gt-sm" aria-label="side nav tooggle" ng-click="toggleLeft()">
-        <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
-      </md-button>
-      <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
-      <span class="flex"></span>
-      <auto-complete src=""></auto-complete>
-    </div>
-  </md-toolbar>
+  <ng-include src="'/common.part/main-header.html'"></ng-include>
   <md-content md-scroll-y ui-view>
   </md-content>
 </div>
@@ -233,6 +196,7 @@
 <script src="/lecture.page.edit/edit.controller.js"></script>
 <script src="/lecture.page.list/list.js"></script>
 <script src="/lecture.page.mylist/mylist.js"></script>
+<script src="/message.directive.messages/messages.js"></script>
 <script src="/message.directive/message.js"></script>
 <script src="/message.model/message.model.js"></script>
 <script src="/message.page.list/messages.controller.js"></script>

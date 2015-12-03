@@ -12,9 +12,9 @@ angular.module('clientApp')
     //var mainTopSpec = scheduleSpec.and(noticeSepc);
     //var idspec = new ContentSpecification("")
 
-    function selectSatisfying(contentSpecification) {
-      return contentSpecification.satisfyingElementsFrom(this);
-    }
+    //function selectSatisfying(contentSpecification) {
+    //  return contentSpecification.satisfyingElementsFrom(this);
+    //}
 
     function findByContentID(contentID) {
       return $q(function (resolve) {
@@ -47,10 +47,10 @@ angular.module('clientApp')
     function save(content) {
         return http.post('/api/v1/content', content);
     }
-
-    function update(content) {
-      return http.put('/api/v1/content', content);
-    }
+    //
+    //function update(content) {
+    //  return http.put('/api/v1/content', content);
+    //}
 
     //function selectTodoTypeContent() {
     //  this.isSatisfiedBy = function(candidate) {

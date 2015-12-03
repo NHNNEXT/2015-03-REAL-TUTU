@@ -19,7 +19,6 @@ public class UserDto {
     private final String major;
     private final String introduce;
     private final String profileUrl;
-    private final Boolean news;
     private final List<LectureSummaryDto> lectures;
     private final List<LectureSummaryDto> waitingLectures;
 
@@ -35,9 +34,6 @@ public class UserDto {
         this.waitingLectures = user.getEnrolledLectures().stream().filter(
                 relation -> ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState())
         ).map(LectureSummaryDto::new).collect(Collectors.toList());
-        this.news = user.getMessages().stream().filter(
-                message -> !message.getChecked()
-        ).findAny().isPresent();
     }
 
 }

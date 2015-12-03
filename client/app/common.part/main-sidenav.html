@@ -1,0 +1,30 @@
+<div ng-controller="menuController">
+  <md-toolbar class="md-theme-indigo">
+    <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
+  </md-toolbar>
+  <md-content>
+    <ul class="menu" ng-show="rootUser.isLogged()">
+      <li ui-sref="lectures" ng-click="close()">전체 강의</li>
+    </ul>
+    <ul class="menu" ng-show="rootUser.isLogged()">
+      <li ui-sref="mylectures" ng-click="close()">내 강의</li>
+      <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
+          ui-sref="lecture({id:lecture.id})" ng-click="close()">
+        {{lecture.name}}
+      </li>
+      <li ng-repeat="lecture in lectures = ( rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"
+          ui-sref="lecture({id:lecture.id})" ng-click="close()">
+        {{lecture.name}}
+      </li>
+    </ul>
+
+    <ul class="menu" ng-show="rootUser.isLogged()">
+      <li ui-sref="profile({id:rootUser.id})" ng-click="close()">내 프로필</li>
+      <li ng-click="rootUser.logout()">로그아웃</li>
+    </ul>
+    <ul class="menu" ng-show="!rootUser.isLogged()">
+      <li ng-click="login()">로그인</li>
+      <li ng-click="register()">회원가입</li>
+    </ul>
+  </md-content>
+</div>

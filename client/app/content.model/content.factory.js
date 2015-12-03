@@ -33,8 +33,8 @@ angular.module('clientApp')
 
     Content.prototype = {
       setContainerSpecification: setContainerSpecification,
-      getContainerSpecification: getContainerSpecification,
-      makeQuery: makeQuery
+      getContainerSpecification: getContainerSpecification
+      //makeQuery: makeQuery
     };
 
 

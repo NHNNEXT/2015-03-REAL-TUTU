@@ -12,14 +12,14 @@ public class MessageDto {
     private String url;
     private Long id;
     private String message;
-    private Boolean read;
+    private Boolean checked;
     private MessageType type;
     private Date date;
 
     public MessageDto(Message message) {
         this.id = message.getId();
         this.message = message.getMessage();
-        this.read = message.getChecked();
+        this.checked = message.getChecked();
         this.type = message.getType();
         this.date = message.getDate();
         this.url = message.getUrl();

@@ -12,7 +12,6 @@ angular.module('clientApp')
         return;
       if (typeof obj !== "object")
         return;
-      self.news = obj.news;
       self.id = obj.id;
       self.email = obj.email;
       self.profileUrl = obj.profileUrl;

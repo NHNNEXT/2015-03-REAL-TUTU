@@ -1,0 +1,11 @@
+<md-toolbar ng-controller="headerController">
+  <div class="md-toolbar-tools centered">
+    <md-button class="md-icon-button hide-gt-sm" aria-label="side nav tooggle" ng-click="toggleLeft()">
+      <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
+    </md-button>
+    <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
+    <span class="flex"></span>
+    <messages></messages>
+    <!--<li ui-sref="messages" ng-click="close()">소식 <span class="red" ng-show="rootUser.news">new</span></li>-->
+  </div>
+</md-toolbar>
