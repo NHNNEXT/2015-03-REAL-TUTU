@@ -347,23 +347,23 @@ module.exports = function (grunt) {
         }]
       }
     },
-
-    htmlmin: {
-      dist: {
-        options: {
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: ['/{,*/}*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
-      }
-    },
+    //
+    //htmlmin: {
+    //  dist: {
+    //    options: {
+    //      collapseWhitespace: true,
+    //      conservativeCollapse: true,
+    //      collapseBooleanAttributes: true,
+    //      removeCommentsFromCDATA: true
+    //    },
+    //    files: [{
+    //      expand: true,
+    //      cwd: '<%= yeoman.dist %>',
+    //      src: ['/{,*/}*.html'],
+    //      dest: '<%= yeoman.dist %>'
+    //    }]
+    //  }
+    //},
 
     includeSource: {
       options: {
@@ -388,7 +388,7 @@ module.exports = function (grunt) {
         options: {
           prefix: '/',
           module: 'clientApp',
-          htmlmin: '<%= htmlmin.dist.options %>'
+          //htmlmin: '<%= htmlmin.dist.options %>'
           //usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
@@ -524,7 +524,7 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin',
+    //'htmlmin',
     'clean:template'
   ]);
 
