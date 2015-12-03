@@ -1,15 +1,19 @@
-<md-checkbox class="margin-top" ng-model="ctrl.useSemester" aria-label="학기 사용 여부">
-  학기
+<md-subheader>
+  <span>학기
   <md-tooltip md-direction="right">학기 기간 시작시 즐겨찾는 메뉴에 추가되고, 종료시 삭제됩니다.</md-tooltip>
-</md-checkbox>
-<md-autocomplete ng-show="ctrl.useSemester" class="margin-bottom"
-                 md-selected-item="ctrl.term"
-                 md-search-text="ctrl.searchText"
-                 md-items="term in ctrl.querySearch(ctrl.searchText)"
-                 md-item-text="term.name"
-                 md-selected-item-change="ctrl.select(ctrl.selectedItem)"
-                 placeholder="학기명으로 검색">
+    </span>
+</md-subheader>
+<md-autocomplete
+  md-selected-item="ctrl.term"
+  md-search-text="ctrl.searchText"
+  md-items="term in ctrl.querySearch(ctrl.searchText)"
+  md-item-text="term.name"
+  md-selected-item-change="ctrl.select(ctrl.selectedItem)"
+  placeholder="학기명으로 검색">
   <md-item-template>
     <span md-highlight-text="ctrl.searchText">{{term.name}} : {{term.start.getDateString()}} ~ {{term.end.getDateString()}}</span>
   </md-item-template>
 </md-autocomplete>
+<div layout="row" class="margin-bottom" layout-align="end center">
+  <md-button dialog="addTerm">학기 추가하기</md-button>
+</div>

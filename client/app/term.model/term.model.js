@@ -16,6 +16,14 @@ angular.module('clientApp')
       this.end = new Date(obj.end);
     };
 
+    Term.prototype.save = function () {
+      var query = {};
+      query.name = this.name;
+      query.start = this.start;
+      query.end = this.end;
+      return http.post('/api/v1/term', query);
+    };
+
     Term.getList = function (query) {
       return $q(function (resolve) {
         http.get('/api/v1/term', query).then(function (result) {
@@ -28,6 +36,7 @@ angular.module('clientApp')
           resolve(terms);
         });
       });
+
     };
 
     return Term;

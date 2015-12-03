@@ -5,7 +5,17 @@ angular.module('clientApp')
     this.login = function (ev) {
       $mdDialog.show({
         controller: 'authController',
-        templateUrl: '/user.template/login.html',
+        templateUrl: '/user.dialog/login.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    };
+
+    this.addTerm = function(ev){
+      $mdDialog.show({
+        controller: 'addTermController',
+        templateUrl: '/term.dialog/addterm.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true
@@ -15,7 +25,7 @@ angular.module('clientApp')
     this.register = function (ev) {
       $mdDialog.show({
         controller: 'authController',
-        templateUrl: '/user.template/register.html',
+        templateUrl: '/user.dialog/register.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true
