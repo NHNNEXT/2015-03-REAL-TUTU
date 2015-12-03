@@ -55,9 +55,13 @@ public class LectureSaveService {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+    private TermRepository termRepository;
+
 
     public Result save(Lecture lecture, User user) {
         lecture.setHostUser(user);
+        lecture.setTerm(termRepository);
         lecture.getContentGroups().forEach(contentGroup -> contentGroup.setLecture(lecture));
         lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
         lectureRepository.save(lecture);
@@ -70,6 +74,7 @@ public class LectureSaveService {
         Lecture lectureFromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
         lectureAuthority.checkUpdateRight(lectureFromDB, user);
 
+        lecture.setTerm(termRepository);
         lectureFromDB.update(lecture);
         removeRelations(lectureFromDB, lecture);
         updateAndAddNew(lectureFromDB, lecture);
@@ -78,7 +83,6 @@ public class LectureSaveService {
 
         return success(lecture.getId());
     }
-
 
     private void updateAndAddNew(Lecture lectureFromDB, Lecture lecture) {
         updateUserGroups(lectureFromDB, lecture);
