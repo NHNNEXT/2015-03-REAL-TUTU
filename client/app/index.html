@@ -34,20 +34,12 @@
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
-  <link href="/common/page/main/main.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/component.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/menu.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
-  <link href="/content/content-header/content-header.css" rel="stylesheet" type="text/css">
+  <link href="/content.directive.relative-contents/relative-contents.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
-  <link href="/lecture/view/lecture.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
-  <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
@@ -78,11 +70,11 @@
   <link href="/resource/froala/css/video.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/scdate/sc-date-time.css" rel="stylesheet" type="text/css">
   <link href="/submit.directive.submit/submit.css" rel="stylesheet" type="text/css">
+  <link href="/term.dialog/addterm.css" rel="stylesheet" type="text/css">
+  <link href="/user.dialog/template.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
   <link href="/user.template/template.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 
@@ -218,17 +210,17 @@
 <script src="/common.service/page.js"></script>
 <script src="/common.service/responseCode.js"></script>
 <script src="/common.service/types.js"></script>
-<script src="/common.specification/specTarget.factory.js"></script>
 <script src="/common.specification/specification.factory.js"></script>
 <script src="/container/Container.js"></script>
+<script src="/container/Packer.service.js"></script>
 <script src="/container/container.specification.factory.js"></script>
-<script src="/container/packer.service.js"></script>
 <script src="/content.directive.content-header/content-header.js"></script>
 <script src="/content.directive.content-list/content-list.js"></script>
+<script src="/content.directive.relative-contents/relative-contents.js"></script>
 <script src="/content.model/content.factory.js"></script>
 <script src="/content.model/content.model.js"></script>
-<script src="/content.model/content.specification.js"></script>
-<script src="/content.model/contentType.model.js"></script>
+<script src="/content.model/content.specification.factory.js"></script>
+<script src="/content.model/contentGroup.model.js"></script>
 <script src="/content.page.detail/detail.controller.js"></script>
 <script src="/content.page.edit/edit.controller.js"></script>
 <script src="/content.page.edit/write.controller.js"></script>
@@ -282,7 +274,10 @@
 <script src="/submit.directive.submit/submit.js"></script>
 <script src="/submit.directive.submits/submits.js"></script>
 <script src="/submit.model/submit.model.js"></script>
-<script src="/user.controller/auth.controller.js"></script>
+<script src="/term.dialog/addterm.controller.js"></script>
+<script src="/term.directive.set-term/set-term.js"></script>
+<script src="/term.model/term.model.js"></script>
+<script src="/user.dialog/auth.controller.js"></script>
 <script src="/user.directive.user-profile/user-profile.js"></script>
 <script src="/user.model/rootuser.js"></script>
 <script src="/user.model/user.model.js"></script>

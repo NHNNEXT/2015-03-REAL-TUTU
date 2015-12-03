@@ -6,6 +6,7 @@ import org.next.lms.content.domain.dto.ContentGroupDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.like.domain.UserLikesLecture;
+import org.next.lms.term.TermDto;
 import org.next.lms.user.domain.UserSummaryDto;
 
 import java.util.List;
@@ -24,8 +25,10 @@ public class LectureDto {
     private final String name;
     private final Integer majorType;
     private final Integer registerPolicy;
+    private TermDto term;
     private List<List<Boolean>> writable;
     private List<List<Boolean>> readable;
+
 
     public LectureDto(Lecture lecture) {
         this.id = lecture.getId();
@@ -41,5 +44,7 @@ public class LectureDto {
                 .map(UserSummaryDto::new)
                 .collect(Collectors.toList());
         this.userGroups = lecture.getUserGroups().stream().map(UserGroupDto::new).collect(Collectors.toList());
+        if (lecture.getTerm() != null)
+            this.term = new TermDto(lecture.getTerm());
     }
 }
