@@ -1,9 +1,11 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.next.infra.repository.TermRepository;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.like.domain.UserLikesLecture;
+import org.next.lms.term.Term;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
@@ -13,12 +15,16 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents"})
+@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "term"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "term"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TERM_ID")
+    private Term term;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
@@ -88,7 +94,16 @@ public class Lecture {
     @Transient
     private List<List<Boolean>> submitReadable;   // 클라이언트에서 데이터가 넘어와서 초기화 됨
 
+    @Transient
+    private Long termId;
 
+    public void setTerm(TermRepository termRepository) {
+        if (this.termId == null) {
+            this.term = null;
+            return;
+        }
+        this.term = termRepository.findOne(termId);
+    }
 }
 
 

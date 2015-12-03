@@ -3,6 +3,7 @@ angular.module('clientApp')
   /* @ngInject */
   .factory('Specification', function ($log) {
     "use strict";
+
     /**
      * @interface Specificable
      */
@@ -12,7 +13,6 @@ angular.module('clientApp')
      * @param candidate
      * @return {boolean}
      */
-
     /**
      * @constructor
      * @abstract

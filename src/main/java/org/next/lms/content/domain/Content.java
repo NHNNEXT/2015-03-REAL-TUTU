@@ -1,7 +1,6 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
-import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
@@ -46,7 +45,6 @@ public class Content {
 
     @OneToMany(mappedBy = "linkContent", fetch = FetchType.LAZY)
     private List<ContentLinkContent> linkContents = new ArrayList<>();
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")

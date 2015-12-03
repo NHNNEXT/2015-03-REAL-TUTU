@@ -13,6 +13,19 @@ angular.module('clientApp').controller('contentDetailController',
         $scope.tagReadOnly = true;
         $scope.relativeReadOnly = true;
 
+        $scope.getRelativeIcon = function () {
+          if ($scope.relativeReadOnly)
+            return "/resource/icon/relative.svg";
+          return "/resource/icon/done.svg";
+        };
+
+
+        $scope.getTagIcon = function () {
+          if ($scope.tagReadOnly)
+            return "/resource/icon/tag.svg";
+          return "/resource/icon/done.svg";
+        };
+
         $scope.$watch(function () {
           return $scope.content.tags;
         }, function () {

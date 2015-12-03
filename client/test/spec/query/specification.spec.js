@@ -56,15 +56,16 @@ describe('Factory: containerSpecificationFactory', function () {
       startTime: new Date("2011-06-09T15:20:00Z"),
       type: "SCHEDULE"
     };
-    var container1 = new Container();
 
+    var container1 = new Container();
     container1.setType(["SCHEDULE"]);
 
-    var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
     var newbie1 = contentFactory.create(content);
-
+    var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
     newbie1.setContainerSpecification(scheduleSpec);
     expect(container1.canContain(newbie1)).toBe(true);
+
+
   });
 
 

@@ -51,6 +51,10 @@ public class ResponseCode {
         public static final Integer CANT_BIND_SELF = 30;
     }
 
+    public static final class Term {
+        public static final Integer ALREADY_EXIST = 35;
+    }
+
 
     /*
 

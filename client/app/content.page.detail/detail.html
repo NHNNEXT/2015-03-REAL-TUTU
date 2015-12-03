@@ -40,10 +40,10 @@
 <section>
   <div layout="row" layout-align="end center">
     <md-button class="md-fab md-mini md-hue-2" ng-click="relativeReadOnly=!relativeReadOnly" aria-label="editRelative">
-      <md-icon md-svg-src="/resource/icon/relative.svg"></md-icon>
+      <md-icon md-svg-src="{{getRelativeIcon()}}"></md-icon>
     </md-button>
     <md-button class="md-fab md-mini md-hue-2" ng-click="tagReadOnly=!tagReadOnly" aria-label="editTag">
-      <md-icon md-svg-src="/resource/icon/tag.svg"></md-icon>
+      <md-icon md-svg-src="{{getTagIcon()}}"></md-icon>
     </md-button>
   </div>
   <div layout="row" ng-show="content.relativeContents.length>0 || !relativeReadOnly">

@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode) {
+  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode, Term) {
     function Lecture(param) {
       if (param === undefined) {
         this.contentGroups = [{
@@ -107,6 +107,9 @@ angular.module('clientApp')
         this.contents = param.contents.map(function (content) {
           return new Content(content);
         });
+      if (param.term) {
+        this.term = new Term(param.term);
+      }
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;
@@ -142,6 +145,9 @@ angular.module('clientApp')
       query.writable = this.writable;
       query.readable = this.readable;
       query.submitReadable = this.submitReadable;
+      if (this.term) {
+        query.termId = this.term.id;
+      }
       if (this.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);

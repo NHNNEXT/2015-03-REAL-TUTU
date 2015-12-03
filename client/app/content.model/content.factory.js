@@ -4,9 +4,9 @@ angular.module('clientApp')
     "use strict";
 
     //can set,get containerSpec
+
     /**
      * @class
-     * @abstract
      */
     function Content(obj) {
       if(this instanceof Content){
@@ -30,17 +30,19 @@ angular.module('clientApp')
       return this.spec;
     }
 
+
     Content.prototype = {
       setContainerSpecification: setContainerSpecification,
-      getContainerSpecification: getContainerSpecification
+      getContainerSpecification: getContainerSpecification,
+      makeQuery: makeQuery
     };
 
+
+    //type: [notice,submit,schedule,default]
     /**
      * @class
      * @augments Content
      */
-
-    //type: [notice,submit,schedule,default]
     function ExistedContent(obj) {
       if(this instanceof ExistedContent){
         Content.call(this,obj);

@@ -853,7 +853,7 @@ public class InsertTestData {
                         "    ]\n" +
                         "  }\n" +
                         "]"
-                ;
+        ;
 
         tagsJson = "[\n" +
                 "  {\n" +
