@@ -9,6 +9,7 @@ import org.next.lms.message.domain.MessageDto;
 import org.next.lms.message.structure.MessageTemplate;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class MessageService {
     private MessageRepository messageRepository;
 
     @Autowired
-    private MessageHolder messageHolder;
+    private ApplicationContext applicationContext;
 
     public Result getList(User user, Integer page) {
         Pageable pageable = new PageRequest(page, AppConfig.pageSize);
@@ -48,6 +49,7 @@ public class MessageService {
     }
 
     public MessageHolder send(MessageTemplate message) {
+        MessageHolder messageHolder = (MessageHolder) applicationContext.getBean("messageHolder");
         messageHolder.setMessage(message);
         messageHolder.setMessageService(this);
         return messageHolder;
