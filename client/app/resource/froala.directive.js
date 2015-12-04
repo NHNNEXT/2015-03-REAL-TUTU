@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .directive('froala', function () {
+  .directive('froala', function ($timeout) {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -17,6 +17,10 @@ angular.module('clientApp')
           imageUploadURL: '/api/v1/upload',
           toolbarButtons: ['fontFamily', 'fontSize', 'bold', 'underline', 'strikeThrough', 'emoticons', '-',
             'color', 'align', 'insertLink', 'insertImage', 'insertTable', 'html']
+        });
+
+        $timeout(function () {
+          $('.fr-element.fr-view').text("");
         });
 
         function updateView() {

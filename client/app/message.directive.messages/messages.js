@@ -4,8 +4,8 @@ angular.module('clientApp')
       restrict: 'E',
       templateUrl: '/message.directive.messages/messages.html',
       /* @ngInject */
-      controller: function (Message, $scope, $interval, rootUser) {
-        getMessages();
+      controller: function (Message, $scope, $interval, rootUser, $timeout) {
+        $timeout(getMessages);
 
         $interval(getMessages, 10000);
         function getMessages() {
