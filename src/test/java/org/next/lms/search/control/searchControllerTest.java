@@ -27,8 +27,8 @@ public class searchControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        User user = userRepository.findOne(1L);
-        Result a = searchController.searchInMyLectureContents("", user);
-        System.out.println();
+//        User user = userRepository.findOne(1L);
+//        Result a = searchController.searchInMyLectureContents("", user);
+//        System.out.println();
     }
 }
