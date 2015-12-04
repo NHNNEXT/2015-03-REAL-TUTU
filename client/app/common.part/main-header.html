@@ -6,6 +6,7 @@
     <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
     <span class="flex"></span>
     <search-in-my-lectures ng-show="rootUser.id!==undefined"></search-in-my-lectures>
-    <messages ng-show="rootUser.id!==undefined"></messages>
+    <messages ng-show="rootUser.id!==undefined" style="margin-left:10px;margin-right:-18px"></messages>
+    <root-user ng-show="rootUser.id!==undefined"></root-user>
   </div>
 </md-toolbar>

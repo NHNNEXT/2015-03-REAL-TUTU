@@ -9,8 +9,9 @@ angular.module('clientApp').directive('message',
       }, controller: function ($scope, $location) {
         $scope.move = function () {
           $scope.message.reading();
-          $location.path($scope.message.url);
+          $location.path(window.decodeURIComponent($scope.message.url));
         };
       }
     };
   });
+

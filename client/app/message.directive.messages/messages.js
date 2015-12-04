@@ -4,7 +4,7 @@ angular.module('clientApp')
       restrict: 'E',
       templateUrl: '/message.directive.messages/messages.html',
       /* @ngInject */
-      controller: function (Message, $scope, $interval, rootUser, $location) {
+      controller: function (Message, $scope, $interval, rootUser) {
         getMessages();
 
         $interval(getMessages, 10000);
@@ -21,12 +21,6 @@ angular.module('clientApp')
             });
           });
         }
-
-        $scope.moveTo = function (message) {
-          message.reading();
-          $location.path(message.url);
-        };
-
       }
     };
   });

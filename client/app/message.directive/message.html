@@ -1,12 +1,6 @@
-<md-list-item>
-  <div class="md-list-item-text" ng-click="move()">
+<div ng-click="move()">
+  {{message.message}}
+  <small><span class="red" ng-show="!message.checked">new</span></small>
+  <div>{{message.date.toYMD()}}</div>
 
-    <h4>
-      {{message.message}}
-      <small><span ng-show="!message.checked">미확인</span><span ng-show="message.checked">확인</span></small>
-    </h4>
-
-    <p>{{message.date.toYMD()}}</p>
-  </div>
-</md-list-item>
-<md-divider></md-divider>
+</div>

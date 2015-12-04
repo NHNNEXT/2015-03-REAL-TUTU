@@ -1,0 +1,23 @@
+<md-menu md-offset="0 35" md-position-mode="target-right target">
+  <md-button aria-label="messages" class="md-icon-button"
+             ng-click="$mdOpenMenu($event)">
+    <span class="news" ng-show="new">{{new}}</span>
+    <md-icon md-menu-origin md-svg-icon="/resource/icon/face.svg"></md-icon>
+  </md-button>
+  <md-menu-content width="3">
+    <md-menu-item>
+      <md-button ui-sref="profile({id:rootUser.id})">
+        <div class="center">
+          <p flex>내 프로필</p>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item>
+      <md-button ng-click="rootUser.logout()">
+        <div layout="row">
+          <p flex>로그 아웃</p>
+        </div>
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

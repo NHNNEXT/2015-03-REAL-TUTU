@@ -17,11 +17,6 @@
         {{lecture.name}}
       </li>
     </ul>
-
-    <ul class="menu" ng-show="rootUser.isLogged()">
-      <li ui-sref="profile({id:rootUser.id})" ng-click="close()">내 프로필</li>
-      <li ng-click="rootUser.logout()">로그아웃</li>
-    </ul>
     <ul class="menu" ng-show="!rootUser.isLogged()">
       <li ng-click="login()">로그인</li>
       <li ng-click="register()">회원가입</li>
