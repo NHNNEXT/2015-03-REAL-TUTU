@@ -84,7 +84,7 @@ angular
         }
       };
 
-      $scope.toggleUserGroup = function (index) {
+      $scope.toggleUserGroups = function (index) {
         for (var i = 0; i < lecture.writable.length; i++) {
           for (var j = 0; j < lecture.writable[i].length; j++) {
             if (index === i) {

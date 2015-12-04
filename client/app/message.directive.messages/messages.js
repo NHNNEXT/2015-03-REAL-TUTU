@@ -9,6 +9,7 @@ angular.module('clientApp')
 
         $interval(getMessages, 10000);
         function getMessages() {
+          $scope.messages = [];
           if (!rootUser.id)
             return;
           Message.getList(0).then(function (messages) {
