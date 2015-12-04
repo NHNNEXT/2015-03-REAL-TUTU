@@ -13,13 +13,16 @@ angular.module('clientApp')
             return;
           Message.getList(0).then(function (messages) {
             $scope.messages = messages;
-            $scope.new = messages.find(function(message){
-              return !message.checked;
+            $scope.new = 0;
+            messages.forEach(function (message) {
+              if (message.checked)
+                return;
+              $scope.new++;
             });
           });
         }
 
-        $scope.moveTo = function(message){
+        $scope.moveTo = function (message) {
           message.reading();
           $location.path(message.url);
         };

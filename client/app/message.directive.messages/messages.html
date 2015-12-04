@@ -1,6 +1,8 @@
 <md-menu md-position-mode="target-right target">
-  <md-button aria-label="messages" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-    <md-icon md-menu-origin md-svg-icon="/resource/icon/alerts.svg"></md-icon>
+  <md-button aria-label="messages" class="message-icon" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+    <span class="news" ng-show="new">{{new}}</span>
+    <md-icon md-menu-origin md-svg-icon="/resource/icon/alerts.svg">
+    </md-icon>
   </md-button>
   <md-menu-content width="4">
     <md-menu-item ng-repeat="message in messages">
@@ -27,4 +29,3 @@
     </md-menu-item>
   </md-menu-content>
 </md-menu>
-<span class="news" ng-show="new">new</span>

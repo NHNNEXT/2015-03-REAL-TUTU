@@ -5,7 +5,7 @@
     </md-button>
     <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
     <span class="flex"></span>
-    <messages></messages>
+    <messages ng-show="rootUser.id!==undefined"></messages>
     <!--<li ui-sref="messages" ng-click="close()">소식 <span class="red" ng-show="rootUser.news">new</span></li>-->
   </div>
 </md-toolbar>
