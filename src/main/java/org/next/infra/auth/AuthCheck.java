@@ -2,7 +2,7 @@ package org.next.infra.auth;
 
 import org.next.infra.exception.HasNoRightException;
 
-public class Auth {
+public class AuthCheck {
 
     protected final void rightCheck(boolean right) throws HasNoRightException {
         if (right)

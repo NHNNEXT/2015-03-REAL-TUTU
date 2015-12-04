@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
@@ -23,7 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
 @Entity
 @Table(name = "CONTENT")
-public class Content {
+public class Content implements ObjectOwnerKnowable{
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<UserLikesContent> userLikesContents = new ArrayList<>();
@@ -111,6 +112,11 @@ public class Content {
 
     public void validate() {
         this.contentGroup.getContentType().validate(this);
+    }
+
+    @Override
+    public User ownerOfObject() {
+        return this.writer;
     }
 }
 

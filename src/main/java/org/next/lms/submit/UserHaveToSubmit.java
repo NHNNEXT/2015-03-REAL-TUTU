@@ -1,6 +1,7 @@
 package org.next.lms.submit;
 
 import lombok.*;
+import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.user.domain.User;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Table(name = "USER_HAVE_TO_SUBMIT", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"USER_ID", "CONTENT_ID"})
 })
-public class UserHaveToSubmit {
+public class UserHaveToSubmit implements ObjectOwnerKnowable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
@@ -35,4 +36,8 @@ public class UserHaveToSubmit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Override
+    public User ownerOfObject() {
+        return this.user;
+    }
 }

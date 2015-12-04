@@ -52,7 +52,7 @@ public class ContentService {
     private ContentAuth contentAuthority;
 
     @Autowired
-    private LectureAuth lectureAuthority;
+    private LectureAuth lectureAuth;
 
     @Autowired
     private MessageService messageService;
@@ -102,14 +102,18 @@ public class ContentService {
 
     public Result delete(Long id, User user) {
         Content content = assureNotNull(contentRepository.findOne(id));
+
         contentAuthority.checkDeleteRight(content, user);
+
         content.setDeleteState();
         return success();
     }
 
     public Result saveContents(ContentListDto contents, User user) {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
-        lectureAuthority.checkUpdateRight(lecture, user);
+
+        lectureAuth.checkUpdateRight(lecture, user);
+
         contents.getContents().forEach(contentParameterDto -> {
             contentParameterDto.saveContent(lecture, user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
         });
