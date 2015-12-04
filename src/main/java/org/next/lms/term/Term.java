@@ -24,7 +24,7 @@ public class Term {
     private List<Lecture> lectures = new ArrayList<>();
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "TERM_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
