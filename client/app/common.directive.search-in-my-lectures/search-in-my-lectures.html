@@ -1,0 +1,15 @@
+<md-autocomplete
+  md-selected-item="ctrl.selectedItem"
+  md-search-text="ctrl.searchText"
+  md-items="content in ctrl.querySearch(ctrl.searchText)"
+  md-item-text="content.title"
+  md-selected-item-change="ctrl.moveTo(ctrl.selectedItem)"
+  placeholder="검색">
+  <md-item-template>
+    <h3>
+      <span md-highlight-text="ctrl.searchText">{{content.title}}</span>
+      <small>by {{content.writer.name}}</small>
+    </h3>
+    <div class="padding-bottom-s" md-highlight-text="ctrl.searchText">{{content.body.removeTags()}}</div>
+  </md-item-template>
+</md-autocomplete>

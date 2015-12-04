@@ -1,5 +1,8 @@
 angular.module('clientApp')
-  .directive('inputDatepicker', function ($document) {
+  .factory('inputDatePickers', function () {
+    return [];
+  })
+  .directive('inputDatepicker', function ($document, inputDatePickers) {
     return {
       restrict: 'E',
       scope: {
@@ -9,11 +12,20 @@ angular.module('clientApp')
       },
       templateUrl: '/common.directive.input-datepicker/input-datepicker.html',
       link: function (s, elem) {
+
+        inputDatePickers.push(s);
+
         var handler = function (e) {
+          inputDatePickers.forEach(function (scope) {
+            if (s === scope)
+              return;
+            scope.open = false;
+          });
           e.stopPropagation();
         };
         elem.on('click', handler);
         $document.on('click', hide);
+
 
         function hide() {
           s.open = false;
