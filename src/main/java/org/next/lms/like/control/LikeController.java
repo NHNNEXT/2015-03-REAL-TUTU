@@ -28,25 +28,25 @@ import java.util.Objects;
 public class LikeController {
 
     @Autowired
-    UserLikesContentRepository userLikesContentRepository;
+    private UserLikesContentRepository userLikesContentRepository;
 
     @Autowired
-    UserLikesLectureRepository userLikesLectureRepository;
+    private UserLikesLectureRepository userLikesLectureRepository;
 
     @Autowired
-    UserLikesReplyRepository userLikesReplyRepository;
+    private UserLikesReplyRepository userLikesReplyRepository;
 
     @Autowired
-    ReplyRepository replyRepository;
+    private ReplyRepository replyRepository;
 
     @Autowired
-    ContentRepository contentRepository;
+    private ContentRepository contentRepository;
 
     @Autowired
-    LectureRepository lectureRepository;
+    private LectureRepository lectureRepository;
 
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
     @RequestMapping(method = RequestMethod.POST)
     public Result like(Integer type, Long id, @Logged User user) {
