@@ -18,9 +18,11 @@
           </span>
         </span>
 
-      <div class="info margin-top-s" ng-show="content.contentGroup.contentType.startTime || content.contentGroup.contentType.endTime">
-    <span class="dueDate" ng-show="content.contentGroup.contentType.endTime || content.contentGroup.contentType.startTime">
-      <span ng-if="!content.contentGroup.contentType.startTime">마감 : {{content.endTime.fromNow()}}</span>
+      <div class="info margin-top-s"
+           ng-show="content.contentGroup.contentType.startTime || content.contentGroup.contentType.endTime">
+    <span class="dueDate"
+          ng-show="content.contentGroup.contentType.endTime || content.contentGroup.contentType.startTime">
+      <span ng-if="!content.contentGroup.contentType.startTime">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
       <span ng-if="content.contentGroup.contentType.startTime">{{content.startTime.range(content.endTime)}}</span>
     </span>
       </div>
@@ -47,12 +49,19 @@
     </md-button>
   </div>
   <div layout="row" ng-show="content.relativeContents.length>0 || !relativeReadOnly">
-    <relative-contents relative-contents="content.relativeContents" content="content" readonly="relativeReadOnly"></relative-contents>
+    <relative-contents relative-contents="content.relativeContents" content="content"
+                       readonly="relativeReadOnly"></relative-contents>
   </div>
   <div layout="row">
-    <md-tags placeholder="태그" ng-model="content.tags" type="content" md-id="content.id" readonly="tagReadOnly" flex></md-tags>
+    <md-tags placeholder="태그" ng-model="content.tags" type="content" md-id="content.id" readonly="tagReadOnly"
+             flex></md-tags>
   </div>
 </section>
+
+<section ng-if="content.contentGroup.contentType.submit && content.submitRequiredUsers.length>0">
+  <submit-status deadline="content.endTime" submit-required-users="content.submitRequiredUsers"></submit-status>
+</section>
+
 
 <section ng-if="content.contentGroup.contentType.submit && content.submitRequiredUsers.length>0">
   <md-tabs md-dynamic-height md-border-bottom>
