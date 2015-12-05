@@ -8,20 +8,23 @@ angular.module('clientApp')
         $timeout(getMessages);
         $interval(getMessages, 10000);
         $scope.messages = [];
+
+        $scope.$watch('messages', function () {
+          $scope.new = 0;
+          $scope.messages.forEach(function (message) {
+            if (message.checked)
+              return;
+            $scope.new++;
+          });
+        }, true);
+
         function getMessages() {
           if (!rootUser.id)
             return;
           Message.getList(0).then(function (messages) {
             if (angular.equals($scope.messages, messages))
               return;
-
             $scope.messages = messages;
-            $scope.new = 0;
-            messages.forEach(function (message) {
-              if (message.checked)
-                return;
-              $scope.new++;
-            });
           });
         }
       }
