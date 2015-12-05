@@ -13,7 +13,10 @@ angular.module('clientApp').factory('Message',
     }
 
     Message.prototype.reading = function () {
-      http.put('/api/v1/message', {id: this.id});
+      var self = this;
+      http.put('/api/v1/message', {id: this.id}).then(function () {
+        self.checked = true;
+      });
     };
 
     Message.getList = function (page) {

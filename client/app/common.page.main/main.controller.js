@@ -39,6 +39,7 @@
           return;
         $state.go('loginneed');
       });
+
       self.rootUser = rootUser;
       var classes = ['gray', 'green', 'yellow', 'blue', 'purple', 'red'];
       Content.getList().then(function (list) {
