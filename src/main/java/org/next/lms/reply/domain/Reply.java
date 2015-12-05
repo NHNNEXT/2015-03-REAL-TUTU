@@ -1,6 +1,7 @@
 package org.next.lms.reply.domain;
 
 import lombok.*;
+import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.like.domain.UserLikesReply;
 import org.next.lms.user.domain.User;
@@ -18,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"content", "userLikesReplies", "writer"})
 @Entity
 @Table(name = "Reply")
-public class Reply {
+public class Reply implements ObjectOwnerKnowable{
 
     @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY)
     private List<UserLikesReply> userLikesReplies = new ArrayList<>();
@@ -52,5 +53,10 @@ public class Reply {
     public void setDeleteState() {
         this.writer = null;
         this.content = null;
+    }
+
+    @Override
+    public User ownerOfObject() {
+        return this.writer;
     }
 }

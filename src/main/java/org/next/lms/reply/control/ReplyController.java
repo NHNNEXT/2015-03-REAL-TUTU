@@ -21,8 +21,8 @@ public class ReplyController {
     private ReplyService replyService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Result get(Long contentId, int page) {
-        return replyService.getList(contentId, page);
+    public Result get(Long contentId, int page, @Logged User user) {
+        return replyService.getList(contentId, page, user);
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -32,7 +32,7 @@ public class LectureSaveService {
     private LectureService lectureService;
 
     @Autowired
-    private LectureAuth lectureAuthority;
+    private LectureAuth lectureAuth;
 
     @Autowired
     private UserGroupRepository userGroupRepository;
@@ -72,7 +72,7 @@ public class LectureSaveService {
 
     public Result update(Lecture lecture, User user) {
         Lecture lectureFromDB = assureNotNull(lectureRepository.findOne(lecture.getId()));
-        lectureAuthority.checkUpdateRight(lectureFromDB, user);
+        lectureAuth.checkUpdateRight(lectureFromDB, user);
 
         lecture.setTerm(termRepository);
         lectureFromDB.update(lecture);

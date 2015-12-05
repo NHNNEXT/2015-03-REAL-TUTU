@@ -40,28 +40,37 @@ public class ReplyService {
         reply.setWriter(user);
         reply.setContent(content);
         reply.setWriteDate(new Date());
+
+        replyAuth.checkWriteRight(content, user);
+
         replyRepository.save(reply);
         return success(new ReplyDto(reply));
     }
 
     public Result update(Reply reply, User user) {
         Reply fromDB = assureNotNull(replyRepository.findOne(reply.getId()));
-        replyAuth.checkUpdateRight(fromDB, user);
-        fromDB.update(reply);
 
+        replyAuth.checkUpdateRight(fromDB, user);
+
+        fromDB.update(reply);
         return success(new ReplyDto(fromDB));
     }
 
     public Result deleteReply(Long id, User user) {
         Reply reply = assureNotNull(replyRepository.findOne(id));
+
         replyAuth.checkDeleteRight(reply, user);
+
         reply.setDeleteState();
         return success();
     }
 
-    public Result getList(Long contentId, int page) {
+    public Result getList(Long contentId, int page, User user) {
         Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "writeDate");
         List<Reply> replies = replyRepository.findByContentId(contentId, pageable);
+
+        replies.forEach(reply -> replyAuth.checkReadRight(reply, user));
+
         return success(replies.stream().map(ReplyDto::new).collect(Collectors.toList()));
     }
 }

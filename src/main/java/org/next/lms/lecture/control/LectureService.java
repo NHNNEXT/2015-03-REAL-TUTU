@@ -129,9 +129,10 @@ public class LectureService {
 
     public Result delete(Long id, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
-        lectureAuthority.checkDeleteRight(user, lecture);
-        lecture.setDeleteState();
 
+        lectureAuthority.checkDeleteRight(lecture, user);
+
+        lecture.setDeleteState();
         return success();
     }
 
@@ -144,17 +145,20 @@ public class LectureService {
 
     private UserEnrolledLecture getUserEnrolledLectureWithAuthCheck(Long id, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(id));
+
         lectureAuthority.checkApprovalRight(user, lecture);
+
         return lecture.getUserEnrolledLectures().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get();
     }
 
     public Result userGroupChange(Long lectureId, Long groupId, Long userId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
+
         lectureAuthority.checkGroupChangeRight(user, lecture);
+
         UserEnrolledLecture userEnrolledLecture = assureNotNull(lecture.getUserEnrolledLectures().stream().filter(relation -> relation.getUser().getId().equals(userId)).findFirst().get());
         UserGroup group = assureNotNull(lecture.getUserGroups().stream().filter(userGroup -> userGroup.getId().equals(groupId)).findFirst().get());
         userEnrolledLecture.setUserGroup(group);
-
         return success(new UserGroupDto(group));
     }
 }

@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.repository.TermRepository;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
@@ -20,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "term"})
 @Entity
 @Table(name = "LECTURE")
-public class Lecture {
+public class Lecture implements ObjectOwnerKnowable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TERM_ID")
@@ -103,6 +104,11 @@ public class Lecture {
             return;
         }
         this.term = termRepository.findOne(termId);
+    }
+
+    @Override
+    public User ownerOfObject() {
+        return this.hostUser;
     }
 }
 

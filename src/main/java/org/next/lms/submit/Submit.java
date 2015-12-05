@@ -1,6 +1,7 @@
 package org.next.lms.submit;
 
 import lombok.*;
+import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.like.domain.UserLikesReply;
 import org.next.lms.user.domain.User;
@@ -18,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"userHaveToSubmit", "writer"})
 @Entity
 @Table(name = "SUBMIT")
-public class Submit {
+public class Submit implements ObjectOwnerKnowable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_HAVE_TO_SUBMIT_ID")
@@ -49,5 +50,10 @@ public class Submit {
     public void setDeleteState() {
         this.writer = null;
         this.userHaveToSubmit = null;
+    }
+
+    @Override
+    public User ownerOfObject() {
+        return this.writer;
     }
 }

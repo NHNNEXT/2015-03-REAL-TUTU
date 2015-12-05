@@ -34,23 +34,28 @@ public class SubmitService {
         submit.setWriter(user);
         submit.setUserHaveToSubmit(userHaveToSubmit);
         submit.setWriteDate(new Date());
+
+        submitAuth.checkWriteRight(userHaveToSubmit, user);
+
         submitRepository.save(submit);
         return success(new SubmitDto(submit));
     }
 
     public Result update(Submit submit, User user) {
         Submit fromDB = assureNotNull(submitRepository.findOne(submit.getId()));
-        submitAuth.checkUpdateRight(fromDB, user);
-        fromDB.update(submit);
 
+        submitAuth.checkUpdateRight(fromDB, user);
+
+        fromDB.update(submit);
         return success(new SubmitDto(fromDB));
     }
 
     public Result deleteReply(Long id, User user) {
         Submit submit = assureNotNull(submitRepository.findOne(id));
+
         submitAuth.checkDeleteRight(submit, user);
+
         submit.setDeleteState();
         return success();
     }
-
 }
