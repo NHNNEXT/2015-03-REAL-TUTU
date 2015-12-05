@@ -28,7 +28,7 @@ angular.module('clientApp').controller('contentDetailController',
 
         $scope.$watch(function () {
           return $scope.content.tags;
-        }, function (tags) {
+        }, function () {
           if ($scope.tagReadOnly)
             return;
           http.post('/api/v1/tag/content', {id: $scope.content.id, tags: $scope.content.tags}, true);
