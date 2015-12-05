@@ -39,7 +39,6 @@
       };
     });
 
-
     this.querySearch = function (keyword) {
       return http.get('/api/v1/tag', {keyword: keyword}).then(function (result) {
         if (self.result === null || self.result === "null")

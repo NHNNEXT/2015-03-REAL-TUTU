@@ -2,6 +2,8 @@ package org.next.lms.tag.control;
 
 import org.next.infra.result.Result;
 import org.next.lms.tag.domain.TagUpdateDto;
+import org.next.lms.user.control.inject.Logged;
+import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,8 @@ public class TagController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/content")
-    public Result update(@RequestBody TagUpdateDto tagUpdateDto) {
-        return tagService.updateContent(tagUpdateDto);
+    public Result update(@RequestBody TagUpdateDto tagUpdateDto, @Logged User user) {
+        return tagService.updateContent(tagUpdateDto, user);
     }
 
 
