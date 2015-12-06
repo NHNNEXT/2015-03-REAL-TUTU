@@ -1,5 +1,4 @@
 <section>
-
   <div layout="row">
     <md-input-container flex="20">
       <label>구분</label>
@@ -59,12 +58,10 @@
       </table>
     </md-data-table-container>
   </div>
-
-
-</section>
-
-<section>
   <div froala ng-model="content.body"></div>
+
+  <attachments content="content" class="margin-bottom"></attachments>
+
   <md-input-container>
     <md-button aria-label="done button" ng-click="save(content)" class="md-raised md-primary">작성완료</md-button>
   </md-input-container>
