@@ -35,6 +35,11 @@ angular.module('clientApp')
         this.startTime = new Date(obj.startTime);
       if (obj.endTime)
         this.endTime = new Date(obj.endTime);
+      if (this.startTime > this.endTime) {
+        var tmp = this.startTime;
+        this.startTime = this.endTime;
+        this.endTime = tmp;
+      }
       this.contentGroup = new ContentGroup(obj.contentGroup); //타입오브젝트
       this.hits = obj.hits;
       this.likes = obj.likes;
@@ -55,7 +60,7 @@ angular.module('clientApp')
       query.startTime = this.startTime;
       if (this.id === undefined)
         query.contentGroup = this.contentGroup.id;
-      if (this.contentGroup.contentType.submit) {
+      if (this.contentGroup.contentType === 'SUBMIT') {
         query.submitRequiredUsers = [];
         this.users.forEach(function (user) {
           if (user.submit)

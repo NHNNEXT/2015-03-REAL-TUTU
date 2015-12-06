@@ -5,33 +5,6 @@
     /* @ngInject */
     .controller('mainController', function (rootUser, Content, $state, $scope) {
 
-      var self = this;
-
-      self.tags = [];
-      self.selectedTags = [];
-
-      this.hasTag = function (contents) {
-        if (!contents)
-          return;
-        if (self.selectedTags.length === 0)
-          return contents;
-        var result = [];
-        contents.forEach(function (content) {
-          for (var i = 0; i < self.selectedTags.length; i++) {
-            if (!find(content.tags, self.selectedTags[i]))
-              return;
-          }
-          result.push(content);
-        });
-        return result;
-      };
-
-      function find(array, text){
-        return array.find(function (tag) {
-          return tag.text === text;
-        });
-      }
-
       $scope.$watch(function () {
         return rootUser.id;
       }, function (id) {
@@ -40,18 +13,7 @@
         $state.go('loginneed');
       });
 
-      self.rootUser = rootUser;
-      var classes = ['gray', 'green', 'yellow', 'blue', 'purple', 'red'];
-      Content.getList().then(function (list) {
-        self.contents = list;
-        list.forEach(function (content, i) {
-          content.tags.forEach(function (tag) {
-            self.tags.pushIfNotExist(tag.text);
-          });
-          content.row = 2;
-          content.col = 2;
-          content.class = classes[i % classes.length];
-        });
-      });
+      this.rootUser = rootUser;
+
     });
 })();

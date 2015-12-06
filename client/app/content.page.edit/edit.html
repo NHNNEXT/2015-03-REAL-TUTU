@@ -11,11 +11,12 @@
     </md-input-container>
   </div>
   <div layout="row"  class="margin-top">
-    <div ng-show="content.contentGroup.contentType.startTime" flex>
+    <div ng-if="content.contentGroup.contentType==='SCHEDULE'" flex>
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
+      <input-datepicker placeholder="끝" ng-model="content.endTime"></input-datepicker>
     </div>
-    <div ng-show="content.contentGroup.contentType.endTime" flex>
-      <input-datepicker placeholder="{{placeholder}}" ng-model="content.endTime"></input-datepicker>
+    <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
+      <input-datepicker placeholder="마감" ng-model="content.endTime"></input-datepicker>
     </div>
   </div>
 </section>

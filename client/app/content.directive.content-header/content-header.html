@@ -1,10 +1,10 @@
 <div class="type">{{content.contentGroup.name}}</div>
 <div class="moveto" ui-sref="content({id:content.id})">
   <div class="header"><span ng-bind="content.title"></span>
-    <span class="dueDate" ng-show="content.contentGroup.contentType.endTime || content.contentGroup.contentType.startTime">
-      <span ng-if="!content.contentGroup.contentType.startTime">(마감 : {{content.endTime.fromNow()}})</span>
-      <span ng-if="content.contentGroup.contentType.startTime">({{content.startTime.range(content.endTime)}})</span>
-    </span>
+    <span class="dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">
+      (마감 : {{content.endTime.fromNow()}})</span>
+    <span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
+      ({{content.startTime.range(content.endTime)}})</span>
   </div>
   <div class="body" ng-bind="content.body.removeTags()"></div>
 </div>

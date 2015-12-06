@@ -1,16 +1,20 @@
 package org.next.lms.content.control;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
-import org.next.lms.content.domain.ContentDao;
+import org.next.lms.content.dao.ContentDao;
+import org.next.lms.content.domain.QContent;
 import org.next.lms.content.domain.dto.ContentDto;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.QLecture;
+import org.next.lms.lecture.domain.QUserEnrolledLecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.message.control.MessageService;
@@ -22,8 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
@@ -121,7 +124,7 @@ public class ContentService {
     }
 
     public Result makeRelation(Long contentId, Long linkContentId, User user) {
-        if(contentId.equals(linkContentId))
+        if (contentId.equals(linkContentId))
             return new Result(ResponseCode.ContentRelation.CANT_BIND_SELF);
         Content linkContent = getCheckedContent(contentId, user);
         Content linkedContent = getCheckedContent(linkContentId, user);
@@ -149,4 +152,5 @@ public class ContentService {
         contentLinkContentRepository.deleteByLinkContentIdAndLinkedContentId(contentId, linkContentId);
         return success();
     }
+
 }

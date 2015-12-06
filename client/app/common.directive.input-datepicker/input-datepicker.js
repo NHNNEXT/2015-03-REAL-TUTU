@@ -17,8 +17,6 @@ angular.module('clientApp')
 
         var handler = function (e) {
           inputDatePickers.forEach(function (scope) {
-            if (s === scope)
-              return;
             scope.open = false;
           });
           e.stopPropagation();

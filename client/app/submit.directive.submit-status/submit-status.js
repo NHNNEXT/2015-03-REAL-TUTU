@@ -55,8 +55,6 @@ angular.module('clientApp')
             left = 10;
           return left + '%';
         }
-
-
       }
     };
   });

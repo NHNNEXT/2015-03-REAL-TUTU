@@ -16,24 +16,26 @@
   </div>
 
 
-  <div layout="row" ng-show="!extendWrite || !content.contentGroup.hasDuration()" class="margin-top">
-    <div ng-show="content.contentGroup.contentType.startTime" flex>
-      <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
+  <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
+    <div layout="row" ng-hide="extendWrite" class="margin-top">
+      <div flex>
+        <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
+      </div>
+      <div flex>
+        <input-datepicker placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
+      </div>
     </div>
-    <div ng-show="content.contentGroup.contentType.endTime" flex>
-      <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
+    <div class="margin-top margin-bottom" layout="row">
+      <md-checkbox ng-model="extendWrite">
+        일괄입력
+      </md-checkbox>
     </div>
-  </div>
-  <div class="margin-top margin-bottom" layout="row" ng-show="content.contentGroup.hasDuration()">
-    <md-checkbox ng-model="extendWrite">
-      일괄입력
-    </md-checkbox>
-  </div>
-  <div ng-show="content.contentGroup.hasDuration() && extendWrite" ng-include="'/content.page.edit/extend.html'">
+    <div ng-show="extendWrite" ng-include="'/content.page.edit/extend.html'"></div>
   </div>
 
+  <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
+    <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
 
-  <div layout="row" ng-show="content.contentGroup.contentType.submit">
     <md-data-table-container>
       <table md-data-table>
         <thead md-order="query.order" md-trigger="onOrderChange">
@@ -41,7 +43,7 @@
           <th name="이름"></th>
           <th name="이메일"></th>
           <th name="그룹"></th>
-          <th name="제출대상"></th>
+          <th name="제출대상" ng-click="toggleAll()"></th>
         </tr>
         </thead>
         <tbody>
@@ -57,6 +59,7 @@
       </table>
     </md-data-table-container>
   </div>
+
 
 </section>
 

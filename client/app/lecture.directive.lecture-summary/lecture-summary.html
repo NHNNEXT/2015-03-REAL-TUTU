@@ -1,0 +1,46 @@
+<div layout="row">
+  <div flex="10"></div>
+  <div flex="10" class="date-header" ng-repeat="date in dates">{{date.getDateString()}}</div>
+</div>
+<div layout="row" style="position:relative">
+  <div flex="10">{{lecture.name}}</div>
+  <span ng-repeat="content in contents">
+    <span ng-switch="content.contentGroup.contentType" ng-mouseover="content.hover=true" ng-mouseout="content.hover=false">
+      <span ng-switch-default ng-style="left(content.writeDate, $index)">
+        {{content.title}}
+          <md-tooltip md-direction="right">
+            {{content.title}} {{content.writeDate.toYMD()}}
+          </md-tooltip>
+      </span>
+      <span ng-switch-when="SUBMIT" ng-style="left(content.end, $index)">
+          <md-tooltip md-direction="right">
+            {{content.title}}
+             마감 : {{content.end.toYMD()}}
+          </md-tooltip>
+      </span>
+      <span ng-switch-when="SCHEDULE" ng-style="range(content, $index)">
+        {{content.title}}
+          <md-tooltip md-direction="bottom">
+            {{content.title}}
+             {{content.startTime.range(content.endTime)}}
+          </md-tooltip>
+      </span>
+    </span>
+  </span>
+</div>
+
+<md-grid-list
+  md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+  md-row-height-gt-md="1:1" md-row-height="2:2"
+  md-gutter="12px" md-gutter-gt-sm="8px">
+  <md-grid-tile ng-repeat="content in contents" ng-class="class(content)" ng-mouseover="content.hover=true" ng-mouseout="content.hover=false"
+                md-rowspan="{{content.row}}" md-colspan="{{content.col}}" md-colspan-sm="1">
+    <div class="center">
+      <h2 ui-sref="content({id:content.id})">{{content.title}}</h2>
+      <md-chip ng-repeat="tag in content.tags" class="margin-right">{{tag.text}}</md-chip>
+    </div>
+    <md-grid-tile-footer>
+      <h3 ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</h3>
+    </md-grid-tile-footer>
+  </md-grid-tile>
+</md-grid-list>

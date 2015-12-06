@@ -46,5 +46,4 @@ public class SearchController {
         return Result.success(query.list(qContent).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
     }
 
-
 }

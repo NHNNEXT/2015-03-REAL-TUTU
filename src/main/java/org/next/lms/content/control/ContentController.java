@@ -2,7 +2,7 @@ package org.next.lms.content.control;
 
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
-import org.next.lms.content.domain.ContentDao;
+import org.next.lms.content.dao.ContentDao;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.lecture.control.LectureController;
@@ -66,4 +66,6 @@ public class ContentController {
     public Result deleteLecture(Long id, @Logged User user) {
         return contentService.delete(id, user);
     }
+
+
 }

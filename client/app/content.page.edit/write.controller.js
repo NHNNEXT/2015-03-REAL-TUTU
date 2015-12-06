@@ -7,6 +7,13 @@ angular.module('clientApp').controller('contentWriteController',
     $scope.$watch(function () {
       return $stateParams.lectureId;
     }, function (id) {
+
+      $scope.toggleAll = function () {
+        $scope.content.users.forEach(function (user) {
+          user.submit = !user.submit;
+        });
+      };
+
       $scope.content = new Content();
       if (id === undefined)
         return;
@@ -16,7 +23,7 @@ angular.module('clientApp').controller('contentWriteController',
           $scope.contentGroups.push(new ContentGroup(contentGroup));
         });
         $scope.content.users = [];
-        writeInfo.users.forEach(function(user){
+        writeInfo.users.forEach(function (user) {
           $scope.content.users.push(new User(user));
         });
 
