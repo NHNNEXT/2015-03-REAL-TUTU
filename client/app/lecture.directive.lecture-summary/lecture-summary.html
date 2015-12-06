@@ -1,7 +1,7 @@
 <div class="margin-bottom">
-  <h2>{{lecture.name}}</h2>
+  <h2 ui-sref="lecture({id:lecture.id})">{{lecture.name}}</h2>
 
-  <p>by {{lecture.hostUser.name}}</p>
+  <p ui-sref="profile({id:lecture.hostUser.id})">by {{lecture.hostUser.name}}</p>
 
   <p ng-show="contents.length===0">내역이 없습니다.</p>
 </div>
@@ -11,7 +11,7 @@
   </div>
   <div layout="row" style="position:relative" class="body">
   <span ng-repeat="content in contents">
-    <span ng-switch="content.contentGroup.contentType" ng-mouseover="content.hover=true"
+    <span ui-sref="content({id:content.id})" ng-switch="content.contentGroup.contentType" ng-mouseover="content.hover=true"
           ng-mouseout="content.hover=false">
       <span ng-switch-default ng-style="left(content.writeDate, $index)">
         {{content.title}}
