@@ -3,20 +3,15 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        lecture: '='
+        lecture: '=', start:'=', end:'='
       },
       templateUrl: '/lecture.directive.lecture-summary/lecture-summary.html',
       /* @ngInject */
       controller: function (Content, $scope) {
-        var start = new Date();
-        var end = new Date();
-        start.setDate(start.getDate() - 6);
-        end.setDate(end.getDate() + 3);
-
         Content.getList({
           lectureId: $scope.lecture.id,
-          start: start.getTime(),
-          end: end.getTime()
+          start: $scope.start.getTime(),
+          end: $scope.end.getTime()
         }).then(function (result) {
           var now = new Date();
           var day = 24 * 60 * 60 * 1000;
@@ -43,7 +38,7 @@ angular.module('clientApp')
 
 
         $scope.dates = [];
-        for (var date = new Date(start); date < end; date.setDate(date.getDate() + 1)) {
+        for (var date = new Date($scope.start); date < $scope.end; date.setDate(date.getDate() + 1)) {
           $scope.dates.push(new Date(date));
         }
 
@@ -52,8 +47,9 @@ angular.module('clientApp')
         $scope.left = function (date, index) {
           var style = {};
           style.left = calculateLeft(date);
-          style.height = '100%';
           style.position = 'absolute';
+          style.borderLeft = '4px solid #eee';
+          style.paddingLeft = '2px';
           if (index !== undefined)
             style.top = (100 / divider) * (index % divider) + '%';
           return style;
@@ -63,16 +59,14 @@ angular.module('clientApp')
           var style = {};
           style.left = calculateLeft(content.startTime);
           style.width = calculateLeft(content.endTime - content.startTime);
-          style.height = '2px';
-          style.background = '#EEE';
+          style.borderBottom = '4px solid #eee';
           style.position = 'absolute';
-          style.bottom = 0;
           style.top = (100 / divider) * (index % divider) + '%';
           return style;
         };
 
         function calculateLeft(date) {
-          var left = 10 + (((date - start) / (end - start)) * 100);
+          var left = 10 + (((date - $scope.start) / ($scope.end - $scope.start)) * 100);
           if (left < 10)
             left = 10;
           return left + '%';

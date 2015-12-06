@@ -50,7 +50,6 @@ Date.prototype.range = function (date) {
   return early.toYMD() + " ~ " + late.toYMD();
 };
 
-
 if (!Array.prototype.includes) {
   Array.prototype.includes = function (searchElement /*, fromIndex*/) {
     'use strict';

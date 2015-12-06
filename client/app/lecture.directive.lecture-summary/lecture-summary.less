@@ -1,14 +1,24 @@
 lecture-summary {
   text-align: center;
-  font-size: 70%;
-  height: 50px;
+  font-size: 80%;
   position: relative;
+  display: block;
+  border-top: 2px dotted #eee;
+  padding-top: 30px;
+  padding-bottom: 30px;
   .now {
     position: absolute;
     height: 100%;
     border-right: 1px solid red;
   }
 
+  .body {
+    height: 100px;
+    .header {
+      line-height: 100px;
+      font-size: 15px;
+    }
+  }
 
   md-grid-list {
     margin: 8px;
