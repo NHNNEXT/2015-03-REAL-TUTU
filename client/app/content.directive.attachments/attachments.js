@@ -25,26 +25,29 @@ angular.module('clientApp').directive('attachments',
         };
 
         var self = this;
+        this.tmps = [];
 
         $scope.$watch(function () {
-          return self.file;
-        }, function (file) {
-          if (!file)
+          return self.files;
+        }, function (files) {
+          if (!files)
             return;
-          self.uploading = true;
-          Upload.upload({
-            url: '/api/v1/upload/attachment',
-            data: {file: file}
-          }).then(function (resp) {
-            self.uploading = false;
-            if (!self.content.attachments)
-              self.content.attachments = [];
-            self.content.attachments.push(new Attachment(resp.data.result));
-          }, function () {
-            alert.error("업로드 실패 했습니다.");
-            self.uploading = false;
-          }, function (evt) {
-            self.progress = parseInt(100.0 * evt.loaded / evt.total);
+          files.forEach(function (file) {
+            self.tmps.push(file);
+            file.progress = 0;
+            Upload.upload({
+              url: '/api/v1/upload/attachment',
+              data: {file: file}
+            }).then(function (resp) {
+              if (!self.content.attachments)
+                self.content.attachments = [];
+              self.content.attachments.push(new Attachment(resp.data.result));
+              self.tmps.remove(file);
+            }, function () {
+              alert.error("업로드 실패 했습니다.");
+            }, function (evt) {
+              file.progress = parseInt(100.0 * evt.loaded / evt.total);
+            });
           });
         });
       }

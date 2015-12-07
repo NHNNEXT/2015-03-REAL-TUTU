@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
@@ -140,9 +141,18 @@ public class ContentSaveService {
         });
     }
 
+
+    @Transactional
     private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
-        userHaveToSubmitRepository.deleteByContentId(content.getId());
+        content.getUserHaveToSubmits().stream().forEach(userHaveToSubmit -> {
+            if (contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getId()))
+                return;
+            userHaveToSubmitRepository.delete(userHaveToSubmit.getId());
+        });
+
         contentParameterDto.getSubmitRequiredUsers().forEach(userId -> {
+            if (content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent())
+                return;
             User user = assureNotNull(userRepository.findOne(userId));
             UserHaveToSubmit userHaveToSubmit = new UserHaveToSubmit();
             userHaveToSubmit.setUser(user);

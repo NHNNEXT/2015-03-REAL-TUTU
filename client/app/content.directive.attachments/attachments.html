@@ -11,9 +11,17 @@
       <p ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</p>
     </div>
   </md-grid-tile>
+  <md-grid-tile ng-repeat="tmp in ctrl.tmps"
+                md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+    <div class="center">
+      <md-icon md-svg-icon="/resource/icon/file.svg"></md-icon>
+      <p  class="detail">{{tmp.name}}</p>
+      <md-progress-linear md-mode="determinate" ng-value="tmp.progress"></md-progress-linear>
+    </div>
+  </md-grid-tile>
 </md-grid-list>
-<div ng-show="!ctrl.readonly" ngf-select ng-model="ctrl.file" ngf-drop
+{{files}}
+<div ng-show="!ctrl.readonly" ngf-select ng-model="ctrl.files" ngf-drop ngf-multiple="true"
      ngf-max-size="10MB">이곳에 파일을 드래그하세요. (10MB 이하)
-  <md-progress-linear ng-show="ctrl.uploading" md-mode="determinate" ng-value="ctrl.progress"></md-progress-linear>
 </div>
 
