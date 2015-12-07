@@ -83,12 +83,7 @@ public class ContentSaveService {
     public Result update(ContentParameterDto contentParameterDto, User user) {
         Content contentFromDB = assureNotNull(contentRepository.findOne(contentParameterDto.getId()));
         contentAuthority.checkUpdateRight(contentFromDB, user);
-
-        contentFromDB.setTitle(contentParameterDto.getTitle());
-        contentFromDB.setBody(contentParameterDto.getBody());
-        contentFromDB.setWriteDate(new Date());
-        contentFromDB.setStartTime(contentParameterDto.getStartTime());
-        contentFromDB.setEndTime(contentParameterDto.getEndTime());
+        contentParameterDto.setProperties(contentFromDB);
         contentFromDB.validate();
         if (ContentType.SUBMIT.equals(contentFromDB.getContentGroup().getContentType())) {
             submitUserDeclare(contentParameterDto, contentFromDB);
@@ -105,17 +100,12 @@ public class ContentSaveService {
         if (contentParameterDto.getContentGroup() == null)
             throw new PatternNotMatchedException("게시물 타입을 입력해야합니다.");
         Content content = new Content();
+        contentParameterDto.setProperties(content);
         content.setLecture(lecture);
         content.setWriter(user);
         content.setContentGroup(assureNotNull(contentGroupRepository.findOne(contentParameterDto.getContentGroup())));
-        contentAuthority.checkWriteRight(content.getContentGroup(), user);
-        content.setId(contentParameterDto.getId());
-        content.setTitle(contentParameterDto.getTitle());
-        content.setBody(contentParameterDto.getBody());
-        content.setWriteDate(new Date());
-        content.setStartTime(contentParameterDto.getStartTime());
-        content.setEndTime(contentParameterDto.getEndTime());
         content.validate();
+        contentAuthority.checkWriteRight(content.getContentGroup(), user);
         contentRepository.save(content);
         if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
             submitUserDeclare(contentParameterDto, content);

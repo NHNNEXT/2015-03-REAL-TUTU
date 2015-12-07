@@ -3,7 +3,8 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        submitdto: '='
+        submitdto: '=',
+        attach: '='
       },
       templateUrl: '/submit.directive.submits/submits.html',
       /* @ngInject */
@@ -25,8 +26,7 @@ angular.module('clientApp')
         $scope.writeSubmit = function (submit) {
           submit.submitId = $scope.submitId;
           submit.save().then(function (result) {
-            submit.id = result.id;
-            $scope.submits.push(submit);
+            $scope.submits.push(new Submit(result));
             $scope.submit = new Submit();
           });
         };

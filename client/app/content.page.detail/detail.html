@@ -62,7 +62,7 @@
   <md-tabs md-dynamic-height md-border-bottom>
     <md-tab ng-repeat="submitdto in content.submitRequiredUsers" label="{{' '+submitdto.user.name+' '}}">
       <md-content class="md-padding">
-        <submits submitdto="submitdto"></submits>
+        <submits attach="content.submitCanAttach" submitdto="submitdto"></submits>
       </md-content>
     </md-tab>
   </md-tabs>

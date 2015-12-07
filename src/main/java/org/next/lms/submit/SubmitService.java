@@ -65,6 +65,8 @@ public class SubmitService {
     }
 
     private void attachmentsDeclare(SubmitParameterDto submitParameterDto, Submit submit) {
+        if (submitParameterDto.getAttachments() == null)
+            return;
         submit.getAttachments().stream()
                 .filter(attachment -> !submitParameterDto.getAttachments().stream()
                         .filter(id -> attachment.getId().equals(id)).findAny().isPresent()).forEach(attachment -> attachment.setContent(null));
@@ -74,6 +76,7 @@ public class SubmitService {
                 return;
             UploadedFile file = uploadFileRepository.findOne(id);
             file.setSubmit(submit);
+            submit.getAttachments().add(file);
             uploadFileRepository.save(file);
         });
     }

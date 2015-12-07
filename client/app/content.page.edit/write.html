@@ -34,6 +34,9 @@
 
   <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
     <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
+    <md-checkbox ng-model="content.submitCanAttach">
+      <small>제출시 파일 첨부</small>
+    </md-checkbox>
 
     <md-data-table-container>
       <table md-data-table>

@@ -22,7 +22,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
+@EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime", "submitCanAttach"})
 @Entity
 @Table(name = "CONTENT")
 public class Content implements ObjectOwnerKnowable{
@@ -88,6 +88,9 @@ public class Content implements ObjectOwnerKnowable{
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "END_TIME")
     private Date endTime;
+
+    @Column(name="SUBMIT_CAN_ATTACH")
+    private Boolean submitCanAttach;
 
 
     public void addReadCount() {

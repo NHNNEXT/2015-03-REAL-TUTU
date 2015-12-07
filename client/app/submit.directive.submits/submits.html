@@ -1,5 +1,5 @@
 <div ng-repeat="submit in submits | orderBy:'writeDate'" layout="row">
-  <div submit="submit" submits="submits"></div>
+  <div submit="submit" submits="submits" attach="attach"></div>
 </div>
 <div class="submit-write" layout="row">
   <div class="photo" flex>
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <attachments ng-if="user.isRootUser()" attachments="submit.attachments"></attachments>
+      <attachments ng-if="attach && user.isRootUser()" attachments="submit.attachments"></attachments>
     </div>
   </div>
 </div>

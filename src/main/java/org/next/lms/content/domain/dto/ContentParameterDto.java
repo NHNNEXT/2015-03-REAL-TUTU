@@ -18,6 +18,7 @@ public class ContentParameterDto {
     private Long lectureId;
     private Lecture lecture;
     private Long id;
+    private Boolean submitCanAttach;
     private String title;
     private String body;
     private Date writeDate;
@@ -27,4 +28,14 @@ public class ContentParameterDto {
     private Content content;
     private List<Long> submitRequiredUsers;
     private List<Long> attachments;
+
+    public void setProperties(Content content) {
+        content.setId(id);
+        content.setTitle(title);
+        content.setBody(body);
+        content.setSubmitCanAttach(submitCanAttach);
+        content.setWriteDate(new Date());
+        content.setStartTime(startTime);
+        content.setEndTime(endTime);
+    }
 }

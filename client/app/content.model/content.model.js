@@ -29,6 +29,7 @@ angular.module('clientApp')
       this.body = obj.body;
       this.relativeContents = obj.relativeContents;
       this.attachments = obj.attachments;
+      this.submitCanAttach = obj.submitCanAttach;
       this.tags = obj.tags === undefined ? [] : obj.tags;
       if (obj.writeDate)
         this.writeDate = new Date(obj.writeDate);
@@ -59,6 +60,7 @@ angular.module('clientApp')
       query.lectureId = this.lectureId;
       query.endTime = this.endTime;
       query.startTime = this.startTime;
+      query.submitCanAttach = this.submitCanAttach;
       if (this.id === undefined)
         query.contentGroup = this.contentGroup.id;
       if (this.contentGroup.contentType === 'SUBMIT') {
