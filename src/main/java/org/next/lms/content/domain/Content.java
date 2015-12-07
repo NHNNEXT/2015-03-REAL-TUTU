@@ -3,6 +3,7 @@ package org.next.lms.content.domain;
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
@@ -89,17 +90,6 @@ public class Content implements ObjectOwnerKnowable{
     private Date endTime;
 
 
-    public void update(Content content) {
-        if (content.title != null)
-            this.title = content.title;
-        if (content.body != null)
-            this.body = content.body;
-        if (content.startTime != null)
-            this.startTime = content.startTime;
-        if (content.endTime != null)
-            this.endTime = content.endTime;
-    }
-
     public void addReadCount() {
         this.hits++;
     }
@@ -118,5 +108,7 @@ public class Content implements ObjectOwnerKnowable{
     public User ownerOfObject() {
         return this.writer;
     }
+
+
 }
 

@@ -1,7 +1,14 @@
 angular.module('clientApp').controller('contentEditController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, User, ContentGroup) {
     $scope.rootUser = rootUser;
+
+    $scope.toggleAll = function () {
+      $scope.content.users.forEach(function (user) {
+        user.submit = !user.submit;
+      });
+    };
+
 
     $scope.$watch(function () {
       return $stateParams.id;
@@ -11,6 +18,17 @@ angular.module('clientApp').controller('contentEditController',
       Content.findById(id).then(function (content) {
         $scope.content = content;
         $state.current.header = content.lectureName;
+        Lecture.getWriteInfoById(content.lectureId).then(function (writeInfo) {
+          $scope.content.users = [];
+          writeInfo.users.forEach(function (user) {
+            var u = new User(user);
+            u.submit = undefined !== content.submitRequiredUsers.find(function (user) {
+              return user.id === u.id;
+            });
+            $scope.content.users.push(u);
+          });
+        });
+
       });
     });
 
@@ -20,6 +38,5 @@ angular.module('clientApp').controller('contentEditController',
         $state.go('content', {id: id});
       });
     };
-
 
   });

@@ -6,15 +6,8 @@ import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.dao.ContentDao;
 import org.next.lms.content.domain.dto.ContentDto;
-import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
-import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.content.relative.ContentLinkContent;
-import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.UserEnrolledLecture;
-import org.next.lms.lecture.control.auth.LectureAuth;
-import org.next.lms.message.control.MessageService;
-import org.next.lms.message.template.NewContentCreatedMessage;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,25 +29,7 @@ public class ContentService {
     private ContentRepository contentRepository;
 
     @Autowired
-    private LectureRepository lectureRepository;
-
-    @Autowired
-    private ContentGroupRepository contentGroupRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserHaveToSubmitRepository userHaveToSubmitRepository;
-
-    @Autowired
     private ContentAuth contentAuthority;
-
-    @Autowired
-    private LectureAuth lectureAuth;
-
-    @Autowired
-    private MessageService messageService;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -69,24 +44,6 @@ public class ContentService {
         Content content = getCheckedContent(id, user);
         content.addReadCount();
         return success(new ContentDto(content, user));
-    }
-
-    public Result saveContent(ContentParameterDto contentParameterDto, User user) {
-        Content content = contentParameterDto.saveContent(user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository, uploadFileRepository, lectureRepository);
-
-        messageService
-                // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
-                .send(new NewContentCreatedMessage(content.getLecture(), content, 1))
-                .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
-        return success(new ContentDto(content, user));
-    }
-
-    public Result update(Content content, User user) {
-        Content contentFromDB = assureNotNull(contentRepository.findOne(content.getId()));
-        contentAuthority.checkUpdateRight(contentFromDB, user);
-        contentFromDB.update(content);
-        contentFromDB.validate();
-        return success();
     }
 
     public Result getList(ContentDao contentDao) {
@@ -110,16 +67,6 @@ public class ContentService {
         return success();
     }
 
-    public Result saveContents(ContentListDto contents, User user) {
-        Lecture lecture = lectureRepository.findOne(contents.getLectureId());
-
-        lectureAuth.checkUpdateRight(lecture, user);
-
-        contents.getContents().forEach(contentParameterDto -> {
-            contentParameterDto.saveContent(user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository, uploadFileRepository, lectureRepository);
-        });
-        return success();
-    }
 
     public Result makeRelation(Long contentId, Long linkContentId, User user) {
         if (contentId.equals(linkContentId))
