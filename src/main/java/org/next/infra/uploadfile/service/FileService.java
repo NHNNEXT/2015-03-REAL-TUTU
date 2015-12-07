@@ -8,6 +8,7 @@ import org.next.infra.result.Result;
 import org.next.infra.result.UploadResult;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
+import org.next.infra.uploadfile.dto.UploadedFileDto;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,7 +70,7 @@ public class FileService {
     }
 
 
-    public Result upload(MultipartFile file, User userAccount, Long contentId) {
+    public Result upload(MultipartFile file, User userAccount) {
         if (file.isEmpty())
             return new Result(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
 
@@ -87,17 +88,17 @@ public class FileService {
             log.debug("{}", e.getCause());
             return new Result(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
         }
-        saveFileInfo(file, uglifiedFileName, contentId, userAccount);
-        return success(uglifiedFileName);
+
+        return success(new UploadedFileDto(saveFileInfo(file, uglifiedFileName, userAccount)));
     }
 
-    private void saveFileInfo(MultipartFile file, String fileName, Long contentId, User user) {
+    private UploadedFile saveFileInfo(MultipartFile file, String fileName, User user) {
         UploadedFile fileInfo = new UploadedFile();
         fileInfo.setOriginalFileName(getNormalizedFileName(file));
         fileInfo.setUglyFileName(fileName);
-        fileInfo.setContent(contentRepository.findOne(contentId));
         fileInfo.setUploadUser(user);
         uploadFileRepository.save(fileInfo);
+        return fileInfo;
     }
 
     private String uglifyFileName(MultipartFile file) {

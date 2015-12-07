@@ -16,13 +16,13 @@ public class UploadedFileDto {
     @JsonIgnore
     private String lectureName;
 
+    private Long id;
     private String originalFileName;
     private String downloadUrl;
     private Date uploadTime;
 
     public UploadedFileDto(UploadedFile uploadedFile) {
-        this.lectureId = uploadedFile.getContent().getLecture().getId();
-        this.lectureName = uploadedFile.getContent().getLecture().getName();
+        this.id = uploadedFile.getId();
         this.originalFileName = uploadedFile.getOriginalFileName();
         this.downloadUrl = API_V1_DOWNLOAD + uploadedFile.getUglyFileName();
         this.uploadTime = uploadedFile.getUploadTime();
