@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
@@ -142,7 +141,6 @@ public class ContentSaveService {
     }
 
 
-    @Transactional
     private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
         content.getUserHaveToSubmits().stream().forEach(userHaveToSubmit -> {
             if (contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getId()))
