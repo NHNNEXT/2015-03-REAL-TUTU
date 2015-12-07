@@ -4,41 +4,47 @@ angular.module('clientApp').directive('attachments',
     return {
       restrict: 'E',
       templateUrl: '/content.directive.attachments/attachments.html',
+      bindToController: true,
+      controllerAs: 'ctrl',
       scope: {
         content: '=',
-        readonly:'='
+        readonly: '='
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
-        $scope.progress = 0;
+        this.progress = 0;
 
-        $scope.download = function (attachment) {
+        this.download = function (attachment) {
           if (!confirm("파일을 다운로드 합니다."))
             return;
           $window.open(attachment.downloadUrl, '_blank');
         };
 
-        $scope.delete = function (attachment, attachments) {
+        this.delete = function (attachment, attachments) {
           if (!confirm("삭제하시겠습니까?"))
             return;
           attachments.remove(attachment);
         };
 
-        $scope.$watch('file', function (file) {
+        var self = this;
+
+        $scope.$watch(function () {
+          return self.file;
+        }, function (file) {
           if (!file)
             return;
-          $scope.uploading = true;
+          self.uploading = true;
           Upload.upload({
             url: '/api/v1/upload/attachment',
             data: {file: file}
           }).then(function (resp) {
-            $scope.uploading = false;
-            if (!$scope.content.attachments)
-              $scope.content.attachments = [];
-            $scope.content.attachments.push(new Attachment(resp.data.result));
+            self.uploading = false;
+            if (!self.content.attachments)
+              self.content.attachments = [];
+            self.content.attachments.push(new Attachment(resp.data.result));
           }, function () {
             alert.error("업로드 실패 했습니다.");
-            $scope.uploading = false;
+            self.uploading = false;
           }, function (evt) {
-            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+            self.progress = parseInt(100.0 * evt.loaded / evt.total);
           });
         });
       }

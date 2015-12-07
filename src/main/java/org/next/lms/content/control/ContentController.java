@@ -1,7 +1,6 @@
 package org.next.lms.content.control;
 
 import org.next.infra.result.Result;
-import org.next.lms.content.domain.Content;
 import org.next.lms.content.dao.ContentDao;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentListDto;
@@ -21,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/content")
 public class ContentController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LectureController.class);
-
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private ContentSaveService contentSaveService;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -39,7 +39,7 @@ public class ContentController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Result saveContentList(@RequestBody ContentListDto contents, @Logged User user) {
-        return contentService.saveContents(contents, user);
+        return contentSaveService.saveContents(contents, user);
     }
 
     @RequestMapping(value = "/relative", method = RequestMethod.POST)
@@ -54,12 +54,12 @@ public class ContentController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Result save(@RequestBody ContentParameterDto content, @Logged User user) {
-        return contentService.saveContent(content, user);
+        return contentSaveService.save(content, user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Result update(@RequestBody Content content, @Logged User user) {
-        return contentService.update(content, user);
+    public Result update(@RequestBody ContentParameterDto content, @Logged User user) {
+        return contentSaveService.update(content, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

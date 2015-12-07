@@ -10,19 +10,43 @@
       <input ng-model="content.title">
     </md-input-container>
   </div>
-  <div layout="row"  class="margin-top">
-    <div ng-if="content.contentGroup.contentType==='SCHEDULE'" flex>
-      <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
-      <input-datepicker placeholder="끝" ng-model="content.endTime"></input-datepicker>
-    </div>
-    <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
-      <input-datepicker placeholder="마감" ng-model="content.endTime"></input-datepicker>
-    </div>
+  <div layout="row" class="margin-top" ng-if="content.contentGroup.contentType==='SCHEDULE'" flex>
+    <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
+    <input-datepicker placeholder="끝" ng-model="content.endTime"></input-datepicker>
   </div>
+
+  <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
+    <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
+
+    <md-data-table-container>
+      <table md-data-table>
+        <thead md-order="query.order" md-trigger="onOrderChange">
+        <tr>
+          <th name="이름"></th>
+          <th name="이메일"></th>
+          <th name="그룹"></th>
+          <th name="제출대상" ng-click="toggleAll()"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr md-auto-select ng-repeat="user in content.users">
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.group.name}}</td>
+          <td>
+            <md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </md-data-table-container>
+  </div>
+
 
   <div froala ng-model="content.body"></div>
 
-  <attachments ng-show="content.contentGroup.attachment" content="content" readonly="false" class="margin-bottom"></attachments>
+  <attachments ng-show="content.contentGroup.attachment" content="content" readonly="false"
+               class="margin-bottom"></attachments>
 
   <md-input-container>
     <md-button aria-label="done button" ng-click="edit(content)" class="md-raised md-primary">작성완료</md-button>

@@ -59,10 +59,6 @@ angular.module('clientApp')
       query.lectureId = this.lectureId;
       query.endTime = this.endTime;
       query.startTime = this.startTime;
-      query.attachments = [];
-      this.attachments.forEach(function (attachment) {
-        query.attachments.push(attachment.id);
-      });
       if (this.id === undefined)
         query.contentGroup = this.contentGroup.id;
       if (this.contentGroup.contentType === 'SUBMIT') {
@@ -70,6 +66,12 @@ angular.module('clientApp')
         this.users.forEach(function (user) {
           if (user.submit)
             query.submitRequiredUsers.push(user.id);
+        });
+      }
+      if (this.attachments) {
+        query.attachments = [];
+        this.attachments.forEach(function (attachment) {
+          query.attachments.push(attachment.id);
         });
       }
       return query;

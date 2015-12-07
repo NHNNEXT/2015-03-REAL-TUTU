@@ -4,15 +4,15 @@ angular.module('clientApp').controller('contentWriteController',
     $scope.rootUser = rootUser;
     $scope.addTimes = addTimes;
 
+    $scope.toggleAll = function () {
+      $scope.content.users.forEach(function (user) {
+        user.submit = !user.submit;
+      });
+    };
+
     $scope.$watch(function () {
       return $stateParams.lectureId;
     }, function (id) {
-
-      $scope.toggleAll = function () {
-        $scope.content.users.forEach(function (user) {
-          user.submit = !user.submit;
-        });
-      };
 
       $scope.content = new Content();
       if (id === undefined)
