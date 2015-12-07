@@ -2,6 +2,7 @@ package org.next.infra.uploadfile;
 
 import lombok.*;
 import org.next.lms.content.domain.Content;
+import org.next.lms.submit.Submit;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
@@ -21,6 +22,10 @@ public class UploadedFile {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONTENT_ID")
     private Content content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SUBMIT_ID")
+    private Submit submit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UPLOAD_USER_ID")

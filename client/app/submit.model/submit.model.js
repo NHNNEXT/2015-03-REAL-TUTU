@@ -22,17 +22,23 @@ angular.module('clientApp')
       query.id = this.id;
       query.body = this.body;
       query.submitId = this.submitId;
+      if (this.attachments) {
+        query.attachments = [];
+        this.attachments.forEach(function (attachment) {
+          query.attachments.push(attachment.id);
+        });
+      }
       var self = this;
       if (this.id === undefined) {
         return $q(function (resolve) {
-          http.post('/api/v1/submit', query).then(function (result) {
+          http.post('/api/v1/submit', query, true).then(function (result) {
             self.setProperties(result);
             resolve(self);
           });
         });
       }
       return $q(function (resolve) {
-        http.put('/api/v1/submit', query).then(function (result) {
+        http.put('/api/v1/submit', query, true).then(function (result) {
           self.setProperties(result);
           resolve(self);
         });

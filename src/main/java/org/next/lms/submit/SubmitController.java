@@ -5,6 +5,7 @@ import org.next.lms.reply.domain.Reply;
 import org.next.lms.user.control.inject.Logged;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,17 +19,17 @@ public class SubmitController {
     private SubmitService submitService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public Result save(Submit submit, Long submitId, @Logged User user) {
-        return submitService.save(submit, user, submitId);
+    public Result save(@RequestBody SubmitParameterDto submitParameterDto, @Logged User user) {
+        return submitService.save(submitParameterDto, user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Result update(Submit submit, @Logged User user) {
-        return submitService.update(submit, user);
+    public Result update(@RequestBody SubmitParameterDto submitParameterDto, @Logged User user) {
+        return submitService.update(submitParameterDto, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public Result deleteReply(Long id, @Logged User user) {
-        return submitService.deleteReply(id, user);
+    public Result delete(Long id, @Logged User user) {
+        return submitService.delete(id, user);
     }
 }

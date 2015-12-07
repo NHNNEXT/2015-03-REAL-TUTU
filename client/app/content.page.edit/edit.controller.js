@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentEditController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, User, ContentGroup) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, User) {
     $scope.rootUser = rootUser;
 
     $scope.toggleAll = function () {

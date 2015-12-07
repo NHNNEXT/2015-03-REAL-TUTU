@@ -2,6 +2,7 @@ package org.next.lms.submit;
 
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
+import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.domain.Content;
 import org.next.lms.like.domain.UserLikesReply;
 import org.next.lms.user.domain.User;
@@ -25,6 +26,9 @@ public class Submit implements ObjectOwnerKnowable{
     @JoinColumn(name = "USER_HAVE_TO_SUBMIT_ID")
     private UserHaveToSubmit userHaveToSubmit;
 
+    @OneToMany(mappedBy = "submit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UploadedFile> attachments = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "WRITER_ID")
     private User writer;
@@ -41,11 +45,6 @@ public class Submit implements ObjectOwnerKnowable{
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "WRITE_DATE")
     private Date writeDate;
-
-    public void update(Submit submit) {
-        this.writeDate = new Date();
-        this.body = submit.body;
-    }
 
     public void setDeleteState() {
         this.writer = null;
