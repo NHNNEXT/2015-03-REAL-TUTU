@@ -7,7 +7,7 @@ angular.module('clientApp').directive('attachments',
       bindToController: true,
       controllerAs: 'ctrl',
       scope: {
-        content: '=',
+        attachments: '=',
         readonly: '='
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
@@ -39,9 +39,9 @@ angular.module('clientApp').directive('attachments',
               url: '/api/v1/upload/attachment',
               data: {file: file}
             }).then(function (resp) {
-              if (!self.content.attachments)
-                self.content.attachments = [];
-              self.content.attachments.push(new Attachment(resp.data.result));
+              if (!self.attachments)
+                self.attachments = [];
+              self.attachments.push(new Attachment(resp.data.result));
               self.tmps.remove(file);
             }, function () {
               alert.error("업로드 실패 했습니다.");

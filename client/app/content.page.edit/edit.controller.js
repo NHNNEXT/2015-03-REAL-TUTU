@@ -18,13 +18,15 @@ angular.module('clientApp').controller('contentEditController',
       Content.findById(id).then(function (content) {
         $scope.content = content;
         $state.current.header = content.lectureName;
+        if (content.contentGroup.contentType !== "SUBMIT")
+          return;
         Lecture.getWriteInfoById(content.lectureId).then(function (writeInfo) {
           $scope.content.users = [];
           writeInfo.users.forEach(function (user) {
             var u = new User(user);
             u.submit = undefined !== content.submitRequiredUsers.find(function (user) {
-              return user.id === u.id;
-            });
+                return user.id === u.id;
+              });
             $scope.content.users.push(u);
           });
         });

@@ -12,6 +12,7 @@ angular.module('clientApp')
     Submit.prototype.setProperties = function (obj) {
       this.id = obj.id;
       this.body = obj.body;
+      this.attachments = obj.attachments;
       this.writeDate = new Date(obj.writeDate);
       this.writer = new User(obj.writer);
     };
