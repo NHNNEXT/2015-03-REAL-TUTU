@@ -10,11 +10,13 @@ public class ContentGroupDto {
     private final Long id;
     private final Boolean submitOpen;
     private final Boolean reply;
+    private final Boolean attachment;
     private final String name;
     private final ContentType contentType;
 
     public ContentGroupDto(ContentGroup contentGroup) {
         this.id = contentGroup.getId();
+        this.attachment = contentGroup.getAttachment();
         this.contentType = contentGroup.getContentType();
         this.submitOpen = contentGroup.getSubmitOpen();
         this.reply = contentGroup.getReply();

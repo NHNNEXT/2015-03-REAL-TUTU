@@ -1,5 +1,20 @@
 attachments {
-  display:block;
+  display: block;
+  .center {
+    width: 100%;
+    .detail {
+      width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 80%;
+      word-wrap: break-word;
+    }
+  }
+  .fa {
+    position: absolute;
+    right: 10px;
+    top: 0;
+  }
   [ngf-select] {
     height: 80px;
     margin: 0 15px;
@@ -10,7 +25,7 @@ attachments {
     border-radius: 5px;
   }
   [ngf-select].dragover {
-    color:black;
-    border-color:black;
+    color: black;
+    border-color: black;
   }
 }

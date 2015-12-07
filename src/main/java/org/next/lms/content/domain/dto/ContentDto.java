@@ -2,6 +2,7 @@ package org.next.lms.content.domain.dto;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.Getter;
+import org.next.infra.uploadfile.dto.UploadedFileDto;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.domain.QContent;
@@ -37,6 +38,7 @@ public class ContentDto {
     private Long like;
     private List<UserHaveToSubmitDto> submitRequiredUsers;
     private List<ContentSummaryDto> relativeContents;
+    private List<UploadedFileDto> attachments;
 
     public ContentDto(Content content, User user) {
         this.writer = new UserSummaryDto(content.getWriter());
@@ -53,6 +55,8 @@ public class ContentDto {
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());
         this.tags = content.getTags().stream().map(Tag::getText).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
+        this.attachments = content.getAttachments().stream().map(UploadedFileDto::new).collect(Collectors.toList());
+
         this.relativeContents = new ArrayList<>();
         this.relativeContents.addAll(content.getLinkContents().stream().map(contentLinkContent -> new ContentSummaryDto(contentLinkContent.getLinkedContent())).collect(Collectors.toList()));
         this.relativeContents.addAll(content.getLinkedContents().stream().map(contentLinkedContent -> new ContentSummaryDto(contentLinkedContent.getLinkContent())).collect(Collectors.toList()));

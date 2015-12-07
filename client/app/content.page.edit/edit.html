@@ -19,10 +19,11 @@
       <input-datepicker placeholder="마감" ng-model="content.endTime"></input-datepicker>
     </div>
   </div>
-</section>
 
-<section>
   <div froala ng-model="content.body"></div>
+
+  <attachments ng-show="content.contentGroup.attachment" content="content" readonly="false" class="margin-bottom"></attachments>
+
   <md-input-container>
     <md-button aria-label="done button" ng-click="edit(content)" class="md-raised md-primary">작성완료</md-button>
   </md-input-container>

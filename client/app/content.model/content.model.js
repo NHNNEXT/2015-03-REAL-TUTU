@@ -28,6 +28,7 @@ angular.module('clientApp')
       this.title = obj.title;
       this.body = obj.body;
       this.relativeContents = obj.relativeContents;
+      this.attachments = obj.attachments;
       this.tags = obj.tags === undefined ? [] : obj.tags;
       if (obj.writeDate)
         this.writeDate = new Date(obj.writeDate);
@@ -58,6 +59,10 @@ angular.module('clientApp')
       query.lectureId = this.lectureId;
       query.endTime = this.endTime;
       query.startTime = this.startTime;
+      query.attachments = [];
+      this.attachments.forEach(function (attachment) {
+        query.attachments.push(attachment.id);
+      });
       if (this.id === undefined)
         query.contentGroup = this.contentGroup.id;
       if (this.contentGroup.contentType === 'SUBMIT') {
@@ -77,8 +82,8 @@ angular.module('clientApp')
     Content.prototype.save = function () {
       var query = this.getQuery();
       if (this.id === undefined)
-        return http.post('/api/v1/content', query);
-      return http.put('/api/v1/content', query);
+        return http.post('/api/v1/content', query, true);
+      return http.put('/api/v1/content', query, true);
     };
 
 

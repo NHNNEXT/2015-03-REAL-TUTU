@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"writable", "readable", "lecture", "submitReadable", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "contentType", "submitOpen", "reply", "name"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "contentType", "submitOpen", "reply", "name", "attachment"})
 @Entity
 @Table(name = "CONTENT_GROUP")
 public class ContentGroup {
@@ -51,6 +51,9 @@ public class ContentGroup {
     @Column(name = "REPLY", nullable = false, columnDefinition = "boolean default false")
     private Boolean reply = false;
 
+    @Column(name = "ATTACHMENT", nullable = false, columnDefinition = "boolean default false")
+    private Boolean attachment = false;
+
     @NotNull(message = "게시물 이름을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
@@ -63,8 +66,11 @@ public class ContentGroup {
             this.contentType = contentGroup.contentType;
         if (contentGroup.reply != null)
             this.reply = contentGroup.reply;
+        if (contentGroup.attachment != null)
+            this.attachment = contentGroup.attachment;
         if (contentGroup.name != null)
             this.name = contentGroup.name;
     }
+
 
 }

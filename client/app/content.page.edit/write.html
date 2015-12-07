@@ -58,9 +58,10 @@
       </table>
     </md-data-table-container>
   </div>
+
   <div froala ng-model="content.body"></div>
 
-  <attachments content="content" class="margin-bottom"></attachments>
+  <attachments ng-show="content.contentGroup.attachment" content="content" readonly="false" class="margin-bottom"></attachments>
 
   <md-input-container>
     <md-button aria-label="done button" ng-click="save(content)" class="md-raised md-primary">작성완료</md-button>

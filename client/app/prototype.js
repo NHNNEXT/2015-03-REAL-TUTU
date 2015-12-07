@@ -13,7 +13,7 @@ Date.prototype.toYMD = function () {
 };
 
 Date.prototype.getDateString = function () {
-  if(this.getFullYear() === new Date().getFullYear())
+  if (this.getFullYear() === new Date().getFullYear())
     return moment(this).format("M월 D일");
   return moment(this).format("YYYY년 M월 D일");
 };

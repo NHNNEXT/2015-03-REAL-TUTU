@@ -1,20 +1,16 @@
 package org.next.lms.content.control;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.dao.ContentDao;
-import org.next.lms.content.domain.QContent;
 import org.next.lms.content.domain.dto.ContentDto;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.QLecture;
-import org.next.lms.lecture.domain.QUserEnrolledLecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.message.control.MessageService;
@@ -66,19 +62,21 @@ public class ContentService {
     @Autowired
     ContentLinkContentRepository contentLinkContentRepository;
 
+    @Autowired
+    UploadFileRepository uploadFileRepository;
+
     public Result getContentDtoById(Long id, User user) {
         Content content = getCheckedContent(id, user);
         content.addReadCount();
         return success(new ContentDto(content, user));
     }
 
-    public Result saveContent(ContentParameterDto contentParameterDto, User user, Long lectureId) {
-        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
-        Content content = contentParameterDto.saveContent(lecture, user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
+    public Result saveContent(ContentParameterDto contentParameterDto, User user) {
+        Content content = contentParameterDto.saveContent(user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository, uploadFileRepository, lectureRepository);
 
         messageService
                 // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
-                .send(new NewContentCreatedMessage(lecture, content, 1))
+                .send(new NewContentCreatedMessage(content.getLecture(), content, 1))
                 .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
         return success(new ContentDto(content, user));
     }
@@ -118,7 +116,7 @@ public class ContentService {
         lectureAuth.checkUpdateRight(lecture, user);
 
         contents.getContents().forEach(contentParameterDto -> {
-            contentParameterDto.saveContent(lecture, user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository);
+            contentParameterDto.saveContent(user, contentRepository, contentGroupRepository, contentAuthority, userRepository, userHaveToSubmitRepository, uploadFileRepository, lectureRepository);
         });
         return success();
     }

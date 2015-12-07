@@ -47,17 +47,6 @@ angular.module('clientApp')
     function save(content) {
         return http.post('/api/v1/content', content);
     }
-    //
-    //function update(content) {
-    //  return http.put('/api/v1/content', content);
-    //}
-
-    //function selectTodoTypeContent() {
-    //  this.isSatisfiedBy = function(candidate) {
-    //    if(!(candidate instanceof Content.Content)) return false;
-    //    return candidate.getSpecificationList().contains(requiredSpec);
-    //  };
-    //}
 
     //
     //Content.prototype.remove = function () {

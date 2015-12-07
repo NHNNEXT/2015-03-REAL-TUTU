@@ -41,6 +41,12 @@
           댓글을 달 수 있습니다.
         </md-tooltip>
       </md-checkbox>
+      <md-checkbox ng-model="contentGroup.attachment">
+        첨부파일
+        <md-tooltip md-direction="right">
+          파일을 첨부합니다.
+        </md-tooltip>
+      </md-checkbox>
       <md-checkbox ng-show="contentGroup.contentType==='SUBMIT'" ng-model="contentGroup.submitOpen">
         제출 내용 공개
         <md-tooltip md-direction="right">

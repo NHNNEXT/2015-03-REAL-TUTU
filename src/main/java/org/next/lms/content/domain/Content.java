@@ -19,9 +19,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup"})
+@ToString(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachment", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
+@EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
 @Entity
 @Table(name = "CONTENT")
 public class Content implements ObjectOwnerKnowable{
@@ -30,7 +30,7 @@ public class Content implements ObjectOwnerKnowable{
     private List<UserLikesContent> userLikesContents = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UploadedFile> attachment = new ArrayList<>();
+    private List<UploadedFile> attachments = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();

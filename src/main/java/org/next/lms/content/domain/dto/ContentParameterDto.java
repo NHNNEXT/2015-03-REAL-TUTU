@@ -4,14 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.infra.exception.PatternNotMatchedException;
-import org.next.infra.repository.ContentRepository;
-import org.next.infra.repository.UserHaveToSubmitRepository;
-import org.next.infra.repository.UserRepository;
+import org.next.infra.repository.*;
+import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.control.ContentAuth;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.infra.repository.ContentGroupRepository;
 import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
 
@@ -25,6 +23,8 @@ import static org.next.infra.util.CommonUtils.assureNotNull;
 @NoArgsConstructor
 public class ContentParameterDto {
 
+
+    private Long lectureId;
     private Lecture lecture;
     private Long id;
     private String title;
@@ -35,8 +35,10 @@ public class ContentParameterDto {
     private Long contentGroup;
     private Content content;
     private List<Long> submitRequiredUsers;
+    private List<Long> attachments;
 
-    public Content saveContent(Lecture lecture, User user, ContentRepository contentRepository, ContentGroupRepository contentGroupRepository, ContentAuth contentAuthority, UserRepository userRepository, UserHaveToSubmitRepository userHaveToSubmitRepository) {
+    public Content saveContent(User user, ContentRepository contentRepository, ContentGroupRepository contentGroupRepository, ContentAuth contentAuthority, UserRepository userRepository, UserHaveToSubmitRepository userHaveToSubmitRepository, UploadFileRepository uploadFileRepository, LectureRepository lectureRepository) {
+        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         if (contentGroup == null)
             throw new PatternNotMatchedException("게시물 타입을 입력해야합니다.");
         content = new Content();
@@ -55,7 +57,18 @@ public class ContentParameterDto {
         if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
             submitUserDeclare(content, userRepository, userHaveToSubmitRepository);
         }
+        if (content.getContentGroup().getAttachment()) {
+            attachmentsDeclare(content, uploadFileRepository);
+        }
         return content;
+    }
+
+    private void attachmentsDeclare(Content content, UploadFileRepository uploadFileRepository) {
+        this.attachments.forEach(id->{
+            UploadedFile file = uploadFileRepository.findOne(id);
+            file.setContent(content);
+            uploadFileRepository.save(file);
+        });
     }
 
     private void submitUserDeclare(Content content, UserRepository userRepository, UserHaveToSubmitRepository userHaveToSubmitRepository) {

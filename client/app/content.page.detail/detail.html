@@ -68,6 +68,10 @@
   </md-tabs>
 </section>
 
+<section ng-if="content.contentGroup.attachment && content.attachments.length>0">
+  <attachments content="content" readonly="true" class="margin-bottom"></attachments>
+</section>
+
 <section ng-if="content.contentGroup.reply">
   <replies content="content"></replies>
 </section>

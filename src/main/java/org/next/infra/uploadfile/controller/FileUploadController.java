@@ -22,7 +22,7 @@ public class FileUploadController {
         return fileService.upload(file);
     }
 
-    @RequestMapping(value="/content")
+    @RequestMapping(value="/attachment")
     public Result uploadContentFile(MultipartFile file, @Logged User user){
         return fileService.upload(file, user);
     }

@@ -53,17 +53,17 @@ public class ContentController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Result save(ContentParameterDto content, Long lectureId, @Logged User user) {
-        return contentService.saveContent(content, user, lectureId);
+    public Result save(@RequestBody ContentParameterDto content, @Logged User user) {
+        return contentService.saveContent(content, user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Result updateLecture(Content content, @Logged User user) {
+    public Result update(@RequestBody Content content, @Logged User user) {
         return contentService.update(content, user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public Result deleteLecture(Long id, @Logged User user) {
+    public Result delete(Long id, @Logged User user) {
         return contentService.delete(id, user);
     }
 

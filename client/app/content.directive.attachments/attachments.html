@@ -1,4 +1,4 @@
-<md-subheader>첨부파일</md-subheader>
+<h5>첨부파일</h5>
 <md-grid-list
   md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
   md-row-height-gt-md="1:1" md-row-height="2:2"
@@ -6,12 +6,14 @@
   <md-grid-tile ng-repeat="attachment in content.attachments"
                 md-rowspan="1" md-colspan="1" md-colspan-sm="1">
     <div class="center">
-      <md-icon md-svg-icon="/resource/icon/file.svg"></md-icon>
-      <p>{{attachment.originalFileName}}</p>
+      <i class="fa fa-times" ng-click="delete(attachment, content.attachments)" ng-if="!readonly"></i>
+      <md-icon ng-click="download(attachment)" md-svg-icon="/resource/icon/file.svg"></md-icon>
+      <p ng-click="download(attachment)" class="detail">{{attachment.originalFileName}}</p>
     </div>
   </md-grid-tile>
 </md-grid-list>
-<div ngf-select ng-model="file" ngf-drop
-     ngf-max-size="2MB">이곳에 파일을 드래그하세요.
+<div ng-if="!readonly" ngf-select ng-model="file" ngf-drop
+     ngf-max-size="10MB">이곳에 파일을 드래그하세요. (10MB 이하)
+  <md-progress-linear ng-show="uploading" md-mode="determinate" ng-value="progress"></md-progress-linear>
 </div>
 
