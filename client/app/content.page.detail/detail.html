@@ -17,13 +17,14 @@
             <span ng-click="content.remove()">삭제</span>
           </span>
         </span>
-
-      <span class="info margin-top-s dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
-      <span class="info margin-top-s dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">{{content.startTime.range(content.endTime)}}</span>
     </div>
     <div flex="20">
       <user-profile class="content" user="content.writer"></user-profile>
     </div>
+  </div>
+  <div layout="row">
+    <span class="info margin-top-s dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
+    <span class="info margin-top-s dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">일정 : {{content.startTime.range(content.endTime)}}</span>
   </div>
 </section>
 
