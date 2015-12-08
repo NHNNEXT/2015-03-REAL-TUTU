@@ -1,14 +1,8 @@
-<div class="md-datepicker-input-container">
-  <div ng-click="open=!open;">
-  <span class="md-datepicker-input right">
-  <label ng-class="{on:ngModel!==undefined}">{{placeholder}}</label>
-      <span ng-show="ngModel && mode!=='time'" style="margin-left: -17px;">{{ngModel | date:'yyyy월 MM월 dd일'}}</span>
-      <span ng-show="ngModel && mode!=='date'">{{ngModel | date:'HH:mm'}}</span>
-  </span>
-    <button ng-show="!open" class="md-datepicker-triangle-button md-icon-button md-button" type="button">
-      <div class="md-datepicker-expand-triangle"></div>
-    </button>
-  </div>
-  <time-date-picker display-mode="{{mode}}" autosave="true" ng-model="ngModel" ng-show="open"
-                    class="fade-in-out"></time-date-picker>
+<div layout="row">
+  <md-datepicker ng-model="ngModel" md-placeholder="{{placeholder}}"></md-datepicker>
+
+  <md-input-container ng-show="ngModel">
+    <label>시간</label>
+    <input ng-model="ngModel" type="time">
+  </md-input-container>
 </div>

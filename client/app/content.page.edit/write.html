@@ -17,12 +17,8 @@
 
   <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
     <div layout="row" ng-hide="extendWrite" class="margin-top">
-      <div flex>
-        <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
-      </div>
-      <div flex>
-        <input-datepicker placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
-      </div>
+      <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
+      <input-datepicker placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
     </div>
     <div class="margin-top margin-bottom" layout="row">
       <md-checkbox ng-model="extendWrite">
@@ -64,7 +60,8 @@
 
   <div froala ng-model="content.body"></div>
 
-  <attachments ng-show="content.contentGroup.attachment" attachments="content.attachments" readonly="false" class="margin-bottom"></attachments>
+  <attachments ng-show="content.contentGroup.attachment" attachments="content.attachments" readonly="false"
+               class="margin-bottom"></attachments>
 
   <md-input-container>
     <md-button aria-label="done button" ng-click="save(content)" class="md-raised md-primary">작성완료</md-button>
