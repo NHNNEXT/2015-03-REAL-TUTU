@@ -6,6 +6,14 @@
             <pattern>%-5level %d{HH:mm:ss} [%thread] %logger{36} [ %method\(\) - Line %line ] - [ Message ▶ %msg ]%n</pattern>
         </encoder>
     </appender>
+    <!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+        <!--<file> log.txt </file>-->
+        <!--<append>true</append>-->
+        <!--<encoder>-->
+            <!--<pattern>%-5level %d{HH:mm:ss} [%thread] %logger{36} [ %method\(\) - Line %line ] - [ Message ▶ %msg ]%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
 
     <logger name="org.next" level="DEBUG">
         <appender-ref ref="STDOUT" />
