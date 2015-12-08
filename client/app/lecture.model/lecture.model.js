@@ -12,6 +12,7 @@ angular.module('clientApp')
           "submitOpen": false,
           "reply": true,
           "name": "강의자료",
+          "attachment": true,
           "contentType": "GENERAL"
         }, {
           "submitOpen": false,
