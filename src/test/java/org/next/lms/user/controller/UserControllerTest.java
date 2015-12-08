@@ -8,9 +8,11 @@ import org.next.infra.reponse.ResponseCode;
 import org.next.lms.user.control.inject.LoggedUserInjector;
 import org.next.infra.repository.UserRepository;
 import org.next.lms.user.domain.AccountState;
+import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,9 +40,18 @@ public class UserControllerTest {
 
     private MockMvc mockMvc;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Before
     public void setUp() throws Exception {
         this.mockMvc = webAppContextSetup(this.wac).build();
+        User user = new User();
+        user.setEmail("test1@test.com");
+        user.setPassword("password");
+        user.setName("테스트유저");
+        user.encryptPassword(passwordEncoder);
+        userRepository.save(user);
     }
 
     @Test
@@ -53,15 +64,6 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.result.email").value("test1@test.com"));
     }
 
-    @Test
-    public void testGetByEmailUser() throws Exception {
-        this.mockMvc.perform(get("/api/v1/user")
-                .param("id", "test1@test.com"))
-                .andExpect(okResponse())
-                .andExpect(jsonResponse())
-                .andExpect(responseCode(ResponseCode.SUCCESS))
-                .andExpect(jsonPath("$.result.id").value(1));
-    }
 
     @Test
     public void testGetSessionUser() throws Exception {
@@ -123,26 +125,6 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.result.email").value("changedEmail@email.com"));
     }
 
-    @Test
-    public void testWithdrawalUser() throws Exception {
-        this.mockMvc.perform(delete("/api/v1/user")
-                .sessionAttr(LoggedUserInjector.LOGIN_ACCOUNT_ID, 3L))
-                .andExpect(okResponse())
-                .andExpect(jsonResponse())
-                .andExpect(responseCode(ResponseCode.SUCCESS));
-
-        assertEquals(userRepository.findOne(3L).getState(), AccountState.WITHDRAWAL);
-    }
-
-    @Test
-    public void testUserLoginSuccess() throws Exception {
-        this.mockMvc.perform(post("/api/v1/user/login")
-                .param("email", "test1@test.com")
-                .param("password", "password"))
-                .andExpect(okResponse())
-                .andExpect(jsonResponse())
-                .andExpect(responseCode(ResponseCode.SUCCESS));
-    }
 
     @Test
     public void testUserLoginNotExistEmail() throws Exception {
@@ -152,16 +134,6 @@ public class UserControllerTest {
                 .andExpect(okResponse())
                 .andExpect(jsonResponse())
                 .andExpect(responseCode(ResponseCode.Login.NOT_EXIST_EMAIL));
-    }
-
-    @Test
-    public void testUserLoginPasswordWrong() throws Exception {
-        this.mockMvc.perform(post("/api/v1/user/login")
-                .param("email", "test1@test.com")
-                .param("password", "password1"))
-                .andExpect(okResponse())
-                .andExpect(jsonResponse())
-                .andExpect(responseCode(ResponseCode.Login.WRONG_PASSWORD));
     }
 
     private ResultMatcher okResponse() {
