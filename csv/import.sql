@@ -1,0 +1,1 @@
+LOAD DATA LOCAL INFILE "{{path}}/user.csv" INTO TABLE user FIELDS TERMINATED BY ",";
