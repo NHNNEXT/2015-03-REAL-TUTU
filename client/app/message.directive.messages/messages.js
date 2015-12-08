@@ -4,9 +4,8 @@ angular.module('clientApp')
       restrict: 'E',
       templateUrl: '/message.directive.messages/messages.html',
       /* @ngInject */
-      controller: function (Message, $scope, $interval, rootUser, $timeout) {
+      controller: function (Message, rootUser, $timeout, $scope) {
         $timeout(getMessages);
-        $interval(getMessages, 10000);
         $scope.messages = [];
 
         $scope.$watch('messages', function () {
@@ -22,6 +21,7 @@ angular.module('clientApp')
           if (!rootUser.id)
             return;
           Message.getList(0).then(function (messages) {
+            $timeout(getMessages, 10000);
             if (angular.equals($scope.messages, messages))
               return;
             $scope.messages = messages;
