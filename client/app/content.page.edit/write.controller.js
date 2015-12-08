@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentWriteController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentGroup, User) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentGroup, User, alert) {
     $scope.rootUser = rootUser;
     $scope.addTimes = addTimes;
 
@@ -33,8 +33,12 @@ angular.module('clientApp').controller('contentWriteController',
     });
 
     $scope.save = function (content) {
-      if ($scope.extendWrite) {
+      if (content.extendWrite) {
         var result = [];
+        if (!$scope.times) {
+          alert.warning("기간을 입력해주세요.");
+          return;
+        }
         $scope.times.forEach(function (time) {
           var content = new Content($scope.content);
           content.startTime = time.startTime;

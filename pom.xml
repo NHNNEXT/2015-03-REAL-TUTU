@@ -117,8 +117,6 @@
                     <include>**/application.properties</include>
                     <include>**/config.properties</include>
                     <include>**/logback.xml</include>
-                    <include>**/import.sql</include>
-                    <include>**/user.csv</include>
                 </includes>
             </resource>
         </resources>

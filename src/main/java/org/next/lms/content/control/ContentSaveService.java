@@ -117,36 +117,40 @@ public class ContentSaveService {
     }
 
     private void attachmentsDeclare(ContentParameterDto contentParameterDto, Content content) {
-        content.getAttachments().stream()
-                .filter(attachment -> !contentParameterDto.getAttachments().stream()
-                        .filter(id -> attachment.getId().equals(id)).findAny().isPresent()).forEach(attachment -> attachment.setContent(null));
+        if (content.getAttachments() != null)
+            content.getAttachments().stream()
+                    .filter(attachment -> !contentParameterDto.getAttachments().stream()
+                            .filter(id -> attachment.getId().equals(id)).findAny().isPresent()).forEach(attachment -> attachment.setContent(null));
 
-        contentParameterDto.getAttachments().forEach(id -> {
-            if (content.getAttachments().stream().filter(attachment -> attachment.getId().equals(id)).findAny().isPresent())
-                return;
-            UploadedFile file = uploadFileRepository.findOne(id);
-            file.setContent(content);
-            uploadFileRepository.save(file);
-        });
+        if (contentParameterDto.getAttachments() != null)
+            contentParameterDto.getAttachments().forEach(id -> {
+                if (content.getAttachments().stream().filter(attachment -> attachment.getId().equals(id)).findAny().isPresent())
+                    return;
+                UploadedFile file = uploadFileRepository.findOne(id);
+                file.setContent(content);
+                uploadFileRepository.save(file);
+            });
     }
 
 
     private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
-        content.getUserHaveToSubmits().stream().forEach(userHaveToSubmit -> {
-            if (contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getId()))
-                return;
-            userHaveToSubmitRepository.delete(userHaveToSubmit.getId());
-        });
+        if (content.getUserHaveToSubmits() != null)
+            content.getUserHaveToSubmits().stream().forEach(userHaveToSubmit -> {
+                if (contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getId()))
+                    return;
+                userHaveToSubmitRepository.delete(userHaveToSubmit.getId());
+            });
 
-        contentParameterDto.getSubmitRequiredUsers().forEach(userId -> {
-            if (content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent())
-                return;
-            User user = assureNotNull(userRepository.findOne(userId));
-            UserHaveToSubmit userHaveToSubmit = new UserHaveToSubmit();
-            userHaveToSubmit.setUser(user);
-            userHaveToSubmit.setContent(content);
-            userHaveToSubmitRepository.save(userHaveToSubmit);
-        });
+        if (contentParameterDto.getSubmitRequiredUsers() != null)
+            contentParameterDto.getSubmitRequiredUsers().forEach(userId -> {
+                if (content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent())
+                    return;
+                User user = assureNotNull(userRepository.findOne(userId));
+                UserHaveToSubmit userHaveToSubmit = new UserHaveToSubmit();
+                userHaveToSubmit.setUser(user);
+                userHaveToSubmit.setContent(content);
+                userHaveToSubmitRepository.save(userHaveToSubmit);
+            });
     }
 
 }

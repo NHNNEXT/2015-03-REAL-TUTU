@@ -16,16 +16,16 @@
 
 
   <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
-    <div layout="row" ng-hide="extendWrite" class="margin-top">
+    <div layout="row" ng-hide="content.extendWrite" class="margin-top">
       <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
       <input-datepicker placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
     </div>
     <div class="margin-top margin-bottom" layout="row">
-      <md-checkbox ng-model="extendWrite">
+      <md-checkbox ng-model="content.extendWrite">
         일괄입력
       </md-checkbox>
     </div>
-    <div ng-show="extendWrite" ng-include="'/content.page.edit/extend.html'"></div>
+    <div ng-show="content.extendWrite" ng-include="'/content.page.edit/extend.html'"></div>
   </div>
 
   <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
