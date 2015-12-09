@@ -1,5 +1,4 @@
 <section>
-  <h2>강의 컨텐츠 요약 (최근)</h2>
   <p class="info margin-bottom">{{start.getDateString()}} ~ {{end.getDateString()}}</p>
   <lecture-summary ng-repeat="lecture in main.rootUser.lectures | filter:{sideMenu:true}" start="start" end="end" lecture="lecture"></lecture-summary>
 </section>

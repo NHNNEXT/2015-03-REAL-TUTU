@@ -3,7 +3,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        lecture: '=', start:'=', end:'='
+        lecture: '=', start: '=', end: '='
       },
       templateUrl: '/lecture.directive.lecture-summary/lecture-summary.html',
       /* @ngInject */
@@ -16,6 +16,7 @@ angular.module('clientApp')
           var now = new Date();
           var day = 24 * 60 * 60 * 1000;
           $scope.contents = result;
+          $scope.divider = $scope.contents.length;
           $scope.contents.forEach(function (content) {
             content.row = 1;
             content.col = 1;
@@ -42,16 +43,14 @@ angular.module('clientApp')
           $scope.dates.push(new Date(date));
         }
 
-        var divider = 3;
+        $scope.divider = 3;
 
         $scope.left = function (date, index) {
           var style = {};
           style.left = calculateLeft(date);
           style.position = 'absolute';
-          style.borderLeft = '4px solid #eee';
-          style.paddingLeft = '2px';
           if (index !== undefined)
-            style.top = (100 / divider) * (index % divider) + '%';
+            style.top = (100 / $scope.divider) * (index % $scope.divider) + '%';
           return style;
         };
 
@@ -59,16 +58,17 @@ angular.module('clientApp')
           var style = {};
           style.left = calculateLeft(content.startTime);
           style.width = calculateLeft(content.endTime - content.startTime);
-          style.borderBottom = '4px solid #eee';
           style.position = 'absolute';
-          style.top = (100 / divider) * (index % divider) + '%';
+          style.top = (100 / $scope.divider) * (index % $scope.divider) + '%';
           return style;
         };
 
         function calculateLeft(date) {
-          var left = 10 + (((date - $scope.start) / ($scope.end - $scope.start)) * 100);
-          if (left < 10)
-            left = 10;
+          var left = (((date - $scope.start) / ($scope.end - $scope.start)) * 100);
+          if (left < 0)
+            return 0;
+          if (left > 97)
+            return '97%';
           return left + '%';
         }
 
