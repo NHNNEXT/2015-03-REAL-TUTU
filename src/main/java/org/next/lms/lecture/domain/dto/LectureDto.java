@@ -44,7 +44,7 @@ public class LectureDto {
                 .map(UserSummaryDto::new)
                 .collect(Collectors.toList());
         this.userGroups = lecture.getUserGroups().stream().map(UserGroupDto::new).collect(Collectors.toList());
-        if (lecture.getTerm() != null)
-            this.term = new TermDto(lecture.getTerm());
+//        if (lecture.getTerm() != null)
+//            this.term = new TermDto(lecture.getTerm());
     }
 }

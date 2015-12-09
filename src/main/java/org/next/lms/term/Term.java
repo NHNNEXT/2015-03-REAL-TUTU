@@ -20,8 +20,8 @@ import java.util.List;
 })
 public class Term {
 
-    @OneToMany(mappedBy = "term", fetch = FetchType.LAZY)
-    private List<Lecture> lectures = new ArrayList<>();
+//    @OneToMany(mappedBy = "term", fetch = FetchType.LAZY)
+//    private List<Lecture> lectures = new ArrayList<>();
 
     @Id
     @Column(name = "TERM_ID")

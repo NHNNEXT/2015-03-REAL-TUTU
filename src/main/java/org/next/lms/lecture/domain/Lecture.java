@@ -16,16 +16,16 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "term"})
+@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "term"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture implements ObjectOwnerKnowable{
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TERM_ID")
-    private Term term;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "TERM_ID")
+//    private Term term;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
@@ -98,13 +98,13 @@ public class Lecture implements ObjectOwnerKnowable{
     @Transient
     private Long termId;
 
-    public void setTerm(TermRepository termRepository) {
-        if (this.termId == null) {
-            this.term = null;
-            return;
-        }
-        this.term = termRepository.findOne(termId);
-    }
+//    public void setTerm(TermRepository termRepository) {
+//        if (this.termId == null) {
+//            this.term = null;
+//            return;
+//        }
+//        this.term = termRepository.findOne(termId);
+//    }
 
     @Override
     public User ownerOfObject() {
