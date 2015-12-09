@@ -7,9 +7,11 @@ if (process.argv.indexOf("--reset") !== -1) {
         });
     });
 }
-
+var path = require('path');
+var pwd = path.sep === '\\' ? __dirname.replace(/\\/g, "/") : __dirname;
 var mysql = require("mysql");
 var setting = require("./setting.js");
+var execute = require('./execute.js');
 
 setting.then(function (map) {
     var con;
@@ -27,36 +29,18 @@ setting.then(function (map) {
         }
         con.query('show tables', function (err, rows) {
             if (err) throw err;
-
-            var end = rows.length;
-
+            var queries = [];
             rows.forEach(function (row) {
                 var key = Object.keys(row)[0];
-                con.query(getExportSql(row[key]), function (err) {
-                    end--;
-                    if (end === 0)
-                        ending();
-                    if (err)
-                        console.log(err);
-                    else
-                        console.log(row[key] + " table exported as csv");
-                });
+                queries.push(getExportSql(row[key]));
             });
+            execute(queries);
         });
     });
-
-    function ending() {
-        con.end();
-        process.exit();
-    }
 
 });
 
 
 function getExportSql(tableName) {
-    return "SELECT * FROM " +
-        tableName +
-        " INTO OUTFILE '" +
-        __dirname + '/csv/' + tableName +
-        ".csv' CHARACTER SET utf8 FIELDS TERMINATED BY ','";
+    return "SELECT * FROM " + tableName + " INTO OUTFILE '" + pwd + '/csv/' + tableName + ".csv' CHARACTER SET utf8 FIELDS TERMINATED BY ','";
 }
