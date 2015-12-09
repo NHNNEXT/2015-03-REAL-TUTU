@@ -34,7 +34,7 @@ public class SubmitService {
     public Result save(SubmitParameterDto submitParameterDto, User user) {
 
         UserHaveToSubmit userHaveToSubmit = assureNotNull(userHaveToSubmitRepository.findOne(submitParameterDto.getSubmitId()));
-        submitAuth.checkWriteRight(userHaveToSubmit, user);
+        submitAuth.checkWriteRight(userHaveToSubmit, user, userHaveToSubmit.getContent().getContentGroup().getSubmitReadable().contains(user), userHaveToSubmit.getContent().getLecture().getHostUser().equals(user));
         Submit submit = new Submit();
         submit.setWriter(user);
         submit.setUserHaveToSubmit(userHaveToSubmit);
