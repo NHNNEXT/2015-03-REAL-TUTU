@@ -1,5 +1,6 @@
 angular.module('clientApp')
-  .directive('searchInMyLectures', function () {
+  /* @ngInject */
+  .directive('searchInMyLectures', function ($mdSidenav) {
     return {
       restrict: 'E',
       templateUrl: '/common.directive.search-in-my-lectures/search-in-my-lectures.html',
@@ -16,6 +17,7 @@ angular.module('clientApp')
         this.moveTo = function (content) {
           if (!content)
             return;
+          $mdSidenav('left').close();
           $state.go('content', {id: content.id});
         };
       }

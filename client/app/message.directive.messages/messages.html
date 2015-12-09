@@ -6,7 +6,7 @@
   </md-button>
   <md-menu-content>
     <md-menu-item class="message" ng-repeat="message in Message.messages | orderBy:'-date'">
-      <md-button>
+      <md-button aria-label="메시지">
         <message message="message"></message>
       </md-button>
     </md-menu-item>
