@@ -6,9 +6,13 @@
   <p ng-show="contents.length===0">내역이 없습니다.</p>
 </div>
 <div ng-show="contents.length!==0">
-  <div layout="row" class="margin-bottom">
-    <div flex="10" class="date-header" hide-sm ng-repeat="date in dates">
-      {{date.getDateString()}}
+  <div layout="row" class="date-header">
+    <div flex class="left">
+      {{start.getDateString()}}
+    </div>
+    <div flex></div>
+    <div flex class="right">
+      {{end.getDateString()}}
     </div>
   </div>
   <div layout="row" style="position:relative" class="body">

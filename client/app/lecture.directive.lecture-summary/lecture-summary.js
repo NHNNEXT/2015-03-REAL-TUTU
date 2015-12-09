@@ -38,10 +38,6 @@ angular.module('clientApp')
         };
 
 
-        $scope.dates = [];
-        for (var date = new Date($scope.start); date < $scope.end; date.setDate(date.getDate() + 1)) {
-          $scope.dates.push(new Date(date));
-        }
 
         $scope.divider = 3;
 

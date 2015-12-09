@@ -1,7 +1,7 @@
 <div layout="row" class="submit-user">
   <div flex="10"></div>
   <div flex="10">이전</div>
-  <div flex="10" class="date-header" ng-repeat="date in dates">{{date.getDateString()}}</div>
+  <div flex="10" ng-repeat="date in dates">{{date.getDateString()}}</div>
 </div>
 <div layout="row" class="submit-user" ng-class="{submitted:submitRequiredUser.submitted}"
      ng-repeat="submitRequiredUser in submitRequiredUsers">
