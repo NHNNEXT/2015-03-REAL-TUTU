@@ -20,6 +20,13 @@
         <ng-include src="'/lecture.page.edit/part/right.html'"></ng-include>
       </md-content>
     </md-tab>
+    <md-tab label="폐강" ng-if="lecture.id">
+      <md-content class="md-padding">
+        <div layout="row">
+          <md-button class="md-raised md-warn" ng-click="lecture.remove()">강의 닫기</md-button>
+        </div>
+      </md-content>
+    </md-tab>
   </md-tabs>
 
 

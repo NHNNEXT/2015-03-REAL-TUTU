@@ -117,7 +117,7 @@ angular.module('clientApp')
     };
 
     Lecture.prototype.remove = function () {
-      if (!confirm("삭제하시겠습니까?"))
+      if (!confirm("강의를 닫겠습니까?"))
         return;
       http.delete('/api/v1/lecture', {id: this.id}).then(function () {
         $state.go('lectures');

@@ -1,33 +1,36 @@
 <section>
-  <h2 ng-bind="lecture.name"></h2>
-
-  <div layout="row" class="info margin-bottom">
-
+  <div layout="row">
     <div flex>
+      <h2>
+        <span ng-bind="lecture.name"></span>
+        <small style="font-size:70%;" ng-show="lecture.hostUser.isRootUser()">
+          <i class="fa fa-pencil" ui-sref="lectureEdit({id:lecture.id})"></i>
+        </small>
+      </h2>
+    </div>
+    <div flex layout="row" layout-align="end center"
+         ng-hide="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
+      <md-button class="md-raised" ng-show="!lecture.isWaiting()"
+                 ng-click="lecture.enroll(lecture.id)">
+        참여신청
+      </md-button>
+      <md-button class="md-raised" ng-show="lecture.isWaiting()">
+        가입 승인 대기중
+      </md-button>
+    </div>
+    <div flex layout="row" layout-align="end center" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
+      <md-button class="md-raised" ui-sref="contentNew({lectureId:lecture.id})">새 게시물</md-button>
+    </div>
+  </div>
+  <div layout="row">
+    <div class="info margin-bottom">
       <span ng-show="lecture.majorType!==undefined">
         {{types.majorTypes[lecture.majorType]}}
         <span class="bar"></span>
       </span>
-      <like type="LECTURE" like="lecture.likes" target="lecture.id"></like>
-      <span class="bar"></span>
       게시물 {{lecture.contents.length}}
       <span class="bar"></span>
       참여자 {{lecture.users.length}}
-    </div>
-    <div flex class="right">
-      <span ng-hide="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
-          <md-button class="md-raised" ng-show="!lecture.isWaiting()"
-            ng-click="lecture.enroll(lecture.id)">
-            참여신청</md-button>
-          <md-button class="md-raised" ng-show="lecture.isWaiting()">
-            가입 승인 대기중</md-button>
-        </span>
-      </span>
-      <span ng-show="lecture.hostUser.isRootUser()">
-        <span ui-sref="lectureEdit({id:lecture.id})">강의수정</span>
-        <span class="bar"></span>
-        <span ng-click="lecture.remove()">강의닫기</span>
-      </span>
     </div>
   </div>
 
