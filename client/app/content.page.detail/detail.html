@@ -2,27 +2,29 @@
   <div layout="row">
     <div flex>
       <div layout="row">
-        <h2 ng-bind="content.title" flex></h2>
-
-        <div hide-gt-sm layout="row" layout-align="end center" flex class="margin-top-s">
-          <user-profile user="content.writer"></user-profile>
-        </div>
-      </div>
-        <span class="info">
-          {{content.contentGroup.name}}
-          <span class="bar"></span>
-          조회수 {{content.hits}}
-          <span class="bar"></span>
-          댓글 {{content.repliesSize}}
-          <span class="bar"></span>
-          <like type="CONTENT" like="content.likes" target="content.id"></like>
-          <span ng-show="content.writer.id === rootUser.id">
-            <span class="bar"></span>
-            <span ui-sref="contentEdit({id:content.id})">수정</span>
-            <span class="bar"></span>
-            <span ng-click="content.remove()">삭제</span>
+        <h2>
+          <span ng-bind="content.title"></span>
+          <span  ng-show="content.writer.id === rootUser.id" class="info margin-left">
+          <span ui-sref="contentEdit({id:content.id})" class="margin-right-s">수정</span>
+          <span ng-click="content.remove()">삭제</span>
           </span>
+        </h2>
+
+      </div>
+      <div layout="row" class="info">
+        {{content.contentGroup.name}}
+        <span class="bar"></span>
+        조회수 {{content.hits}}
+        <span class="bar"></span>
+        댓글 {{content.repliesSize}}
+        <span class="bar"></span>
+        <like type="CONTENT" like="content.likes" target="content.id"></like>
+        <span hide-gt-sm>
+        <span class="bar" ></span>
+        by {{content.writer.name}}
         </span>
+      </div>
+
 
       <div class="margin-top-s">
         <span class="info dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
