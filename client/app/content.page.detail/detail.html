@@ -1,7 +1,13 @@
 <section>
-  <div layout="row" layout-sm="column">
+  <div layout="row">
     <div flex>
-      <h2 ng-bind="content.title"></h2>
+      <div layout="row">
+        <h2 ng-bind="content.title" flex></h2>
+
+        <div hide-gt-sm layout="row" layout-align="end center" flex class="margin-top-s">
+          <user-profile user="content.writer"></user-profile>
+        </div>
+      </div>
         <span class="info">
           {{content.contentGroup.name}}
           <span class="bar"></span>
@@ -17,15 +23,17 @@
             <span ng-click="content.remove()">삭제</span>
           </span>
         </span>
+
+      <div class="margin-top-s">
+        <span class="info dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
+        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">일정 : {{content.startTime.range(content.endTime)}}</span>
+      </div>
     </div>
-    <div flex layout="row" layout-align-gt-sm="end center" layout-align="center center">
+    <div hide-sm flex layout="row" layout-align-gt-sm="end center" layout-align="center center">
       <user-profile class="content" user="content.writer"></user-profile>
     </div>
   </div>
-  <div layout="row">
-    <span class="info margin-top-s dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
-    <span class="info margin-top-s dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">일정 : {{content.startTime.range(content.endTime)}}</span>
-  </div>
+
 </section>
 
 

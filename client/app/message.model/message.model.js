@@ -16,7 +16,7 @@ angular.module('clientApp').factory('Message',
       var self = this;
       http.put('/api/v1/message', {id: this.id}).then(function () {
         self.checked = true;
-        Message.new--;
+        newCheck();
       });
     };
 
@@ -40,12 +40,16 @@ angular.module('clientApp').factory('Message',
         if (angular.equals(Message.messages, messages))
           return;
         Message.messages = messages;
-        Message.new = 0;
-        Message.messages.forEach(function (message) {
-          if (message.checked)
-            return;
-          Message.new++;
-        });
+        newCheck();
+      });
+    }
+
+    function newCheck(){
+      Message.new = 0;
+      Message.messages.forEach(function (message) {
+        if (message.checked)
+          return;
+        Message.new++;
       });
     }
 

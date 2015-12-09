@@ -18,12 +18,10 @@
       </li>
     </ul>
     <ul class="menu" hide-gt-sm ng-show="rootUser.isLogged()">
-      <li ui-sref="messages">메시지 <span class="red" ng-show="Message.new">{{Message.new}}</span></li>
+      <li ui-sref="messages" ng-click="close()">메시지 <span class="red" ng-show="Message.new">{{Message.new}}</span></li>
       <li ui-sref="profile({id:rootUser.id})" ng-click="close()">프로필</li>
-      <li>
-        <search-in-my-lectures style="width: 260px;overflow: hidden;display: block;"></search-in-my-lectures>
-      </li>
       <li ng-click="rootUser.logout()">로그아웃</li>
+      <li><search-in-my-lectures style="width: 260px;display: block;"></search-in-my-lectures></li>
     </ul>
     <ul class="menu" ng-show="!rootUser.isLogged()">
       <li ng-click="login()">로그인</li>
