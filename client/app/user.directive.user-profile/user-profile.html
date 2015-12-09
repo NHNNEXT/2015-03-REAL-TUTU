@@ -1,6 +1,6 @@
 <md-menu>
   <md-button aria-label="open" ng-click="$mdOpenMenu($event)">
-    <img ng-src="{{user.profileUrl || '/resource/profile.png'}}">
+    <img hide-sm ng-src="{{user.profileUrl || '/resource/profile.png'}}">
     <span>{{user.name || '이름'}}</span>
   </md-button>
   <md-menu-content width="3">
