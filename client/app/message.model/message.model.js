@@ -32,17 +32,17 @@ angular.module('clientApp').factory('Message',
       });
     };
 
-    getMessages();
-
-    function getMessages() {
+    Message.getMessages = function() {
       Message.getList(0).then(function (messages) {
-        $timeout(getMessages, 10000);
+        $timeout(Message.getMessages, 10000);
         if (angular.equals(Message.messages, messages))
           return;
         Message.messages = messages;
         newCheck();
       });
-    }
+    };
+
+    Message.getMessages();
 
     function newCheck(){
       Message.new = 0;

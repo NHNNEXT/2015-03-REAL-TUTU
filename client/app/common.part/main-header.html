@@ -3,8 +3,8 @@
     <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()"><!--hide-gt-sm-->
       <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
     </md-button>
-    <span ng-click="state.current.headerClick()">{{state.current.header}}</span>
-    <span class="flex"></span>
+    <div class="text" ng-click="state.current.headerClick()" flex>{{state.current.header}}</div>
+    <span hide-sm class="flex"></span>
     <search-in-my-lectures hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures>
     <messages hide-sm ng-show="rootUser.isLogged()" style="margin-left:10px;margin-right:-18px"></messages>
     <root-user hide-sm ng-show="rootUser.isLogged()"></root-user>

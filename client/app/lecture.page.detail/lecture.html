@@ -3,27 +3,15 @@
     <div flex>
       <h2>
         <span ng-bind="lecture.name"></span>
-        <small style="font-size:70%;" ng-show="lecture.hostUser.isRootUser()">
-          <i class="fa fa-pencil" ui-sref="lectureEdit({id:lecture.id})"></i>
+        <small style="font-size:60%;color:#aaa" ui-sref="lectureEdit({id:lecture.id})"
+               ng-show="lecture.hostUser.isRootUser()">
+          수정
         </small>
       </h2>
     </div>
-    <div flex layout="row" layout-align="end center"
-         ng-hide="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
-      <md-button class="md-raised" ng-show="!lecture.isWaiting()"
-                 ng-click="lecture.enroll(lecture.id)">
-        참여신청
-      </md-button>
-      <md-button class="md-raised" ng-show="lecture.isWaiting()">
-        가입 승인 대기중
-      </md-button>
-    </div>
-    <div flex layout="row" layout-align="end center" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
-      <md-button class="md-raised" ui-sref="contentNew({lectureId:lecture.id})">새 게시물</md-button>
-    </div>
   </div>
-  <div layout="row">
-    <div class="info margin-bottom">
+  <div layout="row" layout-sm="column">
+    <div flex class="info margin-bottom">
       <span ng-show="lecture.majorType!==undefined">
         {{types.majorTypes[lecture.majorType]}}
         <span class="bar"></span>
@@ -32,7 +20,23 @@
       <span class="bar"></span>
       참여자 {{lecture.users.length}}
     </div>
+    <div layout="row" layout-align-gt-sm="end center" flex class="info margin-bottom">
+      <span ng-hide="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
+      <span ng-show="!lecture.isWaiting()"
+            ng-click="lecture.enroll(lecture.id)">
+        참여신청
+      </span>
+      <span ng-show="lecture.isWaiting()">
+        가입 승인 대기중
+      </span>
+      </span>
+      <span ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()"
+            ui-sref="contentNew({lectureId:lecture.id})">
+        새로 만들기
+      </span>
+    </div>
   </div>
+
 
   <md-tabs md-selected="tabIndex" md-dynamic-height md-border-bottom>
     <md-tab label=" 목록 " md-on-select="state('list')">
