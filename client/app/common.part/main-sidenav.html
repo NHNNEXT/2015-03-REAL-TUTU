@@ -16,6 +16,8 @@
           ui-sref="lecture({id:lecture.id})" ng-click="close()">
         {{lecture.name}}
       </li>
+      <li>메시지</li>
+      <li>프로필</li>
     </ul>
     <ul class="menu" ng-show="!rootUser.isLogged()">
       <li ng-click="login()">로그인</li>

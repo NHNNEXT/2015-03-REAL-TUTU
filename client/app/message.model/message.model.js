@@ -1,6 +1,6 @@
 angular.module('clientApp').factory('Message',
   /* @ngInject */
-  function (http, $q) {
+  function (http, $q, $timeout) {
     function Message(obj) {
       if (typeof obj !== "object")
         return;
@@ -16,6 +16,7 @@ angular.module('clientApp').factory('Message',
       var self = this;
       http.put('/api/v1/message', {id: this.id}).then(function () {
         self.checked = true;
+        Message.new--;
       });
     };
 
@@ -30,5 +31,23 @@ angular.module('clientApp').factory('Message',
         });
       });
     };
+
+    getMessages();
+
+    function getMessages() {
+      Message.getList(0).then(function (messages) {
+        $timeout(getMessages, 10000);
+        if (angular.equals(Message.messages, messages))
+          return;
+        Message.messages = messages;
+        Message.new = 0;
+        Message.messages.forEach(function (message) {
+          if (message.checked)
+            return;
+          Message.new++;
+        });
+      });
+    }
+
     return Message;
   });

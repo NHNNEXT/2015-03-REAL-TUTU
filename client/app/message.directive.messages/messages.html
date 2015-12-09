@@ -1,11 +1,11 @@
 <md-menu md-offset="0 35" md-position-mode="target-right target">
   <md-button aria-label="messages" class="md-icon-button"
              ng-click="$mdOpenMenu($event)">
-    <span class="news" ng-show="new">{{new}}</span>
+    <span class="news" ng-show="Message.new">{{Message.new}}</span>
     <md-icon md-menu-origin md-svg-icon="/resource/icon/alerts.svg"></md-icon>
   </md-button>
   <md-menu-content>
-    <md-menu-item class="message" ng-repeat="message in messages | orderBy:'-date'">
+    <md-menu-item class="message" ng-repeat="message in Message.messages | orderBy:'-date'">
       <md-button>
         <message message="message"></message>
       </md-button>
