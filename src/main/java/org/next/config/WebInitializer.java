@@ -1,5 +1,8 @@
 package org.next.config;
 
+import org.next.NextLectureManagerApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -9,7 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-public class WebInitializer implements WebApplicationInitializer {
+public class WebInitializer extends SpringBootServletInitializer implements WebApplicationInitializer {
 
     private static final String ROOT = "/";
     private static final String DISPATCHER = "dispatcher";
@@ -29,8 +32,10 @@ public class WebInitializer implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping(ROOT);
         dispatcher.setInitParameter("throwExceptionIfNoHandlerFound", TRUE);
-
-
     }
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(NextLectureManagerApplication.class);
+    }
 }
