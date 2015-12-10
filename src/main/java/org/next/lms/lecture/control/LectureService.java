@@ -18,6 +18,8 @@ import org.next.lms.message.template.LectureEnrollRejectMessage;
 import org.next.lms.message.template.LectureEnrollRequestMessage;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,15 +96,17 @@ public class LectureService {
         return new Result(ResponseCode.WRONG_ACCESS);
     }
 
-
     public Result approval(Long id, Long userId, User user) {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
 
-        PackagedMessage message = aMessage().from(user).to(userEnrolledLecture.getUser())
+        PackagedMessage enrolledLectureApprovedNoticeMessage = aMessage().from(user).to(userEnrolledLecture.getUser())
                 .with(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture())).packaging();
+        messageService.send(enrolledLectureApprovedNoticeMessage);
 
-        messageService.send(message);
+        PackagedMessage remainApprovalWatingStudentInfoMessage = aMessage().from(user).to(userEnrolledLecture.getLecture().getHostUser())
+                .with(new LectureEnrollRequestMessage(userEnrolledLecture.getLecture(), user, userEnrolledLecture, Math.toIntExact(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).count()))).packaging();
+        messageService.send(remainApprovalWatingStudentInfoMessage);
 
         return success(new UserSummaryDto(userEnrolledLecture));
     }
