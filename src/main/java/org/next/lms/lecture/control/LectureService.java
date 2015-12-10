@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
@@ -104,8 +105,13 @@ public class LectureService {
                 .with(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture())).packaging();
         messageService.send(enrolledLectureApprovedNoticeMessage);
 
+        List<User> waitingForApprovalUser = userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).map(UserEnrolledLecture::getUser).collect(Collectors.toList());
+        waitingForApprovalUser.remove(user);
+
+        User randomWaitingUser = (waitingForApprovalUser.size() > 0) ? waitingForApprovalUser.get(0) : null;
+
         PackagedMessage remainApprovalWatingStudentInfoMessage = aMessage().from(user).to(userEnrolledLecture.getLecture().getHostUser())
-                .with(new LectureEnrollRequestMessage(userEnrolledLecture.getLecture(), user, userEnrolledLecture, Math.toIntExact(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).count()))).packaging();
+                .with(new LectureEnrollRequestMessage(userEnrolledLecture.getLecture(), randomWaitingUser, userEnrolledLecture, Math.toIntExact(userEnrolledLecture.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).count()))).packaging();
         messageService.send(remainApprovalWatingStudentInfoMessage);
 
         return success(new UserSummaryDto(userEnrolledLecture));
