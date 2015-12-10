@@ -21,9 +21,9 @@ angular.module('clientApp')
             start: $scope.start.getTime(),
             end: $scope.end.getTime()
           }).then(function (result) {
-            $scope.divider = 3;
+
             $scope.contents = result;
-            $scope.divider = $scope.contents.length;
+
             $scope.contents.forEach(function (content) {
               content.row = 1;
               content.col = 1;
