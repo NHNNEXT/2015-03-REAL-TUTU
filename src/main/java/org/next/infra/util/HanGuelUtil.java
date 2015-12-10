@@ -6,52 +6,27 @@ public class HanGuelUtil {
         은는, 이가, 을를, 으로_로, 와과
     }
 
-    public enum ObjectType {
-        HUMAN, OBJECT
-    }
-
-    public static String josa(String keyWord, JosaType josaType, ObjectType objectType) {
+    public static String josa(String keyWord, JosaType josaType) {
         char lastWord = extractLastWord(keyWord);
 
         if(!isHangle(lastWord))
-            return keyWord;
+            return "";
 
-        if(containsJongSung(lastWord)) {
-            return hasJongSungData(josaType, objectType);
-        } else {
-            return hasNoJongSungData(josaType);
-        }
+        return properJosa(josaType, containsJongSung(lastWord));
     }
 
-    private static String hasJongSungData(JosaType josaType, ObjectType human) {
+    private static String properJosa(JosaType josaType, boolean hasJongSung) {
         switch (josaType) {
             case 은는:
-                return (human == ObjectType.HUMAN) ? "이는" : "은";
+                return hasJongSung ? "은" : "는";
             case 이가:
-                return (human == ObjectType.HUMAN) ? "이가" : "이";
+                return hasJongSung ? "이" : "가";
             case 을를:
-                return (human == ObjectType.HUMAN) ? "이를" : "을";
+                return hasJongSung ? "을" : "를";
             case 으로_로:
-                return (human == ObjectType.HUMAN) ? "으로" : "으로";
+                return hasJongSung ? "으로" : "로";
             case 와과:
-                return "과";
-            default:
-                return "";
-        }
-    }
-
-    private static String hasNoJongSungData(JosaType josaType) {
-        switch (josaType) {
-            case 은는:
-                return "는";
-            case 이가:
-                return "가";
-            case 을를:
-                return "를";
-            case 으로_로:
-                return "로";
-            case 와과:
-                return "와";
+                return hasJongSung ? "과" : "와";
             default:
                 return "";
         }
