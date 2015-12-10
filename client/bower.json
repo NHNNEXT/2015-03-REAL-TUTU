@@ -10,18 +10,12 @@
     "angular-sanitize": "1.4.7",
     "angular-touch": "1.4.7",
     "angular-ui-router": "~0.2.15",
-    "angular-datepicker": "~1.0.20",
     "ng-file-upload": "~9.1.1",
-    "restangular": "~1.5.1",
     "angular-toastr": "~1.5.0",
-    "bowser": "~1.0.0",
-    "material-cards": "*",
     "angular-ui-router-anim-in-out": "~1.0.2",
     "angular-messages": "~1.4.7",
     "angular-material-data-table": "~0.8.14",
     "moment": "~2.10.6",
-    "satellizer": "~0.13.1",
-    "oauth-ng": "~0.4.2",
     "angular-material": "~0.11.4"
   },
   "devDependencies": {

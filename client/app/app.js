@@ -10,9 +10,7 @@
     'ngTouch',
     'ui.router',
     'md.data.table',
-    'datePicker',
     'ngFileUpload',
-    'restangular',
     'toastr',
     'anim-in-out'
     /* @ngInject */
@@ -23,12 +21,12 @@
       }
     );
     /* @ngInject */
-  }).config(function ($locationProvider, $urlRouterProvider, RestangularProvider, toastrConfig, $httpProvider, $mdThemingProvider) {
+  }).config(function ($locationProvider, $urlRouterProvider,  toastrConfig, $httpProvider, $mdThemingProvider) { //RestangularProvider,
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
     });
-    RestangularProvider.setBaseUrl('/api/v1/');
+    //RestangularProvider.setBaseUrl('/api/v1/');
     $urlRouterProvider.otherwise("/페이지를찾으려는노오오력이부족하다");
     angular.extend(toastrConfig, {
       timeOut: 3000,
