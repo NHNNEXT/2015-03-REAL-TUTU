@@ -17,8 +17,8 @@
 
   <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
     <div layout="row" ng-hide="content.extendWrite" class="margin-top">
-      <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
-      <input-datepicker placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
+      <input-datepicker md-max-date="content.endTime" placeholder="시작" ng-model="content.startTime"></input-datepicker>
+      <input-datepicker md-min-date="content.startTime" placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
     </div>
     <div class="margin-top margin-bottom" layout="row">
       <md-checkbox ng-model="content.extendWrite">

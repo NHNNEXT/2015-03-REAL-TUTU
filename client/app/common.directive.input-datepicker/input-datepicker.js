@@ -4,7 +4,9 @@ angular.module('clientApp')
       restrict: 'E',
       scope: {
         ngModel: '=',
-        placeholder: '@'
+        placeholder: '@',
+        mdMaxDate: '=',
+        mdMinDate: '='
       },
       templateUrl: '/common.directive.input-datepicker/input-datepicker.html'
     };

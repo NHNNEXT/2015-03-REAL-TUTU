@@ -1,6 +1,6 @@
 <div layout="row" class="margin-top">
-  <md-datepicker ng-model="range.startDate" md-placeholder="시작 날짜"></md-datepicker>
-  <md-datepicker ng-model="range.endDate" md-placeholder="끝 날짜"></md-datepicker>
+  <md-datepicker ng-model="range.startDate" md-max-date="range.endDate" md-placeholder="시작 날짜"></md-datepicker>
+  <md-datepicker ng-model="range.endDate" md-min-date="range.startDate" md-placeholder="끝 날짜"></md-datepicker>
 </div>
 <div layout="row" class="margin-top margin-left">
   <md-input-container>

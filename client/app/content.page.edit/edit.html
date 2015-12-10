@@ -11,8 +11,8 @@
     </md-input-container>
   </div>
   <div layout="row" class="margin-top" ng-if="content.contentGroup.contentType==='SCHEDULE'" flex>
-    <input-datepicker placeholder="시작" ng-model="content.startTime"></input-datepicker>
-    <input-datepicker placeholder="끝" ng-model="content.endTime"></input-datepicker>
+    <input-datepicker placeholder="시작" md-max-date="content.endTime" ng-model="content.startTime"></input-datepicker>
+    <input-datepicker placeholder="끝" md-min-date="content.startTime" ng-model="content.endTime"></input-datepicker>
   </div>
 
   <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
