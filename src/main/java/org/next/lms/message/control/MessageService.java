@@ -69,6 +69,10 @@ public class MessageService {
         if(messageHolder.isUpdatableMessage()) {
             updateMessage(messageFromDb, messageHolder);
         }
+
+        if(!messageHolder.isUpdatableMessage() && messageFromDb.getChecked()) {
+            createNewMessage(receiver, messageHolder);
+        }
     }
 
     private void updateMessage(Message messageFromDb, MessageTemplate messageHolder) {

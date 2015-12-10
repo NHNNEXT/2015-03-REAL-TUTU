@@ -77,8 +77,7 @@ public class ContentSaveService {
         Content content = saveContent(contentParameterDto, user);
 
         PackagedMessage message = aMessage().from(user).to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()))
-                .with(new NewContentCreatedMessage(content.getLecture(), content, 1)).packaging();
-        // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
+                .with(new NewContentCreatedMessage(content.getLecture())).packaging();
 
         messageService.send(message);
         return success(new ContentDto(content, user));
