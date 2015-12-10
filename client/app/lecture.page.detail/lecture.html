@@ -3,7 +3,7 @@
     <div flex>
       <h2>
         <span ng-bind="lecture.name"></span>
-        <small style="font-size:60%;color:#aaa" ui-sref="lectureEdit({id:lecture.id})"
+        <small ui-sref="lectureEdit({id:lecture.id})"
                ng-show="lecture.hostUser.isRootUser()">
           수정
         </small>

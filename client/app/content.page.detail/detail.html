@@ -4,10 +4,10 @@
       <div layout="row">
         <h2>
           <span ng-bind="content.title"></span>
-          <span  ng-show="content.writer.id === rootUser.id" class="info margin-left">
-          <span ui-sref="contentEdit({id:content.id})" class="margin-right-s">수정</span>
-          <span ng-click="content.remove()">삭제</span>
-          </span>
+          <small  ng-show="content.writer.id === rootUser.id">
+            <span ui-sref="contentEdit({id:content.id})">수정</span>
+            <span ng-click="content.remove()">삭제</span>
+          </small>
         </h2>
 
       </div>

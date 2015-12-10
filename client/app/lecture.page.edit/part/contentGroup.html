@@ -1,5 +1,5 @@
-<div layout="row" ng-repeat="contentGroup in lecture.contentGroups">
-  <md-input-container flex="10">
+<div layout="row" layout-sm="column" ng-repeat="contentGroup in lecture.contentGroups">
+  <md-input-container flex>
     <label>구분</label>
     <md-select ng-model="contentGroup.contentType">
       <md-option value="GENERAL">
@@ -55,17 +55,16 @@
       </md-checkbox>
     </div>
   </div>
-  <div flex>
+  <div>
     <md-button aria-label="remove" ng-click="lecture.removeContentGroup(contentGroup)">삭제</md-button>
   </div>
-
 </div>
-<div layout="row">
-  <md-input-container flex="80">
-    <label>게시물 타입</label>
+<div layout="row" layout-sm="column">
+  <md-input-container flex>
+    <label>타입</label>
     <input ng-model="contentGroup.name">
   </md-input-container>
-  <md-button aria-label="new" ng-click="newContentGroup()" flex="20">
-    게시물 타입 추가하기
+  <md-button aria-label="new" ng-click="newContentGroup()" flex>
+    타입 추가하기
   </md-button>
 </div>

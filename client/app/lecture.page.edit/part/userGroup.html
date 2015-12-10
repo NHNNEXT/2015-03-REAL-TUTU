@@ -1,18 +1,18 @@
-<div layout="row" layout-align="center center" ng-repeat="userGroup in lecture.userGroups">
-  <md-input-container class="md-block" flex="60">
+<div layout="row" layout-sm="column" ng-repeat="userGroup in lecture.userGroups">
+  <md-input-container flex class="md-block">
     <label>그룹</label>
     <input ng-model="userGroup.name">
   </md-input-container>
-  <div flex="20">
+  <div>
     <md-checkbox ng-model="select[$index]" ng-click="lecture.defaultGroupSelect($index, select)">
       기본 그룹
     </md-checkbox>
   </div>
-  <div flex="20">
+  <div>
     <md-button aria-label="remove" ng-click="lecture.removeUserGroup(userGroup)">삭제</md-button>
   </div>
 </div>
-<div layout="row">
+<div layout="row" layout-sm="column">
   <md-input-container flex="80">
     <label>그룹</label>
     <input ng-model="userGroup.name">
