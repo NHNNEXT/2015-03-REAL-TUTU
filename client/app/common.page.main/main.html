@@ -1,5 +1,7 @@
 <section>
-  <p class="info margin-bottom">{{start.getDateString()}} ~ {{end.getDateString()}}</p>
-  <lecture-summary ng-repeat="lecture in main.rootUser.lectures | filter:{sideMenu:true}" start="start" end="end" lecture="lecture"></lecture-summary>
+  <md-datepicker ng-model="start"></md-datepicker>
+  <md-datepicker ng-model="end"></md-datepicker>
+  <lecture-summary ng-repeat="lecture in main.rootUser.lectures | filter:{sideMenu:true}" start="start" end="end"
+                   lecture="lecture"></lecture-summary>
 </section>
 
