@@ -76,8 +76,7 @@ public class LectureService {
             relation.showLectureOnSideBar();
             userEnrolledLectureRepository.save(relation);
 
-            PackagedMessage message = aMessage().from(user).to(lecture.getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()))
-                    .with(new LectureEnrolledMessage(lecture)).packaging();
+            PackagedMessage message = aMessage().from(user).to(user).with(new LectureEnrolledMessage(lecture)).packaging();
 
             messageService.send(message);
 
