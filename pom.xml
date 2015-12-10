@@ -6,7 +6,7 @@
     <groupId>org.next</groupId>
     <artifactId>NextLectureManager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>Next Lecture Manager</name>
     <description>NEXT 강의지원 시스템</description>
@@ -27,7 +27,6 @@
         <querydsl.version>3.7.0</querydsl.version>
 
         <plugin.version.maven-compiler-plugin>3.2</plugin.version.maven-compiler-plugin>
-        <war.plugin.version>2.6</war.plugin.version>
     </properties>
 
     <dependencies>
@@ -80,11 +79,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
