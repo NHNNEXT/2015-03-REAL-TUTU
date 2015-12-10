@@ -11,6 +11,7 @@ import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.control.auth.RegisterPolicy;
 import org.next.lms.lecture.domain.dto.*;
 import org.next.lms.message.control.MessageService;
+import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.LectureEnrollApprovedMessage;
 import org.next.lms.message.template.LectureEnrolledMessage;
 import org.next.lms.message.template.LectureEnrollRejectMessage;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
+import static org.next.lms.message.domain.MessageBuilder.aMessage;
 
 @Service
 @Transactional
@@ -74,17 +76,20 @@ public class LectureService {
             relation.showLectureOnSideBar();
             userEnrolledLectureRepository.save(relation);
 
-            messageService
-                    .send(new LectureEnrolledMessage(lecture))
-                    .to(lecture.getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
+            PackagedMessage message = aMessage().from(user).to(lecture.getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()))
+                    .with(new LectureEnrolledMessage(lecture)).packaging();
+
+            messageService.send(message);
+
             return success();
         } else if (lecture.getRegisterPolicy().equals(RegisterPolicy.NEED_APPROVAL)) {
             relation.setApprovalState(ApprovalState.WAITING_APPROVAL);
             userEnrolledLectureRepository.save(relation);
 
-            messageService
-                    .send(new LectureEnrollRequestMessage(lecture, user, relation, Math.toIntExact(relation.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).count())))
-                    .to(lecture.getHostUser());
+            PackagedMessage message = aMessage().from(user).to(lecture.getHostUser())
+                    .with(new LectureEnrollRequestMessage(lecture, user, relation, Math.toIntExact(relation.getLecture().getUserEnrolledLectures().stream().filter(enrolledUser -> enrolledUser.getApprovalState().equals(ApprovalState.WAITING_APPROVAL)).count()))).packaging();
+
+            messageService.send(message);
             return new Result(ResponseCode.Enroll.WAITING_FOR_APPROVAL, new LectureSummaryDto(lecture));
         }
         return new Result(ResponseCode.WRONG_ACCESS);
@@ -95,9 +100,10 @@ public class LectureService {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
 
-        messageService
-                .send(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture()))
-                .to(userEnrolledLecture.getUser());
+        PackagedMessage message = aMessage().from(user).to(userEnrolledLecture.getUser())
+                .with(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture())).packaging();
+
+        messageService.send(message);
 
         return success(new UserSummaryDto(userEnrolledLecture));
     }
@@ -106,9 +112,10 @@ public class LectureService {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
 
-        messageService
-                .send(new LectureEnrollRejectMessage(userEnrolledLecture.getLecture()))
-                .to(userEnrolledLecture.getUser());
+        PackagedMessage message = aMessage().from(user).to(userEnrolledLecture.getUser())
+                .with(new LectureEnrollRejectMessage(userEnrolledLecture.getLecture())).packaging();
+
+        messageService.send(message);
         return success();
     }
 
