@@ -6,48 +6,8 @@
   <p ng-show="contents.length===0">내역이 없습니다.</p>
 </div>
 <div ng-show="contents.length!==0">
-  <div layout="row" class="date-header">
-    <div flex class="left">
-      {{start.getDateString()}}
-    </div>
-    <div flex></div>
-    <div flex class="right">
-      {{end.getDateString()}}
-    </div>
-  </div>
-  <div layout="row" class="body">
-    <span ng-repeat="content in contents">
-      <span ui-sref="content({id:content.id})" ng-switch="content.contentGroup.contentType"
-            ng-mouseover="content.hover=true"
-            ng-mouseout="content.hover=false">
-        <span ng-switch-default ng-style="left(content.writeDate, $index)">
-          {{content.title}}
-            <md-tooltip md-direction="right">
-              {{content.title}} {{content.writeDate.toYMD()}}
-            </md-tooltip>
-        </span>
-        <span ng-switch-when="SUBMIT" ng-style="left(content.endTime, $index)">
-           <i class="fa fa-arrow-right"></i>
-            <md-tooltip md-direction="right">
-              {{content.title}}
-              마감 : {{content.endTime.toYMD()}}
-            </md-tooltip>
-        </span>
-        <span ng-switch-when="SCHEDULE" ng-style="range(content, $index)">
-          <i class="fa fa-paw"></i>
-            <md-tooltip md-direction="bottom">
-              {{content.title}}
-              {{content.startTime.range(content.endTime)}}
-            </md-tooltip>
-        </span>
-      </span>
-    </span>
 
-    <div class="time-divider first" hide-sm><span>{{dates[0].getDateString()}}</span></div>
-    <div class="time-divider"><span>{{dates[1].getDateString()}}</span></div>
-    <div class="time-divider last" hide-sm><span>{{dates[2].getDateString()}}</span></div>
-    <div class="time-divider now" ng-show="nowCovered()" ng-style="now"><span>now</span></div>
-  </div>
+  <content-timeline contents="contents" start="start" end="end"></content-timeline>
 
   <md-grid-list
     md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"

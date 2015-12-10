@@ -1,0 +1,70 @@
+content-timeline {
+  .body {
+    height: 200px;
+    position: relative;
+    border-top: 1px dashed #eee;
+    border-bottom: 1px dashed #eee;
+    margin-bottom: 30px;
+    .header {
+      font-size: 15px;
+    }
+  }
+
+  .time-divider {
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    border-right: 1px dashed #ddd;
+  }
+
+  .time-divider.now {
+    position: absolute;
+    height: 100%;
+    border-right: 1px solid red;
+    span {
+      position: absolute;
+      color: red;
+      top: 100%;
+      background: white;
+      transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+    }
+  }
+
+  .time-divider {
+    left: 50%;
+  }
+
+  .time-divider.first {
+    left: 25%;
+  }
+
+  .time-divider.last {
+    left: 75%;
+  }
+
+  .date-header {
+    position: relative;
+    height: 20px;
+    span {
+      position: absolute;
+      color: #aaa;
+      font-size: 12px;
+      -ms-transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+    span:last-child {
+      -ms-transform: none;
+      -webkit-transform: none;
+      transform: none;
+    }
+    span:first-child {
+      -ms-transform: none;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+}
