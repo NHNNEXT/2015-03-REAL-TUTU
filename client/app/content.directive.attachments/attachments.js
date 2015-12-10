@@ -12,6 +12,25 @@ angular.module('clientApp').directive('attachments',
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
 
+        this.getIcon = function (attachment) {
+          var iconPath = "/resource/icon/";
+          switch (attachment.originalFileName.split('.').pop()){
+            case "mp3":
+              return iconPath + "music.svg";
+            case "wma":
+              return iconPath + "music.svg";
+            case "pdf":
+              return iconPath + "pdf.svg";
+            case "jpg":
+              return iconPath + "image.svg";
+            case "gif":
+              return iconPath + "image.svg";
+            case "png":
+              return iconPath + "image.svg";
+          }
+          return iconPath + "file.svg";
+        };
+
         this.download = function (attachment) {
           if (!confirm("파일을 다운로드 합니다."))
             return;

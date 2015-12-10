@@ -7,14 +7,14 @@
                 md-rowspan="1" md-colspan="1" md-colspan-sm="1">
     <div class="center">
       <i class="fa fa-times" ng-click="ctrl.delete(attachment, ctrl.attachments)" ng-if="!ctrl.readonly"></i>
-      <md-icon ng-click="ctrl.download(attachment)" md-svg-icon="/resource/icon/file.svg"></md-icon>
+      <md-icon md-svg-icon="{{ctrl.getIcon(attachment)}}" ng-click="ctrl.download(attachment)" ></md-icon>
       <p ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</p>
     </div>
   </md-grid-tile>
   <md-grid-tile ng-repeat="tmp in ctrl.tmps"
                 md-rowspan="1" md-colspan="1" md-colspan-sm="1">
     <div class="center">
-      <md-icon md-svg-icon="/resource/icon/file.svg"></md-icon>
+      <md-icon md-svg-icon="{{ctrl.getIcon(attachment)}}"></md-icon>
       <p  class="detail">{{tmp.name}}</p>
       <md-progress-linear md-mode="determinate" ng-value="tmp.progress"></md-progress-linear>
     </div>
