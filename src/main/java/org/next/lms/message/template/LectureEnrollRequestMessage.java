@@ -51,6 +51,11 @@ public class LectureEnrollRequestMessage extends MultipleEventReportMessageTempl
     }
 
     @Override
+    public Boolean needToExcludeEventEmitUser() {
+        return false;
+    }
+
+    @Override
     public String getUrl() {
         return String.format(urlTemplate, lecture.getId());
     }

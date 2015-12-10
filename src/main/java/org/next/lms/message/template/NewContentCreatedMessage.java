@@ -47,6 +47,11 @@ public class NewContentCreatedMessage extends MultipleEventReportMessageTemplate
     }
 
     @Override
+    public Boolean needToExcludeEventEmitUser() {
+        return true;
+    }
+
+    @Override
     public String getUrl() {
         if(getEventOccurrenceCount() < 2)
             return String.format(singleEventUrlTemplate, content.getId());

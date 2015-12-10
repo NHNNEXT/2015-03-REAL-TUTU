@@ -33,6 +33,11 @@ public class LectureEnrollApprovedMessage extends ImmutableMessageTemplate {
     }
 
     @Override
+    public Boolean needToExcludeEventEmitUser() {
+        return false;
+    }
+
+    @Override
     public String getUrl() {
         return String.format(urlTemplate, lecture.getId());
     }
