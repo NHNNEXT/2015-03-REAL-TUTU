@@ -101,6 +101,7 @@ public class LectureService {
     public Result approval(Long id, Long userId, User user) {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
         userEnrolledLecture.setApprovalState(ApprovalState.OK);
+        userEnrolledLecture.setSideMenu(true);
 
         PackagedMessage enrolledLectureApprovedNoticeMessage = aMessage().from(user).to(userEnrolledLecture.getUser())
                 .with(new LectureEnrollApprovedMessage(userEnrolledLecture.getLecture())).packaging();
@@ -177,5 +178,13 @@ public class LectureService {
         UserGroup group = assureNotNull(lecture.getUserGroups().stream().filter(userGroup -> userGroup.getId().equals(groupId)).findFirst().get());
         userEnrolledLecture.setUserGroup(group);
         return success(new UserGroupDto(group));
+    }
+
+    public Result expel(Long lectureId, Long userId, User user) {
+        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
+        lectureAuthority.checkExpelRight(lecture, userId, user);
+        UserEnrolledLecture userEnrolledLecture = userEnrolledLectureRepository.findOneByUserIdAndLectureId(userId, lectureId);
+        userEnrolledLectureRepository.delete(userEnrolledLecture);
+        return success();
     }
 }

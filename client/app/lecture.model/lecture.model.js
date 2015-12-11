@@ -191,6 +191,37 @@ angular.module('clientApp')
       });
     };
 
+    Lecture.prototype.expel = function (user) {
+      if (this.hostUser.id === user.id) {
+        alert.error("개설자는 탈퇴할 수 없습니다.");
+        return;
+      }
+      var message;
+      var self = this;
+      var isRootUser = user.id === rootUser.id;
+      if (isRootUser)
+        message = "강의에서 탈퇴합니다";
+      else {
+        message = "강의에서 " + user.name + "님을 탈퇴시킵니다.";
+      }
+      if (!confirm(message)) return;
+      http.post('/api/v1/lecture/expel', {lectureId: this.id, userId: user.id}).then(function () {
+        if (isRootUser) {
+          alert.success("강의에서 탈퇴했습니다.");
+          rootUser.lectures.remove(rootUser.lectures.find(function (lecture) {
+            return lecture.id === self.id;
+          }));
+          $state.go('main');
+          return;
+        }
+        alert.success("강의에서 " + user.name + "님을 탈퇴 시켰습니다.");
+        self.users.remove(self.users.find(function (u) {
+          return user.id === u.id;
+        }));
+
+      });
+    };
+
 
     Lecture.getList = function () {
       return $q(function (resolve) {
@@ -223,7 +254,7 @@ angular.module('clientApp')
       });
     };
 
-    function WriteInfo(param){
+    function WriteInfo(param) {
       this.id = param.id;
       this.name = param.name;
       this.hostUserId = param.hostUserId;

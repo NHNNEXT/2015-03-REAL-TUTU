@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/lecture")
 public class LectureController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LectureController.class);
-
     @Autowired
     private LectureService lectureService;
 
@@ -65,6 +63,11 @@ public class LectureController {
     @RequestMapping(value = "/reject", method = RequestMethod.POST)
     public Result reject(Long id, Long userId, @Logged User user) {
         return lectureService.reject(id, userId, user);
+    }
+
+    @RequestMapping(value = "/expel", method = RequestMethod.POST)
+    public Result expel(Long lectureId, Long userId, @Logged User user) {
+        return lectureService.expel(lectureId, userId, user);
     }
 
     @RequestMapping(value = "/userGroup", method = RequestMethod.PUT)
