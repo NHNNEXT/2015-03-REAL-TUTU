@@ -35,6 +35,12 @@
               {{content.startTime.range(content.endTime)}}
             </md-tooltip>
         </span>
+        <span ng-switch-when="NOTICE" ng-style="left(content.startTime, $index)">
+          <i class="fa fa-paw"></i>
+            <md-tooltip md-direction="bottom">
+              {{content.title}}
+            </md-tooltip>
+        </span>
       </span>
     </span>
   <div class="time-divider first" hide-sm></div>
