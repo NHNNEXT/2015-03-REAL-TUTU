@@ -46,6 +46,7 @@
   <link href="/message.directive.messages/messages.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
+  <link href="/report.dialog/template.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
@@ -105,6 +106,10 @@
   <md-content md-scroll-y ui-view>
   </md-content>
 </div>
+<md-button dialog="report" class="md-fab report" aria-label="report bug">
+  <md-icon md-svg-icon="/resource/icon/report.svg"></md-icon>
+</md-button>
+
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -205,6 +210,7 @@
 <script src="/reply.directive.replies/replies.js"></script>
 <script src="/reply.directive.reply/reply.js"></script>
 <script src="/reply.model/reply.model.js"></script>
+<script src="/report.dialog/report.controller.js"></script>
 <script src="/resource/froala.directive.js"></script>
 <script src="/resource/froala/froala_editor.min.js"></script>
 <script src="/resource/froala/ko.js"></script>

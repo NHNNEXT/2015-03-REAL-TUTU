@@ -22,6 +22,17 @@ angular.module('clientApp')
       });
     };
 
+
+    this.report = function (ev) {
+      $mdDialog.show({
+        controller: 'reportController',
+        templateUrl: '/report.dialog/report.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    };
+
     this.close = function() {
       $mdDialog.cancel();
     };
