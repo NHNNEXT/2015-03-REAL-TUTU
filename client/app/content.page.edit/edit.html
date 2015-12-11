@@ -35,7 +35,14 @@
         <tr md-auto-select ng-repeat="user in content.users">
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
-          <td>{{user.group.name}}</td>
+          <td>
+            <span ng-show="user.id!==hostUserId">
+              {{user.group.name}}
+            </span>
+            <span ng-show="user.id===hostUserId">
+              강의 개설자
+            </span>
+          </td>
           <td>
             <md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox>
           </td>

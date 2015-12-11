@@ -14,12 +14,14 @@ public class WriteInfoDto {
 
     private final Long id;
     private final String name;
+    private final Long hostUserId;
     private List<ContentGroupDto> contentGroups;
     private List<UserSummaryDto> users;
 
     public WriteInfoDto(Lecture lecture) {
         this.id = lecture.getId();
         this.name = lecture.getName();
+        this.hostUserId = lecture.getHostUser().getId();
         this.contentGroups = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
         this.users = lecture.getUserEnrolledLectures().stream().filter(userEnrolledLecture -> ApprovalState.OK.equals(userEnrolledLecture.getApprovalState())).map(UserSummaryDto::new).collect(Collectors.toList());
     }

@@ -23,6 +23,7 @@ angular.module('clientApp').controller('contentWriteController',
           $scope.contentGroups.push(new ContentGroup(contentGroup));
         });
         $scope.content.users = [];
+        $scope.hostUserId = writeInfo.hostUserId;
         writeInfo.users.forEach(function (user) {
           $scope.content.users.push(new User(user));
         });

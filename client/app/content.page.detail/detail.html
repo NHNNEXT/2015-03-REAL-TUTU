@@ -27,7 +27,7 @@
 
 
       <div class="margin-top-s">
-        <span class="info dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
+        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
         <span class="info dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">일정 : {{content.startTime.range(content.endTime)}}</span>
       </div>
     </div>

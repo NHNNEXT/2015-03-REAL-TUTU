@@ -22,6 +22,7 @@ angular.module('clientApp').controller('contentEditController',
           return;
         Lecture.getWriteInfoById(content.lectureId).then(function (writeInfo) {
           $scope.content.users = [];
+          $scope.hostUserId = writeInfo.hostUserId;
           writeInfo.users.forEach(function (user) {
             var u = new User(user);
             u.submit = undefined !== content.submitRequiredUsers.find(function (user) {

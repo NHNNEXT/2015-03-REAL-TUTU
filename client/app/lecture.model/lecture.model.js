@@ -73,7 +73,7 @@ angular.module('clientApp')
 
     Lecture.prototype.removeContentGroup = function (el) {
       if (this.contentGroups.length < 2) {
-        alert.warning("최소 하나의 타입은 있어야 합니다.");
+        alert.warning("최소 하나의 유형은 있어야 합니다.");
         return;
       }
       if (!confirm("삭제하시겠습니까?"))
@@ -108,6 +108,8 @@ angular.module('clientApp')
 
     Lecture.prototype.defaultGroupDefine = function () {
       var self = this;
+      if (!this.userGroups)
+        return;
       this.userGroups.forEach(function (userGroup, index) {
         if (userGroup.defaultGroup)
           self.defaultGroup = index;
@@ -216,10 +218,18 @@ angular.module('clientApp')
     Lecture.getWriteInfoById = function (id) {
       return $q(function (resolve) {
         http.get('/api/v1/lecture/writeInfo', {id: id}).then(function (result) {
-          resolve(new Lecture(result));
+          resolve(new WriteInfo(result));
         });
       });
     };
+
+    function WriteInfo(param){
+      this.id = param.id;
+      this.name = param.name;
+      this.hostUserId = param.hostUserId;
+      this.contentGroups = param.contentGroups;
+      this.users = param.users;
+    }
 
     return Lecture;
   });
