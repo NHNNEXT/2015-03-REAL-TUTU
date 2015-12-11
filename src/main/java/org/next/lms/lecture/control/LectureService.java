@@ -3,6 +3,7 @@ package org.next.lms.lecture.control;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
+import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
