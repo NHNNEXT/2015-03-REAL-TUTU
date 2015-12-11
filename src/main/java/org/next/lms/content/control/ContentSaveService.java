@@ -103,10 +103,10 @@ public class ContentSaveService {
         if (contentParameterDto.getContentGroup() == null)
             throw new PatternNotMatchedException("게시물 타입을 입력해야합니다.");
         Content content = new Content();
+        content.setContentGroup(assureNotNull(contentGroupRepository.findOne(contentParameterDto.getContentGroup())));
         contentParameterDto.setProperties(content);
         content.setLecture(lecture);
         content.setWriter(user);
-        content.setContentGroup(assureNotNull(contentGroupRepository.findOne(contentParameterDto.getContentGroup())));
         content.validate();
         contentAuthority.checkWriteRight(content.getContentGroup(), user);
         contentRepository.save(content);
