@@ -13,19 +13,17 @@ angular
           _init();
           return;
         }
-        $scope.select = [];
         Lecture.findById(id).then(function (fromDB) {
           lecture = $scope.lecture = fromDB;
-          lecture.userGroups.forEach(function (userGroup) {
-            $scope.select.push(userGroup.defaultGroup);
-          });
+          //lecture.userGroups.forEach(function (userGroup) {
+          //  $scope.select.push(userGroup.defaultGroup);
+          //});
         });
       });
 
 
       function _init() {
         lecture = $scope.lecture = new Lecture();
-        $scope.select = [false, true];
         $scope.userGroup = {};
         $scope.contentGroup = {contentType: "GENERAL"};
       }

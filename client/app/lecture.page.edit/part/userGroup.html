@@ -3,11 +3,11 @@
     <label>그룹</label>
     <input ng-model="userGroup.name">
   </md-input-container>
-  <div>
-    <md-checkbox ng-model="select[$index]" ng-click="lecture.defaultGroupSelect($index, select)">
+  <md-radio-group ng-model="lecture.defaultGroup">
+    <md-radio-button ng-value="$index">
       기본 그룹
-    </md-checkbox>
-  </div>
+    </md-radio-button>
+  </md-radio-group>
   <div>
     <md-button aria-label="remove" ng-click="lecture.removeUserGroup(userGroup)">삭제</md-button>
   </div>

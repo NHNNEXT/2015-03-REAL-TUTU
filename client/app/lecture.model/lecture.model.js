@@ -30,6 +30,7 @@ angular.module('clientApp')
         this.writable = [[true, true, true, true], [false, false, true, true]];
         this.readable = [[true, true, true, true], [true, true, true, true]];
         this.submitReadable = [[false, false, false, true], [false, false, false, false]];
+        this.defaultGroupDefine();
         return;
       }
       if (typeof param === "object") {
@@ -37,18 +38,6 @@ angular.module('clientApp')
       }
     }
 
-
-    Lecture.prototype.defaultGroupSelect = function (index, select) {
-      this.userGroups.forEach(function (userGroup, i) {
-        if (i === index) {
-          userGroup.defaultGroup = true;
-          select[i] = false;
-          return;
-        }
-        userGroup.defaultGroup = false;
-        select[i] = false;
-      });
-    };
 
     Lecture.prototype.isEnrolled = function () {
       var lectures = rootUser.lectures;
@@ -114,6 +103,16 @@ angular.module('clientApp')
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;
+      this.defaultGroupDefine();
+    };
+
+    Lecture.prototype.defaultGroupDefine = function () {
+      var self = this;
+      this.userGroups.forEach(function (userGroup, index) {
+        if (userGroup.defaultGroup)
+          self.defaultGroup = index;
+      });
+
     };
 
     Lecture.prototype.remove = function () {
@@ -142,6 +141,10 @@ angular.module('clientApp')
       query.majorType = this.majorType;
       query.registerPolicy = this.registerPolicy;
       query.contentGroups = this.contentGroups;
+      var self = this;
+      this.userGroups.forEach(function (userGroup, index) {
+        userGroup.defaultGroup = index === self.defaultGroup;
+      });
       query.userGroups = this.userGroups;
       query.writable = this.writable;
       query.readable = this.readable;
