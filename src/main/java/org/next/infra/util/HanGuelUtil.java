@@ -15,6 +15,14 @@ public class HanGuelUtil {
         return properJosa(josaType, containsJongSung(lastWord));
     }
 
+    public static String josaWhenEllipsisApplied(String keyWord, JosaType josaType, int length) {
+        if(keyWord.length() > length) {
+            String reducedWord = keyWord.substring(0, length - 1);
+            return josa(reducedWord, josaType);
+        }
+        return josa(keyWord, josaType);
+    }
+
     private static String properJosa(JosaType josaType, boolean hasJongSung) {
         switch (josaType) {
             case 은는:
