@@ -16,7 +16,6 @@ import java.util.List;
 public class LectureForHostUserDto extends LectureDto {
 
     private final List<UserSummaryDto> waitingUsers;
-    private final List<UserSummaryDto> rejectUsers;
     private List<List<Boolean>> writable;
     private List<List<Boolean>> readable;
     private List<List<Boolean>> submitReadable;
@@ -24,7 +23,6 @@ public class LectureForHostUserDto extends LectureDto {
     public LectureForHostUserDto(Lecture lecture, User hostUser) {
         super(lecture, hostUser);
         this.waitingUsers = new ArrayList<>();
-        this.rejectUsers = new ArrayList<>();
         lecture.getUserEnrolledLectures().forEach(relation -> {
             UserSummaryDto user = new UserSummaryDto(relation.getUser());
             UserGroup userGroup = relation.getUserGroup();
@@ -33,8 +31,6 @@ public class LectureForHostUserDto extends LectureDto {
             user.setGroup(new UserGroupDto(userGroup));
             if (ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState()))
                 waitingUsers.add(user);
-            if (ApprovalState.REJECT.equals(relation.getApprovalState()))
-                rejectUsers.add(user);
         });
         makeWriteAndRead(lecture);
     }

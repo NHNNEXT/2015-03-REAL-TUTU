@@ -5,7 +5,7 @@ angular.module('clientApp')
       scope: {
         submit: '=',
         submits: '=',
-        attach:'='
+        attach: '='
       },
       templateUrl: '/submit.directive.submit/submit.html',
       /* @ngInject */
@@ -21,10 +21,10 @@ angular.module('clientApp')
           $scope.mod = true;
         };
         $scope.delete = function () {
-          if (!confirm("삭제하시겠습니까?"))
-            return;
-          $scope.submit.remove().then(function () {
-            $scope.submits.remove($scope.submit);
+          confirm("삭제하시겠습니까?", undefined, function () {
+            $scope.submit.remove().then(function () {
+              $scope.submits.remove($scope.submit);
+            });
           });
         };
       }

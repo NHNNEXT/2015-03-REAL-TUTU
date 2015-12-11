@@ -4,7 +4,6 @@
     .module('clientApp')
     /* @ngInject */
     .controller('mainController', function (rootUser, Content, $state, $scope) {
-
       $scope.$watch(function () {
         return rootUser.id;
       }, function (id) {

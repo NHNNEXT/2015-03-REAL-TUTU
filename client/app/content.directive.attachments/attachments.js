@@ -14,7 +14,7 @@ angular.module('clientApp').directive('attachments',
 
         this.getIcon = function (attachment) {
           var iconPath = "/resource/icon/";
-          switch (attachment.originalFileName.split('.').pop()){
+          switch (attachment.originalFileName.split('.').pop()) {
             case "mp3":
               return iconPath + "music.svg";
             case "wma":
@@ -32,15 +32,15 @@ angular.module('clientApp').directive('attachments',
         };
 
         this.download = function (attachment) {
-          if (!confirm("파일을 다운로드 합니다."))
-            return;
-          $window.open(attachment.downloadUrl, '_blank');
+          confirm("파일을 다운로드 합니다.", "받을 파일 : " + attachment.originalFileName, function () {
+            $window.open(attachment.downloadUrl, '_blank');
+          });
         };
 
         this.delete = function (attachment, attachments) {
-          if (!confirm("삭제하시겠습니까?"))
-            return;
-          attachments.remove(attachment);
+          confirm("삭제하시겠습니까?", "첨부한 파일이 삭제됩니다." , function () {
+            attachments.remove(attachment);
+          });
         };
 
         var self = this;

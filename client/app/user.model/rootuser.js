@@ -66,20 +66,20 @@ angular.module('clientApp')
     };
 
     this.logout = function () {
-      if (!confirm("로그아웃 하시겠습니까?"))
-        return;
-      http.get('/api/v1/user/logout').then(function () {
-        delete self.id;
-        delete self.email;
-        delete self.profileUrl;
-        delete self.name;
-        delete self.studentId;
-        delete self.introduce;
-        delete self.phoneNumber;
-        delete self.major;
-        delete self.lectures;
-        $rootScope.$broadcast('userStateChange');
-        dialog.login();
+      confirm("로그아웃 하시겠습니까?", undefined, function () {
+        http.get('/api/v1/user/logout').then(function () {
+          delete self.id;
+          delete self.email;
+          delete self.profileUrl;
+          delete self.name;
+          delete self.studentId;
+          delete self.introduce;
+          delete self.phoneNumber;
+          delete self.major;
+          delete self.lectures;
+          $rootScope.$broadcast('userStateChange');
+          dialog.login();
+        });
       });
     };
 

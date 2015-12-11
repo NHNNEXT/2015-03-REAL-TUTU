@@ -20,12 +20,13 @@ angular.module('clientApp')
           $scope.mod = true;
         };
         $scope.delete = function () {
-          if (!confirm("삭제하시겠습니까?"))
-            return;
-          $scope.reply.remove().then(function () {
-            $scope.replies.remove($scope.reply);
+          confirm("삭제하시겠습니까?", undefined, function () {
+            $scope.reply.remove().then(function () {
+              $scope.replies.remove($scope.reply);
+            });
           });
         };
+
       }
     };
   });
