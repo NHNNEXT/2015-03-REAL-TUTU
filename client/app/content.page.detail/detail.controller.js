@@ -4,18 +4,6 @@ angular.module('clientApp').controller('contentDetailController',
     $scope.rootUser = rootUser;
     $scope.content = {replies: []};
 
-    $scope.getRelativeIcon = function () {
-      if ($scope.relativeReadOnly)
-        return "/resource/icon/relative.svg";
-      return "/resource/icon/done.svg";
-    };
-
-    $scope.getTagIcon = function () {
-      if ($scope.tagReadOnly)
-        return "/resource/icon/tag.svg";
-      return "/resource/icon/done.svg";
-    };
-
     $rootScope.$on('userStateChange', function(){
       getContent($stateParams.id);
     });
@@ -43,6 +31,18 @@ angular.module('clientApp').controller('contentDetailController',
         $state.current.header = content.lectureName;
         $state.current.headerClick = function () {
           $state.go('lecture', {id: $scope.content.lectureId});
+        };
+
+        $scope.getRelativeIcon = function () {
+          if ($scope.relativeReadOnly)
+            return "/resource/icon/relative.svg";
+          return "/resource/icon/done.svg";
+        };
+
+        $scope.getTagIcon = function () {
+          if ($scope.tagReadOnly)
+            return "/resource/icon/tag.svg";
+          return "/resource/icon/done.svg";
         };
       });
     }
