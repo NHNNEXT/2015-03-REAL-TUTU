@@ -25,4 +25,8 @@ spring.http.encoding.charset=UTF-8
 spring.http.encoding.enabled=true
 spring.http.encoding.force=true
 
-
+#==========================================#
+#  Try Auto Reconnect
+#==========================================#
+spring.datasource.test-on-borrow=true
+spring.datasource.validation-query=SELECT 1
