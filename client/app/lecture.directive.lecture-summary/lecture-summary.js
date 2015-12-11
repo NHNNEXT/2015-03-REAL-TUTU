@@ -7,9 +7,13 @@ angular.module('clientApp')
       },
       templateUrl: '/lecture.directive.lecture-summary/lecture-summary.html',
       /* @ngInject */
-      controller: function (Content, $scope) {
-        $scope.$watch('start', update, true);
-        $scope.$watch('end', update, true);
+      controller: function (Content, $scope, $timeout) {
+
+        $timeout(function () {
+          $scope.$watch(function () {
+            return [$scope.start, $scope.end];
+          }, update, true);
+        }, 300);
         var now = new Date();
         var day = 24 * 60 * 60 * 1000;
 
@@ -21,9 +25,7 @@ angular.module('clientApp')
             start: $scope.start.getTime(),
             end: $scope.end.getTime()
           }).then(function (result) {
-
             $scope.contents = result;
-
             $scope.contents.forEach(function (content) {
               content.row = 1;
               content.col = 1;
