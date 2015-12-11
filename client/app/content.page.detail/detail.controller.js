@@ -1,30 +1,36 @@
 angular.module('clientApp').controller('contentDetailController',
   /* @ngInject */
-  function ($scope, rootUser, Content, $stateParams, types, Reply, $state, http) {
+  function ($scope, rootUser, Content, $stateParams, types, Reply, $state, http, $rootScope) {
     $scope.rootUser = rootUser;
     $scope.content = {replies: []};
+
+    $scope.getRelativeIcon = function () {
+      if ($scope.relativeReadOnly)
+        return "/resource/icon/relative.svg";
+      return "/resource/icon/done.svg";
+    };
+
+    $scope.getTagIcon = function () {
+      if ($scope.tagReadOnly)
+        return "/resource/icon/tag.svg";
+      return "/resource/icon/done.svg";
+    };
+
+    $rootScope.$on('userStateChange', function(){
+      getContent($stateParams.id);
+    });
 
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
+      getContent(id);
+    });
+    function getContent(id) {
       Content.findById(id).then(function (content) {
         $scope.content = content;
 
         $scope.tagReadOnly = true;
         $scope.relativeReadOnly = true;
-
-        $scope.getRelativeIcon = function () {
-          if ($scope.relativeReadOnly)
-            return "/resource/icon/relative.svg";
-          return "/resource/icon/done.svg";
-        };
-
-
-        $scope.getTagIcon = function () {
-          if ($scope.tagReadOnly)
-            return "/resource/icon/tag.svg";
-          return "/resource/icon/done.svg";
-        };
 
         $scope.$watch(function () {
           return $scope.content.tags;
@@ -39,5 +45,5 @@ angular.module('clientApp').controller('contentDetailController',
           $state.go('lecture', {id: $scope.content.lectureId});
         };
       });
-    });
+    }
   });

@@ -8,7 +8,7 @@ angular.module('clientApp')
       },
       templateUrl: '/submit.directive.submits/submits.html',
       /* @ngInject */
-      controller: function (rootUser, $scope, Submit, User) {
+      controller: function (rootUser, $scope, Submit, User, emoticon) {
 
         $scope.$watch('submitdto', function (submitdto) {
           if (!submitdto)
@@ -28,6 +28,7 @@ angular.module('clientApp')
           submit.save().then(function (result) {
             $scope.submits.push(new Submit(result));
             $scope.submit = new Submit();
+            emoticon.submitDone();
           });
         };
       }
