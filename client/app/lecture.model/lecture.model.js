@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode, Term) {
+  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode, $rootScope) {
     function Lecture(param) {
       if (param === undefined) {
         this.contentGroups = [{
@@ -64,11 +64,12 @@ angular.module('clientApp')
         alert.warning("최소 하나의 그룹은 있어야 합니다.");
         return;
       }
-      if (!confirm("삭제하시겠습니까?"))
-        return;
-      this.userGroups.remove(el);
-      if (this.userGroups[this.defaultGroup] === undefined)
-        this.defaultGroup = 0;
+      var self = this;
+      confirm("삭제하시겠습니까?", "그룹 : " + el.name, function () {
+        self.userGroups.remove(el);
+        if (self.userGroups[this.defaultGroup] === undefined)
+          self.defaultGroup = 0;
+      });
     };
 
     Lecture.prototype.removeContentGroup = function (el) {
@@ -76,9 +77,10 @@ angular.module('clientApp')
         alert.warning("최소 하나의 유형은 있어야 합니다.");
         return;
       }
-      if (!confirm("삭제하시겠습니까?"))
-        return;
-      this.contentGroups.remove(el);
+      var self = this;
+      confirm("삭제하시겠습니까?", "유형 : " + el.name, function () {
+        self.contentGroups.remove(el);
+      });
     };
 
     Lecture.prototype.setProperties = function (param) {
@@ -92,14 +94,10 @@ angular.module('clientApp')
       this.userGroups = param.userGroups;
       this.users = param.users;
       this.waitingUsers = param.waitingUsers;
-      this.rejectUsers = param.rejectUsers;
       if (param.contents)
         this.contents = param.contents.map(function (content) {
           return new Content(content);
         });
-      if (param.term) {
-        this.term = new Term(param.term);
-      }
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;
@@ -118,10 +116,10 @@ angular.module('clientApp')
     };
 
     Lecture.prototype.remove = function () {
-      if (!confirm("강의를 닫겠습니까?"))
-        return;
-      http.delete('/api/v1/lecture', {id: this.id}).then(function () {
-        $state.go('lectures');
+      confirm("강의를 닫겠습니까?", "강의 : " + this.name, function () {
+        http.delete('/api/v1/lecture', {id: this.id}).then(function () {
+          $state.go('lectures');
+        });
       });
     };
 
@@ -151,43 +149,88 @@ angular.module('clientApp')
       query.writable = this.writable;
       query.readable = this.readable;
       query.submitReadable = this.submitReadable;
-      if (this.term) {
-        query.termId = this.term.id;
-      }
       if (this.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);
     };
 
-    Lecture.prototype.approval = function (userId) {
-      if (!confirm("승인하시겠습니까?"))
-        return;
-      var self = this;
-      var query = {};
-      query.id = this.id;
-      query.userId = userId;
-      http.post('/api/v1/lecture/approval', query).then(function (result) {
-        alert.success("가입 승인되었습니다.");
-        var approved = self.waitingUsers.find(function (user) {
-          return user.id === result.id;
+    Lecture.prototype.approval = function (user) {
+      confirm("승인하시겠습니까?", user.name + "님의 가입 요청을 승인합니다.", function () {
+        var self = this;
+        var query = {};
+        query.id = this.id;
+        query.userId = user.id;
+        http.post('/api/v1/lecture/approval', query).then(function (result) {
+          alert.success("가입 승인되었습니다.");
+          var approved = self.waitingUsers.find(function (user) {
+            return user.id === result.id;
+          });
+          self.waitingUsers.remove(approved);
+          self.users.push(result);
         });
-        self.waitingUsers.remove(approved);
-        self.users.push(result);
       });
     };
 
-    Lecture.prototype.reject = function (userId) {
-      if (!confirm("거절하시겠습니까?"))
+    Lecture.prototype.reject = function (user) {
+      confirm("거절하시겠습니까?", user.name + "님의 가입 요청을 거절합니다.", function () {
+        var self = this;
+        var query = {};
+        query.id = this.id;
+        query.userId = user.id;
+        http.post('/api/v1/lecture/reject', query).then(function () {
+          alert.info("가입 신청을 거절하였습니다.");
+          self.waitingUsers.remove(self.waitingUsers.find(function (user) {
+            return user.id === user.id;
+          }));
+        });
+      });
+    };
+
+    Lecture.prototype.expel = function (user) {
+      if (this.hostUser.id === user.id) {
+        alert.error("개설자는 탈퇴할 수 없습니다.");
         return;
+      }
+      var message;
       var self = this;
-      var query = {};
-      query.id = this.id;
-      query.userId = userId;
-      http.post('/api/v1/lecture/reject', query).then(function () {
-        alert.info("가입 신청을 거절하였습니다.");
-        self.waitingUsers.remove(self.waitingUsers.find(function (user) {
-          return user.id === userId;
-        }));
+      var isRootUser = user.id === rootUser.id;
+      var approved = self.users.find(function (u) {
+        return u.id === user.id;
+      });
+      if (isRootUser) {
+        if (approved)
+          message = "강의에서 탈퇴합니다";
+        else
+          message = "가입 신청을 취소합니다.";
+      }
+      else
+        message = "강의에서 " + user.name + "님을 탈퇴시킵니다.";
+
+      confirm(message, undefined, function () {
+
+        http.post('/api/v1/lecture/expel', {lectureId: self.id, userId: user.id}).then(function () {
+          if (isRootUser) {
+            if (!approved) {
+              alert.success("가입 신청을 취소했습니다.");
+              rootUser.waitingLectures.remove(rootUser.waitingLectures.find(function (lecture) {
+                return lecture.id === self.id;
+              }));
+              $rootScope.$broadcast('userStateChange');
+              return;
+            }
+            alert.success("강의에서 탈퇴했습니다.");
+            rootUser.lectures.remove(rootUser.lectures.find(function (lecture) {
+              return lecture.id === self.id;
+            }));
+            $rootScope.$broadcast('userStateChange');
+            return;
+          }
+          alert.success("강의에서 " + user.name + "님을 탈퇴 시켰습니다.");
+          self.users.remove(self.users.find(function (u) {
+            return user.id === u.id;
+          }));
+
+        });
       });
     };
 
@@ -223,7 +266,7 @@ angular.module('clientApp')
       });
     };
 
-    function WriteInfo(param){
+    function WriteInfo(param) {
       this.id = param.id;
       this.name = param.name;
       this.hostUserId = param.hostUserId;

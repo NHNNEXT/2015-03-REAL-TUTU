@@ -10,6 +10,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 
@@ -46,14 +47,14 @@ public class ExceptionHandlingController {
     public Result patternNotMatchedException(PatternNotMatchedException e) {
         return new Result(ResponseCode.PATTERN_NOT_MATCHED, e.getMessage());
     }
-//
-//    @ExceptionHandler(NullPointerException.class)
-//    public JsonView nullPointer(NullPointerException e) {
-//        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
-//    }
-//
-//    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-//    public JsonView methodArgumentTypeMismatchException(NullPointerException e) {
-//        return new JsonView(ResponseCode.WRONG_ACCESS, e.getMessage());
-//    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public Result nullPointer(NullPointerException e) {
+        return new Result(ResponseCode.WRONG_ACCESS, e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public Result methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+        return new Result(ResponseCode.WRONG_ACCESS, e.getMessage());
+    }
 }

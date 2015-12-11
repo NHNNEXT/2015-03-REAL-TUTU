@@ -1,4 +1,5 @@
 <section>
+  <div ng-click="confirm($event)">컨펌</div>
   <md-datepicker ng-model="start" md-max-date="end"></md-datepicker>
   <md-datepicker ng-model="end" md-min-date="start"></md-datepicker>
   <lecture-summary start="start" end="end"></lecture-summary>

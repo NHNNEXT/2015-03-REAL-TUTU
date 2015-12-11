@@ -92,11 +92,11 @@ angular.module('clientApp')
 
 
     Content.prototype.remove = function () {
-      if (!confirm("삭제하시겠습니까?"))
-        return;
       var self = this;
-      http.delete('/api/v1/content', {id: this.id}).then(function () {
-        $state.go('lecture', {id: self.lectureId});
+      confirm("삭제하시겠습니까?", this.title, function () {
+        http.delete('/api/v1/content', {id: this.id}).then(function () {
+          $state.go('lecture', {id: self.lectureId});
+        });
       });
     };
 

@@ -22,4 +22,8 @@ public class LectureAuth extends CRUDBasicAuthCheck {
     public void checkGroupChangeRight(User user, Lecture lecture) {
         rightCheck(isObjectOwner(lecture, user));
     }
+
+    public void checkExpelRight(Lecture lecture, Long userId, User user) {
+        rightCheck(isObjectOwner(lecture, user) && !userId.equals(user.getId()) || !isObjectOwner(lecture, user) && userId.equals(user.getId()));
+    }
 }
