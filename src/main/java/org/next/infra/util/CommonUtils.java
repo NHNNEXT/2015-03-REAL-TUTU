@@ -58,7 +58,7 @@ public class CommonUtils {
 
         if (text.length() > length) {
             String decoString = "...";
-            String reduced = text.substring(0, length);
+            String reduced = text.substring(0, length - 1);
             reduced += decoString;
             return reduced;
         }
