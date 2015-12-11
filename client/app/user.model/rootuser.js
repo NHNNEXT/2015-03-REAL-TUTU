@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, Message, confirm) {
+  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, Message, confirm, $rootScope) {
     this.email = "test1@test.com";
     this.password = "password";
     getSessionUser();
@@ -42,6 +42,7 @@ angular.module('clientApp')
         self.setProperties(result);
         dialog.close();
         $mdSidenav('left').close();
+        $rootScope.$broadcast('userStateChange');
       }, function (response) {
         if (response.code === responseCode.Login.NOT_EXIST_EMAIL) {
           alert.error('가입하지 않은 아이디입니다.');
@@ -78,6 +79,7 @@ angular.module('clientApp')
         delete self.phoneNumber;
         delete self.major;
         delete self.lectures;
+        $rootScope.$broadcast('userStateChange');
         dialog.login();
       });
     };

@@ -1,7 +1,7 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types, $timeout, http) {
+  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types, $timeout, http, $rootScope) {
 
     $scope.types = types;
     $scope.rootUser = rootUser;
@@ -14,7 +14,6 @@ angular
         return;
       o(e);
     }
-
 
     function setType(contentGroup) {
       if (!contentGroup) {
@@ -45,10 +44,16 @@ angular
       }, 200);
     });
 
+    $rootScope.$on('userStateChange', function () {
+      getLecture($stateParams.id);
+    });
+
 
     $scope.$watch(function () {
       return $stateParams.id;
-    }, function (id) {
+    }, getLecture);
+
+    function getLecture(id) {
       if (!id)
         return;
       Lecture.findById(id).then(function (fromDB) {
@@ -56,8 +61,7 @@ angular
         $state.current.header = fromDB.name;
         $scope.contents = fromDB.contents;
       });
-    });
-
+    }
 
     function groupChange(group, user) {
       var query = {};

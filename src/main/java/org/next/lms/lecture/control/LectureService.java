@@ -52,8 +52,8 @@ public class LectureService {
     public Result getLectureById(Long lectureId, User user) {
         Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
         if (lecture.getHostUser().equals(user))
-            return success(new LectureForHostUserDto(lecture));
-        return success(new LectureDto(lecture));
+            return success(new LectureForHostUserDto(lecture, user));
+        return success(new LectureDto(lecture, user));
     }
 
     public Result getWriteInfoById(Long lectureId) {

@@ -6,6 +6,7 @@ import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.lecture.control.auth.ApprovalState;
+import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class LectureForHostUserDto extends LectureDto {
     private List<List<Boolean>> readable;
     private List<List<Boolean>> submitReadable;
 
-    public LectureForHostUserDto(Lecture lecture) {
-        super(lecture);
+    public LectureForHostUserDto(Lecture lecture, User hostUser) {
+        super(lecture, hostUser);
         this.waitingUsers = new ArrayList<>();
         this.rejectUsers = new ArrayList<>();
         lecture.getUserEnrolledLectures().forEach(relation -> {
