@@ -7,7 +7,7 @@ import org.next.infra.result.Result;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
-import org.next.lms.message.template.UserSubmitMissonToScoreGraderMessage;
+import org.next.lms.message.template.UserSubmitMissionToScoreGraderMessage;
 import org.next.lms.user.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,13 +58,15 @@ public class SubmitService {
         submitRepository.save(submit);
 
         List<User> scoreGradeAbleUsers = new ArrayList<>();
+        scoreGradeAbleUsers.add(userHaveToSubmit.getContent().getLecture().getHostUser());
+
         userHaveToSubmit.getContent().getLecture().getUserGroups().stream()
                 .filter(userGroup -> userGroup.getSubmitReadable().size() > 0)
                 .forEach(userGroup -> userGroup.getUserEnrolledLectures().stream()
                         .forEach(relation -> scoreGradeAbleUsers.add(relation.getUser())));
 
         PackagedMessage message = aMessage().from(user).to(scoreGradeAbleUsers)
-                .with(new UserSubmitMissonToScoreGraderMessage(userHaveToSubmit.getContent())).packaging();
+                .with(new UserSubmitMissionToScoreGraderMessage(userHaveToSubmit.getContent())).packaging();
 
         messageService.send(message);
 

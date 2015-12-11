@@ -9,7 +9,7 @@ import org.next.lms.user.domain.User;
 
 import static org.next.infra.util.HanGuelUtil.josaWhenEllipsisApplied;
 
-public class UserSubmitMissonToScoreGraderMessage extends ImmutableMessageTemplate {
+public class UserSubmitMissionToScoreGraderMessage extends ImmutableMessageTemplate {
 
     private static final String messageTemplate = "'%s' %s 제출한 학생이 있습니다.";
 
@@ -17,7 +17,7 @@ public class UserSubmitMissonToScoreGraderMessage extends ImmutableMessageTempla
 
     private Content content;
 
-    public UserSubmitMissonToScoreGraderMessage(Content content) {
+    public UserSubmitMissionToScoreGraderMessage(Content content) {
         this.content = content;
     }
 

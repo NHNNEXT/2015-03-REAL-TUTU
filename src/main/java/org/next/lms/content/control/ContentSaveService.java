@@ -15,6 +15,7 @@ import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.NewContentCreatedMessage;
+import org.next.lms.message.template.NewSubmitAssignedMessage;
 import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
 import org.slf4j.Logger;
@@ -23,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
@@ -80,6 +83,18 @@ public class ContentSaveService {
                 .with(new NewContentCreatedMessage(content.getLecture())).packaging();
 
         messageService.send(message);
+
+        if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
+            List<User> submitRequiredUserList = new ArrayList<>();
+            contentParameterDto.getSubmitRequiredUsers().stream().forEach(userId -> {
+                submitRequiredUserList.add(userRepository.findOne(userId));
+            });
+
+            PackagedMessage submitAssignedNoticeMessage = aMessage().from(user).to(submitRequiredUserList)
+                    .with(new NewSubmitAssignedMessage(content.getLecture())).packaging();
+            messageService.send(submitAssignedNoticeMessage);
+        }
+
         return success(new ContentDto(content, user));
     }
 
