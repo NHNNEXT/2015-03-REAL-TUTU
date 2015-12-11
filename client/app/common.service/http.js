@@ -36,6 +36,7 @@ angular.module('clientApp')
             break;
           case responseCode.UNAUTHORIZED_REQUEST:
             alert.warning("권한이 없습니다.");
+            $state.go('main');
             break;
           case responseCode.PATTERN_NOT_MATCHED:
             var message = response.result === undefined ? "유효하지 않은 입력입니다." : response.result;
