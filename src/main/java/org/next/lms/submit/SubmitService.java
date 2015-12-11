@@ -58,6 +58,8 @@ public class SubmitService {
         submitRepository.save(submit);
 
         List<User> scoreGradeAbleUsers = new ArrayList<>();
+        scoreGradeAbleUsers.add(userHaveToSubmit.getContent().getLecture().getHostUser());
+
         userHaveToSubmit.getContent().getLecture().getUserGroups().stream()
                 .filter(userGroup -> userGroup.getSubmitReadable().size() > 0)
                 .forEach(userGroup -> userGroup.getUserEnrolledLectures().stream()
