@@ -1,6 +1,6 @@
 angular.module('clientApp').factory('Message',
   /* @ngInject */
-  function (http, $q, $timeout) {
+  function (http, $q, $timeout, rootUser, $rootScope) {
     function Message(obj) {
       if (typeof obj !== "object")
         return;
@@ -34,6 +34,8 @@ angular.module('clientApp').factory('Message',
 
     Message.messages = [];
     Message.getMessages = function () {
+      if (!rootUser.isLogged())
+        return;
       Message.getList(0).then(function (messages) {
         $timeout(Message.getMessages, 10000);
         if (angular.equals(Message.messages, messages))
@@ -42,6 +44,10 @@ angular.module('clientApp').factory('Message',
         newCheck();
       });
     };
+
+    $rootScope.$on('userStateChange', function () {
+      Message.getMessages();
+    });
 
     $timeout(Message.getMessages, 300);
 

@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('http', function ($http, $q, responseCode, dialog, alert, $state) {
+  .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon) {
     var http = function (method, url, params, success, error, json) {
       var options = {
         method: method, url: url
@@ -47,7 +47,7 @@ angular.module('clientApp')
             dialog.login();
             break;
           case responseCode.WRONG_ACCESS:
-            alert.error("뚜찌빠찌뽀찌 뚜찌빠찌");
+            emoticon.dontDoThat();
             $state.go('main');
             break;
           default:

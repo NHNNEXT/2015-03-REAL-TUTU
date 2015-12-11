@@ -4,7 +4,12 @@
     .service('emoticon', function ($timeout) {
       var self = this;
       this.submitDone = function () {
-        scope.src = "/common.service.emoticon/submitdone.gif";
+        scope.src = "/resource/emoticon/submitdone.gif";
+        self.showing();
+      };
+
+      this.dontDoThat = function () {
+        scope.src = "/resource/emoticon/dont.gif";
         self.showing();
       };
 

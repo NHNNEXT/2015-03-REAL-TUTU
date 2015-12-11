@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, Message, confirm, $rootScope) {
+  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm, $rootScope) {
     this.email = "test1@test.com";
     this.password = "password";
     getSessionUser();
@@ -38,7 +38,6 @@ angular.module('clientApp')
     this.login = function () {
       http.post('/api/v1/user/login', {email: self.email, password: self.password}).then(function (result) {
         alert.success('로그인 되었습니다.');
-        Message.getMessages();
         self.setProperties(result);
         dialog.close();
         $mdSidenav('left').close();
