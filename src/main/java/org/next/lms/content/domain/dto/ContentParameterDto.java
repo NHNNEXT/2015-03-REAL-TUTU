@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.lms.content.domain.Content;
+import org.next.lms.content.domain.ContentType;
 import org.next.lms.lecture.domain.Lecture;
 
 import java.util.Date;
@@ -37,5 +38,8 @@ public class ContentParameterDto {
         content.setWriteDate(new Date());
         content.setStartTime(startTime);
         content.setEndTime(endTime);
+        if(!ContentType.NOTICE.equals(content.getContentGroup().getContentType())) //[TODO 체크]
+            return;
+        content.setStartTime(content.getWriteDate());
     }
 }

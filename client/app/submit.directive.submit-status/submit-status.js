@@ -23,7 +23,7 @@ angular.module('clientApp')
           if (!deadline)
             return;
           var dates = $scope.dates = [];
-          for (var i = -5; i < 3; i++) {
+          for (var i = -4; i < 4; i++) {
             var date = new Date(deadline);
             date.setDate(date.getDate() + i);
             dates.push(date);
@@ -43,11 +43,17 @@ angular.module('clientApp')
           users.forEach(function (user) {
             if (!user.submits || user.submits.length === 0)
               return;
-            user.submitted = user.submits.find(function (submit) {
+            user.mySubmits = [];
+            user.submits.forEach(function (submit) {
+              if (submit.writer.id !== user.user.id)
+                return;
+              user.mySubmits.push(submit);
+            });
+            user.submitted = user.mySubmits.find(function (submit) {
               return submit.writeDate < $scope.deadline;
             });
           });
-        });
+        }, true);
 
         function calculateLeft(date) {
           var left = 10 + (((date - $scope.start) / (day * 9)) * 100);

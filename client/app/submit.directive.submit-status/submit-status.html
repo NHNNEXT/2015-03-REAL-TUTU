@@ -6,7 +6,7 @@
 <div layout="row" class="submit-user" ng-class="{submitted:submitRequiredUser.submitted}"
      ng-repeat="submitRequiredUser in submitRequiredUsers">
   <div flex="10">{{submitRequiredUser.user.name}}</div>
-  <span ng-repeat="submit in submitRequiredUser.submits" ng-style="left(submit.writeDate)">
+  <span ng-repeat="submit in submitRequiredUser.mySubmits" ng-style="left(submit.writeDate)">
     <i class="fa fa-star"></i>
     <md-tooltip md-direction="right">{{submit.body}} {{submit.writeDate.toYMD()}}</md-tooltip>
   </span>

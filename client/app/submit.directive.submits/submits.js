@@ -14,11 +14,11 @@ angular.module('clientApp')
           if (!submitdto)
             return;
           $scope.user = new User(submitdto.user);
-          $scope.submits = [];
+          $scope.submits = submitdto.submits;
           $scope.submitId = submitdto.id;
-          submitdto.submits.forEach(function (sumbit) {
-            $scope.submits.push(new Submit(sumbit));
-          });
+          for (var i = 0; i < submitdto.submits.length; i++) {
+            submitdto.submits[i] = new Submit(submitdto.submits[i]);
+          }
         });
 
         $scope.submit = new Submit();
@@ -27,8 +27,10 @@ angular.module('clientApp')
           submit.submitId = $scope.submitId;
           submit.save().then(function (result) {
             $scope.submits.push(new Submit(result));
+            if ($scope.user.id === result.id)
+              emoticon.submitDone();
             $scope.submit = new Submit();
-            emoticon.submitDone();
+
           });
         };
       }

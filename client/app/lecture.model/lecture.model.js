@@ -30,6 +30,7 @@ angular.module('clientApp')
         this.writable = [[true, true, true, true], [false, false, true, true]];
         this.readable = [[true, true, true, true], [true, true, true, true]];
         this.submitReadable = [[false, false, false, true], [false, false, false, false]];
+        this.defaultGroupDefine();
         return;
       }
       if (typeof param === "object") {
@@ -37,18 +38,6 @@ angular.module('clientApp')
       }
     }
 
-
-    Lecture.prototype.defaultGroupSelect = function (index, select) {
-      this.userGroups.forEach(function (userGroup, i) {
-        if (i === index) {
-          userGroup.defaultGroup = true;
-          select[i] = false;
-          return;
-        }
-        userGroup.defaultGroup = false;
-        select[i] = false;
-      });
-    };
 
     Lecture.prototype.isEnrolled = function () {
       var lectures = rootUser.lectures;
@@ -84,7 +73,7 @@ angular.module('clientApp')
 
     Lecture.prototype.removeContentGroup = function (el) {
       if (this.contentGroups.length < 2) {
-        alert.warning("최소 하나의 타입은 있어야 합니다.");
+        alert.warning("최소 하나의 유형은 있어야 합니다.");
         return;
       }
       if (!confirm("삭제하시겠습니까?"))
@@ -114,6 +103,18 @@ angular.module('clientApp')
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;
+      this.defaultGroupDefine();
+    };
+
+    Lecture.prototype.defaultGroupDefine = function () {
+      var self = this;
+      if (!this.userGroups)
+        return;
+      this.userGroups.forEach(function (userGroup, index) {
+        if (userGroup.defaultGroup)
+          self.defaultGroup = index;
+      });
+
     };
 
     Lecture.prototype.remove = function () {
@@ -142,6 +143,10 @@ angular.module('clientApp')
       query.majorType = this.majorType;
       query.registerPolicy = this.registerPolicy;
       query.contentGroups = this.contentGroups;
+      var self = this;
+      this.userGroups.forEach(function (userGroup, index) {
+        userGroup.defaultGroup = index === self.defaultGroup;
+      });
       query.userGroups = this.userGroups;
       query.writable = this.writable;
       query.readable = this.readable;
@@ -213,10 +218,18 @@ angular.module('clientApp')
     Lecture.getWriteInfoById = function (id) {
       return $q(function (resolve) {
         http.get('/api/v1/lecture/writeInfo', {id: id}).then(function (result) {
-          resolve(new Lecture(result));
+          resolve(new WriteInfo(result));
         });
       });
     };
+
+    function WriteInfo(param){
+      this.id = param.id;
+      this.name = param.name;
+      this.hostUserId = param.hostUserId;
+      this.contentGroups = param.contentGroups;
+      this.users = param.users;
+    }
 
     return Lecture;
   });

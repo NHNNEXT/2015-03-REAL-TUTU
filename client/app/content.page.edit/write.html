@@ -18,7 +18,8 @@
   <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
     <div layout="row" ng-hide="content.extendWrite" class="margin-top">
       <input-datepicker md-max-date="content.endTime" placeholder="시작" ng-model="content.startTime"></input-datepicker>
-      <input-datepicker md-min-date="content.startTime" placeholder="끝" ng-model="content.endTime" flex></input-datepicker>
+      <input-datepicker md-min-date="content.startTime" placeholder="끝" ng-model="content.endTime"
+                        flex></input-datepicker>
     </div>
     <div class="margin-top margin-bottom" layout="row">
       <md-checkbox ng-model="content.extendWrite">
@@ -48,7 +49,15 @@
         <tr md-auto-select ng-repeat="user in content.users">
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
-          <td>{{user.group.name}}</td>
+          <td>
+            <span ng-show="user.id!==hostUserId">
+              {{user.group.name}}
+              {{hostUser}}
+            </span>
+            <span ng-show="user.id===hostUserId">
+              강의 개설자
+            </span>
+          </td>
           <td>
             <md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox>
           </td>
