@@ -3,28 +3,39 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        lecture: '=', start: '=', end: '='
+        start: '=', end: '='
       },
       templateUrl: '/lecture.directive.lecture-summary/lecture-summary.html',
       /* @ngInject */
-      controller: function (Content, $scope) {
-        $scope.$watch('start', update, true);
-        $scope.$watch('end', update, true);
+      controller: function (Content, $scope, $timeout, rootUser) {
+        $timeout(function () {
+          $scope.$watch(function () {
+            return [$scope.start, $scope.end];
+          }, update, true);
+        }, 300);
         var now = new Date();
         var day = 24 * 60 * 60 * 1000;
+
+        $scope.lectures = rootUser.lectures;
 
         function update() {
           if (!$scope.start || !$scope.end)
             return;
+          $scope.contents = [];
+          $scope.lectures.forEach(function (lecture) {
+            if (!lecture.sideMenu)
+              return;
+            getLectures(lecture.id);
+          });
+        }
+
+        function getLectures(lectureId) {
           Content.getList({
-            lectureId: $scope.lecture.id,
+            lectureId: lectureId,
             start: $scope.start.getTime(),
             end: $scope.end.getTime()
           }).then(function (result) {
-
-            $scope.contents = result;
-
-            $scope.contents.forEach(function (content) {
+            result.forEach(function (content) {
               content.row = 1;
               content.col = 1;
               if (Math.abs(content.writeDate - now) < day)
@@ -33,6 +44,7 @@ angular.module('clientApp')
                 content.col++;
               if (Math.abs(content.endTime - now) < day)
                 content.col++;
+              $scope.contents.push(content);
             });
           });
         }

@@ -13,9 +13,12 @@ import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.message.control.MessageService;
+import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.NewContentCreatedMessage;
 import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
+import static org.next.lms.message.domain.MessageBuilder.aMessage;
 
 @Service
 @Transactional
@@ -69,14 +73,13 @@ public class ContentSaveService {
         return success();
     }
 
-
     public Result save(ContentParameterDto contentParameterDto, User user) {
         Content content = saveContent(contentParameterDto, user);
 
-        messageService
-                // TODO 여기 1 이라는 숫자 바꿔야 함 아직 메시지 그룹핑 정책이 논의된 바 없어서 임의로 1 적음
-                .send(new NewContentCreatedMessage(content.getLecture(), content, 1))
-                .to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()));
+        PackagedMessage message = aMessage().from(user).to(content.getLecture().getUserEnrolledLectures().stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList()))
+                .with(new NewContentCreatedMessage(content.getLecture())).packaging();
+
+        messageService.send(message);
         return success(new ContentDto(content, user));
     }
 

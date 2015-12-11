@@ -15,4 +15,6 @@ public interface MessageTemplate {
      *  메시지를 발생시킨 객체가 속한 DB Table의 PK
      */
     Long pkAtBelongTypeTable();
+
+    Boolean needToExcludeEventEmitUser();
 }

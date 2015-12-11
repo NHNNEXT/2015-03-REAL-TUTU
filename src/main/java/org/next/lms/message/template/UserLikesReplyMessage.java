@@ -41,6 +41,11 @@ public class UserLikesReplyMessage extends MultipleEventReportMessageTemplate {
     }
 
     @Override
+    public Boolean needToExcludeEventEmitUser() {
+        return false;
+    }
+
+    @Override
     public String getUrl() {
         return String.format(urlTemplate, reply.getContent().getId());
     }

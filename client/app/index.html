@@ -19,6 +19,7 @@
 
   <!-- build:css({.tmp,app}) /styles/main.css -->
   <!-- include: "type": "css", "files": "**/*.css" -->
+  <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.like/like.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.mod-input/mod-input.css" rel="stylesheet" type="text/css">
@@ -79,6 +80,7 @@
   <link href="/user.dialog/template.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
+  <link href="/user.template/template.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 
@@ -103,6 +105,10 @@
   <md-content md-scroll-y ui-view>
   </md-content>
 </div>
+<md-button dialog="report" class="md-fab report" aria-label="report bug">
+  <md-icon md-svg-icon="/resource/icon/report.svg"></md-icon>
+</md-button>
+
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -203,6 +209,7 @@
 <script src="/reply.directive.replies/replies.js"></script>
 <script src="/reply.directive.reply/reply.js"></script>
 <script src="/reply.model/reply.model.js"></script>
+<script src="/report.dialog/report.controller.js"></script>
 <script src="/resource/froala.directive.js"></script>
 <script src="/resource/froala/froala_editor.min.js"></script>
 <script src="/resource/froala/ko.js"></script>

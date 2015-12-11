@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 public class LectureEnrollRequestMessage extends MultipleEventReportMessageTemplate {
 
+    private static final String NO_WAITING_STUDENT = "학생의 가입 요청 승인을 모두 처리하셨습니다. 가입 승인을 기다리는 학생이 없습니다.";
     private static final String singleEventMessageTemplate = "'%s' 강의에 '%s' 학생이 가입 승인을 기다리고 있습니다.";
     private static final String multipleEventMessageTemplate = "'%s' 강의에 '%s' 학생 외 '%d' 명이 가입 승인을 기다리고 있습니다.";
 
-    // TODO [수정필요] front - encodeURI 필요
     private static final String urlTemplate = "/lecture/%d?tab=request";
 
     private Lecture lecture;
@@ -31,6 +31,10 @@ public class LectureEnrollRequestMessage extends MultipleEventReportMessageTempl
 
     @Override
     protected String singleEventMessage() {
+        // TODO 개선이 필요하다
+        if(getEventOccurrenceCount() == 0) {
+            return NO_WAITING_STUDENT;
+        }
         return String.format(singleEventMessageTemplate, lecture.getName(), user.getName());
     }
 
@@ -48,6 +52,11 @@ public class LectureEnrollRequestMessage extends MultipleEventReportMessageTempl
     @Override
     public Long pkAtBelongTypeTable() {
         return lecture.getId();
+    }
+
+    @Override
+    public Boolean needToExcludeEventEmitUser() {
+        return false;
     }
 
     @Override

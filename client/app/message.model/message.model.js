@@ -32,7 +32,8 @@ angular.module('clientApp').factory('Message',
       });
     };
 
-    Message.getMessages = function() {
+    Message.messages = [];
+    Message.getMessages = function () {
       Message.getList(0).then(function (messages) {
         $timeout(Message.getMessages, 10000);
         if (angular.equals(Message.messages, messages))
@@ -42,9 +43,9 @@ angular.module('clientApp').factory('Message',
       });
     };
 
-    Message.getMessages();
+    $timeout(Message.getMessages, 300);
 
-    function newCheck(){
+    function newCheck() {
       Message.new = 0;
       Message.messages.forEach(function (message) {
         if (message.checked)
