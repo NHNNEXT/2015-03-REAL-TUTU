@@ -17,10 +17,8 @@
         <user-profile user="lecture.hostUser"></user-profile>
       </div>
       <div layout="column">
-        <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()"
-                     class="margin-top">
-          즐겨찾기
-        </md-checkbox>
+        <md-switch aria-label="즐겨찾기 추가" ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()">
+        </md-switch>
       </div>
       <md-divider ng-if="!$last"></md-divider>
     </md-list-item>
@@ -39,10 +37,8 @@
           <user-profile user="lecture.hostUser"></user-profile>
         </div>
         <div layout="column">
-          <md-checkbox ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()"
-                       class="margin-top">
-            즐겨찾기
-          </md-checkbox>
+          <md-switch aria-label="즐겨찾기 추가" ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()">
+          </md-switch>
         </div>
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
