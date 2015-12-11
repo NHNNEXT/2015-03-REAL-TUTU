@@ -40,9 +40,10 @@ public class LectureDto {
         this.contents = lecture.getContents().stream()
                 .filter(content -> content.getContentGroup().getReadable()
                         .stream().filter(userGroupCanReadContent ->
-                                userGroupCanReadContent.getUserGroup().getUserEnrolledLectures().stream().filter(
-                                        userEnrolledLecture-> userEnrolledLecture.getUser().equals(user)
-                                ).findAny().isPresent()
+                                userGroupCanReadContent.getUserGroup().getUserEnrolledLectures().stream()
+                                        .filter(userEnrolledLecture -> ApprovalState.OK.equals(userEnrolledLecture.getApprovalState()))
+                                        .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)
+                                        ).findAny().isPresent()
                         ).findAny().isPresent())
                 .map(ContentSummaryDto::new).collect(Collectors.toList());
         this.likes = lecture.getUserLikesLectures().stream().map(UserLikesLecture::getId).collect(Collectors.toList());

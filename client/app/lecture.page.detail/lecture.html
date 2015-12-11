@@ -26,7 +26,7 @@
             ng-click="lecture.enroll(lecture.id)">
         참여신청
       </span>
-      <span ng-show="lecture.isWaiting()">
+      <span ng-show="lecture.isWaiting()" ng-click="lecture.expel(rootUser)">
         가입 승인 대기중
       </span>
       </span>

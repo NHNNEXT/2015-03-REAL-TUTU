@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode, Term) {
+  .factory('Lecture', function (http, $state, confirm, User, Content, $q, rootUser, alert, responseCode, $rootScope) {
     function Lecture(param) {
       if (param === undefined) {
         this.contentGroups = [{
@@ -97,9 +97,6 @@ angular.module('clientApp')
         this.contents = param.contents.map(function (content) {
           return new Content(content);
         });
-      if (param.term) {
-        this.term = new Term(param.term);
-      }
       this.writable = param.writable;
       this.readable = param.readable;
       this.submitReadable = param.submitReadable;
@@ -151,9 +148,6 @@ angular.module('clientApp')
       query.writable = this.writable;
       query.readable = this.readable;
       query.submitReadable = this.submitReadable;
-      if (this.term) {
-        query.termId = this.term.id;
-      }
       if (this.id === undefined)
         return http.post('/api/v1/lecture', query, true);
       return http.put('/api/v1/lecture', query, true);
@@ -199,19 +193,35 @@ angular.module('clientApp')
       var message;
       var self = this;
       var isRootUser = user.id === rootUser.id;
-      if (isRootUser)
-        message = "강의에서 탈퇴합니다";
-      else {
-        message = "강의에서 " + user.name + "님을 탈퇴시킵니다.";
+      var approved = self.users.find(function (u) {
+        return u.id === user.id;
+      });
+      if (isRootUser) {
+        if (approved)
+          message = "강의에서 탈퇴합니다";
+        else
+          message = "가입 신청을 취소합니다.";
       }
+      else
+        message = "강의에서 " + user.name + "님을 탈퇴시킵니다.";
+
       if (!confirm(message)) return;
+
       http.post('/api/v1/lecture/expel', {lectureId: this.id, userId: user.id}).then(function () {
         if (isRootUser) {
+          if (!approved){
+            alert.success("가입 신청을 취소했습니다.");
+            rootUser.waitingLectures.remove(rootUser.waitingLectures.find(function (lecture) {
+              return lecture.id === self.id;
+            }));
+            $rootScope.$broadcast('userStateChange');
+            return;
+          }
           alert.success("강의에서 탈퇴했습니다.");
           rootUser.lectures.remove(rootUser.lectures.find(function (lecture) {
             return lecture.id === self.id;
           }));
-          $state.go('main');
+          $rootScope.$broadcast('userStateChange');
           return;
         }
         alert.success("강의에서 " + user.name + "님을 탈퇴 시켰습니다.");
