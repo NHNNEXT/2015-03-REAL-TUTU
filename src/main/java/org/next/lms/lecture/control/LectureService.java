@@ -121,7 +121,7 @@ public class LectureService {
 
     public Result reject(Long id, Long userId, User user) {
         UserEnrolledLecture userEnrolledLecture = getUserEnrolledLectureWithAuthCheck(id, userId, user);
-        userEnrolledLecture.setApprovalState(ApprovalState.REJECT);
+        userEnrolledLectureRepository.delete(userEnrolledLecture);
 
         PackagedMessage message = aMessage().from(user).to(userEnrolledLecture.getUser())
                 .with(new LectureEnrollRejectMessage(userEnrolledLecture.getLecture())).packaging();
