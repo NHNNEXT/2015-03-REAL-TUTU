@@ -1,15 +1,15 @@
 package org.next.lms.message.control;
 
-import org.next.config.AppConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.next.infra.result.Result;
+import org.next.config.AppConfig;
 import org.next.infra.repository.MessageRepository;
+import org.next.infra.result.Result;
 import org.next.lms.message.domain.Message;
 import org.next.lms.message.domain.MessageDto;
+import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.structure.MessageTemplate;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,9 +31,6 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
     public Result getList(User user, Integer page) {
         Pageable pageable = new PageRequest(page, AppConfig.pageSize);
         List<Message> messages = messageRepository.findByReceiverId(user.getId(), pageable);
@@ -48,23 +45,21 @@ public class MessageService {
         return success();
     }
 
-    public MessageHolder send(MessageTemplate message) {
-        MessageHolder messageHolder = (MessageHolder) applicationContext.getBean("messageHolder");
-        messageHolder.setMessage(message);
-        messageHolder.setMessageService(this);
-        return messageHolder;
+    public void send(PackagedMessage message) {
+        saveMessage(message);
     }
 
-    public void sendMessageNow(List<User> receivers, MessageTemplate template) {
-        receivers.forEach(user -> sendMessageNow(user, template));
+    private void saveMessage(PackagedMessage message) {
+        for(User receiver : message.getReceiverList()) {
+            saveMessage(message.getSender(), receiver, message.getMessage());
+        }
     }
 
-    public void sendMessageNow(User receiver, MessageTemplate template) {
-        saveMessage(receiver, template);
-    }
-
-    private void saveMessage(User receiver, MessageTemplate messageHolder) {
+    private void saveMessage(User sender, User receiver, MessageTemplate messageHolder) {
         Message messageFromDb = messageRepository.findByReceiverIdAndTypeAndPkAtBelongTypeTable(receiver.getId(), messageHolder.messageType(), messageHolder.pkAtBelongTypeTable());
+
+        if(sender.equals(receiver) && messageHolder.needToExcludeEventEmitUser())
+            return;
 
         if(messageFromDb == null) {
             createNewMessage(receiver, messageHolder);
@@ -73,6 +68,11 @@ public class MessageService {
 
         if(messageHolder.isUpdatableMessage()) {
             updateMessage(messageFromDb, messageHolder);
+            messageFromDb.setChecked(false);
+        }
+
+        if(!messageHolder.isUpdatableMessage() && messageFromDb.getChecked()) {
+            createNewMessage(receiver, messageHolder);
         }
     }
 
