@@ -22,13 +22,29 @@ angular.module('clientApp').directive('attachments',
             case "wma":
               return iconPath + "music.svg";
             case "pdf":
+              return iconPath + "pdf.png";
+            case "doc":
+              return iconPath + "word.svg";
+            case "docx":
               return iconPath + "pdf.svg";
+            case "xls":
+              return iconPath + "excel.svg";
+            case "xlsx":
+              return iconPath + "excel.svg";
+            case "ppt":
+              return iconPath + "ppt.svg";
+            case "pptx":
+              return iconPath + "ppt.svg";
+            case "hwp":
+              return iconPath + "hwp.png";
             case "jpg":
               return iconPath + "image.svg";
             case "gif":
               return iconPath + "image.svg";
             case "png":
               return iconPath + "image.svg";
+            case "zip":
+              return iconPath + "zip.png";
           }
           return iconPath + "file.svg";
         };
