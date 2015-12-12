@@ -1,11 +1,13 @@
 angular.module('clientApp')
   .filter('contentGroup', function () {
-    return function (contents, contentGroups) {
+    return function (contents, groupName) {
       if (!contents)
         return;
+      if (!groupName)
+        return contents;
       var result = [];
       contents.forEach(function (content) {
-        if (!contentGroups[content.contentGroup.name].select)
+        if (content.contentGroup.name !== groupName)
           return;
         result.push(content);
       });
@@ -21,6 +23,9 @@ angular.module('clientApp')
       },
       templateUrl: '/content.directive.content-list/content-list.html',
       controller: function ($scope) {
+
+        $scope.select = {};
+
         $scope.tagClick = function (tag) {
           $scope.keyword = tag;
           $scope.searching = true;
