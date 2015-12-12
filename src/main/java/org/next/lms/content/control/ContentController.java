@@ -2,6 +2,8 @@ package org.next.lms.content.control;
 
 import org.next.infra.result.Result;
 import org.next.lms.content.dao.ContentDao;
+import org.next.lms.content.dao.ContentDurationDao;
+import org.next.lms.content.dao.ContentLimitDao;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentListDto;
 import org.next.lms.lecture.control.LectureController;
@@ -33,8 +35,13 @@ public class ContentController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Result getContentList(ContentDao contentDao) {
-        return contentService.getList(contentDao);
+    public Result getContentList(ContentLimitDao contentLimitDao) {
+        return contentService.getList(contentLimitDao);
+    }
+
+    @RequestMapping(value = "/list/duration", method = RequestMethod.GET)
+    public Result getContentListByDuration(ContentDurationDao ContentDurationDao) {
+        return contentService.getList(ContentDurationDao);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)

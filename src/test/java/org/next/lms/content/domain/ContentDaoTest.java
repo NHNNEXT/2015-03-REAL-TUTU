@@ -11,9 +11,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@SpringApplicationConfiguration(classes = NextLectureManagerApplication.class)
 public class ContentDaoTest {
 
     @PersistenceContext
@@ -21,8 +18,5 @@ public class ContentDaoTest {
 
     @Test
     public void testGetQueryingResult() {
-        ContentDao dao = new ContentDao();
-        dao.setKeyword("");
-        System.out.println(dao.getList(entityManager));
     }
 }
