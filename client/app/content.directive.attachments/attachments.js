@@ -82,6 +82,7 @@ angular.module('clientApp').directive('attachments',
               self.tmps.remove(file);
             }, function () {
               alert.error("업로드 실패 했습니다.");
+              self.tmps.remove(file);
             }, function (evt) {
               file.progress = parseInt(100.0 * evt.loaded / evt.total);
             });

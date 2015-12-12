@@ -22,8 +22,8 @@ import javax.servlet.MultipartConfigElement;
 @EnableSpringDataWebSupport
 public class WebConfig {
 
-    private final Long DEFAULT_FILE_MAX_SUPPORT_FILE_SIZE = (long) (1024 *1024 * 2);	// 2MB
-    private final Long DEFAULT_FILE_MAX_SUPPORT_FILE_SIZE_PER_REQUEST = (long) (1024 *1024 * 6);	// 6MB
+    private final Long DEFAULT_FILE_MAX_SUPPORT_FILE_SIZE = (long) (1024 *1024 * 10);	// 2MB
+    private final Long DEFAULT_FILE_MAX_SUPPORT_FILE_SIZE_PER_REQUEST = (long) (1024 *1024 * 10);	// 6MB
 
     @Bean
     public Filter hiddenHttpMethodFilter() {
