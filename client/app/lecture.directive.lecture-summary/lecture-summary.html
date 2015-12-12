@@ -1,5 +1,6 @@
 <div class="margin-bottom">
-  <h2><span ng-repeat="lecture in lectures"  ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span ng-if="!$last">, </span></span></h2>
+  <h2><span ng-repeat="lecture in lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
+    ng-if="!$last">, </span></span></h2>
 
   <p ng-show="contents.length===0">내역이 없습니다.</p>
 </div>
