@@ -30,7 +30,7 @@ angular.module('clientApp')
         }
 
         function getLectures(lectureId) {
-          Content.getList({
+          Content.getListByDuration({
             lectureId: lectureId,
             start: $scope.start.getTime(),
             end: $scope.end.getTime()

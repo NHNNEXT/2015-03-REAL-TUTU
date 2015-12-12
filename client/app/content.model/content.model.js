@@ -114,6 +114,20 @@ angular.module('clientApp')
       });
     };
 
+    Content.getListByDuration = function (query) {
+      return $q(function (resolve) {
+        http.get('/api/v1/content/list/duration', query).then(function (response) {
+          var result = [];
+          if (response.forEach === undefined)
+            return;
+          response.forEach(function (each) {
+            result.push(new Content(each));
+          });
+          resolve(result);
+        });
+      });
+    };
+
 
     return Content;
   });
