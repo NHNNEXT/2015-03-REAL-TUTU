@@ -1,12 +1,16 @@
 <div class="type">{{content.contentGroup.name}}</div>
-<div class="moveto" ui-sref="content({id:content.id})">
-  <div class="header"><span ng-bind="content.title"></span>
+<div class="moveto">
+  <div class="header" ui-sref="content({id:content.id})">
+    <span ng-bind="content.title"></span>
     <span class="dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">
       (마감 : {{content.endTime.fromNow()}})</span>
     <span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
       ({{content.startTime.range(content.endTime)}})</span>
   </div>
-  <div class="body" ng-bind="content.body.removeTags()"></div>
+  <div ui-sref="content({id:content.id})" class="body" ng-bind="content.body.removeTags()"></div>
+  <div class="tags">
+    <span ng-repeat="tag in content.tags | limitTo : 5">{{tag}}</span>
+  </div>
 </div>
 <div class="icons">
   By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span>
