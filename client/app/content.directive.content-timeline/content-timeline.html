@@ -17,13 +17,13 @@
             ng-mouseout="content.hover=false">
         <span ng-switch-default ng-style="left(content.writeDate, $index)">
           {{content.title}}
-            <md-tooltip md-direction="right">
+            <md-tooltip md-direction="bottom">
               {{content.title}} {{content.writeDate.toYMD()}}
             </md-tooltip>
         </span>
         <span ng-switch-when="SUBMIT" ng-style="left(content.endTime, $index)">
            <i class="fa fa-arrow-right"></i>
-            <md-tooltip md-direction="right">
+            <md-tooltip md-direction="bottom">
               {{content.title}}
               마감 : {{content.endTime.toYMD()}}
             </md-tooltip>
