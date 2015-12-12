@@ -12,9 +12,11 @@ angular.module('clientApp').directive('attachments',
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
 
-        this.getIcon = function (attachment) {
+        this.getIcon = function (filename) {
+          if (!filename)
+            return;
           var iconPath = "/resource/icon/";
-          switch (attachment.originalFileName.split('.').pop()) {
+          switch (filename.split('.').pop()) {
             case "mp3":
               return iconPath + "music.svg";
             case "wma":
@@ -38,7 +40,7 @@ angular.module('clientApp').directive('attachments',
         };
 
         this.delete = function (attachment, attachments) {
-          confirm("삭제하시겠습니까?", "첨부한 파일이 삭제됩니다." , function () {
+          confirm("삭제하시겠습니까?", "첨부한 파일이 삭제됩니다.", function () {
             attachments.remove(attachment);
           });
         };
