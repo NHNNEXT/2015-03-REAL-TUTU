@@ -9,7 +9,7 @@
   </div>
   <div ui-sref="content({id:content.id})" class="body" ng-bind="content.body.removeTags()"></div>
   <div class="tags">
-    <span ng-repeat="tag in content.tags | limitTo : 5">{{tag}}</span>
+    <span ng-repeat="tag in content.tags | limitTo : 5" ng-click="tagClick(tag)">{{tag}}</span>
   </div>
 </div>
 <div class="icons">

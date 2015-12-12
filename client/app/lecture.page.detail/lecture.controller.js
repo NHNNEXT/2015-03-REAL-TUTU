@@ -5,7 +5,6 @@ angular
 
     $scope.types = types;
     $scope.rootUser = rootUser;
-    $scope.setType = setType;
     $scope.groupChange = groupChange;
     $scope.openIfRootUser = openIfRootUser;
 
@@ -13,18 +12,6 @@ angular
       if (!$scope.lecture.hostUser.isRootUser())
         return;
       o(e);
-    }
-
-    function setType(contentGroup) {
-      if (!contentGroup) {
-        $scope.contents = $scope.lecture.contents;
-        return;
-      }
-      $scope.contents = [];
-      $scope.lecture.contents.forEach(function (content) {
-        if (content.contentGroup.id === contentGroup.id)
-          $scope.contents.push(content);
-      });
     }
 
     var tabIndexes = {
