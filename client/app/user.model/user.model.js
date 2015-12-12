@@ -17,6 +17,7 @@ angular.module('clientApp')
       this.introduce = obj.introduce;
       this.group = obj.group;
       this.writeContents = obj.writeContents;
+      this.likeContents = obj.likeContents;
       if (this.writeContents)
         this.writeContents.forEach(function (each) {
           if (each.writeDate !== undefined)

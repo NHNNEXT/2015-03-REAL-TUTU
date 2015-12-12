@@ -16,6 +16,7 @@ public class UserPageDto {
 
     private UserGroupDto group;
     private final List<ContentSummaryDto> writeContents;
+    private final List<ContentSummaryDto> likeContents;
     private final List<LectureSummaryDto> lectures;
     private final Long id;
     private final String email;
@@ -31,7 +32,8 @@ public class UserPageDto {
         this.email = user.getEmail();
         this.major = user.getMajor();
         this.introduce = user.getIntroduce();
-        this.lectures = user.getEnrolledLectures().stream().map(relation->new LectureSummaryDto(relation.getLecture())).collect(Collectors.toList());
+        this.lectures = user.getEnrolledLectures().stream().map(relation -> new LectureSummaryDto(relation.getLecture())).collect(Collectors.toList());
         this.writeContents = user.getContents().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
+        this.likeContents = user.getLikeContents().stream().map(likeContent -> new ContentSummaryDto(likeContent.getContent())).collect(Collectors.toList());
     }
 }
