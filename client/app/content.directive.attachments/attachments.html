@@ -1,27 +1,18 @@
 <h5>첨부파일</h5>
-<md-grid-list
-  md-cols-sm="4" md-cols-md="6" md-cols-gt-md="8"
-  md-row-height-gt-md="1:1" md-row-height="2:2"
-  md-gutter="12px" md-gutter-gt-sm="8px">
-  <md-grid-tile ng-repeat="attachment in ctrl.attachments"
-                md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-    <div class="center">
-      <i class="fa fa-times" ng-click="ctrl.delete(attachment, ctrl.attachments)" ng-if="!ctrl.readonly"></i>
-      <md-icon md-svg-icon="{{ctrl.getIcon(attachment.originalFileName)}}" ng-click="ctrl.download(attachment)" ></md-icon>
-      <p ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</p>
-    </div>
-  </md-grid-tile>
-  <md-grid-tile ng-repeat="tmp in ctrl.tmps"
-                md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-    <div class="center">
-      <md-icon md-svg-icon="{{ctrl.getIcon(tmp.name)}}"></md-icon>
-      <p  class="detail">{{tmp.name}}</p>
-      <md-progress-linear md-mode="determinate" ng-value="tmp.progress"></md-progress-linear>
-    </div>
-  </md-grid-tile>
-</md-grid-list>
+<div ng-repeat="attachment in ctrl.attachments" class="file">
+  <i class="fa fa-times" ng-click="ctrl.delete(attachment, ctrl.attachments)" ng-if="!ctrl.readonly"></i>
+  <img ng-src="{{ctrl.getIcon(attachment.originalFileName)}}" ng-click="ctrl.download(attachment)">
+
+  <div ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</div>
+</div>
+<div ng-repeat="tmp in ctrl.tmps" class="file">
+  <img ng-src="{{ctrl.getIcon(tmp.name)}}">
+
+  <p class="detail">{{tmp.name}}</p>
+  <md-progress-linear md-mode="determinate" ng-value="tmp.progress"></md-progress-linear>
+</div>
 <div ng-show="!ctrl.readonly" ngf-select ng-model="ctrl.files" ngf-drop ngf-multiple="true"
      ngf-max-size="10MB">이곳에 파일을 드래그하세요. (10MB 이하)
-    </div>
+</div>
 </div>
 
