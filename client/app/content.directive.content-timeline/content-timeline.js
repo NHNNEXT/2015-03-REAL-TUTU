@@ -29,12 +29,16 @@ angular.module('clientApp')
 
         $scope.valid = function (contents) {
           var result = [];
+          if (!contents)
+            return;
+          if (!contents.forEach)
+            return;
           contents.forEach(function (content) {
-            if ($scope.start < content.startTime && content.startTime < $scope.end ) {
+            if ($scope.start < content.startTime && content.startTime < $scope.end) {
               result.push(content);
               return;
             }
-            if ($scope.start < content.endTime && content.endTime < $scope.end ) {
+            if ($scope.start < content.endTime && content.endTime < $scope.end) {
               result.push(content);
             }
           });
