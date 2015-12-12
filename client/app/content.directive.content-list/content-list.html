@@ -1,8 +1,10 @@
 <div layout="row" layout-sm="column">
   <div class="info" flex>
-      <span ng-repeat="(id, contentGroup) in contentGroups">
-        <span ng-if="!$first" class="bar"></span>
-        <span ng-click="contentGroup.select=!contentGroup.select"><a class="unselect" ng-class="{select:contentGroup.select}">{{contentGroup.name}}</a></span>
+    <span ng-click="select.name = 0">전체</span>
+      <span ng-repeat="contentGroup in contentGroups">
+        <span class="bar"></span>
+        <span ng-click="select.name = contentGroup.name" class="unselect"
+              ng-class="{select:!select.name || contentGroup.name === select.name}">{{contentGroup.name}}</span>
       </span>
   </div>
   <div flex layout="row" layout-align="end center" hide-sm>
@@ -15,7 +17,7 @@
 
 <ul class="list-group">
   <li content-header content="content" tag-click="tagClick"
-      ng-repeat="content in filtered = (contents | contentGroup:contentGroups | filter:keyword | orderBy:'-writeDate')"
+      ng-repeat="content in filtered = (contents | contentGroup:select.name | filter:keyword | orderBy:'-writeDate')"
       class="row list-group-item-">
   <li ng-show="filtered.length==0" class="row list-group-item-">결과가 없습니다.</li>
 </ul>
