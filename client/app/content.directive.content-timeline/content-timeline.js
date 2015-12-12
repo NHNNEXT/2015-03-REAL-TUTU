@@ -27,6 +27,20 @@ angular.module('clientApp')
           return {left: calculateLeft(now)};
         };
 
+        $scope.valid = function (contents) {
+          var result = [];
+          contents.forEach(function (content) {
+            if ($scope.start < content.startTime && content.startTime < $scope.end ) {
+              result.push(content);
+              return;
+            }
+            if ($scope.start < content.endTime && content.endTime < $scope.end ) {
+              result.push(content);
+            }
+          });
+          return result;
+        };
+
 
         $scope.getDay = function (position) {
           return new Date($scope.start.getTime() + (($scope.end - $scope.start) / 100 * position)).getDateString();
