@@ -6,8 +6,6 @@ my-profile, user-profile, user-profile-dropdown {
   span {
     font-size: 90%;
     font-weight: 600;
-    float: right;
-    margin-top: 10px;
   }
   img {
     width: 45px;
@@ -18,11 +16,11 @@ my-profile, user-profile, user-profile-dropdown {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 600px) {
   my-profile, user-profile, user-profile-dropdown {
     span {
-      margin-top: 0;
-      float: none;
+      float: right;
+      margin-top: 10px;
     }
   }
 }
