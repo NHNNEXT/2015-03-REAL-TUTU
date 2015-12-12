@@ -3,7 +3,8 @@ angular.module('clientApp')
     return {
       restrict: 'A',
       scope: {
-        content: '='
+        content: '=',
+        tagClick: '='
       },
       templateUrl: '/content.directive.content-header/content-header.html'
     };

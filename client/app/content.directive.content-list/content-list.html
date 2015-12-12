@@ -1,5 +1,23 @@
+<div layout="row" layout-sm="column">
+  <div class="info" flex>
+    <span ng-click="select.name = 0">전체</span>
+      <span ng-repeat="contentGroup in contentGroups">
+        <span class="bar"></span>
+        <span ng-click="select.name = contentGroup.name" class="unselect"
+              ng-class="{select:!select.name || contentGroup.name === select.name}">{{contentGroup.name}}</span>
+      </span>
+  </div>
+  <div flex layout="row" layout-align="end center" hide-sm>
+    <div class="search-bar" ng-class="{active:searching}">
+      <input ng-show="searching" class="fade-in-out" id="search" ng-model="keyword" placeholder="검색어">
+      <md-icon md-svg-icon="{{getIcon()}}" ng-click="toggleSearching()"></md-icon>
+    </div>
+  </div>
+</div>
+
 <ul class="list-group">
-  <li content-header content="content"
-      ng-repeat="content in filtered = (contents | filter:keyword | orderBy:'-writeDate')" class="row list-group-item-">
+  <li content-header content="content" tag-click="tagClick"
+      ng-repeat="content in filtered = (contents | contentGroup:select.name | filter:keyword | orderBy:'-writeDate')"
+      class="row list-group-item-">
   <li ng-show="filtered.length==0" class="row list-group-item-">결과가 없습니다.</li>
 </ul>

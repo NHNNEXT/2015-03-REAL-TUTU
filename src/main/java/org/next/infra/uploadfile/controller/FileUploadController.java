@@ -18,7 +18,7 @@ public class FileUploadController {
     private FileService fileService;
 
     @RequestMapping
-    public UploadResult uploadFile(MultipartFile file, @Logged User user){
+    public UploadResult uploadFile(MultipartFile file){
         return fileService.upload(file);
     }
 

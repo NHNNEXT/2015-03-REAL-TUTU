@@ -12,21 +12,39 @@ angular.module('clientApp').directive('attachments',
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
 
-        this.getIcon = function (attachment) {
+        this.getIcon = function (filename) {
+          if (!filename)
+            return;
           var iconPath = "/resource/icon/";
-          switch (attachment.originalFileName.split('.').pop()) {
+          switch (filename.split('.').pop()) {
             case "mp3":
               return iconPath + "music.svg";
             case "wma":
               return iconPath + "music.svg";
             case "pdf":
+              return iconPath + "pdf.png";
+            case "doc":
+              return iconPath + "word.svg";
+            case "docx":
               return iconPath + "pdf.svg";
+            case "xls":
+              return iconPath + "excel.svg";
+            case "xlsx":
+              return iconPath + "excel.svg";
+            case "ppt":
+              return iconPath + "ppt.svg";
+            case "pptx":
+              return iconPath + "ppt.svg";
+            case "hwp":
+              return iconPath + "hwp.png";
             case "jpg":
               return iconPath + "image.svg";
             case "gif":
               return iconPath + "image.svg";
             case "png":
               return iconPath + "image.svg";
+            case "zip":
+              return iconPath + "zip.png";
           }
           return iconPath + "file.svg";
         };
@@ -38,7 +56,7 @@ angular.module('clientApp').directive('attachments',
         };
 
         this.delete = function (attachment, attachments) {
-          confirm("삭제하시겠습니까?", "첨부한 파일이 삭제됩니다." , function () {
+          confirm("삭제하시겠습니까?", "첨부한 파일이 삭제됩니다.", function () {
             attachments.remove(attachment);
           });
         };
@@ -64,6 +82,7 @@ angular.module('clientApp').directive('attachments',
               self.tmps.remove(file);
             }, function () {
               alert.error("업로드 실패 했습니다.");
+              self.tmps.remove(file);
             }, function (evt) {
               file.progress = parseInt(100.0 * evt.loaded / evt.total);
             });

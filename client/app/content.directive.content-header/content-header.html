@@ -2,14 +2,14 @@
 <div class="moveto">
   <div class="header" ui-sref="content({id:content.id})">
     <span ng-bind="content.title"></span>
-    <span class="dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">
-      (마감 : {{content.endTime.fromNow()}})</span>
-    <span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
-      ({{content.startTime.range(content.endTime)}})</span>
+<span class="dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">
+(마감 : {{content.endTime.fromNow()}})</span>
+<span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
+({{content.startTime.range(content.endTime)}})</span>
   </div>
   <div ui-sref="content({id:content.id})" class="body" ng-bind="content.body.removeTags()"></div>
   <div class="tags">
-    <span ng-repeat="tag in content.tags | limitTo : 5">{{tag}}</span>
+    <span ng-repeat="tag in content.tags | limitTo : 5" ng-click="tagClick(tag)">{{tag}}</span>
   </div>
 </div>
 <div class="icons">
