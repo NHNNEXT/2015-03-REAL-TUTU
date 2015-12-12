@@ -63,7 +63,10 @@ md-content.md-default-theme, md-content {
   .base-padding();
   .ft-body-bold();
   overflow-y: hidden;
-  min-height: 200px;
+  max-height: @global-header-height - 8;
+  > div{
+    max-height: @global-header-height - 8;
+  }
 }
 //
 //#global-search-bar {
