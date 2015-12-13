@@ -1,11 +1,14 @@
 @global-header-height: 48px;
 @base-margin:20px;
 @extend-margin: 35px;
-@nx-white : #FFF;
 //@nx-white : #F9FBFA;
 @nx-white : #FFFFFF;
 @nx-gray : #ECF0F1;
 
+
+.layout-overlay{
+  overflow: overlay;
+}
 .base-padding {
   padding-left: @base-margin;
 }
@@ -36,23 +39,20 @@ md-content.md-default-theme, md-content {
 #nx-nav {
   border-right: 1px solid #E9EAEC;
   padding-top: @extend-margin;
-  overflow: overlay;
+  overflow: visible;
 }
 
 #nx-main-section {
-  .base-padding();
-  padding-top: @base-margin*2;
   margin: 0;
   background-color: @nx-white;
-  overflow: overlay;
+  .layout-overlay();
 }
-#nx-main{
+#nx-main,#nx-wrap .max-sm{
   background-color: @nx-gray;
-  height: 100%;
-  overflow: overlay;
+  .layout-overlay();
 }
+
 #nx-wrap {
-  background-color: @nx-gray;
   overflow: overlay;
 }
 .ft-caption {
