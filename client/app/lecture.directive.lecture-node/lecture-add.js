@@ -10,15 +10,18 @@ angular.module('clientApp')
       bindToController: true,
       controllerAs: 'ctrl',
       /* @ngInject */
-      controller: function (http) {
+      controller: function () {
         var self = this;
         this.selectedItemChange = function (item) {
           if (!item)
             return;
-          http.post('/api/v1/lecture/node/relation', {nodeId: self.node.id, lectureId: item.id}).then(function () {
-            item.level = self.node.level + 1;
-            self.node.lectures.pushIfNotExist(item);
+          self.node.addLecture(item).then(function(){
             self.new = false;
+            self.selectedItem = undefined;
+            self.searchText = "";
+          }, function(){
+            self.selectedItem = undefined;
+            self.searchText = "";
           });
         };
       }

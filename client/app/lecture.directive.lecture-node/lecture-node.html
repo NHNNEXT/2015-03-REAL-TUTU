@@ -1,12 +1,12 @@
 <div>{{node.name}}
-  <small ng-show="!readonly" ng-if="isDeletable()" ng-click="deleteThis()">삭제</small>
-  <span ng-click="getDetail();displayChildren=!displayChildren">
-      <i ng-show="!displayChildren" class="fa fa-caret-up"></i>
-      <i ng-show="displayChildren" class="fa fa-caret-down"></i>
+  <small ng-show="!readonly" ng-if="node.isDeletable()" ng-click="node.delete()">삭제</small>
+  <span ng-click="node.getDetail();node.displayChildren=!node.displayChildren">
+      <i ng-show="!node.displayChildren" class="fa fa-caret-up"></i>
+      <i ng-show="node.displayChildren" class="fa fa-caret-down"></i>
   </span>
 </div>
-<div ng-show="!readonly" ng-if="node.id">
-  <div layout="row">
+<div ng-show="!readonly">
+  <div layout="row" ng-if="node.id">
     <lecture-add all-lectures="allLectures" node="node"></lecture-add>
   </div>
   <div ng-show="!new" ng-click="new=true"><i class="fa fa-plus"></i> 새 분류</div>
@@ -16,18 +16,19 @@
       <input placeholder="분류명" ng-model="nodeName" type="text">
     </md-input-container>
     <div class="padding-top">
-      <md-button class="md-raised" ng-click="newNode()">추가하기</md-button>
+      <md-button class="md-raised" ng-click="newNode(nodeName)">추가하기</md-button>
+    </div>
+    <div class="padding-top">
+      <md-button class="md-raised" ng-click="new=false">취소</md-button>
     </div>
   </div>
 </div>
 
-<div ng-show="displayChildren" class="children">
+<div ng-show="node.displayChildren" class="children">
   <lecture-node class="child"
                 readonly="readonly"
-                default-open-level="defaultOpenLevel"
                 all-lectures="allLectures"
                 node="child"
-                parent="node"
                 ng-style="style"
                 ng-repeat="child in node.children" ng-class="{last:$last && node.lectures.length===0}"></lecture-node>
   <div class="child" ng-class="{last:$last}" ng-repeat="lecture in node.lectures">
@@ -35,6 +36,6 @@
       {{lecture.name}}
       <small hide-sm>by {{lecture.hostUser.name}}</small>
     </span>
-    <small ng-show="!readonly" ng-click="deleteLecture(lecture)">삭제</small>
+    <small ng-show="!readonly" ng-click="node.deleteLecture(lecture)">삭제</small>
   </div>
 </div>
