@@ -1,26 +1,18 @@
-<md-toolbar ng-controller="headerController">
-  <div  id="nx-global-header"  layout="row" layout-align="center">
-    <header class="max-sm" flex layout="row">
-      <div hide-sm flex="25" id="nx-left-header" layout="row" layout-align="start center">
-        <md-button class="md-icon-button" aria-label="home" ui-sref="main">
-          NEXUS
-          <!--<md-icon md-svg-icon="/resource/icon/music.svg"></md-icon>-->
+<md-toolbar class="header" ng-controller="headerController">
+  <div layout="row" layout-align="center">
+    <div flex class="max-width" layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button hide-gt-md class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
+          <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
         </md-button>
+        <div hide-md class="logo">NEXUS</div>
+        <div ng-click="state.current.headerClick()">{{state.current.header}}</div>
       </div>
-      <div flex layout="row" layout-align="space-between center">
-        <div id="nx-top-header" layout="row"  layout-align="start center">
-          <md-button hide show-sm class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
-            <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
-          </md-button>
-          <div ng-click="state.current.headerClick()" >{{state.current.header}}</div>
-        </div>
-        <div class="header-height" layout="row" layout-align="start center">
-          <div class="header-height" layout="row" layout-align="start center"><search-in-my-lectures id="global-search-bar" hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures></div>
-          <div class="header-height"  layout="row" layout-align="start center"><messages hide-sm ng-show="rootUser.isLogged()" ></messages></div>
-          <div class="header-height"  layout="row" layout-align="start center"><root-user hide-sm ng-show="rootUser.isLogged()"></root-user></div>
-        </div>
+      <div layout="row" layout-align="end center">
+        <search-in-my-lectures hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures>
+        <messages hide-sm ng-show="rootUser.isLogged()"></messages>
+        <root-user hide-sm ng-show="rootUser.isLogged()"></root-user>
       </div>
-    </header>
+    </div>
   </div>
-  <span hide-sm class="flex"></span>
 </md-toolbar>

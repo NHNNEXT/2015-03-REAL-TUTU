@@ -10,10 +10,10 @@
   <link rel='apple-touch-icon' href='/resource/favicon.ico'/>
   <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css" />
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -27,6 +27,8 @@
   <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/timeline.css" rel="stylesheet" type="text/css">
   <link href="/common.part/header.css" rel="stylesheet" type="text/css">
+  <link href="/common.part/layout.css" rel="stylesheet" type="text/css">
+  <link href="/common.part/md-sidenav.css" rel="stylesheet" type="text/css">
   <link href="/common.service.emoticon/emoticon.css" rel="stylesheet" type="text/css">
   <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
   <link href="/common.style/bootstrap.css" rel="stylesheet" type="text/css">
@@ -35,6 +37,7 @@
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/layout.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/report.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.attachments/attachments.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
@@ -97,26 +100,28 @@
 <![endif]-->
 
 <emoticon></emoticon>
-<div id="nx-main" role="main" layout="column" flex>
+
+<div id="main" role="main" layout="column" flex>
   <ng-include src="'/common.part/main-header.html'"></ng-include>
   <!--md-is-locked-open="$mdMedia('gt-md')"-->
-  <nav hide show-sm>
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-                ng-cloak flex>
-      <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
-    </md-sidenav>
-  </nav>
-  <div class="layout-overlay" layout="row" flex layout-align="center">
-    <div class="max-sm" flex layout="row">
-      <nav id="nx-nav" hide show-gt-sm flex="25">
-        <ng-include src="'/common.part/main-sidenav-fixed.html'"></ng-include>
-      </nav>
-      <div flex id="nx-main-section">
-        <md-content ui-view></md-content>
+  <div class="layout-overlay" layout="row" layout-align="center" flex>
+    <div layout="row" flex class="max-width">
+      <md-sidenav md-is-locked-open="$mdMedia('gt-md')" class="md-whiteframe-z2" md-component-id="left"
+                  ng-cloak>
+        <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
+      </md-sidenav>
+      <div class="layout-overlay" layout="row" flex>
+        <div flex layout="row">
+          <div flex class="white-back">
+            <md-content ui-view></md-content>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
 <md-button hide-sm dialog="report" class="md-fab report" aria-label="report bug">
   <md-icon md-svg-icon="/resource/icon/report.svg"></md-icon>
 </md-button>

@@ -2,10 +2,31 @@
   .md-whiteframe-z1 {
     box-shadow: none;
   }
-  .text{
+  .text {
     overflow: hidden;
     text-overflow: ellipsis;
     height: 56px;
     line-height: 56px;
+  }
+}
+
+md-toolbar.header {
+  > div {
+    font-size: 18px;
+    height: 60px;
+  }
+  .logo{
+    margin-left:20px;
+    margin-right:40px;
+    cursor:default;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  md-toolbar.header {
+    > div {
+      font-size: 16px;
+    }
   }
 }
