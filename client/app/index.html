@@ -19,8 +19,6 @@
 
   <!-- build:css({.tmp,app}) /styles/main.css -->
   <!-- include: "type": "css", "files": "**/*.css" -->
-  <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
-  <link href="/common.directive.calendar/calendar.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.like/like.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.md-tags/md-tags.css" rel="stylesheet" type="text/css">
@@ -39,27 +37,19 @@
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
-  <link href="/common/page/main/main.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/component.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/menu.css" rel="stylesheet" type="text/css">
-  <link href="/common/style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.attachments/attachments.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-list/content-list.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-timeline/content-timeline.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.relative-contents/relative-contents.css" rel="stylesheet" type="text/css">
   <link href="/content.page.detail/detail.css" rel="stylesheet" type="text/css">
-  <link href="/content/content-header/content-header.css" rel="stylesheet" type="text/css">
+  <link href="/lecture.directive.lecture-node/lecture-node.css" rel="stylesheet" type="text/css">
   <link href="/lecture.directive.lecture-summary/lecture-summary.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
-  <link href="/lecture/view/lecture.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
-  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/message.directive.messages/messages.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
-  <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
@@ -94,9 +84,6 @@
   <link href="/user.dialog/template.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user.template/template.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
-  <link href="/user/profile/user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 
@@ -120,13 +107,13 @@
       <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
     </md-sidenav>
   </nav>
-  <div layout="row" id="nx-wrap" layout-align="center">
+  <div layout="row" flex layout-align="center">
     <div class="max-sm" flex layout="row">
       <nav id="nx-nav" hide show-gt-sm flex="33">
-        <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
+        <ng-include src="'/common.part/main-sidenav-fixed.html'"></ng-include>
       </nav>
       <section flex id="nx-main-section">
-        <md-content  md-scroll-y ui-view></md-content>
+        <md-content ui-view></md-content>
       </section>
     </div>
   </div>
@@ -192,6 +179,7 @@
 <script src="/common.part/menuController.js"></script>
 <script src="/common.query.service/query.service.js"></script>
 <script src="/common.service.emoticon/emoticon.js"></script>
+<script src="/common.service.mainButler/mainButler.js"></script>
 <script src="/common.service/alert.js"></script>
 <script src="/common.service/confirm.js"></script>
 <script src="/common.service/dialog.js"></script>
@@ -220,6 +208,9 @@
 <script src="/content.repository/content.repository.js"></script>
 <script src="/content.route/content.route.js"></script>
 <script src="/lecture.directive.lecture-list/lecture-list.js"></script>
+<script src="/lecture.directive.lecture-node/lecture-add.js"></script>
+<script src="/lecture.directive.lecture-node/lecture-node.js"></script>
+<script src="/lecture.directive.lecture-node/recursion-helper.js"></script>
 <script src="/lecture.directive.lecture-summary/lecture-summary.js"></script>
 <script src="/lecture.model/lecture.model.js"></script>
 <script src="/lecture.page.detail/lecture.controller.js"></script>

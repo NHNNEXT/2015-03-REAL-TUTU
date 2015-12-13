@@ -16,9 +16,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents"})
+@ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "lectureNodeHasLectureList"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy"})
+@EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "lectureNodeHasLectureList"})
 @Entity
 @Table(name = "LECTURE")
 public class Lecture implements ObjectOwnerKnowable{
@@ -42,6 +42,11 @@ public class Lecture implements ObjectOwnerKnowable{
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    private List<LectureNodeHasLecture> lectureNodeHasLectureList;
+
+
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();

@@ -8,8 +8,6 @@ angular.module('clientApp')
         mdMaxDate: '=',
         mdMinDate: '='
       },
-      templateUrl: '/common.directive.input-datepicker/input-datepicker.html',
-      controller: function () {
-      }
+      templateUrl: '/common.directive.input-datepicker/input-datepicker.html'
     };
   });

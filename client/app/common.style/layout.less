@@ -1,8 +1,11 @@
 @global-header-height: 48px;
 @base-margin:20px;
 @extend-margin: 35px;
-@nx-white : #F9FBFA;
+@nx-white : #FFF;
+//@nx-white : #F9FBFA;
+@nx-white : #FFFFFF;
 @nx-gray : #ECF0F1;
+
 .base-padding {
   padding-left: @base-margin;
 }
@@ -32,6 +35,8 @@ md-content.md-default-theme, md-content {
 
 #nx-nav {
   border-right: 1px solid #E9EAEC;
+  padding-top: @extend-margin;
+  overflow: overlay;
 }
 
 #nx-main-section {
@@ -39,10 +44,16 @@ md-content.md-default-theme, md-content {
   padding-top: @base-margin*2;
   margin: 0;
   background-color: @nx-white;
+  overflow: overlay;
 }
 #nx-main{
   background-color: @nx-gray;
   height: 100%;
+  overflow: overlay;
+}
+#nx-wrap {
+  background-color: @nx-gray;
+  overflow: overlay;
 }
 .ft-caption {
   font-size: 12px;
@@ -50,15 +61,13 @@ md-content.md-default-theme, md-content {
 
 .ft-body-bold {
   font-size: 14px !important;
-  font-weight: bold !important;
 }
+
 .ft-subhead {
   font-size: 16px !important;
 }
 
-#nx-wrap {
-  height: 100%;
-}
+
 #nx-top-header {
   .base-padding();
   .ft-body-bold();
@@ -66,6 +75,18 @@ md-content.md-default-theme, md-content {
   max-height: @global-header-height - 8;
   > div{
     max-height: @global-header-height - 8;
+  }
+}
+
+#sideNav-fixed{
+  ul {
+    li {
+      margin: 2px @base-margin;
+      padding: 0 @base-margin;
+    }
+    li:hover {
+      background-color: @nx-white;
+    }
   }
 }
 //
@@ -113,7 +134,6 @@ ul.menu {
     text-align: left;
     text-decoration: none;
     white-space: normal;
-    width: 100%;
   }
   li.child {
     font-size: 90%;

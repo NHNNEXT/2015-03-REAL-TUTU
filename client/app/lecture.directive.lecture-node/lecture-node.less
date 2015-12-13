@@ -1,0 +1,63 @@
+.tree {
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  position: relative;
+  .handle {
+    font-size: 80%;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+}
+
+lecture-node {
+  display: block;
+
+  .children {
+    border-left: 1px solid;
+    margin-left: 20px;
+    margin-top: 5px;
+    .child {
+      margin: 0;
+      padding: 0 1.5em; /* indentation + .5em */
+      line-height: 2em; /* default list item's `line-height` */
+      position: relative;
+    }
+    .child:before {
+      content: "";
+      display: block;
+      width: 10px; /* same with indentation */
+      height: 0;
+      border-top: 1px solid;
+      margin-top: -1px; /* border top width */
+      position: absolute;
+      top: 1em; /* (line-height/2) */
+      left: 0;
+    }
+
+    .child:last-child:before {
+      background: #f5f5f5;
+      height: auto;
+      top: 1em;
+      bottom: 0;
+      left: -1px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  lecture-node {
+    .children {
+      border-left: none;
+      margin-left: 5px;
+      .child {
+        margin: 0;
+        padding-left:5px;
+      }
+      .child:before {
+        display: none;
+      }
+    }
+  }
+}

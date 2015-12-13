@@ -55,6 +55,10 @@ public class ResponseCode {
         public static final Integer ALREADY_EXIST = 35;
     }
 
+    public  static final class Node {
+        public static final Integer CHILD_EXIST = 39;
+    }
+
 
     /*
 
@@ -107,4 +111,5 @@ public class ResponseCode {
             map.put(innerClass.getSimpleName(), parseClass(innerClass));
         return map;
     }
+
 }

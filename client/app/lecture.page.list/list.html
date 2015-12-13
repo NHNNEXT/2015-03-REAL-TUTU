@@ -1,5 +1,11 @@
 <section>
-
+  <div class="tree">
+    <div class="handle">
+      <span ng-click="treeEdit=true" ng-show="!treeEdit">[편집]</span>
+      <span ng-click="treeEdit=false" ng-show="treeEdit">[완료]</span>
+    </div>
+    <lecture-node all-lectures="lectures" readonly="!treeEdit"></lecture-node>
+  </div>
   <div layout="row" layout-padding>
     <md-input-container flex>
       <label>검색어</label>
