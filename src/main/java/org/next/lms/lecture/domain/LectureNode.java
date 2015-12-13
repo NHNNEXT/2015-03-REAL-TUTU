@@ -3,6 +3,7 @@ package org.next.lms.lecture.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -25,6 +26,7 @@ public class LectureNode {
     @Column(name = "PARENT_ID")
     private Long parentId;
 
+    @NotNull(message = "분류명을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
 
