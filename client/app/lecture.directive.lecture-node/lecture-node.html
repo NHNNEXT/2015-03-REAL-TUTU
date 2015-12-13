@@ -1,26 +1,27 @@
-{{node.name}} <small ng-show="!readonly" ng-if="isDeletable()" ng-click="deleteThis()">삭제</small>
-<span ng-click="getDetail();displayChildren=!displayChildren">
-    <i ng-show="!displayChildren" class="fa fa-caret-up"></i>
-    <i ng-show="displayChildren" class="fa fa-caret-down"></i>
-</span>
+<div>{{node.name}}
+  <small ng-show="!readonly" ng-if="isDeletable()" ng-click="deleteThis()">삭제</small>
+  <span ng-click="getDetail();displayChildren=!displayChildren">
+      <i ng-show="!displayChildren" class="fa fa-caret-up"></i>
+      <i ng-show="displayChildren" class="fa fa-caret-down"></i>
+  </span>
+</div>
+<div ng-show="!readonly" ng-if="node.id">
+  <div layout="row">
+    <lecture-add all-lectures="allLectures" node="node"></lecture-add>
+  </div>
+  <div ng-show="!new" ng-click="new=true"><i class="fa fa-plus"></i> 새 분류</div>
+  <div ng-show="new" layout="row">
+    <md-input-container>
+      <label>분류명</label>
+      <input placeholder="분류명" ng-model="nodeName" type="text">
+    </md-input-container>
+    <div class="padding-top">
+      <md-button class="md-raised" ng-click="newNode()">추가하기</md-button>
+    </div>
+  </div>
+</div>
+
 <div ng-show="displayChildren" class="children">
-  <div class="child" ng-show="!readonly">
-    <div ng-show="!new" ng-click="new=true">새 분류</div>
-    <div ng-show="new" layout="row">
-      <md-input-container>
-        <label>분류명</label>
-        <input placeholder="분류명" ng-model="nodeName" type="text">
-      </md-input-container>
-      <div class="padding-top">
-        <md-button class="md-raised" ng-click="newNode()">추가하기</md-button>
-      </div>
-    </div>
-  </div>
-  <div class="child" ng-show="!readonly" ng-if="node.id">
-    <div layout="row">
-      <lecture-add all-lectures="allLectures" node="node"></lecture-add>
-    </div>
-  </div>
   <lecture-node class="child"
                 readonly="readonly"
                 default-open-level="defaultOpenLevel"
@@ -28,8 +29,8 @@
                 node="child"
                 parent="node"
                 ng-style="style"
-                ng-repeat="child in node.children"></lecture-node>
-  <div class="child" ng-repeat="lecture in node.lectures">
+                ng-repeat="child in node.children" ng-class="{last:$last && node.lectures.length===0}"></lecture-node>
+  <div class="child" ng-class="{last:$last}" ng-repeat="lecture in node.lectures">
     <span ui-sref="lecture({id:lecture.id})">
       {{lecture.name}}
       <small hide-sm>by {{lecture.hostUser.name}}</small>
