@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="clientApp">
 <head>
   <meta charset="utf-8">
   <title></title>
@@ -10,10 +10,10 @@
   <link rel='apple-touch-icon' href='/resource/favicon.ico'/>
   <!-- build:css(.) /styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css" />
-  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css" />
+  <link rel="stylesheet" href="/bower_components/angular-toastr/dist/angular-toastr.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
+  <link rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -33,6 +33,7 @@
   <link href="/common.style/component.css" rel="stylesheet" type="text/css">
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/layout.css" rel="stylesheet" type="text/css">
   <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
@@ -90,24 +91,32 @@
         type="text/css"/>
 
 </head>
-<body ng-app="clientApp" class="layout-row">
+<body layout="row">
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
 <emoticon></emoticon>
-
-<!--md-is-locked-open="$mdMedia('gt-md')"-->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-            ng-cloak flex>
-  <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
-</md-sidenav>
-
-<div role="main" layout="column" flex>
+<div id="nx-main" role="main" layout="column" flex>
   <ng-include src="'/common.part/main-header.html'"></ng-include>
-  <md-content md-scroll-y ui-view>
-  </md-content>
+  <!--md-is-locked-open="$mdMedia('gt-md')"-->
+  <nav hide show-sm>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                ng-cloak flex>
+      <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
+    </md-sidenav>
+  </nav>
+  <div layout="row" flex layout-align="center">
+    <div class="max-sm" flex layout="row">
+      <nav id="nx-nav" hide show-gt-sm flex="33">
+        <ng-include src="'/common.part/main-sidenav-fixed.html'"></ng-include>
+      </nav>
+      <section flex id="nx-main-section">
+        <md-content ui-view></md-content>
+      </section>
+    </div>
+  </div>
 </div>
 <md-button hide-sm dialog="report" class="md-fab report" aria-label="report bug">
   <md-icon md-svg-icon="/resource/icon/report.svg"></md-icon>
@@ -170,6 +179,7 @@
 <script src="/common.part/menuController.js"></script>
 <script src="/common.query.service/query.service.js"></script>
 <script src="/common.service.emoticon/emoticon.js"></script>
+<script src="/common.service.mainButler/mainButler.js"></script>
 <script src="/common.service/alert.js"></script>
 <script src="/common.service/confirm.js"></script>
 <script src="/common.service/dialog.js"></script>
@@ -262,9 +272,6 @@
 <!-- /include -->
 <!-- endbuild -->
 
-<!-- build:js({.tmp,app}) /scripts/template.js -->
-<script src="/template.js"></script>
-<!-- endbuild -->
 <script>
   console.log(
     "%c                             ___-------___  \n" +
