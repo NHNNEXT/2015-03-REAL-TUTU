@@ -17,7 +17,6 @@ angular.module('clientApp')
       });
     };
 
-
     Content.prototype.setProperties = function (obj) {
       this.submitRequiredUsers = obj.submitRequiredUsers;
       this.repliesSize = obj.repliesSize;

@@ -123,7 +123,7 @@
   </nav>
   <div layout="column" id="nx-wrap"  layout-align="start center" flex>
     <div class="max-sm" layout="row" flex>
-        <sidenav-fixed></sidenav-fixed>
+        <nx-nav-fixed></nx-nav-fixed>
         <section flex id="nx-main-section">
           <md-content ui-view></md-content>
         </section>
@@ -166,6 +166,7 @@
 <script src="/bower_components/angular-material/angular-material.js"></script>
 <script src="/bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
 <script src="/bower_components/moment/moment.js"></script>
+<script src="/bower_components/lodash/lodash.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -177,9 +178,9 @@
 <script src="/common.directive.input-datepicker/input-datepicker.js"></script>
 <script src="/common.directive.like/like.js"></script>
 <script src="/common.directive.md-tags/md-tags.js"></script>
-<script src="/common.directive.menu.tab/menuTab.js"></script>
 <script src="/common.directive.mod-input/mod-input.js"></script>
 <script src="/common.directive.mod-textarea/mod-textarea.js"></script>
+<script src="/common.directive.nav.tab/navTab.js"></script>
 <script src="/common.directive.search-in-my-lectures/search-in-my-lectures.js"></script>
 <script src="/common.directive.upload-img/upload-img.js"></script>
 <script src="/common.directive/ngenter.js"></script>
@@ -204,7 +205,9 @@
 <script src="/common.specification/specification.factory.js"></script>
 <script src="/container/Container.js"></script>
 <script src="/container/Packer.service.js"></script>
+<script src="/container/container.repository.js"></script>
 <script src="/container/container.specification.factory.js"></script>
+<script src="/container/list.factory.js"></script>
 <script src="/content.directive.attachments/attachment.model.js"></script>
 <script src="/content.directive.attachments/attachments.js"></script>
 <script src="/content.directive.content-header/content-header.js"></script>
@@ -231,6 +234,7 @@
 <script src="/lecture.page.edit/edit.controller.js"></script>
 <script src="/lecture.page.list/list.js"></script>
 <script src="/lecture.page.mylist/mylist.js"></script>
+<script src="/lecture.repository/lecture.repository.js"></script>
 <script src="/message.directive.messages/messages.js"></script>
 <script src="/message.directive/message.js"></script>
 <script src="/message.model/message.model.js"></script>

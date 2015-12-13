@@ -5,8 +5,8 @@
 //    this.findByContentID = findByContentID;
 //    this.findByLectureID = findByLectureID;
 //    this.save = save;
-//    var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
-//    console.log(scheduleSpec);
+//    //var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
+//    //console.log(scheduleSpec);
 //    //var noticeSepc = new ContainerSpecification("NOTICE");
 //    //var todoSpec = new ContainerSpecification("SUBMIT");
 //    //var mainTopSpec = scheduleSpec.and(noticeSepc);
@@ -24,7 +24,6 @@
 //        });
 //      });
 //    }
-//
 //    function findByLectureID(lectureID) {
 //      return $q(function (resolve) {
 //        //Restangular.one('lecture',LectureID).getList('content');

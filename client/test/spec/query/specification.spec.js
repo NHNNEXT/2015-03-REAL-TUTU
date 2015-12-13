@@ -70,7 +70,6 @@ describe('Factory: containerSpecificationFactory', function () {
 
 
   it('should Specification AND Operator reject only one specification.', function () {
-
     var content;
     content = {
       title: "test",
@@ -80,8 +79,8 @@ describe('Factory: containerSpecificationFactory', function () {
       startTime: new Date("2011-06-09T15:20:00Z"),
       type: "SCHEDULE"
     };
-    var container1 = new Container();
 
+    var container1 = new Container();
     container1.setType(["SCHEDULE","SUBMIT"]);
 
     var scheduleSpec = containerSpecificationFactory.create("SCHEDULE");
@@ -105,7 +104,6 @@ describe('Factory: containerSpecificationFactory', function () {
   });
 
   it('should Specification OR Operator work correctly.', function () {
-
     var content;
     content = {
       title: "test",
@@ -124,6 +122,26 @@ describe('Factory: containerSpecificationFactory', function () {
     var either = submitSpec1.or(submitSpec2);
     var newbie1 = contentFactory.create(content);
     newbie1.setContainerSpecification(either);
+    expect(container1.canContain(newbie1)).toBe(true);
+  });
+
+
+  it('should Specification create by array param.', function () {
+    var content;
+    content = {
+      title: "test",
+      body: "body",
+      lectureId: 1,
+      endTime: new Date("2012-06-09T15:20:00Z"),
+      startTime: new Date("2011-06-09T15:20:00Z"),
+      type: "SCHEDULE"
+    };
+    var container1 = new Container();
+    container1.setType("SUBMIT_1");
+    container1.setType("SUBMIT_2");
+    var submitSpec1 = containerSpecificationFactory.create(["SUBMIT_1","SUBMIT_2"]);
+    var newbie1 = contentFactory.create(content);
+    newbie1.setContainerSpecification(submitSpec1);
     expect(container1.canContain(newbie1)).toBe(true);
   });
 });

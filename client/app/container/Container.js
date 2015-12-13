@@ -2,7 +2,6 @@ angular.module('clientApp')
   /* @ngInject */
   .factory('Container', function () {
     "use strict";
-
     /**
      * @constructor
      */

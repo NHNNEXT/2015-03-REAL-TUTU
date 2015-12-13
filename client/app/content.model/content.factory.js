@@ -30,13 +30,11 @@ angular.module('clientApp')
       return this.spec;
     }
 
-
     Content.prototype = {
       setContainerSpecification: setContainerSpecification,
       getContainerSpecification: getContainerSpecification
       //makeQuery: makeQuery
     };
-
 
     //type: [notice,submit,schedule,default]
     /**

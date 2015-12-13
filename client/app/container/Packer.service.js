@@ -6,25 +6,29 @@ angular.module('clientApp')
     /**
      *
      * @param containers
-     * @param contents
+     * @param candidates
      */
-    function pack(containers, contents) {
-      _.forEach(contents, function (content) {
-        var container = findContainerFor(containers, content);
-        container.add(content);
+    function pack(containers, candidates) {
+      _.forEach(candidates, function (candidate) {
+        var container = findContainerFor(containers, candidate);
+        container.contentList.push(candidate);
       });
     }
+
     /**
      * @param containers
-     * @param content
+     * @param candidate
      * @returns {container}
      */
-    function findContainerFor(containers, content) {
-      _.forEach(containers, function (container) {
-        if (container.canContain(content)) {
-          return container;
+    function findContainerFor(containers, candidate) {
+      var len = containers.length;
+      var res;
+      for(var i=0; i<len; i++){
+        if(containers[i].canContain(candidate)) {
+          res = containers[i];
+          break;
         }
-      });
-      throw new Error("No container Exist.");
+      }
+      return res;
     }
   });

@@ -1,0 +1,28 @@
+<nav id="nx-nav" hide show-gt-sm flex="25">
+<div id="sideNav-fixed">
+  <md-content class="nx-transparent">
+    <div ng-show="vm.rootUser.isLogged()">
+      <ul class="menu md-body-1">
+        <li class="nx-menu-li" ui-sref="lectures">전체 강의</li>
+        <li class="nx-menu-li"  ng-click="vm.setDateNow()" >지금</li>
+        <li class="nx-menu-li"  ng-click="vm.setDateOneWeek()">이후 7일</li>
+
+      </ul>
+      <ul class="menu md-body-1">
+        <li ui-sref="mylectures">내 강의 관리</li>
+        <li ng-repeat="lecture in vm.favoriteLectures" class="child"
+            ui-sref={{lecture.url}}>
+          {{lecture.name}}
+        </li>
+      </ul>
+      <!--<nx-nav-tab></nx-nav-tab>-->
+    </div>
+
+    <ul class="menu md-body-1" ng-show="!vm.rootUser.isLogged()">
+      <li dialog="login">로그인</li>
+      <li dialog="register">회원가입</li>
+      <li dialog="report" hide-gt-sm>의견, 버그제보</li>
+    </ul>
+  </md-content>
+ </div>
+</nav>

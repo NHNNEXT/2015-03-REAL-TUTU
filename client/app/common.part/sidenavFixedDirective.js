@@ -1,47 +1,24 @@
 angular.module('clientApp')
-  .directive('sidenavFixed', function (rootUser,$state,mainButler) {
+  .directive('nxNavFixed', function (rootUser,$state,mainButler,containerRepository) {
     return {
       restrict:'E',
       replace: true,
-      templateUrl: '/common.part/main-sidenav-fixed.html',
-      link: function(scope,element,attr) {
+      templateUrl: '/common.part/main-nav-fixed.html',
+      link: function(scope,element) {
         scope.vm = {};
-        var vm = scope.vm;
-        var scrollWidth = (function() {
-          var outer = document.createElement("div");
-          outer.style.visibility = "hidden";
-          outer.style.width = "100px";
-          outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
-          document.body.appendChild(outer);
-          var widthNoScroll = outer.offsetWidth;
-          // force scrollbars
-          outer.style.overflow = "scroll";
-          // add innerdiv
-          var inner = document.createElement("div");
-          inner.style.width = "100%";
-          outer.appendChild(inner);
-          var widthWithScroll = inner.offsetWidth;
-          // remove divs
-          outer.parentNode.removeChild(outer);
-          return widthNoScroll - widthWithScroll;
-        })();
-        vm.scrollWidth = scrollWidth;
 
+        var vm = scope.vm;
         vm.rootUser = rootUser;
+        vm.favoriteLectures = containerRepository.favoriteLectures;
+
+        vm.scrollWidth = mainButler.scrollWidth;
         vm.date = mainButler.date;
 
-        vm.goLectures = function() {
-          if($state.is("mylectures")) {
-            $state.reload("mylectures");
-          } else {
-            $state.go("mylectures");
-          }
+        vm.setLectures = function() {
+          containerRepository.init();
+          vm.favoriteLectures = containerRepository.favoriteLectures;
         };
 
-        vm.setNowAndClose = function() {
-          vm.setDateNow();
-          vm.close();
-        };
         vm.setDateNow = function() {
           mainButler.setDateNow();
           vm.date = mainButler.date;
@@ -52,6 +29,7 @@ angular.module('clientApp')
           }
           return vm;
         };
+
         vm.setDateOneWeek = function() {
           mainButler.setDateOneWeek();
           vm.date = mainButler.date;

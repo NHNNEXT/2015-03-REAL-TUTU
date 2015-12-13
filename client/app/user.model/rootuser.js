@@ -6,7 +6,6 @@ angular.module('clientApp')
     getSessionUser();
 
     var self = this;
-
     this.setProperties = function (obj) {
       if (obj === undefined)
         return;
@@ -119,5 +118,4 @@ angular.module('clientApp')
         self.setProperties(result);
       });
     }
-
   });
