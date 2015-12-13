@@ -17,11 +17,11 @@ angular.module('clientApp')
             return;
           self.node.addLecture(item).then(function(){
             self.new = false;
-            self.selectedItem = undefined;
             self.searchText = "";
+            self.selectedItem = undefined;
           }, function(){
-            self.selectedItem = undefined;
             self.searchText = "";
+            self.selectedItem = undefined;
           });
         };
       }
