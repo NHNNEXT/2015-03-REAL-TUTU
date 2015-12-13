@@ -1,3 +1,6 @@
+/**
+ * Created by itmnext13 on 2015. 12. 13..
+ */
 angular.module('clientApp')
   .directive('sidenavFixed', function (rootUser,$state,mainButler) {
     return {
@@ -25,6 +28,7 @@ angular.module('clientApp')
           outer.parentNode.removeChild(outer);
           return widthNoScroll - widthWithScroll;
         })();
+
         vm.rootUser = rootUser;
         vm.date = mainButler.date;
         vm.setNowAndClose = function() {
@@ -51,7 +55,9 @@ angular.module('clientApp')
           }
           return vm;
         };
+
         vm.scrollWidth = scrollWidth;
+
         element.bind('mouseenter',function() {
           element.width(element.width()-vm.scrollWidth) ;
         });
