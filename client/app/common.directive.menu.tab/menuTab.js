@@ -1,8 +1,5 @@
-/**
- * Created by itmnext13 on 2015. 12. 13..
- */
 angular.module('clientApp')
-  .directive('sidenavFixed', function (rootUser,$state,mainButler) {
+  .directive('menuTab', function (rootUser,$state,mainButler) {
     return {
       restrict:'E',
       replace: true,
