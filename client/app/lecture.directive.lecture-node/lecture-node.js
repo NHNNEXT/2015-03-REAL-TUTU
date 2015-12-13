@@ -7,7 +7,8 @@ angular.module('clientApp')
         allLectures: '=',
         node: '=',
         parent: '=',
-        readonly: '='
+        readonly: '=',
+        defaultOpenLevel: '='
       },
       compile: function (element) {
         // Use the compile function from the RecursionHelper,
@@ -26,11 +27,16 @@ angular.module('clientApp')
 
         $scope.hasDetail = false;
 
-        if (!$scope.node){
-          $scope.node = {name: "NEXUS"};
+        if (!$scope.node) {
+          $scope.node = {name: "NEXUS", level: 0};
+        }
+
+        if ($scope.defaultOpenLevel > $scope.node.level) {
           $scope.displayChildren = true;
           getDetail();
         }
+
+        $scope.style = {fontSize: 100 - $scope.node.level * 10 + '%'};
 
         function isDeletable() {
           if (!$scope.node.id)
@@ -57,7 +63,7 @@ angular.module('clientApp')
               $scope.parent.children.remove($scope.node);
             }, function (result) {
               if (result.code === responseCode.Node.CHILD_EXIST) {
-                alert.warning("현재 분류에 속한 강의와 분류를 지운다움 시도하세요.");
+                alert.warning("현재 분류에 속한 것을 모두 지운다움 시도하세요.");
               }
             });
           });
@@ -81,6 +87,9 @@ angular.module('clientApp')
           http.get('/api/v1/lecture/node', {parentId: $scope.node.id}).then(function (result) {
             $scope.hasDetail = true;
             $scope.node.children = result.children;
+            $scope.node.children.forEach(function (node) {
+              node.level = $scope.node.level + 1;
+            });
             $scope.node.lectures = result.lectures;
           });
         }
