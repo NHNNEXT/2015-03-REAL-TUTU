@@ -25,8 +25,19 @@ angular.module('clientApp')
           outer.parentNode.removeChild(outer);
           return widthNoScroll - widthWithScroll;
         })();
+        vm.scrollWidth = scrollWidth;
+
         vm.rootUser = rootUser;
         vm.date = mainButler.date;
+
+        vm.goLectures = function() {
+          if($state.is("mylectures")) {
+            $state.reload("mylectures");
+          } else {
+            $state.go("mylectures");
+          }
+        };
+
         vm.setNowAndClose = function() {
           vm.setDateNow();
           vm.close();
@@ -51,7 +62,7 @@ angular.module('clientApp')
           }
           return vm;
         };
-        vm.scrollWidth = scrollWidth;
+
         element.bind('mouseenter',function() {
           element.width(element.width()-vm.scrollWidth) ;
         });
