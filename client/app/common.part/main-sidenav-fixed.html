@@ -7,15 +7,16 @@
       <li class="nx-menu-li"  ng-click="vm.setDateOneWeek()">이후 7일</li>
     </ul>
     <ul class="menu md-body-1" ng-show="vm.rootUser.isLogged()">
-      <li ui-sref="mylectures" ng-click="close()">내 강의 관리</li>
-      <li ng-repeat="lecture in lectures = ( vm.rootUser.lectures | filter:{'sideMenu':true} )" class="child"
-          ui-sref="lecture({id:lecture.id})" >
-        {{lecture.name}}
-      </li>
-      <li ng-repeat="lecture in lectures = ( vm.rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"
-          ui-sref="lecture({id:lecture.id})">
-        {{lecture.name}}
-      </li>
+      <li ui-sref="mylectures">내 강의 관리</li>
+      <!--<li ng-repeat="lecture in lectures = ( vm.rootUser.lectures | filter:{'sideMenu':true} )" class="child"-->
+          <!--ui-sref="lecture({id:lecture.id})" >-->
+        <!--{{lecture.name}}-->
+      <!--</li>-->
+      <!--<li ng-repeat="lecture in lecturtus-->
+      <!--es = ( vm.rootUser.waitingLectures | filter:{'sideMenu':true} )" class="child"-->
+          <!--ui-sref="lecture({id:lecture.id})">-->
+        <!--{{lecture.name}}-->
+      <!--</li>-->
     </ul>
     <ul class="menu md-body-1" ng-show="!vm.rootUser.isLogged()">
       <li dialog="login">로그인</li>
