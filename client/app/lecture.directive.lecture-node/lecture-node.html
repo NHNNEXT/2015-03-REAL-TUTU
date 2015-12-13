@@ -1,4 +1,4 @@
-{{node.name}}
+{{node.name}} <small ng-show="!readonly" ng-if="isDeletable()" ng-click="deleteThis()">삭제</small>
 <span ng-click="getDetail();displayChildren=!displayChildren">
     <span ng-show="!displayChildren">+</span>
     <span ng-show="displayChildren">-</span>
@@ -21,7 +21,6 @@
       <lecture-add all-lectures="allLectures" node="node"></lecture-add>
     </div>
   </div>
-  <div ng-show="!readonly" class="child" ng-if="isDeletable()" ng-click="deleteThis()">{{node.name}} 삭제</div>
   <lecture-node class="child"
                 readonly="readonly"
                 default-open-level="defaultOpenLevel"
