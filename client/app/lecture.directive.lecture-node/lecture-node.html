@@ -1,0 +1,34 @@
+{{node.name}}
+<span ng-click="getDetail();displayChildren=!displayChildren">
+    <span ng-show="!displayChildren">+</span>
+    <span ng-show="displayChildren">-</span>
+</span>
+<div ng-show="displayChildren" class="children">
+  <div class="child" ng-show="!readonly">
+    <div ng-show="!new" ng-click="new=true">새 분류</div>
+    <div ng-show="new" layout="row">
+      <md-input-container>
+        <label>분류명</label>
+        <input placeholder="분류명" ng-model="nodeName" type="text">
+      </md-input-container>
+      <div class="padding-top">
+        <md-button class="md-raised" ng-click="newNode()">추가하기</md-button>
+      </div>
+    </div>
+  </div>
+  <div class="child" ng-show="!readonly" ng-if="node.id">
+    <div layout="row">
+      <lecture-add all-lectures="allLectures" node="node"></lecture-add>
+    </div>
+  </div>
+  <div ng-show="!readonly" class="child" ng-if="isDeletable()" ng-click="deleteThis()">{{node.name}} 삭제</div>
+  <lecture-node class="child" readonly="readonly" all-lectures="allLectures" node="child" parent="node"
+                ng-repeat="child in node.children"></lecture-node>
+  <div class="child" ng-repeat="lecture in node.lectures">
+    <span ui-sref="lecture({id:lecture.id})">
+      {{lecture.name}}
+      <small hide-sm>by {{lecture.hostUser.name}}</small>
+    </span>
+    <small ng-show="!readonly" ng-click="deleteLecture(lecture)">삭제</small>
+  </div>
+</div>

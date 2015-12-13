@@ -1,0 +1,19 @@
+<div ng-show="!ctrl.new" ng-click="ctrl.new=true">강의추가</div>
+<div ng-show="ctrl.new">
+  <md-autocomplete
+    md-selected-item="ctrl.selectedItem"
+    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+    md-search-text="ctrl.searchText"
+    md-selected-item-change="ctrl.selectedItemChange(item)"
+    md-items="item in ctrl.allLectures | filter:ctrl.searchText"
+    md-item-text="item.name"
+    md-min-length="0"
+    placeholder="강의추가">
+    <md-item-template>
+      <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.name}} by {{item.hostUser.name}}</span>
+    </md-item-template>
+    <md-not-found>
+      결과가 없습니다.
+    </md-not-found>
+  </md-autocomplete>
+</div>
