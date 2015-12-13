@@ -19,6 +19,8 @@
 
   <!-- build:css({.tmp,app}) /styles/main.css -->
   <!-- include: "type": "css", "files": "**/*.css" -->
+  <link href="/common.directive.auto-complete/auto-complete.css" rel="stylesheet" type="text/css">
+  <link href="/common.directive.calendar/calendar.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.input-datepicker/input-datepicker.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.like/like.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.md-tags/md-tags.css" rel="stylesheet" type="text/css">
@@ -36,19 +38,28 @@
   <link href="/common.style/layout.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
+  <link href="/common/page/main/main.css" rel="stylesheet" type="text/css">
+  <link href="/common/style/component.css" rel="stylesheet" type="text/css">
+  <link href="/common/style/menu.css" rel="stylesheet" type="text/css">
+  <link href="/common/style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.attachments/attachments.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-list/content-list.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.content-timeline/content-timeline.css" rel="stylesheet" type="text/css">
   <link href="/content.directive.relative-contents/relative-contents.css" rel="stylesheet" type="text/css">
   <link href="/content.page.detail/detail.css" rel="stylesheet" type="text/css">
+  <link href="/content/content-header/content-header.css" rel="stylesheet" type="text/css">
   <link href="/lecture.directive.lecture-node/lecture-node.css" rel="stylesheet" type="text/css">
   <link href="/lecture.directive.lecture-summary/lecture-summary.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
+  <link href="/lecture/view/lecture.css" rel="stylesheet" type="text/css">
+  <link href="/lesson/lesson-edit/lesson-edit.css" rel="stylesheet" type="text/css">
+  <link href="/lesson/lesson/lesson.css" rel="stylesheet" type="text/css">
   <link href="/message.directive.messages/messages.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
+  <link href="/reply/reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
@@ -83,6 +94,9 @@
   <link href="/user.dialog/template.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
+  <link href="/user.template/template.css" rel="stylesheet" type="text/css">
+  <link href="/user/profile/profile.css" rel="stylesheet" type="text/css">
+  <link href="/user/profile/user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <!-- /include -->
   <!-- endbuild -->
 
@@ -90,14 +104,14 @@
         type="text/css"/>
 
 </head>
-<body layout="row">
+<body>
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
 <emoticon></emoticon>
-<div id="nx-main" role="main" layout="column" flex>
+<div id="nx-main" role="main" flex>
   <ng-include src="'/common.part/main-header.html'"></ng-include>
   <!--md-is-locked-open="$mdMedia('gt-md')"-->
   <nav hide show-sm>
@@ -106,21 +120,16 @@
       <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
     </md-sidenav>
   </nav>
-  <div class="layout-overlay" layout="row" flex layout-align="center">
-    <div class="max-sm" flex layout="row">
-      <nav id="nx-nav" hide show-gt-sm flex="25">
-        <ng-include src="'/common.part/main-sidenav-fixed.html'"></ng-include>
-      </nav>
-      <div flex id="nx-main-section">
-        <md-content ui-view></md-content>
-      </div>
-    </div>
-  </div>
+  <div layout="column" id="nx-wrap"  layout-align="start center" flex>
+    <div class="max-sm" layout="row" flex>
+        <sidenav-fixed></sidenav-fixed>
+        <section flex id="nx-main-section">
+          <md-content ui-view></md-content>
+        </section>
 </div>
 <md-button hide-sm dialog="report" class="md-fab report" aria-label="report bug">
   <md-icon md-svg-icon="/resource/icon/report.svg"></md-icon>
 </md-button>
-
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -176,6 +185,7 @@
 <script src="/common.page.notfound/notfound.route.js"></script>
 <script src="/common.part/headerController.js"></script>
 <script src="/common.part/menuController.js"></script>
+<script src="/common.part/sidenavFixedDirective.js"></script>
 <script src="/common.query.service/query.service.js"></script>
 <script src="/common.service.emoticon/emoticon.js"></script>
 <script src="/common.service.mainButler/mainButler.js"></script>
