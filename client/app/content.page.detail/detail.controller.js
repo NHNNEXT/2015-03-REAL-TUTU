@@ -13,6 +13,7 @@ angular.module('clientApp').controller('contentDetailController',
     }, function (id) {
       getContent(id);
     });
+
     function getContent(id) {
       Content.findById(id).then(function (content) {
         $scope.content = content;

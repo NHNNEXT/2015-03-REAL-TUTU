@@ -17,7 +17,7 @@ angular.module('clientApp')
           });
         };
 
-        var self = this;
+        //var self = this;
         this.querySearch = function (keyword) {
           if (!keyword)
             return;

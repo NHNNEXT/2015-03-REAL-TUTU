@@ -32,6 +32,7 @@ md-content.md-default-theme, md-content {
 
 #nx-nav {
   border-right: 1px solid #E9EAEC;
+  padding-top: @extend-margin;
 }
 
 #nx-main-section {
@@ -66,6 +67,18 @@ md-content.md-default-theme, md-content {
   max-height: @global-header-height - 8;
   > div{
     max-height: @global-header-height - 8;
+  }
+}
+
+#sideNav-fixed{
+  ul {
+    li {
+      margin: 2px @base-margin;
+      padding: 0 @base-margin;
+    }
+    li:hover {
+      background-color: @nx-white;
+    }
   }
 }
 //
@@ -113,7 +126,6 @@ ul.menu {
     text-align: left;
     text-decoration: none;
     white-space: normal;
-    width: 100%;
   }
   li.child {
     font-size: 90%;
