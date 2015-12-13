@@ -107,14 +107,14 @@
       <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
     </md-sidenav>
   </nav>
-  <div layout="row" flex layout-align="center">
+  <div class="layout-overlay" layout="row" flex layout-align="center">
     <div class="max-sm" flex layout="row">
       <nav id="nx-nav" hide show-gt-sm flex="25">
         <ng-include src="'/common.part/main-sidenav-fixed.html'"></ng-include>
       </nav>
-      <section flex id="nx-main-section">
+      <div flex id="nx-main-section">
         <md-content ui-view></md-content>
-      </section>
+      </div>
     </div>
   </div>
 </div>
