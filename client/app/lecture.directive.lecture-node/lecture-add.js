@@ -17,11 +17,7 @@ angular.module('clientApp')
             return;
           self.node.addLecture(item).then(function(){
             self.new = false;
-            self.searchText = "";
-            self.selectedItem = undefined;
           }, function(){
-            self.searchText = "";
-            self.selectedItem = undefined;
           });
         };
       }
