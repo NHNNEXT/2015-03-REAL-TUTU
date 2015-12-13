@@ -1,12 +1,25 @@
-<md-toolbar class="header" ng-controller="headerController">
-  <div class="md-toolbar-tools centered">
-    <md-button class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()"><!--hide-gt-sm-->
-      <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
-    </md-button>
-    <div class="text" ng-click="state.current.headerClick()" flex>{{state.current.header}}</div>
-    <span hide-sm class="flex"></span>
-    <search-in-my-lectures hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures>
-    <messages hide-sm ng-show="rootUser.isLogged()" style="margin-left:10px;margin-right:-18px"></messages>
-    <root-user hide-sm ng-show="rootUser.isLogged()"></root-user>
+<md-toolbar ng-controller="headerController">
+  <div  id="nx-global-header"  layout="row" layout-align="center">
+    <header class="max-sm" flex layout="row">
+      <div hide-sm flex="33" id="nx-left-header" layout="row" layout-align="start center">
+        <md-button class="md-icon-button" aria-label="menu">
+          <md-icon md-svg-icon="/resource/icon/music.svg"></md-icon>
+        </md-button>
+      </div>
+      <div flex layout="row" layout-align="space-between center">
+        <div id="nx-top-header" layout="row"  layout-align="start center">
+          <md-button hide show-sm class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
+            <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
+          </md-button>
+          <div ng-click="state.current.headerClick()" >{{state.current.header}}</div>
+        </div>
+        <div class="header-height" layout="row" layout-align="start center">
+          <div class="header-height" layout="row" layout-align="start center"><search-in-my-lectures id="global-search-bar" hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures></div>
+          <div class="header-height"  layout="row" layout-align="start center"><messages hide-sm ng-show="rootUser.isLogged()" ></messages></div>
+          <div class="header-height"  layout="row" layout-align="start center"><root-user hide-sm ng-show="rootUser.isLogged()"></root-user></div>
+        </div>
+      </div>
+    </header>
   </div>
+  <span hide-sm class="flex"></span>
 </md-toolbar>

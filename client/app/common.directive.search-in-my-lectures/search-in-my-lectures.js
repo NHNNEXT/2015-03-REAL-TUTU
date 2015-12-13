@@ -7,13 +7,22 @@ angular.module('clientApp')
       bindToController: true,
       controllerAs: "ctrl",
       /* @ngInject */
-      controller: function (http, $state) {
+      controller: function ($scope,http, $state) {
+
+        $scope.status="on";
+
+        $scope.toggle = function() {
+          $scope.$apply(function() {
+            $scope.status = ($scope.status === 'on' ? 'off' : 'on');
+          });
+        };
+
+        var self = this;
         this.querySearch = function (keyword) {
           if (!keyword)
             return;
           return http.get("/api/v1/search/mylectures", {keyword: keyword});
         };
-
         this.moveTo = function (content) {
           if (!content)
             return;
