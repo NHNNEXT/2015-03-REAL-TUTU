@@ -16,6 +16,7 @@ angular.module('clientApp')
           if (!item)
             return;
           http.post('/api/v1/lecture/node/relation', {nodeId: self.node.id, lectureId: item.id}).then(function () {
+            item.level = self.node.level + 1;
             self.node.lectures.pushIfNotExist(item);
             self.new = false;
           });

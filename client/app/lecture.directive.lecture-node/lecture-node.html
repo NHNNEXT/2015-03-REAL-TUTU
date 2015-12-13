@@ -22,7 +22,13 @@
     </div>
   </div>
   <div ng-show="!readonly" class="child" ng-if="isDeletable()" ng-click="deleteThis()">{{node.name}} 삭제</div>
-  <lecture-node class="child" readonly="readonly" all-lectures="allLectures" node="child" parent="node"
+  <lecture-node class="child"
+                readonly="readonly"
+                default-open-level="defaultOpenLevel"
+                all-lectures="allLectures"
+                node="child"
+                parent="node"
+                ng-style="style"
                 ng-repeat="child in node.children"></lecture-node>
   <div class="child" ng-repeat="lecture in node.lectures">
     <span ui-sref="lecture({id:lecture.id})">
