@@ -105,14 +105,14 @@
         type="text/css"/>
 
 </head>
-<body layout="row">
+<body>
 <!--[if lte IE 8]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
 <emoticon></emoticon>
-<div id="nx-main" role="main" layout="column" flex>
+<div id="nx-main" role="main" flex>
   <ng-include src="'/common.part/main-header.html'"></ng-include>
   <!--md-is-locked-open="$mdMedia('gt-md')"-->
   <nav hide show-sm>
@@ -121,14 +121,12 @@
       <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
     </md-sidenav>
   </nav>
-  <div layout="row" flex layout-align="center">
-    <div class="max-sm" flex layout="row">
-      <nav id="nx-nav" hide show-gt-sm flex="33">
-        <ng-include src="'/common.part/main-sidenav-fixed.html'"></ng-include>
-      </nav>
-      <section flex id="nx-main-section">
-        <md-content ui-view></md-content>
-      </section>
+  <div layout="column" id="nx-wrap"  layout-align="start center" flex>
+    <div class="max-sm" layout="row" flex>
+        <sidenav-fixed></sidenav-fixed>
+        <section flex id="nx-main-section">
+          <md-content ui-view></md-content>
+        </section>
     </div>
   </div>
 </div>
@@ -191,6 +189,7 @@
 <script src="/common.page.notfound/notfound.route.js"></script>
 <script src="/common.part/headerController.js"></script>
 <script src="/common.part/menuController.js"></script>
+<script src="/common.part/sidenavFixedDirective.js"></script>
 <script src="/common.query.service/query.service.js"></script>
 <script src="/common.service.emoticon/emoticon.js"></script>
 <script src="/common.service.mainButler/mainButler.js"></script>

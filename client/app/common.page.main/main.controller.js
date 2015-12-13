@@ -3,7 +3,7 @@
   angular
     .module('clientApp')
     /* @ngInject */
-    .controller('mainController', function (rootUser, Content, $state, $scope,mainButler) {
+    .controller('mainController', function (rootUser, Content, $state,$scope,mainButler) {
 
       $scope.date = mainButler.date;
       $scope.$watch(function () {
@@ -15,5 +15,7 @@
       });
 
       this.rootUser = rootUser;
+
+
     });
 })();
