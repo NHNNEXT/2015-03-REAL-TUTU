@@ -1,7 +1,7 @@
 {{node.name}} <small ng-show="!readonly" ng-if="isDeletable()" ng-click="deleteThis()">삭제</small>
 <span ng-click="getDetail();displayChildren=!displayChildren">
-    <span ng-show="!displayChildren">-</span>
-    <span ng-show="displayChildren">+</span>
+    <i ng-show="!displayChildren" class="fa fa-caret-up"></i>
+    <i ng-show="displayChildren" class="fa fa-caret-down"></i>
 </span>
 <div ng-show="displayChildren" class="children">
   <div class="child" ng-show="!readonly">
