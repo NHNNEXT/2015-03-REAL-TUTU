@@ -1,6 +1,6 @@
 <div ng-show="!ctrl.new" ng-click="ctrl.new=true"><i class="fa fa-plus"></i> 강의추가</div>
-<div ng-show="ctrl.new">
-  <md-autocomplete
+<div ng-show="ctrl.new" layout="row">
+  <md-autocomplete flex
     md-selected-item="ctrl.selectedItem"
     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
     md-search-text="ctrl.searchText"
@@ -16,4 +16,7 @@
       결과가 없습니다.
     </md-not-found>
   </md-autocomplete>
+  <div flex>
+    <md-button ng-click="ctrl.new = false">취소</md-button>
+  </div>
 </div>
