@@ -1,0 +1,40 @@
+md-sidenav {
+  ul {
+    li {
+      padding: 20px;
+    }
+    li.child {
+      padding-left: 40px;
+    }
+    li:hover {
+      background-color: white;
+    }
+  }
+}
+
+md-sidenav.md-locked-open {
+  width: 210px;
+  min-width: 210px;
+  max-width: 210px;
+}
+
+@media screen and (min-width: 960px) {
+  md-sidenav {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent;
+    md-content {
+      background: transparent;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  md-sidenav {
+    ul {
+      li {
+        padding: 10px 20px;
+      }
+    }
+  }
+}
