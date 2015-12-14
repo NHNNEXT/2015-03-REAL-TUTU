@@ -155,10 +155,10 @@ angular.module('clientApp')
     };
 
     Lecture.prototype.approval = function (user) {
+      var self = this;
       confirm("승인하시겠습니까?", user.name + "님의 가입 요청을 승인합니다.", function () {
-        var self = this;
         var query = {};
-        query.id = this.id;
+        query.id = self.id;
         query.userId = user.id;
         http.post('/api/v1/lecture/approval', query).then(function (result) {
           alert.success("가입 승인되었습니다.");
@@ -172,10 +172,10 @@ angular.module('clientApp')
     };
 
     Lecture.prototype.reject = function (user) {
+      var self = this;
       confirm("거절하시겠습니까?", user.name + "님의 가입 요청을 거절합니다.", function () {
-        var self = this;
         var query = {};
-        query.id = this.id;
+        query.id = self.id;
         query.userId = user.id;
         http.post('/api/v1/lecture/reject', query).then(function () {
           alert.info("가입 신청을 거절하였습니다.");
