@@ -37,7 +37,7 @@ angular.module('clientApp').factory('Message',
       if (!rootUser.isLogged())
         return;
       Message.getList(0).then(function (messages) {
-        $timeout(Message.getMessages, 10000);
+        $timeout(Message.getMessages, 3000);
         if (angular.equals(Message.messages, messages))
           return;
         Message.messages = messages;
