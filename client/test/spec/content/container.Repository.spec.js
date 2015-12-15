@@ -6,16 +6,20 @@ describe('Repo: containerRepo', function () {
 
   // instantiate service
   var containerRepository;
-  var listFactory;
+  var candidateFactory;
   var Specification;
   var Container;
   var packerService;
-  beforeEach(inject(function (_Specification_, _listFactory_, _Container_, _containerRepository_,_packerService_) {
-    listFactory = _listFactory_;
+  var http;
+  var $q;
+  beforeEach(inject(function (_$q_,_http_,_Specification_, _candidateFactory_, _Container_, _containerRepository_,_packerService_) {
+    candidateFactory = _candidateFactory_;
     Specification = _Specification_;
     Container = _Container_;
     containerRepository = _containerRepository_;
     packerService = _packerService_;
+    http =_http_;
+    $q = _$q_;
   }));
 
   it('should make return list', function () {
@@ -65,8 +69,8 @@ describe('Repo: containerRepo', function () {
     var packer = packerService;
 
     _.forEach(lectures,function (lecture) {
-      candidateList.push(listFactory.create(lecture.hostUser));
-      candidateList.push(listFactory.create(lecture));
+      candidateList.push(candidateFactory.create(lecture.hostUser));
+      candidateList.push(candidateFactory.create(lecture));
     });
 
     // root user 에서 lecturelist 를 가져온다
@@ -80,8 +84,62 @@ describe('Repo: containerRepo', function () {
 
     this.favoriteLectureContainer = favoriteLectureContainer;
     this.favoritePersonContainer = favoritePersonContainer;
-    console.log(favoriteLectureContainer.contentList[0]);
     expect(favoriteLectureContainer.contentList[0].name).toEqual("dasdsa");
+  });
+
+  it('should make return list', function () {
+
+
+    var self = this;
+    var lectures = {};
+    var containerList = [];
+
+    //var userLectures = rootUser.lectures;
+    //var waitingLectures = rootUser.waitingLectures;
+    //var lectures = _.union(userLectures,waitingLectures);
+    var candidateList = [];
+    var packer = packerService;
+
+    var favoriteLectureContainer = new Container();
+    favoriteLectureContainer.setType(["lecture","favorite"]);
+    var favoriteTagContainer = new Container();
+    favoriteTagContainer.setType(["tag","favorite"]);
+    var favoritePersonContainer = new Container();
+    favoritePersonContainer.setType("person");
+    var noticeContentContainer = new Container();
+    noticeContentContainer.setType("notice");
+    var LectureNormalContainer = new Container();
+    LectureNormalContainer.setType(["lecture","normal"]);
+
+    containerList.push(favoriteLectureContainer);
+    containerList.push(favoritePersonContainer);
+    containerList.push(favoriteTagContainer);
+    containerList.push(noticeContentContainer);
+    containerList.push(LectureNormalContainer);
+
+    function init() {
+      http.get('/api/v1/user/session').then(function (result) {
+          lectures = result.lectures;
+          for(var i=0; i<lectures.length; i++) {
+            candidateList.push(candidateFactory.create(lectures[i].hostUser));
+            candidateList.push(candidateFactory.create(lectures[i]));
+          }
+          // root user 에서 lecturelist 를 가져온다
+          // 컨테이너에 조건에 맞는 렉쳐를 넣는다.
+          // 컨테이너의 종류는
+          // 1. 즐겨찾기를 한 컨테이너
+          // 2. 태그
+          // 3. 공지는 탭말고 위쪽
+          // 4. 즐겨찾는 사람ㅇㅇ
+          packer.pack(containerList,candidateList);
+          self.favoriteLectures = favoriteLectureContainer.contentList;
+          self.favoritePersons = favoritePersonContainer.contentList;
+          self.normalLectures = LectureNormalContainer.contentList;
+          console.log(self.normalLectures[0]);
+          expect( self.normalLectures[0].name).toEqual("asd");
+        });
+    }
+    init();
   });
 });
 

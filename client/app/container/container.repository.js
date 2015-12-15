@@ -1,13 +1,12 @@
 (function () {
 angular.module('clientApp')
   /* @ngInject */
-  .service('containerRepository', function ($q,http,Container,packerService,listFactory) {
+  .service('containerRepository', function ($timeout,http,Container,packerService,candidateFactory) {
 
     var containerList = [];
-    var lectures = {};
     var self = this;
-
-    var candidateList = [];
+    var userCollection = {};
+    var lectureCollection = {};
     var packer = packerService;
 
     var favoriteLectureContainer = new Container();
@@ -27,31 +26,27 @@ angular.module('clientApp')
     containerList.push(noticeContentContainer);
     containerList.push(LectureNormalContainer);
 
-    init();
-
-    function init() {
-      return http.get('/api/v1/user/session')
-        .then(function (result) {
-        lectures = result.lectures;
-        for(var i=0; i<lectures.length; i++) {
-            candidateList.push(listFactory.create(lectures[i].hostUser));
-            candidateList.push(listFactory.create(lectures[i]));
+    function categorize(lectures) {
+      var len = lectures.length;
+        for(var i=0; i<len; i++) {
+          _.set(userCollection,'lectures[i].hostUser.id' ,candidateFactory.create(lectures[i].hostUser));
+          _.set(lectureCollection,'lectures[i].id' ,candidateFactory.create(lectures[i]));
         }
-          // root user 에서 lecturelist 를 가져온다
           // 컨테이너에 조건에 맞는 렉쳐를 넣는다.
           // 컨테이너의 종류는
           // 1. 즐겨찾기를 한 컨테이너
           // 2. 태그
           // 3. 공지는 탭말고 위쪽
           // 4. 즐겨찾는 사람ㅇㅇ
-        packer.pack(containerList,candidateList);
+
+        packer.pack(containerList,lectureCollection);
         self.favoriteLectures = favoriteLectureContainer.contentList;
         self.favoritePersons = favoritePersonContainer.contentList;
-        });
+        }
+    function updateLecture(lecture) {
+      _.set(userCollection,'lecture.hostUser.id' ,candidateFactory.create(lecture.hostUser));
+      _.set(lectureCollection,'lecture.id' ,candidateFactory.create(lecture));
     }
-    function getfavoriteLectures() {
-      init();
-    }
-    this.init = init;
+    this.categorize = categorize;
   });
 }());

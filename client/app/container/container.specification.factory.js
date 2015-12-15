@@ -29,18 +29,19 @@ angular.module('clientApp')
       'constructor': ContainerSpecification
     });
 
+
     return {
       create: function(required) {
         if(Array.isArray(required)) {
           if(required.length === 1) {
             var temp;
-            required = required[0];
-            temp = _.get(containerSpecificationList, required);
+            var require = required[0];
+            temp = _.get(containerSpecificationList, require);
             if (typeof temp !== "undefined") {
               return temp;
             }
-            temp = new ContainerSpecification(required);
-            _.set(containerSpecificationList, required, temp);
+            temp = new ContainerSpecification(require);
+            _.set(containerSpecificationList, require, temp);
             return temp;
           } else {
             var csList = [];

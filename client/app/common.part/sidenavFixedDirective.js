@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .directive('nxNavFixed', function (rootUser,$state,mainButler,containerRepository) {
+  .directive('nxNavFixed', function ($timeout,rootUser,$state,mainButler,containerRepository) {
     return {
       restrict:'E',
       replace: true,
@@ -9,15 +9,9 @@ angular.module('clientApp')
 
         var vm = scope.vm;
         vm.rootUser = rootUser;
-        vm.favoriteLectures = containerRepository.favoriteLectures;
-
+        vm.containerRepository = containerRepository;
         vm.scrollWidth = mainButler.scrollWidth;
         vm.date = mainButler.date;
-
-        vm.setLectures = function() {
-          containerRepository.init();
-          vm.favoriteLectures = containerRepository.favoriteLectures;
-        };
 
         vm.setDateNow = function() {
           mainButler.setDateNow();
@@ -47,6 +41,7 @@ angular.module('clientApp')
         element.bind('mouseleave',function() {
           element.width(element.width()+vm.scrollWidth);
         });
+
       }
     };
   });

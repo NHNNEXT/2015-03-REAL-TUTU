@@ -19,7 +19,8 @@
     "bowser": true,
     "freewall": true,
     "confirm": true,
-    "_": true
+    "_": true,
+    "async": true
   },
   "validthis": true
 }

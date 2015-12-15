@@ -7,7 +7,6 @@
   function mainButler() {
 
     var self = this;
-
     var date = initDate();
     var scrollWidth = (function() {
       var outer = document.createElement("div");
@@ -27,7 +26,6 @@
       outer.parentNode.removeChild(outer);
       return widthNoScroll - widthWithScroll;
     })();
-
 
     function initDate() {
       return changeDate(7, 7);

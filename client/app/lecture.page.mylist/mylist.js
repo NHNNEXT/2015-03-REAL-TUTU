@@ -12,6 +12,7 @@ angular.module('clientApp').config(function ($stateProvider) {
         $scope.sideToggleRequest = function(lecture){
           http.post('/api/v1/lecture/sideMenu', {lectureId:lecture.id}).then(function(result){
             lecture.sideMenu = result;
+            $scope.rootUser.updateContainer(lecture);
           });
         };
       }

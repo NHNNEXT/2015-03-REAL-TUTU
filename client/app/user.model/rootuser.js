@@ -1,11 +1,13 @@
 angular.module('clientApp')
   /* @ngInject */
-  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm, $rootScope) {
+  .service('rootUser', function (alert,containerRepository, dialog, http, responseCode, $mdSidenav, confirm, $rootScope) {
     this.email = "test1@test.com";
     this.password = "password";
-    getSessionUser();
-
+    this.updateContainer = updateContainer;
     var self = this;
+
+    getSessionUser().then(updateContainer(self.lectures));
+
     this.setProperties = function (obj) {
       if (obj === undefined)
         return;
@@ -117,5 +119,8 @@ angular.module('clientApp')
       return http.get('/api/v1/user/session').then(function (result) {
         self.setProperties(result);
       });
+    }
+    function updateContainer(lectures) {
+      containerRepository.categorize(lectures);
     }
   });

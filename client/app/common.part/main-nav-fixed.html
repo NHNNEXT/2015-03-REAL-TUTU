@@ -10,7 +10,7 @@
       </ul>
       <ul class="menu md-body-1">
         <li ui-sref="mylectures">내 강의 관리</li>
-        <li ng-repeat="lecture in vm.favoriteLectures" class="child"
+        <li ng-repeat="lecture in vm.containerRepository.favoriteLectures" class="child"
             ui-sref={{lecture.url}}>
           {{lecture.name}}
         </li>
