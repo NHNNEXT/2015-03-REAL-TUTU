@@ -1,3 +1,11 @@
 #File Upload
 FILE_UPLOAD_PATH=<PATH TO REPOSITORY>/client/app/uploads/
 RELATIVE_PATH=<접근경로 프리픽스>
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=
+SMTP_PASSWORD=
+
+#테스트 할때 이메일 받을 계정
+TEST_MAIL_RECEIVE_ACCOUNT=
