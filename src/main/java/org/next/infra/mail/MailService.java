@@ -1,33 +1,33 @@
 package org.next.infra.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
+@Transactional
 public class MailService {
 
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendMail(Mail mail) throws MessagingException {
+    public void sendMail(Mail mail) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("nextacademicsassistant@gmail.com");
-        helper.setTo(mail.getRecipient());
-        helper.setSubject(mail.getSubject());
-        helper.setText(mail.getBody());
-
         try {
+            helper.setFrom("NextAcademicsAssistant@gmail.com");
+            helper.setTo(mail.getRecipient());
+            helper.setSubject(mail.getSubject());
+
+            message.setContent(mail.getBody(), "text/html; charset=utf-8");
+
             mailSender.send(message);
-        } catch (MailException ex) {
-            throw new RuntimeException();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 }

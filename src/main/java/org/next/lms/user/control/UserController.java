@@ -37,6 +37,11 @@ public class UserController {
         return userService.register(user);
     }
 
+    @RequestMapping(value = "/mailVerify", method = RequestMethod.GET)
+    public Result mailVerify(String key) {
+        return userService.verifyMail(key);
+    }
+
     @RequestMapping(method = RequestMethod.PUT)
     public Result updateUser(User passed, @Logged User fromSession) {
         return userService.updateUser(passed, fromSession);

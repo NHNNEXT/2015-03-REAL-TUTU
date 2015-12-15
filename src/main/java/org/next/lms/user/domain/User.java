@@ -85,6 +85,7 @@ public class User {
     @Column(name = "MAJOR")
     private String major;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATE")
     private AccountState state;
 
