@@ -94,7 +94,7 @@ angular.module('clientApp')
     Content.prototype.remove = function () {
       var self = this;
       confirm("삭제하시겠습니까?", this.title, function () {
-        http.delete('/api/v1/content', {id: this.id}).then(function () {
+        http.delete('/api/v1/content', {id: self.id}).then(function () {
           $state.go('lecture', {id: self.lectureId});
         });
       });
