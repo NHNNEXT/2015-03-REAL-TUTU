@@ -62,8 +62,6 @@ public class ContentGroup {
     public void update(ContentGroup contentGroup) {
         if (contentGroup.submitOpen != null)
             this.submitOpen = contentGroup.submitOpen;
-        if (contentGroup.contentType != null)
-            this.contentType = contentGroup.contentType;
         if (contentGroup.reply != null)
             this.reply = contentGroup.reply;
         if (contentGroup.attachment != null)
