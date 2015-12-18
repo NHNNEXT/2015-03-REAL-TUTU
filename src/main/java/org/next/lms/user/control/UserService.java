@@ -137,7 +137,7 @@ public class UserService {
             throw new WrongAccessException();
         }
 
-        if (!isFuture(mailAuth.getExpiredTime(), now())) {
+        if (!isFuture(now(), mailAuth.getExpiredTime())) {
             return new Result(ResponseCode.Register.EMAIL_VERIFY_TIMEOUT);
         }
 
@@ -150,6 +150,13 @@ public class UserService {
         }
     }
 
+    /**
+     * 두 날짜를 비교한다
+     *
+     * @param date1 기준시간
+     * @param date2 비교하고 싶은 시간
+     * @return 미래인지 아닌지 나타내는 boolean
+     */
     public boolean isFuture(Date date1, Date date2) {
         int compare = date1.compareTo(date2);
         return compare < 0;

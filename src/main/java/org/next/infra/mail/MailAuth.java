@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Calendar;
 import java.util.Date;
 
 @Getter
@@ -28,10 +29,17 @@ public class MailAuth {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "EXPIRED")
-    private Date expiredTime = new Date();
+    private Date expiredTime = getFutureDate(+3);
 
     public MailAuth(String key, String email) {
         this.key = key;
         this.email = email;
+    }
+
+    public Date getFutureDate(int amountOfDays) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, amountOfDays);
+        return cal.getTime();
     }
 }
