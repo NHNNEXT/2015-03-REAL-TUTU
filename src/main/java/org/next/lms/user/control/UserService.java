@@ -113,8 +113,7 @@ public class UserService {
     }
 
     private void sendEmailVerifyMail(User user, String uuid) {
-        mailSender.sendMail(new Mail(user.getEmail(), new JoinMailVerifyTemplate(environment.getProperty("MAIL_AUTH_API_PATH"), uuid)));
-
+        mailSender.sendMail(new Mail(user.getEmail(), new JoinMailVerifyTemplate(envUtils.getAbsoluteURIPath("/api/v1/user/mailVerify"), uuid)));
     }
 
     public Result updateUser(User passed, User dbAccount) {
