@@ -1,12 +1,20 @@
 package org.next.lms.content.control;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+import org.next.config.AppConfig;
 import org.next.infra.result.Result;
 import org.next.lms.content.dao.ContentDao;
 import org.next.lms.content.dao.ContentDurationDao;
 import org.next.lms.content.dao.ContentLimitDao;
+import org.next.lms.content.dao.MyListDao;
+import org.next.lms.content.domain.QContent;
 import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.domain.dto.ContentListDto;
+import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.lecture.control.LectureController;
+import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.QLecture;
+import org.next.lms.lecture.domain.QUserEnrolledLecture;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.control.inject.Logged;
 import org.slf4j.Logger;
@@ -16,6 +24,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.next.infra.util.CommonUtils.getLikeExpression;
 
 
 @RestController
@@ -48,6 +61,12 @@ public class ContentController {
     public Result saveContentList(@RequestBody ContentListDto contents, @Logged User user) {
         return contentSaveService.saveContents(contents, user);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/list/my")
+    public Result searchInMyLectureContents(MyListDao myListDao, @Logged User user) {
+        return contentService.getList(myListDao, user);
+    }
+
 
     @RequestMapping(value = "/relative", method = RequestMethod.POST)
     public Result makeRelative(Long contentId, Long linkContentId, @Logged User user) {

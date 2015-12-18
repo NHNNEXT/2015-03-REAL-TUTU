@@ -3,6 +3,7 @@ package org.next.lms.content.control;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
+import org.next.lms.content.dao.MyListDao;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.dao.ContentDao;
 import org.next.lms.content.domain.dto.ContentDto;
@@ -48,6 +49,10 @@ public class ContentService {
 
     public Result getList(ContentDao contentDao) {
         return success(contentDao.getList(entityManager).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
+    }
+
+    public Result getList(MyListDao myListDao, User user) {
+        return success(myListDao.getList(entityManager, user).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
     }
 
     public Result getList(User user) {
@@ -97,5 +102,6 @@ public class ContentService {
         contentLinkContentRepository.deleteByLinkContentIdAndLinkedContentId(contentId, linkContentId);
         return success();
     }
+
 
 }
