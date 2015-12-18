@@ -67,4 +67,14 @@ public class UserController {
     public Result userAutoComplete(String keyword) {
         return userService.findByNameLike(keyword);
     }
+
+    @RequestMapping(value = "/sendChangePwMail", method = RequestMethod.GET)
+    public Result sendChangePasswordMail(String email) {
+        return userService.sendChangePasswordMail(email);
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public Result changePassword(String email, String key, String newPassword) {
+        return userService.changePassword(email, key, newPassword);
+    }
 }

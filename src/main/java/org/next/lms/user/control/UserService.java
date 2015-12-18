@@ -3,11 +3,13 @@ package org.next.lms.user.control;
 import org.next.infra.exception.WrongAccessException;
 import org.next.infra.mail.Mail;
 import org.next.infra.mail.MailAuth;
+import org.next.infra.mail.template.ChangePasswordMail;
 import org.next.infra.repository.MailAuthRepository;
 import org.next.infra.mail.MailService;
 import org.next.infra.mail.template.JoinMailVerifyTemplate;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.result.Result;
+import org.next.infra.util.EnvUtils;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserDto;
 import org.next.lms.user.domain.UserPageDto;
@@ -48,6 +50,9 @@ public class UserService {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private EnvUtils envUtils;
 
     public Result getSessionUser(User user) {
         if (user == null)
@@ -102,7 +107,7 @@ public class UserService {
         userRepository.save(user);
 
         String uuid = makeUUID();
-        mailAuthRepository.save(new MailAuth(uuid, user.getEmail()));
+        mailAuthRepository.save(new MailAuth(uuid, user.getEmail(), 2));
         sendEmailVerifyMail(user, uuid);
         return success();
     }
@@ -165,5 +170,45 @@ public class UserService {
 
     public Date now() {
         return new Date();
+    }
+
+    public Result sendChangePasswordMail(String email) {
+        MailAuth authDuplicateCheck = mailAuthRepository.findByEmail(email);
+        if(authDuplicateCheck != null) {
+            return new Result(ResponseCode.Login.ALREADY_PASSWORD_CHANGE_MAIL_SENT, "이미 발송된 유효한 비밀번호 변경 메일이 있습니다");
+        }
+
+        String key = makeUUID();
+
+        MailAuth mailAuth = new MailAuth(key, email, 1);
+        mailAuth.giveTryCount(3);
+        mailAuthRepository.save(mailAuth);
+
+        mailSender.sendMail(new Mail(email, new ChangePasswordMail(envUtils.getAbsoluteURIPath("/api/v1/user/changePassword"),key, email)));
+        return success();
+    }
+
+    @Transactional(noRollbackFor = WrongAccessException.class)
+    public Result changePassword(String email, String key, String newPassword) {
+        MailAuth mailAuth = mailAuthRepository.findByEmail(email);
+
+        if(mailAuth == null){
+            throw new WrongAccessException();
+        }
+
+        if(mailAuth.noMoreTryCount()) {
+            mailAuthRepository.delete(mailAuth);
+            return new Result(ResponseCode.Login.NO_MORE_PASSWORD_CHANGE_TRY_COUNT, "더이상 비밀번호 변경을 시도할 수 없습니다. 비밀번호 변경 요청 메일을 다시 발송하세요");
+        }
+
+        if(!mailAuth.getKey().equals(key)) {
+            mailAuth.minusTryCount();
+            throw new WrongAccessException();
+        }
+
+        User user = userRepository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        mailAuthRepository.delete(mailAuth);
+        return success();
     }
 }
