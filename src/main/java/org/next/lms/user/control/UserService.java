@@ -144,6 +144,7 @@ public class UserService {
         if (mailAuth.getKey().equals(key)) {
             User user = userRepository.findByEmail(mailAuth.getEmail());
             user.setState(AccountState.ACTIVE);
+            mailAuthRepository.delete(mailAuth);
             return success("메일 인증 성공");
         } else {
             throw new WrongAccessException();
