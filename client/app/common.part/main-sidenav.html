@@ -3,7 +3,7 @@
     <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
   </md-toolbar>
   <md-content>
-    <ul class="menu md-body-1" ng-show="rootUser.isLogged()">
+    <ul ng-show="rootUser.isLogged()">
       <li ui-sref="mylectures" ng-click="close()">내 강의</li>
       <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
                     ui-sref="lecture({id:lecture.id})" ng-click="close()">
