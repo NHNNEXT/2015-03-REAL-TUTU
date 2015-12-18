@@ -80,8 +80,8 @@ public class UserService {
         if (!user.isPasswordCorrect(passwordEncoder, dbUser.getPassword()))
             return new Result(ResponseCode.Login.WRONG_PASSWORD);
 
-        if(dbUser.getState().equals(AccountState.WAIT_FOR_EMAIL_APPROVAL)) {
-            return new Result(ResponseCode.Register.DO_EMAIL_VERIFY_FIRST);
+        if (AccountState.WAIT_FOR_EMAIL_APPROVAL.equals(dbUser.getState())) {
+            return new Result(ResponseCode.Login.DO_EMAIL_VERIFY_FIRST);
         }
 
         LoggedUserInjector.setUserIdToSession(session, dbUser.getId());
@@ -90,25 +90,20 @@ public class UserService {
 
     public Result register(User user) {
         User dbUser = userRepository.findByEmail(user.getEmail());
-        if (dbUser != null && (dbUser.getState().equals(AccountState.ACTIVE) || dbUser.getState().equals(AccountState.WITHDRAWAL))) {
+        if (dbUser != null) {
+            if (AccountState.WAIT_FOR_EMAIL_APPROVAL.equals(dbUser.getState())) {
+                return new Result(ResponseCode.Login.DO_EMAIL_VERIFY_FIRST);
+            }
             return new Result(ResponseCode.Register.ALREADY_EXIST_EMAIL);
         }
 
-        if(dbUser != null && dbUser.getState().equals(AccountState.WAIT_FOR_EMAIL_APPROVAL)) {
-            return new Result(ResponseCode.Register.DO_EMAIL_VERIFY_FIRST);
-        }
+        user.encryptPassword(passwordEncoder);
+        user.setState(AccountState.WAIT_FOR_EMAIL_APPROVAL);
+        userRepository.save(user);
 
-        if(dbUser == null) {
-            user.encryptPassword(passwordEncoder);
-            user.setState(AccountState.WAIT_FOR_EMAIL_APPROVAL);
-            userRepository.save(user);
-
-            String uuid = makeUUID();
-            mailAuthRepository.save(new MailAuth(uuid, user.getEmail()));
-            sendEmailVerifyMail(user, uuid);
-            return success();
-        }
-
+        String uuid = makeUUID();
+        mailAuthRepository.save(new MailAuth(uuid, user.getEmail()));
+        sendEmailVerifyMail(user, uuid);
         return success();
     }
 
@@ -138,15 +133,15 @@ public class UserService {
 
     public Result verifyMail(String key) {
         MailAuth mailAuth = mailAuthRepository.findByKey(key);
-        if(mailAuth == null) {
+        if (mailAuth == null) {
             throw new WrongAccessException();
         }
 
-        if(!isFuture(mailAuth.getExpiredTime(), now())) {
+        if (!isFuture(mailAuth.getExpiredTime(), now())) {
             return new Result(ResponseCode.Register.EMAIL_VERIFY_TIMEOUT);
         }
 
-        if(mailAuth.getKey().equals(key)) {
+        if (mailAuth.getKey().equals(key)) {
             User user = userRepository.findByEmail(mailAuth.getEmail());
             user.setState(AccountState.ACTIVE);
             return success("메일 인증 성공");

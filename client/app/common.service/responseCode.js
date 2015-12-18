@@ -40,7 +40,9 @@ angular.module('clientApp')
     },
     "WRONG_ACCESS": 1,
     "Register": {
-      "ALREADY_EXIST_EMAIL": 2
+      "EMAIL_VERIFY_TIMEOUT": 41,
+      "ALREADY_EXIST_EMAIL": 2,
+      "DO_EMAIL_VERIFY_FIRST": 40
     },
     "FileUpload": {
       "ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT": 8,

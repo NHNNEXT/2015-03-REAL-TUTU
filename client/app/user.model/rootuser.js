@@ -50,6 +50,9 @@ angular.module('clientApp')
         if (response.code === responseCode.Login.WRONG_PASSWORD) {
           alert.error('패스워드가 다릅니다.');
         }
+        if (response.code === responseCode.Login.DO_EMAIL_VERIFY_FIRST) {
+          alert.error('이메일 인증을 해야 합니다.');
+        }
       });
     };
 
