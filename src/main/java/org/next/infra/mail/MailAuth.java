@@ -20,7 +20,7 @@ public class MailAuth {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "KEY")
+    @Column(name = "UUID_KEY")
     private String key;
 
     @Column(name = "EMAIL")
