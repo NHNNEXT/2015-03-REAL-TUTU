@@ -16,12 +16,15 @@ public class ResponseCode {
 
     public static final class Register {
         public static final Integer ALREADY_EXIST_EMAIL = 2;
+        public static final Integer EMAIL_VERIFY_TIMEOUT = 41;
     }
-
     public static final class Login {
+        public static final Integer DO_EMAIL_VERIFY_FIRST = 40;
         public static final Integer NOT_EXIST_EMAIL = 3;
         public static final Integer WRONG_PASSWORD = 4;
         public static final Integer WITHDRAWAL_ACCOUNT = 5;
+        public static final Integer NO_MORE_PASSWORD_CHANGE_TRY_COUNT = 42;
+        public static final Integer ALREADY_PASSWORD_CHANGE_MAIL_SENT = 43;
     }
 
     public static final class GetSessionUser {

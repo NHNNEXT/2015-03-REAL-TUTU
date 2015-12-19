@@ -94,7 +94,7 @@ angular.module('clientApp')
     Content.prototype.remove = function () {
       var self = this;
       confirm("삭제하시겠습니까?", this.title, function () {
-        http.delete('/api/v1/content', {id: this.id}).then(function () {
+        http.delete('/api/v1/content', {id: self.id}).then(function () {
           $state.go('lecture', {id: self.lectureId});
         });
       });
@@ -103,6 +103,20 @@ angular.module('clientApp')
     Content.getList = function (query) {
       return $q(function (resolve) {
         http.get('/api/v1/content/list', query).then(function (response) {
+          var result = [];
+          if (response.forEach === undefined)
+            return;
+          response.forEach(function (each) {
+            result.push(new Content(each));
+          });
+          resolve(result);
+        });
+      });
+    };
+
+    Content.getListInMyLectures = function (query) {
+      return $q(function (resolve) {
+        http.get('/api/v1/content/list/my', query).then(function (response) {
           var result = [];
           if (response.forEach === undefined)
             return;

@@ -1,4 +1,28 @@
 content-timeline {
+  overflow-y: auto;
+  display: block;
+  font-size: 80%;
+  text-align: center;
+  .day-header {
+    color: #999;
+  }
+
+  .dates {
+    min-width: 100px;
+    min-height: 100px;
+    //border-right: 1px solid #eee;
+  }
+  .dates:last-child {
+    border-right: none;
+  }
+
+  .week {
+    //border-bottom: 1px solid #eee;
+  }
+  .week:last-child {
+    border-bottom: none;
+  }
+
   .body {
     height: 300px;
     position: relative;

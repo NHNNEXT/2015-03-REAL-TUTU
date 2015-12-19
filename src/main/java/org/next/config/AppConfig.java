@@ -1,10 +1,7 @@
 package org.next.config;
 
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
 
 @Import({ApplicationSecurityConfig.class, PersistenceConfig.class})
 @ComponentScan(
@@ -15,6 +12,7 @@ import org.springframework.context.annotation.Import;
                 @Filter(type = FilterType.ANNOTATION, value = Configuration.class)
         }
 )
+@PropertySource("classpath:/config.properties")
 public class AppConfig {
         public static final Integer pageSize = 10;
 }

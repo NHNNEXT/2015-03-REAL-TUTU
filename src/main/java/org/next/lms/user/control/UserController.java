@@ -37,6 +37,11 @@ public class UserController {
         return userService.register(user);
     }
 
+    @RequestMapping(value = "/mailVerify", method = RequestMethod.GET)
+    public Result mailVerify(String key) {
+        return userService.verifyMail(key);
+    }
+
     @RequestMapping(method = RequestMethod.PUT)
     public Result updateUser(User passed, @Logged User fromSession) {
         return userService.updateUser(passed, fromSession);
@@ -61,5 +66,15 @@ public class UserController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public Result userAutoComplete(String keyword) {
         return userService.findByNameLike(keyword);
+    }
+
+    @RequestMapping(value = "/sendChangePwMail", method = RequestMethod.GET)
+    public Result sendChangePasswordMail(String email) {
+        return userService.sendChangePasswordMail(email);
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public Result changePassword(String email, String key, String newPassword) {
+        return userService.changePassword(email, key, newPassword);
     }
 }

@@ -1,27 +1,7 @@
 <div class="margin-bottom">
   <h2><span ng-repeat="lecture in lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
     ng-if="!$last">, </span></span></h2>
-
-  <p ng-show="contents.length===0">내역이 없습니다.</p>
 </div>
-<div ng-show="contents.length!==0">
-
+<div layout-padding>
   <content-timeline contents="contents" start="start" end="end"></content-timeline>
-
-  <md-grid-list
-    md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
-    md-row-height-gt-md="1:1" md-row-height="2:2"
-    md-gutter="12px" md-gutter-gt-sm="8px">
-    <md-grid-tile ng-repeat="content in contents" ng-class="class(content)" ng-mouseover="content.hover=true"
-                  ng-mouseout="content.hover=false"
-                  md-rowspan="{{content.row}}" md-colspan="{{content.col}}" md-colspan-sm="1">
-      <div class="center">
-        <h2 ui-sref="content({id:content.id})">{{content.title}}</h2>
-        <md-chip ng-repeat="tag in content.tags" class="margin-right">{{tag.text}}</md-chip>
-      </div>
-      <md-grid-tile-footer>
-        <h3 ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</h3>
-      </md-grid-tile-footer>
-    </md-grid-tile>
-  </md-grid-list>
 </div>

@@ -1,6 +1,12 @@
-<section>
+<div class="padding">
+  <div layout="row" layout-sm="column">
+    <notice class="card" flex></notice>
+    <submit-requires class="card" flex></submit-requires>
+  </div>
+
+  <div class="card padding-top">
     <md-datepicker ng-model="date.start" md-max-date="date.end"></md-datepicker>
     <md-datepicker ng-model="date.end" md-min-date="date.start"></md-datepicker>
     <lecture-summary start="date.start" end="date.end"></lecture-summary>
-</section>
-
+  </div>
+</div>

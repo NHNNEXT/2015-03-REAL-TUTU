@@ -1,50 +1,6 @@
-<div layout="row" class="date-header">
-  <span>
-    {{start.getDateString()}}
-  </span>
-  <span style="left:25%" hide-sm>{{getDay(25)}}</span>
-  <span style="left:50%">{{getDay(50)}}</span>
-  <span style="left:75%" hide-sm>{{getDay(75)}}</span>
-  <span style="right:0">
-    {{end.getDateString()}}
-  </span>
-</div>
-
-<div layout="row" class="body" ng-style="body">
-<span ng-repeat="content in valid(contents)">
-      <span ui-sref="content({id:content.id})" ng-switch="content.contentGroup.contentType"
-            ng-mouseover="content.hover=true"
-            ng-mouseout="content.hover=false">
-        <span ng-switch-default ng-style="left(content.writeDate, $index)">
-          {{content.title}}
-            <md-tooltip md-direction="bottom">
-              {{content.title}} {{content.writeDate.toYMD()}}
-            </md-tooltip>
-        </span>
-        <span ng-switch-when="SUBMIT" ng-style="left(content.endTime, $index)">
-           <i class="fa fa-arrow-right"></i>
-            <md-tooltip md-direction="bottom">
-              {{content.title}}
-              마감 : {{content.endTime.toYMD()}}
-            </md-tooltip>
-        </span>
-        <span ng-switch-when="SCHEDULE" ng-style="range(content, $index)">
-          <i class="fa fa-paw"></i>
-            <md-tooltip md-direction="bottom">
-              {{content.title}}
-              {{content.startTime.range(content.endTime)}}
-            </md-tooltip>
-        </span>
-        <span ng-switch-when="NOTICE" ng-style="left(content.startTime, $index)">
-          <i class="fa fa-paw"></i>
-            <md-tooltip md-direction="bottom">
-              {{content.title}}
-            </md-tooltip>
-        </span>
-      </span>
-    </span>
-  <div class="time-divider first" hide-sm></div>
-  <div class="time-divider"></div>
-  <div class="time-divider last" hide-sm></div>
-  <div class="time-divider now" ng-show="nowCovered()" class="date-header" ng-style="now()"><span>now</span></div>
+<div class="week" layout="row" ng-repeat="week in weeks">
+  <div ng-repeat="day in week" class="dates" flex>
+    <div class="day-header">{{day.date.getDateString()}}</div>
+    <div ng-repeat="content in day.events" ui-sref="content({id:content.id})">{{content.title}}</div>
+  </div>
 </div>

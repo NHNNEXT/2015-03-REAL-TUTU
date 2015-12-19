@@ -1,0 +1,18 @@
+<md-list class="holder" flex>
+  <md-subheader class="md-no-sticky">제출 ({{doneCount(submitRequires)}}/{{submitRequires.length}})</md-subheader>
+  <div ng-show="submitRequires.length!==0">
+    <md-progress-linear md-mode="determinate" value="{{doneCount(submitRequires)/submitRequires.length*100}}"></md-progress-linear>
+  </div>
+  <md-list-item class="md-3-line" ng-repeat="submitRequire in submitRequires">
+    <div class="md-list-item-text" layout="column">
+      <h3>{{submitRequire.content.title}}</h3>
+      <h4>{{submitRequire.content.writer.name}}</h4>
+
+      <p>마감 : {{submitRequire.content.endTime.toYMD()}}({{submitRequire.content.endTime.fromNow()}})</p>
+    </div>
+    <md-checkbox class="md-secondary" ng-model="submitRequire.done" ng-click="submitRequire.doToggle()" aria-label="완료 여부"></md-checkbox>
+  </md-list-item>
+  <md-list-item ng-show="submitRequires.length===0">
+     제출 필요한 컨텐츠가 없습니다.
+  </md-list-item>
+</md-list>

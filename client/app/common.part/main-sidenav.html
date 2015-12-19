@@ -1,19 +1,16 @@
 <div ng-controller="menuController">
   <md-toolbar hide-gt-md class="md-theme-indigo">
-    <h1 class="md-toolbar-tools">NEXUS</h1>
+    <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
   </md-toolbar>
   <md-content>
-    <ul class="menu md-body-1" ng-show="rootUser.isLogged()">
+    <ul ng-show="rootUser.isLogged()">
+      <li ui-sref="lectures" ng-click="close()">
+        전체 강의
+      </li>
       <li ui-sref="mylectures" ng-click="close()">내 강의</li>
-      <li class="child" ui-sref="main" ng-click="close()">중요 일정</li>
       <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
                     ui-sref="lecture({id:lecture.id})" ng-click="close()">
         {{lecture.name}}
-      </li>
-    </ul>
-    <ul>
-      <li md-link-ripple ui-sref="lectures" ng-click="close()">
-        전체 강의
       </li>
     </ul>
     <ul hide-gt-sm ng-show="rootUser.isLogged()">

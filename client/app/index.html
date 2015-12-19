@@ -25,9 +25,11 @@
   <link href="/common.directive.mod-input/mod-input.css" rel="stylesheet" type="text/css">
   <link href="/common.directive.upload-img/upload-img.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
-  <link href="/common.page.main/timeline.css" rel="stylesheet" type="text/css">
-  <link href="/common.part/header.css" rel="stylesheet" type="text/css">
+  <link href="/common.page.main/notice/notice.css" rel="stylesheet" type="text/css">
+  <link href="/common.page.main/submit-requires/submit-requires.css" rel="stylesheet" type="text/css">
+  <link href="/common.page.main/submit-summary/submit-summary.css" rel="stylesheet" type="text/css">
   <link href="/common.part/layout.css" rel="stylesheet" type="text/css">
+  <link href="/common.part/main-header.css" rel="stylesheet" type="text/css">
   <link href="/common.part/md-sidenav.css" rel="stylesheet" type="text/css">
   <link href="/common.service.emoticon/emoticon.css" rel="stylesheet" type="text/css">
   <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
@@ -36,7 +38,6 @@
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/layout.css" rel="stylesheet" type="text/css">
-  <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/common.style/report.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
@@ -106,7 +107,7 @@
   <ng-include src="'/common.part/main-header.html'"></ng-include>
   <!--md-is-locked-open="$mdMedia('gt-md')"-->
   <div class="layout-overlay" layout="row" layout-align="center" flex>
-    <div layout="row" flex class="max-width">
+    <div layout="row" flex>
       <md-sidenav md-is-locked-open="$mdMedia('gt-md')" class="md-whiteframe-z2" md-component-id="left"
                   ng-cloak>
         <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
@@ -179,6 +180,9 @@
 <script src="/common.page.loginneed/loginneed.route.js"></script>
 <script src="/common.page.main/main.controller.js"></script>
 <script src="/common.page.main/main.route.js"></script>
+<script src="/common.page.main/notice/notice.js"></script>
+<script src="/common.page.main/submit-requires/submit-requires.js"></script>
+<script src="/common.page.main/submit-summary/submit-summary.js"></script>
 <script src="/common.page.notfound/notfound.route.js"></script>
 <script src="/common.part/headerController.js"></script>
 <script src="/common.part/menuController.js"></script>

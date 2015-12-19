@@ -6,6 +6,7 @@ import org.next.infra.exception.WrongAccessException;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.UUID;
 
 import static java.lang.Math.toIntExact;
 
@@ -64,5 +65,9 @@ public class CommonUtils {
         }
 
         return text;
+    }
+
+    public static String makeUUID() {
+        return UUID.randomUUID().toString().replace("-","");
     }
 }
