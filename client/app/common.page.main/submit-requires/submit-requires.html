@@ -5,8 +5,8 @@
   </div>
   <md-list-item class="md-3-line" ng-repeat="submitRequire in submitRequires">
     <div class="md-list-item-text" layout="column">
-      <h3>{{submitRequire.content.title}}</h3>
-      <h4>{{submitRequire.content.writer.name}}</h4>
+      <h3 ui-sref="content({id:submitRequire.content.id})">{{submitRequire.content.title}}</h3>
+      <h4 ui-sref="profile({id:submitRequire.content.writer.id})">{{submitRequire.content.writer.name}}</h4>
 
       <p>마감 : {{submitRequire.content.endTime.toYMD()}}({{submitRequire.content.endTime.fromNow()}})</p>
     </div>
