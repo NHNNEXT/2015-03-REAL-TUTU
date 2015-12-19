@@ -4,15 +4,13 @@
   </md-toolbar>
   <md-content>
     <ul ng-show="rootUser.isLogged()">
+      <li ui-sref="lectures" ng-click="close()">
+        전체 강의
+      </li>
       <li ui-sref="mylectures" ng-click="close()">내 강의</li>
       <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
                     ui-sref="lecture({id:lecture.id})" ng-click="close()">
         {{lecture.name}}
-      </li>
-    </ul>
-    <ul>
-      <li md-link-ripple ui-sref="lectures" ng-click="close()">
-        전체 강의
       </li>
     </ul>
     <ul hide-gt-sm ng-show="rootUser.isLogged()">

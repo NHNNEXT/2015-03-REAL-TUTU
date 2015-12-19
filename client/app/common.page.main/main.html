@@ -1,10 +1,12 @@
 <div class="padding">
   <div layout="row" layout-sm="column">
-    <notice flex></notice>
-    <submit-requires flex></submit-requires>
+    <notice class="card" flex></notice>
+    <submit-requires class="card" flex></submit-requires>
   </div>
 
-  <md-datepicker ng-model="date.start" md-max-date="date.end"></md-datepicker>
-  <md-datepicker ng-model="date.end" md-min-date="date.start"></md-datepicker>
-  <lecture-summary start="date.start" end="date.end"></lecture-summary>
+  <div class="card padding-top">
+    <md-datepicker ng-model="date.start" md-max-date="date.end"></md-datepicker>
+    <md-datepicker ng-model="date.end" md-min-date="date.start"></md-datepicker>
+    <lecture-summary start="date.start" end="date.end"></lecture-summary>
+  </div>
 </div>
