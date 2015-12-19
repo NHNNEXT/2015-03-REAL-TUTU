@@ -116,13 +116,11 @@ public class UserControllerTest {
     public void testUpdateUser() throws Exception {
         this.mockMvc.perform(put("/api/v1/user")
                 .sessionAttr(LoggedUserInjector.LOGIN_ACCOUNT_ID, 2L)
-                .param("name", "diffName")
-                .param("email", "changedEmail@email.com"))
+                .param("name", "diffName"))
                 .andExpect(okResponse())
                 .andExpect(jsonResponse())
                 .andExpect(responseCode(ResponseCode.SUCCESS))
-                .andExpect(jsonPath("$.result.name").value("diffName"))
-                .andExpect(jsonPath("$.result.email").value("changedEmail@email.com"));
+                .andExpect(jsonPath("$.result.name").value("diffName"));
     }
 
 
