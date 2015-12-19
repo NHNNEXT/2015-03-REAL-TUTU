@@ -25,6 +25,9 @@ angular.module('clientApp')
     "Login": {
       "WITHDRAWAL_ACCOUNT": 5,
       "WRONG_PASSWORD": 4,
+      "DO_EMAIL_VERIFY_FIRST": 40,
+      "NO_MORE_PASSWORD_CHANGE_TRY_COUNT": 42,
+      "ALREADY_PASSWORD_CHANGE_MAIL_SENT": 43,
       "NOT_EXIST_EMAIL": 3
     },
     "GetSessionUser": {
@@ -41,8 +44,7 @@ angular.module('clientApp')
     "WRONG_ACCESS": 1,
     "Register": {
       "EMAIL_VERIFY_TIMEOUT": 41,
-      "ALREADY_EXIST_EMAIL": 2,
-      "DO_EMAIL_VERIFY_FIRST": 40
+      "ALREADY_EXIST_EMAIL": 2
     },
     "FileUpload": {
       "ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT": 8,
