@@ -1,5 +1,8 @@
 package org.next.lms.content.control;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+import org.next.config.AppConfig;
+import org.next.infra.exception.HasNoRightException;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
@@ -9,6 +12,10 @@ import org.next.lms.content.dao.ContentDao;
 import org.next.lms.content.domain.dto.ContentDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.content.relative.ContentLinkContent;
+import org.next.lms.submit.QUserHaveToSubmit;
+import org.next.lms.submit.UserHaveToSubmit;
+import org.next.lms.submit.UserHaveToSubmitContentDto;
+import org.next.lms.submit.UserHaveToSubmitDto;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +38,9 @@ public class ContentService {
 
     @Autowired
     private ContentAuth contentAuthority;
+
+    @Autowired
+    private UserHaveToSubmitRepository userHaveToSubmitRepository;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -104,4 +114,22 @@ public class ContentService {
     }
 
 
+    public Result getHaveToSubmits(Long page, User user) {
+        QUserHaveToSubmit qUserHaveToSubmit = QUserHaveToSubmit.userHaveToSubmit;
+        JPAQuery query = new JPAQuery(entityManager);
+        query = query.from(qUserHaveToSubmit);
+        if(page == null)
+            page = 0L;
+        query.where(qUserHaveToSubmit.user.eq(user)).limit(AppConfig.pageSize).offset(page * AppConfig.pageSize);
+        return success(query.list(qUserHaveToSubmit).stream().map(UserHaveToSubmitContentDto::new).collect(Collectors.toList()));
+    }
+
+    public Result updateHaveToSubmits(Long id, Boolean done, User user) {
+        UserHaveToSubmit userHaveToSubmit = assureNotNull(userHaveToSubmitRepository.findOne(id));
+        if(!user.equals(userHaveToSubmit.getUser()))
+            throw new HasNoRightException();
+        userHaveToSubmit.setDone(done);
+        userHaveToSubmitRepository.save(userHaveToSubmit);
+        return success();
+    }
 }

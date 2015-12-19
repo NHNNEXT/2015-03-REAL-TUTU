@@ -102,8 +102,8 @@ public class User {
             this.major = passed.major;
         if (passed.introduce != null)
             this.introduce = passed.introduce;
-        if (passed.email != null)
-            this.email = passed.email;
+//        if (passed.email != null)
+//            this.email = passed.email;
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {

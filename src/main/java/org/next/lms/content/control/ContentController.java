@@ -67,6 +67,15 @@ public class ContentController {
         return contentService.getList(myListDao, user);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/submit/require")
+    public Result getHaveToSubmits(Long page, @Logged User user) {
+        return contentService.getHaveToSubmits(page, user);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/submit/require")
+    public Result updateHaveToSubmits(Long id, Boolean done, @Logged User user) {
+        return contentService.updateHaveToSubmits(id, done, user);
+    }
 
     @RequestMapping(value = "/relative", method = RequestMethod.POST)
     public Result makeRelative(Long contentId, Long linkContentId, @Logged User user) {

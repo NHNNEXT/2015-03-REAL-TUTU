@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "USER_HAVE_TO_SUBMIT", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"USER_ID", "CONTENT_ID"})
 })
-public class UserHaveToSubmit implements ObjectOwnerKnowable{
+public class UserHaveToSubmit implements ObjectOwnerKnowable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
@@ -35,6 +35,9 @@ public class UserHaveToSubmit implements ObjectOwnerKnowable{
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "DONE")
+    private Boolean done = false;
 
     @Override
     public User ownerOfObject() {

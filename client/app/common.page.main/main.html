@@ -1,9 +1,9 @@
-<div layout="row">
-  <typed-list></typed-list>
-</div>
-
-
 <section>
+  <div layout="row" layout-sm="column">
+    <notice flex></notice>
+    <submit-requires flex></submit-requires>
+  </div>
+
   <md-datepicker ng-model="date.start" md-max-date="date.end"></md-datepicker>
   <md-datepicker ng-model="date.end" md-min-date="date.start"></md-datepicker>
   <lecture-summary start="date.start" end="date.end"></lecture-summary>
