@@ -5,12 +5,14 @@ angular.module('clientApp')
       scope: {},
       templateUrl: "/common.page.main/submit-summary/submit-summary.html",
       /* @ngInject */
-      controller: function ($scope, Content, rootUser) {
+      controller: function ($scope, Content, rootUser, $rootScope) {
         $scope.page = 0;
 
         $scope.contents = [];
 
         $scope.getMore = function () {
+          if (!rootUser.isLogged())
+            return;
           Content.getListInMyLectures({
             contentType: "SUBMIT",
             writer: rootUser.id,
@@ -23,7 +25,7 @@ angular.module('clientApp')
             });
           });
         };
-
+        $rootScope.$on('userStateChange', $scope.getMore);
         $scope.getMore();
       }
     };

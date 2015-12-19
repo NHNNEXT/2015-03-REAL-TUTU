@@ -5,7 +5,7 @@ angular.module('clientApp')
       scope: {},
       templateUrl: "/common.page.main/submit-requires/submit-requires.html",
       /* @ngInject */
-      controller: function ($scope, http, Content) {
+      controller: function ($scope, http, Content, $rootScope, rootUser) {
         $scope.page = 0;
 
         $scope.submitRequires = [];
@@ -20,6 +20,8 @@ angular.module('clientApp')
         };
 
         $scope.getMore = function () {
+          if (!rootUser.isLogged())
+            return;
           http.get('/api/v1/content/submit/require', {page: $scope.page}).then(function (results) {
             results.forEach(function (result) {
               $scope.submitRequires.push(new SubmitRequire(result));
@@ -36,6 +38,8 @@ angular.module('clientApp')
           this.content = new Content(param.content);
           this.id = param.id;
         }
+
+        $rootScope.$on('userStateChange', $scope.getMore);
 
         SubmitRequire.prototype.doToggle = function () {
           http.post('/api/v1/content/submit/require', {id: this.id, done: this.done});

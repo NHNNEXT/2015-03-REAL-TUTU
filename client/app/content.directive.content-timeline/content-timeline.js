@@ -10,7 +10,10 @@ angular.module('clientApp')
       },
       templateUrl: '/content.directive.content-timeline/content-timeline.html',
       controller: function ($scope) {
-        $scope.body = {height: $scope.height};
+        $scope.body = {
+          height: $scope.height
+        };
+
 
         if (!$scope.start || !$scope.end) {
           var start = $scope.start = new Date();
@@ -18,76 +21,46 @@ angular.module('clientApp')
           start.setDate(start.getDate() - 7);
           end.setDate(end.getDate() + 3);
         }
-        var now = new Date();
-        $scope.nowCovered = function () {
-          return $scope.start < now && now < $scope.end;
-        };
 
-        $scope.now = function () {
-          return {left: calculateLeft(now)};
-        };
-
-        $scope.valid = function (contents) {
-          var result = [];
-          if (!contents)
-            return;
-          if (!contents.forEach)
-            return;
-          contents.forEach(function (content) {
-            if ($scope.start < content.startTime && content.startTime < $scope.end) {
-              result.push(content);
-              return;
+        $scope.$watch(function () {
+          return [$scope.start, $scope.end, $scope.contents];
+        }, function () {
+          $scope.weeks = [];
+          /* jshint ignore:start */
+          var end = new Date($scope.end);
+          end.setDate($scope.end.getDate() + 1);
+          var start = new Date($scope.start);
+          var biggerThenWeek = (end - start) > 24 * 1000 * 60 * 60 * 7;
+          if (biggerThenWeek) {
+            start.setDate(start.getDate() - start.getDay());
+            if (end.getDay() !== 0)
+              end.setDate(end.getDate() + (7 - end.getDay()));
+          }
+          var week = [];
+          for (var date = new Date(start); date < end; date.setDate(date.getDate() + 1)) {
+            var day = {date: new Date(date), events: []};
+            if ($scope.contents)
+              $scope.contents.forEach(function (content) {
+                if (isDay(date, content))
+                  day.events.push(content);
+              });
+            week.push(day);
+            if (date.getDay() === 6 && biggerThenWeek) {
+              $scope.weeks.push(week);
+              week = [];
             }
-            if ($scope.start < content.endTime && content.endTime < $scope.end) {
-              result.push(content);
-            }
-          });
-          return result;
-        };
+          }
+          if (week.length)
+            $scope.weeks.push(week);
+          function isDay(day, content) {
+            if (day.isSameDay(content.startTime) || day.isSameDay(content.endTime))
+              return true;
+            return day > content.startTime && day < content.endTime;
+          }
 
-
-        $scope.getDay = function (position) {
-          return new Date($scope.start.getTime() + (($scope.end - $scope.start) / 100 * position)).getDateString();
-        };
-
-        function getContentsLength() {
-          if (!$scope.contents)
-            return 1;
-          return $scope.contents.length;
-        }
-
-        $scope.left = function (date, index) {
-          var divider = getContentsLength();
-          var style = {};
-          style.left = calculateLeft(date);
-          style.position = 'absolute';
-          if (index !== undefined)
-            style.top = (90 / divider) * (index % divider) + 5 + '%';
-          return style;
-        };
-
-        $scope.range = function (content, index) {
-          var divider = getContentsLength();
-          var style = {};
-          style.left = calculateLeft(content.startTime);
-          style.width = calculateLeft(content.endTime - content.startTime);
-          style.position = 'absolute';
-          style.top = (90 / divider) * (index % divider) + 5 + '%';
-          return style;
-        };
-
-
-        function calculateLeft(date) {
-          var left = (((date - $scope.start) / ($scope.end - $scope.start)) * 100);
-          if (left < 0)
-            return 0;
-          if (left > 100)
-            return '100%';
-          return left + '%';
-        }
+          /* jshint ignore:end */
+        }, true);
 
       }
-    }
-      ;
-  })
-;
+    };
+  });

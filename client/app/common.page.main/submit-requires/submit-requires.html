@@ -1,5 +1,5 @@
 <md-list class="holder" flex>
-  <md-subheader class="md-no-sticky">제출 필요 ({{doneCount(submitRequires)}}/{{submitRequires.length}})</md-subheader>
+  <md-subheader class="md-no-sticky">제출 ({{doneCount(submitRequires)}}/{{submitRequires.length}})</md-subheader>
   <div>
     <md-progress-linear md-mode="determinate" value="{{doneCount(submitRequires)/submitRequires.length*100}}"></md-progress-linear>
   </div>
