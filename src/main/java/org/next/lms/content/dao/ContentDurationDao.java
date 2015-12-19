@@ -22,7 +22,10 @@ public class ContentDurationDao extends ContentDao {
             throw new WrongAccessException();
         Date start = new Date(this.start);
         Date end = new Date(this.end);
-        return query.where(qContent.startTime.between(start, end).or(qContent.endTime.between(start, end)));
+        return query.where(
+                qContent.startTime.between(start, end).or(qContent.endTime.between(start, end))
+                        .or(qContent.startTime.before(start).and(qContent.endTime.after(end)))
+        );
     }
 
 }
