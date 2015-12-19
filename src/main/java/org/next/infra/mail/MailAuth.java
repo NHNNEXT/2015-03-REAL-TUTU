@@ -29,11 +29,15 @@ public class MailAuth {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "EXPIRED")
-    private Date expiredTime = getFutureDate(+3);
+    private Date expiredTime;
 
-    public MailAuth(String key, String email) {
+    @Column(name = "PASSWORD_CHANGE_TRY_COUNT")
+    private Integer passwordChangeTryCount = 0;
+
+    public MailAuth(String key, String email, int expiredDays) {
         this.key = key;
         this.email = email;
+        this.expiredTime = getFutureDate(expiredDays);
     }
 
     public Date getFutureDate(int amountOfDays) {
@@ -41,5 +45,17 @@ public class MailAuth {
         cal.setTime(new Date());
         cal.add(Calendar.DATE, amountOfDays);
         return cal.getTime();
+    }
+
+    public boolean noMoreTryCount() {
+        return this.passwordChangeTryCount <= 0;
+    }
+
+    public void minusTryCount() {
+        this.passwordChangeTryCount--;
+    }
+
+    public void giveTryCount(int tryCount) {
+        this.passwordChangeTryCount = tryCount;
     }
 }
