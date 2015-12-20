@@ -21,14 +21,15 @@ angular.module('clientApp')
       self.phoneNumber = obj.phoneNumber;
       self.waitingLectures = obj.waitingLectures;
       self.major = obj.major;
-      self.lectures = [];
+      self.enrolledLectures = [];
       self.hostingLectures = [];
+      self.lectures = obj.lectures;
       obj.lectures.forEach(function (lecture) {
         if (lecture.hostUser.id === self.id) {
           self.hostingLectures.push(lecture);
           return;
         }
-        self.lectures.push(lecture);
+        self.enrolledLectures.push(lecture);
       });
     };
 
