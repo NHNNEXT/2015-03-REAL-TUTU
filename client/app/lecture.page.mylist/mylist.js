@@ -9,8 +9,9 @@ angular.module('clientApp').config(function ($stateProvider) {
       controller: function ($scope, rootUser, types, http) {
         $scope.rootUser = rootUser;
         $scope.majorTypes = types.majorTypes;
-        $scope.sideToggleRequest = function(lecture){
-          http.post('/api/v1/lecture/sideMenu', {lectureId:lecture.id}).then(function(result){
+        $scope.lectures = [];
+        $scope.sideToggleRequest = function (lecture) {
+          http.post('/api/v1/lecture/sideMenu', {lectureId: lecture.id}).then(function (result) {
             lecture.sideMenu = result;
           });
         };
