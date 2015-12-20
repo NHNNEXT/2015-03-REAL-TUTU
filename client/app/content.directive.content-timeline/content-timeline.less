@@ -5,22 +5,30 @@ content-timeline {
   text-align: center;
   .day-header {
     color: #999;
+    background: #eee;
+    padding: 5px;
+  }
+  .day-body {
+    padding: 5px;
+    .event {
+      margin-bottom: 10px;
+    }
   }
 
   .dates {
     min-width: 100px;
     min-height: 100px;
-    //border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
   }
   .dates:last-child {
-    border-right: none;
+    border-right: 1px solid #eee;
   }
 
   .week {
-    //border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
   }
   .week:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid #eee;
   }
 
   .body {

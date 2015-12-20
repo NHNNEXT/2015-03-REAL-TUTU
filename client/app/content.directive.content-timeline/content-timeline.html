@@ -1,6 +1,18 @@
 <div class="week" layout="row" ng-repeat="week in weeks">
   <div ng-repeat="day in week" class="dates" flex>
     <div class="day-header">{{day.date.getDateString()}}</div>
-    <div ng-repeat="content in day.events" ui-sref="content({id:content.id})">{{content.title}}</div>
+    <div class="day-body">
+      <div class="event" ng-repeat="content in day.events" ui-sref="content({id:content.id})">
+        {{content.title}}
+        <md-tooltip>
+          <span ng-if="content.startTime && content.endTime">
+            {{content.startTime.range(content.endTime)}}
+          </span>
+          <span ng-if="content.endTime && !content.startTime">
+            마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})
+          </span>
+        </md-tooltip>
+      </div>
+    </div>
   </div>
 </div>
