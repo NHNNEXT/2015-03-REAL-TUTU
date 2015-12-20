@@ -21,7 +21,15 @@ angular.module('clientApp')
       self.phoneNumber = obj.phoneNumber;
       self.waitingLectures = obj.waitingLectures;
       self.major = obj.major;
-      self.lectures = obj.lectures;
+      self.lectures = [];
+      self.hostingLectures = [];
+      obj.lectures.forEach(function (lecture) {
+        if (lecture.hostUser.id === self.id) {
+          self.hostingLectures.push(lecture);
+          return;
+        }
+        self.lectures.push(lecture);
+      });
     };
 
     this.loginCheck = function () {
