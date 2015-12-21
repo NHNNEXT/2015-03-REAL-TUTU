@@ -1,10 +1,6 @@
-1,test1@test.com,\N,\N,박재성,$2a$10$tkbf0GRyXA/QJZW8Mzp4Q.wLhNPpC318M2OcMpez8xMTlyZxstwZG,\N,ACTIVE
-2,test2@test.com,\N,\N,황정민,$2a$10$EeSod.9uDHm9u.uY5gYoCODQCLeyYq4wmVjezLJf0NdvSY0n0MFk.,\N,ACTIVE
-3,test3@test.com,\N,\N,하태호,$2a$10$.NuxoyUeSWH/vjQ1KDNNzuiiAGdUQd8P.ToNLAF2U0r0OnvJbYnwO,\N,ACTIVE
-4,test4@test.com,\N,\N,배영현,$2a$10$exTuWbZkUKHG2zNa..zzZuNW1DUYEzAGJW.lCikt2mkZI.gQ1..p6,\N,ACTIVE
-5,test5@test.com,\N,\N,정환,$2a$10$desGwM7bW0bv3RFy018nLeuD5S2pES0RURbBwxV1vH2c9FiTZnVVa,\N,ACTIVE
-6,test6@test.com,\N,\N,덕선,$2a$10$Md.Yq1/wHmWd/i35qpchX.3XIktqRIQkxvGcxeQGGLrXc9aWLobWC,\N,ACTIVE
-7,test7@test.com,\N,\N,택이,$2a$10$AOFEfPw9Oq/lmJ9qYTjKPeTu89tR5yOd3oaeXuP43JQ4irxesG4Ia,\N,ACTIVE
-8,test8@test.com,\N,\N,선우,$2a$10$iMnCjz2M5quK3Z66f1xWnOvAPxALRjAf0l7uAXeFsWIEmBpF1NiIq,\N,ACTIVE
-9,test9@test.com,\N,\N,보라,$2a$10$E2s4uDo3JW0YoDtesoAomODJfjMNkX8b.bAXEXCoLi36SgIIYrVsW,\N,ACTIVE
-10,parksungho86@gmail.com,\N,\N,박성호,$2a$10$YdHrb4xxsiKTHmdhpm0oHe4mmagCf9aT5A.rd7IQ9fNX935GsJpPa,\N,ACTIVE
+1,test1@test.com,\N,\N,박재성,$2a$10$hO2VkBQXuOIXRJj/4PWyz.CnsccZz82YIkc03bXijCevuGfOOgMQC,\N,ACTIVE
+2,test2@test.com,\N,\N,하태호,$2a$10$omS4oIBl3EpQP12.bk0eaewpRP6nSkWHPv4TtRJ6mqiP3XYlL6pQa,\N,ACTIVE
+3,test3@test.com,\N,\N,황정민,$2a$10$dZiBEz0Rgq7JOqtyDaxFpOI9yf73MY1VK.rQ/t8Kj8QHQVP8xXd3O,\N,ACTIVE
+4,test4@test.com,\N,\N,하채영,$2a$10$YcsTXM1YuiMpP/e7WQNxx.m9owtfMV4EOAnc/x3PVC8SiLsERnqf6,\N,ACTIVE
+5,test5@test.com,\N,\N,김광영,$2a$10$ltfoXwN4ZyZA9tyzViBbXuO0k6afLus5mNuuBi7.n5PVTw6kOLrwu,\N,ACTIVE
+6,test6@test.com,\N,\N,고형진,$2a$10$r7C7dNO8heCZTNOEwx6BX.32hDB8n2fg18O5Zkl/qhh4TtB3c3Gkm,\N,ACTIVE

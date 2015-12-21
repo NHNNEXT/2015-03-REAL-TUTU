@@ -2,7 +2,6 @@ package org.next.lms.submit;
 
 import lombok.Getter;
 import org.next.infra.uploadfile.dto.UploadedFileDto;
-import org.next.lms.reply.domain.Reply;
 import org.next.lms.user.domain.UserSummaryDto;
 
 import java.util.Date;

@@ -3,7 +3,6 @@ package org.next.infra.mail;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,7 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "MAIL_AUTH")
+@Table(name = "MAIL_AUTH", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"UUID_KEY", "EMAIL"})
+})
 public class MailAuth {
 
     @Id

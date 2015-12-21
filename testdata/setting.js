@@ -10,6 +10,12 @@ var setting = new Promise(function(resolve){
                 map[split[0]] = split[1];
             }
         });
+        var url = map["spring.datasource.url"];
+        var regex = /^jdbc:mysql:\/\/(\S+)\:(\w+)\/(\S+)$/i
+        var split  = regex.exec(url);
+        map.host = split[1];
+        map.port = split[2];
+        map.database = split[3];
         resolve(map);
     });
 });

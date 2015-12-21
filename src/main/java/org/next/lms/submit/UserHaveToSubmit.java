@@ -28,7 +28,7 @@ public class UserHaveToSubmit implements ObjectOwnerKnowable {
     @JoinColumn(name = "CONTENT_ID")
     private Content content;
 
-    @OneToMany(mappedBy = "userHaveToSubmit", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userHaveToSubmit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Submit> submits = new ArrayList<>();
 
     @Id

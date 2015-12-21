@@ -59,5 +59,7 @@
         <ng-include src="'/lecture.page.detail/part/waitingUsers.html'"></ng-include>
       </md-content>
     </md-tab>
+    <!-- to resolve last tab disappeared bug -->
+    <md-tab ng-disabled="true"><md-tab-label>&nbsp;</md-tab-label></md-tab>
   </md-tabs>
 </section>

@@ -3,7 +3,6 @@ package org.next.lms.content.domain;
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
-import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
@@ -27,25 +26,25 @@ import java.util.List;
 @Table(name = "CONTENT")
 public class Content implements ObjectOwnerKnowable{
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserLikesContent> userLikesContents = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UploadedFile> attachments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserHaveToSubmit> userHaveToSubmits = new ArrayList<>();
 
-    @OneToMany(mappedBy = "content", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tag> tags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "linkedContent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "linkedContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ContentLinkContent> linkedContents = new ArrayList<>();
 
-    @OneToMany(mappedBy = "linkContent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "linkContent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ContentLinkContent> linkContents = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,7 +52,7 @@ public class Content implements ObjectOwnerKnowable{
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTENT_TYPE_ID")
+    @JoinColumn(name = "CONTENT_GROUP_ID")
     private ContentGroup contentGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -97,11 +96,11 @@ public class Content implements ObjectOwnerKnowable{
         this.hits++;
     }
 
-    // TODO 수정필요해보임 -> 관계만 끊는다고 삭제가 되는것은 아닌것 같다
-    public void setDeleteState() {
-        this.writer = null;
-        this.lecture = null;
-    }
+//    // TODO 수정필요해보임 -> 관계만 끊는다고 삭제가 되는것은 아닌것 같다
+//    public void setDeleteState() {
+//        this.writer = null;
+//        this.lecture = null;
+//    }
 
     public void validate() {
         this.contentGroup.getContentType().validate(this);

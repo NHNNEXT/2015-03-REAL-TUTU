@@ -172,6 +172,11 @@ public class UserService {
     }
 
     public Result sendChangePasswordMail(String email) {
+        User dbUser = userRepository.findByEmail(email);
+        if(dbUser == null) {
+            return new Result(ResponseCode.Login.USER_NOT_EXIST, "존재하지 않는 계정입니다");
+        }
+
         MailAuth authDuplicateCheck = mailAuthRepository.findByEmail(email);
         if(authDuplicateCheck != null) {
             return new Result(ResponseCode.Login.ALREADY_PASSWORD_CHANGE_MAIL_SENT, "이미 발송된 유효한 비밀번호 변경 메일이 있습니다");

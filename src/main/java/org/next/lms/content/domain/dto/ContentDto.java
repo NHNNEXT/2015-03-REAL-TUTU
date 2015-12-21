@@ -1,18 +1,15 @@
 package org.next.lms.content.domain.dto;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.Getter;
 import org.next.infra.uploadfile.dto.UploadedFileDto;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
-import org.next.lms.content.domain.QContent;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.submit.UserHaveToSubmitDto;
 import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserEnrolledLectureRepository extends JpaRepository<UserEnrolledLecture, Long> {
     UserEnrolledLecture findOneByUserIdAndLectureId(Long userId, Long lectureId);
+
+    void deleteByLectureIdOrUserId(Long lectureId, Long userId);
 }

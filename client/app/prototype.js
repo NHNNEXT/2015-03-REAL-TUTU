@@ -133,6 +133,16 @@ Array.prototype.pushIfNotExist = function (el) {
   this.push(el);
 };
 
+Array.prototype.findById = function (id) {
+  return this.find(function (el) {
+    return el.id === id;
+  });
+};
+
+Array.prototype.removeById = function (id) {
+  return this.remove(this.findById(id));
+};
+
 Number.prototype.toDay = function () {
   return ["월", "화", "수", "목", "금", "토", "일"][this % 7];
 };

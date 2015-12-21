@@ -5,7 +5,7 @@
       <h3 ui-sref="content({id:content.id})">{{content.title}}</h3>
       <h4 ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</h4>
 
-      <p>{{content.writeDate}}</p>
+      <p>{{content.writeDate.toYMD()}}</p>
     </div>
   </md-list-item>
   <md-list-item ng-click="getMore()" ng-show="more">

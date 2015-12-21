@@ -28,7 +28,7 @@ angular.module('clientApp')
 
     LectureNode.prototype.delete = function () {
       var self = this;
-      confirm("삭제하시겠습니까?", "분류 : " + this.name, function () {
+      confirm("삭제하시겠습니까?", "분류 : " + self.name, function () {
         http.delete('/api/v1/lecture/node', {
           lectureNodeId: self.id
         }).then(function () {
@@ -57,9 +57,7 @@ angular.module('clientApp')
       var self = this;
       return $q(function (resolve, error) {
         self.getDetail().then(function () {
-          if (self.lectures.find(function (l) {
-              return lecture.id === l.id;
-            })) {
+          if (self.lectures.findById(lecture.id)) {
             alert.warning("이미 있습니다.");
             error();
             return;

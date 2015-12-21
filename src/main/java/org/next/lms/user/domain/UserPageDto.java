@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.lecture.domain.dto.LectureSummaryDto;
 import org.next.lms.lecture.domain.dto.UserGroupDto;
-import org.next.lms.user.domain.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

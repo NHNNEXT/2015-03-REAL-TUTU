@@ -76,8 +76,10 @@ public class LectureSaveService {
 
 //        lecture.setTerm(termRepository);
         lectureFromDB.update(lecture);
-        removeRelations(lectureFromDB, lecture);
         updateAndAddNew(lectureFromDB, lecture);
+        deleteDeletedUserGroups(lectureFromDB, lecture);
+        deleteDeletedContentGroups(lectureFromDB, lecture);
+
 
         setAuthorities(lectureFromDB);
 
@@ -86,7 +88,6 @@ public class LectureSaveService {
 
     private void updateAndAddNew(Lecture lectureFromDB, Lecture lecture) {
         updateUserGroups(lectureFromDB, lecture);
-        EnsureDefaultGroupExist(lectureFromDB.getUserGroups());
         updateContentGroups(lectureFromDB, lecture);
     }
 
@@ -117,24 +118,34 @@ public class LectureSaveService {
     }
 
 
-    private void EnsureDefaultGroupExist(List<UserGroup> userGroups) {
+    private void ensureDefaultGroupExist(List<UserGroup> userGroups) {
         if (!userGroups.stream().filter(UserGroup::getDefaultGroup).findAny().isPresent()) {
             userGroups.get(0).setDefaultGroup(true);
         }
     }
 
-    private void removeRelations(Lecture lectureFromDB, Lecture lecture) {
+    private void deleteDeletedUserGroups(Lecture lectureFromDB, Lecture lecture) {
         List<UserGroup> userGroups = lectureFromDB.getUserGroups();
-        List<ContentGroup> contentGroups = lectureFromDB.getContentGroups();
         List<UserGroup> deletedUserGroups = userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
+        userGroups.removeAll(deletedUserGroups);
+        ensureDefaultGroupExist(userGroups);
+        UserGroup defaultGroup = userGroups.stream().filter(UserGroup::getDefaultGroup).findFirst().get();
+        deletedUserGroups.forEach(userGroup -> {
+            userGroup.getUserEnrolledLectures().forEach(userEnrolledLecture -> {
+                userEnrolledLecture.setUserGroup(defaultGroup);
+            });
+        });
+        deletedUserGroups.forEach(this::removeRights);
+        userGroupRepository.delete(deletedUserGroups);
+    }
+
+    private void deleteDeletedContentGroups(Lecture lectureFromDB, Lecture lecture) {
+        List<ContentGroup> contentGroups = lectureFromDB.getContentGroups();
         List<ContentGroup> deletedContentGroups = contentGroups.stream().filter(contentGroup -> !lecture.getContentGroups().contains(contentGroup)).collect(Collectors.toList());
         deletedContentGroups.forEach(deletedContentGroup -> {
             removeRights(deletedContentGroup);
             removeAllContents(deletedContentGroup); // TODO 로직변경
         });
-        deletedUserGroups.forEach(this::removeRights);
-        userGroups.removeAll(deletedUserGroups);
-        userGroupRepository.delete(deletedUserGroups);
         contentGroups.removeAll(deletedContentGroups);
         contentGroupRepository.delete(deletedContentGroups);
     }

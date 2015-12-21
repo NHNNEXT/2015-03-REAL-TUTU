@@ -2,10 +2,8 @@ package org.next.lms.lecture.control;
 
 import org.next.infra.result.Result;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.user.domain.User;
 import org.next.lms.user.control.inject.Logged;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
