@@ -21,14 +21,7 @@
                    md-selected-item-change="ctrl.select(ctrl.selectedItem)"
                    placeholder="제목, 본문 내용으로 검색">
     <md-item-template>
-      <span md-highlight-text="ctrl.searchText">
-        {{content.title}}</span>
-      <small>
-        by {{content.writer.name}}
-        <span
-          ng-if="content.contentGroup.contentType==='SCHEDULE'">({{content.startTime.range(content.endTime)}})</span>
-        <span ng-if="content.contentGroup.contentType==='SUBMIT'">(마감 : {{content.endTime.toYMD()}})</span>
-      </small>
+      <content-template></content-template>
     </md-item-template>
   </md-autocomplete>
 </md-list>

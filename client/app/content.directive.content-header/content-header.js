@@ -4,7 +4,8 @@ angular.module('clientApp')
       restrict: 'A',
       scope: {
         content: '=',
-        tagClick: '='
+        tagClick: '=',
+        index: '='
       },
       templateUrl: '/content.directive.content-header/content-header.html'
     };

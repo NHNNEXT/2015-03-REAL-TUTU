@@ -1,0 +1,6 @@
+<span md-highlight-text="ctrl.searchText">{{content.title}}</span>
+<small>
+  by {{content.writer.name}}
+  <span ng-if="content.contentGroup.contentType==='SCHEDULE'">({{content.startTime.range(content.endTime)}})</span>
+  <span ng-if="content.contentGroup.contentType==='SUBMIT'">(마감 : {{content.endTime.toYMD()}})</span>
+</small>

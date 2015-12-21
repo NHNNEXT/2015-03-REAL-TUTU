@@ -1,23 +1,23 @@
-<div class="type">{{content.contentGroup.name}}</div>
-<div class="moveto">
-  <div class="header" ui-sref="content({id:content.id})">
-    <span ng-bind="content.title"></span>
-<span class="dueDate" ng-if="!content.contentGroup.contentType==='SUBMIT'">
-(마감 : {{content.endTime.fromNow()}})</span>
-<span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
-({{content.startTime.range(content.endTime)}})</span>
+<div layout="row" layout-sm="column" layout-align="start center" class="header" flex>
+  <!--<div class="center-sm" style="width:50px">{{index + 1}}</div>-->
+  <div layout="column" flex ui-sref="content({id:content.id})">
+    <div layout-sm="column" class="center-sm">
+      <span ng-bind="content.title"></span>
+      <span class="dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'">
+      마감 : {{content.endTime.fromNow()}}</span>
+      <span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
+      {{content.startTime.range(content.endTime)}}</span>
+    </div>
+    <div class="tags" flex>
+      <span ng-repeat="tag in content.tags | limitTo : 5" ng-click="tagClick(tag)">{{tag}}</span>
+    </div>
   </div>
-  <div ui-sref="content({id:content.id})" class="body" ng-bind="content.body.removeTags()"></div>
-  <div class="tags">
-    <span ng-repeat="tag in content.tags | limitTo : 5" ng-click="tagClick(tag)">{{tag}}</span>
+  <div layout-align="center center" class="icons">
+    <span>{{content.contentGroup.name}}</span>
+    <span class="dot"></span>
+    <span>By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span></span>
+    <span class="dot"></span>
+    <span>{{content.writeDate.toYMD()}}</span>
   </div>
 </div>
-<div class="icons">
-  By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span>
-  <span class="dot"></span>
-  <like type="CONTENT" like="content.likes" target="content.id"></like>
-  <span class="dot"></span>
-  댓글 {{content.repliesSize}}
-  <span class="dot"></span>
-  {{content.writeDate.toYMD()}}
-</div>
+
