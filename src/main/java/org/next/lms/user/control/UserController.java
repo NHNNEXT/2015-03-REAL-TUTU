@@ -68,7 +68,7 @@ public class UserController {
         return userService.findByNameLike(keyword);
     }
 
-    @RequestMapping(value = "/sendChangePwMail", method = RequestMethod.GET)
+    @RequestMapping(value = "/sendChangePwMail", method = RequestMethod.POST)
     public Result sendChangePasswordMail(String email) {
         return userService.sendChangePasswordMail(email);
     }
