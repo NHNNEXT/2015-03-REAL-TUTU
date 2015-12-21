@@ -6,7 +6,6 @@
   md-selected-item-change="ctrl.moveTo(ctrl.selectedItem)"
   placeholder="컨텐츠 검색">
   <md-item-template>
-    <span md-highlight-text="ctrl.searchText">{{content.title}}</span>
-    <small>by {{content.writer.name}}</small>
+    <content-template></content-template>
   </md-item-template>
 </md-autocomplete>

@@ -68,7 +68,7 @@ angular.module('clientApp')
     this.register = function () {
       return http.post('/api/v1/user',
         {email: self.email, password: self.password, name: self.name}).then(function () {
-        alert.success('가입되었습니다.');
+        alert.success('메일을 확인해주세요.');
         dialog.login();
       }, function (response) {
         if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {

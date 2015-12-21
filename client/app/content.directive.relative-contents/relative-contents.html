@@ -21,10 +21,7 @@
                    md-selected-item-change="ctrl.select(ctrl.selectedItem)"
                    placeholder="제목, 본문 내용으로 검색">
     <md-item-template>
-      <h3><span md-highlight-text="ctrl.searchText">{{content.title}} </span>
-        <small>by {{content.writer.name}}</small>
-      </h3>
-      <div class="padding-bottom-s">{{content.body.removeTags()}}</div>
+      <content-template></content-template>
     </md-item-template>
   </md-autocomplete>
 </md-list>
