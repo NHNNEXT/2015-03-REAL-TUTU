@@ -13,7 +13,9 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "MAIL_AUTH")
+@Table(name = "MAIL_AUTH", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"UUID_KEY", "EMAIL"})
+})
 public class MailAuth {
 
     @Id
