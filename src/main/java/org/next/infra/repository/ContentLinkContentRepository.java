@@ -7,4 +7,6 @@ public interface ContentLinkContentRepository extends JpaRepository<ContentLinkC
     ContentLinkContent findByLinkContentIdAndLinkedContentId(Long linkContentId, Long linkedContentId);
 
     void deleteByLinkContentIdAndLinkedContentId(Long linkContentId, Long linkedContentId);
+
+    void deleteByLinkContentIdOrLinkedContentId(Long linkContentId, Long linkedContentId);
 }

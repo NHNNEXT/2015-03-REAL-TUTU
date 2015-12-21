@@ -77,8 +77,9 @@ public class ContentService {
         Content content = assureNotNull(contentRepository.findOne(id));
 
         contentAuthority.checkDeleteRight(content, user);
-
         content.setDeleteState();
+
+        contentLinkContentRepository.deleteByLinkContentIdOrLinkedContentId(content.getId(), content.getId());
         return success();
     }
 
