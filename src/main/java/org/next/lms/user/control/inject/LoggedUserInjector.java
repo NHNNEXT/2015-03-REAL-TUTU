@@ -1,8 +1,8 @@
 package org.next.lms.user.control.inject;
 
 import org.next.infra.exception.LoginNeededException;
-import org.next.lms.user.domain.User;
 import org.next.infra.repository.UserRepository;
+import org.next.lms.user.domain.User;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

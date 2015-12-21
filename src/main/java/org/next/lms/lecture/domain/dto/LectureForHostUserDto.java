@@ -2,10 +2,9 @@ package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.ContentGroup;
-import org.next.lms.content.domain.ContentGroup;
+import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserGroup;
-import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 

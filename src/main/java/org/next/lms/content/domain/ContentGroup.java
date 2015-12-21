@@ -1,10 +1,10 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
-import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
-import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
+import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
+import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

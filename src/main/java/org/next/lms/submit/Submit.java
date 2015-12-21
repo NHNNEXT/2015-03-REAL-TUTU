@@ -3,8 +3,6 @@ package org.next.lms.submit;
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
-import org.next.lms.content.domain.Content;
-import org.next.lms.like.domain.UserLikesReply;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;

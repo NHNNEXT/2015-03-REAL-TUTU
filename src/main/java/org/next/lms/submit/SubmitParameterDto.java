@@ -3,8 +3,6 @@ package org.next.lms.submit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.next.lms.content.domain.Content;
-import org.next.lms.lecture.domain.Lecture;
 
 import java.util.Date;
 import java.util.List;

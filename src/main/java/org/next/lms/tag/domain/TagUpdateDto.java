@@ -1,7 +1,6 @@
 package org.next.lms.tag.domain;
 
 import lombok.Getter;
-import org.next.lms.tag.domain.Tag;
 
 import java.util.List;
 

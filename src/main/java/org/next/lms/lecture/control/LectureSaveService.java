@@ -9,14 +9,12 @@ import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

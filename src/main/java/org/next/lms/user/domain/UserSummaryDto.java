@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.lecture.domain.dto.UserGroupDto;
-import org.next.lms.user.domain.User;
 
 @Getter
 @Setter

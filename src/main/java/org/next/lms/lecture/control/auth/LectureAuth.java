@@ -3,7 +3,6 @@ package org.next.lms.lecture.control.auth;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.next.infra.auth.AuthCheck;
 import org.next.infra.auth.CRUDBasicAuthCheck;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.user.domain.User;

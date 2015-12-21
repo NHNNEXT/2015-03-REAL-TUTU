@@ -13,7 +13,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"userGroup", "contentGroup"})
 @Entity
 @Table(name = "USER_GROUP_CAN_READ_CONTENT", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"USER_GROUP_ID", "CONTENT_TYPE_ID"})
+        @UniqueConstraint(columnNames = {"USER_GROUP_ID", "CONTENT_GROUP_ID"})
 })
 public class UserGroupCanReadContent {
 
@@ -22,7 +22,7 @@ public class UserGroupCanReadContent {
     private UserGroup userGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTENT_TYPE_ID")
+    @JoinColumn(name = "CONTENT_GROUP_ID")
     private ContentGroup contentGroup;
 
     @Id

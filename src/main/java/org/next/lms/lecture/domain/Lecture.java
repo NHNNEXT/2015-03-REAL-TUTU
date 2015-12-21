@@ -2,11 +2,9 @@ package org.next.lms.lecture.domain;
 
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
-import org.next.infra.repository.TermRepository;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.like.domain.UserLikesLecture;
-import org.next.lms.term.Term;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;

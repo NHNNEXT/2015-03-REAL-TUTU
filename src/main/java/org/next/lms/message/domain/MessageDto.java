@@ -1,8 +1,6 @@
 package org.next.lms.message.domain;
 
 import lombok.Getter;
-import org.next.lms.message.domain.Message;
-import org.next.lms.message.domain.MessageType;
 
 import java.util.Date;
 
