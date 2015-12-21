@@ -1,5 +1,6 @@
 /* @ngInject */
-angular.module('clientApp').controller('authController', function ($scope, rootUser, alert, confirm, http) {
+angular.module('clientApp').controller('authController',
+  function ($scope, rootUser, alert, confirm, http, responseCode) {
   $scope.rootUser = rootUser;
 
   $scope.login = function () {
@@ -26,6 +27,10 @@ angular.module('clientApp').controller('authController', function ($scope, rootU
     confirm("비밀번호 재설정 메일을 받습니다.", "요청 이메일 : " + rootUser.email, function () {
       http.post('/api/v1/user/sendChangePwMail', {email: rootUser.email}).then(function () {
         alert.success("메일이 발송되었습니다. 확인해주세요.");
+      }, function (res) {
+        if(res.code === responseCode.Login.USER_NOT_EXIST) {
+          alert.warning("가입하지 않은 계정입니다.");
+        }
       });
     });
   };

@@ -23,6 +23,7 @@ angular.module('clientApp')
       "ALREADY_EXIST": 35
     },
     "Login": {
+      "USER_NOT_EXIST": 44,
       "WITHDRAWAL_ACCOUNT": 5,
       "WRONG_PASSWORD": 4,
       "DO_EMAIL_VERIFY_FIRST": 40,
