@@ -3,7 +3,6 @@ package org.next.lms.content.domain;
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
-import org.next.lms.content.domain.dto.ContentParameterDto;
 import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;

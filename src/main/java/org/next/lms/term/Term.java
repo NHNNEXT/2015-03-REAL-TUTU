@@ -1,13 +1,10 @@
 package org.next.lms.term;
 
 import lombok.*;
-import org.next.lms.lecture.domain.Lecture;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter

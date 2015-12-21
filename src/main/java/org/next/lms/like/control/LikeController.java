@@ -1,22 +1,17 @@
 package org.next.lms.like.control;
 
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.repository.ContentRepository;
-import org.next.infra.repository.LectureRepository;
-import org.next.infra.repository.ReplyRepository;
+import org.next.infra.repository.*;
 import org.next.infra.result.Result;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.like.domain.UserLikesReply;
-import org.next.infra.repository.UserLikesContentRepository;
-import org.next.infra.repository.UserLikesLectureRepository;
-import org.next.infra.repository.UserLikesReplyRepository;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.UserLikesContentMessage;
 import org.next.lms.message.template.UserLikesReplyMessage;
-import org.next.lms.user.domain.User;
 import org.next.lms.user.control.inject.Logged;
+import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

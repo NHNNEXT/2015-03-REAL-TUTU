@@ -5,7 +5,6 @@ import org.next.infra.util.HanGuelUtil;
 import org.next.lms.content.domain.Content;
 import org.next.lms.message.domain.MessageType;
 import org.next.lms.message.structure.ImmutableMessageTemplate;
-import org.next.lms.user.domain.User;
 
 import static org.next.infra.util.HanGuelUtil.josaWhenEllipsisApplied;
 

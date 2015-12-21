@@ -1,8 +1,8 @@
 package org.next.lms.user.control;
 
 import org.next.infra.result.Result;
-import org.next.lms.user.domain.User;
 import org.next.lms.user.control.inject.Logged;
+import org.next.lms.user.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

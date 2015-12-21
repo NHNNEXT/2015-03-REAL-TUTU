@@ -1,8 +1,6 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
-import org.next.lms.lecture.control.auth.ApprovalState;
-import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
 

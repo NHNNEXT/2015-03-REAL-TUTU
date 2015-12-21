@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.infra.auth.CRUDBasicAuthCheck;
-import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.control.ContentAuth;
 import org.next.lms.content.domain.Content;
 import org.next.lms.reply.domain.Reply;

@@ -2,7 +2,6 @@ package org.next.lms.content.control.auth;
 
 import lombok.*;
 import org.next.lms.content.domain.ContentGroup;
-import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.domain.UserGroup;
 
 import javax.persistence.*;

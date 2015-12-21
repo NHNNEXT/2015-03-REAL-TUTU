@@ -4,15 +4,8 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.Getter;
 import lombok.Setter;
 import org.next.config.AppConfig;
-import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.domain.QContent;
-
-import javax.persistence.EntityManager;
-import java.util.Date;
-import java.util.List;
-
-import static org.next.infra.util.CommonUtils.getLikeExpression;
 
 @Getter
 @Setter

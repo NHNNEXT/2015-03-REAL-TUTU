@@ -1,6 +1,5 @@
 package org.next.lms.message.template;
 
-import org.next.infra.util.CommonUtils;
 import org.next.lms.content.domain.Content;
 import org.next.lms.message.domain.MessageType;
 import org.next.lms.message.structure.MultipleEventReportMessageTemplate;

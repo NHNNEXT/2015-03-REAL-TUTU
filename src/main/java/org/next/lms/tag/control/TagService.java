@@ -1,12 +1,12 @@
 package org.next.lms.tag.control;
 
 import org.next.infra.repository.ContentRepository;
+import org.next.infra.repository.TagRepository;
 import org.next.infra.result.Result;
 import org.next.lms.content.control.ContentAuth;
 import org.next.lms.content.domain.Content;
 import org.next.lms.tag.domain.Tag;
 import org.next.lms.tag.domain.TagUpdateDto;
-import org.next.infra.repository.TagRepository;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

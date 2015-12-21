@@ -1,33 +1,30 @@
 package org.next.lms.lecture.control;
 
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.repository.*;
+import org.next.infra.repository.LectureRepository;
+import org.next.infra.repository.UserEnrolledLectureRepository;
+import org.next.infra.repository.UserHaveToSubmitRepository;
 import org.next.infra.result.Result;
-import org.next.lms.content.domain.ContentGroup;
-import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.UserEnrolledLecture;
-import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.control.auth.RegisterPolicy;
+import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.UserEnrolledLecture;
+import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.lecture.domain.dto.*;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.LectureEnrollApprovedMessage;
-import org.next.lms.message.template.LectureEnrolledMessage;
 import org.next.lms.message.template.LectureEnrollRejectMessage;
 import org.next.lms.message.template.LectureEnrollRequestMessage;
-import org.next.lms.submit.UserHaveToSubmit;
+import org.next.lms.message.template.LectureEnrolledMessage;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
