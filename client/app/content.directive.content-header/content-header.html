@@ -1,7 +1,7 @@
 <div layout="row" layout-sm="column" layout-align="start center" class="header" flex>
   <!--<div class="center-sm" style="width:50px">{{index + 1}}</div>-->
-  <div layout="column" flex ui-sref="content({id:content.id})">
-    <div layout-sm="column" class="center-sm">
+  <div layout="column" flex>
+    <div ui-sref="content({id:content.id})" layout-sm="column" class="center-sm">
       <span ng-bind="content.title"></span>
       <span class="dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'">
       마감 : {{content.endTime.fromNow()}}</span>
