@@ -21,7 +21,7 @@ import java.util.List;
 @Table(name = "Reply")
 public class Reply implements ObjectOwnerKnowable{
 
-    @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserLikesReply> userLikesReplies = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

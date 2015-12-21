@@ -31,19 +31,19 @@ public class Lecture implements ObjectOwnerKnowable{
     @JoinColumn(name = "HOST_USER_ID")
     private User hostUser;
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserLikesLecture> userLikesLectures = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserGroup> userGroups = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ContentGroup> contentGroups = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LectureNodeHasLecture> lectureNodeHasLectureList;
 
 
@@ -70,10 +70,10 @@ public class Lecture implements ObjectOwnerKnowable{
 
 
     // TODO 삭제된 상태라고 보기 어려운것 같다
-    public void setDeleteState() {
-        this.hostUser = null;
-        this.userEnrolledLectures = null;
-    }
+//    public void setDeleteState() {
+//        this.hostUser = null;
+//        this.userEnrolledLectures = null;
+//    }
 
     public void update(Lecture lecture) {
         if (lecture.name != null)

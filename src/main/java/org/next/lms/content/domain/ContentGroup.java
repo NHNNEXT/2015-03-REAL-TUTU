@@ -20,16 +20,16 @@ import java.util.List;
 @Table(name = "CONTENT_GROUP")
 public class ContentGroup {
 
-    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserGroupCanWriteContent> writable = new ArrayList<>();
 
-    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserGroupCanReadContent> readable = new ArrayList<>();
 
-    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserGroupCanReadSubmit> submitReadable = new ArrayList<>();
 
-    @OneToMany(mappedBy = "contentGroup", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contentGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

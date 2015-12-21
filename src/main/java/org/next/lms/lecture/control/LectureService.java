@@ -17,6 +17,7 @@ import org.next.lms.message.template.LectureEnrollApprovedMessage;
 import org.next.lms.message.template.LectureEnrolledMessage;
 import org.next.lms.message.template.LectureEnrollRejectMessage;
 import org.next.lms.message.template.LectureEnrollRequestMessage;
+import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 import org.slf4j.Logger;
@@ -42,6 +43,9 @@ public class LectureService {
 
     @Autowired
     private UserEnrolledLectureRepository userEnrolledLectureRepository;
+
+    @Autowired
+    private UserHaveToSubmitRepository userHaveToSubmitRepository;
 
     @Autowired
     private MessageService messageService;
@@ -150,7 +154,10 @@ public class LectureService {
 
         lectureAuthority.checkDeleteRight(lecture, user);
 
-        lecture.setDeleteState();
+//        lecture.setDeleteState();
+//        userEnrolledLectureRepository.deleteByLectureIdOrUserId(lecture.getId(), user.getId());
+        lectureRepository.delete(lecture);
+
         return success();
     }
 

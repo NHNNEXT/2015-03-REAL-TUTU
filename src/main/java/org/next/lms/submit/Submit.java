@@ -22,12 +22,12 @@ import java.util.List;
 @Table(name = "SUBMIT")
 public class Submit implements ObjectOwnerKnowable{
 
+    @OneToMany(mappedBy = "submit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UploadedFile> attachments = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_HAVE_TO_SUBMIT_ID")
     private UserHaveToSubmit userHaveToSubmit;
-
-    @OneToMany(mappedBy = "submit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UploadedFile> attachments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "WRITER_ID")
@@ -46,6 +46,7 @@ public class Submit implements ObjectOwnerKnowable{
     @Column(name = "WRITE_DATE")
     private Date writeDate;
 
+    // TODO 점검 포인트
     public void setDeleteState() {
         this.writer = null;
         this.userHaveToSubmit = null;

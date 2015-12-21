@@ -65,8 +65,12 @@ angular.module('clientApp')
           alert.warning("최소 하나의 그룹은 있어야 합니다.");
           return;
         }
+        if (this.defaultGroup === this.userGroups.indexOf(el)){
+          alert.warning("기본 그룹은 삭제할 수 없습니다.");
+          return;
+        }
         var self = this;
-        confirm("삭제하시겠습니까?", "그룹 : " + el.name, function () {
+        confirm("삭제하시겠습니까?", "그룹 : " + el.name + "<br><br> 그룹에 속한유저는 모두 기본그룹으로 옮겨집니다.", function () {
           self.userGroups.remove(el);
           if (self.userGroups[self.defaultGroup] === undefined)
             self.defaultGroup = 0;
@@ -79,7 +83,7 @@ angular.module('clientApp')
           return;
         }
         var self = this;
-        confirm("삭제하시겠습니까?", "유형 : " + el.name, function () {
+        confirm("삭제하시겠습니까?", "유형 : " + el.name + "<br><br> 그룹에 속한 컨텐츠도 모두 삭제됩니다.", function () {
           self.contentGroups.remove(el);
         });
       };
