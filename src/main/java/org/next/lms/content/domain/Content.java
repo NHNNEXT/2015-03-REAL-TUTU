@@ -53,7 +53,7 @@ public class Content implements ObjectOwnerKnowable{
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONTENT_TYPE_ID")
+    @JoinColumn(name = "CONTENT_GROUP_ID")
     private ContentGroup contentGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
