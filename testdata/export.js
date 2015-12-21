@@ -17,8 +17,8 @@ setting.then(function (map) {
     var con;
 
     con = mysql.createConnection({
-        host: "localhost",
-        database: "NEXT-LectureManager",
+        host: map.host,
+        database: map.database,
         user: map["spring.datasource.username"],
         password: map["spring.datasource.password"]
     });
