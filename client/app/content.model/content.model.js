@@ -28,9 +28,10 @@ angular.module('clientApp')
       this.title = obj.title;
       this.body = obj.body;
       this.relativeContents = obj.relativeContents;
-      this.attachments = obj.attachments.map(function(attachment){
-        return new Attachment(attachment);
-      });
+      if (obj.attachments && obj.attachments.map)
+        this.attachments = obj.attachments.map(function (attachment) {
+          return new Attachment(attachment);
+        });
       this.submitCanAttach = obj.submitCanAttach;
       this.tags = obj.tags === undefined ? [] : obj.tags;
       if (obj.writeDate)
@@ -108,7 +109,7 @@ angular.module('clientApp')
 
       return $q(function (resolve) {
         confirm("제출 대상 제외 확인", names.join("님, ") + "님이 제출 대상에서 제외됩니다.<br><br><h2>기존에 제출했던 자료가 있다면 모두 삭제됩니다.</h2> 계속 진행하시겠습니까?", function () {
-          http.put('/api/v1/content', query, true).then(function(response){
+          http.put('/api/v1/content', query, true).then(function (response) {
             resolve(response);
           });
         });

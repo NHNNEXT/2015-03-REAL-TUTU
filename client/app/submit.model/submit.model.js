@@ -12,9 +12,10 @@ angular.module('clientApp')
     Submit.prototype.setProperties = function (obj) {
       this.id = obj.id;
       this.body = obj.body;
-      this.attachments = obj.attachments.map(function(attachment){
-        return new Attachment(attachment);
-      });
+      if (obj.attachments && obj.attachments.map)
+        this.attachments = obj.attachments.map(function (attachment) {
+          return new Attachment(attachment);
+        });
       this.writeDate = new Date(obj.writeDate);
       this.writer = new User(obj.writer);
     };
