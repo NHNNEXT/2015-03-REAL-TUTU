@@ -61,7 +61,8 @@ public class ReplyService {
 
         replyAuth.checkDeleteRight(reply, user);
 
-        reply.setDeleteState();
+        replyRepository.delete(reply);
+//        reply.setDeleteState();
         return success();
     }
 

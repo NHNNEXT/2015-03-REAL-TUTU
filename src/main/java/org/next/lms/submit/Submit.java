@@ -44,12 +44,6 @@ public class Submit implements ObjectOwnerKnowable{
     @Column(name = "WRITE_DATE")
     private Date writeDate;
 
-    // TODO 점검 포인트
-    public void setDeleteState() {
-        this.writer = null;
-        this.userHaveToSubmit = null;
-    }
-
     @Override
     public User ownerOfObject() {
         return this.writer;

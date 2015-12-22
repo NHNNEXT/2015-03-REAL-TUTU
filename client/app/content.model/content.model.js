@@ -85,9 +85,31 @@ angular.module('clientApp')
 
     Content.prototype.save = function () {
       var query = this.getQuery();
+
       if (this.id === undefined)
         return http.post('/api/v1/content', query, true);
-      return http.put('/api/v1/content', query, true);
+
+      if (this.contentGroup.contentType !== 'SUBMIT')
+        return http.put('/api/v1/content', query, true);
+
+      var removed = this.submitRequiredUsers.filter(function (relation) {
+        return !query.submitRequiredUsers.includes(relation.user.id);
+      });
+
+      if (removed.length === 0)
+        return http.put('/api/v1/content', query, true);
+
+      var names = [];
+      removed.forEach(function (relation) {
+        names.push(relation.user.name);
+      });
+
+      return $q(function (resolve) {
+        confirm("제출 대상 제외 확인", names.join("님, ") + "님이 제출 대상에서 제외됩니다.<br><br><h2>기존에 제출했던 자료가 있다면 모두 삭제됩니다.</h2> 계속 진행하시겠습니까?", function () {
+          resolve();
+        });
+      });
+
     };
 
 

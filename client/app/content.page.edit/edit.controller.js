@@ -25,8 +25,10 @@ angular.module('clientApp').controller('contentEditController',
           $scope.hostUserId = writeInfo.hostUserId;
           writeInfo.users.forEach(function (user) {
             var u = new User(user);
-            u.submit = undefined !== content.submitRequiredUsers.findById(u.id);
             $scope.content.users.push(u);
+            u.submit = undefined !== content.submitRequiredUsers.find(function (submitRequiredUser) {
+                return submitRequiredUser.user.id === u.id;
+              });
           });
         });
 
@@ -34,9 +36,8 @@ angular.module('clientApp').controller('contentEditController',
     });
 
     $scope.edit = function (content) {
-      content.save().then(function (response) {
-        var id = content.id === undefined ? response.id : content.id;
-        $state.go('content', {id: id});
+      content.save().then(function () {
+        $state.go('content', {id: content.id});
       });
     };
 

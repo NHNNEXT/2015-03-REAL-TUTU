@@ -101,6 +101,7 @@ public class ContentSaveService {
         contentParameterDto.setProperties(contentFromDB);
         contentFromDB.validate();
         if (ContentType.SUBMIT.equals(contentFromDB.getContentGroup().getContentType())) {
+            removeDeletedUser(contentParameterDto, contentFromDB);
             submitUserDeclare(contentParameterDto, contentFromDB);
         }
         if (contentFromDB.getContentGroup().getAttachment()) {
@@ -148,14 +149,13 @@ public class ContentSaveService {
     }
 
 
-    private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
-        if (content.getUserHaveToSubmits() != null)
-            content.getUserHaveToSubmits().stream().forEach(userHaveToSubmit -> {
-                if (contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getId()))
-                    return;
-                userHaveToSubmitRepository.delete(userHaveToSubmit.getId());
-            });
+    private void removeDeletedUser(ContentParameterDto contentParameterDto, Content content) {
+        List<UserHaveToSubmit> userHaveToSubmits = content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> !contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getUser().getId())).collect(Collectors.toList());
+        content.getUserHaveToSubmits().removeAll(userHaveToSubmits);
+        userHaveToSubmitRepository.delete(userHaveToSubmits);
+    }
 
+    private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
         if (contentParameterDto.getSubmitRequiredUsers() != null)
             contentParameterDto.getSubmitRequiredUsers().forEach(userId -> {
                 if (content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent())

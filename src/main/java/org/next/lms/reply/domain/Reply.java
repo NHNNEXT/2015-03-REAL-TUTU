@@ -50,10 +50,10 @@ public class Reply implements ObjectOwnerKnowable{
         this.body = reply.body;
     }
 
-    public void setDeleteState() {
-        this.writer = null;
-        this.content = null;
-    }
+//    public void setDeleteState() {
+//        this.writer = null;
+//        this.content = null;
+//    }
 
     @Override
     public User ownerOfObject() {
