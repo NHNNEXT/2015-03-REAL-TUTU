@@ -16,7 +16,7 @@ public class ResponseCode {
 
     public static final class Register {
         public static final Integer ALREADY_EXIST_EMAIL = 2;
-        public static final Integer EMAIL_VERIFY_TIMEOUT = 41;
+//        public static final Integer EMAIL_VERIFY_TIMEOUT = 41;
     }
     public static final class Login {
         public static final Integer DO_EMAIL_VERIFY_FIRST = 40;

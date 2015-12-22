@@ -3,20 +3,16 @@ package org.next.lms.user.control;
 import org.next.infra.exception.WrongAccessException;
 import org.next.infra.mail.Mail;
 import org.next.infra.mail.MailAuth;
-import org.next.infra.mail.template.ChangePasswordMail;
-import org.next.infra.repository.MailAuthRepository;
 import org.next.infra.mail.MailService;
+import org.next.infra.mail.template.ChangePasswordMail;
 import org.next.infra.mail.template.JoinMailVerifyTemplate;
 import org.next.infra.reponse.ResponseCode;
+import org.next.infra.repository.MailAuthRepository;
+import org.next.infra.repository.UserRepository;
 import org.next.infra.result.Result;
 import org.next.infra.util.EnvUtils;
-import org.next.lms.user.domain.User;
-import org.next.lms.user.domain.UserDto;
-import org.next.lms.user.domain.UserPageDto;
-import org.next.lms.user.domain.UserSummaryDto;
 import org.next.lms.user.control.inject.LoggedUserInjector;
-import org.next.infra.repository.UserRepository;
-import org.next.lms.user.domain.AccountState;
+import org.next.lms.user.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,13 +89,17 @@ public class UserService {
         return success(new UserDto(dbUser));
     }
 
+    // TODO 여기 버그있음 -> Mail Auth 중복 저장 문제
     public Result register(User user) {
         User dbUser = userRepository.findByEmail(user.getEmail());
         if (dbUser != null) {
             if (AccountState.WAIT_FOR_EMAIL_APPROVAL.equals(dbUser.getState())) {
-                return new Result(ResponseCode.Login.DO_EMAIL_VERIFY_FIRST);
+                dbUser.setPassword(user.getPassword());
+                dbUser.encryptPassword(passwordEncoder);
+                dbUser.update(user);
+            } else {
+                return new Result(ResponseCode.Register.ALREADY_EXIST_EMAIL);
             }
-            return new Result(ResponseCode.Register.ALREADY_EXIST_EMAIL);
         }
 
         user.encryptPassword(passwordEncoder);
@@ -135,24 +135,45 @@ public class UserService {
         return success(result);
     }
 
-    public Result verifyMail(String key) {
+    public String verifyMail(String key) {
         MailAuth mailAuth = mailAuthRepository.findByKey(key);
         if (mailAuth == null) {
             throw new WrongAccessException();
         }
 
         if (!isFuture(now(), mailAuth.getExpiredTime())) {
-            return new Result(ResponseCode.Register.EMAIL_VERIFY_TIMEOUT);
+            return emailVerifyTimeOutMessageString();
+            // return new Result(ResponseCode.Register.EMAIL_VERIFY_TIMEOUT);
         }
 
         if (mailAuth.getKey().equals(key)) {
             User user = userRepository.findByEmail(mailAuth.getEmail());
             user.setState(AccountState.ACTIVE);
             mailAuthRepository.delete(mailAuth);
-            return success("메일 인증 성공");
+            return emailVerifySuccessMessageString();
+            // return success("메일 인증 성공");
         } else {
             throw new WrongAccessException();
         }
+    }
+
+    // TODO 이야 이건 반드시 클라이언트쪽에서 처리하게 바꾸어야 한다
+    private String emailVerifySuccessMessageString() {
+        return "<h1>메일 인증에 성공하였습니다.</h1>" +
+                "<h3>잠시후 메인화면으로 이동합니다.</h3>" + redirectScript();
+    }
+
+    private String emailVerifyTimeOutMessageString() {
+         return "<h1>메일인증시간이초과하였습니다. 재발송 기능을 이용하세요</h1>" +
+                 "<h3>잠시후 메인화면으로 이동합니다</h3>" + redirectScript();
+    }
+
+    private String redirectScript() {
+        return "<script>" +
+                "setTimeout(function() {\n" +
+                "    location.href='" + environment.getProperty("SERVICE_DOMAIN") + "';\n" +
+                "}, 5000);" +
+                "</script>" ;
     }
 
     /**
