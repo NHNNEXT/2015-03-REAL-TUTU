@@ -1,6 +1,6 @@
 angular
   .module('clientApp')
-  .controller('editLectureController',
+  .controller('editorLectureController',
     /* @ngInject */
     function EditLectureController($scope, Lecture, rootUser, alert, $state, types, $stateParams) {
 

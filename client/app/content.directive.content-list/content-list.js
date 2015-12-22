@@ -1,57 +1,63 @@
 angular.module('clientApp')
+  .filter('contentGroup', function () {
+    return function (contents, groupName) {
+      if (!contents)
+        return;
+      if (!groupName)
+        return contents;
+      var result = [];
+      contents.forEach(function (content) {
+        if (content.contentGroup.name !== groupName)
+          return;
+        result.push(content);
+      });
+      return result;
+    };
+  })
+  .controller('contentListController',function() {
+    return function ($scope) {
+
+      $scope.select = {};
+
+      $scope.tagClick = function (tag) {
+        $scope.keyword = tag;
+        $scope.searching = true;
+      };
+
+      $scope.getIcon = function () {
+        if ($scope.searching)
+          return "/resource/icon/ic_close.svg";
+        return "/resource/icon/search.svg";
+      };
+
+      $scope.toggleSearching = function () {
+        if ($scope.searching) {
+          $scope.searching = false;
+          $scope.keyword = "";
+          return;
+        }
+        $scope.searching = true;
+      };
+
+      $scope.contentGroups = {};
+      $scope.$watch('contents', function (contents) {
+        if (!contents)
+          return;
+        contents.forEach(function (content) {
+          $scope.contentGroups[content.contentGroup.name] = content.contentGroup;
+          content.contentGroup.select = true;
+        });
+      });
+    };
+  })
   .directive('contentList', function () {
     return {
       restrict: 'E',
       scope: {
-        query: '='
+        contents: '=',
+        keyword: '='
       },
       templateUrl: '/content.directive.content-list/content-list.html',
-      controller: function ($scope, Content, Loading, $stateParams) {
-
-        var pageSize = 10;
-
-        if (!$scope.query) {
-          $scope.query = {
-            contentGroupName: $stateParams.contentGroupName,
-            lectureId: $stateParams.id
-          };
-        }
-
-        $scope.pageRequest = function (page) {
-          getContents($scope.query, page);
-        };
-
-        $scope.$watch('query', function (query) {
-          if (query === undefined)
-            return;
-          if (angular.equals(query, {}))
-            return;
-          getContents(query);
-          Content.getListSize(query).then(function (size) {
-            definePages(size);
-          });
-        }, true);
-
-        function definePages(size) {
-          $scope.pages = [];
-          for (var i = 0; i < size; i += pageSize) {
-            $scope.pages.push(i);
-          }
-        }
-
-        function getContents(query, page) {
-          Loading.start();
-          var q = {};
-          angular.copy(query, q);
-          if (!page)
-            page = 0;
-          $scope.page = page;
-          q.page = page;
-          Content.getList(q).then(function (contents) {
-            Loading.end();
-            $scope.contents = contents;
-          });
-        }
-      }
+      controller: "contentListController"
     };
   });

@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .controller('menuController',
+  .controller('editorMenuController',
     /* @ngInject */
     function ($scope, rootUser, $mdSidenav, $state, Message) {
 

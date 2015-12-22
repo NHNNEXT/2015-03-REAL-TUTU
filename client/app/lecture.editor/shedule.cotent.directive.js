@@ -1,3 +1,13 @@
-/**
- * Created by itmnext13 on 2015. 12. 22..
- */
+
+angular.module('clientApp')
+  .directive('scheduleContentList', function () {
+    return {
+      restrict: 'E',
+      scope: {
+        contents: '=',
+        keyword: '='
+      },
+      templateUrl: '/lecture.editor/schedule-content-list.html',
+      controller: "contentListController"
+    };
+  });
