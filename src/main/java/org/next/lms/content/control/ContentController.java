@@ -1,6 +1,7 @@
 package org.next.lms.content.control;
 
 import org.next.infra.result.Result;
+import org.next.lms.content.dao.ComingScheduleDao;
 import org.next.lms.content.dao.ContentDurationDao;
 import org.next.lms.content.dao.ContentLimitDao;
 import org.next.lms.content.dao.MyListDao;
@@ -34,6 +35,11 @@ public class ContentController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result getContentList(ContentLimitDao contentLimitDao) {
         return contentService.getList(contentLimitDao);
+    }
+
+    @RequestMapping(value = "/list/coming", method = RequestMethod.GET)
+    public Result getCommingContentList(ComingScheduleDao dao, @Logged User user) {
+        return contentService.getList(dao, user);
     }
 
     @RequestMapping(value = "/list/duration", method = RequestMethod.GET)

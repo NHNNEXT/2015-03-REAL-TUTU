@@ -38,8 +38,5 @@ public class ContentParameterDto {
         content.setWriteDate(new Date());
         content.setStartTime(startTime);
         content.setEndTime(endTime);
-        if(!ContentType.NOTICE.equals(content.getContentGroup().getContentType())) //[TODO 체크]
-            return;
-        content.setStartTime(content.getWriteDate());
     }
 }

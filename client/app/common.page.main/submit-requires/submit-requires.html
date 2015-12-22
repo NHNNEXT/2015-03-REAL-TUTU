@@ -1,5 +1,5 @@
 <md-list class="holder" flex>
-  <md-subheader class="md-no-sticky">제출 ({{doneCount(submitRequires)}}/{{submitRequires.length}})</md-subheader>
+  <md-subheader class="md-no-sticky">제출해야 할 것 ({{doneCount(submitRequires)}}/{{submitRequires.length}})</md-subheader>
   <div ng-show="submitRequires.length!==0">
     <md-progress-linear md-mode="determinate" value="{{doneCount(submitRequires)/submitRequires.length*100}}"></md-progress-linear>
   </div>

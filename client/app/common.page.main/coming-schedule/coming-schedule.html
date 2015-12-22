@@ -1,0 +1,11 @@
+<md-subheader>임박한 일정</md-subheader>
+<div class="event" ng-style="style($index)" ng-repeat="content in contents">
+  <div ui-sref="content({id:content.id})">{{content.title}}</div>
+  <div class="info"><span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span> : <span ui-sref="profile({id:content.writer.id})">by {{content.writer.name}}</span>
+  </div>
+  <div class="time">
+    {{content.startTime.range(content.endTime)}} {{content.startTime.fromNow()}}
+    <div ng-show="content.startTime < now" class="red">현재 진행중</div>
+  </div>
+</div>
+<div style="font-size:20px;" ng-show="more" ng-click="getMore()">더보기</div>
