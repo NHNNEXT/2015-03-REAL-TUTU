@@ -1,10 +1,9 @@
 <h5>첨부파일</h5>
-{{ctrl.editorId}}
 <div ng-repeat="attachment in ctrl.attachments" class="file">
   <i class="fa fa-times" ng-click="ctrl.delete(attachment, ctrl.attachments)" ng-if="!ctrl.readonly"></i>
   <img ng-src="{{ctrl.getIcon(attachment.ext)}}" ng-click="ctrl.download(attachment)">
   <div class="detail">
-    <small ng-click="ctrl.makePreview(attachment)" ng-if="!ctrl.readonly && ctrl.editorId">미리보기삽입</small>
+    <small ng-click="ctrl.makePreview(attachment)" ng-if="!ctrl.readonly && ctrl.editorId && ctrl.previewAble(attachment.ext)" class="margin-bottom-s">미리보기삽입</small>
     <span ng-click="ctrl.download(attachment)">{{attachment.originalFileName}}</span>
   </div>
 
