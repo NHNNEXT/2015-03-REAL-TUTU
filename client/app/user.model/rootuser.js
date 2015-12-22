@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm, $rootScope) {
+  .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm, $rootScope, $state) {
     this.email = "test1@test.com";
     this.password = "password";
     getSessionUser();
@@ -89,7 +89,7 @@ angular.module('clientApp')
           delete self.phoneNumber;
           delete self.major;
           delete self.lectures;
-          $rootScope.$broadcast('userStateChange');
+          $state.go('loginneed');
           dialog.login();
         });
       });

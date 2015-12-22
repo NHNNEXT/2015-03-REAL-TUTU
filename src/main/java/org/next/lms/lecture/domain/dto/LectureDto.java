@@ -5,12 +5,15 @@ import org.next.lms.content.domain.dto.ContentGroupDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.term.TermDto;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Getter
@@ -37,15 +40,22 @@ public class LectureDto {
         this.majorType = lecture.getMajorType();
         this.registerPolicy = lecture.getRegisterPolicy();
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
-        this.contents = lecture.getContents().stream()
-                .filter(content -> content.getContentGroup().getReadable()
-                        .stream().filter(userGroupCanReadContent ->
-                                userGroupCanReadContent.getUserGroup().getUserEnrolledLectures().stream()
-                                        .filter(userEnrolledLecture -> ApprovalState.OK.equals(userEnrolledLecture.getApprovalState()))
-                                        .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)
-                                        ).findAny().isPresent()
-                        ).findAny().isPresent())
-                .map(ContentSummaryDto::new).collect(Collectors.toList());
+
+        if (user.equals(lecture.getHostUser()))
+            this.contents = lecture.getContents().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
+        else {
+            this.contents = new ArrayList<>();
+            try {
+                UserGroup userGroup = lecture.getUserGroups().stream()
+                        .filter(group -> group.getUserEnrolledLectures().stream()
+                                .filter(userEnrolledLecture1 -> userEnrolledLecture1.getUser().equals(user) && ApprovalState.OK.equals(userEnrolledLecture1.getApprovalState())).findAny().isPresent())
+                        .findAny().get();
+                userGroup.getReadable()
+                        .forEach(userGroupCanReadContent -> userGroupCanReadContent.getContentGroup().getContents()
+                                .forEach(content -> this.contents.add(new ContentSummaryDto(content))));
+            } catch (NoSuchElementException ignored) {
+            }
+        }
         this.likes = lecture.getUserLikesLectures().stream().map(UserLikesLecture::getId).collect(Collectors.toList());
         this.contentGroups = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
         this.users = lecture.getUserEnrolledLectures().stream()
