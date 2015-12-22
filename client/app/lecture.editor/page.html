@@ -1,0 +1,37 @@
+<section>
+  <md-tabs md-dynamic-height md-border-bottom>
+    <md-tab label=" 기본정보 ">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.edit/part/default.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label=" 게시물 유형 ">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.edit/part/contentGroup.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label=" 사용자 그룹 ">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.edit/part/userGroup.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label=" 권한 관리 ">
+      <md-content class="md-padding">
+        <ng-include src="'/lecture.page.edit/part/right.html'"></ng-include>
+      </md-content>
+    </md-tab>
+    <md-tab label=" 폐강 " ng-if="lecture.id">
+      <md-content class="md-padding">
+          <md-button class="md-raised md-warn" ng-click="lecture.remove()">강의 닫기</md-button>
+      </md-content>
+    </md-tab>
+    <!-- to resolve last tab disappeared bug -->
+    <md-tab ng-disabled="true"><md-tab-label>&nbsp;</md-tab-label></md-tab>
+  </md-tabs>
+
+
+  <div layout="row">
+    <md-button class="md-raised" aria-label="save" flex ng-click="save(lecture)">저장하기</md-button>
+    <md-button class="md-raised" aria-label="cancel" flex ng-click="cancel()">취소</md-button>
+  </div>
+</section>
