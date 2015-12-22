@@ -59,7 +59,6 @@ angular
         }
       };
 
-
       $scope.cancel = cancel;
       $scope.save = save;
       $scope.rootUser = rootUser;

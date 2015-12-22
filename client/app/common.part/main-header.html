@@ -1,18 +1,22 @@
-<md-toolbar class="header" ng-controller="headerController">
-  <div layout="row" layout-align="center">
-    <div flex layout="row" layout-align="space-between center">
-      <div layout="row" layout-align="start center">
-        <md-button hide-gt-md class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
-          <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
-        </md-button>
-        <div hide show-gt-md class="logo" ui-sref="main">NEXUS</div>
-        <div ng-click="state.current.headerClick()">{{state.current.header}}</div>
+<div ng-controller="headerController" class ="animate-switch">
+  <div md-theme={{mode}}>
+    <md-toolbar class="header">
+      <div layout="row" layout-align="center">
+        <div flex layout="row" layout-align="space-between center">
+          <div layout="row" layout-align="start center">
+            <md-button hide-gt-md class="md-icon-button" aria-label="side nav tooggle" ng-click="toggleLeft()">
+              <md-icon md-svg-icon="/resource/icon/menu.svg"></md-icon>
+            </md-button>
+            <div hide show-gt-md class="logo" ui-sref="main">NEXUS</div>
+            <div ng-click="state.current.headerClick()">{{state.current.header}}</div>
+          </div>
+          <div layout="row" layout-align="end center">
+            <search-in-my-lectures hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures>
+            <messages hide-sm ng-show="rootUser.isLogged()"></messages>
+            <root-user hide-sm ng-show="rootUser.isLogged()"></root-user>
+          </div>
+        </div>
       </div>
-      <div layout="row" layout-align="end center">
-        <search-in-my-lectures hide-sm ng-show="rootUser.isLogged()"></search-in-my-lectures>
-        <messages hide-sm ng-show="rootUser.isLogged()"></messages>
-        <root-user hide-sm ng-show="rootUser.isLogged()"></root-user>
-      </div>
-    </div>
+    </md-toolbar>
   </div>
-</md-toolbar>
+</div>

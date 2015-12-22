@@ -18,6 +18,7 @@
       if ($state.current.exitConfirm)
         return "이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.";
     });
+    $rootScope.dynamicTheme = "default";
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState) {
         $state.current = toState;
@@ -59,8 +60,14 @@
     });
     $httpProvider.interceptors.push('httpInterceptor');
     $mdThemingProvider.theme('default');
-    //.primaryPalette('pink')
-    //.accentPalette('orange');
+    $mdThemingProvider.theme('editor')
+      .primaryPalette('brown')
+      .accentPalette('pink')
+      .warnPalette('red')
+      .backgroundPalette('grey');
+
+    $mdThemingProvider.alwaysWatchTheme(true);
+
   });
 }());
 

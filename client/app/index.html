@@ -49,6 +49,7 @@
   <link href="/content.page.detail/detail.css" rel="stylesheet" type="text/css">
   <link href="/lecture.directive.lecture-node/lecture-node.css" rel="stylesheet" type="text/css">
   <link href="/lecture.directive.lecture-summary/lecture-summary.css" rel="stylesheet" type="text/css">
+  <link href="/lecture.editor/editor-sidenav.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
   <link href="/message.directive.messages/messages.css" rel="stylesheet" type="text/css">
@@ -110,7 +111,8 @@
     <div layout="row" flex>
       <md-sidenav md-is-locked-open="$mdMedia('gt-md')" class="md-whiteframe-z2" md-component-id="left"
                   ng-cloak>
-        <ng-include src="'/common.part/main-sidenav.html'"></ng-include>
+        <nx-side-nav></nx-side-nav>
+        <!--<ng-include src="'/common.part/main-sidenav.html'"></ng-include>-->
       </md-sidenav>
       <div class="layout-overlay" layout="row" flex>
         <div flex layout="row">
@@ -185,6 +187,7 @@
 <script src="/common.page.notfound/notfound.route.js"></script>
 <script src="/common.part/headerController.js"></script>
 <script src="/common.part/menuController.js"></script>
+<script src="/common.part/nxHeader.directive.js"></script>
 <script src="/common.query.service/query.service.js"></script>
 <script src="/common.service.emoticon/emoticon.js"></script>
 <script src="/common.service.mainButler/mainButler.js"></script>
@@ -222,6 +225,10 @@
 <script src="/lecture.directive.lecture-node/lecture-node.model.js"></script>
 <script src="/lecture.directive.lecture-node/recursion-helper.js"></script>
 <script src="/lecture.directive.lecture-summary/lecture-summary.js"></script>
+<script src="/lecture.editor/editor.controller.js"></script>
+<script src="/lecture.editor/editormenuController.js"></script>
+<script src="/lecture.editor/nxSideNav.directive.js"></script>
+<script src="/lecture.editor/shedule.content.directive.js"></script>
 <script src="/lecture.model/lecture.model.js"></script>
 <script src="/lecture.page.detail/lecture.controller.js"></script>
 <script src="/lecture.page.detail/lecture.route.js"></script>

@@ -1,8 +1,52 @@
-<div ng-controller="editorMenuController">
-  <md-toolbar hide-gt-md class="md-theme-indigo">
-    <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
-  </md-toolbar>
-  <md-content>
-   <schedule-content-list contents="contents"></schedule-content-list>
-  </md-content>
+<div md-theme={{mode}}  md-theme-watch>
+  <div ng-switch on="mode">
+    <h1 ng-click="reload()">  state reload</h1>
+    <div class="animate-switch" ng-switch-default>
+      <md-toolbar hide-gt-md class="md-theme-indigo">
+        <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS</h1>
+      </md-toolbar>
+      <md-content>
+        <ul ng-show="rootUser.isLogged()">
+          <li ui-sref="lectures" ng-click="close()">
+            전체 강의
+          </li>
+          <li ui-sref="mylectures" ng-click="close()">내 강의</li>
+          <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
+              ui-sref="lecture({id:lecture.id})" ng-click="close()">
+            {{lecture.name}}
+          </li>
+        </ul>
+        <ul hide-gt-sm ng-show="rootUser.isLogged()">
+          <li ui-sref="mylectures" ng-click="close()">
+            <search-in-my-lectures style="width: 260px;display: block;"></search-in-my-lectures>
+          </li>
+          <li ui-sref="messages" ng-click="close()">
+            소식 <span class="red" ng-show="Message.new">{{Message.new}}</span>
+          </li>
+          <li ui-sref="profile({id:rootUser.id})" ng-click="close()">내 정보</li>
+          <li dialog="report">의견, 버그제보</li>
+          <li ng-click="rootUser.logout()">로그아웃</li>
+        </ul>
+        <ul ng-show="!rootUser.isLogged()">
+          <li dialog="login">로그인</li>
+          <li dialog="register">회원가입</li>
+          <li dialog="report" hide-gt-sm>의견, 버그제보</li>
+        </ul>
+        <ul hide-gt-md>
+          <li ng-click="close()">닫기</li>
+        </ul>
+      </md-content>
+    </div>
+    <div class="animate-switch" ng-switch-when="editor">
+      <md-toolbar hide-gt-md class="md-theme-amber">
+        <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS Editor</h1>
+      </md-toolbar>
+    </div>
+    <md-content>
+      <ul>
+        <schedule-content-list contents="contents"></schedule-content-list>
+      </ul>
+    </md-content>
+  </div>
 </div>
+
