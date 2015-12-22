@@ -25,8 +25,10 @@ angular.module('clientApp').controller('contentEditController',
           $scope.hostUserId = writeInfo.hostUserId;
           writeInfo.users.forEach(function (user) {
             var u = new User(user);
-            u.submit = undefined !== content.submitRequiredUsers.findById(u.id);
             $scope.content.users.push(u);
+            u.submit = undefined !== content.submitRequiredUsers.find(function (submitRequiredUser) {
+                return submitRequiredUser.user.id === u.id;
+              });
           });
         });
 
