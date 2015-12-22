@@ -8,15 +8,15 @@ angular.module('clientApp').directive('attachments',
       controllerAs: 'ctrl',
       scope: {
         attachments: '=',
-        readonly: '='
+        readonly: '=',
+        editorId: '@'
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
-
-        this.getIcon = function (filename) {
-          if (!filename)
+        this.getIcon = function (extension) {
+          if (!extension)
             return;
           var iconPath = "/resource/icon/";
-          switch (filename.split('.').pop()) {
+          switch (extension) {
             case "mp3":
               return iconPath + "music.svg";
             case "wma":
@@ -64,6 +64,25 @@ angular.module('clientApp').directive('attachments',
         var self = this;
         this.tmps = [];
 
+        var serverUrl = "http://begin.at";
+
+        this.previewAble = function (extention) {
+          var able = ["pdf", "pptx", "ppt", "xls", "xlsx", "doc", "docx"];
+          return able.includes(extention);
+        };
+
+        this.makePreview = function (attachment) {
+          if (!self.editorId)
+            return;
+          confirm("미리보기를 삽입합니다.", "파일명 : " + attachment.originalFileName, function () {
+            $('#' + self.editorId).froalaEditor('video.insert',
+              "<iframe src='http://docs.google.com/gview?url=" +
+              serverUrl + attachment.originalFileName +
+              "&embedded=true' frameborder='0'></iframe>"
+            );
+          });
+        };
+
         $scope.$watch(function () {
           return self.files;
         }, function (files) {
@@ -78,7 +97,8 @@ angular.module('clientApp').directive('attachments',
             }).then(function (resp) {
               if (!self.attachments)
                 self.attachments = [];
-              self.attachments.push(new Attachment(resp.data.result));
+              var attachment = new Attachment(resp.data.result);
+              self.attachments.push(attachment);
               self.tmps.remove(file);
             }, function () {
               alert.error("업로드 실패 했습니다.");
