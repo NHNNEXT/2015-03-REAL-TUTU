@@ -30,6 +30,7 @@ public class ChangePasswordMail implements MailTemplate {
                     "<input name='newPassword' type='password' style='border:3px solid #eee; width:500px; height:30px; font-size: 20px; padding: 5px 10px' placeholder='새로운 비밀번호를 입력해 주세요'>"+
                     "<input name='key' type='hidden' value='" + uuid +"'>" +
                     "<input name='email' type='hidden' value='" +requestUserMail + "'>"+
+                    "<button style='width:80px; height:46px; padding:5px 10px; border:3px solid #eee; font-size:15px; border-left:0px;background-color:#eee' type='submit'>변경하기</button>"+
                 "</form>"+
                 "<br><br>"+
                 "<strong>"+
