@@ -12,11 +12,11 @@ angular.module('clientApp').directive('attachments',
         editorId: '@'
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
-        this.getIcon = function (extension) {
-          if (!extension)
+        this.getIcon = function (ext) {
+          if (!ext)
             return;
           var iconPath = "/resource/icon/";
-          switch (extension) {
+          switch (ext) {
             case "mp3":
               return iconPath + "music.svg";
             case "wma":
@@ -66,9 +66,9 @@ angular.module('clientApp').directive('attachments',
 
         var serverUrl = "http://begin.at";
 
-        this.previewAble = function (extention) {
-          var able = ["pdf", "pptx", "ppt", "xls", "xlsx", "doc", "docx"];
-          return able.includes(extention);
+        this.previewAble = function (ext) {
+          console.log(ext);
+          return ["pdf", "pptx", "ppt", "xls", "xlsx", "doc", "docx"].includes(ext);
         };
 
         this.makePreview = function (attachment) {

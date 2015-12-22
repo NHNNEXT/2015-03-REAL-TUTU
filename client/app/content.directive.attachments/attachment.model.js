@@ -14,7 +14,7 @@ angular.module('clientApp')
       this.originalFileName = obj.originalFileName;
       this.downloadUrl = obj.downloadUrl;
       this.uploadTime = new Date(obj.uploadTime);
-      this.extension = obj.originalFileName.split('.').pop;
+      this.ext = obj.originalFileName.split('.').pop();
 
     };
 
