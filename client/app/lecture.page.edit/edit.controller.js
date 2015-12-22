@@ -15,9 +15,6 @@ angular
         }
         Lecture.findById(id).then(function (fromDB) {
           lecture = $scope.lecture = fromDB;
-          //lecture.userGroups.forEach(function (userGroup) {
-          //  $scope.select.push(userGroup.defaultGroup);
-          //});
         });
       });
 
@@ -96,6 +93,12 @@ angular
 
       function save(lecture) {
         lecture.save().then(function (id) {
+          if (!lecture.id) {
+            lecture.id = id;
+            lecture.sideMenu = true;
+            rootUser.lectures.push(lecture);
+            rootUser.hostingLectures.push(lecture);
+          }
           $state.go('lecture', {id: id});
         });
       }

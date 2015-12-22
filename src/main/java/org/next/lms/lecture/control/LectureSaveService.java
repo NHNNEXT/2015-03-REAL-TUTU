@@ -9,6 +9,7 @@ import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.control.auth.LectureAuth;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,11 @@ public class LectureSaveService {
         lecture.getUserGroups().forEach(userGroup -> userGroup.setLecture(lecture));
         lectureRepository.save(lecture);
         setAuthorities(lecture);
-        lectureService.enrollLecture(user, lecture).setApprovalState(ApprovalState.OK);
+
+        UserEnrolledLecture userEnrolledLecture = lectureService.enrollLecture(user, lecture);
+        userEnrolledLecture.setApprovalState(ApprovalState.OK);
+        userEnrolledLecture.setSideMenu(true);
+
         return success(lecture.getId());
     }
 
