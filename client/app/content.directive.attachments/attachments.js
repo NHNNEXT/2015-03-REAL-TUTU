@@ -77,7 +77,7 @@ angular.module('clientApp').directive('attachments',
           confirm("미리보기를 삽입합니다.", "파일명 : " + attachment.originalFileName, function () {
             $('#' + self.editorId).froalaEditor('video.insert',
               "<iframe src='http://docs.google.com/gview?url=" +
-              serverUrl + attachment.originalFileName +
+              serverUrl + attachment.downloadUrl +
               "&embedded=true' frameborder='0'></iframe>"
             );
           });
