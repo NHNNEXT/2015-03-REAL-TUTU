@@ -86,8 +86,7 @@ public class SubmitService {
         Submit submit = assureNotNull(submitRepository.findOne(id));
 
         submitAuth.checkDeleteRight(submit, user);
-
-        submit.setDeleteState();
+        submitRepository.delete(submit);
         return success();
     }
 
