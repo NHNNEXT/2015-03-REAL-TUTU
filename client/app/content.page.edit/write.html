@@ -67,9 +67,9 @@
     </md-data-table-container>
   </div>
 
-  <div froala ng-model="content.body"></div>
+  <div froala id="editor" ng-model="content.body"></div>
 
-  <attachments ng-show="content.contentGroup.attachment" attachments="content.attachments" readonly="false"
+  <attachments edtior-id="editor" ng-show="content.contentGroup.attachment" attachments="content.attachments" readonly="false"
                class="margin-bottom"></attachments>
 
   <md-input-container>

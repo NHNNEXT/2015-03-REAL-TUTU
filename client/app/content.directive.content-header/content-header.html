@@ -1,8 +1,8 @@
-<div layout="row" layout-sm="column" layout-align="start center" class="header" flex>
+<div layout="row" layout-sm="column"  class="header" flex>
   <!--<div class="center-sm" style="width:50px">{{index + 1}}</div>-->
   <div layout="column" flex>
-    <div ui-sref="content({id:content.id})" layout-sm="column" class="center-sm">
-      <span ng-bind="content.title"></span>
+    <div ui-sref="content({id:content.id})" layout-sm="column">
+      <span class="margin-right" ng-bind="content.title"></span>
       <span class="dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'">
       마감 : {{content.endTime.fromNow()}}</span>
       <span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
@@ -12,7 +12,7 @@
       <span ng-repeat="tag in content.tags | limitTo : 5" ng-click="tagClick(tag)">{{tag}}</span>
     </div>
   </div>
-  <div layout-align="center center" class="icons">
+  <div class="icons">
     <span>{{content.contentGroup.name}}</span>
     <span class="dot"></span>
     <span>By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span></span>
