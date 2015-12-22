@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Content', function (http, $sce, $q, $state, confirm, ContentGroup) {
+  .factory('Content', function (http, $sce, $q, $state, confirm, ContentGroup, Attachment) {
     function Content(param) {
       if (param === undefined || param === null)
         return;
@@ -28,7 +28,9 @@ angular.module('clientApp')
       this.title = obj.title;
       this.body = obj.body;
       this.relativeContents = obj.relativeContents;
-      this.attachments = obj.attachments;
+      this.attachments = obj.attachments.map(function(attachment){
+        return new Attachment(attachment);
+      });
       this.submitCanAttach = obj.submitCanAttach;
       this.tags = obj.tags === undefined ? [] : obj.tags;
       if (obj.writeDate)
