@@ -36,9 +36,8 @@ angular.module('clientApp').controller('contentEditController',
     });
 
     $scope.edit = function (content) {
-      content.save().then(function (response) {
-        var id = content.id === undefined ? response.id : content.id;
-        $state.go('content', {id: id});
+      content.save().then(function () {
+        $state.go('content', {id: content.id});
       });
     };
 
