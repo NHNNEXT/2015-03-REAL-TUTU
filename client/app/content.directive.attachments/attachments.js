@@ -12,11 +12,11 @@ angular.module('clientApp').directive('attachments',
       }, controller: function (Upload, $scope, alert, Attachment, $window, confirm) {
         this.progress = 0;
 
-        this.getIcon = function (filename) {
-          if (!filename)
+        this.getIcon = function (ext) {
+          if (!ext)
             return;
           var iconPath = "/resource/icon/";
-          switch (filename.split('.').pop()) {
+          switch (ext) {
             case "mp3":
               return iconPath + "music.svg";
             case "wma":

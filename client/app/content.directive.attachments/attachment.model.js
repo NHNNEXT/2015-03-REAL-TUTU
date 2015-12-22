@@ -12,6 +12,7 @@ angular.module('clientApp')
     Attachment.prototype.setProperties = function (obj) {
       this.id = obj.id;
       this.originalFileName = obj.originalFileName;
+      this.ext = this.originalFileName.split('.').pop();
       this.downloadUrl = obj.downloadUrl;
       this.uploadTime = new Date(obj.uploadTime);
     };

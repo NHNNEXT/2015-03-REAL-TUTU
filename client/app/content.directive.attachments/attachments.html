@@ -1,12 +1,12 @@
 <h5>첨부파일</h5>
 <div ng-repeat="attachment in ctrl.attachments" class="file">
   <i class="fa fa-times" ng-click="ctrl.delete(attachment, ctrl.attachments)" ng-if="!ctrl.readonly"></i>
-  <img ng-src="{{ctrl.getIcon(attachment.originalFileName)}}" ng-click="ctrl.download(attachment)">
+  <img ng-src="{{ctrl.getIcon(attachment.ext)}}" ng-click="ctrl.download(attachment)">
 
   <div ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</div>
 </div>
 <div ng-repeat="tmp in ctrl.tmps" class="file">
-  <img ng-src="{{ctrl.getIcon(tmp.name)}}">
+  <img ng-src="/resource/icon/file.svg">
 
   <p class="detail">{{tmp.name}}</p>
   <md-progress-linear md-mode="determinate" ng-value="tmp.progress"></md-progress-linear>
