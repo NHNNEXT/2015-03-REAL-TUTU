@@ -1,6 +1,9 @@
 <section>
   <div layout="row">
     <div flex>
+      <div class="info">
+        <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span> > {{content.contentGroup.name}}
+      </div>
       <div layout="row">
         <h2>
           <span ng-bind="content.title"></span>
@@ -9,7 +12,6 @@
             <span ng-click="content.remove()">삭제</span>
           </small>
         </h2>
-
       </div>
       <div layout="row" class="info">
         {{content.contentGroup.name}}
@@ -27,8 +29,8 @@
 
 
       <div class="margin-top-s">
-        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'">마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
-        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">일정 : {{content.startTime.range(content.endTime)}}</span>
+        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'"> <i class="fa fa-check"></i> 마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
+        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'"> <i class="fa fa-clock-o"></i> 일정 : {{content.startTime.range(content.endTime)}}</span>
       </div>
     </div>
     <div hide-sm flex layout="row" layout-align-gt-sm="end center" layout-align="center center">
