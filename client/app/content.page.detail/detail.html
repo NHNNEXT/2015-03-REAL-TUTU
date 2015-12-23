@@ -29,7 +29,7 @@
 
 
       <div class="margin-top-s">
-        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'"> <i class="fa fa-check"></i> 마감 : {{content.endTime.toYMD()}} ({{content.endTime.fromNow()}})</span>
+        <span class="info dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'"> <i class="fa fa-check"></i> 마감 : {{content.endTime.getDateTime()}} ({{content.endTime.fromNow()}})</span>
         <span class="info dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'"> <i class="fa fa-clock-o"></i> 일정 : {{content.startTime.range(content.endTime)}}</span>
       </div>
     </div>

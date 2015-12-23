@@ -2,11 +2,11 @@
   <span class="title" ui-sref="content({id:content.id})" flex>
     {{content.title}}
     <span class="margin-left">
-      <small ng-if="content.contentGroup.contentType==='SUBMIT'"><i class="fa fa-check"></i>
-        {{content.endTime.fromNow()}}
+      <small ng-if="content.contentGroup.contentType==='SUBMIT'">
+        <i class="fa fa-check"></i> 마감 : {{content.endTime.fromNow()}}
       </small>
       <small ng-if="content.contentGroup.contentType==='SCHEDULE'"><i class="fa fa-clock-o"></i>
-        {{content.startTime.range(content.endTime)}} <span ng-show="content.startTime < now" class="red">현재 진행중</span>
+        {{content.startTime.range(content.endTime)}} ({{content.startTime.fromNow()}}) <span ng-show="content.startTime < now" class="red">현재 진행중</span>
       </small>
     </span>
   </span>

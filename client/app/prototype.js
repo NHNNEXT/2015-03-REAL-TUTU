@@ -2,15 +2,16 @@ Date.prototype.format = function (f) {
   return moment().format(f);
 };
 
-Number.prototype.toYMD = function () {
-  return new Date(this).toYMD();
+Date.prototype.getDateTime = function(){
+  return this.getDateString() + " (" + this.getDayKR() + ") " + this.getTimeString();
 };
 
 Date.prototype.toYMD = function () {
   if (new Date().isSameDay(this))
     return this.fromNow();
-  return this.getDateString() + " (" + this.getDayKR() + ") " + this.getTimeString();
+  return this.getDateTime();
 };
+
 
 Date.prototype.getDateString = function () {
   if (this.getFullYear() === new Date().getFullYear())
