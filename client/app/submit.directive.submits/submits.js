@@ -27,7 +27,7 @@ angular.module('clientApp')
           submit.submitId = $scope.submitId;
           submit.save().then(function (result) {
             $scope.submits.push(new Submit(result));
-            if ($scope.user.id === result.id)
+            if ($scope.user.id === result.writer.id)
               emoticon.submitDone();
             $scope.submit = new Submit();
 
