@@ -1,23 +1,21 @@
-<div layout="row" layout-sm="column"  class="header" flex>
-  <!--<div class="center-sm" style="width:50px">{{index + 1}}</div>-->
-  <div layout="column" flex>
-    <div ui-sref="content({id:content.id})" layout-sm="column">
-      <span class="margin-right" ng-bind="content.title"></span>
-      <span class="dueDate" ng-if="content.contentGroup.contentType==='SUBMIT'">
-      마감 : {{content.endTime.fromNow()}}</span>
-      <span class="dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'">
-      {{content.startTime.range(content.endTime)}}</span>
-    </div>
-    <div class="tags" flex>
-      <span ng-repeat="tag in content.tags | limitTo : 5" ng-click="tagClick(tag)">{{tag}}</span>
-    </div>
-  </div>
-  <div class="icons">
-    <span>{{content.contentGroup.name}}</span>
-    <span class="dot"></span>
-    <span>By <span ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span></span>
-    <span class="dot"></span>
-    <span>{{content.writeDate.toYMD()}}</span>
-  </div>
+<div layout="column" layout-sm="column">
+  <span class="title" ui-sref="content({id:content.id})" flex>
+    {{content.title}}
+    <span class="margin-left">
+      <small ng-if="content.contentGroup.contentType==='SUBMIT'"><i class="fa fa-check"></i>
+        {{content.endTime.fromNow()}}
+      </small>
+      <small ng-if="content.contentGroup.contentType==='SCHEDULE'"><i class="fa fa-clock-o"></i>
+        {{content.startTime.range(content.endTime)}} <span ng-show="content.startTime < now" class="red">현재 진행중</span>
+      </small>
+    </span>
+  </span>
+
+  <span class="detail">
+    <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}} > {{content.contentGroup.name}}</span>
+    <span ui-sref="profile({id:content.writer.id})">by {{content.writer.name}}</span>
+
+    <span>{{content.writeDate.toYMD()}}<div ng-show="content.startTime < now" class="red">진행중</div></span>
+  </span>
 </div>
 

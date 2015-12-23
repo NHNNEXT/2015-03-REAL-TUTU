@@ -1,16 +1,11 @@
 <div class="card-header">다음 일정</div>
-<div class="content-header" ng-repeat="content in contents" layout="row" layout-sm="column">
-  <span class="title" ui-sref="content({id:content.id})" flex>{{content.title}}</span>
-  <span class="writer" ui-sref="profile({id:content.writer.id})">{{content.writer.name}}</span>
 
-  <span class="date">
-    {{content.writeDate.toYMD()}}
-      <div ng-show="content.startTime < now" class="red">현재 진행중</div>
-  </span>
-</div>
-<div class="content-header" ng-click="getMore()" ng-if="more">
+<content-header wrapped content="content" tag-click="tagClick" index="$index"
+                ng-repeat="content in contents"></content-header>
+
+<div wrapped class="content-header" ng-click="getMore()" ng-if="more">
   더보기
 </div>
-<div class="content-header" ng-if="!more">
+<div wrapped class="content-header" ng-if="!more">
   <span class="title">마지막입니다.</span>
 </div>

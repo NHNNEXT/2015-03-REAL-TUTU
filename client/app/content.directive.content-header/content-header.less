@@ -1,75 +1,26 @@
-[content-header] {
-  .dueDate {
-    font-size: 60%;
-    opacity: 0.7;
-    letter-spacing: 1px;
+content-header {
+  text-align: left;
+  display: block;
+  .title {
+    margin: 5px;
   }
-
-  .tags span {
+  .detail {
+    margin: 5px;
     font-size: 80%;
-    margin-right: 10px;
-  }
-
-  .tags {
-  }
-
-  .type {
-    display: inline-block;
-    min-width: 20px;
-    border-bottom: 1px solid #00c3bd;
-    margin-bottom: 12px;
-    line-height: 14px;
-    font-size: 13px;
-    color: #00c3bd;
-  }
-
-  .icon {
-    overflow: hidden;
-    width: 120px;
-    position: absolute;
-    float: right;
-  }
-
-  .header {
-    font-weight: 400;
-    font-size: 20px;
-    letter-spacing: -1px;
-
-  }
-  .moveto:hover {
-    .header {
-      text-decoration: underline;
+    color: #777;
+    span {
+      margin-right: 10px;
     }
   }
-
-  .body {
-    max-height: 43px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
-    display: block;
-    padding-top: 6px;
-  }
-
-  .icons {
-    display: block;
-    font-size: 12px;
-    color: #959595;
-    letter-spacing: -1px;
-  }
-
 }
 
-.list-group-item- {
-  position: relative;
-  display: block;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: none;
-  border-top: 1px solid #eee;
-  padding: 15px 0 20px;
+[wrapped]:last-child {
+  margin-bottom: 20px;
+  border-bottom: none;
 }
 
-.list-group-item-:first-child {
-  border-top: none;
+[wrapped] {
+  padding: 5px;
+  margin: 15px 5px;
+  border-bottom: 1px solid #eee;
 }

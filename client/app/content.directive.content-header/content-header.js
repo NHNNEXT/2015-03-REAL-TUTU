@@ -1,7 +1,7 @@
 angular.module('clientApp')
   .directive('contentHeader', function () {
     return {
-      restrict: 'A',
+      restrict: 'E',
       scope: {
         content: '=',
         tagClick: '=',

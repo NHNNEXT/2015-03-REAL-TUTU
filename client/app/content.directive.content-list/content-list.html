@@ -1,4 +1,4 @@
-<div layout="row" layout-sm="column" class="margin-bottom">
+<div layout="row" layout-sm="column" class="md-padding margin-bottom">
   <div class="info" flex>
     <span ng-click="select.name = 0" ng-class="{select:!select.name}" class="unselect">전체</span>
       <span ng-repeat="contentGroup in contentGroups">
@@ -15,9 +15,6 @@
   </div>
 </div>
 
-<ul>
-  <li content-header content="content" tag-click="tagClick" index="$index"
-      ng-repeat="content in filtered = (contents | contentGroup:select.name | filter:keyword | orderBy:'-writeDate')"
-      class="row list-group-item-">
-  <li ng-show="filtered.length==0" class="row list-group-item-">결과가 없습니다.</li>
-</ul>
+<content-header wrapped content="content" tag-click="tagClick" index="$index"
+                ng-repeat="content in filtered = (contents | contentGroup:select.name | filter:keyword | orderBy:'-writeDate')"></content-header>
+<div wrapped ng-if="filtered.length==0" class="row list-group-item-">결과가 없습니다.</div>
