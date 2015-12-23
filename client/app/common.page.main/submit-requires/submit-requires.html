@@ -3,8 +3,7 @@
   <md-progress-linear md-mode="determinate"
                       value="{{doneCount(submitRequires)/submitRequires.length*100}}"></md-progress-linear>
 </div>
-<div class="content-header" ng-repeat="submitRequire in submitRequires" layout="row" layout-align="start center"
-     layout="row" layout-sm="column">
+<div class="content-header" ng-repeat="submitRequire in submitRequires" layout="row" layout-sm="column">
   <md-checkbox class="md-secondary" ng-model="submitRequire.done" ng-click="submitRequire.doToggle()"
                aria-label="완료 여부"></md-checkbox>
   <span class="title" ui-sref="content({id:content.id})" flex>{{submitRequire.content.title}}</span>
