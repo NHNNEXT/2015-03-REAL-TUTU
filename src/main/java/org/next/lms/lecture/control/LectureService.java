@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
+import static org.next.infra.util.CommonUtils.ifNullNotFoundErroReturn;
 import static org.next.lms.message.domain.MessageBuilder.aMessage;
 
 @Service
@@ -52,14 +53,14 @@ public class LectureService {
 
 
     public Result getLectureById(Long lectureId, User user) {
-        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
+        Lecture lecture = ifNullNotFoundErroReturn(lectureRepository.findOne(lectureId));
         if (lecture.getHostUser().equals(user))
             return success(new LectureForHostUserDto(lecture, user));
         return success(new LectureDto(lecture, user));
     }
 
     public Result getWriteInfoById(Long lectureId) {
-        Lecture lecture = assureNotNull(lectureRepository.findOne(lectureId));
+        Lecture lecture = ifNullNotFoundErroReturn(lectureRepository.findOne(lectureId));
         return success(new WriteInfoDto(lecture));
     }
 
