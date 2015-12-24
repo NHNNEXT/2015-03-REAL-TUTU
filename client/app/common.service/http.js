@@ -1,7 +1,7 @@
 angular.module('clientApp')
   /* @ngInject */
   .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon) {
-    var http = function (method, url, params, success, error, json, onDataError) {
+    var http = function (method, url, params, success, error, json) {
       var options = {
         method: method, url: url
       };
@@ -50,7 +50,7 @@ angular.module('clientApp')
             $state.go('main');
             break;
           case responseCode.DATA_INTEGRITY_ERROR:
-            alert.warning(onDataError === undefined ? "DB 구조와 달라 에러가 발생했습니다." : onDataError);
+            alert.warning(response.result === undefined ? "DB 구조와 달라 에러가 발생했습니다." : response.result);
             break;
           default:
             error(response);
@@ -68,14 +68,14 @@ angular.module('clientApp')
         http("GET", url, params, resolve, reject);
       });
     };
-    http.post = function (url, params, json, onDataError) {
+    http.post = function (url, params, json) {
       return $q(function (resolve, reject) {
-        http("POST", url, params, resolve, reject, json, onDataError);
+        http("POST", url, params, resolve, reject, json);
       });
     };
-    http.put = function (url, params, json, onDataError) {
+    http.put = function (url, params, json) {
       return $q(function (resolve, reject) {
-        http("PUT", url, params, resolve, reject, json, onDataError);
+        http("PUT", url, params, resolve, reject, json);
       });
     };
     http.delete = function (url, params) {
