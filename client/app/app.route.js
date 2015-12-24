@@ -75,7 +75,7 @@ angular.module('clientApp').config(function ($stateProvider) {
   states.lectureNew.url = "/강의등록";
   states.lectureEdit.url = "/강의/:id/수정";
   states.messages.url = "/소식";
-  states.profile.url = "/프로필/:id";
+  states.profile.url = "/사용자정보/:email";
   states.mylectures.url = "/내강의";
 
 

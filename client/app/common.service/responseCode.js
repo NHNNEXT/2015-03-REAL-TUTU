@@ -31,6 +31,7 @@ angular.module('clientApp')
       "ALREADY_PASSWORD_CHANGE_MAIL_SENT": 43,
       "NOT_EXIST_EMAIL": 3
     },
+    "RESOURCE_NOT_EXIST": 299,
     "GetSessionUser": {
       "EMPTY": 6
     },

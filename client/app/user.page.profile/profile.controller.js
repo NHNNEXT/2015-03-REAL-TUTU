@@ -14,11 +14,11 @@ angular.module('clientApp')
     };
 
     $scope.$watch(function () {
-      return $stateParams.id;
-    }, function (id) {
-      if (!id)
+      return $stateParams.email;
+    }, function (email) {
+      if (!email)
         return;
-      User.findById(id).then(function (user) {
+      User.findOne({email:email}).then(function (user) {
         $scope.user = user;
         $state.current.header = user.name;
       });

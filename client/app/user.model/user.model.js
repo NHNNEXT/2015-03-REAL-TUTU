@@ -36,9 +36,9 @@ angular.module('clientApp')
       return rootUser.id === this.id;
     };
 
-    User.findById = function (id) {
+    User.findOne = function (query) {
       return $q(function (resolve) {
-        http.get('/api/v1/user', {id: id}).then(function (result) {
+        http.get('/api/v1/user', query).then(function (result) {
           resolve(new User(result));
         });
       });

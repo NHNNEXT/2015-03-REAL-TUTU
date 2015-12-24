@@ -23,8 +23,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Result getUser(String id) {
-        return userService.getUser(id);
+    public Result getUser(String email) {
+        return userService.getUser(email);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/session")

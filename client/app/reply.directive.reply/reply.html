@@ -4,7 +4,7 @@
   </div>
   <div class="info" flex>
     <div class="info_append" ng-show="!mod">
-      <strong ui-sref="profile({id:reply.writer.id})" class="tit_userid">
+      <strong ui-sref="profile({email:reply.writer.email})" class="tit_userid">
         {{reply.writer.name}}
       </strong>
       <span class="txt_time">{{reply.writeDate.toYMD()}}</span>

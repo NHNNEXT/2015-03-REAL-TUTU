@@ -13,7 +13,7 @@
 
   <span class="detail">
     <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}} > {{content.contentGroup.name}}</span>
-    <span ui-sref="profile({id:content.writer.id})">by {{content.writer.name}}</span>
+    <span ui-sref="profile({email:content.writer.email})">by {{content.writer.name}}</span>
 
     <span>{{content.writeDate.toYMD()}}<div ng-show="content.startTime < now" class="red">진행중</div></span>
   </span>

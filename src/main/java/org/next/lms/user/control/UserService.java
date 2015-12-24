@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
+import static org.next.infra.util.CommonUtils.ifNullNotFoundErroReturn;
 import static org.next.infra.util.CommonUtils.makeUUID;
 
 @Service
@@ -56,16 +57,8 @@ public class UserService {
         return success(new UserDto(user));
     }
 
-    public Result getUser(String id) {
-        User user;
-        try {
-            Long longId = Long.parseLong(id);
-            user = userRepository.findOne(longId);
-        } catch (NumberFormatException e) {
-            user = userRepository.findByEmail(id);
-        }
-        assureNotNull(user);
-        return success(new UserPageDto(user));
+    public Result getUser(String email) {
+        return success(new UserPageDto(ifNullNotFoundErroReturn(userRepository.findByEmail(email))));
     }
 
 
@@ -164,8 +157,8 @@ public class UserService {
     }
 
     private String emailVerifyTimeOutMessageString() {
-         return "<h1>메일인증시간이초과하였습니다. 재발송 기능을 이용하세요</h1>" +
-                 "<h3>잠시후 메인화면으로 이동합니다</h3>" + redirectScript();
+        return "<h1>메일인증시간이초과하였습니다. 재발송 기능을 이용하세요</h1>" +
+                "<h3>잠시후 메인화면으로 이동합니다</h3>" + redirectScript();
     }
 
     private String redirectScript() {
@@ -173,7 +166,7 @@ public class UserService {
                 "setTimeout(function() {\n" +
                 "    location.href='" + environment.getProperty("SERVICE_DOMAIN") + "';\n" +
                 "}, 5000);" +
-                "</script>" ;
+                "</script>";
     }
 
     /**
@@ -194,12 +187,12 @@ public class UserService {
 
     public Result sendChangePasswordMail(String email) {
         User dbUser = userRepository.findByEmail(email);
-        if(dbUser == null) {
+        if (dbUser == null) {
             return new Result(ResponseCode.Login.USER_NOT_EXIST, "존재하지 않는 계정입니다");
         }
 
         MailAuth authDuplicateCheck = mailAuthRepository.findByEmail(email);
-        if(authDuplicateCheck != null) {
+        if (authDuplicateCheck != null) {
             return new Result(ResponseCode.Login.ALREADY_PASSWORD_CHANGE_MAIL_SENT, "이미 발송된 유효한 비밀번호 변경 메일이 있습니다");
         }
 
@@ -209,7 +202,7 @@ public class UserService {
         mailAuth.giveTryCount(3);
         mailAuthRepository.save(mailAuth);
 
-        mailSender.sendMail(new Mail(email, new ChangePasswordMail(envUtils.getAbsoluteURIPath("/api/v1/user/changePassword"),key, email)));
+        mailSender.sendMail(new Mail(email, new ChangePasswordMail(envUtils.getAbsoluteURIPath("/api/v1/user/changePassword"), key, email)));
         return success();
     }
 
@@ -217,16 +210,16 @@ public class UserService {
     public Result changePassword(String email, String key, String newPassword) {
         MailAuth mailAuth = mailAuthRepository.findByEmail(email);
 
-        if(mailAuth == null){
+        if (mailAuth == null) {
             throw new WrongAccessException();
         }
 
-        if(mailAuth.noMoreTryCount()) {
+        if (mailAuth.noMoreTryCount()) {
             mailAuthRepository.delete(mailAuth);
             return new Result(ResponseCode.Login.NO_MORE_PASSWORD_CHANGE_TRY_COUNT, "더이상 비밀번호 변경을 시도할 수 없습니다. 비밀번호 변경 요청 메일을 다시 발송하세요");
         }
 
-        if(!mailAuth.getKey().equals(key)) {
+        if (!mailAuth.getKey().equals(key)) {
             mailAuth.minusTryCount();
             throw new WrongAccessException();
         }
