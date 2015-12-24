@@ -44,9 +44,9 @@ angular.module('clientApp')
     },
     "WRONG_ACCESS": 1,
     "Register": {
-      "EMAIL_VERIFY_TIMEOUT": 41,
       "ALREADY_EXIST_EMAIL": 2
     },
+    "DATA_INTEGRITY_ERROR": 199,
     "FileUpload": {
       "ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT": 8,
       "FILE_NOT_ATTACHED": 7

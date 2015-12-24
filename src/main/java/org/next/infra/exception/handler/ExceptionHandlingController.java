@@ -6,6 +6,7 @@ import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.exception.WrongAccessException;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.result.Result;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -57,4 +58,10 @@ public class ExceptionHandlingController {
     public Result methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         return new Result(ResponseCode.WRONG_ACCESS, e.getMessage());
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public Result dataIntegrityViolationException(DataIntegrityViolationException e) {
+        return new Result(ResponseCode.DATA_INTEGRITY_ERROR, e.getMessage());
+    }
+
 }

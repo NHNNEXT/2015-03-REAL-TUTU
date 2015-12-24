@@ -1,7 +1,7 @@
 angular.module('clientApp')
   /* @ngInject */
   .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon) {
-    var http = function (method, url, params, success, error, json) {
+    var http = function (method, url, params, success, error, json, onDataError) {
       var options = {
         method: method, url: url
       };
@@ -39,8 +39,7 @@ angular.module('clientApp')
             $state.go('main');
             break;
           case responseCode.PATTERN_NOT_MATCHED:
-            var message = response.result === undefined ? "유효하지 않은 입력입니다." : response.result;
-            alert.warning(message);
+            alert.warning(response.result === undefined ? "유효하지 않은 입력입니다." : response.result);
             break;
           case responseCode.LOGIN_NEEDED:
             alert.warning("로그인이 필요한 서비스입니다.");
@@ -49,6 +48,9 @@ angular.module('clientApp')
           case responseCode.WRONG_ACCESS:
             emoticon.dontDoThat();
             $state.go('main');
+            break;
+          case responseCode.DATA_INTEGRITY_ERROR:
+            alert.warning(onDataError === undefined ? "DB 구조와 달라 에러가 발생했습니다." : onDataError);
             break;
           default:
             error(response);
@@ -66,14 +68,14 @@ angular.module('clientApp')
         http("GET", url, params, resolve, reject);
       });
     };
-    http.post = function (url, params, json) {
+    http.post = function (url, params, json, onDataError) {
       return $q(function (resolve, reject) {
-        http("POST", url, params, resolve, reject, json);
+        http("POST", url, params, resolve, reject, json, onDataError);
       });
     };
-    http.put = function (url, params, json) {
+    http.put = function (url, params, json, onDataError) {
       return $q(function (resolve, reject) {
-        http("PUT", url, params, resolve, reject, json);
+        http("PUT", url, params, resolve, reject, json, onDataError);
       });
     };
     http.delete = function (url, params) {
