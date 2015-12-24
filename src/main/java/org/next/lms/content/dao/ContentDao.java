@@ -17,17 +17,27 @@ public abstract class ContentDao {
 
     protected Long lectureId;
     protected String keyword;
+    QContent qContent = QContent.content;
 
     public List<Content> getList(EntityManager entityManager) {
-        QContent qContent = QContent.content;
+        JPAQuery query = getJpaQuery(entityManager);
+        query = limitPolicy(query);
+        return query.list(qContent);
+    }
+
+    public long getSize(EntityManager entityManager) {
+        JPAQuery query = getJpaQuery(entityManager);
+        return query.count();
+    }
+
+    private JPAQuery getJpaQuery(EntityManager entityManager) {
         JPAQuery query = new JPAQuery(entityManager);
         query = query.from(qContent);
         if (this.lectureId != null)
             query = query.where(qContent.lecture.id.eq(this.lectureId));
         if (this.keyword != null)
             query = query.where(qContent.title.like(getLikeExpression(this.keyword)).or(qContent.body.like(getLikeExpression(this.keyword))));
-        query = limitPolicy(query);
-        return query.list(qContent);
+        return query;
     }
 
     protected abstract JPAQuery limitPolicy(JPAQuery query);

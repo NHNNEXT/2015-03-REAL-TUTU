@@ -10,6 +10,7 @@ import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.repository.UserHaveToSubmitRepository;
 import org.next.infra.result.Result;
 import org.next.lms.content.dao.ContentDao;
+import org.next.lms.content.dao.ContentLimitDao;
 import org.next.lms.content.dao.MyListDao;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.dto.ContentDto;
@@ -62,6 +63,10 @@ public class ContentService {
 
     public Result getList(ContentDao contentDao) {
         return success(contentDao.getList(entityManager).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
+    }
+
+    public Result getListSize(ContentLimitDao contentLimitDao) {
+        return success(contentLimitDao.getSize(entityManager));
     }
 
     public Result getList(MyListDao myListDao, User user) {
@@ -133,4 +138,6 @@ public class ContentService {
         userHaveToSubmitRepository.save(userHaveToSubmit);
         return success();
     }
+
+
 }

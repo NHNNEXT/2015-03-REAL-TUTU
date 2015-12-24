@@ -74,7 +74,7 @@ angular.module('clientApp').config(function ($stateProvider) {
   states.content.url = "/게시물/:id";
   states.contentEdit.url = "/게시물/:id/수정";
   states.contentNew.url = "/게시물/:lectureId/쓰기";
-  states.contentList.url = "/게시물목록?:lectureId";
+  states.contentList.url = "/게시물목록?:lectureId:contentGroupId";
   states.lectures.url = "/전체강의리스트";
   states.lecture.url = "/강의/:id?:tab";
   states.lectureNew.url = "/강의등록";

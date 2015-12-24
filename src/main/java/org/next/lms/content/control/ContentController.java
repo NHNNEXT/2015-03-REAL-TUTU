@@ -37,6 +37,11 @@ public class ContentController {
         return contentService.getList(contentLimitDao);
     }
 
+    @RequestMapping(value = "/list/size", method = RequestMethod.GET)
+    public Result getContentListSize(ContentLimitDao contentLimitDao) {
+        return contentService.getListSize(contentLimitDao);
+    }
+
 
     @RequestMapping(value = "/list/coming", method = RequestMethod.GET)
     public Result getComingContentList(ComingScheduleDao dao, @Logged User user) {

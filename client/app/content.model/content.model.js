@@ -141,6 +141,14 @@ angular.module('clientApp')
       });
     };
 
+    Content.getListSize = function (query) {
+      return $q(function (resolve) {
+        http.get('/api/v1/content/list/size', query).then(function (response) {
+          resolve(response);
+        });
+      });
+    };
+
     Content.getListInMyLectures = function (query) {
       return $q(function (resolve) {
         http.get('/api/v1/content/list/my', query).then(function (response) {
