@@ -7,7 +7,7 @@
       <div layout="row">
         <h2>
           <span ng-bind="content.title"></span>
-          <small  ng-show="content.writer.id === rootUser.id">
+          <small ng-show="content.writer.id === rootUser.id">
             <span ui-sref="contentEdit({id:content.id})">수정</span>
             <span ng-click="content.remove()">삭제</span>
           </small>
@@ -22,7 +22,7 @@
         <span class="bar"></span>
         <like type="CONTENT" like="content.likes" target="content.id"></like>
         <span hide-gt-sm>
-        <span class="bar" ></span>
+        <span class="bar"></span>
         by {{content.writer.name}}
         </span>
       </div>
@@ -33,7 +33,7 @@
         <span class="info dueDate" ng-if="content.contentGroup.contentType==='SCHEDULE'"> <i class="fa fa-clock-o"></i> 일정 : {{content.startTime.range(content.endTime)}}</span>
       </div>
     </div>
-    <div hide-sm flex layout="row" layout-align-gt-sm="end center" layout-align="center center">
+    <div hide-sm layout="row" layout-align-gt-sm="end center" layout-align="center center">
       <user-profile class="content" user="content.writer"></user-profile>
     </div>
   </div>
@@ -77,7 +77,9 @@
       </md-content>
     </md-tab>
     <!-- to resolve last tab disappeared bug -->
-    <md-tab ng-disabled="true"><md-tab-label>&nbsp;</md-tab-label></md-tab>
+    <md-tab ng-disabled="true">
+      <md-tab-label>&nbsp;</md-tab-label>
+    </md-tab>
   </md-tabs>
 </section>
 

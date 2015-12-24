@@ -16,13 +16,15 @@ angular.module('clientApp')
       this.major = obj.major;
       this.introduce = obj.introduce;
       this.group = obj.group;
-      this.writeContents = obj.writeContents.map(function (content) {
-        return new Content(content);
-      });
-      this.likeContents = obj.likeContents.map(function (content) {
-        return new Content(content);
-      });
       this.lectures = obj.lectures;
+      if (obj.writeContents)
+        this.writeContents = obj.writeContents.map(function (content) {
+          return new Content(content);
+        });
+      if (obj.likeContents)
+        this.likeContents = obj.likeContents.map(function (content) {
+          return new Content(content);
+        });
     };
 
     User.prototype.isRootUser = function () {
