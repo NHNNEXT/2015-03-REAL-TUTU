@@ -1,7 +1,9 @@
 package org.next.infra.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.next.infra.exception.NotExistException;
 import org.next.infra.exception.WrongAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
@@ -15,6 +17,12 @@ public class CommonUtils {
     public static <T> T assureNotNull(T obj) {
         if (obj == null)
             throw new WrongAccessException();
+        return obj;
+    }
+
+    public static <T> T ifNullNotFoundErroReturn(T obj) {
+        if (obj == null)
+            throw new NotExistException();
         return obj;
     }
 

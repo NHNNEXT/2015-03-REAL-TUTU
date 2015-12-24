@@ -49,6 +49,9 @@ angular.module('clientApp')
             emoticon.dontDoThat();
             $state.go('main');
             break;
+          case responseCode.RESOURCE_NOT_EXIST:
+            $state.go('notfound');
+            break;
           case responseCode.DATA_INTEGRITY_ERROR:
             alert.warning(response.result === undefined ? "DB 구조와 달라 에러가 발생했습니다." : response.result);
             break;

@@ -14,6 +14,7 @@ public class ResponseCode {
     public static final Integer UNAUTHORIZED_REQUEST = 100;
     public static final Integer PATTERN_NOT_MATCHED = 101;
     public static final Integer DATA_INTEGRITY_ERROR = 199;
+    public static final Integer RESOURCE_NOT_EXIST = 299;
 
     public static final class Register {
         public static final Integer ALREADY_EXIST_EMAIL = 2;

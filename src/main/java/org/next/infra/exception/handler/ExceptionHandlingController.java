@@ -1,9 +1,6 @@
 package org.next.infra.exception.handler;
 
-import org.next.infra.exception.HasNoRightException;
-import org.next.infra.exception.LoginNeededException;
-import org.next.infra.exception.PatternNotMatchedException;
-import org.next.infra.exception.WrongAccessException;
+import org.next.infra.exception.*;
 import org.next.infra.exception.unique.UniqueKeys;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.result.Result;
@@ -21,22 +18,27 @@ import javax.validation.ConstraintViolationException;
 public class ExceptionHandlingController {
 
     @ExceptionHandler(LoginNeededException.class)
-    public Result loginException(Exception e) {
+    public Result loginException(LoginNeededException e) {
         return new Result(ResponseCode.LOGIN_NEEDED);
     }
 
     @ExceptionHandler(WrongAccessException.class)
-    public Result wrongAccessException(Exception e) {
+    public Result wrongAccessException(WrongAccessException e) {
         return new Result(ResponseCode.WRONG_ACCESS);
     }
 
+    @ExceptionHandler(NotExistException.class)
+    public Result wrongAccessException(NotExistException e) {
+        return new Result(ResponseCode.RESOURCE_NOT_EXIST);
+    }
+
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
-    public Result InvalidDataAccessApiUsageException(Exception e) {
+    public Result InvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e) {
         return new Result(ResponseCode.WRONG_ACCESS);
     }
 
     @ExceptionHandler(HasNoRightException.class)
-    public Result hasNoRightException(Exception e) {
+    public Result hasNoRightException(HasNoRightException e) {
         return new Result(ResponseCode.UNAUTHORIZED_REQUEST);
     }
 
