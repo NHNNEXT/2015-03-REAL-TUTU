@@ -43,5 +43,4 @@ angular
         user.group = group;
       });
     }
-
   });

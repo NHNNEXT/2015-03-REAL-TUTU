@@ -1,5 +1,32 @@
-<li content-header content="content" tag-click="tagClick" index="$index"
-      ng-repeat="content in filtered = (contents | contentGroup:'SCHEDULE' | orderBy:'-writeDate')"
-      class="row list-group-item-">
-<li ng-show="filtered.length==0" class="row list-group-item-">결과가 없습니다.</li>
+<md-toolbar hide-gt-md class="md-theme-amber">
+  <h1 class="md-toolbar-tools" ui-sref="main" ng-click="close()">NEXUS Editor</h1>
+</md-toolbar>
 
+<md-content>
+  <uib-accordion close-others="oneAtATime" flex>
+    <uib-accordion-group heading="설정" is-open="status.isFirstOpen" ng-class="{'active': status.open}" >
+      <uib-accordion-heading>
+        설정
+      </uib-accordion-heading>
+      This content is straight in the template.
+    </uib-accordion-group>
+    <uib-accordion-group is-open="status.open" ng-class="{'active': status.open}">
+        <uib-accordion-heading >
+         수업들 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+      <ul>
+       <li content-header ng-repeat="content in contents | orderBy:'-writeDate'"
+          class="row list-group-item"  ui-sref="content({id:content.id})">
+         <span class="title" >
+          {{::content.title}}
+         </span>
+         <span>
+             <small><i class="fa fa-clock-o"></i>
+               {{::content.startTime.range(content.endTime)}}
+             </small>
+         </span>
+        </li>
+      </ul>
+    </uib-accordion-group>
+  </uib-accordion>
+</md-content>

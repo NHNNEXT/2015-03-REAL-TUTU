@@ -11,7 +11,9 @@
     'ui.router',
     'ngFileUpload',
     'toastr',
-    'anim-in-out'
+    'anim-in-out',
+    'ui.bootstrap.accordion',
+    'ui.bootstrap.collapse'
     /* @ngInject */
   ]).run(function ($rootScope, $state, confirm, $window, pageMove, Loading, rootUser) {
     $($window).on("beforeunload", function () {
@@ -61,7 +63,9 @@
     $httpProvider.interceptors.push('httpInterceptor');
     $mdThemingProvider.theme('default');
     $mdThemingProvider.theme('editor')
-      .primaryPalette('brown')
+      .primaryPalette('brown', {
+        'hue-2': '200'
+      })
       .accentPalette('pink')
       .warnPalette('red')
       .backgroundPalette('grey');

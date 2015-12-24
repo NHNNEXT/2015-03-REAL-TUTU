@@ -18,7 +18,6 @@ angular
         });
       });
 
-
       function _init() {
         lecture = $scope.lecture = new Lecture();
         $scope.userGroup = {};

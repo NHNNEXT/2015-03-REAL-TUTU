@@ -21,7 +21,6 @@ angular.module('clientApp')
         $rootScope.$broadcast('changeToEditorMode', {mode: "editor"});
         //});
       } else {
-        console.log("else");
         if($rootScope.dynamicTheme === "editor"){
           //$scope.$apply(function() {
           $rootScope.dynamicTheme = "default";
@@ -33,7 +32,6 @@ angular.module('clientApp')
     }
 
     $scope.$on('changeToEditorMode', function (event, args) {
-      console.log("from header");
         $scope.mode = args.mode;
     });
 

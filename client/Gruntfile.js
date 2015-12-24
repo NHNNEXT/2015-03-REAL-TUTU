@@ -483,9 +483,11 @@ module.exports = function (grunt) {
     'clean:server',
     'wiredep',
     'concurrent:test',
+    'configureProxies:livereload',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'watch'
   ]);
 
   grunt.registerTask('build', [

@@ -24,7 +24,7 @@ describe('Factory: contentFactory', function () {
       startTime: new Date("2011-06-09T15:20:00Z"),
       type: "NOTICE"
     };
-   var newbie = contentFactory.create(content);
+    var newbie = contentFactory.create(content);
     expect(newbie.title).toBe("test");
   });
 
