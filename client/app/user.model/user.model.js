@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('User', function (http, $q, rootUser) {
+  .factory('User', function (http, $q, rootUser, Content) {
     var User = function (obj) {
       if (obj === undefined)
         return;
@@ -16,17 +16,12 @@ angular.module('clientApp')
       this.major = obj.major;
       this.introduce = obj.introduce;
       this.group = obj.group;
-      this.writeContents = obj.writeContents;
-      this.likeContents = obj.likeContents;
-      if (this.writeContents)
-        this.writeContents.forEach(function (each) {
-          if (each.writeDate !== undefined)
-            each.writeDate = new Date(each.writeDate);
-          if (each.startTime !== undefined)
-            each.startTime = new Date(each.startTime);
-          if (each.endTime !== undefined)
-            each.endTime = new Date(each.endTime);
-        });
+      this.writeContents = obj.writeContents.map(function (content) {
+        return new Content(content);
+      });
+      this.likeContents = obj.likeContents.map(function (content) {
+        return new Content(content);
+      });
       this.lectures = obj.lectures;
     };
 

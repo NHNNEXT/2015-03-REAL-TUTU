@@ -19,7 +19,9 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "lectureNodeHasLectureList"})
 @Entity
-@Table(name = "LECTURE", uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.LECTURE_NAME_ALREADY_EXIST,columnNames = {"NAME"})})
+@Table(name = "LECTURE"
+//        , uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.LECTURE_NAME_ALREADY_EXIST, columnNames = {"NAME"})}
+)
 public class Lecture implements ObjectOwnerKnowable {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
