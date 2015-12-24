@@ -29,6 +29,10 @@ angular.module('clientApp').config(function ($stateProvider) {
     templateUrl: "/content.page.edit/edit.html",
     controller: 'contentEditController'
   };
+  states.contentList = {
+    controller: 'contentListController',
+    templateUrl: "/content.page.content-list/content-list.html"
+  };
   states.lectureEdit = {
     templateUrl: "/lecture.page.edit/edit.html",
     controller: 'editLectureController',
@@ -65,11 +69,12 @@ angular.module('clientApp').config(function ($stateProvider) {
   };
 
   states.main.url = "/";
-  states.notfound.url = "/페이지를찾으려는노오오력이부족하다";
-  states.loginneed.url = "/로그인하라고전해라아";
+  states.notfound.url = "/페이지없다";
+  states.loginneed.url = "/로그인하라고전해라";
   states.content.url = "/게시물/:id";
   states.contentEdit.url = "/게시물/:id/수정";
   states.contentNew.url = "/게시물/:lectureId/쓰기";
+  states.contentList.url = "/게시물목록?:lectureId";
   states.lectures.url = "/전체강의리스트";
   states.lecture.url = "/강의/:id?:tab";
   states.lectureNew.url = "/강의등록";
@@ -92,7 +97,8 @@ angular.module('clientApp').config(function ($stateProvider) {
     "lectureEdit",
     "messages",
     "profile",
-    "mylectures"
+    "mylectures",
+    "contentList"
   ].forEach(function (key) {
     $stateProvider.state(key, states[key]);
   });

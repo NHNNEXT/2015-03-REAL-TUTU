@@ -1,0 +1,14 @@
+<section>
+  <div pagenation layout="row">
+    <span class="active">1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+  </div>
+
+  <content-header wrapped content="content" tag-click="tagClick" index="$index"
+                  ng-repeat="content in filtered = (contents | contentGroup:select.name | filter:keyword | orderBy:'-writeDate')"></content-header>
+  <div wrapped ng-if="filtered.length==0" class="row list-group-item-">결과가 없습니다.</div>
+</section>
