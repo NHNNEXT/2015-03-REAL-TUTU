@@ -2,6 +2,7 @@ package org.next.lms.user.domain;
 
 import lombok.*;
 import org.next.infra.exception.PatternNotMatchedException;
+import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.domain.Content;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
@@ -27,7 +28,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
 @Entity
 @Table(name = "USER", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"EMAIL"})
+        @UniqueConstraint(name = UniqueKeys.USER_EMAIL_ALREADY_EXIST, columnNames = {"EMAIL"})
 })
 public class User {
 

@@ -4,6 +4,7 @@ import org.next.infra.exception.HasNoRightException;
 import org.next.infra.exception.LoginNeededException;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.exception.WrongAccessException;
+import org.next.infra.exception.unique.UniqueKeys;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.result.Result;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -61,7 +62,7 @@ public class ExceptionHandlingController {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public Result dataIntegrityViolationException(DataIntegrityViolationException e) {
-        return new Result(ResponseCode.DATA_INTEGRITY_ERROR, e.getMessage());
+        return new Result(ResponseCode.DATA_INTEGRITY_ERROR, UniqueKeys.getErrorMessage(e.getCause().getCause().getMessage()));
     }
 
 }

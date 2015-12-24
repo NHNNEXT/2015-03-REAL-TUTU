@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
@@ -17,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "userEnrolledLectures", "lecture", "defaultGroup", "name"})
 
 @Entity
-@Table(name = "USER_GROUP")
+@Table(name = "USER_GROUP", uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.USER_GROUP_NAME_ALREADY_EXIST, columnNames = {"NAME", "LECTURE_ID"})})
 public class UserGroup {
 
     @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -2,6 +2,7 @@ package org.next.lms.lecture.domain;
 
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
+import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.like.domain.UserLikesLecture;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "lectureNodeHasLectureList"})
 @Entity
-@Table(name = "LECTURE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
+@Table(name = "LECTURE", uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.LECTURE_NAME_ALREADY_EXIST,columnNames = {"NAME"})})
 public class Lecture implements ObjectOwnerKnowable {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
