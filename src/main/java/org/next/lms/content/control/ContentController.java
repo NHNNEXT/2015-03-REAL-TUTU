@@ -37,8 +37,9 @@ public class ContentController {
         return contentService.getList(contentLimitDao);
     }
 
+
     @RequestMapping(value = "/list/coming", method = RequestMethod.GET)
-    public Result getCommingContentList(ComingScheduleDao dao, @Logged User user) {
+    public Result getComingContentList(ComingScheduleDao dao, @Logged User user) {
         return contentService.getList(dao, user);
     }
 

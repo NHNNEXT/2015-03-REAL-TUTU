@@ -3,7 +3,7 @@
 
   angular
     .module('clientApp')
-    .controller('LectureController', LectureController)
+    .controller('LectureController', LectureController);
 
   /* @ngInject */
   function LectureController($scope, Lecture) {
