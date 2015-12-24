@@ -21,7 +21,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,6 +45,16 @@ public class UserControllerTest {
     @Before
     public void setUp() throws Exception {
         this.mockMvc = webAppContextSetup(this.wac).build();
+        User user = new User();
+        user.setEmail("test1@test.com");
+        user.setPassword("password");
+        user.setName("테스트유저");
+        user.encryptPassword(passwordEncoder);
+        userRepository.save(user);
+    }
+
+    @Test
+    public void testSameEmailUser() throws Exception {
         User user = new User();
         user.setEmail("test1@test.com");
         user.setPassword("password");

@@ -18,8 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "lectureNodeHasLectureList"})
 @Entity
-@Table(name = "LECTURE")
-public class Lecture implements ObjectOwnerKnowable{
+@Table(name = "LECTURE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
+public class Lecture implements ObjectOwnerKnowable {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "TERM_ID")
@@ -43,8 +43,6 @@ public class Lecture implements ObjectOwnerKnowable{
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LectureNodeHasLecture> lectureNodeHasLectureList;
-
-
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.LAZY)
     private List<Content> contents = new ArrayList<>();

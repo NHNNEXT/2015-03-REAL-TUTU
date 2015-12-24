@@ -26,7 +26,9 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
 @Entity
-@Table(name = "USER")
+@Table(name = "USER", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"EMAIL"})
+})
 public class User {
 
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
