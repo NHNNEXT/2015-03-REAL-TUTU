@@ -158,8 +158,8 @@ angular.module('clientApp')
         query.readable = this.readable;
         query.submitReadable = this.submitReadable;
         if (this.id === undefined)
-          return http.post('/api/v1/lecture', query, true, "이미 존재하는 강의명입니다.");
-        return http.put('/api/v1/lecture', query, true, "이미 존재하는 강의명입니다.");
+          return http.post('/api/v1/lecture', query, true);
+        return http.put('/api/v1/lecture', query, true);
       };
 
       Lecture.prototype.approval = function (user) {
