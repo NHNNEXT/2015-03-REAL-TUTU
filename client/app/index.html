@@ -28,7 +28,8 @@
   <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/notice/notice.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/submit-requires/submit-requires.css" rel="stylesheet" type="text/css">
-  <link href="/common.page.main/submit-summary/submit-summary.css" rel="stylesheet" type="text/css">
+  <link href="/common.page.main/timeline.css" rel="stylesheet" type="text/css">
+  <link href="/common.page.todo.content-todo-header/content-todo-header.css" rel="stylesheet" type="text/css">
   <link href="/common.part/layout.css" rel="stylesheet" type="text/css">
   <link href="/common.part/main-header.css" rel="stylesheet" type="text/css">
   <link href="/common.part/md-sidenav.css" rel="stylesheet" type="text/css">
@@ -39,6 +40,7 @@
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/layout.css" rel="stylesheet" type="text/css">
+  <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/common.style/report.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
@@ -169,6 +171,7 @@
 <!-- build:js({.tmp,app}) /scripts/scripts.js -->
 <!-- include: "type": "js", "files": "**/*.js" -->
 <script src="/app.js"></script>
+<script src="/app.route.js"></script>
 <script src="/common.directive.Oauth/oauth.js"></script>
 <script src="/common.directive.input-datepicker/input-datepicker.js"></script>
 <script src="/common.directive.like/like.js"></script>
@@ -178,13 +181,11 @@
 <script src="/common.directive.search-in-my-lectures/search-in-my-lectures.js"></script>
 <script src="/common.directive.upload-img/upload-img.js"></script>
 <script src="/common.directive/ngenter.js"></script>
-<script src="/common.page.loginneed/loginneed.route.js"></script>
+<script src="/common.page.loginneed/loginneed.controller.js"></script>
 <script src="/common.page.main/coming-schedule/coming-schedule.js"></script>
 <script src="/common.page.main/main.controller.js"></script>
-<script src="/common.page.main/main.route.js"></script>
 <script src="/common.page.main/notice/notice.js"></script>
 <script src="/common.page.main/submit-requires/submit-requires.js"></script>
-<script src="/common.page.notfound/notfound.route.js"></script>
 <script src="/common.part/headerController.js"></script>
 <script src="/common.part/menuController.js"></script>
 <script src="/common.query.service/query.service.js"></script>
@@ -217,7 +218,6 @@
 <script src="/content.page.edit/edit.controller.js"></script>
 <script src="/content.page.edit/write.controller.js"></script>
 <script src="/content.repository/content.repository.js"></script>
-<script src="/content.route/content.route.js"></script>
 <script src="/lecture.directive.lecture-list/lecture-list.js"></script>
 <script src="/lecture.directive.lecture-node/lecture-add.js"></script>
 <script src="/lecture.directive.lecture-node/lecture-node.js"></script>
@@ -226,10 +226,9 @@
 <script src="/lecture.directive.lecture-summary/lecture-summary.js"></script>
 <script src="/lecture.model/lecture.model.js"></script>
 <script src="/lecture.page.detail/lecture.controller.js"></script>
-<script src="/lecture.page.detail/lecture.route.js"></script>
 <script src="/lecture.page.edit/edit.controller.js"></script>
 <script src="/lecture.page.list/list.js"></script>
-<script src="/lecture.page.mylist/mylist.js"></script>
+<script src="/lecture.page.mylist/mylist.controller.js"></script>
 <script src="/message.directive.messages/messages.js"></script>
 <script src="/message.directive/message.js"></script>
 <script src="/message.model/message.model.js"></script>
@@ -277,7 +276,6 @@
 <script src="/user.model/rootuser.js"></script>
 <script src="/user.model/user.model.js"></script>
 <script src="/user.page.profile/profile.controller.js"></script>
-<script src="/user.page.profile/profile.route.js"></script>
 <!-- /include -->
 <!-- endbuild -->
 
