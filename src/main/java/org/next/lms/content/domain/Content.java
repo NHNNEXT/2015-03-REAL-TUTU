@@ -88,8 +88,8 @@ public class Content implements ObjectOwnerKnowable{
     @Column(name = "END_TIME")
     private Date endTime;
 
-    @Column(name="SUBMIT_CAN_ATTACH")
-    private Boolean submitCanAttach;
+    @Column(name="SUBMIT_CAN_ATTACH", nullable = false, columnDefinition = "boolean default false")
+    private Boolean submitCanAttach = false;
 
 
     public void addReadCount() {

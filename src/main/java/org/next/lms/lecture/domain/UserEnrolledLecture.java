@@ -40,7 +40,7 @@ public class UserEnrolledLecture {
     // TODO 사이드바 표시 여부를 나타내는 flag라면
     // display on sidebar
     // show on sidebar 와 같은 변수명을 사용해보면 어떨까요?
-    @Column(name = "SIDE_MENU")
+    @Column(name = "SIDE_MENU", nullable = false, columnDefinition = "boolean default false")
     private Boolean sideMenu = false;
 
     public void toggleSideMenu() {
