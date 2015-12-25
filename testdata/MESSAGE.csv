@@ -1,0 +1,6 @@
+"MESSAGE_ID","CHECKED","DATE","MESSAGE","PK_AT_BELONG_TYPE_TABLE","TYPE","URL","RECEIVER_ID"
+"1","FALSE","2015-12-22 02:38:22.0","'실전 프로젝트' 과목에 새로운 과제가 있습니다.","1","NEW_SUBMIT_ASSIGNED","/lecture/1","1"
+"2","FALSE","2015-12-22 02:42:04.0","'그림자놀이' 과목에 새로운 과제가 있습니다.","4","NEW_SUBMIT_ASSIGNED","/lecture/4","1"
+"3","FALSE","2015-12-22 02:50:42.0","'헤헤헷' 과목에 새로운 과제가 있습니다.","8","NEW_SUBMIT_ASSIGNED","/lecture/8","1"
+"4","FALSE","2015-12-22 12:57:23.0","'실전 프로젝트' 강의에 '황정민' 학생이 가입 승인을 기다리고 있습니다.","1","LECTURE_ENROLL_REQUEST","/lecture/1?tab=request","1"
+"5","FALSE","2015-12-22 12:57:23.0","'실전 프로젝트' 강의 개설자가 회원님의 강의 참여 신청을 승인했습니다.","1","LECTURE_ENROLL_APPROVED","/lecture/1","2"

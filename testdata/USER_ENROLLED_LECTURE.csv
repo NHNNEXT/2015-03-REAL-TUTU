@@ -1,0 +1,8 @@
+"USER_ENROLLED_LECTURE_ID","APPROVAL_STATE","SIDE_MENU","LECTURE_ID","USER_ID","USER_GROUP_ID"
+"1","0","FALSE","1","1","2"
+"2","0","FALSE","2","1","4"
+"4","0","FALSE","4","1","8"
+"6","0","FALSE","6","1","12"
+"8","0","FALSE","8","1","16"
+"9","0","FALSE","1","2","2"
+"10","1","FALSE","1","3","2"

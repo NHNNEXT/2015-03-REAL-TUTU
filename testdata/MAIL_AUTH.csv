@@ -1,0 +1,7 @@
+"MAIL_AUTH_ID","EMAIL","EXPIRED","UUID_KEY","PASSWORD_CHANGE_TRY_COUNT"
+"1","test1@test.com","2015-12-24 02:31:40.0","98890519af9e4ad7a6b7389a1e89da9c","0"
+"2","test2@test.com","2015-12-24 02:32:35.0","ff4f5559f7de4d02a9fe19bd5dacbcba","0"
+"3","test3@test.com","2015-12-24 02:32:51.0","e7b040a1e0f34d80aff7fd9e32efc42b","0"
+"4","test4@test.com","2015-12-24 02:33:02.0","d0b86ed8769a47a2b969a099c86fb9dc","0"
+"5","test5@test.com","2015-12-24 02:33:11.0","90cb5741c0f34f3e99775e4ba2efe383","0"
+"6","test6@test.com","2015-12-24 02:33:19.0","a5a64b49fae742e785545622a957cc00","0"

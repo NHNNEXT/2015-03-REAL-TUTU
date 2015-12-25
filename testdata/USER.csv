@@ -1,0 +1,7 @@
+"USER_ID","EMAIL","INTRODUCE","MAJOR","NAME","PASSWORD","PROFILE_URL","STATE"
+"1","test1@test.com",,,"박재성","$2a$10$hO2VkBQXuOIXRJj/4PWyz.CnsccZz82YIkc03bXijCevuGfOOgMQC",,"ACTIVE"
+"2","test2@test.com",,,"하태호","$2a$10$omS4oIBl3EpQP12.bk0eaewpRP6nSkWHPv4TtRJ6mqiP3XYlL6pQa",,"ACTIVE"
+"3","test3@test.com",,,"황정민","$2a$10$dZiBEz0Rgq7JOqtyDaxFpOI9yf73MY1VK.rQ/t8Kj8QHQVP8xXd3O",,"ACTIVE"
+"4","test4@test.com",,,"하채영","$2a$10$YcsTXM1YuiMpP/e7WQNxx.m9owtfMV4EOAnc/x3PVC8SiLsERnqf6",,"ACTIVE"
+"5","test5@test.com",,,"김광영","$2a$10$ltfoXwN4ZyZA9tyzViBbXuO0k6afLus5mNuuBi7.n5PVTw6kOLrwu",,"ACTIVE"
+"6","test6@test.com",,,"고형진","$2a$10$r7C7dNO8heCZTNOEwx6BX.32hDB8n2fg18O5Zkl/qhh4TtB3c3Gkm",,"ACTIVE"
