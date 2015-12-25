@@ -5,7 +5,7 @@
 
     <groupId>org.next</groupId>
     <artifactId>NextLectureManager</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Next Lecture Manager</name>
@@ -30,6 +30,13 @@
 
         <plugin.version.maven-compiler-plugin>3.2</plugin.version.maven-compiler-plugin>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>next-mvn-repo</id>
+            <url>https://raw.github.com/zerohouse/dbdump/mvn-repo/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -118,6 +125,12 @@
             <artifactId>spring-context-support</artifactId>
             <version>4.1.7.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.next</groupId>
+            <artifactId>DBdump</artifactId>
+            <version>0.0.4-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -129,7 +142,6 @@
                     <include>**/application.properties</include>
                     <include>**/config.properties</include>
                     <include>**/logback.xml</include>
-                    <include>**/import.sql</include>
                 </includes>
             </resource>
         </resources>
