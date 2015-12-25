@@ -2,7 +2,6 @@ package org.next.lms.lecture.domain;
 
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
-import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.like.domain.UserLikesLecture;

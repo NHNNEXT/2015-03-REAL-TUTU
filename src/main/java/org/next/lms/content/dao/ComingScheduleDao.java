@@ -16,8 +16,6 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
-import static org.next.infra.util.CommonUtils.getLikeExpression;
-
 @Getter
 @Setter
 public class ComingScheduleDao extends MyListDao {

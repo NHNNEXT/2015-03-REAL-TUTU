@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.lms.content.domain.Content;
-import org.next.lms.content.domain.ContentType;
 import org.next.lms.lecture.domain.Lecture;
 
 import java.util.Date;
