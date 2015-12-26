@@ -11,3 +11,6 @@ SMTP_PASSWORD=
 TEST_MAIL_RECEIVE_ACCOUNT=
 
 SERVICE_DOMAIN=http://localhost:9000
+
+#테스트데이터 위치 미입력시 클래스패스/../../testdata
+dbdump_csvpath=C:/Users/dev/git/2015-03-REAL-TUTU/testdata
