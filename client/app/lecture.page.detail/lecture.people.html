@@ -1,0 +1,42 @@
+<md-subheader>참여자</md-subheader>
+<md-list>
+  <md-list-item ng-repeat="user in lecture.users">
+    <div flex layout="column" layout-align="center start">
+      <user-profile user="user"></user-profile>
+    </div>
+    <div flex layout="column" layout-align="center end">
+      <md-button class="md-raised" ng-if="user.id===lecture.hostUser.id">
+        개설자
+      </md-button>
+      <md-menu ng-hide="user.id===lecture.hostUser.id">
+        <md-button class="md-raised" ng-click="openIfRootUser($mdOpenMenu,$event)" aria-label="group name">
+          {{user.group.name}}
+        </md-button>
+        <md-menu-content width="3">
+          <md-menu-item ng-repeat="group in lecture.userGroups">
+            <md-button ng-click="groupChange(group, user)" aria-label="group change">
+              {{group.name}}
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+    <md-button class="md-raised"
+               ng-if="(rootUser.id !== user.id && rootUser.id===lecture.hostUser.id) || (rootUser.id !== lecture.hostUser.id && rootUser.id === user.id)"
+               ng-click="lecture.expel(user)">
+      탈퇴
+    </md-button>
+  </md-list-item>
+</md-list>
+<md-subheader>가입 대기자</md-subheader>
+<md-list>
+  <md-list-item ng-show="lecture.waitingUsers.length===0">
+    신청자가 없습니다.
+  </md-list-item>
+  <md-list-item ng-repeat="user in lecture.waitingUsers">
+    <user-profile user="user"></user-profile>
+    <div flex></div>
+    <md-button aria-label="approve" class="md-raised" ng-click="lecture.approval(user)">승인</md-button>
+    <md-button aria-label="reject" class="md-raised" ng-click="lecture.reject(user)">거절</md-button>
+  </md-list-item>
+</md-list>

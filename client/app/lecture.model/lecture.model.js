@@ -99,10 +99,6 @@ angular.module('clientApp')
         this.userGroups = param.userGroups;
         this.users = param.users;
         this.waitingUsers = param.waitingUsers;
-        if (param.contents)
-          this.contents = param.contents.map(function (content) {
-            return new Content(content);
-          });
         this.writable = param.writable;
         this.readable = param.readable;
         this.submitReadable = param.submitReadable;

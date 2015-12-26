@@ -1,21 +1,20 @@
 angular.module('clientApp')
   /* @ngInject */
-  .controller('contentListController', function ($scope, Content, $stateParams) {
-    $scope.query = {contentGroupId: $stateParams.contentGroupId, lectureId:$stateParams.lectureId};
+  .controller('contentListController', function ($scope, Content, $stateParams, $state) {
+    $scope.query = {contentGroupName: $stateParams.contentGroupName, lectureId:$stateParams.lectureId};
 
     $scope.page = 0;
 
     $scope.$watch('page', function (page) {
-      if (!page)
+      if (page===undefined)
         return;
       getContents();
     });
 
     $scope.$watch('query', function (query) {
-      if (!query)
+      if (query===undefined)
         return;
       getContents();
-
       Content.getListSize(query).then(function (size) {
         $scope.size = size;
         definePages();

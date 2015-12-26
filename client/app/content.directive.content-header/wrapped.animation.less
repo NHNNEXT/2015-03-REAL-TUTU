@@ -1,0 +1,15 @@
+[wrapped].ng-enter,
+[wrapped].ng-leave {
+  transition: 0.2s linear all;
+  opacity: 1;
+}
+
+[wrapped].ng-leave[wrapped].ng-leave-active,
+[wrapped].ng-enter {
+  opacity: 0.5;
+}
+
+[wrapped].ng-enter[wrapped].ng-enter-active,
+[wrapped].ng-leave {
+  opacity: 1;
+}

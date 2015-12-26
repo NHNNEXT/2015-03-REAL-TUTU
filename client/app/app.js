@@ -20,14 +20,19 @@
         $state.current = toState;
       }
     );
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+      if (toState.redirectTo) {
+        event.preventDefault();
+        $state.go(toState.redirectTo, toParams);
+      }
+    });
     /* @ngInject */
-  }).config(function ($locationProvider, $urlRouterProvider,  toastrConfig, $httpProvider, $mdThemingProvider) { //RestangularProvider,
+  }).config(function ($locationProvider, toastrConfig, $httpProvider, $mdThemingProvider) { //RestangularProvider,
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
     });
     //RestangularProvider.setBaseUrl('/api/v1/');
-    $urlRouterProvider.otherwise("/페이지를찾으려는노오오력이부족하다");
     angular.extend(toastrConfig, {
       timeOut: 3000,
       closeButton: true

@@ -12,20 +12,10 @@ import org.next.lms.content.domain.QContent;
 public class ContentLimitDao extends ContentDao {
 
     private Long page = 0L;
-    private Long writer;
-    private ContentType contentType;
-    private Long contentGroupId;
 
     @Override
     protected JPAQuery limitPolicy(JPAQuery query) {
-        QContent qContent = QContent.content;
         Long offset = page * AppConfig.pageSize;
-        if (writer != null)
-            query = query.where(qContent.writer.id.eq(writer));
-        if (contentType != null)
-            query = query.where(qContent.contentGroup.contentType.eq(contentType));
-        if (contentGroupId != null)
-            query = query.where(qContent.contentGroup.id.eq(contentGroupId));
         return query.limit(AppConfig.pageSize).offset(offset);
     }
 

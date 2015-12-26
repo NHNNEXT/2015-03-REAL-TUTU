@@ -1,5 +1,5 @@
 /* @ngInject */
-angular.module('clientApp').config(function ($stateProvider) {
+angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider) {
 
   var states = {};
   states.loginneed = {
@@ -29,10 +29,6 @@ angular.module('clientApp').config(function ($stateProvider) {
     templateUrl: "/content.page.edit/edit.html",
     controller: 'contentEditController'
   };
-  states.contentList = {
-    controller: 'contentListController',
-    templateUrl: "/content.page.content-list/content-list.html"
-  };
   states.lectureEdit = {
     templateUrl: "/lecture.page.edit/edit.html",
     controller: 'editLectureController',
@@ -45,7 +41,8 @@ angular.module('clientApp').config(function ($stateProvider) {
   };
   states.lecture = {
     templateUrl: "/lecture.page.detail/lecture.html",
-    controller: 'lectureDetailController'
+    controller: 'lectureDetailController',
+    redirectTo: 'lecture.list'
   };
   states.lectures = {
     header: "전체 강의 목록",
@@ -68,15 +65,26 @@ angular.module('clientApp').config(function ($stateProvider) {
     templateUrl: "/user.page.profile/profile.html"
   };
 
+  states["lecture.people"] = {
+    templateUrl: "/lecture.page.detail/lecture.people.html"
+  };
+  states["lecture.people"].url = "/참여자";
+
+  states["lecture.list"] = {
+    controller: 'contentListController',
+    templateUrl: "/lecture.page.detail.list/list.html"
+  };
+  states["lecture.list"].url = "/:contentGroupName";
+
+
   states.main.url = "/";
   states.notfound.url = "/페이지없다";
   states.loginneed.url = "/로그인하라고전해라";
   states.content.url = "/게시물/:id";
   states.contentEdit.url = "/게시물/:id/수정";
   states.contentNew.url = "/게시물/:lectureId/쓰기";
-  states.contentList.url = "/게시물목록?:lectureId:contentGroupId";
   states.lectures.url = "/전체강의리스트";
-  states.lecture.url = "/강의/:id?:tab";
+  states.lecture.url = "/강의/:id?:tab" ;
   states.lectureNew.url = "/강의등록";
   states.lectureEdit.url = "/강의/:id/수정";
   states.messages.url = "/소식";
@@ -84,24 +92,12 @@ angular.module('clientApp').config(function ($stateProvider) {
   states.mylectures.url = "/내강의";
 
 
-  [
-    "main",
-    "notfound",
-    "loginneed",
-    "content",
-    "contentEdit",
-    "contentNew",
-    "lectures",
-    "lecture",
-    "lectureNew",
-    "lectureEdit",
-    "messages",
-    "profile",
-    "mylectures",
-    "contentList"
-  ].forEach(function (key) {
+  Object.keys(states).forEach(function (key) {
     $stateProvider.state(key, states[key]);
   });
+
+  $urlRouterProvider.otherwise("/페이지없다");
+  $urlRouterProvider.when('/강의/{id}', '/강의/{id}/1');
 
 
 });

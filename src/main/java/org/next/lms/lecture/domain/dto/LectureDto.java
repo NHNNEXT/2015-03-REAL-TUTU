@@ -24,7 +24,6 @@ public class LectureDto {
     private final List<UserGroupDto> userGroups;
     private final List<ContentGroupDto> contentGroups;
     private final List<UserSummaryDto> users;
-    private final List<ContentSummaryDto> contents;
     private final Long id;
     private final String name;
     private final Integer majorType;
@@ -41,21 +40,6 @@ public class LectureDto {
         this.registerPolicy = lecture.getRegisterPolicy();
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
 
-        if (user.equals(lecture.getHostUser()))
-            this.contents = lecture.getContents().stream().map(ContentSummaryDto::new).collect(Collectors.toList());
-        else {
-            this.contents = new ArrayList<>();
-            try {
-                UserGroup userGroup = lecture.getUserGroups().stream()
-                        .filter(group -> group.getUserEnrolledLectures().stream()
-                                .filter(userEnrolledLecture1 -> userEnrolledLecture1.getUser().equals(user) && ApprovalState.OK.equals(userEnrolledLecture1.getApprovalState())).findAny().isPresent())
-                        .findAny().get();
-                userGroup.getReadable()
-                        .forEach(userGroupCanReadContent -> userGroupCanReadContent.getContentGroup().getContents()
-                                .forEach(content -> this.contents.add(new ContentSummaryDto(content))));
-            } catch (NoSuchElementException ignored) {
-            }
-        }
         this.likes = lecture.getUserLikesLectures().stream().map(UserLikesLecture::getId).collect(Collectors.toList());
         this.contentGroups = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
         this.users = lecture.getUserEnrolledLectures().stream()
