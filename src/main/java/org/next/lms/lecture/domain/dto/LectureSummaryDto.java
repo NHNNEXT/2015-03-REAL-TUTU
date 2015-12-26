@@ -8,25 +8,17 @@ import org.next.lms.user.domain.UserSummaryDto;
 @Getter
 public class LectureSummaryDto {
 
-    private Long id;
-    private String name;
-    private Integer majorType;
-    private Boolean sideMenu;
-    private Integer approvalState;
-    private UserSummaryDto hostUser;
-
-    public LectureSummaryDto(UserEnrolledLecture userEnrolledLecture) {
-        Lecture lecture = userEnrolledLecture.getLecture();
-        this.approvalState = userEnrolledLecture.getApprovalState();
-        this.sideMenu = userEnrolledLecture.getSideMenu();
-        setLecture(lecture);
-    }
+    protected Long id;
+    protected String name;
+    protected Integer majorType;
+    protected Integer approvalState;
+    protected UserSummaryDto hostUser;
 
     public LectureSummaryDto(Lecture lecture) {
         setLecture(lecture);
     }
 
-    private void setLecture(Lecture lecture) {
+    protected void setLecture(Lecture lecture) {
         this.hostUser = new UserSummaryDto(lecture.getHostUser());
         this.id = lecture.getId();
         this.name = lecture.getName();

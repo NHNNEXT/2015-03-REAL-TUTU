@@ -3,6 +3,7 @@ package org.next.lms.user.domain;
 import lombok.Getter;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.domain.dto.LectureSummaryDto;
+import org.next.lms.lecture.domain.dto.LectureSummaryForRootUserDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +19,8 @@ public class UserDto {
     private final String major;
     private final String introduce;
     private final String profileUrl;
-    private final List<LectureSummaryDto> lectures;
-    private final List<LectureSummaryDto> waitingLectures;
+    private final List<LectureSummaryForRootUserDto> lectures;
+    private final List<LectureSummaryForRootUserDto> waitingLectures;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -29,10 +30,10 @@ public class UserDto {
         this.introduce = user.getIntroduce();
         this.major = user.getMajor();
         this.lectures = user.getEnrolledLectures().stream().filter(relation ->
-                ApprovalState.OK.equals(relation.getApprovalState())).map(LectureSummaryDto::new).collect(Collectors.toList());
+                ApprovalState.OK.equals(relation.getApprovalState())).map(LectureSummaryForRootUserDto::new).collect(Collectors.toList());
         this.waitingLectures = user.getEnrolledLectures().stream().filter(
                 relation -> ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState())
-        ).map(LectureSummaryDto::new).collect(Collectors.toList());
+        ).map(LectureSummaryForRootUserDto::new).collect(Collectors.toList());
     }
 
 }
