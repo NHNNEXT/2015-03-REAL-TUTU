@@ -1,4 +1,4 @@
-"USER_ID","EMAIL","INTRODUCE","MAJOR","NAME","PASSWORD","PROFILE_URL","STATE"
+"user_id","email","introduce","major","name","password","profile_url","state"
 "1","test1@test.com",NULL,NULL,"박재성","$2a$10$hO2VkBQXuOIXRJj/4PWyz.CnsccZz82YIkc03bXijCevuGfOOgMQC",NULL,"ACTIVE"
 "2","test2@test.com",NULL,NULL,"하태호","$2a$10$omS4oIBl3EpQP12.bk0eaewpRP6nSkWHPv4TtRJ6mqiP3XYlL6pQa",NULL,"ACTIVE"
 "3","test3@test.com",NULL,NULL,"황정민","$2a$10$dZiBEz0Rgq7JOqtyDaxFpOI9yf73MY1VK.rQ/t8Kj8QHQVP8xXd3O",NULL,"ACTIVE"

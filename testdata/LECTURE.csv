@@ -1,4 +1,4 @@
-"LECTURE_ID","MAJOR_TYPE","NAME","REGISTER_POLICY","HOST_USER_ID"
+"lecture_id","major_type","name","register_policy","host_user_id"
 "1","0","실전 프로젝트","1","1"
 "2","1","니들이 자바를 알아?","0","1"
 "4","1","그림자놀이","0","1"
