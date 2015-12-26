@@ -8,11 +8,13 @@
         전체 강의
       </li>
       <li ui-sref="mylectures" ng-click="close()">내 강의</li>
-      <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child"
-                    ui-sref="lecture({id:lecture.id})" ng-click="close()">
-        <i class="fa" ng-click="lecture.open = !lecture.open" ng-class="{'fa-plus-square-o':!lecture.open,'fa-minus-square-o':lecture.open}"></i> {{lecture.name}}
+      <li ng-repeat="lecture in lectures = ( rootUser.lectures | filter:{'sideMenu':true} )" class="child">
+        <i class="fa" ng-click="lecture.open = !lecture.open"
+           ng-class="{'fa-plus-square-o':!lecture.open,'fa-minus-square-o':lecture.open}"></i> <span ui-sref="lecture({id:lecture.id})" ng-click="close()">{{lecture.name}}</span>
         <ul ng-show="lecture.open">
-          <li ng-repeat="contentGroup in lecture.contentGroups" ui-sref="lecture.list({contentGroupName:contentGroup.name})">{{contentGroup.name}}</li>
+          <li ng-repeat="contentGroup in lecture.contentGroups"  ng-click="close()"
+              ui-sref="lecture.list({contentGroupName:contentGroup.name})">{{contentGroup.name}}
+          </li>
         </ul>
       </li>
     </ul>
