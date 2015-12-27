@@ -26,3 +26,5 @@ image/
 #config
 **/config.properties
 application.properties
+
+node_modules/
