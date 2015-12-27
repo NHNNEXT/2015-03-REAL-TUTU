@@ -1,60 +1,51 @@
 angular.module('clientApp')
-  .filter('contentGroup', function () {
-    return function (contents, groupName) {
-      if (!contents)
-        return;
-      if (!groupName)
-        return contents;
-      var result = [];
-      contents.forEach(function (content) {
-        if (content.contentGroup.name !== groupName)
-          return;
-        result.push(content);
-      });
-      return result;
-    };
-  })
   .directive('contentList', function () {
     return {
       restrict: 'E',
       scope: {
-        contents: '=',
-        keyword: '='
+        query: '='
       },
       templateUrl: '/content.directive.content-list/content-list.html',
-      controller: function ($scope) {
+      controller: function ($scope, Content) {
+        $scope.page = 0;
 
-        $scope.select = {};
-
-        $scope.tagClick = function (tag) {
-          $scope.keyword = tag;
-          $scope.searching = true;
-        };
-
-        $scope.getIcon = function () {
-          if ($scope.searching)
-            return "/resource/icon/ic_close.svg";
-          return "/resource/icon/search.svg";
-        };
-
-        $scope.toggleSearching = function () {
-          if ($scope.searching) {
-            $scope.searching = false;
-            $scope.keyword = "";
+        $scope.$watch('page', function (page) {
+          if (page === undefined)
             return;
-          }
-          $scope.searching = true;
-        };
-
-        $scope.contentGroups = {};
-        $scope.$watch('contents', function (contents) {
-          if (!contents)
-            return;
-          contents.forEach(function (content) {
-            $scope.contentGroups[content.contentGroup.name] = content.contentGroup;
-            content.contentGroup.select = true;
-          });
+          getContents();
         });
+
+        $scope.$watch('query', function (query) {
+          if (query === undefined)
+            return;
+          getContents();
+          Content.getListSize(query).then(function (size) {
+            $scope.size = size;
+            definePages();
+          });
+        }, true);
+
+        var pageSize = 10;
+
+        $scope.setPage = function (page) {
+          $scope.page = page;
+        };
+
+        function definePages() {
+          $scope.pages = [];
+          for (var i = 0; i < $scope.size; i += pageSize) {
+            $scope.pages.push(i);
+          }
+        }
+
+        function getContents() {
+          var q = {};
+          angular.copy($scope.query, q);
+          q.page = $scope.page;
+          Content.getList(q).then(function (contents) {
+            $scope.contents = contents;
+          });
+        }
       }
     };
   });

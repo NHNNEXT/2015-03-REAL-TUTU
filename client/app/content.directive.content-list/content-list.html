@@ -1,20 +1,22 @@
-<div layout="row" layout-sm="column" class="md-padding margin-bottom">
-  <div class="info" flex>
-    <span ng-click="select.name = 0" ng-class="{select:!select.name}" class="unselect">전체</span>
-      <span ng-repeat="contentGroup in contentGroups">
-        <span class="bar"></span>
-        <span ng-click="select.name = contentGroup.name" class="unselect"
-              ng-class="{select:!select.name || contentGroup.name === select.name}">{{contentGroup.name}}</span>
-      </span>
-  </div>
-  <div flex layout="row" layout-align="end center" hide-sm>
-    <div class="search-bar" ng-class="{active:searching}">
-      <input ng-show="searching" class="fade-in-out" id="search" ng-model="keyword" placeholder="검색어">
-      <md-icon md-svg-icon="{{getIcon()}}" ng-click="toggleSearching()"></md-icon>
+<div layout-sm="column" layout="row">
+  <div flex></div>
+  <div class="margin-vertical" layout="row" layout-align="end center">
+    <span class="margin-right" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()"
+          ui-sref="contentNew({lectureId:lecture.id, contentGroupName:contentGroupName})">
+     <i class="fa fa-pencil"></i>
+    </span>
+    <div>
+      <md-input-container ng-show="search" class="search-input">
+        <label>검색어</label>
+        <input ng-model="query.keyword">
+      </md-input-container>
     </div>
+    <div ng-click="search=!search"><i class="fa" ng-class="{'fa-search':!search, 'fa-times':search}"></i></div>
   </div>
 </div>
-
-<content-header wrapped content="content" tag-click="tagClick" index="$index"
-                ng-repeat="content in filtered = (contents | contentGroup:select.name | filter:keyword | orderBy:'-writeDate')"></content-header>
-<div wrapped ng-if="filtered.length==0" class="row list-group-item-">결과가 없습니다.</div>
+<div pagenation ng-show="pages.length>1">
+  <span ng-class="{active:page==$index}" ng-repeat="p in pages" ng-click="setPage($index)">{{$index + 1}}</span>
+</div>
+<content-header wrapped content="content" index="$index"
+                ng-repeat="content in filtered = (contents | orderBy:'-writeDate')"></content-header>
+<div wrapped ng-if="filtered.length==0">결과가 없습니다.</div>
