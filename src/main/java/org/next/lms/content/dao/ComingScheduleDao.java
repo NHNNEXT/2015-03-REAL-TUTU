@@ -22,11 +22,8 @@ public class ComingScheduleDao extends MyListDao {
 
     private Integer page = 0;
 
-    public List<Content> getList(EntityManager entityManager, User user) {
+    public List<Content> getList(EntityManager entityManager, List<Lecture> enrolledLectures) {
         QContent qContent = QContent.content;
-        QLecture qLecture = QLecture.lecture;
-        QUserEnrolledLecture qUserEnrolledLecture = QUserEnrolledLecture.userEnrolledLecture;
-        List<Lecture> enrolledLectures = new JPAQuery(entityManager).from(qUserEnrolledLecture).innerJoin(qUserEnrolledLecture.lecture, qLecture).where(qUserEnrolledLecture.user.eq(user)).list(qLecture);
         JPAQuery query = new JPAQuery(entityManager);
         query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page);
         query = query.where(qContent.contentGroup.contentType.eq(ContentType.SCHEDULE));

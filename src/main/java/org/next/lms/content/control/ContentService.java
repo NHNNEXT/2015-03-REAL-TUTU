@@ -16,6 +16,9 @@ import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.dto.ContentDto;
 import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.content.relative.ContentLinkContent;
+import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.QLecture;
+import org.next.lms.lecture.domain.QUserEnrolledLecture;
 import org.next.lms.submit.QUserHaveToSubmit;
 import org.next.lms.submit.UserHaveToSubmit;
 import org.next.lms.submit.UserHaveToSubmitContentDto;
@@ -70,7 +73,7 @@ public class ContentService {
     }
 
     public Result getList(MyListDao myListDao, User user) {
-        return success(myListDao.getList(entityManager, user).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
+        return success(myListDao.getList(entityManager, getInSideMenuLectures(user)).stream().map(ContentSummaryDto::new).collect(Collectors.toList()));
     }
 
     public Result getList(User user) {
@@ -87,7 +90,6 @@ public class ContentService {
         contentRepository.delete(content);
         return success();
     }
-
 
     public Result makeRelation(Long contentId, Long linkContentId, User user) {
         if (contentId.equals(linkContentId))
@@ -119,14 +121,14 @@ public class ContentService {
         return success();
     }
 
-
     public Result getHaveToSubmits(Long page, User user) {
         QUserHaveToSubmit qUserHaveToSubmit = QUserHaveToSubmit.userHaveToSubmit;
         JPAQuery query = new JPAQuery(entityManager);
         query = query.from(qUserHaveToSubmit);
         if(page == null)
             page = 0L;
-        query.where(qUserHaveToSubmit.user.eq(user).and(qUserHaveToSubmit.done.eq(false))).limit(AppConfig.pageSize).offset(page * AppConfig.pageSize);
+        List<Lecture> enrolledLectures = getInSideMenuLectures(user);
+        query.where(qUserHaveToSubmit.user.eq(user).and(qUserHaveToSubmit.done.eq(false)).and(qUserHaveToSubmit.content.lecture.in(enrolledLectures))).limit(AppConfig.pageSize).offset(page * AppConfig.pageSize);
         return success(query.list(qUserHaveToSubmit).stream().map(UserHaveToSubmitContentDto::new).collect(Collectors.toList()));
     }
 
@@ -139,5 +141,10 @@ public class ContentService {
         return success();
     }
 
+    private List<Lecture> getInSideMenuLectures(User user) {
+        QLecture qLecture = QLecture.lecture;
+        QUserEnrolledLecture qUserEnrolledLecture = QUserEnrolledLecture.userEnrolledLecture;
+        return new JPAQuery(entityManager).from(qUserEnrolledLecture).innerJoin(qUserEnrolledLecture.lecture, qLecture).where(qUserEnrolledLecture.user.eq(user).and(qUserEnrolledLecture.sideMenu.eq(true))).list(qLecture);
+    }
 
 }
