@@ -7,29 +7,13 @@ angular
     $scope.rootUser = rootUser;
     $scope.groupChange = groupChange;
     $scope.openIfRootUser = openIfRootUser;
+    $scope.$state = $state;
 
     function openIfRootUser(o, e) {
       if (!$scope.lecture.hostUser.isRootUser())
         return;
       o(e);
     }
-
-    var tabIndexes = {
-      list: 0,
-      timetable: 1,
-      users: 2,
-      request: 4
-    };
-
-    $scope.$watch(function () {
-      return $stateParams.tab;
-    }, function (tab) {
-      if (!tab)
-        return;
-      $timeout(function () {
-        $scope.tabIndex = tabIndexes[tab];
-      }, 200);
-    });
 
     $rootScope.$on('userStateChange', function () {
       getLecture($stateParams.id);

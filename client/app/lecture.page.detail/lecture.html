@@ -1,22 +1,22 @@
 <section>
-  <div layout="row">
-    <div flex>
-      <h2>
-        <span ng-bind="lecture.name"></span>
-        <small ui-sref="lectureEdit({id:lecture.id})"
-               ng-show="lecture.hostUser.isRootUser()">
-          수정
-        </small>
-      </h2>
+  <div layout-padding>
+    <div layout="row">
+      <div flex>
+        <h2>
+          <span ng-bind="lecture.name"></span>
+          <small ui-sref="lectureEdit({id:lecture.id})"
+                 ng-show="lecture.hostUser.isRootUser()">
+            수정
+          </small>
+        </h2>
+      </div>
     </div>
-  </div>
-  <div layout="row" layout-sm="column">
     <div flex class="info">
       <span ng-show="lecture.majorType!==undefined">
         {{types.majorTypes[lecture.majorType]}}
         <span class="bar"></span>
       </span>
-      <span ui-sref="lecture.list">게시물 {{lecture.contents.length}}</span>
+      <span ui-sref="lecture.list"> 게시물 {{lecture.contents.length}}</span>
       <span class="bar"></span>
       <span ui-sref="lecture.people">참여자 {{lecture.users.length}}</span>
     </div>
@@ -32,9 +32,17 @@
       </span>
     </div>
   </div>
-  <div>
-  </div>
+  <md-tabs ng-show="$state.current.name==='lecture.list'" md-border-bottom>
+    <md-tab md-active="$state.params.contentGroupName===undefined" ui-sref="lecture.list({contentGroupName:undefined})">
+      전체
+    </md-tab>
+    <md-tab n ng-repeat="contentGroup in lecture.contentGroups" md-active="$state.params.contentGroupName===contentGroup.name"
+            ui-sref="lecture.list({contentGroupName:contentGroup.name})">
+      {{contentGroup.name}}
+    </md-tab>
+  </md-tabs>
   <div ui-view></div>
+
 </section>
 
 

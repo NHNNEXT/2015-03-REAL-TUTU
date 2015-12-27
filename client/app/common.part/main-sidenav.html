@@ -13,7 +13,7 @@
            ng-class="{'fa-plus-square-o':!lecture.open,'fa-minus-square-o':lecture.open}"></i> <span ui-sref="lecture({id:lecture.id})" ng-click="close()">{{lecture.name}}</span>
         <ul ng-show="lecture.open">
           <li ng-repeat="contentGroup in lecture.contentGroups"  ng-click="close()"
-              ui-sref="lecture.list({id:lecture.id, contentGroupName:contentGroup.name})">{{contentGroup.name}}
+              ui-sref=" lecture.list({id:lecture.id, contentGroupName:contentGroup.name})">{{contentGroup.name}}
           </li>
         </ul>
       </li>
