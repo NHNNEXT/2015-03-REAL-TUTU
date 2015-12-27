@@ -33,7 +33,7 @@
     </div>
   </div>
   <md-tabs ng-show="$state.current.name==='lecture.list'" md-border-bottom>
-    <md-tab md-active="$state.params.contentGroupName===undefined" ui-sref="lecture.list({contentGroupName:undefined})">
+    <md-tab md-active="$state.params.contentGroupName===''" ui-sref="lecture.list({contentGroupName:''})">
       전체
     </md-tab>
     <md-tab n ng-repeat="contentGroup in lecture.contentGroups" md-active="$state.params.contentGroupName===contentGroup.name"
