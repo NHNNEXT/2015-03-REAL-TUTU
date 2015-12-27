@@ -21,6 +21,7 @@ public abstract class ContentDao {
     private Long writer;
     private ContentType contentType;
     private Long contentGroupId;
+    private Long likeUser;
     private String contentGroupName;
     QContent qContent = QContent.content;
 
@@ -50,6 +51,8 @@ public abstract class ContentDao {
             query = query.where(qContent.contentGroup.id.eq(contentGroupId));
         if (contentGroupName != null && !"".equals(contentGroupName))
             query = query.where(qContent.contentGroup.name.eq(contentGroupName));
+        if (this.likeUser != null)
+            query = query.where(qContent.userLikesContents.any().user.id.eq(likeUser));
         return query;
     }
 
