@@ -45,7 +45,8 @@ angular.module('clientApp')
     },
     "WRONG_ACCESS": 1,
     "Register": {
-      "ALREADY_EXIST_EMAIL": 2
+      "ALREADY_EXIST_EMAIL": 2,
+      "ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY": 45
     },
     "DATA_INTEGRITY_ERROR": 199,
     "FileUpload": {

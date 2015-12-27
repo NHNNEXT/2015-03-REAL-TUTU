@@ -74,6 +74,10 @@ angular.module('clientApp')
         if (response.code === responseCode.Register.ALREADY_EXIST_EMAIL) {
           alert.error('이미 가입한 이메일입니다.');
         }
+
+        if (response.code === responseCode.Register.ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY) {
+          alert.error('이메일 인증을 기다리고 있는 계정입니다. 먼저 가입을 시도한 회원님이 이메일 인증을 1일내로 진행하지 않을 경우 입력하신 이메일은 누구나 가입할 수 있는 상태로 변경됩니다.');
+        }
       });
     };
 

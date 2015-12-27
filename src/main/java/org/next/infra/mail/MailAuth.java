@@ -28,6 +28,7 @@ public class MailAuth {
     @Column(name = "EMAIL")
     private String email;
 
+    @Setter(value = AccessLevel.NONE)
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "EXPIRED")
     private Date expiredTime;
@@ -58,5 +59,9 @@ public class MailAuth {
 
     public void giveTryCount(int tryCount) {
         this.passwordChangeTryCount = tryCount;
+    }
+
+    public void setExpiredTime(int days) {
+        this.expiredTime = getFutureDate(days);
     }
 }
