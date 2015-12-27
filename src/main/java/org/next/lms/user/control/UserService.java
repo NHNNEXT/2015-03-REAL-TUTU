@@ -81,17 +81,17 @@ public class UserService {
         return success(new UserDto(dbUser));
     }
 
-    // TODO 여기 버그있음 -> Mail Auth 중복 저장 문제
     public Result register(User user) {
         User dbUser = userRepository.findByEmail(user.getEmail());
-        if (dbUser != null) {
-            if (AccountState.WAIT_FOR_EMAIL_APPROVAL.equals(dbUser.getState())) {
-                dbUser.setPassword(user.getPassword());
-                dbUser.encryptPassword(passwordEncoder);
-                dbUser.update(user);
-            } else {
-                return new Result(ResponseCode.Register.ALREADY_EXIST_EMAIL);
-            }
+
+        if(completelyJoinedUser(dbUser)) {
+            return new Result(ResponseCode.Register.ALREADY_EXIST_EMAIL);
+        }
+
+        if(waitingForEmailCertify(dbUser)) {
+            return new Result(ResponseCode.Register.ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY);
+        } else {
+            deleteWaitingForCertifyEmailAccount(dbUser);
         }
 
         user.encryptPassword(passwordEncoder);
@@ -99,9 +99,36 @@ public class UserService {
         userRepository.save(user);
 
         String uuid = makeUUID();
-        mailAuthRepository.save(new MailAuth(uuid, user.getEmail(), 2));
+        mailAuthRepository.save(new MailAuth(uuid, user.getEmail(), 1));
         sendEmailVerifyMail(user, uuid);
         return success();
+    }
+
+    private void deleteWaitingForCertifyEmailAccount(User dbUser) {
+        if(dbUser == null) return;
+
+        MailAuth mailAuth = mailAuthRepository.findByEmail(dbUser.getEmail());
+        if(!isFuture(now(), mailAuth.getExpiredTime())) {
+            mailAuthRepository.delete(mailAuth);
+        }
+    }
+
+    private boolean waitingForEmailCertify(User dbUser) {
+        return dbUser != null && waitingForExpiredTime(dbUser) && waitingForEmailCertifyStatus(dbUser);
+    }
+
+    private boolean waitingForEmailCertifyStatus(User dbUser) {
+        return AccountState.WAIT_FOR_EMAIL_APPROVAL.equals(dbUser.getState());
+    }
+
+    private boolean waitingForExpiredTime(User dbUser) {
+        MailAuth mailAuth = mailAuthRepository.findByEmail(dbUser.getEmail());
+        return isFuture(now(), mailAuth.getExpiredTime());
+    }
+
+
+    private boolean completelyJoinedUser(User dbUser) {
+        return dbUser != null && AccountState.ACTIVE.equals(dbUser.getState());
     }
 
     private void sendEmailVerifyMail(User user, String uuid) {
@@ -134,6 +161,7 @@ public class UserService {
         }
 
         if (!isFuture(now(), mailAuth.getExpiredTime())) {
+            mailAuthRepository.delete(mailAuth);
             return emailVerifyTimeOutMessageString();
             // return new Result(ResponseCode.Register.EMAIL_VERIFY_TIMEOUT);
         }
