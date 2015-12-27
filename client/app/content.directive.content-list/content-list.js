@@ -6,7 +6,7 @@ angular.module('clientApp')
         query: '='
       },
       templateUrl: '/content.directive.content-list/content-list.html',
-      controller: function ($scope, Content) {
+      controller: function ($scope, Content, Loading) {
         $scope.page = 0;
 
         $scope.$watch('page', function (page) {
@@ -40,9 +40,11 @@ angular.module('clientApp')
 
         function getContents() {
           var q = {};
+          Loading.start();
           angular.copy($scope.query, q);
           q.page = $scope.page;
           Content.getList(q).then(function (contents) {
+            Loading.end();
             $scope.contents = contents;
           });
         }

@@ -32,6 +32,7 @@
   <link href="/common.part/main-header.css" rel="stylesheet" type="text/css">
   <link href="/common.part/md-sidenav.css" rel="stylesheet" type="text/css">
   <link href="/common.service.emoticon/emoticon.css" rel="stylesheet" type="text/css">
+  <link href="/common.service.loading/loading.css" rel="stylesheet" type="text/css">
   <link href="/common.style/animate.css" rel="stylesheet" type="text/css">
   <link href="/common.style/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="/common.style/component.css" rel="stylesheet" type="text/css">
@@ -105,7 +106,8 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<emoticon></emoticon>
+
+
 
 <div id="main" role="main" layout="column" flex>
   <ng-include src="'/common.part/main-header.html'"></ng-include>
@@ -132,6 +134,8 @@
   <md-icon md-svg-icon="/resource/icon/report.svg"></md-icon>
 </md-button>
 
+<emoticon></emoticon>
+<loading></loading>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -191,6 +195,7 @@
 <script src="/common.part/menuController.js"></script>
 <script src="/common.query.service/query.service.js"></script>
 <script src="/common.service.emoticon/emoticon.js"></script>
+<script src="/common.service.loading/loading.js"></script>
 <script src="/common.service.mainButler/mainButler.js"></script>
 <script src="/common.service/alert.js"></script>
 <script src="/common.service/confirm.js"></script>
