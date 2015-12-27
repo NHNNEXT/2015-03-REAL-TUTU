@@ -2,7 +2,7 @@
   <div layout="row">
     <div flex>
       <div class="info">
-        <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span> > {{content.contentGroup.name}}
+        <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span> > <span ui-sref="lecture.list({id:content.lectureId, contentGroupName:content.contentGroup.name})">{{content.contentGroup.name}}</span>
       </div>
       <div layout="row">
         <h2>
