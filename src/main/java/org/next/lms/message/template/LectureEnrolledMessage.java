@@ -7,7 +7,7 @@ import org.next.lms.message.structure.ImmutableMessageTemplate;
 public class LectureEnrolledMessage extends ImmutableMessageTemplate {
 
     private static final String messageTemplate = "'%s' 강의에 성공적으로 참여하였습니다.";
-    private static final String urlTemplate = "/lecture/%d";
+    private static final String urlTemplate = "/강의/%d";
 
     private Lecture lecture;
 

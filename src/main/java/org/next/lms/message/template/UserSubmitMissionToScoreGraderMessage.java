@@ -12,7 +12,7 @@ public class UserSubmitMissionToScoreGraderMessage extends ImmutableMessageTempl
 
     private static final String messageTemplate = "'%s' %s 제출한 학생이 있습니다.";
 
-    private static final String singleEventUrlTemplate = "/content/%d";
+    private static final String singleEventUrlTemplate = "/게시물/%d";
 
     private Content content;
 

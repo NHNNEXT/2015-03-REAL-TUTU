@@ -16,7 +16,7 @@ public class LectureEnrollRequestMessage extends MultipleEventReportMessageTempl
     private static final String singleEventMessageTemplate = "'%s' 강의에 '%s' 학생이 가입 승인을 기다리고 있습니다.";
     private static final String multipleEventMessageTemplate = "'%s' 강의에 '%s' 학생 외 '%d' 명이 가입 승인을 기다리고 있습니다.";
 
-    private static final String urlTemplate = "/lecture/%d?tab=request";
+    private static final String urlTemplate = "/강의/%d/참여자";
 
     private Lecture lecture;
     private User user;

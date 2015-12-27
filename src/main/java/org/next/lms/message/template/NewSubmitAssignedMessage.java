@@ -8,7 +8,7 @@ public class NewSubmitAssignedMessage extends ImmutableMessageTemplate {
 
     private static final String messageTemplate = "'%s' 과목에 새로운 과제가 있습니다.";
 
-    private static final String singleEventUrlTemplate = "/lecture/%d";
+    private static final String singleEventUrlTemplate = "/강의/%d";
 
     private Lecture lecture;
 

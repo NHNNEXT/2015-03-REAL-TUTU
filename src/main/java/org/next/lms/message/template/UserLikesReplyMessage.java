@@ -9,7 +9,7 @@ public class UserLikesReplyMessage extends MultipleEventReportMessageTemplate {
 
     private static final String singleEventMessageTemplate = "%s님이 회원님의 댓글을 좋아합니다.";
     private static final String multipleEventMessageTemplate = "%s님 외 %d명이 회원님의 댓글을 좋아합니다.";
-    private static final String urlTemplate = "/content/%d";
+    private static final String urlTemplate = "/게시물/%d";
 
     private Reply reply;
     private User user;

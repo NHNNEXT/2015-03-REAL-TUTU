@@ -8,7 +8,7 @@ public class NewContentCreatedMessage extends ImmutableMessageTemplate {
 
     private static final String messageTemplate = "'%s' 강의에 새로운 게시물이 등록되었습니다.";
 
-    private static final String singleEventUrlTemplate = "/content/%d";
+    private static final String singleEventUrlTemplate = "/게시물/%d";
 
     private Lecture lecture;
 
