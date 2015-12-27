@@ -5,17 +5,16 @@ angular.module('clientApp')
       scope: {},
       templateUrl: "/common.page.main/notice/notice.html",
       /* @ngInject */
-      controller: function ($scope, Content, rootUser, $rootScope) {
-        $scope.page = 0;
+      controller: function ($scope, Content, rootUser, $rootScope, Page) {
+        var page = $scope.page = new Page();
 
         $scope.contents = [];
 
         $scope.getMore = function () {
           if (!rootUser.isLogged())
             return;
-          Content.getListInMyLectures({contentType: "NOTICE", page: $scope.page}).then(function (contents) {
-            $scope.more = contents.length === 10;
-            $scope.page++;
+          Content.getListInMyLectures({contentType: "NOTICE", page: page.next()}).then(function (contents) {
+            page.return(contents.length);
             contents.forEach(function (content) {
               $scope.contents.push(content);
             });

@@ -3,6 +3,6 @@
 <content-header wrapped content="content" index="$index"
                 ng-repeat="content in contents"></content-header>
 
-<div wrapped class="content-header" ng-click="getMore()" ng-if="more">
+<div wrapped class="content-header" ng-click="getMore()" ng-if="page.hasNext()">
   더보기
 </div>

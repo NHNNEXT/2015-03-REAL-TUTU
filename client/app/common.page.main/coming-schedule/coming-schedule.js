@@ -5,23 +5,22 @@ angular.module('clientApp')
       scope: {},
       templateUrl: "/common.page.main/coming-schedule/coming-schedule.html",
       /* @ngInject */
-      controller: function ($scope, http, Content, $rootScope, rootUser) {
+      controller: function ($scope, http, Content, $rootScope, rootUser, Page) {
 
         $scope.now = new Date();
 
-        $scope.page = 0;
+        var page = $scope.page = new Page();
 
         $scope.contents = [];
 
         $scope.getMore = function () {
           if (!rootUser.isLogged())
             return;
-          http.get('/api/v1/content/list/coming', {page: $scope.page}).then(function (results) {
+          http.get('/api/v1/content/list/coming', {page: page.next()}).then(function (results) {
+            page.return(results.length);
             results.forEach(function (result) {
               $scope.contents.push(new Content(result));
             });
-            $scope.more = results.length === 10;
-            $scope.page++;
           });
         };
 

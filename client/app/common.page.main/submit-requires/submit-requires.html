@@ -6,7 +6,7 @@
   <content-header content="submitRequire.content" index="$index"></content-header>
   <md-divider></md-divider>
 </div>
-<div wrapped class="content-header" ng-click="getMore()" ng-if="more">
+<div wrapped class="content-header" ng-click="getMore()" ng-if="page.hasNext()">
   더보기
 </div>
 <div wrapped class="content-header" ng-if="contents.length===0">

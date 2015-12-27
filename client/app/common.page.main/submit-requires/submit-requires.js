@@ -5,8 +5,8 @@ angular.module('clientApp')
       scope: {},
       templateUrl: "/common.page.main/submit-requires/submit-requires.html",
       /* @ngInject */
-      controller: function ($scope, http, $rootScope, rootUser, SubmitRequire) {
-        $scope.page = 0;
+      controller: function ($scope, http, $rootScope, rootUser, SubmitRequire, Page) {
+        var page = $scope.page = new Page();
 
         $scope.submitRequires = [];
 
@@ -22,12 +22,11 @@ angular.module('clientApp')
         $scope.getMore = function () {
           if (!rootUser.isLogged())
             return;
-          http.get('/api/v1/content/submit/require', {page: $scope.page}).then(function (results) {
+          http.get('/api/v1/content/submit/require', {page: page.next()}).then(function (results) {
+            page.return(results.length);
             results.forEach(function (result) {
               $scope.submitRequires.push(new SubmitRequire(result));
             });
-            $scope.more = results.length === 10;
-            $scope.page++;
           });
         };
 
