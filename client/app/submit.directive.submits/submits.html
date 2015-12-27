@@ -1,3 +1,9 @@
+<div layout="row" ng-if="user.isRootUser()">
+  <md-checkbox class="md-secondary" ng-model="submitRequire.done" ng-click="submitRequire.doToggle()"
+               aria-label="완료 여부">
+    제출 완료
+  </md-checkbox>
+</div>
 <div ng-repeat="submit in submits | orderBy:'writeDate'" layout="row">
   <div submit="submit" submits="submits" attach="attach"></div>
 </div>
@@ -14,8 +20,8 @@
         <div class="write_append">
           <div class="wrap_btn">
             <md-button aria-label="done button" class="md-raised" ng-click="writeSubmit(submit)">
-              <span ng-show="user.isRootUser()">제출</span>
-              <span ng-show="!user.isRootUser()">도움말쓰기</span>
+              <span ng-if="user.isRootUser()">제출</span>
+              <span ng-if="!user.isRootUser()">도움말쓰기</span>
             </md-button>
           </div>
         </div>
@@ -24,3 +30,4 @@
     </div>
   </div>
 </div>
+

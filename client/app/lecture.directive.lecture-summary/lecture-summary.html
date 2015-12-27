@@ -1,7 +1,3 @@
-<div class="margin-bottom">
-  <h2><span ng-repeat="lecture in lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
-    ng-if="!$last">, </span></span></h2>
-</div>
 <div layout-padding>
   <content-timeline contents="contents" start="start" end="end"></content-timeline>
 </div>

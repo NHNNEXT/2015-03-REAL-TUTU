@@ -126,7 +126,7 @@ public class ContentService {
         query = query.from(qUserHaveToSubmit);
         if(page == null)
             page = 0L;
-        query.where(qUserHaveToSubmit.user.eq(user)).limit(AppConfig.pageSize).offset(page * AppConfig.pageSize);
+        query.where(qUserHaveToSubmit.user.eq(user).and(qUserHaveToSubmit.done.eq(false))).limit(AppConfig.pageSize).offset(page * AppConfig.pageSize);
         return success(query.list(qUserHaveToSubmit).stream().map(UserHaveToSubmitContentDto::new).collect(Collectors.toList()));
     }
 

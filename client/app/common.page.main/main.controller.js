@@ -5,6 +5,7 @@
     /* @ngInject */
     .controller('mainController', function (rootUser, Content, $state, $scope, mainButler) {
 
+      $scope.rootUser = rootUser;
       $scope.date = mainButler.date;
       $scope.$watch(function () {
         return rootUser.id;

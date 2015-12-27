@@ -29,12 +29,13 @@ public class MyListDao {
         QContent qContent = QContent.content;
         QLecture qLecture = QLecture.lecture;
         QUserEnrolledLecture qUserEnrolledLecture = QUserEnrolledLecture.userEnrolledLecture;
-        List<Lecture> enrolledLectures = new JPAQuery(entityManager).from(qUserEnrolledLecture).innerJoin(qUserEnrolledLecture.lecture, qLecture).where(qUserEnrolledLecture.user.eq(user)).list(qLecture);
+        List<Lecture> enrolledLectures = new JPAQuery(entityManager).from(qUserEnrolledLecture).innerJoin(qUserEnrolledLecture.lecture, qLecture).where(qUserEnrolledLecture.user.eq(user).and(qUserEnrolledLecture.sideMenu.eq(true))).list(qLecture);
         JPAQuery query = new JPAQuery(entityManager);
+
         query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page);
-        if(keyword != null)
+        if (keyword != null)
             query = query.where(qContent.title.like(getLikeExpression(keyword)).or(qContent.body.like(getLikeExpression(keyword))));
-        if(contentType != null)
+        if (contentType != null)
             query = query.where(qContent.contentGroup.contentType.eq(contentType));
 
         return query.list(qContent);

@@ -5,7 +5,7 @@ angular.module('clientApp')
       scope: {},
       templateUrl: "/common.page.main/submit-requires/submit-requires.html",
       /* @ngInject */
-      controller: function ($scope, http, Content, $rootScope, rootUser) {
+      controller: function ($scope, http, $rootScope, rootUser, SubmitRequire) {
         $scope.page = 0;
 
         $scope.submitRequires = [];
@@ -33,17 +33,7 @@ angular.module('clientApp')
 
         $scope.getMore();
 
-        function SubmitRequire(param) {
-          this.done = param.done;
-          this.content = new Content(param.content);
-          this.id = param.id;
-        }
-
         $rootScope.$on('userStateChange', $scope.getMore);
-
-        SubmitRequire.prototype.doToggle = function () {
-          http.post('/api/v1/content/submit/require', {id: this.id, done: !this.done}); //NG-Model바뀌는거보다, 이벤트 실행이 먼저되서 !done으로 보내야함.
-        };
 
       }
     };

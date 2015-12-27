@@ -4,7 +4,7 @@ angular.module('clientApp').controller('contentDetailController',
     $scope.rootUser = rootUser;
     $scope.content = {replies: []};
 
-    $rootScope.$on('userStateChange', function(){
+    $rootScope.$on('userStateChange', function () {
       getContent($stateParams.id);
     });
 
@@ -13,6 +13,20 @@ angular.module('clientApp').controller('contentDetailController',
     }, function (id) {
       getContent(id);
     });
+
+    $scope.rootUserHaveToSubmit = function (content) {
+      if (!content || !content.contentGroup)
+        return false;
+      return content.contentGroup.contentType === 'SUBMIT' && content.submitRequiredUsers.find(function (submitRequiredUser) {
+          return submitRequiredUser.user.id === rootUser.id;
+        });
+    };
+
+    $scope.getMyUserHaveToSubmit = function (content) {
+      return content.submitRequiredUsers.find(function (submitRequiredUser) {
+        return submitRequiredUser.user.id === rootUser.id;
+      });
+    };
 
     function getContent(id) {
       Content.findById(id).then(function (content) {

@@ -1,16 +1,18 @@
-<div class="padding">
-  <div layout="row">
-    <coming-schedule class="card" flex></coming-schedule>
-  </div>
-
-  <div layout="column" layout-gt-lg="row">
-    <notice class="card" flex></notice>
-    <submit-requires class="card" flex></submit-requires>
-  </div>
+<div class="center margin">
+  <h2><span ng-repeat="lecture in rootUser.lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
+    ng-if="!$last">, </span></span></h2>
+</div>
+<div layout="row" class="margin">
+  <coming-schedule class="card" flex></coming-schedule>
+  <notice class="card" flex></notice>
+  <submit-requires class="card" flex></submit-requires>
+</div>
+<div class="margin">
   <div class="card">
-    <div class="card-header">시간표</div>
+    <div class="card-header">일정 요약</div>
     <md-datepicker ng-model="date.start" md-max-date="date.end"></md-datepicker>
     <md-datepicker ng-model="date.end" md-min-date="date.start"></md-datepicker>
     <lecture-summary start="date.start" end="date.end"></lecture-summary>
   </div>
 </div>
+
