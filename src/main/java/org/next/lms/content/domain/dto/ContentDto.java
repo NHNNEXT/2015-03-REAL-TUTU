@@ -35,7 +35,7 @@ public class ContentDto {
     private final Boolean submitCanAttach;
 
     private Long like;
-    private List<UserHaveToSubmitDto> submitRequiredUsers;
+    private List<UserHaveToSubmitDto> submitRequires;
     private List<ContentSummaryDto> relativeContents;
     private List<UploadedFileDto> attachments;
 
@@ -67,12 +67,12 @@ public class ContentDto {
                 .filter(userGroupCanReadSubmit -> userGroupCanReadSubmit.getUserGroup().getUserEnrolledLectures().stream()
                         .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent()).findAny().isPresent();
         if (hasRightReadSubmits) {
-            this.submitRequiredUsers = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
+            this.submitRequires = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
             return;
         }
         if (content.getUserHaveToSubmits().stream().filter(haveToSubmit -> haveToSubmit.getUser().equals(user)).findAny().isPresent()) {
-            this.submitRequiredUsers = new ArrayList<>();
-            this.submitRequiredUsers.add(new UserHaveToSubmitDto(content.getUserHaveToSubmits().stream().filter(haveToSubmit -> haveToSubmit.getUser().equals(user)).findAny().get()));
+            this.submitRequires = new ArrayList<>();
+            this.submitRequires.add(new UserHaveToSubmitDto(content.getUserHaveToSubmits().stream().filter(haveToSubmit -> haveToSubmit.getUser().equals(user)).findAny().get()));
         }
     }
 }

@@ -19,7 +19,7 @@ angular.module('clientApp')
 
 
     Content.prototype.setProperties = function (obj) {
-      this.submitRequiredUsers = obj.submitRequiredUsers;
+      this.submitRequires = obj.submitRequires;
       this.repliesSize = obj.repliesSize;
       this.writer = obj.writer;
       this.lectureName = obj.lectureName;
@@ -67,10 +67,10 @@ angular.module('clientApp')
       if (this.id === undefined)
         query.contentGroup = this.contentGroup.id;
       if (this.contentGroup.contentType === 'SUBMIT') {
-        query.submitRequiredUsers = [];
+        query.submitRequires = [];
         this.users.forEach(function (user) {
           if (user.submit)
-            query.submitRequiredUsers.push(user.id);
+            query.submitRequires.push(user.id);
         });
       }
       if (this.attachments) {
@@ -95,8 +95,8 @@ angular.module('clientApp')
       if (this.contentGroup.contentType !== 'SUBMIT')
         return http.put('/api/v1/content', query, true);
 
-      var removed = this.submitRequiredUsers.filter(function (relation) {
-        return !query.submitRequiredUsers.includes(relation.user.id);
+      var removed = this.submitRequires.filter(function (relation) {
+        return !query.submitRequires.includes(relation.user.id);
       });
 
       if (removed.length === 0)

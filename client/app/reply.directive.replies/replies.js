@@ -7,22 +7,22 @@ angular.module('clientApp')
       },
       templateUrl: '/reply.directive.replies/replies.html',
       /* @ngInject */
-      controller: function (rootUser, $scope, Reply) {
+      controller: function (rootUser, $scope, Reply, Page) {
         $scope.replies = [];
+        var page = $scope.page = new Page();
+
         $scope.more = function () {
           var query = {};
           query.contentId = $scope.content.id;
-          query.page = $scope.page;
+          query.page = page.next();
           Reply.getList(query).then(function (replies) {
-            $scope.page++;
-            $scope.moreReplyExist = replies.length === 10;
+            page.return(replies.length);
             replies.forEach(function (reply) {
               $scope.replies.push(reply);
             });
           });
         };
 
-        $scope.page = 0;
         $scope.$watch('content', function (id) {
           if (!id)
             return;

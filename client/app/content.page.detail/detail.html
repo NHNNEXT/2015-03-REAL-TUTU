@@ -64,16 +64,16 @@
   </div>
 </section>
 
-<section hide-sm ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequiredUsers.length>0">
-  <submit-status deadline="content.endTime" submit-required-users="content.submitRequiredUsers"></submit-status>
+<section hide-sm ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequires.length>0">
+  <submit-status deadline="content.endTime" submit-required-users="content.submitRequires"></submit-status>
 </section>
 
 
-<section ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequiredUsers.length>0">
+<section ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequires.length>0">
   <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab ng-repeat="submitdto in content.submitRequiredUsers" label="{{' '+submitdto.user.name+' '}}">
+    <md-tab ng-repeat="submitRequire in content.submitRequires" label="{{submitRequire.user.name}}">
       <md-content class="md-padding">
-        <submits attach="content.submitCanAttach" submitdto="submitdto"></submits>
+        <submits attach="content.submitCanAttach" submit-require="submitRequire"></submits>
       </md-content>
     </md-tab>
     <!-- to resolve last tab disappeared bug -->

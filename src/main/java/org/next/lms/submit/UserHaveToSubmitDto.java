@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 @Getter
 public class UserHaveToSubmitDto {
 
-    private UserSummaryDto user;
-
-    private List<SubmitDto> submits;
-
-    private Long id;
+    private final Boolean done;
+    private final UserSummaryDto user;
+    private final List<SubmitDto> submits;
+    private final Long id;
 
     public UserHaveToSubmitDto(UserHaveToSubmit userHaveToSubmit) {
         this.id = userHaveToSubmit.getId();
+        this.done = userHaveToSubmit.getDone();
         this.user = new UserSummaryDto(userHaveToSubmit.getUser());
         this.submits = userHaveToSubmit.getSubmits().stream().map(SubmitDto::new).collect(Collectors.toList());
     }

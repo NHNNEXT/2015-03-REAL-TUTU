@@ -82,12 +82,12 @@ public class ContentSaveService {
         messageService.send(message);
 
         if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
-            List<User> submitRequiredUserList = new ArrayList<>();
-            contentParameterDto.getSubmitRequiredUsers().stream().forEach(userId -> {
-                submitRequiredUserList.add(userRepository.findOne(userId));
+            List<User> submitRequireList = new ArrayList<>();
+            contentParameterDto.getSubmitRequires().stream().forEach(userId -> {
+                submitRequireList.add(userRepository.findOne(userId));
             });
 
-            PackagedMessage submitAssignedNoticeMessage = aMessage().from(user).to(submitRequiredUserList)
+            PackagedMessage submitAssignedNoticeMessage = aMessage().from(user).to(submitRequireList)
                     .with(new NewSubmitAssignedMessage(content.getLecture())).packaging();
             messageService.send(submitAssignedNoticeMessage);
         }
@@ -150,14 +150,14 @@ public class ContentSaveService {
 
 
     private void removeDeletedUser(ContentParameterDto contentParameterDto, Content content) {
-        List<UserHaveToSubmit> userHaveToSubmits = content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> !contentParameterDto.getSubmitRequiredUsers().contains(userHaveToSubmit.getUser().getId())).collect(Collectors.toList());
+        List<UserHaveToSubmit> userHaveToSubmits = content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> !contentParameterDto.getSubmitRequires().contains(userHaveToSubmit.getUser().getId())).collect(Collectors.toList());
         content.getUserHaveToSubmits().removeAll(userHaveToSubmits);
         userHaveToSubmitRepository.delete(userHaveToSubmits);
     }
 
     private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
-        if (contentParameterDto.getSubmitRequiredUsers() != null)
-            contentParameterDto.getSubmitRequiredUsers().forEach(userId -> {
+        if (contentParameterDto.getSubmitRequires() != null)
+            contentParameterDto.getSubmitRequires().forEach(userId -> {
                 if (content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent())
                     return;
                 User user = assureNotNull(userRepository.findOne(userId));

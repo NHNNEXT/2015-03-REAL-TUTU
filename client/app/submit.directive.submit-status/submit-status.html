@@ -4,9 +4,9 @@
   <div flex="10" ng-repeat="date in dates">{{date.getDateString()}}</div>
 </div>
 <div layout="row" class="submit-user" ng-class="{submitted:submitRequiredUser.submitted}"
-     ng-repeat="submitRequiredUser in submitRequiredUsers">
-  <div flex="10">{{submitRequiredUser.user.name}}</div>
-  <span ng-repeat="submit in submitRequiredUser.mySubmits" ng-style="left(submit.writeDate)">
+     ng-repeat="submitRequire in submitRequires">
+  <div flex="10">{{submitRequire.user.name}}</div>
+  <span ng-repeat="submit in submitRequire.mySubmits" ng-style="left(submit.writeDate)">
     <i class="fa fa-star"></i>
     <md-tooltip md-direction="right">{{submit.body}} {{submit.writeDate.toYMD()}}</md-tooltip>
   </span>

@@ -26,7 +26,7 @@ public class ContentParameterDto {
     private Date endTime;
     private Long contentGroup;
     private Content content;
-    private List<Long> submitRequiredUsers;
+    private List<Long> submitRequires;
     private List<Long> attachments;
 
     public void setProperties(Content content) {

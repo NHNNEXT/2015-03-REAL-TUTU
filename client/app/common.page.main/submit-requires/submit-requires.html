@@ -1,6 +1,7 @@
 <div class="card-header">제출해야 할 것 ({{submitRequires.length}}개 <span ng-show="more">이상</span>)</div>
 
-<div wrapped ng-repeat="submitRequire in submitRequires | orderBy:'done'" layout="row" layout-sm="column">
+<div wrapped ng-repeat="submitRequire in submitRequires  | orderBy:'content.endTime' | orderBy:'done'" layout="row"
+     layout-sm="column">
   <md-checkbox class="md-secondary" ng-model="submitRequire.done" ng-click="submitRequire.doToggle()"
                aria-label="완료 여부"></md-checkbox>
   <content-header content="submitRequire.content" index="$index"></content-header>

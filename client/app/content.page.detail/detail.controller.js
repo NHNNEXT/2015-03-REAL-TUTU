@@ -17,14 +17,14 @@ angular.module('clientApp').controller('contentDetailController',
     $scope.rootUserHaveToSubmit = function (content) {
       if (!content || !content.contentGroup)
         return false;
-      return content.contentGroup.contentType === 'SUBMIT' && content.submitRequiredUsers.find(function (submitRequiredUser) {
-          return submitRequiredUser.user.id === rootUser.id;
+      return content.contentGroup.contentType === 'SUBMIT' && content.submitRequires.find(function (submitRequire) {
+          return submitRequire.user.id === rootUser.id;
         });
     };
 
     $scope.getMyUserHaveToSubmit = function (content) {
-      return content.submitRequiredUsers.find(function (submitRequiredUser) {
-        return submitRequiredUser.user.id === rootUser.id;
+      return content.submitRequires.find(function (submitRequire) {
+        return submitRequire.user.id === rootUser.id;
       });
     };
 

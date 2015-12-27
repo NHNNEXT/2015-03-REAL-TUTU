@@ -3,23 +3,28 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        submitdto: '=',
+        submitRequire: '=',
         attach: '='
       },
       templateUrl: '/submit.directive.submits/submits.html',
       /* @ngInject */
-      controller: function (rootUser, $scope, Submit, User, emoticon) {
+      controller: function (rootUser, $scope, Submit, User, emoticon, http) {
 
-        $scope.$watch('submitdto', function (submitdto) {
-          if (!submitdto)
+        $scope.$watch('submitRequire', function (submitRequire) {
+          if (!submitRequire)
             return;
-          $scope.user = new User(submitdto.user);
-          $scope.submits = submitdto.submits;
-          $scope.submitId = submitdto.id;
-          for (var i = 0; i < submitdto.submits.length; i++) {
-            submitdto.submits[i] = new Submit(submitdto.submits[i]);
-          }
+          $scope.done = submitRequire.done;
+          $scope.user = new User(submitRequire.user);
+          $scope.submits = submitRequire.submits;
+          $scope.submitId = submitRequire.id;
+          $scope.submits = submitRequire.submits.map(function(submit){
+            return new Submit(submit);
+          });
         });
+
+        $scope.doToggle = function () {
+          http.post('/api/v1/content/submit/require', {id: $scope.submitId, done: !$scope.done}); //NG-Model바뀌는거보다, 이벤트 실행이 먼저되서 !done으로 보내야함.
+        };
 
         $scope.submit = new Submit();
         $scope.rootUser = rootUser;
@@ -30,7 +35,6 @@ angular.module('clientApp')
             if ($scope.user.id === result.writer.id)
               emoticon.submitDone();
             $scope.submit = new Submit();
-
           });
         };
       }

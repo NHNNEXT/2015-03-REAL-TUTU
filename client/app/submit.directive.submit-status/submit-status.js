@@ -3,7 +3,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        submitRequiredUsers: '=',
+        submitRequires: '=',
         deadline: '='
       },
       templateUrl: '/submit.directive.submit-status/submit-status.html',
@@ -37,7 +37,7 @@ angular.module('clientApp')
           $scope.deadlineStyle.left = calculateLeft(deadline);
         });
 
-        $scope.$watch('submitRequiredUsers', function (users) {
+        $scope.$watch('submitRequires', function (users) {
           if (!users)
             return;
           users.forEach(function (user) {
