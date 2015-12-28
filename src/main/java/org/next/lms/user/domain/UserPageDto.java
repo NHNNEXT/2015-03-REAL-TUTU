@@ -2,7 +2,6 @@ package org.next.lms.user.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.lecture.domain.dto.LectureSummaryDto;
 import org.next.lms.lecture.domain.dto.UserGroupDto;
 

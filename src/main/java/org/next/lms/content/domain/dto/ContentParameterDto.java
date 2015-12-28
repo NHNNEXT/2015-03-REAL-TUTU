@@ -18,7 +18,7 @@ public class ContentParameterDto {
     private Long lectureId;
     private Lecture lecture;
     private Long id;
-    private Boolean submitCanAttach;
+    private boolean submitCanAttach;
     private String title;
     private String body;
     private Date writeDate;

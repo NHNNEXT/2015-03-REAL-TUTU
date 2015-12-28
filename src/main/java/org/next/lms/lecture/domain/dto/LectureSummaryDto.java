@@ -2,7 +2,6 @@ package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.user.domain.UserSummaryDto;
 
 @Getter

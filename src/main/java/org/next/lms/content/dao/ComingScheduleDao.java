@@ -8,9 +8,6 @@ import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.domain.QContent;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.QLecture;
-import org.next.lms.lecture.domain.QUserEnrolledLecture;
-import org.next.lms.user.domain.User;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
