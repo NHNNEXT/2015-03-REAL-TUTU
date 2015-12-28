@@ -40,6 +40,10 @@
             ui-sref="lecture.list({contentGroupName:contentGroup.name})">
       {{contentGroup.name}}
     </md-tab>
+    <!-- to resolve last tab disappeared bug -->
+    <md-tab ng-disabled="true">
+      <md-tab-label>&nbsp;</md-tab-label>
+    </md-tab>
   </md-tabs>
   <div ui-view></div>
 
