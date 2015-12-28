@@ -1,4 +1,4 @@
-<div class="card-header">공지사항</div>
+<div class="card-header">{{head}}</div>
 <content-header wrapped content="content" index="$index"
                 ng-repeat="content in contents"></content-header>
 <div wrapped ng-click="getMore()" ng-if="page.hasNext()">

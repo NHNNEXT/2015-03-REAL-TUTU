@@ -2,10 +2,13 @@
   <h2><span ng-repeat="lecture in rootUser.lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
     ng-if="!$last">, </span></span></h2>
 </div>
-<div layout="row" class="margin">
+<div layout="column" class="margin" layout-gt-md="row">
   <coming-schedule class="card" flex></coming-schedule>
-  <notice class="card" flex></notice>
   <submit-requires class="card" flex></submit-requires>
+</div>
+<div layout="column" class="margin" layout-gt-md="row">
+  <content-list-card head="공지사항" query="{contentType:'NOTICE'}" class="card" flex></content-list-card>
+  <content-list-card head="최신 글" query="{}" class="card" flex></content-list-card>
 </div>
 <div class="margin">
   <div class="card">

@@ -1,10 +1,13 @@
 angular.module('clientApp')
-  .directive('notice', function () {
+  .directive('contentListCard', function () {
     return {
       restrict: 'E',
-      scope: {},
-      templateUrl: "/common.page.main/notice/notice.html",
+      scope: {query: '=', head: "@"},
+      templateUrl: "/common.page.main/content-list-card/content-list-card.html",
       /* @ngInject */
+      link: function (s, e) {
+        s.el = e;
+      },
       controller: function ($scope, Content, rootUser, $rootScope, Page) {
         var page = $scope.page = new Page();
 
@@ -13,11 +16,16 @@ angular.module('clientApp')
         $scope.getMore = function () {
           if (!rootUser.isLogged())
             return;
-          Content.getListInMyLectures({contentType: "NOTICE", page: page.next()}).then(function (contents) {
+          var query = {};
+          angular.copy($scope.query, query);
+          query.page = page.next();
+          Content.getListInMyLectures(query).then(function (contents) {
             page.return(contents.length);
             contents.forEach(function (content) {
               $scope.contents.push(content);
             });
+            if ($scope.contents.length === 0)
+              $($scope.el).remove();
           });
         };
 
