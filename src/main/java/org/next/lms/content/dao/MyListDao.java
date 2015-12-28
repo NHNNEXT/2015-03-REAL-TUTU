@@ -8,9 +8,6 @@ import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.domain.QContent;
 import org.next.lms.lecture.domain.Lecture;
-import org.next.lms.lecture.domain.QLecture;
-import org.next.lms.lecture.domain.QUserEnrolledLecture;
-import org.next.lms.user.domain.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -29,7 +26,7 @@ public class MyListDao {
         QContent qContent = QContent.content;
         JPAQuery query = new JPAQuery(entityManager);
 
-        query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page);
+        query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page).orderBy(qContent.id.desc());
         if (keyword != null)
             query = query.where(qContent.title.like(getLikeExpression(keyword)).or(qContent.body.like(getLikeExpression(keyword))));
         if (contentType != null)

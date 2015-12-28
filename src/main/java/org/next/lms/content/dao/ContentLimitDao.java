@@ -4,7 +4,6 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.Getter;
 import lombok.Setter;
 import org.next.config.AppConfig;
-import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.domain.QContent;
 
 @Getter
@@ -16,7 +15,7 @@ public class ContentLimitDao extends ContentDao {
     @Override
     protected JPAQuery limitPolicy(JPAQuery query) {
         Long offset = page * AppConfig.pageSize;
-        return query.limit(AppConfig.pageSize).offset(offset);
+        return query.orderBy(QContent.content.id.desc()).limit(AppConfig.pageSize).offset(offset);
     }
 
 }
