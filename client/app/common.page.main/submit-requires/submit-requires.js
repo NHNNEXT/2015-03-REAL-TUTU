@@ -3,6 +3,9 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {},
+      link: function (s, e) {
+        s.el = e;
+      },
       templateUrl: "/common.page.main/submit-requires/submit-requires.html",
       /* @ngInject */
       controller: function ($scope, http, $rootScope, rootUser, SubmitRequire, Page) {
@@ -27,6 +30,8 @@ angular.module('clientApp')
             results.forEach(function (result) {
               $scope.submitRequires.push(new SubmitRequire(result));
             });
+            if ($scope.submitRequires.length === 0)
+              $($scope.el).remove();
           });
         };
 
