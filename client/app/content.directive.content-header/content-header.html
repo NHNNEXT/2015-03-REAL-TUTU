@@ -6,8 +6,8 @@
         <i class="fa fa-check"></i> 마감 : {{content.endTime.fromNow()}}
       </small>
       <small ng-if="content.contentGroup.contentType==='SCHEDULE'"><i class="fa fa-clock-o"></i>
-        {{content.startTime.range(content.endTime)}} ({{content.startTime.fromNow()}}) <span
-          ng-show="content.startTime < now" class="red">현재 진행중</span>
+        {{content.startTime.range(content.endTime)}} ({{content.startTime.fromNow()}})
+        <span ng-show="content.startTime < now && now < content.endTime" class="red">현재 진행중</span>
       </small>
     </span>
   </span>
@@ -18,7 +18,7 @@
     <span ui-sref="lecture.list({id:content.lectureId, contentGroupName:content.contentGroup.name})">{{content.contentGroup.name}}</span>
     <span class="margin-left-s" ui-sref="profile({email:content.writer.email})">by {{content.writer.name}}</span>
 
-    <span class="margin-left-s">{{content.writeDate.toYMD()}}<div ng-show="content.startTime < now" class="red">진행중</div></span>
+    <span class="margin-left-s">{{content.writeDate.toYMD()}}</span>
   </span>
 </div>
 

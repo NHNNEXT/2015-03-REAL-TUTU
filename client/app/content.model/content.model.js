@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('Content', function (http, $sce, $q, $state, confirm, ContentGroup, Attachment) {
+  .factory('Content', function (http, $sce, $q, $state, confirm, ContentGroup, Attachment, alert) {
     function Content(param) {
       if (param === undefined || param === null)
         return;
@@ -64,8 +64,13 @@ angular.module('clientApp')
       query.endTime = this.endTime;
       query.startTime = this.startTime;
       query.submitCanAttach = this.submitCanAttach;
-      if (this.id === undefined)
+      if (this.id === undefined) {
+        if (!this.contentGroup) {
+          alert.warning("게시물 분류를 선택해주세요.");
+          throw "contentGroup Must Define";
+        }
         query.contentGroup = this.contentGroup.id;
+      }
       if (this.contentGroup.contentType === 'SUBMIT') {
         query.submitRequires = [];
         this.users.forEach(function (user) {
