@@ -8,18 +8,18 @@ import org.next.lms.content.domain.ContentType;
 public class ContentGroupDto {
 
     private final Long id;
-    private final Boolean submitOpen;
-    private final Boolean reply;
-    private final Boolean attachment;
+    private final boolean submitOpen;
+    private final boolean reply;
+    private final boolean attachment;
     private final String name;
     private final ContentType contentType;
 
     public ContentGroupDto(ContentGroup contentGroup) {
         this.id = contentGroup.getId();
-        this.attachment = contentGroup.getAttachment();
+        this.attachment = contentGroup.isAttachment();
         this.contentType = contentGroup.getContentType();
-        this.submitOpen = contentGroup.getSubmitOpen();
-        this.reply = contentGroup.getReply();
+        this.submitOpen = contentGroup.isSubmitOpen();
+        this.reply = contentGroup.isReply();
         this.name = contentGroup.getName();
     }
 }

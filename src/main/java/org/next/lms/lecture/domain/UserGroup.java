@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
@@ -43,8 +44,9 @@ public class UserGroup {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "DEFAULT_GROUP", nullable = false, columnDefinition = "boolean default false")
-    private Boolean defaultGroup = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "DEFAULT_GROUP")
+    private boolean defaultGroup = false;
 
     @NotNull(message = "그룹 이름을 입력해주세요.")
     @Column(name = "NAME")
@@ -52,8 +54,7 @@ public class UserGroup {
 
 
     public void update(UserGroup userGroup) {
-        if (userGroup.defaultGroup != null)
-            this.defaultGroup = userGroup.defaultGroup;
+        this.defaultGroup = userGroup.defaultGroup;
         if (userGroup.name != null)
             this.name = userGroup.name;
     }

@@ -142,7 +142,7 @@ public class LectureService {
         UserEnrolledLecture relation = new UserEnrolledLecture();
         relation.setLecture(lecture);
         relation.setUser(user);
-        relation.setUserGroup(lecture.getUserGroups().stream().filter(UserGroup::getDefaultGroup).findAny().get());
+        relation.setUserGroup(lecture.getUserGroups().stream().filter(UserGroup::isDefaultGroup).findAny().get());
         userEnrolledLectureRepository.save(relation);
         return relation;
     }
@@ -163,7 +163,7 @@ public class LectureService {
         UserEnrolledLecture userEnrolledLecture = assureNotNull(user.getEnrolledLectures().stream().filter(relation -> relation.getLecture().getId().equals(lectureId)).findFirst().get());
         userEnrolledLecture.toggleSideMenu();
 
-        return success(userEnrolledLecture.getSideMenu());
+        return success(userEnrolledLecture.isSideMenu());
     }
 
     private UserEnrolledLecture getUserEnrolledLectureWithAuthCheck(Long id, Long userId, User user) {

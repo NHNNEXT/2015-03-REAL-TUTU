@@ -71,7 +71,7 @@ public class MessageService {
             messageFromDb.setChecked(false);
         }
 
-        if(!messageHolder.isUpdatableMessage() && messageFromDb.getChecked()) {
+        if(!messageHolder.isUpdatableMessage() && messageFromDb.isChecked()) {
             updateMessage(messageFromDb, messageHolder);
             messageFromDb.setChecked(false);
         }

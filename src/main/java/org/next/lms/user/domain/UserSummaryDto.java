@@ -33,6 +33,6 @@ public class UserSummaryDto {
             this.group = new UserGroupDto(userEnrolledLecture.getUserGroup());
             return;
         }
-        this.group = new UserGroupDto(userEnrolledLecture.getLecture().getUserGroups().stream().filter(UserGroup::getDefaultGroup).findAny().get());
+        this.group = new UserGroupDto(userEnrolledLecture.getLecture().getUserGroups().stream().filter(UserGroup::isDefaultGroup).findAny().get());
     }
 }

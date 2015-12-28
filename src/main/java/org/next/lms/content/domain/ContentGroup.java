@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
@@ -46,14 +47,17 @@ public class ContentGroup {
     @Column(name = "CONTENT_TYPE", nullable = false)
     private ContentType contentType = ContentType.GENERAL;
 
-    @Column(name = "SUBMIT_OPEN", nullable = false, columnDefinition = "boolean default false")
-    private Boolean submitOpen = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "SUBMIT_OPEN")
+    private boolean submitOpen = false;
 
-    @Column(name = "REPLY", nullable = false, columnDefinition = "boolean default false")
-    private Boolean reply = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "REPLY")
+    private boolean reply = false;
 
-    @Column(name = "ATTACHMENT", nullable = false, columnDefinition = "boolean default false")
-    private Boolean attachment = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "ATTACHMENT")
+    private boolean attachment = false;
 
     @NotNull(message = "게시물 이름을 입력해주세요.")
     @Column(name = "NAME")
@@ -61,12 +65,9 @@ public class ContentGroup {
 
 
     public void update(ContentGroup contentGroup) {
-        if (contentGroup.submitOpen != null)
-            this.submitOpen = contentGroup.submitOpen;
-        if (contentGroup.reply != null)
-            this.reply = contentGroup.reply;
-        if (contentGroup.attachment != null)
-            this.attachment = contentGroup.attachment;
+        this.submitOpen = contentGroup.submitOpen;
+        this.reply = contentGroup.reply;
+        this.attachment = contentGroup.attachment;
         if (contentGroup.name != null)
             this.name = contentGroup.name;
     }

@@ -104,7 +104,7 @@ public class ContentSaveService {
             removeDeletedUser(contentParameterDto, contentFromDB);
             submitUserDeclare(contentParameterDto, contentFromDB);
         }
-        if (contentFromDB.getContentGroup().getAttachment()) {
+        if (contentFromDB.getContentGroup().isAttachment()) {
             attachmentsDeclare(contentParameterDto, contentFromDB);
         }
         return success();
@@ -126,7 +126,7 @@ public class ContentSaveService {
         if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
             submitUserDeclare(contentParameterDto, content);
         }
-        if (content.getContentGroup().getAttachment()) {
+        if (content.getContentGroup().isAttachment()) {
             attachmentsDeclare(contentParameterDto, content);
         }
         return content;

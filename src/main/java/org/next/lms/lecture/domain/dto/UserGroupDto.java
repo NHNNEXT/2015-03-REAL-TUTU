@@ -7,12 +7,12 @@ import org.next.lms.lecture.domain.UserGroup;
 public class UserGroupDto {
 
     private final Long id;
-    private final Boolean defaultGroup;
+    private final boolean defaultGroup;
     private final String name;
 
     public UserGroupDto(UserGroup userGroup) {
         this.id = userGroup.getId();
-        this.defaultGroup = userGroup.getDefaultGroup();
+        this.defaultGroup = userGroup.isDefaultGroup();
         this.name = userGroup.getName();
     }
 }

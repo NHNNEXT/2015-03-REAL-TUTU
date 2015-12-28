@@ -26,7 +26,7 @@ public class LectureForHostUserDto extends LectureDto {
             UserSummaryDto user = new UserSummaryDto(relation.getUser());
             UserGroup userGroup = relation.getUserGroup();
             if (userGroup == null)
-                userGroup = lecture.getUserGroups().stream().filter(UserGroup::getDefaultGroup).findFirst().get();
+                userGroup = lecture.getUserGroups().stream().filter(UserGroup::isDefaultGroup).findFirst().get();
             user.setGroup(new UserGroupDto(userGroup));
             if (ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState()))
                 waitingUsers.add(user);

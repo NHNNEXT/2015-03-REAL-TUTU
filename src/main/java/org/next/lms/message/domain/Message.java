@@ -1,6 +1,7 @@
 package org.next.lms.message.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
@@ -41,8 +42,9 @@ public class Message {
     @Column(name = "URL")
     private String url;
 
-    @Column(name = "CHECKED", nullable = false, columnDefinition = "boolean default false")
-    private Boolean checked = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "CHECKED")
+    private boolean checked = false;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE")

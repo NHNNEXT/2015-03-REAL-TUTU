@@ -124,7 +124,7 @@ public class LectureSaveService {
 
 
     private void ensureDefaultGroupExist(List<UserGroup> userGroups) {
-        if (!userGroups.stream().filter(UserGroup::getDefaultGroup).findAny().isPresent()) {
+        if (!userGroups.stream().filter(UserGroup::isDefaultGroup).findAny().isPresent()) {
             userGroups.get(0).setDefaultGroup(true);
         }
     }
@@ -134,7 +134,7 @@ public class LectureSaveService {
         List<UserGroup> deletedUserGroups = userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
         userGroups.removeAll(deletedUserGroups);
         ensureDefaultGroupExist(userGroups);
-        UserGroup defaultGroup = userGroups.stream().filter(UserGroup::getDefaultGroup).findFirst().get();
+        UserGroup defaultGroup = userGroups.stream().filter(UserGroup::isDefaultGroup).findFirst().get();
         deletedUserGroups.forEach(userGroup -> {
             userGroup.getUserEnrolledLectures().forEach(userEnrolledLecture -> {
                 userEnrolledLecture.setUserGroup(defaultGroup);

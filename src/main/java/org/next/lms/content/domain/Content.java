@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.relative.ContentLinkContent;
@@ -88,19 +89,14 @@ public class Content implements ObjectOwnerKnowable{
     @Column(name = "END_TIME")
     private Date endTime;
 
-    @Column(name="SUBMIT_CAN_ATTACH", nullable = false, columnDefinition = "boolean default false")
-    private Boolean submitCanAttach = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name="SUBMIT_CAN_ATTACH")
+    private boolean submitCanAttach = false;
 
 
     public void addReadCount() {
         this.hits++;
     }
-
-//    // TODO 수정필요해보임 -> 관계만 끊는다고 삭제가 되는것은 아닌것 같다
-//    public void setDeleteState() {
-//        this.writer = null;
-//        this.lecture = null;
-//    }
 
     public void validate() {
         this.contentGroup.getContentType().validate(this);

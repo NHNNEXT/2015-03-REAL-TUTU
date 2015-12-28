@@ -1,6 +1,7 @@
 package org.next.lms.submit;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.user.domain.User;
@@ -36,8 +37,9 @@ public class UserHaveToSubmit implements ObjectOwnerKnowable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "DONE")
-    private Boolean done = false;
+    private boolean done = false;
 
     @Override
     public User ownerOfObject() {

@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.user.domain.User;
 
@@ -37,17 +38,11 @@ public class UserEnrolledLecture {
     @Column(name = "APPROVAL_STATE")
     private Integer approvalState = ApprovalState.WAITING_APPROVAL;
 
-    // TODO 사이드바 표시 여부를 나타내는 flag라면
-    // display on sidebar
-    // show on sidebar 와 같은 변수명을 사용해보면 어떨까요?
-    @Column(name = "SIDE_MENU", nullable = false, columnDefinition = "boolean default false")
-    private Boolean sideMenu = false;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "SIDE_MENU")
+    private boolean sideMenu = false;
 
     public void toggleSideMenu() {
-        if (this.sideMenu == null) {
-            this.sideMenu = true;
-            return;
-        }
         this.sideMenu = !this.sideMenu;
     }
 
