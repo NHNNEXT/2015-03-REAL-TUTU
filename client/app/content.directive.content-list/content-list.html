@@ -1,10 +1,6 @@
 <div layout-sm="column" layout="row">
   <div flex></div>
   <div class="margin-vertical" layout="row" layout-align="end center">
-    <span class="margin-right" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()"
-          ui-sref="contentNew({lectureId:lecture.id, contentGroupName:contentGroupName})">
-     <i class="fa fa-pencil"></i>
-    </span>
     <div>
       <md-input-container ng-show="search" class="search-input">
         <label>검색어</label>

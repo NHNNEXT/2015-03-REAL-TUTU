@@ -19,6 +19,11 @@
       <span ui-sref="lecture.list"> 게시물 {{lecture.contents.length}}</span>
       <span class="bar"></span>
       <span ui-sref="lecture.people">참여자 {{lecture.users.length}}</span>
+      <span class="margin-right" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()"
+            ui-sref="contentNew({lectureId:lecture.id, contentGroupName:contentGroupName})">
+        <span class="bar"></span>
+        새 게시물
+      </span>
     </div>
     <div layout="row" layout-align-gt-sm="end center" flex class="info">
       <span ng-hide="lecture.hostUser.isRootUser() || lecture.isEnrolled()">
