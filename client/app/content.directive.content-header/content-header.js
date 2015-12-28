@@ -1,5 +1,5 @@
 angular.module('clientApp')
-  .directive('contentHeader', function () {
+  .directive('contentHeader', function (Now) {
     return {
       restrict: 'E',
       scope: {
@@ -8,7 +8,7 @@ angular.module('clientApp')
       },
       templateUrl: '/content.directive.content-header/content-header.html',
       link: function (s) {
-        s.now = new Date();
+        s.now = Now;
       }
     };
   });
