@@ -11,13 +11,11 @@ public class UserHaveToSubmitDto {
 
     private final boolean done;
     private final UserSummaryDto user;
-    private final List<SubmitDto> submits;
     private final Long id;
 
     public UserHaveToSubmitDto(UserHaveToSubmit userHaveToSubmit) {
         this.id = userHaveToSubmit.getId();
         this.done = userHaveToSubmit.isDone();
         this.user = new UserSummaryDto(userHaveToSubmit.getUser());
-        this.submits = userHaveToSubmit.getSubmits().stream().map(SubmitDto::new).collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package org.next.lms.submit;
 
+import org.next.infra.exception.HasNoRightException;
 import org.next.infra.result.Result;
 import org.next.lms.user.control.inject.Logged;
 import org.next.lms.user.domain.User;
@@ -20,6 +21,11 @@ public class SubmitController {
     @RequestMapping(method = RequestMethod.POST)
     public Result save(@RequestBody SubmitParameterDto submitParameterDto, @Logged User user) {
         return submitService.save(submitParameterDto, user);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Result getList(Long userHaveToSubmitId, Integer page, @Logged User user) {
+        return submitService.getList(userHaveToSubmitId, page, user);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
