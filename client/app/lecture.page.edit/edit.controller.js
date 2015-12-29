@@ -2,7 +2,7 @@ angular
   .module('clientApp')
   .controller('editLectureController',
     /* @ngInject */
-    function EditLectureController($scope, Lecture, rootUser, alert, $state, types, $stateParams) {
+    function EditLectureController($scope, Lecture, rootUser, alert, $state, types, $stateParams, pageMove) {
 
       var lecture;
 
@@ -99,6 +99,7 @@ angular
             rootUser.lectures.push(lecture);
             rootUser.hostingLectures.push(lecture);
           }
+          pageMove.ok = true;
           $state.go('lecture', {id: id});
         });
       }

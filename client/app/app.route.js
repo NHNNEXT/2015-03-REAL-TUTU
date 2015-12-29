@@ -19,7 +19,8 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   };
   states.contentNew = {
     templateUrl: "/content.page.edit/write.html",
-    controller: 'contentWriteController'
+    controller: 'contentWriteController',
+    confirm: true
   };
   states.content = {
     templateUrl: "/content.page.detail/detail.html",
@@ -27,17 +28,20 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   };
   states.contentEdit = {
     templateUrl: "/content.page.edit/edit.html",
-    controller: 'contentEditController'
+    controller: 'contentEditController',
+    confirm: true
   };
   states.lectureEdit = {
     templateUrl: "/lecture.page.edit/edit.html",
     controller: 'editLectureController',
-    header: "강의 관리"
+    header: "강의 관리",
+    confirm: true
   };
   states.lectureNew = {
     templateUrl: "/lecture.page.edit/edit.html",
     controller: 'editLectureController',
-    header: "강의 등록"
+    header: "강의 등록",
+    confirm: true
   };
   states.lecture = {
     templateUrl: "/lecture.page.detail/lecture.html",
@@ -84,7 +88,7 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   states.contentEdit.url = "/게시물/:id/수정";
   states.contentNew.url = "/게시물/:lectureId/쓰기";
   states.lectures.url = "/전체강의리스트";
-  states.lecture.url = "/강의/:id?:tab" ;
+  states.lecture.url = "/강의/:id?:tab";
   states.lectureNew.url = "/강의등록";
   states.lectureEdit.url = "/강의/:id/수정";
   states.messages.url = "/소식";

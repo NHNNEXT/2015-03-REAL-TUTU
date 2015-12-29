@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentWriteController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentGroup, User, alert, $timeout) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentGroup, User, alert, $timeout, pageMove) {
 
 
     $scope.rootUser = rootUser;
@@ -59,6 +59,7 @@ angular.module('clientApp').controller('contentWriteController',
         query.contents = result;
         query.lectureId = $stateParams.lectureId;
         http.post('/api/v1/content/list', query, true).then(function () {
+          pageMove.ok = true;
           $state.go('lecture', {id: $stateParams.lectureId});
         });
         return;
@@ -66,6 +67,7 @@ angular.module('clientApp').controller('contentWriteController',
 
       content.save().then(function (response) {
         var id = content.id === undefined ? response.id : content.id;
+        pageMove.ok = true;
         $state.go('content', {id: id});
       });
     };

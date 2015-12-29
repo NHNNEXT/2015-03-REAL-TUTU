@@ -14,13 +14,26 @@
     'toastr',
     'anim-in-out'
     /* @ngInject */
-  ]).run(function ($rootScope, $state) {
+  ]).run(function ($rootScope, $state, confirm, $window, pageMove) {
+    $($window).on("beforeunload", function () {
+      if ($state.current.confirm)
+        return "이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.";
+    });
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState) {
         $state.current = toState;
+        pageMove.ok = false;
       }
     );
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+      if (!pageMove.ok && fromState.confirm) {
+        event.preventDefault();
+        confirm("이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.", undefined, function () {
+          pageMove.ok = true;
+          $state.go(toState.name, toParams);
+        });
+        return;
+      }
       if (toState.redirectTo) {
         event.preventDefault();
         $state.go(toState.redirectTo, toParams);

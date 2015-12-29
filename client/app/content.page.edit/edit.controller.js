@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentEditController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, User) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, User, pageMove) {
     $scope.rootUser = rootUser;
 
     $scope.toggleAll = function () {
@@ -38,6 +38,7 @@ angular.module('clientApp').controller('contentEditController',
     $scope.edit = function (content) {
       content.body = $('[froala]').froalaEditor('html.get');
       content.save().then(function () {
+        pageMove.ok = true;
         $state.go('content', {id: content.id});
       });
     };
