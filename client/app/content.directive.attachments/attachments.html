@@ -5,14 +5,3 @@
 
   <div ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</div>
 </div>
-<div ng-repeat="tmp in ctrl.tmps" class="file">
-  <img ng-src="/resource/icon/file.svg">
-
-  <p class="detail">{{tmp.name}}</p>
-  <md-progress-linear md-mode="determinate" ng-value="tmp.progress"></md-progress-linear>
-</div>
-<div ng-show="!ctrl.readonly" ngf-select ng-model="ctrl.files" ngf-drop ngf-multiple="true"
-     ngf-max-size="2MB">이곳에 파일을 드래그하세요. (2MB 이하)
-</div>
-</div>
-

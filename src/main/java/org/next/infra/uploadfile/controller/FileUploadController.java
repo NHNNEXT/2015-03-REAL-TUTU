@@ -1,7 +1,6 @@
 package org.next.infra.uploadfile.controller;
 
 import org.next.infra.result.Result;
-import org.next.infra.result.UploadResult;
 import org.next.infra.uploadfile.service.FileService;
 import org.next.lms.user.control.inject.Logged;
 import org.next.lms.user.domain.User;
@@ -18,12 +17,7 @@ public class FileUploadController {
     private FileService fileService;
 
     @RequestMapping
-    public UploadResult uploadFile(MultipartFile file){
-        return fileService.upload(file);
-    }
-
-    @RequestMapping(value="/attachment")
-    public Result uploadContentFile(MultipartFile file, @Logged User user){
+    public Result uploadContentFile(MultipartFile file, @Logged User user) {
         return fileService.upload(file, user);
     }
 }

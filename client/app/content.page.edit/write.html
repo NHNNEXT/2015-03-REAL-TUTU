@@ -67,12 +67,83 @@
     </md-data-table-container>
   </div>
 
+  <div class="margin-bottom padding" style="padding-top:0" ng-controller="uploadController">
+    <md-button class="md-fab md-mini" aria-label="image insert" ng-click="setState('img');">
+      <md-icon md-svg-src="/resource/icon/img.svg"></md-icon>
+    </md-button>
+    <md-button class="md-fab md-mini" aria-label="movie attach" ng-click="setState('mov');">
+      <md-icon md-svg-src="/resource/icon/mov.svg"></md-icon>
+    </md-button>
+    <md-button class="md-fab md-mini" aria-label="file upload" ng-click="setState('file');">
+      <md-icon md-svg-src="/resource/icon/attach.svg"></md-icon>
+    </md-button>
+
+    <div ng-show="insert">
+      <h3>{{state.title}}</h3>
+      <md-radio-group ng-model="uploadType" ng-show="state.urlPlaceHolder">
+        <md-radio-button value="file" class="md-primary">파일 업로드</md-radio-button>
+        <md-radio-button value="url" class="md-primary">URL 직접 입력</md-radio-button>
+      </md-radio-group>
+      <div layout="row" ng-show="uploadType==='url'">
+        <md-input-container flex>
+          <label>{{state.urlPlaceHolder}}</label>
+          <input type="text" ng-model="url">
+        </md-input-container>
+        <div>
+          <md-button class="md-raised" ng-click="state.insertUrl(url)">{{state.insertBtn}}</md-button>
+        </div>
+      </div>
+      <md-progress-linear md-mode="determinate" ng-value="progress" ng-show="uploading"></md-progress-linear>
+      <div ng-hide="uploading">
+        <div ng-show="state.name==='mov' && uploadType==='file'">
+          <div ng-show="!Auth.google.logged()" layout="row" layout-sm="column">
+             <span
+               class="g-signin"
+               data-callback="oauth2Callback"
+               data-clientid="471583333151.apps.googleusercontent.com"
+               data-cookiepolicy="single_host_origin"
+               data-scope="https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.upload">
+             </span> <span class="info margin-left margin-bottom">유투브 업로드를 위해 구글 로그인을 해야합니다.</span>
+          </div>
+          <div ng-show="Auth.google.logged()">
+            <md-input-container flex>
+              <label>영상 제목</label>
+              <input type="text" ng-model="movie.title">
+            </md-input-container>
+            <md-input-container flex>
+              <label>영상 설명</label>
+              <textarea type="text" ng-model="movie.description"></textarea>
+            </md-input-container>
+            <div class="uploader" ng-disabled="uploading"
+                 ngf-select ng-model="movie.file" ngf-drop>{{ movie.file.name ||'첨부할 영상을 끌어놓으세요.'}}
+            </div>
+            <md-input-container class="margin-top">
+              <md-button class="md-raised" ng-click="uploadMovie()">영상 올리기</md-button>
+            </md-input-container>
+          </div>
+
+        </div>
+        <div class="uploader" ng-show="state.name==='img'&&uploadType==='file'" ng-disabled="uploading"
+             ngf-select ng-model="file" ngf-drop>{{ file.name ||'첨부할 영상을 끌어놓으세요.'}}
+        </div>
+        <div class="uploader" style="margin-top:20px" ng-show="state.name==='file'" ng-disabled="uploading" ngf-select
+             ng-model="file" ngf-drop
+             ngf-multiple="true">첨부할 파일(들)을 끌어놓으세요. (최대 2MB)
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <attachments ng-if="content.attachments.length>0" attachments="content.attachments" readonly="false"
+               class="margin-bottom"></attachments>
+
   <div froala ng-model="content.body"></div>
 
-  <attachments ng-show="content.contentGroup.attachment" attachments="content.attachments" readonly="false"
-               class="margin-bottom"></attachments>
 
   <md-input-container>
     <md-button aria-label="done button" ng-click="save(content)" class="md-raised md-primary">작성완료</md-button>
   </md-input-container>
 </section>
+
+<script src="https://apis.google.com/js/client:plusone.js"></script>

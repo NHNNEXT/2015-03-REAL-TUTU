@@ -10,6 +10,8 @@ angular.module('clientApp').controller('contentWriteController',
       });
     };
 
+
+
     $scope.$watch(function () {
       return $stateParams.lectureId;
     }, function (id) {

@@ -15,8 +15,8 @@ angular.module('clientApp')
           toolbarInline: true,
           spellcheck: false,
           imageUploadURL: '/api/v1/upload',
-          toolbarButtons: ['fontFamily', 'fontSize', 'bold', 'underline', 'strikeThrough', 'emoticons', '-',
-            'color', 'align', 'insertLink', 'insertImage', 'insertTable', 'html']
+          toolbarButtons: ['fontFamily', 'fontSize', 'color', 'align', '-',
+            'bold', 'italic', 'underline', 'strikeThrough']
         });
 
         $timeout(function () {

@@ -1,9 +1,9 @@
-angular.module('clientApp').directive('attachments',
+angular.module('clientApp').directive('attachmentsUpload',
   /* @ngInject */
   function () {
     return {
       restrict: 'E',
-      templateUrl: '/content.directive.attachments/attachments.html',
+      templateUrl: '/content.directive.attachments/attachments-upload.html',
       bindToController: true,
       controllerAs: 'ctrl',
       scope: {
@@ -60,6 +60,34 @@ angular.module('clientApp').directive('attachments',
             attachments.remove(attachment);
           });
         };
+
+        var self = this;
+        this.tmps = [];
+
+        $scope.$watch(function () {
+          return self.files;
+        }, function (files) {
+          if (!files)
+            return;
+          files.forEach(function (file) {
+            self.tmps.push(file);
+            file.progress = 0;
+            Upload.upload({
+              url: '/api/v1/upload',
+              data: {file: file}
+            }).then(function (resp) {
+              if (!self.attachments)
+                self.attachments = [];
+              self.attachments.push(new Attachment(resp.data.result));
+              self.tmps.remove(file);
+            }, function () {
+              alert.error("업로드 실패 했습니다.");
+              self.tmps.remove(file);
+            }, function (evt) {
+              file.progress = parseInt(100.0 * evt.loaded / evt.total);
+            });
+          });
+        });
       }
     };
   });

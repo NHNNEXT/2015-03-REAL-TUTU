@@ -16,23 +16,9 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {},
-      template: '<img ng-show="Loading.loading" class="fade-in-out" src="/resource/loading.gif" ng-style="style">',
-      controller: function (Loading, $scope, $timeout, $interval) {
+      template: '<img ng-show="Loading.loading" class="fade-in-out" src="/resource/loading.gif">',
+      controller: function (Loading, $scope) {
         $scope.Loading = Loading;
-
-        updateStyle();
-
-        function updateStyle() {
-          var result = {};
-          var degree = Math.random() * 360;
-          result.transform = 'translateX(-50%) translateY(-50%) rotate(' + degree + 'deg)';
-          result['-ms-transform'] = 'translateX(-50%) translateY(-50%) rotate(' + degree + 'deg)';
-          result['-webkit-transform'] = 'translateX(-50%) translateY(-50%) rotate(' + degree + 'deg)';
-          $scope.style = result;
-        }
-
-        $interval(updateStyle, 1000);
-
       }
     };
   });

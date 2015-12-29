@@ -5,7 +5,6 @@ import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.result.Result;
-import org.next.infra.result.UploadResult;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.infra.uploadfile.dto.GroupedUploadFileDto;
 import org.next.infra.uploadfile.dto.UploadedFileDto;
@@ -43,31 +42,6 @@ public class FileService {
 
     @Autowired
     private UploadFileRepository uploadFileRepository;
-
-    @Autowired
-    private ContentRepository contentRepository;
-
-    public UploadResult upload(MultipartFile file) {
-        if (file == null || file.isEmpty())
-            return new UploadResult(ResponseCode.FileUpload.FILE_NOT_ATTACHED);
-
-        // TODO Null Point말고 관리되는 다른 예외를 던져야 할것 같은데..
-        Objects.requireNonNull(FILE_STORAGE_DIRECTORY);
-        ensureFileSaveDirectoryExist(FILE_STORAGE_DIRECTORY);
-
-        String uglifiedFileName = uglifyFileName(file);
-
-        File fileStorePath = new File(FILE_STORAGE_DIRECTORY + uglifiedFileName);
-
-        try {
-            file.transferTo(fileStorePath);
-        } catch (IllegalStateException | IOException e) {
-            log.debug("{}", e.getCause());
-            return new UploadResult(ResponseCode.FileUpload.ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT);
-        }
-
-        return new UploadResult(RELATIVE_PATH + uglifiedFileName);
-    }
 
 
     public Result upload(MultipartFile file, User userAccount) {
