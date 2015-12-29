@@ -10,6 +10,5 @@ angular.module('clientApp')
       http.post('/api/v1/content/submit/require', {id: this.id, done: !this.done}); //NG-Model바뀌는거보다, 이벤트 실행이 먼저되서 !done으로 보내야함.
     };
 
-
     return SubmitRequire;
   });

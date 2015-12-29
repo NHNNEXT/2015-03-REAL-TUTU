@@ -3,6 +3,7 @@ angular.module('clientApp').controller('uploadController',
   function ($scope, alert, Upload, Attachment, $q, Auth) {
 
     $scope.Auth = Auth;
+    $.getScript('https://apis.google.com/js/client:plusone.js');
 
     var states = $scope.states = {};
     states.file = {};
@@ -98,6 +99,10 @@ angular.module('clientApp').controller('uploadController',
     };
 
     $scope.uploadMovie = function () {
+      if (!$scope.movie.title) {
+        alert.warning("영상 제목을 입력해주세요.");
+        return;
+      }
       var metadata = {
         snippet: {
           title: $scope.movie.title,

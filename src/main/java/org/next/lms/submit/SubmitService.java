@@ -1,10 +1,14 @@
 package org.next.lms.submit;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+import org.next.config.AppConfig;
+import org.next.infra.exception.HasNoRightException;
 import org.next.infra.repository.SubmitRepository;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.repository.UserHaveToSubmitRepository;
 import org.next.infra.result.Result;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.lms.content.domain.QContent;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.UserSubmitMissionToScoreGraderMessage;
@@ -12,12 +16,17 @@ import org.next.lms.user.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.next.infra.result.Result.success;
 import static org.next.infra.util.CommonUtils.assureNotNull;
@@ -41,8 +50,6 @@ public class SubmitService {
 
     @Autowired
     private MessageService messageService;
-
-    private static final Logger logger = LoggerFactory.getLogger(SubmitService.class);
 
     public Result save(SubmitParameterDto submitParameterDto, User user) {
 
@@ -105,5 +112,18 @@ public class SubmitService {
             submit.getAttachments().add(file);
             uploadFileRepository.save(file);
         });
+    }
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    public Result getList(Long userHaveToSubmitId, Integer page, User user) {
+        UserHaveToSubmit userHaveToSubmit = userHaveToSubmitRepository.findOne(userHaveToSubmitId);
+        submitAuth.checkSubmitReadable(userHaveToSubmit, user);
+        QSubmit qSubmit = QSubmit.submit;
+        JPAQuery query = new JPAQuery(entityManager);
+        query = query.from(qSubmit).where(qSubmit.userHaveToSubmit.id.eq(userHaveToSubmitId)).orderBy(qSubmit.id.desc()).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page);
+        List<Submit> submitList = query.list(qSubmit);
+        return success(submitList.stream().map(SubmitDto::new).collect(Collectors.toList()));
     }
 }

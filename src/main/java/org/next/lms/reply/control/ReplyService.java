@@ -62,12 +62,11 @@ public class ReplyService {
         replyAuth.checkDeleteRight(reply, user);
 
         replyRepository.delete(reply);
-//        reply.setDeleteState();
         return success();
     }
 
     public Result getList(Long contentId, int page, User user) {
-        Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "writeDate");
+        Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "id");
         List<Reply> replies = replyRepository.findByContentId(contentId, pageable);
 
         replies.forEach(reply -> replyAuth.checkReadRight(reply, user));

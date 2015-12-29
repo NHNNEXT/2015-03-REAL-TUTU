@@ -12,6 +12,7 @@ import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class MessageService {
     private MessageRepository messageRepository;
 
     public Result getList(User user, Integer page) {
-        Pageable pageable = new PageRequest(page, AppConfig.pageSize);
+        Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "date");
         List<Message> messages = messageRepository.findByReceiverId(user.getId(), pageable);
         return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }

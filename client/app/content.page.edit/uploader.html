@@ -54,7 +54,7 @@
               미등록
             </md-radio-button>
           </md-radio-group>
-          <div class="uploader" ng-disabled="uploading" ngf-accept="'video/*'"
+          <div class="uploader" ng-class="{active:movie.file.name}" ng-disabled="uploading" ngf-accept="'video/*'"
                ngf-select ng-model="movie.file" ngf-drop>{{ movie.file.name ||'첨부할 영상을 끌어놓으세요.'}}
           </div>
           <md-input-container class="margin-top">
@@ -73,3 +73,4 @@
     </div>
   </div>
 </div>
+

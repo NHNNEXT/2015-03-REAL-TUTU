@@ -6,6 +6,7 @@ import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
+import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,7 +35,6 @@ public class UserGroup {
     @OneToMany(mappedBy = "userGroup", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<UserEnrolledLecture> userEnrolledLectures = new ArrayList<>();
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private Lecture lecture;
@@ -58,4 +58,10 @@ public class UserGroup {
         if (userGroup.name != null)
             this.name = userGroup.name;
     }
+
+    public boolean isUserAttended(User user){
+        return userEnrolledLectures.stream().filter(
+                userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent();
+    }
+
 }
