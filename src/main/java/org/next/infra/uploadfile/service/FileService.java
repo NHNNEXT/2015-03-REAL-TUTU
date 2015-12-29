@@ -2,7 +2,6 @@ package org.next.infra.uploadfile.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.next.infra.reponse.ResponseCode;
-import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.result.Result;
 import org.next.infra.uploadfile.UploadedFile;

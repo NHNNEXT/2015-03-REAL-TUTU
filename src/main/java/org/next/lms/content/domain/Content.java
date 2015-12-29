@@ -1,7 +1,6 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.content.relative.ContentLinkContent;

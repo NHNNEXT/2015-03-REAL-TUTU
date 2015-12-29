@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @ToString(exclude = {"writable", "readable", "lecture", "submitReadable", "contents"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "contentType", "submitOpen", "reply", "name", "attachment"})
+@EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "contentType", "submitOpen", "reply", "name"})
 @Entity
 @Table(name = "CONTENT_GROUP", uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.CONTENT_GROUP_NAME_ALREADY_EXIST, columnNames = {"NAME", "LECTURE_ID"})})
 public class ContentGroup {
@@ -55,10 +55,6 @@ public class ContentGroup {
     @Column(name = "REPLY")
     private boolean reply = false;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    @Column(name = "ATTACHMENT")
-    private boolean attachment = false;
-
     @NotNull(message = "게시물 이름을 입력해주세요.")
     @Column(name = "NAME")
     private String name;
@@ -67,7 +63,6 @@ public class ContentGroup {
     public void update(ContentGroup contentGroup) {
         this.submitOpen = contentGroup.submitOpen;
         this.reply = contentGroup.reply;
-        this.attachment = contentGroup.attachment;
         if (contentGroup.name != null)
             this.name = contentGroup.name;
     }
