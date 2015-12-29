@@ -3,6 +3,7 @@ angular.module('clientApp').controller('uploadController',
   function ($scope, alert, Upload, Attachment, $q, Auth) {
 
     $scope.Auth = Auth;
+    $.getScript('https://apis.google.com/js/client:plusone.js');
 
     var states = $scope.states = {};
     states.file = {};
