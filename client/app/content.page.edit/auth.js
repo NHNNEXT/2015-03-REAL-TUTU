@@ -22,7 +22,6 @@ angular.module('clientApp').service('Auth', function ($window, $http) {
           mine: true
         }
       }).success(function(response) {
-        console.log(response);
         self.google.kind = response.kind;
         self.google.id = response.items[0].id;
       });

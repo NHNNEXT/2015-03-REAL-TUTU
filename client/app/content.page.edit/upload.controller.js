@@ -118,6 +118,7 @@ angular.module('clientApp').controller('uploadController',
         },
         data: JSON.stringify(metadata)
       }).done(function (data, textStatus, jqXHR) {
+        $scope.uploading = true;
         resumableUpload({
           url: jqXHR.getResponseHeader('Location'),
           file: file,
