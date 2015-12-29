@@ -1,14 +1,11 @@
 angular.module('clientApp')
-  .service('Loading', function ($timeout) {
+  .service('Loading', function () {
     this.start = function () {
       this.loading = true;
     };
 
     this.end = function () {
-      var self = this;
-      $timeout(function () {
-        self.loading = false;
-      }, 800);
+      this.loading = false;
     };
 
   })
@@ -16,7 +13,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {},
-      template: '<img ng-show="Loading.loading" class="fade-in-out" src="/resource/loading.gif">',
+      template: '<md-progress-circular ng-show="Loading.loading" md-mode="indeterminate"></md-progress-circular>',
       controller: function (Loading, $scope) {
         $scope.Loading = Loading;
       }
