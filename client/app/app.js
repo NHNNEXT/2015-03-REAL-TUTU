@@ -14,7 +14,7 @@
     'toastr',
     'anim-in-out'
     /* @ngInject */
-  ]).run(function ($rootScope, $state, confirm, $window, pageMove) {
+  ]).run(function ($rootScope, $state, confirm, $window, pageMove, Loading) {
     $($window).on("beforeunload", function () {
       if ($state.current.confirm)
         return "이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.";
@@ -23,6 +23,7 @@
       function (event, toState) {
         $state.current = toState;
         pageMove.ok = false;
+        Loading.end();
       }
     );
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
@@ -38,6 +39,8 @@
         event.preventDefault();
         $state.go(toState.redirectTo, toParams);
       }
+      Loading.start();
+      
     });
     /* @ngInject */
   }).config(function ($locationProvider, toastrConfig, $httpProvider, $mdThemingProvider) { //RestangularProvider,
