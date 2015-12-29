@@ -4,8 +4,7 @@ angular.module('clientApp')
       restrict: 'A',
       scope: {
         submit: '=',
-        submits: '=',
-        attach: '='
+        submits: '='
       },
       templateUrl: '/submit.directive.submit/submit.html',
       /* @ngInject */

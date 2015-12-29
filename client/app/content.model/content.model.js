@@ -32,7 +32,6 @@ angular.module('clientApp')
         this.attachments = obj.attachments.map(function (attachment) {
           return new Attachment(attachment);
         });
-      this.submitCanAttach = obj.submitCanAttach;
       this.tags = obj.tags === undefined ? [] : obj.tags;
       if (obj.writeDate)
         this.writeDate = new Date(obj.writeDate);
@@ -63,7 +62,6 @@ angular.module('clientApp')
       query.lectureId = this.lectureId;
       query.endTime = this.endTime;
       query.startTime = this.startTime;
-      query.submitCanAttach = this.submitCanAttach;
       if (this.id === undefined) {
         if (!this.contentGroup) {
           alert.warning("게시물 분류를 선택해주세요.");

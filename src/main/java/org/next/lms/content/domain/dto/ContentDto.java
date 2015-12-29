@@ -32,7 +32,6 @@ public class ContentDto {
     private final Date startTime;
     private final Date endTime;
     private final List<String> tags;
-    private final boolean submitCanAttach;
 
     private Long like;
     private List<UserHaveToSubmitDto> submitRequires;
@@ -49,7 +48,6 @@ public class ContentDto {
         this.writeDate = content.getWriteDate();
         this.startTime = content.getStartTime();
         this.endTime = content.getEndTime();
-        this.submitCanAttach = content.isSubmitCanAttach();
         this.contentGroup = new ContentGroupDto(content.getContentGroup());
         this.hits = content.getHits();
         this.likes = content.getUserLikesContents().stream().map(UserLikesContent::getId).collect(Collectors.toList());

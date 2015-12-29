@@ -15,41 +15,40 @@
   </div>
 
 
-  <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
-    <div layout="row" ng-hide="content.extendWrite" class="margin-top">
-      <input-datepicker md-max-date="content.endTime" placeholder="시작" ng-model="content.startTime"></input-datepicker>
-      <input-datepicker md-min-date="content.startTime" placeholder="끝" ng-model="content.endTime"
-                        flex></input-datepicker>
+  <div class="write-part" ng-show="content.contentGroup.contentType==='SCHEDULE' || content.contentGroup.contentType==='SUBMIT'">
+    <div ng-if="content.contentGroup.contentType==='SCHEDULE'">
+      <div class="margin-bottom" layout="row">
+        <md-switch ng-model="content.extendWrite">
+          일괄입력
+        </md-switch>
+      </div>
+      <div layout="row" ng-hide="content.extendWrite" class="margin-top">
+        <input-datepicker md-max-date="content.endTime" placeholder="시작"
+                          ng-model="content.startTime"></input-datepicker>
+        <input-datepicker md-min-date="content.startTime" placeholder="끝" ng-model="content.endTime"
+                          flex></input-datepicker>
+      </div>
+      <div ng-show="content.extendWrite" ng-include="'/content.page.edit/extend.html'"></div>
     </div>
-    <div class="margin-top margin-bottom" layout="row">
-      <md-checkbox ng-model="content.extendWrite">
-        일괄입력
-      </md-checkbox>
-    </div>
-    <div ng-show="content.extendWrite" ng-include="'/content.page.edit/extend.html'"></div>
-  </div>
 
-  <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
-    <input-datepicker placeholder="마감" ng-model="content.endTime" flex></input-datepicker>
-    <md-checkbox ng-model="content.submitCanAttach">
-      <small>제출시 파일 첨부</small>
-    </md-checkbox>
+    <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
+      <input-datepicker placeholder="마감" ng-model="content.endTime"></input-datepicker>
 
-    <md-data-table-container>
-      <table md-data-table>
-        <thead md-order="query.order" md-trigger="onOrderChange">
-        <tr>
-          <th name="이름"></th>
-          <th name="이메일"></th>
-          <th name="그룹"></th>
-          <th name="제출대상" ng-click="toggleAll()"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr md-auto-select ng-repeat="user in content.users">
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td>
+      <md-data-table-container>
+        <table md-data-table>
+          <thead md-order="query.order" md-trigger="onOrderChange">
+          <tr>
+            <th name="이름"></th>
+            <th name="이메일"></th>
+            <th name="그룹"></th>
+            <th name="제출대상" ng-click="toggleAll()"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr md-auto-select ng-repeat="user in content.users">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>
             <span ng-show="user.id!==hostUserId">
               {{user.group.name}}
               {{hostUser}}
@@ -57,24 +56,28 @@
             <span ng-show="user.id===hostUserId">
               개설자
             </span>
-          </td>
-          <td>
-            <md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </md-data-table-container>
+            </td>
+            <td>
+              <md-checkbox ng-model="user.submit" aria-label="제출 여부"></md-checkbox>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-data-table-container>
+    </div>
   </div>
 
-  <div class="margin-bottom padding" style="padding-top:0" ng-controller="uploadController">
-    <md-button class="md-fab md-mini" aria-label="image insert" ng-click="setState('img');">
+  <div class="write-part" ng-controller="uploadController">
+    <md-button ng-class="{unselect:state.name && state.name != 'img'}" class="md-fab md-mini" aria-label="image insert"
+               ng-click="setState('img');">
       <md-icon md-svg-src="/resource/icon/img.svg"></md-icon>
     </md-button>
-    <md-button class="md-fab md-mini" aria-label="movie attach" ng-click="setState('mov');">
+    <md-button ng-class="{unselect:state.name && state.name != 'mov'}" class="md-fab md-mini" aria-label="movie attach"
+               ng-click="setState('mov');">
       <md-icon md-svg-src="/resource/icon/mov.svg"></md-icon>
     </md-button>
-    <md-button class="md-fab md-mini" aria-label="file upload" ng-click="setState('file');">
+    <md-button ng-class="{unselect:state.name && state.name != 'file'}" class="md-fab md-mini" aria-label="file upload"
+               ng-click="setState('file');">
       <md-icon md-svg-src="/resource/icon/attach.svg"></md-icon>
     </md-button>
 
@@ -103,7 +106,7 @@
                data-clientid="895808210727-mnv6ncp0lg4rh1eijdbjoh6815js07q2.apps.googleusercontent.com"
                data-cookiepolicy="single_host_origin"
                data-scope="https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.upload">
-             </span> <span class="info margin-left margin-bottom">유투브 업로드를 위해 구글 로그인을 해야합니다.</span>
+             </span> <span class="info margin-left margin-bottom">유투브 업로드를 하려면 구글 로그인을 해야합니다.</span>
           </div>
           <div ng-show="Auth.google.logged()">
             <md-input-container flex>
@@ -114,6 +117,12 @@
               <label>영상 설명</label>
               <textarea type="text" ng-model="movie.description"></textarea>
             </md-input-container>
+            <md-radio-group ng-model="movie.status" ng-show="state.urlPlaceHolder">
+              <md-radio-button value="public" class="md-primary">공개</md-radio-button>
+              <md-radio-button value="unlisted" class="md-primary">
+                미등록
+              </md-radio-button>
+            </md-radio-group>
             <div class="uploader" ng-disabled="uploading" ngf-accept="'video/*'"
                  ngf-select ng-model="movie.file" ngf-drop>{{ movie.file.name ||'첨부할 영상을 끌어놓으세요.'}}
             </div>
@@ -121,12 +130,12 @@
               <md-button class="md-raised" ng-click="uploadMovie()">영상 올리기</md-button>
             </md-input-container>
           </div>
-
         </div>
-        <div class="uploader" ngf-accept="'image/*'" ng-show="state.name==='img'&&uploadType==='file'" ng-disabled="uploading"
+        <div class="uploader" ngf-accept="'image/*'" ng-show="state.name==='img'&&uploadType==='file'"
+             ng-disabled="uploading"
              ngf-select ng-model="file" ngf-drop>{{ file.name ||'첨부할 이미지를 끌어놓으세요. (최대 2MB, jpg, jpeg, gif, png)'}}
         </div>
-        <div class="uploader"  style="margin-top:20px" ng-show="state.name==='file'" ng-disabled="uploading" ngf-select
+        <div class="uploader" style="margin-top:20px" ng-show="state.name==='file'" ng-disabled="uploading" ngf-select
              ng-model="file" ngf-drop
              ngf-multiple="true">첨부할 파일(들)을 끌어놓으세요. (최대 2MB)
         </div>

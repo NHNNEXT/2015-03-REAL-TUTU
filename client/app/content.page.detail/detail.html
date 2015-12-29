@@ -73,7 +73,7 @@
   <md-tabs md-dynamic-height md-border-bottom>
     <md-tab ng-repeat="submitRequire in content.submitRequires" label="{{submitRequire.user.name}}">
       <md-content class="md-padding">
-        <submits attach="content.submitCanAttach" submit-require="submitRequire"></submits>
+        <submits submit-require="submitRequire"></submits>
       </md-content>
     </md-tab>
     <!-- to resolve last tab disappeared bug -->

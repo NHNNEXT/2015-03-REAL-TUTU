@@ -3,8 +3,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        submitRequire: '=',
-        attach: '='
+        submitRequire: '='
       },
       templateUrl: '/submit.directive.submits/submits.html',
       /* @ngInject */
