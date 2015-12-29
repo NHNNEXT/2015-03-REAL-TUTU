@@ -83,7 +83,7 @@ angular.module('clientApp').controller('uploadController',
       });
     };
 
-    $scope.movie = {};
+    $scope.movie = {status: 'public'};
     states.mov = {};
     states.mov.title = "YOUTUBE 영상 업로드";
     states.mov.urlPlaceHolder = "삽입할 YOUTUBE 영상의 URL을 입력해주세요.";
