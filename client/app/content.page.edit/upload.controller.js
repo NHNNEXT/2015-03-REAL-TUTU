@@ -44,6 +44,11 @@ angular.module('clientApp').controller('uploadController',
     states.img.urlPlaceHolder = "삽입할 이미지의 URL을 입력해주세요.";
     states.img.insertBtn = "이미지 삽입";
     states.img.upload = function (file) {
+      if (!["jpg", "jpeg", "gif", "png"].includes(file.name.split("\.").pop())) {
+        alert.error("허용된 확장자가 아닙니다.");
+        $scope.file = undefined;
+        return;
+      }
       $scope.uploading = true;
       Upload.upload({
         url: '/api/v1/upload',
@@ -52,7 +57,7 @@ angular.module('clientApp').controller('uploadController',
         $scope.uploading = false;
         $scope.insert = false;
         $scope.file = undefined;
-        $('[froala]').froalaEditor('image.insert', resp.data.result.downloadUrl);
+        states.img.insertUrl(resp.data.result.downloadUrl, "이미지 형식을 확인해주세요.");
       }, function () {
         alert.error("업로드 실패 했습니다.");
         $scope.uploading = false;
@@ -61,13 +66,17 @@ angular.module('clientApp').controller('uploadController',
       });
     };
 
-    states.img.insertUrl = function (url) {
+    states.img.insertUrl = function (url, message) {
       isImage(url).then(function (test) {
         if (test) {
           $('[froala]').froalaEditor('image.insert', url);
           $scope.uploading = false;
           $scope.insert = false;
           $scope.file = undefined;
+          return;
+        }
+        if (message) {
+          alert.warning(message);
           return;
         }
         alert.warning('url을 확인해주세요');

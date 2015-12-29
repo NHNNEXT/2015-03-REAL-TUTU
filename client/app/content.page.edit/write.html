@@ -114,7 +114,7 @@
               <label>영상 설명</label>
               <textarea type="text" ng-model="movie.description"></textarea>
             </md-input-container>
-            <div class="uploader" ng-disabled="uploading"
+            <div class="uploader" ng-disabled="uploading" ngf-accept="'video/*'"
                  ngf-select ng-model="movie.file" ngf-drop>{{ movie.file.name ||'첨부할 영상을 끌어놓으세요.'}}
             </div>
             <md-input-container class="margin-top">
@@ -123,10 +123,10 @@
           </div>
 
         </div>
-        <div class="uploader" ng-show="state.name==='img'&&uploadType==='file'" ng-disabled="uploading"
-             ngf-select ng-model="file" ngf-drop>{{ file.name ||'첨부할 영상을 끌어놓으세요.'}}
+        <div class="uploader" ngf-accept="'image/*'" ng-show="state.name==='img'&&uploadType==='file'" ng-disabled="uploading"
+             ngf-select ng-model="file" ngf-drop>{{ file.name ||'첨부할 이미지를 끌어놓으세요. (최대 2MB, jpg, jpeg, gif, png)'}}
         </div>
-        <div class="uploader" style="margin-top:20px" ng-show="state.name==='file'" ng-disabled="uploading" ngf-select
+        <div class="uploader"  style="margin-top:20px" ng-show="state.name==='file'" ng-disabled="uploading" ngf-select
              ng-model="file" ngf-drop
              ngf-multiple="true">첨부할 파일(들)을 끌어놓으세요. (최대 2MB)
         </div>
