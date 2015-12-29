@@ -7,7 +7,6 @@ angular.module('clientApp')
       this.contentType = param.contentType;
       this.submitOpen = param.submitOpen;
       this.reply = param.reply;
-      this.attachment = param.attachment;
       this.name = param.name;
     }
 

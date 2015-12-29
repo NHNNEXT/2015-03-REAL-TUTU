@@ -1,6 +1,8 @@
 angular.module('clientApp').controller('contentWriteController',
   /* @ngInject */
-  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentGroup, User, alert) {
+  function ($stateParams, $scope, Content, types, rootUser, $state, Lecture, http, ContentGroup, User, alert, $timeout) {
+
+
     $scope.rootUser = rootUser;
     $scope.addTimes = addTimes;
 
@@ -10,6 +12,10 @@ angular.module('clientApp').controller('contentWriteController',
       });
     };
 
+    // remove additional margin
+    $timeout(function () {
+      $('.fr-element.fr-view').text("");
+    });
 
 
     $scope.$watch(function () {
@@ -36,6 +42,7 @@ angular.module('clientApp').controller('contentWriteController',
     });
 
     $scope.save = function (content) {
+      content.body = $('[froala]').froalaEditor('html.get');
       if (content.extendWrite) {
         var result = [];
         if (!$scope.times) {

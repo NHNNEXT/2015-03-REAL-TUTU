@@ -85,7 +85,7 @@ angular.module('clientApp').controller('uploadController',
 
     $scope.movie = {};
     states.mov = {};
-    states.mov.title = "영상 업로드";
+    states.mov.title = "YOUTUBE 영상 업로드";
     states.mov.urlPlaceHolder = "삽입할 YOUTUBE 영상의 URL을 입력해주세요.";
     states.mov.insertBtn = "영상 삽입";
     states.mov.insertUrl = function (url) {
@@ -102,13 +102,16 @@ angular.module('clientApp').controller('uploadController',
         snippet: {
           title: $scope.movie.title,
           description: $scope.movie.description
+        },
+        status: {
+          privacyStatus: $scope.movie.status
         }
       };
 
       var file = $scope.movie.file;
 
       $.ajax({
-        url: 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet',
+        url: 'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=status,snippet',
         method: 'POST',
         contentType: 'application/json',
         headers: {
@@ -167,6 +170,8 @@ angular.module('clientApp').controller('uploadController',
         $scope.uploading = false;
         $scope.insert = false;
         $scope.file = undefined;
+        if (!$scope.$$phase)
+          $scope.$apply();
         insertYoutube(id);
       });
 
@@ -218,7 +223,7 @@ angular.module('clientApp').controller('uploadController',
     }
 
     function insertYoutube(id) {
-      $('[froala]').froalaEditor('video.insert', "<iframe src='https://www.youtube.com/embed/" + id + "' frameborder='0' allowfullscreen></iframe>");
+      $('[froala]').froalaEditor('video.insert', "<iframe width='560' height='315' src='https://www.youtube.com/embed/" + id + "' frameborder='0' allowfullscreen></iframe>");
     }
 
   });

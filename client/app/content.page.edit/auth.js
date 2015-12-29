@@ -26,6 +26,5 @@ angular.module('clientApp').service('Auth', function ($window, $http) {
         self.google.id = response.items[0].id;
       });
     }
-
   };
 });

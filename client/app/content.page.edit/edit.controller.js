@@ -36,6 +36,7 @@ angular.module('clientApp').controller('contentEditController',
     });
 
     $scope.edit = function (content) {
+      content.body = $('[froala]').froalaEditor('html.get');
       content.save().then(function () {
         $state.go('content', {id: content.id});
       });

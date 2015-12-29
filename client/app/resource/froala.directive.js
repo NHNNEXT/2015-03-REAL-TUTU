@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .directive('froala', function ($timeout) {
+  .directive('froala', function () {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -16,11 +16,10 @@ angular.module('clientApp')
           spellcheck: false,
           imageUploadURL: '/api/v1/upload',
           toolbarButtons: ['fontFamily', 'fontSize', 'color', 'align', '-',
-            'bold', 'italic', 'underline', 'strikeThrough']
-        });
-
-        $timeout(function () {
-          $('.fr-element.fr-view').text("");
+            'bold', 'italic', 'underline', 'strikeThrough'],
+          toolbarButtonsMD: ['fontFamily', 'fontSize', 'color', 'align', '-',
+            'bold', 'italic', 'underline', 'strikeThrough'],
+          videoEditButtons: ['videoDisplay', 'videoAlign', 'videoSize', 'videoRemove', 'fitSize']
         });
 
         function updateView() {
