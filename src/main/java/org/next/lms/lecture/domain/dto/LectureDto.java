@@ -5,7 +5,6 @@ import org.next.lms.content.domain.dto.ContentGroupDto;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesLecture;
-import org.next.lms.term.TermDto;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
 
@@ -24,7 +23,6 @@ public class LectureDto {
     private final String name;
     private final Integer majorType;
     private final Integer registerPolicy;
-    private TermDto term;
     private List<List<Boolean>> writable;
     private List<List<Boolean>> readable;
 

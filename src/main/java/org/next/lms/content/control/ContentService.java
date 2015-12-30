@@ -19,7 +19,7 @@ import org.next.lms.content.domain.dto.ContentSummaryDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.QLecture;
 import org.next.lms.lecture.domain.QUserEnrolledLecture;
-import org.next.lms.submit.QUserHaveToSubmit;
+import org.next.lms.submit.domain.QUserHaveToSubmit;
 import org.next.lms.submit.domain.UserHaveToSubmit;
 import org.next.lms.submit.domain.UserHaveToSubmitContentDto;
 import org.next.lms.user.domain.User;
@@ -77,11 +77,11 @@ public class ContentService {
     }
 
     public Result getList(User user) {
-        List<ContentSummaryDto> contentSummaryDtos = new ArrayList<>();
+        List<ContentSummaryDto> contentSummaryDtoList = new ArrayList<>();
         user.getEnrolledLectures().forEach(
                 userEnrolledLecture -> userEnrolledLecture.getLecture().getContents()
-                        .forEach(content -> contentSummaryDtos.add(new ContentSummaryDto(content))));
-        return success(contentSummaryDtos);
+                        .forEach(content -> contentSummaryDtoList.add(new ContentSummaryDto(content))));
+        return success(contentSummaryDtoList);
     }
 
     public Result delete(Long id, User user) {
