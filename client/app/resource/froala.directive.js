@@ -15,11 +15,11 @@ angular.module('clientApp')
           toolbarInline: true,
           spellcheck: false,
           imageUploadURL: '/api/v1/upload',
-          toolbarButtons: ['fontFamily', 'fontSize', 'color', 'align', '-',
-            'bold', 'italic', 'underline', 'strikeThrough'],
-          toolbarButtonsMD: ['fontFamily', 'fontSize', 'color', 'align', '-',
-            'bold', 'italic', 'underline', 'strikeThrough'],
-          videoEditButtons: ['videoDisplay', 'videoAlign', 'videoSize', 'videoRemove', 'fitSize']
+          toolbarButtons: ['fontFamily', 'fontSize', 'color', 'align', 'insertLink', '-',
+            'bold', 'italic', 'underline', 'strikeThrough', 'insertTable'],
+          toolbarButtonsMD: ['fontFamily', 'fontSize', 'color', 'align', 'insertLink', '-',
+            'bold', 'italic', 'underline', 'strikeThrough', 'insertTable'],
+          videoEditButtons: ['videoDisplay', 'videoAlign', 'videoSize', 'videoRemove']
         });
 
         function updateView() {
