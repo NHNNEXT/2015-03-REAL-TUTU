@@ -128,7 +128,7 @@ public class ContentService {
         if(page == null)
             page = 0L;
         List<Lecture> enrolledLectures = getInSideMenuLectures(user);
-        query.where(qUserHaveToSubmit.user.eq(user).and(qUserHaveToSubmit.done.eq(false)).and(qUserHaveToSubmit.content.lecture.in(enrolledLectures))).limit(AppConfig.pageSize).offset(page * AppConfig.pageSize);
+        query.where(qUserHaveToSubmit.user.eq(user).and(qUserHaveToSubmit.done.eq(false)).and(qUserHaveToSubmit.content.lecture.in(enrolledLectures))).limit(AppConfig.PAGE_SIZE).offset(page * AppConfig.PAGE_SIZE);
         return success(query.list(qUserHaveToSubmit).stream().map(UserHaveToSubmitContentDto::new).collect(Collectors.toList()));
     }
 

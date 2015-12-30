@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.next.config.AppConfig;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
 import org.next.lms.lecture.domain.Lecture;
@@ -12,6 +13,7 @@ import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +25,14 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
 @Entity
 @Table(name = "CONTENT")
-public class Content implements ObjectOwnerKnowable{
+public class Content implements ObjectOwnerKnowable {
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserLikesContent> userLikesContents = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Size(min = 0, max = AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE, message = "첨부파일은 최대 " + AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE + "개 첨부할 수 있습니다.")
+    // 인서트할때는 안막고, 불러갈때만 에러발생시킴..
     private List<UploadedFile> attachments = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

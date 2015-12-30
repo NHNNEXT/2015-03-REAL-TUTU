@@ -22,7 +22,7 @@ public class ComingScheduleDao extends MyListDao {
     public List<Content> getList(EntityManager entityManager, List<Lecture> enrolledLectures) {
         QContent qContent = QContent.content;
         JPAQuery query = new JPAQuery(entityManager);
-        query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page);
+        query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.PAGE_SIZE).offset(AppConfig.PAGE_SIZE * page);
         query = query.where(qContent.contentGroup.contentType.eq(ContentType.SCHEDULE));
         Date now = new Date();
         query = query.where(qContent.endTime.after(now)).orderBy(qContent.startTime.asc());

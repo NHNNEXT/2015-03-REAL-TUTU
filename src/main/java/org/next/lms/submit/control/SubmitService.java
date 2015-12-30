@@ -2,6 +2,7 @@ package org.next.lms.submit.control;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import org.next.config.AppConfig;
+import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.repository.SubmitRepository;
 import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.repository.UserHaveToSubmitRepository;
@@ -93,6 +94,8 @@ public class SubmitService {
     }
 
     private void attachmentsDeclare(SubmitParameterDto submitParameterDto, Submit submit) {
+        if (submitParameterDto.getAttachments().size() > AppConfig.SUBMIT_ATTACHMENTS_MAX_SIZE)
+            throw new PatternNotMatchedException("파일은 " + AppConfig.SUBMIT_ATTACHMENTS_MAX_SIZE + "개까지만 첨부 가능합니다.");
         if (submitParameterDto.getAttachments() == null)
             return;
         submit.getAttachments().stream()
@@ -117,7 +120,7 @@ public class SubmitService {
         submitAuth.checkSubmitReadable(userHaveToSubmit, user);
         QSubmit qSubmit = QSubmit.submit;
         JPAQuery query = new JPAQuery(entityManager);
-        query = query.from(qSubmit).where(qSubmit.userHaveToSubmit.id.eq(userHaveToSubmitId)).orderBy(qSubmit.id.desc()).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page);
+        query = query.from(qSubmit).where(qSubmit.userHaveToSubmit.id.eq(userHaveToSubmitId)).orderBy(qSubmit.id.desc()).limit(AppConfig.PAGE_SIZE).offset(AppConfig.PAGE_SIZE * page);
         List<Submit> submitList = query.list(qSubmit);
         return success(submitList.stream().map(SubmitDto::new).collect(Collectors.toList()));
     }

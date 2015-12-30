@@ -1,5 +1,6 @@
 package org.next.lms.content.control;
 
+import org.next.config.AppConfig;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
@@ -22,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,11 +82,7 @@ public class ContentSaveService {
         messageService.send(message);
 
         if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
-            List<User> submitRequireList = new ArrayList<>();
-            contentParameterDto.getSubmitRequires().stream().forEach(userId -> {
-                submitRequireList.add(userRepository.findOne(userId));
-            });
-
+            List<User> submitRequireList = contentParameterDto.getSubmitRequires().stream().map(userId -> userRepository.findOne(userId)).collect(Collectors.toList());
             PackagedMessage submitAssignedNoticeMessage = aMessage().from(user).to(submitRequireList)
                     .with(new NewSubmitAssignedMessage(content.getLecture())).packaging();
             messageService.send(submitAssignedNoticeMessage);
@@ -129,6 +125,8 @@ public class ContentSaveService {
     }
 
     private void attachmentsDeclare(ContentParameterDto contentParameterDto, Content content) {
+        if (contentParameterDto.getAttachments().size() > AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE)
+            throw new PatternNotMatchedException("첨부파일은 " + AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE + "개까지 첨부할 수 있습니다.");
         if (content.getAttachments() != null)
             content.getAttachments().stream()
                     .filter(attachment -> !contentParameterDto.getAttachments().stream()

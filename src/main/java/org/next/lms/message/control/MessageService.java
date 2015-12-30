@@ -33,7 +33,7 @@ public class MessageService {
     private MessageRepository messageRepository;
 
     public Result getList(User user, Integer page) {
-        Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "date");
+        Pageable pageable = new PageRequest(page, AppConfig.PAGE_SIZE, Sort.Direction.DESC, "date");
         List<Message> messages = messageRepository.findByReceiverId(user.getId(), pageable);
         return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }

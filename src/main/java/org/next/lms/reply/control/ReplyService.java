@@ -66,7 +66,7 @@ public class ReplyService {
     }
 
     public Result getList(Long contentId, int page, User user) {
-        Pageable pageable = new PageRequest(page, AppConfig.pageSize, Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(page, AppConfig.PAGE_SIZE, Sort.Direction.DESC, "id");
         List<Reply> replies = replyRepository.findByContentId(contentId, pageable);
 
         replies.forEach(reply -> replyAuth.checkReadRight(reply, user));

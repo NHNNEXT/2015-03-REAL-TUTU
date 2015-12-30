@@ -26,7 +26,7 @@ public class MyListDao {
         QContent qContent = QContent.content;
         JPAQuery query = new JPAQuery(entityManager);
 
-        query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.pageSize).offset(AppConfig.pageSize * page).orderBy(qContent.id.desc());
+        query = query.from(qContent).where(qContent.lecture.in(enrolledLectures)).limit(AppConfig.PAGE_SIZE).offset(AppConfig.PAGE_SIZE * page).orderBy(qContent.id.desc());
         if (keyword != null)
             query = query.where(qContent.title.like(getLikeExpression(keyword)).or(qContent.body.like(getLikeExpression(keyword))));
         if (contentType != null)

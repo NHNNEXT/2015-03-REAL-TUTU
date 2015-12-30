@@ -14,8 +14,8 @@ public class ContentLimitDao extends ContentDao {
 
     @Override
     protected JPAQuery limitPolicy(JPAQuery query) {
-        Long offset = page * AppConfig.pageSize;
-        return query.orderBy(QContent.content.id.desc()).limit(AppConfig.pageSize).offset(offset);
+        Long offset = page * AppConfig.PAGE_SIZE;
+        return query.orderBy(QContent.content.id.desc()).limit(AppConfig.PAGE_SIZE).offset(offset);
     }
 
 }
