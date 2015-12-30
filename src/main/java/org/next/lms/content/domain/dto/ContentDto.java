@@ -5,7 +5,7 @@ import org.next.infra.uploadfile.dto.UploadedFileDto;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.like.domain.UserLikesContent;
-import org.next.lms.submit.UserHaveToSubmitDto;
+import org.next.lms.submit.domain.UserHaveToSubmitDto;
 import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;

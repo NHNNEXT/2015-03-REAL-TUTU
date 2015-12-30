@@ -1,7 +1,6 @@
-package org.next.lms.content.relative;
+package org.next.lms.content.domain;
 
 import lombok.*;
-import org.next.lms.content.domain.Content;
 
 import javax.persistence.*;
 

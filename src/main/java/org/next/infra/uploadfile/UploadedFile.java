@@ -2,7 +2,7 @@ package org.next.infra.uploadfile;
 
 import lombok.*;
 import org.next.lms.content.domain.Content;
-import org.next.lms.submit.Submit;
+import org.next.lms.submit.domain.Submit;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;

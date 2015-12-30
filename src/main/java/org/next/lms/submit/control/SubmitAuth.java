@@ -1,9 +1,10 @@
-package org.next.lms.submit;
+package org.next.lms.submit.control;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.next.infra.auth.CRUDBasicAuthCheck;
+import org.next.lms.submit.domain.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
 import org.springframework.stereotype.Component;
 

@@ -11,8 +11,8 @@ import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.like.domain.UserLikesReply;
 import org.next.lms.message.domain.Message;
 import org.next.lms.reply.domain.Reply;
-import org.next.lms.submit.Submit;
-import org.next.lms.submit.UserHaveToSubmit;
+import org.next.lms.submit.domain.Submit;
+import org.next.lms.submit.domain.UserHaveToSubmit;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;

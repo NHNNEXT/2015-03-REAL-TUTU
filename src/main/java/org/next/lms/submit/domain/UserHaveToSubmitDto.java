@@ -1,10 +1,7 @@
-package org.next.lms.submit;
+package org.next.lms.submit.domain;
 
 import lombok.Getter;
 import org.next.lms.user.domain.UserSummaryDto;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class UserHaveToSubmitDto {

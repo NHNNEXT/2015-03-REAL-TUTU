@@ -3,11 +3,10 @@ package org.next.lms.content.domain;
 import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
-import org.next.lms.content.relative.ContentLinkContent;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.reply.domain.Reply;
-import org.next.lms.submit.UserHaveToSubmit;
+import org.next.lms.submit.domain.UserHaveToSubmit;
 import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
 

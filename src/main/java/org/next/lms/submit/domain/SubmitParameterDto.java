@@ -1,4 +1,4 @@
-package org.next.lms.submit;
+package org.next.lms.submit.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

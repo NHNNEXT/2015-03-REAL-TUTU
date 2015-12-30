@@ -16,7 +16,7 @@ import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.NewContentCreatedMessage;
 import org.next.lms.message.template.NewSubmitAssignedMessage;
-import org.next.lms.submit.UserHaveToSubmit;
+import org.next.lms.submit.domain.UserHaveToSubmit;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

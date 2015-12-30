@@ -1,7 +1,7 @@
-package org.next.lms.submit;
+package org.next.lms.submit.control;
 
-import org.next.infra.exception.HasNoRightException;
 import org.next.infra.result.Result;
+import org.next.lms.submit.domain.SubmitParameterDto;
 import org.next.lms.user.control.inject.Logged;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
