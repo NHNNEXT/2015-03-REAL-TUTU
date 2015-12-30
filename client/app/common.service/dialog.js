@@ -12,6 +12,16 @@ angular.module('clientApp')
       });
     };
 
+    this.loginHelp = function (ev) {
+      $mdDialog.show({
+        controller: 'loginHelpController',
+        templateUrl: '/user.dialog/login-help.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    };
+
     this.register = function (ev) {
       $mdDialog.show({
         controller: 'authController',

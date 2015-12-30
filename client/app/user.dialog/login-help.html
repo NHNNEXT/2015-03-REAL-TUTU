@@ -1,0 +1,40 @@
+<md-dialog aria-label="로그인 문제 도우미" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>로그인 문제 도우미</h2>
+      <span flex></span>
+      <md-button aria-label="close" class="md-icon-button" dialog="close">
+        <md-icon md-svg-src="/resource/icon/ic_close.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content class="user-login-window">
+    <div class="md-dialog-content">
+      <md-radio-group ng-model="helpType">
+        <md-radio-button value="email" class="md-primary">인증메일을 잃어버렸습니다.</md-radio-button>
+        <md-radio-button value="password" class="md-primary">패스워드를 잊어버렸습니다.</md-radio-button>
+      </md-radio-group>
+      <form name="hepForm" ng-show="helpType">
+        <md-input-container class="md-block">
+          <label>이메일</label>
+          <input required type="email" name="email" ng-model="rootUser.email"
+                 ng-pattern="/^.+@.+\..+$/"/>
+
+          <div ng-messages="hepForm.email.$error" role="alert">
+            <div ng-message-exp="'pattern'">
+              이메일 형식이 맞지 않습니다.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block padding-bottom-s">
+          <md-button aria-label="login" class="md-raised" ng-click="action[helpType]()">{{btn[helpType]}}</md-button>
+        </md-input-container>
+      </form>
+      <div class="center" layout-sm="column">
+        <small>문제를 해결했다면</small>
+        <small>
+          <span dialog="login" class="link">로그인 하러가기</span></small>
+      </div>
+    </div>
+  </md-dialog-content>
+</md-dialog>
