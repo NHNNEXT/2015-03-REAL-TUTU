@@ -9,6 +9,7 @@ import org.next.lms.user.domain.User;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -44,5 +45,9 @@ public class UserHaveToSubmit implements ObjectOwnerKnowable {
     @Override
     public User ownerOfObject() {
         return this.user;
+    }
+
+    public List<Submit> getSubmitOf(User user) {
+        return this.submits.stream().filter(submit -> submit.ownerOfObject().equals(user)).collect(Collectors.toList());
     }
 }

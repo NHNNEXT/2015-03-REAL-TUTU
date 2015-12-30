@@ -50,6 +50,10 @@ public class Submit implements ObjectOwnerKnowable, DomainHasAttachment {
     @Column(name = "WRITE_DATE")
     private Date writeDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "UPDATE_TIME")
+    private Date updateTime;
+
     @Override
     public User ownerOfObject() {
         return this.writer;

@@ -1,6 +1,6 @@
 /* @ngInject */
 angular.module('clientApp').controller('authController',
-  function ($scope, rootUser, alert, confirm, http, responseCode) {
+  function ($scope, rootUser, alert) {
   $scope.rootUser = rootUser;
 
   $scope.login = function () {

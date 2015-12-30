@@ -14,5 +14,5 @@
   <span ng-class="{active:page==$index}" ng-repeat="p in pages" ng-click="setPage($index)">{{$index + 1}}</span>
 </div>
 <content-header wrapped content="content" index="$index"
-                ng-repeat="content in filtered = (contents | orderBy:'-writeDate')"></content-header>
-<div wrapped ng-if="filtered.length==0">결과가 없습니다.</div>
+                ng-repeat="content in contents"></content-header>
+<div wrapped ng-if="contents.length==0">결과가 없습니다.</div>

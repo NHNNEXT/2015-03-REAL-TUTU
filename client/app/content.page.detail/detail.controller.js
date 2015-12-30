@@ -3,6 +3,7 @@ angular.module('clientApp').controller('contentDetailController',
   function ($scope, rootUser, Content, $stateParams, types, Reply, $state, http, $rootScope) {
     $scope.rootUser = rootUser;
     $scope.content = {replies: []};
+    $scope.select = {};
 
     $rootScope.$on('userStateChange', function () {
       getContent($stateParams.id);

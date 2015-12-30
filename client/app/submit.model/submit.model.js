@@ -17,6 +17,7 @@ angular.module('clientApp')
           return new Attachment(attachment);
         });
       this.writeDate = new Date(obj.writeDate);
+      this.updateTime = new Date(obj.updateTime);
       this.writer = new User(obj.writer);
     };
 

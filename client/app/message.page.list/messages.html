@@ -2,7 +2,7 @@
   <md-list>
     <md-subheader class="md-no-sticky">소식</md-subheader>
     <md-divider></md-divider>
-    <md-list-item ng-repeat="message in messages | orderBy:'-date'">
+    <md-list-item ng-repeat="message in messages">
       <div class="md-list-item-text">
         <message message="message" class="margin-vertical"></message>
       </div>

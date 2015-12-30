@@ -46,13 +46,13 @@ public class SubmitService {
     private AttachmentDeclareService attachmentDeclareService;
 
     public Result save(SubmitParameterDto submitParameterDto, User user) {
-
         UserHaveToSubmit userHaveToSubmit = assureNotNull(userHaveToSubmitRepository.findOne(submitParameterDto.getSubmitId()));
         submitAuth.checkWriteRight(userHaveToSubmit, user, userHaveToSubmit.getContent().getContentGroup().getSubmitReadable().contains(user), userHaveToSubmit.getContent().getLecture().getHostUser().equals(user));
         Submit submit = new Submit();
         submit.setWriter(user);
         submit.setUserHaveToSubmit(userHaveToSubmit);
         submit.setWriteDate(new Date());
+        submit.setUpdateTime(new Date());
         submit.setBody(submitParameterDto.getBody());
         attachmentDeclareService.attachmentsDeclare(submitParameterDto, submit);
 
@@ -76,7 +76,7 @@ public class SubmitService {
 
     public Result update(SubmitParameterDto submitParameterDto, User user) {
         Submit fromDB = assureNotNull(submitRepository.findOne(submitParameterDto.getId()));
-        fromDB.setWriteDate(new Date());
+        fromDB.setUpdateTime(new Date());
         fromDB.setBody(submitParameterDto.getBody());
         attachmentDeclareService.attachmentsDeclare(submitParameterDto, fromDB);
         submitAuth.checkUpdateRight(fromDB, user);
@@ -85,7 +85,6 @@ public class SubmitService {
 
     public Result delete(Long id, User user) {
         Submit submit = assureNotNull(submitRepository.findOne(id));
-
         submitAuth.checkDeleteRight(submit, user);
         submitRepository.delete(submit);
         return success();

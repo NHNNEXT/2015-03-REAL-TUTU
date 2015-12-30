@@ -9,7 +9,6 @@
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'md.data.table',
     'ngFileUpload',
     'toastr',
     'anim-in-out'

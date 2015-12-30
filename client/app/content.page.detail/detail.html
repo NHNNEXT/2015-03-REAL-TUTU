@@ -64,14 +64,14 @@
   </div>
 </section>
 
-<section hide-sm ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequires.length>0">
-  <submit-status deadline="content.endTime" submit-requires="content.submitRequires"></submit-status>
+<section ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequires.length>1">
+  <submit-status deadline="content.endTime" submit-requires="content.submitRequires" select="select"></submit-status>
 </section>
 
 
 <section ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequires.length>0">
   <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab ng-repeat="submitRequire in content.submitRequires" label="{{submitRequire.user.name}}">
+    <md-tab md-active="select.id===submitRequire.id" ng-repeat="submitRequire in content.submitRequires" label="{{submitRequire.user.name}}">
       <md-content class="md-padding">
         <submits submit-require="submitRequire"></submits>
       </md-content>

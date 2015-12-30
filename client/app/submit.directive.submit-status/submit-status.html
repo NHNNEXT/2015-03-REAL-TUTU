@@ -1,16 +1,35 @@
-<div layout="row" class="submit-user">
-  <div flex="10"></div>
-  <div flex="10">이전</div>
-  <div flex="10" ng-repeat="date in dates">{{date.getDateString()}}</div>
-</div>
-<div layout="row" class="submit-user" ng-class="{submitted:submitRequiredUser.submitted}"
-     ng-repeat="submitRequire in submitRequires">
-  <div flex="10">{{submitRequire.user.name}}</div>
-  <span ng-repeat="submit in submitRequire.mySubmits" ng-style="left(submit.writeDate)">
-    <i class="fa fa-star"></i>
-    <md-tooltip md-direction="right">{{submit.body}} {{submit.writeDate.toYMD()}}</md-tooltip>
-  </span>
+<table md-data-table class="margin-bottom">
+  <thead>
+  <thead>
+  <tr>
+    <th>총 제출 대상</th>
+    <th>정시 제출자</th>
+    <th>지연 제출자</th>
+    <th>미제출자</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr md-auto-select>
+    <td>{{submitRequires.length}}명 (100%)</td>
+    <td>{{SUBMIT_IN_TIME}}명 ({{SUBMIT_IN_TIME_PERCENT}}%)</td>
+    <td>{{SUBMIT_DELAYED}}명 ({{SUBMIT_DELAYED_PERCENT}}%)</td>
+    <td>{{NO_SUBMIT}}명 ({{NO_SUBMIT_PERCENT}}%)</td>
+  </tr>
+  </tbody>
+</table>
 
-  <div class="deadline" ng-style="deadlineStyle">
-  </div>
-</div>
+<table md-data-table>
+  <thead>
+  <thead>
+  <tr>
+    <th>이름</th>
+    <th>제출상태</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-click="select.id=submitRequire.id" md-auto-select ng-repeat="submitRequire in submitRequires">
+    <td>{{submitRequire.user.name}}</td>
+    <td>{{names[submitRequire.submitState]}}</td>
+  </tr>
+  </tbody>
+</table>

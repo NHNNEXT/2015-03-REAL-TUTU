@@ -19,7 +19,7 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Result getList(@Logged User user, @RequestParam(defaultValue = "1") Integer page) {
+    public Result getList(@Logged User user, @RequestParam(defaultValue = "0") Integer page) {
         return messageService.getList(user, page);
     }
 
