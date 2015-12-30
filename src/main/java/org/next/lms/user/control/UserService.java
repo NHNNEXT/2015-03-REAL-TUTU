@@ -259,7 +259,11 @@ public class UserService {
     }
 
     public Result resendMailVerify(String email) {
-        User user = assureNotNull(userRepository.findByEmail(email));
+        User user = userRepository.findByEmail(email);
+        if(user == null) {
+            return new Result(ResponseCode.Login.USER_NOT_EXIST);
+        }
+
         MailAuth mailAuth = mailAuthRepository.findByEmail(user.getEmail());
         mailAuth.setExpiredTime(+1);
         sendEmailVerifyMail(user, mailAuth.getKey());
