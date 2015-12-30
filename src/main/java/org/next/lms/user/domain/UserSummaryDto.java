@@ -3,7 +3,6 @@ package org.next.lms.user.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
-import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.lecture.domain.dto.UserGroupDto;
 
 @Getter
@@ -33,6 +32,6 @@ public class UserSummaryDto {
             this.group = new UserGroupDto(userEnrolledLecture.getUserGroup());
             return;
         }
-        this.group = new UserGroupDto(userEnrolledLecture.getLecture().getUserGroups().stream().filter(UserGroup::isDefaultGroup).findAny().get());
+        this.group = new UserGroupDto(userEnrolledLecture.getLecture().getDefaultUserGroup());
     }
 }

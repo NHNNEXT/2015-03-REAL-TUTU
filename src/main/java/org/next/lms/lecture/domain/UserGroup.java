@@ -6,6 +6,7 @@ import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
+import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
@@ -59,9 +60,19 @@ public class UserGroup {
             this.name = userGroup.name;
     }
 
-    public boolean isUserAttended(User user){
-        return userEnrolledLectures.stream().filter(
-                userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent();
+    public boolean isUserExist(User user) {
+        return userEnrolledLectures.stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent();
     }
 
+    public Boolean canRead(ContentGroup contentGroup) {
+        return this.readable.stream().filter(relation -> relation.getContentGroup().equals(contentGroup)).findAny().isPresent();
+    }
+
+    public Boolean canWrite(ContentGroup contentGroup) {
+        return this.writable.stream().filter(relation -> relation.getContentGroup().equals(contentGroup)).findAny().isPresent();
+    }
+
+    public Boolean canSubmitRead(ContentGroup contentGroup) {
+        return this.submitReadable.stream().filter(relation -> relation.getContentGroup().equals(contentGroup)).findAny().isPresent();
+    }
 }

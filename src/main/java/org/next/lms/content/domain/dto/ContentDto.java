@@ -60,11 +60,9 @@ public class ContentDto {
         this.relativeContents.addAll(content.getLinkedContents().stream().map(contentLinkedContent -> new ContentSummaryDto(contentLinkedContent.getLinkContent())).collect(Collectors.toList()));
         if (!ContentType.SUBMIT.equals(content.getContentGroup().getContentType()))
             return;
-        boolean hasRightReadSubmits = user.equals(content.getLecture().getHostUser())
-                || content.getContentGroup().getSubmitReadable().stream()
-                .filter(userGroupCanReadSubmit -> userGroupCanReadSubmit.getUserGroup().getUserEnrolledLectures().stream()
-                        .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent()).findAny().isPresent();
-        if (hasRightReadSubmits) {
+        boolean isHostUser = content.getLecture().isHostUser(user);
+        boolean hasRightToReadSubmits = content.getContentGroup().hasSubmitReadRight(user);
+        if (isHostUser || hasRightToReadSubmits) {
             this.submitRequires = content.getUserHaveToSubmits().stream().map(UserHaveToSubmitDto::new).collect(Collectors.toList());
             return;
         }

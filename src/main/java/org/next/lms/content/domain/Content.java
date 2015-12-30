@@ -126,5 +126,13 @@ public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
             uploadedFile.setContent(null);
         };
     }
+
+    public boolean userHaveToSubmit(Long userId) {
+        return this.userHaveToSubmits.stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent();
+    }
+
+    public boolean userHaveToSubmit(User user) {
+        return this.userHaveToSubmits.stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().equals(user)).findAny().isPresent();
+    }
 }
 

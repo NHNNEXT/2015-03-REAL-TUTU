@@ -80,7 +80,6 @@ public class LectureSaveService {
         deleteDeletedUserGroups(lectureFromDB, lecture);
         deleteDeletedContentGroups(lectureFromDB, lecture);
 
-
         setAuthorities(lectureFromDB);
 
         return success(lecture.getId());
@@ -129,7 +128,7 @@ public class LectureSaveService {
         List<UserGroup> deletedUserGroups = userGroups.stream().filter(userGroup -> !lecture.getUserGroups().contains(userGroup)).collect(Collectors.toList());
         userGroups.removeAll(deletedUserGroups);
         ensureDefaultGroupExist(userGroups);
-        UserGroup defaultGroup = userGroups.stream().filter(UserGroup::isDefaultGroup).findFirst().get();
+        UserGroup defaultGroup = userGroups.stream().filter(UserGroup::isDefaultGroup).findAny().get();
         deletedUserGroups.forEach(userGroup -> {
             userGroup.getUserEnrolledLectures().forEach(userEnrolledLecture -> {
                 userEnrolledLecture.setUserGroup(defaultGroup);

@@ -47,7 +47,7 @@ public class SubmitService {
 
     public Result save(SubmitParameterDto submitParameterDto, User user) {
         UserHaveToSubmit userHaveToSubmit = assureNotNull(userHaveToSubmitRepository.findOne(submitParameterDto.getSubmitId()));
-        submitAuth.checkWriteRight(userHaveToSubmit, user, userHaveToSubmit.getContent().getContentGroup().getSubmitReadable().contains(user), userHaveToSubmit.getContent().getLecture().getHostUser().equals(user));
+        submitAuth.checkWriteRight(userHaveToSubmit, user, userHaveToSubmit.getContent().getContentGroup().hasReadRight(user), userHaveToSubmit.getContent().getLecture().isHostUser(user));
         Submit submit = new Submit();
         submit.setWriter(user);
         submit.setUserHaveToSubmit(userHaveToSubmit);
@@ -62,7 +62,7 @@ public class SubmitService {
         scoreGradeAbleUsers.add(userHaveToSubmit.getContent().getLecture().getHostUser());
 
         userHaveToSubmit.getContent().getLecture().getUserGroups().stream()
-                .filter(userGroup -> userGroup.getSubmitReadable().size() > 0)
+                .filter(userGroup -> userGroup.getSubmitReadable().size() > 0) // [TODO] 여기 사이즈 체크 왜하지??
                 .forEach(userGroup -> userGroup.getUserEnrolledLectures().stream()
                         .forEach(relation -> scoreGradeAbleUsers.add(relation.getUser())));
 

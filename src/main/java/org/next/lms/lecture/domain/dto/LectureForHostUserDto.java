@@ -26,7 +26,7 @@ public class LectureForHostUserDto extends LectureDto {
             UserSummaryDto user = new UserSummaryDto(relation.getUser());
             UserGroup userGroup = relation.getUserGroup();
             if (userGroup == null)
-                userGroup = lecture.getUserGroups().stream().filter(UserGroup::isDefaultGroup).findFirst().get();
+                userGroup = lecture.getDefaultUserGroup();
             user.setGroup(new UserGroupDto(userGroup));
             if (ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState()))
                 waitingUsers.add(user);
@@ -44,12 +44,13 @@ public class LectureForHostUserDto extends LectureDto {
             List<Boolean> writable = new ArrayList<>();
             List<Boolean> readable = new ArrayList<>();
             List<Boolean> submitReadable = new ArrayList<>();
-            for (int j = 0; j < contentGroups.size(); j++) {
-                final int finalJ = j;
-                writable.add(userGroup.getWritable().stream().filter(relation -> relation.getContentGroup().equals(contentGroups.get(finalJ))).findAny().isPresent());
-                readable.add(userGroup.getReadable().stream().filter(relation -> relation.getContentGroup().equals(contentGroups.get(finalJ))).findAny().isPresent());
-                submitReadable.add(userGroup.getSubmitReadable().stream().filter(relation -> relation.getContentGroup().equals(contentGroups.get(finalJ))).findAny().isPresent());
-            }
+            
+            contentGroups.forEach(contentGroup -> {
+                writable.add(userGroup.canWrite(contentGroup));
+                readable.add(userGroup.canRead(contentGroup));
+                submitReadable.add(userGroup.canSubmitRead(contentGroup));
+            });
+
             this.writable.add(writable);
             this.readable.add(readable);
             this.submitReadable.add(submitReadable);

@@ -18,14 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "lectureNodeHasLectureList"})
 @Entity
-@Table(name = "LECTURE"
-//        , uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.LECTURE_NAME_ALREADY_EXIST, columnNames = {"NAME"})}
-)
+@Table(name = "LECTURE")
 public class Lecture implements ObjectOwnerKnowable {
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "TERM_ID")
-//    private Term term;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOST_USER_ID")
@@ -67,12 +61,6 @@ public class Lecture implements ObjectOwnerKnowable {
     private Integer registerPolicy;
 
 
-    // TODO 삭제된 상태라고 보기 어려운것 같다
-//    public void setDeleteState() {
-//        this.hostUser = null;
-//        this.userEnrolledLectures = null;
-//    }
-
     public void update(Lecture lecture) {
         if (lecture.name != null)
             this.name = lecture.name;
@@ -101,17 +89,18 @@ public class Lecture implements ObjectOwnerKnowable {
     @Transient
     private Long termId;
 
-//    public void setTerm(TermRepository termRepository) {
-//        if (this.termId == null) {
-//            this.term = null;
-//            return;
-//        }
-//        this.term = termRepository.findOne(termId);
-//    }
 
     @Override
     public User ownerOfObject() {
         return this.hostUser;
+    }
+
+    public UserGroup getDefaultUserGroup() {
+        return this.userGroups.stream().filter(UserGroup::isDefaultGroup).findAny().get();
+    }
+
+    public boolean isHostUser(User user) {
+        return hostUser.equals(user);
     }
 }
 

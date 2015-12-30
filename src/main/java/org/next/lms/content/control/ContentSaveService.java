@@ -124,9 +124,9 @@ public class ContentSaveService {
     }
 
 
-
     private void removeDeletedUser(ContentParameterDto contentParameterDto, Content content) {
-        List<UserHaveToSubmit> userHaveToSubmits = content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> !contentParameterDto.getSubmitRequires().contains(userHaveToSubmit.getUser().getId())).collect(Collectors.toList());
+        List<UserHaveToSubmit> userHaveToSubmits = content.getUserHaveToSubmits().stream().filter(
+                userHaveToSubmit -> !contentParameterDto.getSubmitRequires().contains(userHaveToSubmit.getUser().getId())).collect(Collectors.toList());
         content.getUserHaveToSubmits().removeAll(userHaveToSubmits);
         userHaveToSubmitRepository.delete(userHaveToSubmits);
     }
@@ -134,7 +134,7 @@ public class ContentSaveService {
     private void submitUserDeclare(ContentParameterDto contentParameterDto, Content content) {
         if (contentParameterDto.getSubmitRequires() != null)
             contentParameterDto.getSubmitRequires().forEach(userId -> {
-                if (content.getUserHaveToSubmits().stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().getId().equals(userId)).findAny().isPresent())
+                if (content.userHaveToSubmit(userId))
                     return;
                 User user = assureNotNull(userRepository.findOne(userId));
                 UserHaveToSubmit userHaveToSubmit = new UserHaveToSubmit();

@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.next.infra.result.Result.success;
-import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.util.CommonUtils.ifNullNotFoundErroReturn;
 import static org.next.infra.util.CommonUtils.makeUUID;
 

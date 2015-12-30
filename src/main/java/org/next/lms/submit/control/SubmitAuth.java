@@ -14,15 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubmitAuth extends CRUDBasicAuthCheck {
     public void checkSubmitReadable(UserHaveToSubmit userHaveToSubmit, User user) {
-        boolean readable = userHaveToSubmit.getContent().getContentGroup()
-                .getSubmitReadable().stream()
-                .filter(userGroupCanReadSubmit ->
-                        userGroupCanReadSubmit.getUserGroup().getUserEnrolledLectures().stream()
-                                .filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user))
-                                .findAny().isPresent())
-                .findAny().isPresent();
-
-        boolean host = userHaveToSubmit.getContent().getLecture().getHostUser().equals(user);
+        boolean readable = userHaveToSubmit.getContent().getContentGroup().userCanReadSubmit(user);
+        boolean host = userHaveToSubmit.getContent().getLecture().isHostUser(user);
 
         super.rightCheck(isObjectOwner(userHaveToSubmit, user) || host || readable);
     }

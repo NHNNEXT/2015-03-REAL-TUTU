@@ -7,6 +7,7 @@ import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -67,5 +68,17 @@ public class ContentGroup {
             this.name = contentGroup.name;
     }
 
+    public boolean hasReadRight(User user) {
+        return readable.stream()
+                .filter(readable -> readable.getUserGroup().isUserExist(user)).findAny().isPresent();
+    }
 
+    public boolean hasWriteRight(User user) {
+        return writable.stream()
+                .filter(writable -> writable.getUserGroup().isUserExist(user)).findAny().isPresent();
+    }
+    public boolean hasSubmitReadRight(User user) {
+        return submitReadable.stream()
+                .filter(submitReadable -> submitReadable.getUserGroup().isUserExist(user)).findAny().isPresent();
+    }
 }
