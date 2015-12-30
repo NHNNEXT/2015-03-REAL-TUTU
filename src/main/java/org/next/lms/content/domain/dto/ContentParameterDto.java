@@ -3,6 +3,8 @@ package org.next.lms.content.domain.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.next.infra.uploadfile.service.DomainHasAttachment;
+import org.next.infra.uploadfile.service.DtoHasAttachment;
 import org.next.lms.content.domain.Content;
 import org.next.lms.lecture.domain.Lecture;
 
@@ -12,8 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ContentParameterDto {
-
+public class ContentParameterDto implements DtoHasAttachment {
 
     private Long lectureId;
     private Lecture lecture;

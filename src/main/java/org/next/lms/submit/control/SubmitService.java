@@ -2,12 +2,10 @@ package org.next.lms.submit.control;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import org.next.config.AppConfig;
-import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.repository.SubmitRepository;
-import org.next.infra.repository.UploadFileRepository;
 import org.next.infra.repository.UserHaveToSubmitRepository;
 import org.next.infra.result.Result;
-import org.next.infra.uploadfile.UploadedFile;
+import org.next.infra.uploadfile.service.AttachmentDeclareService;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
 import org.next.lms.message.template.UserSubmitMissionToScoreGraderMessage;
@@ -42,10 +40,10 @@ public class SubmitService {
     private SubmitAuth submitAuth;
 
     @Autowired
-    private UploadFileRepository uploadFileRepository;
+    private MessageService messageService;
 
     @Autowired
-    private MessageService messageService;
+    private AttachmentDeclareService attachmentDeclareService;
 
     public Result save(SubmitParameterDto submitParameterDto, User user) {
 
@@ -56,7 +54,7 @@ public class SubmitService {
         submit.setUserHaveToSubmit(userHaveToSubmit);
         submit.setWriteDate(new Date());
         submit.setBody(submitParameterDto.getBody());
-        attachmentsDeclare(submitParameterDto, submit);
+        attachmentDeclareService.attachmentsDeclare(submitParameterDto, submit);
 
         submitRepository.save(submit);
 
@@ -80,7 +78,7 @@ public class SubmitService {
         Submit fromDB = assureNotNull(submitRepository.findOne(submitParameterDto.getId()));
         fromDB.setWriteDate(new Date());
         fromDB.setBody(submitParameterDto.getBody());
-        attachmentsDeclare(submitParameterDto, fromDB);
+        attachmentDeclareService.attachmentsDeclare(submitParameterDto, fromDB);
         submitAuth.checkUpdateRight(fromDB, user);
         return success(new SubmitDto(fromDB));
     }
@@ -91,25 +89,6 @@ public class SubmitService {
         submitAuth.checkDeleteRight(submit, user);
         submitRepository.delete(submit);
         return success();
-    }
-
-    private void attachmentsDeclare(SubmitParameterDto submitParameterDto, Submit submit) {
-        if (submitParameterDto.getAttachments().size() > AppConfig.SUBMIT_ATTACHMENTS_MAX_SIZE)
-            throw new PatternNotMatchedException("파일은 " + AppConfig.SUBMIT_ATTACHMENTS_MAX_SIZE + "개까지만 첨부 가능합니다.");
-        if (submitParameterDto.getAttachments() == null)
-            return;
-        submit.getAttachments().stream()
-                .filter(attachment -> !submitParameterDto.getAttachments().stream()
-                        .filter(id -> attachment.getId().equals(id)).findAny().isPresent()).forEach(attachment -> attachment.setContent(null));
-
-        submitParameterDto.getAttachments().forEach(id -> {
-            if (submit.getAttachments().stream().filter(attachment -> attachment.getId().equals(id)).findAny().isPresent())
-                return;
-            UploadedFile file = uploadFileRepository.findOne(id);
-            file.setSubmit(submit);
-            submit.getAttachments().add(file);
-            uploadFileRepository.save(file);
-        });
     }
 
     @PersistenceContext

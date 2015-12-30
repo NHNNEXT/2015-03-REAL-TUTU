@@ -1,10 +1,9 @@
 package org.next.lms.content.control;
 
-import org.next.config.AppConfig;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.repository.*;
 import org.next.infra.result.Result;
-import org.next.infra.uploadfile.UploadedFile;
+import org.next.infra.uploadfile.service.AttachmentDeclareService;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentType;
 import org.next.lms.content.domain.dto.ContentDto;
@@ -62,7 +61,7 @@ public class ContentSaveService {
     ContentLinkContentRepository contentLinkContentRepository;
 
     @Autowired
-    UploadFileRepository uploadFileRepository;
+    AttachmentDeclareService attachmentDeclareService;
 
     public Result saveContents(ContentListDto contents, User user) {
         Lecture lecture = lectureRepository.findOne(contents.getLectureId());
@@ -100,7 +99,7 @@ public class ContentSaveService {
             removeDeletedUser(contentParameterDto, contentFromDB);
             submitUserDeclare(contentParameterDto, contentFromDB);
         }
-        attachmentsDeclare(contentParameterDto, contentFromDB);
+        attachmentDeclareService.attachmentsDeclare(contentParameterDto, contentFromDB);
         return success();
     }
 
@@ -120,27 +119,10 @@ public class ContentSaveService {
         if (ContentType.SUBMIT.equals(content.getContentGroup().getContentType())) {
             submitUserDeclare(contentParameterDto, content);
         }
-        attachmentsDeclare(contentParameterDto, content);
+        attachmentDeclareService.attachmentsDeclare(contentParameterDto, content);
         return content;
     }
 
-    private void attachmentsDeclare(ContentParameterDto contentParameterDto, Content content) {
-        if (contentParameterDto.getAttachments().size() > AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE)
-            throw new PatternNotMatchedException("첨부파일은 " + AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE + "개까지 첨부할 수 있습니다.");
-        if (content.getAttachments() != null)
-            content.getAttachments().stream()
-                    .filter(attachment -> !contentParameterDto.getAttachments().stream()
-                            .filter(id -> attachment.getId().equals(id)).findAny().isPresent()).forEach(attachment -> attachment.setContent(null));
-
-        if (contentParameterDto.getAttachments() != null)
-            contentParameterDto.getAttachments().forEach(id -> {
-                if (content.getAttachments().stream().filter(attachment -> attachment.getId().equals(id)).findAny().isPresent())
-                    return;
-                UploadedFile file = uploadFileRepository.findOne(id);
-                file.setContent(content);
-                uploadFileRepository.save(file);
-            });
-    }
 
 
     private void removeDeletedUser(ContentParameterDto contentParameterDto, Content content) {

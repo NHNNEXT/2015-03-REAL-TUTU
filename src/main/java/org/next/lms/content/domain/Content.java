@@ -4,6 +4,7 @@ import lombok.*;
 import org.next.config.AppConfig;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
+import org.next.infra.uploadfile.service.DomainHasAttachment;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.reply.domain.Reply;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
 @Entity
 @Table(name = "CONTENT")
-public class Content implements ObjectOwnerKnowable {
+public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserLikesContent> userLikesContents = new ArrayList<>();
@@ -106,5 +108,23 @@ public class Content implements ObjectOwnerKnowable {
     }
 
 
+    @Override
+    public Integer getMaxAttachmentSize() {
+        return AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE;
+    }
+
+    @Override
+    public Consumer<? super UploadedFile> getAttachmentAddAction() {
+        return uploadedFile -> {
+            uploadedFile.setContent(this);
+        };
+    }
+
+    @Override
+    public Consumer<? super UploadedFile> getAttachmentRemoveAction() {
+        return uploadedFile -> {
+            uploadedFile.setContent(null);
+        };
+    }
 }
 
