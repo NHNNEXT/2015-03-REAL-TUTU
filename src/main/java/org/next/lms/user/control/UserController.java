@@ -37,6 +37,11 @@ public class UserController {
         return userService.register(user);
     }
 
+    @RequestMapping(value = "/resendMailVerify", method = RequestMethod.POST)
+    public Result resendMailVerify(String email) {
+        return userService.resendMailVerify(email);
+    }
+
     @RequestMapping(value = "/mailVerify", method = RequestMethod.GET, produces = "text/html; charset=utf8")
     public String mailVerify(String key) {
         return userService.verifyMail(key);

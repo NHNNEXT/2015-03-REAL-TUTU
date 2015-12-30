@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.next.infra.result.Result.success;
+import static org.next.infra.util.CommonUtils.assureNotNull;
 import static org.next.infra.util.CommonUtils.ifNullNotFoundErroReturn;
 import static org.next.infra.util.CommonUtils.makeUUID;
 
@@ -254,6 +255,14 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
         mailAuthRepository.delete(mailAuth);
+        return success();
+    }
+
+    public Result resendMailVerify(String email) {
+        User user = assureNotNull(userRepository.findByEmail(email));
+        MailAuth mailAuth = mailAuthRepository.findByEmail(user.getEmail());
+        mailAuth.setExpiredTime(+1);
+        sendEmailVerifyMail(user, mailAuth.getKey());
         return success();
     }
 }
