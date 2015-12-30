@@ -40,7 +40,7 @@
         $state.go(toState.redirectTo, toParams);
       }
       Loading.start();
-      
+
     });
     /* @ngInject */
   }).config(function ($locationProvider, toastrConfig, $httpProvider, $mdThemingProvider) { //RestangularProvider,

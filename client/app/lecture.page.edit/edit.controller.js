@@ -21,9 +21,11 @@ angular
 
       function _init() {
         lecture = $scope.lecture = new Lecture();
-        $scope.userGroup = {};
-        $scope.contentGroup = {contentType: "GENERAL"};
+        $scope.userGroup = new UserGroup();
+        $scope.contentGroup = new ContentGroup();
       }
+
+
 
       $scope.newUserGroup = function () {
         lecture.userGroups.push($scope.userGroup);
@@ -33,7 +35,7 @@ angular
           lecture.submitReadable.push(getTrueArray(lecture.contentGroups.length));
         }
 
-        $scope.userGroup = {};
+        $scope.userGroup = new UserGroup();
 
         function getTrueArray(length) {
           var result = [];
@@ -45,7 +47,7 @@ angular
 
       $scope.newContentGroup = function () {
         lecture.contentGroups.push($scope.contentGroup);
-        $scope.contentGroup = {contentType: "GENERAL"};
+        $scope.contentGroup = new ContentGroup();
         if (lecture.writable[0].length < lecture.contentGroups.length) {
           lecture.writable.forEach(function (writable) {
             writable.push(true);
@@ -108,5 +110,14 @@ angular
         $state.go('lectures');
       }
 
+      function ContentGroup() {
+        this.name = "";
+        this.contentType = "GENERAL";
+        this.reply = true;
+      }
+
+      function UserGroup () {
+        this.name = "";
+      }
 
     });
