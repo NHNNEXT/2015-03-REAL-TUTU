@@ -9,10 +9,13 @@ angular.module('clientApp')
       controller: function ($scope, Content, Loading, $stateParams) {
 
         var pageSize = 10;
-        if (!$scope.query)
-          $scope.query = {};
-        $scope.query.contentGroupName = $stateParams.contentGroupName;
-        $scope.query.lectureId = $stateParams.id;
+
+        if (!$scope.query) {
+          $scope.query = {
+            contentGroupName: $stateParams.contentGroupName,
+            lectureId: $stateParams.id
+          };
+        }
 
         $scope.pageRequest = function (page) {
           getContents($scope.query, page);
@@ -20,6 +23,8 @@ angular.module('clientApp')
 
         $scope.$watch('query', function (query) {
           if (query === undefined)
+            return;
+          if (angular.equals(query, {}))
             return;
           getContents(query);
           Content.getListSize(query).then(function (size) {

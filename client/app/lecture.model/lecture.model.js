@@ -94,7 +94,8 @@ angular.module('clientApp')
         this.majorType = param.majorType;
         this.registerPolicy = param.registerPolicy;
         this.likes = param.likes;
-        this.contentsLength = param.contentsLength;
+        this.contentLength = param.contentLength;
+        this.scheduleLength = param.scheduleLength;
         this.hostUser = new User(param.hostUser);
         this.contentGroups = param.contentGroups;
         this.userGroups = param.userGroups;

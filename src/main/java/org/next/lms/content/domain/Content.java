@@ -107,7 +107,6 @@ public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
         return this.writer;
     }
 
-
     @Override
     public Integer getMaxAttachmentSize() {
         return AppConfig.CONTENT_ATTACHMENTS_MAX_SIZE;
@@ -133,6 +132,23 @@ public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
 
     public boolean userHaveToSubmit(User user) {
         return this.userHaveToSubmits.stream().filter(userHaveToSubmit -> userHaveToSubmit.getUser().equals(user)).findAny().isPresent();
+    }
+
+
+    public boolean isSchedule() {
+        return ContentType.SCHEDULE.equals(contentGroup.getContentType());
+    }
+
+    public boolean isNotice() {
+        return ContentType.NOTICE.equals(contentGroup.getContentType());
+    }
+
+    public boolean isSubmit() {
+        return ContentType.SUBMIT.equals(contentGroup.getContentType());
+    }
+
+    public boolean isGeneral() {
+        return ContentType.GENERAL.equals(contentGroup.getContentType());
     }
 }
 
