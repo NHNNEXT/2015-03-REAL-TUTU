@@ -2,7 +2,6 @@ package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
 import org.next.lms.content.domain.ContentGroup;
-import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.user.domain.User;
@@ -10,6 +9,7 @@ import org.next.lms.user.domain.UserSummaryDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class LectureForHostUserDto extends LectureDto {
@@ -21,16 +21,7 @@ public class LectureForHostUserDto extends LectureDto {
 
     public LectureForHostUserDto(Lecture lecture, User hostUser) {
         super(lecture, hostUser);
-        this.waitingUsers = new ArrayList<>();
-        lecture.getUserEnrolledLectures().forEach(relation -> {
-            UserSummaryDto user = new UserSummaryDto(relation.getUser());
-            UserGroup userGroup = relation.getUserGroup();
-            if (userGroup == null)
-                userGroup = lecture.getDefaultUserGroup();
-            user.setGroup(new UserGroupDto(userGroup));
-            if (ApprovalState.WAITING_APPROVAL.equals(relation.getApprovalState()))
-                waitingUsers.add(user);
-        });
+        this.waitingUsers = lecture.getWaitingUsers().stream().map(UserSummaryDto::new).collect(Collectors.toList());
         makeWriteAndRead(lecture);
     }
 
@@ -44,7 +35,7 @@ public class LectureForHostUserDto extends LectureDto {
             List<Boolean> writable = new ArrayList<>();
             List<Boolean> readable = new ArrayList<>();
             List<Boolean> submitReadable = new ArrayList<>();
-            
+
             contentGroups.forEach(contentGroup -> {
                 writable.add(userGroup.canWrite(contentGroup));
                 readable.add(userGroup.canRead(contentGroup));

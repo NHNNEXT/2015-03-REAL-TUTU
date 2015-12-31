@@ -4,6 +4,7 @@ import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
+import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.user.domain.User;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -101,6 +103,14 @@ public class Lecture implements ObjectOwnerKnowable {
 
     public boolean isHostUser(User user) {
         return hostUser.equals(user);
+    }
+
+    public List<User> getApprovedUsers() {
+        return userEnrolledLectures.stream().filter(UserEnrolledLecture::approvalStateOk).map(UserEnrolledLecture::getUser).collect(Collectors.toList());
+    }
+
+    public List<User> getWaitingUsers() {
+        return userEnrolledLectures.stream().filter(UserEnrolledLecture::approvalStateWating).map(UserEnrolledLecture::getUser).collect(Collectors.toList());
     }
 }
 

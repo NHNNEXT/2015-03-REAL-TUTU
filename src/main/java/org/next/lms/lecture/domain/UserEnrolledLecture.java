@@ -49,4 +49,13 @@ public class UserEnrolledLecture {
     public void showLectureOnSideBar(){
         this.sideMenu = true;
     }
+
+    public boolean approvalStateOk() {
+        return ApprovalState.OK.equals(approvalState);
+    }
+
+    public boolean approvalStateWating() {
+        return ApprovalState.WAITING_APPROVAL.equals(approvalState);
+    }
+
 }
