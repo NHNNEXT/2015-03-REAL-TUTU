@@ -27,6 +27,7 @@ angular.module('clientApp')
         };
 
         $scope.getMore();
+
         $rootScope.$on('userStateChange', $scope.getMore);
       }
     };

@@ -13,9 +13,9 @@
     'toastr',
     'anim-in-out'
     /* @ngInject */
-  ]).run(function ($rootScope, $state, confirm, $window, pageMove, Loading) {
+  ]).run(function ($rootScope, $state, confirm, $window, pageMove, Loading, rootUser) {
     $($window).on("beforeunload", function () {
-      if ($state.current.confirm)
+      if ($state.current.exitConfirm)
         return "이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.";
     });
     $rootScope.$on('$stateChangeSuccess',
@@ -26,7 +26,12 @@
       }
     );
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-      if (!pageMove.ok && fromState.confirm) {
+      if (!rootUser.isLogged() && toState.loginneed) {
+        event.preventDefault();
+        $state.go("loginneed");
+        return;
+      }
+      if (!pageMove.ok && fromState.exitConfirm) {
         event.preventDefault();
         confirm("이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.", undefined, function () {
           pageMove.ok = true;

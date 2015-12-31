@@ -3,7 +3,7 @@ angular.module('clientApp')
     return {
       restrict: 'E',
       scope: {
-        start: '=', end: '='
+        start: '=', end: '=', lectures: '=', lecture: '='
       },
       templateUrl: '/lecture.directive.lecture-summary/lecture-summary.html',
       /* @ngInject */
@@ -16,20 +16,24 @@ angular.module('clientApp')
         var now = new Date();
         var day = 24 * 60 * 60 * 1000;
 
-        $scope.lectures = rootUser.lectures;
-
         function update() {
           if (!$scope.start || !$scope.end)
             return;
           $scope.contents = [];
-          $scope.lectures.forEach(function (lecture) {
+          if ($scope.lecture) {
+            getLectureSchedule($scope.lecture.id);
+            return;
+          }
+          if (!rootUser.lectures)
+            return;
+          rootUser.lectures.forEach(function (lecture) { //[TODO]로직상 맞지 않지만 임시로 남겨둠.
             if (!lecture.sideMenu)
               return;
-            getLectures(lecture.id);
+            getLectureSchedule(lecture.id);
           });
         }
 
-        function getLectures(lectureId) {
+        function getLectureSchedule(lectureId) {
           Content.getListByDuration({
             lectureId: lectureId,
             start: $scope.start.getTime(),

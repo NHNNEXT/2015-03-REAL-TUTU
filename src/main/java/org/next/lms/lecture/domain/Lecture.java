@@ -105,13 +105,6 @@ public class Lecture implements ObjectOwnerKnowable {
         return hostUser.equals(user);
     }
 
-    public List<User> getApprovedUsers() {
-        return userEnrolledLectures.stream().filter(UserEnrolledLecture::approvalStateOk).map(UserEnrolledLecture::getUser).collect(Collectors.toList());
-    }
-
-    public List<User> getWaitingUsers() {
-        return userEnrolledLectures.stream().filter(UserEnrolledLecture::approvalStateWating).map(UserEnrolledLecture::getUser).collect(Collectors.toList());
-    }
 }
 
 

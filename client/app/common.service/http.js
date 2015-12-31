@@ -1,7 +1,22 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon) {
+  .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon, $timeout) {
+    var httpQue = [];
+
+    function getUniqueString(method, url, params) {
+      return method + url + JSON.stringify(params);
+    }
+
     var http = function (method, url, params, success, error, json) {
+      var serializedRequest = getUniqueString(method, url, params);
+      if (httpQue.includes(serializedRequest)) {
+        console.log(serializedRequest + "같은 리퀘스트를 연속해서 날릴 수 없습니다.");
+      }
+      httpQue.push(serializedRequest);
+      $timeout(function () {
+        httpQue.remove(serializedRequest);
+      }, 500);
+
       var options = {
         method: method, url: url
       };

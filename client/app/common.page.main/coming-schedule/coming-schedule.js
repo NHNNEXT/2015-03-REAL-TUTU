@@ -17,7 +17,6 @@ angular.module('clientApp')
           if (!rootUser.isLogged())
             return;
           http.get('/api/v1/content/list/coming', {page: page.next()}).then(function (results) {
-
             page.return(results.length);
             results.forEach(function (result) {
               $scope.contents.push(new Content(result));

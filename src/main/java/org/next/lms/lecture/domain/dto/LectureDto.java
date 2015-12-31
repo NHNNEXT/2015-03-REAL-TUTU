@@ -3,6 +3,7 @@ package org.next.lms.lecture.domain.dto;
 import lombok.Getter;
 import org.next.lms.content.domain.dto.ContentGroupDto;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
@@ -36,7 +37,7 @@ public class LectureDto {
 
         this.likes = lecture.getUserLikesLectures().stream().map(UserLikesLecture::getId).collect(Collectors.toList());
         this.contentGroups = lecture.getContentGroups().stream().map(ContentGroupDto::new).collect(Collectors.toList());
-        this.users = lecture.getApprovedUsers().stream().map(UserSummaryDto::new).collect(Collectors.toList());
+        this.users = lecture.getUserEnrolledLectures().stream().filter(UserEnrolledLecture::approvalStateOk).map(UserSummaryDto::new).collect(Collectors.toList());
         this.userGroups = lecture.getUserGroups().stream().map(UserGroupDto::new).collect(Collectors.toList());
     }
 }

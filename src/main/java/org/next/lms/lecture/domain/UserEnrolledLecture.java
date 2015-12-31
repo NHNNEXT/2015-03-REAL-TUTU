@@ -54,7 +54,7 @@ public class UserEnrolledLecture {
         return ApprovalState.OK.equals(approvalState);
     }
 
-    public boolean approvalStateWating() {
+    public boolean approvalStateWaiting() {
         return ApprovalState.WAITING_APPROVAL.equals(approvalState);
     }
 

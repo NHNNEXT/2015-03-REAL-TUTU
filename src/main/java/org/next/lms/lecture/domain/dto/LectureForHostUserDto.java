@@ -3,6 +3,7 @@ package org.next.lms.lecture.domain.dto;
 import lombok.Getter;
 import org.next.lms.content.domain.ContentGroup;
 import org.next.lms.lecture.domain.Lecture;
+import org.next.lms.lecture.domain.UserEnrolledLecture;
 import org.next.lms.lecture.domain.UserGroup;
 import org.next.lms.user.domain.User;
 import org.next.lms.user.domain.UserSummaryDto;
@@ -21,7 +22,7 @@ public class LectureForHostUserDto extends LectureDto {
 
     public LectureForHostUserDto(Lecture lecture, User hostUser) {
         super(lecture, hostUser);
-        this.waitingUsers = lecture.getWaitingUsers().stream().map(UserSummaryDto::new).collect(Collectors.toList());
+        this.waitingUsers = lecture.getUserEnrolledLectures().stream().filter(UserEnrolledLecture::approvalStateWaiting).map(UserSummaryDto::new).collect(Collectors.toList());
         makeWriteAndRead(lecture);
     }
 

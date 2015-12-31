@@ -7,12 +7,13 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
     header: "로그인 해야합니다.",
     controller: 'loginNeedController'
   };
+
   states.main = {
     templateUrl: "/common.page.main/main.html",
-    controller: 'mainController',
-    controllerAs: 'main',
-    header: "내 강의 일정"
+    header: "내 강의 요약",
+    loginneed: true
   };
+
   states.notfound = {
     templateUrl: "/common.page.notfound/notfound.html",
     header: "404 NOT FOUND"
@@ -20,7 +21,7 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   states.contentNew = {
     templateUrl: "/content.page.edit/write.html",
     controller: 'contentWriteController',
-    confirm: true
+    exitConfirm: true
   };
   states.content = {
     templateUrl: "/content.page.detail/detail.html",
@@ -29,19 +30,19 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   states.contentEdit = {
     templateUrl: "/content.page.edit/edit.html",
     controller: 'contentEditController',
-    confirm: true
+    exitConfirm: true
   };
   states.lectureEdit = {
     templateUrl: "/lecture.page.edit/edit.html",
     controller: 'editLectureController',
     header: "강의 관리",
-    confirm: true
+    exitConfirm: true
   };
   states.lectureNew = {
     templateUrl: "/lecture.page.edit/edit.html",
     controller: 'editLectureController',
     header: "강의 등록",
-    confirm: true
+    exitConfirm: true
   };
   states.lecture = {
     templateUrl: "/lecture.page.detail/lecture.html",
@@ -74,8 +75,12 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   };
   states["lecture.people"].url = "/참여자";
 
+  states["lecture.schedule"] = {
+    templateUrl: "/lecture.page.detail/lecture.schedule.html"
+  };
+  states["lecture.schedule"].url = "/일정";
+
   states["lecture.list"] = {
-    controller: 'contentListController',
     templateUrl: "/lecture.page.detail.list/list.html"
   };
   states["lecture.list"].url = "/:contentGroupName";
