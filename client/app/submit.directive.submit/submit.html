@@ -8,7 +8,8 @@
         {{submit.writer.name}}
       </strong>
       <span class="txt_time">{{submit.writeDate.toYMD()}}</span>
-      <span class="txt_time">(최종수정 : {{submit.updateTime.toYMD()}})</span>
+      <span class="txt_time" ng-if="submitRequiredUser.id===submit.writer.id">(최종수정 : {{submit.updateTime.toYMD()}})</span>
+      <span class="txt_time green" ng-if="submitRequiredUser.id!==submit.writer.id">(도움말)</span>
     </div>
     <div class="body">
       <span ng-show="!mod">
