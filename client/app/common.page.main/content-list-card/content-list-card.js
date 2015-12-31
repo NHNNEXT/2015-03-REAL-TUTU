@@ -5,10 +5,7 @@ angular.module('clientApp')
       scope: {query: '=', head: "@"},
       templateUrl: "/common.page.main/content-list-card/content-list-card.html",
       /* @ngInject */
-      link: function (s, e) {
-        s.el = e;
-      },
-      controller: function ($scope, Content, rootUser, $rootScope, Page) {
+      controller: function ($scope, Content, rootUser, $rootScope, Page, $element) {
         var page = $scope.page = new Page();
 
         $scope.contents = [];
@@ -25,7 +22,7 @@ angular.module('clientApp')
               $scope.contents.push(content);
             });
             if ($scope.contents.length === 0)
-              $($scope.el).remove();
+              $($element).remove();
           });
         };
 
