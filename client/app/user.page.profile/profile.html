@@ -13,7 +13,7 @@
       <mod-textarea ng-model="user.introduce" mod-right="user.isRootUser()" placeholder="소개말"
                     mod-save="update"></mod-textarea>
       <div class="info margin-bottom">
-        {{user.email}}
+        <a ng-href="mailto:{{user.email}}">{{user.email}}</a>
         <span class="bar"></span>
         <mod-input ng-model="user.major" mod-right="user.isRootUser()" placeholder="전공" mod-save="update"></mod-input>
 
