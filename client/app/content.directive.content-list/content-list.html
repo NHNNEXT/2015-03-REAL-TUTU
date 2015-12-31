@@ -11,7 +11,7 @@
   </div>
 </div>
 <div pagenation ng-show="pages.length>1">
-  <span ng-class="{active:page==$index}" ng-repeat="p in pages" ng-click="setPage($index)">{{$index + 1}}</span>
+  <span ng-class="{active:page==$index}" ng-repeat="p in pages" ng-click="pageRequest($index)">{{$index + 1}}</span>
 </div>
 <content-header wrapped content="content" index="$index"
                 ng-repeat="content in contents"></content-header>

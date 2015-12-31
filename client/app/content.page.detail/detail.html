@@ -2,7 +2,8 @@
   <div layout="row">
     <div flex>
       <div class="info">
-        <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span> > <span ui-sref="lecture.list({id:content.lectureId, contentGroupName:content.contentGroup.name})">{{content.contentGroup.name}}</span>
+        <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span> > <span
+        ui-sref="lecture.list({id:content.lectureId, contentGroupName:content.contentGroup.name})">{{content.contentGroup.name}}</span>
       </div>
       <div layout="row">
         <h2>
@@ -17,8 +18,10 @@
         {{content.contentGroup.name}}
         <span class="bar"></span>
         조회수 {{content.hits}}
-        <span class="bar"></span>
-        댓글 {{content.repliesSize}}
+        <span ng-if="content.contentGroup.reply">
+          <span class="bar"></span>
+          댓글 {{content.repliesSize}}
+        </span>
         <span class="bar"></span>
         <like type="CONTENT" like="content.likes" target="content.id"></like>
         <span hide-gt-sm>
@@ -71,7 +74,8 @@
 
 <section ng-if="content.contentGroup.contentType==='SUBMIT' && content.submitRequires.length>0">
   <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab md-active="select.id===submitRequire.id" ng-repeat="submitRequire in content.submitRequires" label="{{submitRequire.user.name}}">
+    <md-tab md-active="select.id===submitRequire.id" ng-repeat="submitRequire in content.submitRequires"
+            label="{{submitRequire.user.name}}">
       <md-content class="md-padding">
         <submits submit-require="submitRequire"></submits>
       </md-content>
