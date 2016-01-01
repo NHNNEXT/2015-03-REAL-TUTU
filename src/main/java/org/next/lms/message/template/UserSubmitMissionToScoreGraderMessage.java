@@ -11,7 +11,7 @@ import static org.next.infra.util.HanGuelUtil.josaWhenEllipsisApplied;
 
 public class UserSubmitMissionToScoreGraderMessage extends ImmutableMessageTemplate {
 
-    private static final String messageTemplate = "%s님이 '%s' %s 제출했습니다.";
+    private static final String messageTemplate = "%s님이 %s%s 제출했습니다.";
 
     private static final String singleEventUrlTemplate = "/게시물/%d";
 
@@ -25,7 +25,7 @@ public class UserSubmitMissionToScoreGraderMessage extends ImmutableMessageTempl
 
     @Override
     protected String getMessageString() {
-        return String.format(messageTemplate, writer.getName(), CommonUtils.ellipsis(content.getTitle(), 30), josaWhenEllipsisApplied(content.getTitle(), HanGuelUtil.JosaType.을를, 30));
+        return String.format(messageTemplate, writer.getName(), content.getTitle(), josaWhenEllipsisApplied(content.getTitle(), HanGuelUtil.JosaType.을를, 30));
     }
 
     @Override

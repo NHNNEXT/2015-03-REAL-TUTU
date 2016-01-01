@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class LectureEnrollRequestMessage extends MultipleEventReportMessageTemplate {
 
-    private static final String NO_WAITING_STUDENT = "'%s' 강의에 대한 학생의 가입 요청 승인/거부를 모두 처리하셨습니다. 가입 승인을 기다리는 학생이 없습니다.";
-    private static final String singleEventMessageTemplate = "'%s' 강의에 '%s' 학생이 가입 승인을 기다리고 있습니다.";
-    private static final String multipleEventMessageTemplate = "'%s' 강의에 '%s' 학생 외 '%d' 명이 가입 승인을 기다리고 있습니다.";
+    private static final String NO_WAITING_STUDENT = "'%s' 강의에 대한 가입 요청 승인/거부를 모두 처리했습니다.";
+    private static final String singleEventMessageTemplate = "'%s' 강의에 '%s'님이 가입 승인을 기다리고 있습니다.";
+    private static final String multipleEventMessageTemplate = "'%s' 강의에 '%s'님 외 '%d' 명이 가입 승인을 기다리고 있습니다.";
 
     private static final String urlTemplate = "/강의/%d/참여자";
 

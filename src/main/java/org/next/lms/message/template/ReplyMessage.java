@@ -8,7 +8,7 @@ import org.next.lms.user.domain.User;
 
 public class ReplyMessage extends ImmutableMessageTemplate {
 
-    private static final String messageTemplate = "%s님이 '%s' %s에 댓글을 달았습니다.";
+    private static final String messageTemplate = "%s님이 %s에 댓글을 달았습니다.";
 
     private static final String singleEventUrlTemplate = "/게시물/%d";
 
@@ -22,7 +22,7 @@ public class ReplyMessage extends ImmutableMessageTemplate {
 
     @Override
     protected String getMessageString() {
-        return String.format(messageTemplate, writer.getName(), CommonUtils.ellipsis(content.getTitle(), 30), content.getTitle());
+        return String.format(messageTemplate, writer.getName(), CommonUtils.ellipsis(content.getTitle(), 30));
     }
 
     @Override
