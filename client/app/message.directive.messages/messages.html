@@ -1,26 +1,26 @@
-<md-menu md-offset="50 40"  md-position-mode="target-right target">
+<md-menu md-offset="50 40" md-position-mode="target-right target">
   <md-button aria-label="messages" class="md-icon-button"
              ng-click="$mdOpenMenu($event)">
     <span class="news" ng-show="Message.new">{{Message.new}}</span>
     <md-icon md-menu-origin md-svg-icon="/resource/icon/alerts.svg"></md-icon>
   </md-button>
   <md-menu-content>
-    <md-menu-item class="message" ng-repeat="message in Message.messages | orderBy:'-date'">
+    <md-menu-item class="message" ng-repeat="message in Message.messages | orderBy:'-date' | limitTo:5">
       <md-button aria-label="메시지">
         <message message="message"></message>
       </md-button>
     </md-menu-item>
-    <md-menu-item ng-show="messages.length===10">
+    <md-menu-item ng-show="Message.messages.length>5">
       <md-button ui-sref="messages">
         <div layout="row">
-          <p flex>소식 더보기</p>
+          <p flex class="center">소식 더보기</p>
         </div>
       </md-button>
     </md-menu-item>
-    <md-menu-item ng-show="messages.length===0">
+    <md-menu-item ng-show="Message.messages.length===0">
       <md-button>
         <div layout="row">
-          <p flex>소식이 없습니다.</p>
+          <p flex class="center">소식이 없습니다.</p>
         </div>
       </md-button>
     </md-menu-item>

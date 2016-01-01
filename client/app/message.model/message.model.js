@@ -42,6 +42,7 @@ angular.module('clientApp').factory('Message',
           return;
         Message.messages = messages;
         newCheck();
+        $rootScope.$broadcast('messageReceived');
       });
     };
 

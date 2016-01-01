@@ -62,7 +62,6 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   };
   states.messages = {
     header: "소식",
-    controller: 'messagesController',
     templateUrl: "/message.page.list/messages.html"
   };
   states.profile = {
