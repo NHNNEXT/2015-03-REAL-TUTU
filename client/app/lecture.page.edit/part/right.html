@@ -3,13 +3,13 @@
     <thead>
     <tr>
       <th></th>
-      <th ng-repeat="group in lecture.userGroups" name="{{group.name}}" ng-click="toggleUserGroups($index)"></th>
+      <th ng-repeat="group in lecture.userGroups" ng-click="toggleUserGroups($index)">{{group.name}}</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="contentGroup in lecture.contentGroups">
       <td ng-click="toggleContentGroups($index)">{{contentGroup.name}}</td>
-      <td ng-repeat="group in lecture.userGroups" name="{{group.name}}">
+      <td ng-repeat="group in lecture.userGroups">
         <md-checkbox ng-model="lecture.readable[$index][$parent.$index]">
           읽기
         </md-checkbox>

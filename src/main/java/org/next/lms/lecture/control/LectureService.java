@@ -59,9 +59,9 @@ public class LectureService {
         return success(new LectureDto(lecture, user));
     }
 
-    public Result getWriteInfoById(Long lectureId) {
+    public Result getWriteInfoById(Long lectureId, User user) {
         Lecture lecture = ifNullNotFoundErroReturn(lectureRepository.findOne(lectureId));
-        return success(new WriteInfoDto(lecture));
+        return success(new WriteInfoDto(lecture, user));
     }
 
 

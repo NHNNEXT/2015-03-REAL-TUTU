@@ -9,7 +9,6 @@ angular.module('clientApp').controller('contentEditController',
       });
     };
 
-
     $scope.$watch(function () {
       return $stateParams.id;
     }, function (id) {
@@ -31,7 +30,6 @@ angular.module('clientApp').controller('contentEditController',
               });
           });
         });
-
       });
     });
 

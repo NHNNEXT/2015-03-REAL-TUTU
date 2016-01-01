@@ -74,7 +74,7 @@ public class LectureController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/writeInfo")
-    public Result getWriteInfoById(Long id) {
-        return lectureService.getWriteInfoById(id);
+    public Result getWriteInfoById(Long id, @Logged User user) {
+        return lectureService.getWriteInfoById(id, user);
     }
 }

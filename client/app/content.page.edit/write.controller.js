@@ -27,6 +27,12 @@ angular.module('clientApp').controller('contentWriteController',
         return;
       Lecture.getWriteInfoById($stateParams.lectureId).then(function (writeInfo) {
         $scope.contentGroups = [];
+        if (writeInfo.contentGroups.length === 0) {
+          alert.warning("이 강의에 게시물을 쓸 수 있는 권한이 없습니다.");
+          pageMove.ok = true;
+          $state.go('lecture', {id: writeInfo.id});
+          return;
+        }
         writeInfo.contentGroups.forEach(function (contentGroup) {
           $scope.contentGroups.push(new ContentGroup(contentGroup));
         });

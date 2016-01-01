@@ -4,7 +4,6 @@ import lombok.*;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
-import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.user.domain.User;
 
@@ -12,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -105,6 +103,9 @@ public class Lecture implements ObjectOwnerKnowable {
         return hostUser.equals(user);
     }
 
+    public UserGroup getUserBelongGroup(User user) {
+        return userGroups.stream().filter(userGroup -> userGroup.getUsers().contains(user)).findAny().get();
+    }
 }
 
 
