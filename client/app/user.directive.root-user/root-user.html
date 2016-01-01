@@ -12,6 +12,13 @@
       </md-button>
     </md-menu-item>
     <md-menu-item>
+      <md-button ui-sref="letters">
+        <div class="center">
+          쪽지함 <p flex><span class="red" ng-show="Message.newLetter">new</span></p>
+        </div>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item>
       <md-button ng-click="rootUser.logout()">
         <div layout="row">
           <p flex>로그 아웃</p>

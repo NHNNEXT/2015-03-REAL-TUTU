@@ -64,6 +64,10 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
     header: "소식",
     templateUrl: "/message.page.list/messages.html"
   };
+  states.letters = {
+    header: "쪽지함",
+    templateUrl: "/letter/letter.html"
+  };
   states.profile = {
     controller: 'profileController',
     templateUrl: "/user.page.profile/profile.html"
@@ -98,6 +102,7 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   states.messages.url = "/소식";
   states.profile.url = "/사용자정보/:email";
   states.mylectures.url = "/내강의";
+  states.letters.url = "/쪽지함";
 
 
   Object.keys(states).forEach(function (key) {

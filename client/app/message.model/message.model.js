@@ -32,6 +32,13 @@ angular.module('clientApp').factory('Message',
       });
     };
 
+    Message.removeLetterMessage = function () {
+      Message.messages.remove(Message.messages.find(function (message) {
+        return message.type === "NEW_LETTER_ARRIVED";
+      }));
+      newCheck();
+    };
+
     Message.messages = [];
     Message.getMessages = function () {
       if (!rootUser.isLogged())
@@ -54,7 +61,10 @@ angular.module('clientApp').factory('Message',
 
     function newCheck() {
       Message.new = 0;
+      Message.newLetter = false;
       Message.messages.forEach(function (message) {
+        if (message.type === "NEW_LETTER_ARRIVED")
+          Message.newLetter = true;
         if (message.checked)
           return;
         Message.new++;

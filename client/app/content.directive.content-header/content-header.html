@@ -16,7 +16,7 @@
     <span ui-sref="lecture({id:content.lectureId})">{{content.lectureName}}</span>
     <span>></span>
     <span ui-sref="lecture.list({id:content.lectureId, contentGroupName:content.contentGroup.name})">{{content.contentGroup.name}}</span>
-    <span class="margin-left-s" ui-sref="profile({email:content.writer.email})">by {{content.writer.name}}</span>
+    <span class="margin-left-s">by <user-name user="content.writer"></user-name></span>
 
     <span class="margin-left-s">{{content.writeDate.toYMD()}}</span>
   </span>

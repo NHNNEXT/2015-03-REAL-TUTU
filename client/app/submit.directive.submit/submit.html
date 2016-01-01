@@ -4,8 +4,8 @@
   </div>
   <div class="info" flex>
     <div class="info_append" ng-show="!mod">
-      <strong ui-sref="profile({email:submit.writer.email})" class="tit_userid">
-        {{submit.writer.name}}
+      <strong class="tit_userid">
+        <user-name user="submit.writer"></user-name>
       </strong>
       <span class="txt_time">{{submit.writeDate.toYMD()}}</span>
       <span class="txt_time" ng-if="submitRequiredUser.id===submit.writer.id">(최종수정 : {{submit.updateTime.toYMD()}})</span>

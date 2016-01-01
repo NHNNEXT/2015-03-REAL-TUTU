@@ -2,6 +2,19 @@ angular.module('clientApp')
 
   /* @ngInject */
   .service('dialog', function ($mdDialog) {
+
+    var self = this;
+    this.letter = function (param) {
+      self.param = param;
+      $mdDialog.show({
+        controller: 'letterSendController',
+        templateUrl: '/letter/letter.send.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      });
+    };
+
+
     this.login = function (ev) {
       $mdDialog.show({
         controller: 'authController',
@@ -48,11 +61,18 @@ angular.module('clientApp')
     };
   })
   /* @ngInject */
-  .directive('dialog', function (dialog) {
+  .directive('dialog', function (dialog, $parse) {
     return {
       restrict: 'A',
       link: function (s, e, a) {
+        var regex = /^(\w+)\((.*)\)$/i;
         e.bind('click', function () {
+          var result = regex.exec(a.dialog);
+          if(result){
+            dialog[result[1]]($parse(result[2])(s));
+            return;
+          }
+
           dialog[a.dialog]();
         });
       }

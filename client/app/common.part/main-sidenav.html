@@ -26,6 +26,7 @@
         소식 <span class="red" ng-show="Message.new">{{Message.new}}</span>
       </li>
       <li ui-sref="profile({email:rootUser.email})" ng-click="close()">내 정보</li>
+      <li ui-sref="letters" ng-click="close()">쪽지함 <span class="red" ng-show="Message.newLetter">new</span></li>
       <li dialog="report">의견, 버그제보</li>
       <li ng-click="rootUser.logout()">로그아웃</li>
     </ul>

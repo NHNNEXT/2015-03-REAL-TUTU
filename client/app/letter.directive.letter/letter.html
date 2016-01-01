@@ -1,0 +1,16 @@
+<div layout="row">
+  <div class="photo" flex hide-sm>
+    <img ng-src="{{letter.sender.profileUrl || '/resource/profile.png'}}">
+  </div>
+  <div class="info" flex>
+    <div class="info_append" ng-show="!mod">
+      <strong class="tit_userid">
+        <user-name user="letter.sender"></user-name>
+      </strong>
+      <span class="txt_time">{{letter.writeDate.toYMD()}}</span>
+    </div>
+    <div class="body">
+      <span ng-bind-html="letter.message.newLine()"></span>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.domain.Content;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;
+import org.next.lms.letter.Letter;
 import org.next.lms.like.domain.UserLikesContent;
 import org.next.lms.like.domain.UserLikesLecture;
 import org.next.lms.like.domain.UserLikesReply;
@@ -23,14 +24,20 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
+@ToString(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce", "receiveLetters", "sendLetters"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce"})
+@EqualsAndHashCode(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce", "receiveLetters", "sendLetters"})
 @Entity
 @Table(name = "USER", uniqueConstraints = {
         @UniqueConstraint(name = UniqueKeys.USER_EMAIL_ALREADY_EXIST, columnNames = {"EMAIL"})
 })
 public class User {
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private List<Letter> receiveLetters = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    private List<Letter> sendLetters = new ArrayList<>();
 
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
