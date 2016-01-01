@@ -8,6 +8,7 @@ import org.next.infra.result.Result;
 import org.next.infra.uploadfile.service.AttachmentDeclareService;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
+import org.next.lms.message.template.UserSubmitHelpMessage;
 import org.next.lms.message.template.UserSubmitMissionToScoreGraderMessage;
 import org.next.lms.submit.domain.*;
 import org.next.lms.user.domain.User;
@@ -58,19 +59,27 @@ public class SubmitService {
 
         submitRepository.save(submit);
 
-        List<User> scoreGradeAbleUsers = new ArrayList<>();
-        scoreGradeAbleUsers.add(userHaveToSubmit.getContent().getLecture().getHostUser());
+        List<User> messageReceiverList = new ArrayList<>();
+        userHaveToSubmit.getContent().getContentGroup().getSubmitReadable().stream().forEach(
+                userGroupCanReadSubmit -> messageReceiverList.addAll(userGroupCanReadSubmit.getUserGroup().getUsers())
+        );
+        User hostUser = userHaveToSubmit.getContent().getLecture().getHostUser();
+        if (!messageReceiverList.contains(hostUser))
+            messageReceiverList.add(hostUser);
+        if (!messageReceiverList.contains(userHaveToSubmit.getUser()))
+            messageReceiverList.add(userHaveToSubmit.getUser());
+        messageReceiverList.remove(submit.getWriter());
 
-        userHaveToSubmit.getContent().getLecture().getUserGroups().stream()
-                .filter(userGroup -> userGroup.getSubmitReadable().size() > 0) // [TODO] 여기 사이즈 체크 왜하지??
-                .forEach(userGroup -> userGroup.getUserEnrolledLectures().stream()
-                        .forEach(relation -> scoreGradeAbleUsers.add(relation.getUser())));
+        if (submit.getWriter().equals(userHaveToSubmit.getUser())) {
+            PackagedMessage message = aMessage().from(user).to(messageReceiverList)
+                    .with(new UserSubmitMissionToScoreGraderMessage(userHaveToSubmit.getContent(), submit.getWriter())).packaging();
+            messageService.send(message);
+            return success(new SubmitDto(submit));
+        }
 
-        PackagedMessage message = aMessage().from(user).to(scoreGradeAbleUsers)
-                .with(new UserSubmitMissionToScoreGraderMessage(userHaveToSubmit.getContent())).packaging();
-
+        PackagedMessage message = aMessage().from(user).to(messageReceiverList)
+                .with(new UserSubmitHelpMessage(userHaveToSubmit.getContent(), submit.getWriter())).packaging();
         messageService.send(message);
-
         return success(new SubmitDto(submit));
     }
 

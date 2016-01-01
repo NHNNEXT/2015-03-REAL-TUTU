@@ -9,16 +9,16 @@ import org.next.lms.user.domain.User;
 
 import static org.next.infra.util.HanGuelUtil.josaWhenEllipsisApplied;
 
-public class UserSubmitMissionToScoreGraderMessage extends ImmutableMessageTemplate {
+public class UserSubmitHelpMessage extends ImmutableMessageTemplate {
 
-    private static final String messageTemplate = "%s님이 '%s' %s 제출했습니다.";
+    private static final String messageTemplate = "%s님이 '%s' %s에 도움말을 달았습니다.";
 
     private static final String singleEventUrlTemplate = "/게시물/%d";
 
     private Content content;
     private User writer;
 
-    public UserSubmitMissionToScoreGraderMessage(Content content, User writer) {
+    public UserSubmitHelpMessage(Content content, User writer) {
         this.content = content;
         this.writer = writer;
     }

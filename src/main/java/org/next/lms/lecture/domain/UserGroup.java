@@ -13,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -74,5 +75,9 @@ public class UserGroup {
 
     public Boolean canSubmitRead(ContentGroup contentGroup) {
         return this.submitReadable.stream().filter(relation -> relation.getContentGroup().equals(contentGroup)).findAny().isPresent();
+    }
+
+    public List<User> getUsers() {
+        return userEnrolledLectures.stream().map(UserEnrolledLecture::getUser).collect(Collectors.toList());
     }
 }

@@ -81,4 +81,5 @@ public class ContentGroup {
         return submitReadable.stream()
                 .filter(submitReadable -> submitReadable.getUserGroup().isUserExist(user)).findAny().isPresent();
     }
+
 }
