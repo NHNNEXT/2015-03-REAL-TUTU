@@ -1,7 +1,6 @@
 package org.next.lms.lecture.domain.dto;
 
 import lombok.Getter;
-import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.dto.ContentGroupDto;
 import org.next.lms.lecture.domain.Lecture;
 import org.next.lms.lecture.domain.UserEnrolledLecture;

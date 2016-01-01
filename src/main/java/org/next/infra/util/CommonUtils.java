@@ -3,14 +3,11 @@ package org.next.infra.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.next.infra.exception.NotExistException;
 import org.next.infra.exception.WrongAccessException;
-import org.next.lms.user.domain.User;
-import org.next.lms.user.domain.UserSummaryDto;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.toIntExact;
 

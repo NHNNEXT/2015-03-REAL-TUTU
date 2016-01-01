@@ -6,16 +6,16 @@ import org.next.lms.message.domain.MessageType;
 import org.next.lms.message.structure.ImmutableMessageTemplate;
 import org.next.lms.user.domain.User;
 
-public class UserSubmitHelpMessage extends ImmutableMessageTemplate {
+public class ReplyMessage extends ImmutableMessageTemplate {
 
-    private static final String messageTemplate = "%s님이 '%s' %s에 도움말 썼습니다.";
+    private static final String messageTemplate = "%s님이 '%s' %s에 댓글을 달았습니다.";
 
     private static final String singleEventUrlTemplate = "/게시물/%d";
 
     private Content content;
     private User writer;
 
-    public UserSubmitHelpMessage(Content content, User writer) {
+    public ReplyMessage(Content content, User writer) {
         this.content = content;
         this.writer = writer;
     }
@@ -27,7 +27,7 @@ public class UserSubmitHelpMessage extends ImmutableMessageTemplate {
 
     @Override
     public MessageType messageType() {
-        return MessageType.USER_SUBMIT_MISSION_TO_SCORE_GRADER;
+        return MessageType.USER_WRITE_REPLY;
     }
 
     @Override

@@ -7,11 +7,9 @@ import org.next.infra.result.Result;
 import org.next.lms.content.domain.Content;
 import org.next.lms.message.control.MessageService;
 import org.next.lms.message.domain.PackagedMessage;
-import org.next.lms.message.template.UserSubmitHelpMessage;
-import org.next.lms.message.template.UserSubmitMissionToScoreGraderMessage;
+import org.next.lms.message.template.ReplyMessage;
 import org.next.lms.reply.domain.Reply;
 import org.next.lms.reply.domain.ReplyDto;
-import org.next.lms.submit.domain.SubmitDto;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -65,7 +63,7 @@ public class ReplyService {
         messageReceiverList.remove(reply.getWriter());
 
         PackagedMessage message = aMessage().from(user).to(messageReceiverList)
-                .with(new UserSubmitHelpMessage(content, reply.getWriter())).packaging();
+                .with(new ReplyMessage(content, reply.getWriter())).packaging();
         messageService.send(message);
 
         return success(new ReplyDto(reply));
