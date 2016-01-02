@@ -27,7 +27,7 @@ public class ChangePasswordMail implements MailTemplate {
                 "<h2>아래의 입력창을 통해 변경할 비밀번호를 입력해 주세요</h2>"+
 
                 "<form action='" + changePasswordAPIPath + "' method='post'>"+
-                    "<input name='newPassword' type='password' style='border:3px solid #eee; width:500px; height:30px; font-size: 20px; padding: 5px 10px' placeholder='새로운 비밀번호를 입력해 주세요'>"+
+                    "<input name='newPassword' type='password' style='border:3px solid #eee; width:500px; height:30px; font-size: 20px; padding: 5px 10px' minlength='6' manlength='20' placeholder='새로운 비밀번호를 입력해 주세요'>"+
                     "<input name='key' type='hidden' value='" + uuid +"'>" +
                     "<input name='email' type='hidden' value='" +requestUserMail + "'>"+
                     "<button style='width:80px; height:46px; padding:5px 10px; border:3px solid #eee; font-size:15px; border-left:0px;background-color:#eee' type='submit'>변경하기</button>"+

@@ -234,7 +234,7 @@ public class UserService {
     }
 
     @Transactional(noRollbackFor = WrongAccessException.class)
-    public Result changePassword(String email, String key, String newPassword) {
+    public String changePassword(String email, String key, String newPassword) {
         MailAuth mailAuth = mailAuthRepository.findByEmail(email);
 
         if (mailAuth == null) {
@@ -243,7 +243,7 @@ public class UserService {
 
         if (mailAuth.noMoreTryCount()) {
             mailAuthRepository.delete(mailAuth);
-            return new Result(ResponseCode.Login.NO_MORE_PASSWORD_CHANGE_TRY_COUNT, "더이상 비밀번호 변경을 시도할 수 없습니다. 비밀번호 변경 요청 메일을 다시 발송하세요");
+            return "<h1>더이상 비밀번호 변경을 시도할 수 없습니다. 비밀번호 변경 요청 메일을 다시 발송하세요</h1>";
         }
 
         if (!mailAuth.getKey().equals(key)) {
@@ -252,9 +252,10 @@ public class UserService {
         }
 
         User user = userRepository.findByEmail(email);
-        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPassword(newPassword);
+        user.encryptPassword(passwordEncoder);
         mailAuthRepository.delete(mailAuth);
-        return success();
+        return "<h1>비밀번호 변경에 성공하였습니다. 잠시 후 메인화면으로 이동합니다.</h1>" + redirectScript();
     }
 
     public Result resendMailVerify(String email) {

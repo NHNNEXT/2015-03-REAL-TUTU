@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public Result changePassword(String email, String key, String newPassword) {
+    public String changePassword(String email, String key, String newPassword) {
         return userService.changePassword(email, key, newPassword);
     }
 }
