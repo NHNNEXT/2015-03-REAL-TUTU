@@ -15,12 +15,12 @@
         </h2>
       </div>
       <div layout="row" class="info">
-        {{content.contentGroup.name}}
-        <span class="bar"></span>
-        조회수 {{content.hits}}
+        <span>
+          <i class="fa fa-eye"></i> {{content.hits}}
+        </span>
         <span ng-if="content.contentGroup.reply">
           <span class="bar"></span>
-          댓글 {{content.repliesSize}}
+          <i class="fa fa-comment"></i> {{content.repliesSize}}
         </span>
         <span class="bar"></span>
         <like type="CONTENT" like="content.likes" target="content.id"></like>

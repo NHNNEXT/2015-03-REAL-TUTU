@@ -11,10 +11,13 @@ angular.module('clientApp')
       /* @ngInject */
       controller: function ($scope, http, rootUser, responseCode, $timeout) {
 
+        var likeIt = 'fa-heart';
+        var notLikeIt = 'fa-heart-o';
+
         $timeout(function () {
           if ($scope.like === undefined)
             return;
-          $scope.goodClass = $scope.like.ignoreTypeIncludes(rootUser.id) ? 'green' : '';
+          $scope.goodClass = $scope.like.ignoreTypeIncludes(rootUser.id) ? likeIt : notLikeIt;
         });
 
         if (!$scope.like)
@@ -28,12 +31,12 @@ angular.module('clientApp')
           }, function (response) {
             if (response.code === responseCode.Like.ADD) {
               $scope.like.push(rootUser.id);
-              $scope.goodClass = 'green';
+              $scope.goodClass = likeIt;
               return;
             }
             if (response.code === responseCode.Like.REMOVE) {
               $scope.like.remove(rootUser.id);
-              $scope.goodClass = '';
+              $scope.goodClass = notLikeIt;
             }
           });
         };
