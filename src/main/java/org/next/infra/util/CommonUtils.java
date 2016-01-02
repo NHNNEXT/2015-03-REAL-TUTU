@@ -6,6 +6,7 @@ import org.next.infra.exception.WrongAccessException;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,4 +78,22 @@ public class CommonUtils {
     public static String makeUUID() {
         return UUID.randomUUID().toString().replace("-","");
     }
+
+    /**
+     * 두 날짜를 비교한다
+     *
+     * @param date1 기준시간
+     * @param date2 비교하고 싶은 시간
+     * @return 미래인지 아닌지 나타내는 boolean
+     */
+    public static boolean isFuture(Date date1, Date date2) {
+        int compare = date1.compareTo(date2);
+        return compare < 0;
+    }
+
+
+    public static Date now() {
+        return new Date();
+    }
+
 }

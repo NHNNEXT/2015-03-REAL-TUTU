@@ -30,10 +30,15 @@
           <md-button aria-label="login" class="md-raised" ng-click="action[helpType]()">{{btn[helpType]}}</md-button>
         </md-input-container>
       </form>
-      <div class="center" layout-sm="column">
+      <div class="center margin-bottom-s" layout-sm="column">
         <small>문제를 해결했다면</small>
         <small>
           <span dialog="login" class="link">로그인 하러가기</span></small>
+      </div>
+      <div class="center" layout-sm="column">
+        <small>아직 회원가입하지 않았다면</small>
+        <small>
+          <span dialog="register" class="link">회원가입 하러가기</span></small>
       </div>
     </div>
   </md-dialog-content>

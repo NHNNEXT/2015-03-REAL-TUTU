@@ -1,6 +1,6 @@
 /* @ngInject */
 angular.module('clientApp').controller('loginHelpController',
-  function ($scope, rootUser, alert, confirm, http, responseCode) {
+  function ($scope, rootUser, alert, confirm, http, responseCode, dialog) {
     $scope.rootUser = rootUser;
 
     $scope.btn = {};
@@ -10,6 +10,7 @@ angular.module('clientApp').controller('loginHelpController',
     $scope.action = {};
     $scope.action.email = email;
     $scope.action.password = password;
+    $scope.helpType = dialog.param;
 
     function password() {
       if (!/^.+@.+\..+$/.test(rootUser.email)) {
@@ -20,8 +21,13 @@ angular.module('clientApp').controller('loginHelpController',
         http.post('/api/v1/user/sendChangePwMail', {email: rootUser.email}).then(function () {
           alert.success("메일이 발송되었습니다. 확인해주세요.");
         }, function (res) {
-          if(res.code === responseCode.Login.USER_NOT_EXIST) {
+          if (res.code === responseCode.MailRequest.USER_NOT_EXIST) {
             alert.warning("가입하지 않은 계정입니다.");
+            dialog.loginHelp('password');
+          }
+          if (res.code === responseCode.MailRequest.USER_NOT_VERIFIED) {
+            alert.warning("아직 인증받지 않은 계정입니다. 인증을 먼저 진행해 주세요.");
+            dialog.loginHelp('email');
           }
         });
       });
@@ -36,8 +42,14 @@ angular.module('clientApp').controller('loginHelpController',
         http.post('/api/v1/user/resendMailVerify', {email: rootUser.email}).then(function () {
           alert.success("메일이 발송되었습니다. 확인해주세요.");
         }, function (res) {
-          if(res.code === responseCode.Login.USER_NOT_EXIST) {
+          if (res.code === responseCode.MailRequest.USER_NOT_EXIST) {
             alert.warning("가입하지 않은 계정입니다.");
+            dialog.loginHelp('email'); // 메일주소를 잘못 입력한 경우라고 가정.
+            return;
+          }
+          if (res.code === responseCode.MailRequest.USER_ALREADY_VERIFIED) {
+            alert.warning("이미 인증받은 계정입니다. 로그인해주세요.");
+            dialog.login();
           }
         });
       });

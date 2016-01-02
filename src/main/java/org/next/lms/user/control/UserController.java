@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserMailService userMailService;
+
     @RequestMapping(method = RequestMethod.GET)
     public Result getUser(String email) {
         return userService.getUser(email);
@@ -39,12 +42,7 @@ public class UserController {
 
     @RequestMapping(value = "/resendMailVerify", method = RequestMethod.POST)
     public Result resendMailVerify(String email) {
-        return userService.resendMailVerify(email);
-    }
-
-    @RequestMapping(value = "/mailVerify", method = RequestMethod.GET, produces = "text/html; charset=utf8")
-    public String mailVerify(String key) {
-        return userService.verifyMail(key);
+        return userMailService.resendMailVerify(email);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -75,11 +73,16 @@ public class UserController {
 
     @RequestMapping(value = "/sendChangePwMail", method = RequestMethod.POST)
     public Result sendChangePasswordMail(String email) {
-        return userService.sendChangePasswordMail(email);
+        return userMailService.sendChangePasswordMail(email);
     }
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public String changePassword(String email, String key, String newPassword) {
-        return userService.changePassword(email, key, newPassword);
+    public Result changePassword(String email, String key, String password) {
+        return userMailService.changePassword(email, key, password);
+    }
+
+    @RequestMapping(value = "/mailVerify", method = RequestMethod.POST)
+    public Result mailVerify(String key, String email) {
+        return userMailService.verifyMail(key, email);
     }
 }

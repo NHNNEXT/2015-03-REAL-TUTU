@@ -53,14 +53,14 @@ angular.module('clientApp')
         $rootScope.$broadcast('userStateChange');
       }, function (response) {
         if (response.code === responseCode.Login.NOT_EXIST_EMAIL) {
-          alert.error('가입하지 않은 아이디입니다.');
+          alert.error('가입하지 않은 이메일입니다.');
           return;
         }
         if (response.code === responseCode.Login.WRONG_PASSWORD) {
           alert.error('패스워드가 다릅니다.');
         }
         if (response.code === responseCode.Login.DO_EMAIL_VERIFY_FIRST) {
-          alert.error('이메일 인증을 해야 합니다.');
+          alert.error('이메일 인증을 해야 합니다. 메일을 확인해주세요.');
         }
       });
     };

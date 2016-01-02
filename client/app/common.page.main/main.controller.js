@@ -1,5 +1,4 @@
-angular
-  .module('clientApp')
+angular.module('clientApp')
   /* @ngInject */
   .controller('mainController', function (rootUser, Content, $state, $scope) {
     $scope.rootUser = rootUser;

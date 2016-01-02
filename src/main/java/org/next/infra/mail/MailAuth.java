@@ -13,7 +13,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @Entity
 @Table(name = "MAIL_AUTH", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"UUID_KEY", "EMAIL"})
+        @UniqueConstraint(columnNames = {"EMAIL"})
 })
 public class MailAuth {
 

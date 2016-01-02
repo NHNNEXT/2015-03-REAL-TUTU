@@ -76,6 +76,15 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   states["lecture.people"] = {
     templateUrl: "/lecture.page.detail/lecture.people.html"
   };
+  states.emailVerify = {
+    controller:"verifyController",
+    templateUrl: "/auth.page/verify.html"
+  };
+  states.passwordRefine = {
+    controller:"passwordRefineController",
+    templateUrl: "/auth.page/password.html"
+  };
+
   states["lecture.people"].url = "/참여자";
 
   states["lecture.schedule"] = {
@@ -90,6 +99,8 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
 
 
   states.main.url = "/";
+  states.emailVerify.url="/userAuth/userVerify?:key&:email";
+  states.passwordRefine.url="/userAuth/changePassword?:key&:email";
   states.notfound.url = "/페이지없다";
   states.loginneed.url = "/로그인하라고전해라";
   states.content.url = "/게시물/:id";

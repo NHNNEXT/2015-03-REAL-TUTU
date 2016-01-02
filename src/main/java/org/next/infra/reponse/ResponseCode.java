@@ -19,16 +19,20 @@ public class ResponseCode {
     public static final class Register {
         public static final Integer ALREADY_EXIST_EMAIL = 2;
         public static final Integer ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY = 45;
-//        public static final Integer EMAIL_VERIFY_TIMEOUT = 41;
     }
+
     public static final class Login {
         public static final Integer DO_EMAIL_VERIFY_FIRST = 40;
         public static final Integer NOT_EXIST_EMAIL = 3;
         public static final Integer WRONG_PASSWORD = 4;
         public static final Integer WITHDRAWAL_ACCOUNT = 5;
-        public static final Integer NO_MORE_PASSWORD_CHANGE_TRY_COUNT = 42;
-        public static final Integer ALREADY_PASSWORD_CHANGE_MAIL_SENT = 43;
+    }
+
+    public static final class MailRequest {
         public static final Integer USER_NOT_EXIST = 44;
+        public static final Integer USER_ALREADY_VERIFIED = 47;
+        public static final Integer ALREADY_PASSWORD_CHANGE_MAIL_SENT = 43;
+        public static final Integer USER_NOT_VERIFIED = 45;
     }
 
     public static final class GetSessionUser {
@@ -58,12 +62,21 @@ public class ResponseCode {
         public static final Integer CANT_BIND_SELF = 30;
     }
 
-    public static final class Term {
-        public static final Integer ALREADY_EXIST = 35;
+    public static final class Node {
+        public static final Integer CHILD_EXIST = 39;
     }
 
-    public  static final class Node {
-        public static final Integer CHILD_EXIST = 39;
+
+    public static final class UserAuth {
+        public static final Integer MAIL_EXPIRED = 214;
+        public static final Integer KEY_NOT_MATCHED = 229;
+        public static final Integer USER_ALREADY_VERIFIED = 230;
+    }
+
+    public static final class PasswordChange {
+        public static final Integer TOO_MANY_TRY = 215;
+        public static final Integer KEY_NOT_MATCHED = 239;
+        public static final Integer EXPIRED = 216;
     }
 
 
