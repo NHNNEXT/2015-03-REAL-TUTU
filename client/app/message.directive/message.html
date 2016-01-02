@@ -1,6 +1,4 @@
 <div ng-click="move()">
-  <p flex>
-    {{message.message}} <span class="red" ng-show="!message.checked">new</span>
-    <span class="message">{{message.date.toYMD()}}</span>
-  </p>
+  <span>{{message.message}} <span class="red" ng-show="!message.checked">new</span></span>
+  <span class="message block">{{message.date.toYMD()}}</span>
 </div>

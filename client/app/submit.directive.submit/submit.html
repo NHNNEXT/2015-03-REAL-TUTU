@@ -14,6 +14,10 @@
     <div class="body">
       <span ng-show="!mod">
       <span ng-bind-html="submit.body.newLine()"></span>
+          <small hide-gt-md>
+            <i ng-click="modify()" class="margin-left-s fa fa-pencil"></i>
+            <i ng-click="delete(submit.id)" style="margin-left:5px" class="fa fa-times"></i>
+          </small>
       </span>
       <div class="box-area" ng-show="mod">
         <md-input-container>
@@ -25,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="comment_setting" ng-show="rootUser.id==submit.writer.id && !mod">
+      <div hide-md hide-sm class="comment_setting" ng-show="rootUser.id==submit.writer.id && !mod">
         <span class="btn_set" ng-click="modify()">수정</span>
         <span class="btn_set" ng-click="delete(submit.id)">삭제</span>
       </div>

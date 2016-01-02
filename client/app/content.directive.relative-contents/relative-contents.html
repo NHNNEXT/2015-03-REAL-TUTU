@@ -3,8 +3,8 @@
   <md-list-item class="md-2-line" ng-repeat="content in ctrl.relativeContents">
     <div class="md-list-item-text">
       <div layout="row">
-        <h3 ui-sref="content({id:content.id})" flex> {{ content.title }} <span class="dot"></span>
-          <small> {{ content.contentGroup.name }} <span class="dot"></span> By {{content.writer.name}}</small>
+        <h3 ui-sref="content({id:content.id})" flex> {{ content.title }} <span class="bar"></span>
+          <small> {{ content.contentGroup.name }} <span class="bar"></span> By {{content.writer.name}}</small>
         </h3>
         <div ng-show="!ctrl.readonly" flex=10 layout-align="end center">
           <md-icon md-svg-src="/resource/icon/ic_close.svg" ng-click="ctrl.delete(content)"></md-icon>

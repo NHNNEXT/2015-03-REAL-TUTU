@@ -11,8 +11,14 @@
     </div>
     <div class="body">
       <span ng-show="!mod">
-      <span ng-bind-html="reply.body.newLine()"></span>
-      <like type="REPLY" like="reply.likes" target="reply.id"></like>
+                <span ng-bind-html="reply.body.newLine()"></span>
+                <small>
+                  <like type="REPLY" like="reply.likes" target="reply.id"></like>
+                  <span hide-gt-md>
+                    <i ng-click="modify()" class="margin-left-s fa fa-pencil"></i>
+                    <i ng-click="delete(submit.id)" style="margin-left:5px" class="fa fa-times"></i>
+                  </span>
+                </small>
       </span>
       <div class="box-area" ng-show="mod">
         <md-input-container>
@@ -24,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="comment_setting" ng-show="rootUser.id==reply.writer.id && !mod">
+      <div hide-md hide-sm class="comment_setting" ng-show="rootUser.id==reply.writer.id && !mod">
         <span class="btn_set" ng-click="modify()">수정</span>
         <span class="btn_set" ng-click="delete(reply.id)">삭제</span>
       </div>

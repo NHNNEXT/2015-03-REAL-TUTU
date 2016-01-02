@@ -16,20 +16,20 @@
 <div ng-if="content.contentGroup.contentType==='SUBMIT'" flex>
   <input-datepicker placeholder="마감" ng-model="content.endTime"></input-datepicker>
 
-  <table md-data-table>
+  <table md-data-table class="margin-top">
     <thead>
     <tr>
       <th>이름</th>
-      <th>이메일</th>
-      <th>그룹</th>
+      <th hide-md hide-sm>이메일</th>
+      <th hide-sm>그룹</th>
       <th ng-click="toggleAll()">제출대상</th>
     </tr>
     </thead>
     <tbody>
     <tr md-auto-select ng-repeat="user in content.users">
       <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-      <td>
+      <td hide-md hide-sm>{{user.email}}</td>
+      <td hide-sm>
             <span ng-show="user.id!==hostUserId">
               {{user.group.name}}
               {{hostUser}}
