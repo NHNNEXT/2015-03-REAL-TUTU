@@ -21,7 +21,7 @@
 
   <div class="write-part" style="padding-top:0" ng-include="'/content.page.edit/uploader.html'"></div>
 
-  <attachments ng-if="content.attachments.length>0" attachments="content.attachments" readonly="false"
+  <attachments viewer="true" ng-if="content.attachments.length>0" attachments="content.attachments" readonly="false"
                class="margin-bottom"></attachments>
 
   <div froala ng-model="content.body"></div>

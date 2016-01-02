@@ -1,7 +1,10 @@
 <h5>첨부파일</h5>
 <div ng-repeat="attachment in ctrl.attachments" class="file">
   <i class="fa fa-times" ng-click="ctrl.delete(attachment, ctrl.attachments)" ng-if="!ctrl.readonly"></i>
-  <img ng-src="{{ctrl.getIcon(attachment.ext)}}" ng-click="ctrl.download(attachment)">
+  <img ng-src="{{attachment.icon}}" ng-click="ctrl.download(attachment)">
+  <div class="margin-bottom-s" ng-click="ctrl.insertViewer(attachment)" ng-if="attachment.viewInsertAble && ctrl.viewer && !ctrl.readonly">뷰어 넣기</div>
 
-  <div ng-click="ctrl.download(attachment)" class="detail">{{attachment.originalFileName}}</div>
+  <div class="detail">
+    <div ng-click="ctrl.download(attachment)">{{attachment.originalFileName}}</div>
+  </div>
 </div>

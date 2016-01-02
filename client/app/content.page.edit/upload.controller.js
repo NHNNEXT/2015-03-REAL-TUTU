@@ -34,9 +34,7 @@ angular.module('clientApp').controller('uploadController',
         }));
       });
       $q.all(promises).then(function () {
-        $scope.uploading = false;
-        $scope.insert = false;
-        $scope.file = undefined;
+        setInit($scope);
       });
     };
 
@@ -55,9 +53,7 @@ angular.module('clientApp').controller('uploadController',
         url: '/api/v1/upload',
         data: {file: file}
       }).then(function (resp) {
-        $scope.uploading = false;
-        $scope.insert = false;
-        $scope.file = undefined;
+        setInit($scope);
         states.img.insertUrl(resp.data.result.downloadUrl, "이미지 형식을 확인해주세요.");
       }, function () {
         alert.error("업로드 실패 했습니다.");
@@ -71,9 +67,7 @@ angular.module('clientApp').controller('uploadController',
       isImage(url).then(function (test) {
         if (test) {
           $('[froala]').froalaEditor('image.insert', url);
-          $scope.uploading = false;
-          $scope.insert = false;
-          $scope.file = undefined;
+          setInit($scope);
           return;
         }
         if (message) {
@@ -231,4 +225,10 @@ angular.module('clientApp').controller('uploadController',
       $('[froala]').froalaEditor('video.insert', "<iframe width='560' height='315' src='https://www.youtube.com/embed/" + id + "' frameborder='0' allowfullscreen></iframe>");
     }
 
+    function setInit($scope) {
+      $scope.uploading = false;
+      $scope.state.name = undefined;
+      $scope.insert = false;
+      $scope.file = undefined;
+    }
   });

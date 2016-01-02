@@ -17,10 +17,10 @@
 
   <div class="write-part" style="padding-top:0" ng-include="'/content.page.edit/uploader.html'"></div>
 
-  <div froala ng-model="content.body"></div>
-
-  <attachments ng-if="content.attachments.length>0" attachments="content.attachments" readonly="false"
+  <attachments viewer="true" ng-if="content.attachments.length>0" attachments="content.attachments" readonly="false"
                class="margin-bottom"></attachments>
+
+  <div froala ng-model="content.body"></div>
 
   <md-input-container>
     <md-button aria-label="done button" ng-click="edit(content)" class="md-raised md-primary">작성완료</md-button>
