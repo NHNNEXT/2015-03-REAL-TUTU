@@ -5,6 +5,7 @@ angular.module('clientApp')
     $scope.status = "메일인증이 진행중입니다.";
     http.post('/api/v1/user/mailVerify', $stateParams).then(function () {
       alertStatus('success', "인증되었습니다. 감사합니다.");
+      $state.go('main');
       dialog.login();
     }, function (result) {
       if (result.code === responseCode.UserAuth.USER_ALREADY_VERIFIED) {
@@ -22,7 +23,7 @@ angular.module('clientApp')
       }
     });
 
-    function alertStatus(method, m){
+    function alertStatus(method, m) {
       alert[method](m);
       $scope.status = m;
     }
