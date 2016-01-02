@@ -3,7 +3,7 @@ package org.next.config;
 import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
 
-@Import({ApplicationSecurityConfig.class, PersistenceConfig.class})
+@Import({ApplicationSecurityConfig.class, PersistenceConfig.class, CacheConfig.class})
 @ComponentScan(
         basePackages = {
                 "org.next",

@@ -1,6 +1,7 @@
 package org.next.lms.message.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.next.lms.user.domain.User;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
+@org.hibernate.annotations.Cache(region = "message", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "MESSAGE")
 // TODO Unique 논의 필요 -> Immutable Message 관련
