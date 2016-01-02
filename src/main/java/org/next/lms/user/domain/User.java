@@ -1,6 +1,7 @@
 package org.next.lms.user.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.next.infra.exception.PatternNotMatchedException;
 import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.domain.Content;
@@ -27,6 +28,7 @@ import java.util.List;
 @ToString(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce", "receiveLetters", "sendLetters"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"messages", "contents", "userHaveToSubmits", "replies", "submits", "hostLectures", "enrolledLectures", "likeLectures", "likeContents", "likeReplies", "email", "profileUrl", "state", "major", "introduce", "receiveLetters", "sendLetters"})
+@org.hibernate.annotations.Cache(region = "user", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "USER", uniqueConstraints = {
         @UniqueConstraint(name = UniqueKeys.USER_EMAIL_ALREADY_EXIST, columnNames = {"EMAIL"})
