@@ -1,6 +1,7 @@
 package org.next.lms.reply.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.like.domain.UserLikesReply;
@@ -17,6 +18,7 @@ import java.util.List;
 @ToString(exclude = {"content", "userLikesReplies", "writer"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"content", "userLikesReplies", "writer"})
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Reply")
 public class Reply implements ObjectOwnerKnowable{

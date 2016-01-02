@@ -2,6 +2,7 @@ package org.next.lms.tag.domain;
 
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.next.lms.content.domain.Content;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @ToString(exclude = {"id", "content"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id", "content"})
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "TAG")
 public class Tag {

@@ -18,6 +18,7 @@ public class TagDao {
                 .createQuery("select distinct t.text from Tag t where t.text like :keyword", String.class)
                 .setMaxResults(10)
                 .setParameter("keyword", getLikeExpression(keyword))
+                .setHint("org.hibernate.cacheable", true)
                 .getResultList();
     }
 
