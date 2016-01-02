@@ -44,17 +44,19 @@ public class TagService {
     public Result updateContent(TagUpdateDto tagUpdateDto, User user) {
         Content content = assureNotNull(contentRepository.findOne(tagUpdateDto.getId()));
         contentAuth.checkReadRight(content, user);
-        if (content.getWriter().equals(user)) {
-            tagRepository.deleteByContentId(content.getId());
-            List<Tag> tags = tagUpdateDto.getTags().stream().map(text -> {
-                Tag tagObject = new Tag();
-                tagObject.setContent(content);
-                tagObject.setText(text);
-                return tagObject;
-            }).collect(Collectors.toList());
-            tagRepository.save(tags);
-            return success();
-        }
+//        if (content.getWriter().equals(user)) { [TODO]  태그 삭제에 대한 논의가 필요.
+        List<Tag> removedTags = content.getTags().stream().filter(tag -> !tagUpdateDto.getTags().stream().filter(tagText -> tagText.equals(tag.getText())).findAny().isPresent()).collect(Collectors.toList());
+        addUpdated(tagUpdateDto, content);
+        content.getTags().removeAll(removedTags);
+        tagRepository.delete(removedTags);
+        return success();
+//        }
+//
+//        addUpdated(tagUpdateDto, content);
+//        return success();
+    }
+
+    private void addUpdated(TagUpdateDto tagUpdateDto, Content content) {
         tagUpdateDto.getTags().stream()
                 .filter(tagString -> !content.getTags().stream().filter(tag -> tag.getText().equals(tagString)).findAny().isPresent())
                 .forEach(tagString -> {
@@ -64,6 +66,5 @@ public class TagService {
                     content.getTags().add(tagObject);
                     tagRepository.save(tagObject);
                 });
-        return success();
     }
 }

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(exclude = {"id", "content"})
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "TAG")
+@Table(name = "TAG", uniqueConstraints = @UniqueConstraint(columnNames = {"CONTENT_ID", "TEXT"}))
 public class Tag {
 
     @ManyToOne(fetch = FetchType.LAZY)
