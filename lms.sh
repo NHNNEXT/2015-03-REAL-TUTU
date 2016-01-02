@@ -1,12 +1,14 @@
 #!/bin/sh
 SERVICE_NAME=lms
 PATH_TO_JAR=/root/2015-03-REAL-TUTU/target/next-lms.jar
+VM_OPTION=-Xms1536M -Xmx1536M -XX:PermSize=256M -XX:MaxPermSize=256M -XX:NewRatio=2 -XX:+UseParNewGC -XX:ParallelGCThreads=4
+
 PID_PATH_NAME=/tmp/lms-pid
 case $1 in
     start)
         echo "Starting $SERVICE_NAME ..."
         if [ ! -f $PID_PATH_NAME ]; then
-            nohup java -jar $PATH_TO_JAR /tmp 2>> /dev/null >> /dev/null &
+            nohup java $VM_OPTION -jar $PATH_TO_JAR /tmp 2>> /dev/null >> /dev/null &
                         echo $! > $PID_PATH_NAME
             echo "$SERVICE_NAME started ..."
         else
