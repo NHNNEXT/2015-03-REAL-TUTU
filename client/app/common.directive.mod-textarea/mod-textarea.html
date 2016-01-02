@@ -1,6 +1,6 @@
-<span ng-show="!mod">
+<span ng-show="!mod" ng-click="mod=true">
    <span ng-bind-html="ngModel.newLine() || placeholder"></span>
-  <small ng-show="modRight" ng-click="mod=true"> 수정 </small>
+  <small ng-show="modRight"> 수정</small>
 </span>
 <span ng-show="mod && modRight">
     <div layout="row">
