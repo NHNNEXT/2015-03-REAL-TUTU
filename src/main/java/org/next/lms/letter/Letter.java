@@ -1,6 +1,7 @@
 package org.next.lms.letter;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.next.lms.message.domain.MessageType;
 import org.next.lms.user.domain.User;
@@ -13,6 +14,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
+@org.hibernate.annotations.Cache(region = "message", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Letter")
 public class Letter {
