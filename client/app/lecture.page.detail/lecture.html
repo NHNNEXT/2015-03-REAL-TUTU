@@ -2,6 +2,7 @@
   <div layout-padding>
     <div layout="row">
       <div flex>
+        <small> {{types.majorTypes[lecture.majorType]}}</small>
         <h2>
           <span ng-bind="lecture.name"></span>
           <small ui-sref="lectureEdit({id:lecture.id})"
@@ -12,19 +13,16 @@
       </div>
     </div>
     <div flex class="info">
-      <span ng-show="lecture.majorType!==undefined">
-        {{types.majorTypes[lecture.majorType]}}
-        <span class="bar"></span>
-      </span>
-      <span ui-sref="lecture.schedule"> 일정 {{lecture.scheduleLength}}</span>
+      <span ui-sref="lecture.list"> <i class="fa fa-globe"></i> {{lecture.contentLength}}</span>
       <span class="bar"></span>
-      <span ui-sref="lecture.people">참여자 {{lecture.users.length}}</span>
+      <span ui-sref="lecture.schedule"> <i class="fa fa-calendar-check-o"></i> {{lecture.scheduleLength}}</span>
       <span class="bar"></span>
-      <span ui-sref="lecture.list"> 게시물 {{lecture.contentLength}}</span>
+      <span ui-sref="lecture.people"><i class="fa fa-user"></i> {{lecture.users.length}}</span>
+
       <span class="margin-right" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()"
             ui-sref="contentNew({lectureId:lecture.id, contentGroupName:contentGroupName})">
         <span class="bar"></span>
-        새 게시물
+        <i class="fa fa-pencil"></i>
       </span>
     </div>
     <div layout="row" layout-align-gt-sm="end center" flex class="info">
@@ -43,7 +41,8 @@
     <md-tab md-active="$state.params.contentGroupName===''" ui-sref="lecture.list({contentGroupName:''})">
       전체
     </md-tab>
-    <md-tab n ng-repeat="contentGroup in lecture.contentGroups" md-active="$state.params.contentGroupName===contentGroup.name"
+    <md-tab n ng-repeat="contentGroup in lecture.contentGroups"
+            md-active="$state.params.contentGroupName===contentGroup.name"
             ui-sref="lecture.list({contentGroupName:contentGroup.name})">
       {{contentGroup.name}}
     </md-tab>
