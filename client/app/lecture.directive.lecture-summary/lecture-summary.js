@@ -8,6 +8,7 @@ angular.module('clientApp')
       templateUrl: '/lecture.directive.lecture-summary/lecture-summary.html',
       /* @ngInject */
       controller: function (Content, $scope, $timeout, rootUser) {
+
         $timeout(function () {
           $scope.$watch(function () {
             return [$scope.start, $scope.end];
@@ -19,6 +20,8 @@ angular.module('clientApp')
         function update() {
           if (!$scope.start || !$scope.end)
             return;
+          $scope.min = new Date($scope.end.getTime() - (day * 180));
+          $scope.max = new Date($scope.start.getTime() + (day * 180));
           $scope.contents = [];
           if ($scope.lecture) {
             getLectureSchedule($scope.lecture.id);

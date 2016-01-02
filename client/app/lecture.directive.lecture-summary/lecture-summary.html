@@ -1,3 +1,7 @@
 <div layout-padding>
-  <content-timeline contents="contents" start="start" end="end"></content-timeline>
+  <div>
+    <md-datepicker ng-model="start" md-min-date="min" md-max-date="end"></md-datepicker>
+    <md-datepicker ng-model="end" md-min-date="start" md-max-date="max"></md-datepicker>
+  </div>
+  <content-timeline class="margin-top" contents="contents" start="start" end="end"></content-timeline>
 </div>
