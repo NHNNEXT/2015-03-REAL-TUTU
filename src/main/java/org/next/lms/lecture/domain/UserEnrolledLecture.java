@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.user.domain.User;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @ToString(exclude = {"lecture", "user"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"lecture", "user"})
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "USER_ENROLLED_LECTURE", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"LECTURE_ID", "USER_ID"})

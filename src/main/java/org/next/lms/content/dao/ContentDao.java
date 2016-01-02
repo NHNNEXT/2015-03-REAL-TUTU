@@ -53,6 +53,7 @@ public abstract class ContentDao {
             query = query.where(qContent.contentGroup.name.eq(contentGroupName));
         if (this.likeUser != null)
             query = query.where(qContent.userLikesContents.any().user.id.eq(likeUser));
+        query.setHint("org.hibernate.cacheable", true);
         return query;
     }
 

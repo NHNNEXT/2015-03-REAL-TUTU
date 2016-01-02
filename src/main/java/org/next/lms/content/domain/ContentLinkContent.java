@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @ToString(exclude = {"linkContent", "linkedContent"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"linkContent", "linkedContent"})
+@org.hibernate.annotations.Cache(region = "message", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "CONTENT_LINK_CONTENT", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"LINK_CONTENT_ID", "LINKED_CONTENT_ID"})

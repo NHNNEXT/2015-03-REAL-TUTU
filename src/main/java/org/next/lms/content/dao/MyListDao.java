@@ -32,6 +32,7 @@ public class MyListDao {
         if (contentType != null)
             query = query.where(qContent.contentGroup.contentType.eq(contentType));
 
+        query.setHint("org.hibernate.cacheable", true);
         return query.list(qContent);
     }
 }

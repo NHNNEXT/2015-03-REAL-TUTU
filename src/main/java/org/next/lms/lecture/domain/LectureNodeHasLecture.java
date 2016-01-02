@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @ToString(exclude = {"lecture", "lectureNode"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"lecture", "lectureNode"})
+@org.hibernate.annotations.Cache(region = "message", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "LECTURE_NODE_HAS_LECTURE", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"LECTURE_ID", "LECTURE_NODE_ID"})

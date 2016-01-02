@@ -26,6 +26,7 @@ public class ComingScheduleDao extends MyListDao {
         query = query.where(qContent.contentGroup.contentType.eq(ContentType.SCHEDULE));
         Date now = new Date();
         query = query.where(qContent.endTime.after(now)).orderBy(qContent.startTime.asc());
+        query.setHint("org.hibernate.cacheable", true);
         return query.list(qContent);
     }
 }

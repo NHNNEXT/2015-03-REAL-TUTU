@@ -1,6 +1,7 @@
 package org.next.infra.uploadfile;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.next.lms.content.domain.Content;
 import org.next.lms.submit.domain.Submit;
 import org.next.lms.user.domain.User;
@@ -13,6 +14,7 @@ import java.util.Date;
 @ToString(exclude = {"uploadUser"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"uploadUser"})
+@org.hibernate.annotations.Cache(region = "message", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "UPLOADED_FILE", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"UGLY_FILE_NAME"})

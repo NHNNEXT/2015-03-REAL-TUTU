@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.hibernate.annotations.*;
 import org.next.config.AppConfig;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.infra.uploadfile.UploadedFile;
@@ -13,6 +14,9 @@ import org.next.lms.tag.domain.Tag;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ import java.util.function.Consumer;
 @ToString(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "CONTENT")
 public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
@@ -37,12 +42,14 @@ public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
     // 인서트할때는 안막고, 불러갈때만 에러발생시킴..
     private List<UploadedFile> attachments = new ArrayList<>();
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reply> replies = new ArrayList<>();
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserHaveToSubmit> userHaveToSubmits = new ArrayList<>();
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tag> tags = new ArrayList<>();
 

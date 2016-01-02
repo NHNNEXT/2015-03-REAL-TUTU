@@ -1,6 +1,7 @@
 package org.next.lms.content.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.next.infra.exception.unique.UniqueKeys;
 import org.next.lms.content.control.auth.UserGroupCanReadContent;
@@ -19,6 +20,7 @@ import java.util.List;
 @ToString(exclude = {"writable", "readable", "lecture", "submitReadable", "contents"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"writable", "readable", "submitReadable", "contents", "lecture", "contentType", "submitOpen", "reply", "name"})
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "CONTENT_GROUP", uniqueConstraints = {@UniqueConstraint(name = UniqueKeys.CONTENT_GROUP_NAME_ALREADY_EXIST, columnNames = {"NAME", "LECTURE_ID"})})
 public class ContentGroup {

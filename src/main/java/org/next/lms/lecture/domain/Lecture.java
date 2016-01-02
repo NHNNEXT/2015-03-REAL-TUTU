@@ -1,6 +1,7 @@
 package org.next.lms.lecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
 import org.next.lms.content.domain.ContentGroup;
@@ -17,6 +18,7 @@ import java.util.List;
 @ToString(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "lectureNodeHasLectureList"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"hostUser", "userGroups", "contentGroups", "userLikesLectures", "userEnrolledLectures", "contents", "name", "majorType", "registerPolicy", "lectureNodeHasLectureList"})
+@org.hibernate.annotations.Cache(region = "message", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "LECTURE")
 public class Lecture implements ObjectOwnerKnowable {

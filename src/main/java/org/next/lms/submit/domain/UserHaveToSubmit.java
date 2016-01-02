@@ -1,6 +1,7 @@
 package org.next.lms.submit.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.next.infra.auth.ObjectOwnerKnowable;
 import org.next.lms.content.domain.Content;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @ToString(exclude = {"user", "content", "submits"})
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"user", "content", "submits"})
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "USER_HAVE_TO_SUBMIT", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"USER_ID", "CONTENT_ID"})
