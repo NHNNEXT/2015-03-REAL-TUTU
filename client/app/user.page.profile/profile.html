@@ -10,14 +10,16 @@
     <div layout="column" layout-align="end start" layout-align-sm="center center" class="center-sm" flex>
       <mod-input tag="h2" ng-model="user.name" mod-right="user.isRootUser()" placeholder="이름"
                  mod-save="update"></mod-input>
-      <mod-textarea ng-model="user.introduce" mod-right="user.isRootUser()" placeholder="소개말"
+      <mod-textarea ng-model="user.introduce" class="margin-bottom-s" mod-right="user.isRootUser()" placeholder="소개말"
                     mod-save="update"></mod-textarea>
       <div class="info margin-bottom">
-        <span dialog="letter(user)"><i class="fa fa-comment-o"></i></span>
+        <span dialog="letter(user)"><i class="fa fa-comment-o"></i> 쪽지</span>
         <span class="bar"></span>
-        <a ng-href="mailto:{{user.email}}">{{user.email}}</a>
+        <a ng-href="mailto:{{user.email}}"><i class="fa fa-envelope-o"></i> {{user.email}}</a>
         <span class="bar"></span>
-        <mod-input ng-model="user.major" mod-right="user.isRootUser()" placeholder="전공" mod-save="update"></mod-input>
+        <span>
+          <i class="fa fa-star-o"></i><mod-input ng-model="user.major" mod-right="user.isRootUser()" placeholder="전공" mod-save="update"></mod-input>
+        </span>
       </div>
 
     </div>
