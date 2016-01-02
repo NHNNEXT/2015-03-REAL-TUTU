@@ -2,56 +2,63 @@ angular.module('clientApp')
   .service('responseCode', function () {
     /* @ngInject */
   }).run(function ($http, responseCode) {
-  //$http.get('/api/v1/responseCode').success(function (res) {
-  //  angular.copy(res, responseCode);
-  //});
   var code = {
-    "UNAUTHORIZED_REQUEST": 100,
+    "UNAUTHORIZED_REQUEST": 3,
     "SUCCESS": 0,
-    "PATTERN_NOT_MATCHED": 101,
+    "PATTERN_NOT_MATCHED": 4,
     "Node": {
-      "CHILD_EXIST": 39
+      "CHILD_EXIST": 28
     },
     "Enroll": {
-      "WAITING_FOR_APPROVAL": 16
+      "WAITING_FOR_APPROVAL": 25
     },
     "ContentRelation": {
-      "CANT_BIND_SELF": 30,
-      "ALREADY_EXIST": 29
-    },
-    "Term": {
-      "ALREADY_EXIST": 35
+      "CANT_BIND_SELF": 27,
+      "ALREADY_EXIST": 26
     },
     "Login": {
-      "USER_NOT_EXIST": 44,
-      "WITHDRAWAL_ACCOUNT": 5,
-      "WRONG_PASSWORD": 4,
-      "DO_EMAIL_VERIFY_FIRST": 40,
-      "NO_MORE_PASSWORD_CHANGE_TRY_COUNT": 42,
-      "ALREADY_PASSWORD_CHANGE_MAIL_SENT": 43,
-      "NOT_EXIST_EMAIL": 3
+      "WITHDRAWAL_ACCOUNT": 12,
+      "WRONG_PASSWORD": 11,
+      "DO_EMAIL_VERIFY_FIRST": 9,
+      "NOT_EXIST_EMAIL": 10
     },
-    "RESOURCE_NOT_EXIST": 299,
+    "RESOURCE_NOT_EXIST": 6,
     "GetSessionUser": {
-      "EMPTY": 6
+      "EMPTY": 17
     },
-    "LOGIN_NEEDED": 13,
+    "MailRequest": {
+      "USER_NOT_EXIST": 13,
+      "USER_ALREADY_VERIFIED": 14,
+      "ALREADY_PASSWORD_CHANGE_MAIL_SENT": 15,
+      "USER_NOT_VERIFIED": 16
+    },
+    "LOGIN_NEEDED": 2,
     "Like": {
-      "LECTURE": 10,
-      "ADD": 14,
-      "REMOVE": 15,
-      "CONTENT": 9,
-      "REPLY": 11
+      "LECTURE": 21,
+      "ADD": 23,
+      "REMOVE": 24,
+      "CONTENT": 20,
+      "REPLY": 22
     },
     "WRONG_ACCESS": 1,
-    "Register": {
-      "ALREADY_EXIST_EMAIL": 2,
-      "ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY": 45
+    "PasswordChange": {
+      "KEY_NOT_MATCHED": 33,
+      "EXPIRED": 34,
+      "TOO_MANY_TRY": 32
     },
-    "DATA_INTEGRITY_ERROR": 199,
+    "Register": {
+      "ALREADY_EXIST_EMAIL": 7,
+      "ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY": 8
+    },
+    "DATA_INTEGRITY_ERROR": 5,
+    "UserAuth": {
+      "KEY_NOT_MATCHED": 30,
+      "MAIL_EXPIRED": 29,
+      "USER_ALREADY_VERIFIED": 31
+    },
     "FileUpload": {
-      "ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT": 8,
-      "FILE_NOT_ATTACHED": 7
+      "ERROR_OCCURED_WHILE_UPLOADING_ATTACHMENT": 19,
+      "FILE_NOT_ATTACHED": 18
     }
   };
   angular.copy(code, responseCode);

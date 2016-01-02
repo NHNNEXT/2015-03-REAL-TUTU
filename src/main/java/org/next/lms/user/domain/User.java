@@ -116,9 +116,11 @@ public class User {
 //            this.email = passed.email;
     }
 
+    public static final String PASSWORD_REGEX = "^\\S{6,20}$";
+
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         if (this.password == null) return;
-        if (!this.password.matches("^\\S{6,20}$"))
+        if (!this.password.matches(PASSWORD_REGEX))
             throw new PatternNotMatchedException("패스워드는 6~20자 입니다.");
         this.password = passwordEncoder.encode(this.password);
 

@@ -27,8 +27,4 @@ public class MailSendTest {
     @Autowired
     private Environment environment;
 
-    @Test
-    public void testName() throws Exception {
-        mailService.sendMail(new Mail(environment.getRequiredProperty("TEST_MAIL_RECEIVE_ACCOUNT"), new JoinMailVerifyTemplate(envUtils.getAbsoluteURIPath("/api/v1/user/mailVerify"), makeUUID())));
-    }
 }
