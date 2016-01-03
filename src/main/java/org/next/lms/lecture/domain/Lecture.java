@@ -98,6 +98,8 @@ public class Lecture implements ObjectOwnerKnowable {
     }
 
     public UserGroup getDefaultUserGroup() {
+        if (!this.userGroups.stream().filter(UserGroup::isDefaultGroup).findAny().isPresent())
+            this.userGroups.get(0).setDefaultGroup(true);
         return this.userGroups.stream().filter(UserGroup::isDefaultGroup).findAny().get();
     }
 
