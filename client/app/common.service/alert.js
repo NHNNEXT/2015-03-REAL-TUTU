@@ -5,19 +5,39 @@
     .service('alert', alert);
 
   /* @ngInject */
-  function alert(toastr) {
+  function alert(toastr, $timeout) {
+    var alertQue = {success: [], alert: [], info: [], error: []};
+
+    function inQue(type, msg) {
+      if (alertQue[type].includes(msg)) {
+        return true;
+      }
+      alertQue[type].push(msg);
+      $timeout(function () {
+        alertQue[type].remove(msg);
+      }, 500);
+      return false;
+    }
 
     this.success = function (msg) {
-      toastr.success(msg, 'success!');
+      if (inQue('success', msg))
+        throw "같은 메세지입니다.";
+      toastr.success(msg, '성공');
     };
     this.info = function (msg) {
-      toastr.info(msg, 'info');
+      if (inQue('info', msg))
+        throw "같은 메세지입니다.";
+      toastr.info(msg, '알림');
     };
     this.warning = function (msg) {
-      toastr.warning(msg, 'warning');
+      if (inQue('warning', msg))
+        throw "같은 메세지입니다.";
+      toastr.warning(msg, '경고');
     };
     this.error = function (msg, err) {
-      toastr.error(msg, 'error!');
+      if (inQue('error', msg))
+        throw "같은 메세지입니다.";
+      toastr.error(msg, '오류');
       if (err) {
         if (bowser.chrome) {
           console.table({
