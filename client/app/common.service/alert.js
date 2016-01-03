@@ -6,7 +6,7 @@
 
   /* @ngInject */
   function alert(toastr, $timeout) {
-    var alertQue = {success: [], alert: [], info: [], error: []};
+    var alertQue = {success: [], alert: [], info: [], error: [], warning: []};
 
     function inQue(type, msg) {
       if (alertQue[type].includes(msg)) {

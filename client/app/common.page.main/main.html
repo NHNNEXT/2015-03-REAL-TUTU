@@ -1,4 +1,4 @@
-<div class="center margin">
+<div class="center margin" ng-controller="mainController">
   <h2><span ng-repeat="lecture in rootUser.lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
     ng-if="!$last">, </span></span></h2>
 </div>
