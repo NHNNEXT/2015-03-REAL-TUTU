@@ -16,15 +16,20 @@ angular.module('clientApp')
         this.querySearch = function (keyword) {
           if (!keyword)
             return;
-          return Content.getList({lectureId: this.content.lectureId, keyword: keyword});
+          return Content.getList({lectureId: this.content.lectureId, keyword: keyword, relativeBlock: false});
         };
 
-        this.delete = function(item){
-          http.delete('/api/v1/content/relative', {contentId: self.content.id, linkContentId: item.id}).then(function () {
+        this.delete = function (item) {
+          http.delete('/api/v1/content/relative', {
+            contentId: self.content.id,
+            linkContentId: item.id
+          }).then(function () {
             self.relativeContents.remove(item);
+          }, function (r) {
+            if (r.code === responseCode.ContentRelation.UPDATE_BLOCKED)
+              alert.error("게시물의 관계 설정이 완료되었습니다.");
           });
         };
-
 
 
         this.select = function (item) {
@@ -43,7 +48,10 @@ angular.module('clientApp')
             }
             if (response.code === responseCode.ContentRelation.CANT_BIND_SELF) {
               alert.warning("자기자신은 추가할 수 없습니다.");
+              return;
             }
+            if (response.code === responseCode.ContentRelation.UPDATE_BLOCKED)
+              alert.error("게시물의 관계 설정이 완료되었습니다.");
           });
         };
       }

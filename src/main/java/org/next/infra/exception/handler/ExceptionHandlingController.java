@@ -67,4 +67,9 @@ public class ExceptionHandlingController {
         return new Result(ResponseCode.DATA_INTEGRITY_ERROR, UniqueKeys.getErrorMessage(e.getCause().getCause().getMessage()));
     }
 
+    @ExceptionHandler(RelativeUpdateBlockedException.class)
+    public Result dataIntegrityViolationException(RelativeUpdateBlockedException e) {
+        return new Result(ResponseCode.ContentRelation.UPDATE_BLOCKED);
+    }
+
 }

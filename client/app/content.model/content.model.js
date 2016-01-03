@@ -17,8 +17,26 @@ angular.module('clientApp')
       });
     };
 
+    Content.prototype.tagBlockToggle = function () {
+      var self = this;
+      http.post('/api/v1/content/tagBlock', {id: self.id, tagBlock: !self.tagBlock}).then(function (result) {
+        self.tagBlock = result;
+      });
+    };
+
+    Content.prototype.relativeBlockToggle = function () {
+      var self = this;
+      http.post('/api/v1/content/relativeBlock', {
+        id: self.id,
+        relativeBlock: !self.relativeBlock
+      }).then(function (result) {
+        self.relativeBlock = result;
+      });
+    };
 
     Content.prototype.setProperties = function (obj) {
+      this.tagBlock = obj.tagBlock;
+      this.relativeBlock = obj.relativeBlock;
       this.submitRequires = obj.submitRequires;
       this.repliesSize = obj.repliesSize;
       this.writer = obj.writer;
@@ -60,6 +78,8 @@ angular.module('clientApp')
       query.title = this.title;
       query.body = this.body;
       query.lectureId = this.lectureId;
+      query.tagBlock = this.tagBlock;
+      query.relativeBlock = this.relativeBlock;
       query.endTime = this.endTime;
       query.startTime = this.startTime;
       if (this.id === undefined) {

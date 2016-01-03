@@ -26,41 +26,9 @@ public class ContentController {
     @Autowired
     private ContentSaveService contentSaveService;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public Result getContent(Long id, @Logged(makeLoginNeededException = false) User user) {
         return contentService.getContentDtoById(id, user);
-    }
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Result getContentList(ContentLimitDao contentLimitDao) {
-        return contentService.getList(contentLimitDao);
-    }
-
-    @RequestMapping(value = "/list/size", method = RequestMethod.GET)
-    public Result getContentListSize(ContentLimitDao contentLimitDao) {
-        return contentService.getListSize(contentLimitDao);
-    }
-
-
-    @RequestMapping(value = "/list/coming", method = RequestMethod.GET)
-    public Result getComingContentList(ComingScheduleDao dao, @Logged User user) {
-        return contentService.getList(dao, user);
-    }
-
-    @RequestMapping(value = "/list/duration", method = RequestMethod.GET)
-    public Result getContentListByDuration(ContentDurationDao ContentDurationDao) {
-        return contentService.getList(ContentDurationDao);
-    }
-
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public Result saveContentList(@RequestBody ContentListDto contents, @Logged User user) {
-        return contentSaveService.saveContents(contents, user);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/list/my")
-    public Result searchInMyLectureContents(MyListDao myListDao, @Logged User user) {
-        return contentService.getList(myListDao, user);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/submit/require")
@@ -98,5 +66,14 @@ public class ContentController {
         return contentService.delete(id, user);
     }
 
+    @RequestMapping(value = "/tagBlock", method = RequestMethod.POST)
+    public Result updateTagBlock(Long id, boolean tagBlock, @Logged User user) {
+        return contentSaveService.updateTagBlock(id,tagBlock, user);
+    }
+
+    @RequestMapping(value = "/relativeBlock", method = RequestMethod.POST)
+    public Result updateRelativeBlock(Long id, boolean relativeBlock, @Logged User user) {
+        return contentSaveService.updateRelativeBlock(id, relativeBlock, user);
+    }
 
 }

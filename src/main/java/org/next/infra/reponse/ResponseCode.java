@@ -60,6 +60,11 @@ public class ResponseCode {
     public static final class ContentRelation {
         public static final Integer ALREADY_EXIST = 26;
         public static final Integer CANT_BIND_SELF = 27;
+        public static final Integer UPDATE_BLOCKED = 36;
+    }
+
+    public static final class Tag {
+        public static final Integer UPDATE_BLOCKED = 35;
     }
 
     public static final class Node {
@@ -131,5 +136,6 @@ public class ResponseCode {
             map.put(innerClass.getSimpleName(), parseClass(innerClass));
         return map;
     }
+
 
 }

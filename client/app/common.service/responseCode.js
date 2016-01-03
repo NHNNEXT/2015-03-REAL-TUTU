@@ -13,6 +13,7 @@ angular.module('clientApp')
       "WAITING_FOR_APPROVAL": 25
     },
     "ContentRelation": {
+      "UPDATE_BLOCKED": 36,
       "CANT_BIND_SELF": 27,
       "ALREADY_EXIST": 26
     },
@@ -51,6 +52,9 @@ angular.module('clientApp')
       "ACCOUNT_IS_WAITING_FOR_EMAIL_CERTIFY": 8
     },
     "DATA_INTEGRITY_ERROR": 5,
+    "Tag": {
+      "UPDATE_BLOCKED": 35
+    },
     "UserAuth": {
       "KEY_NOT_MATCHED": 30,
       "MAIL_EXPIRED": 29,

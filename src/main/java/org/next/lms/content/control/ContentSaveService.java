@@ -90,6 +90,20 @@ public class ContentSaveService {
         return success(new ContentDto(content, user));
     }
 
+    public Result updateTagBlock(Long id, boolean tagBlock, User user) {
+        Content contentFromDB = assureNotNull(contentRepository.findOne(id));
+        contentAuthority.checkUpdateRight(contentFromDB, user);
+        contentFromDB.setTagBlock(tagBlock);
+        return success(tagBlock);
+    }
+
+    public Result updateRelativeBlock(Long id, boolean relativeBlock, User user) {
+        Content contentFromDB = assureNotNull(contentRepository.findOne(id));
+        contentAuthority.checkUpdateRight(contentFromDB, user);
+        contentFromDB.setRelativeBlock(relativeBlock);
+        return success(relativeBlock);
+    }
+
     public Result update(ContentParameterDto contentParameterDto, User user) {
         Content contentFromDB = assureNotNull(contentRepository.findOne(contentParameterDto.getId()));
         contentAuthority.checkUpdateRight(contentFromDB, user);
@@ -143,5 +157,6 @@ public class ContentSaveService {
                 userHaveToSubmitRepository.save(userHaveToSubmit);
             });
     }
+
 
 }

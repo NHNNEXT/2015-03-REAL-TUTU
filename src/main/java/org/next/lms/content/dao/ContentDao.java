@@ -23,6 +23,7 @@ public abstract class ContentDao {
     private Long contentGroupId;
     private Long likeUser;
     private String contentGroupName;
+    private Boolean relativeBlock;
     QContent qContent = QContent.content;
 
     public List<Content> getList(EntityManager entityManager) {
@@ -53,6 +54,8 @@ public abstract class ContentDao {
             query = query.where(qContent.contentGroup.name.eq(contentGroupName));
         if (this.likeUser != null)
             query = query.where(qContent.userLikesContents.any().user.id.eq(likeUser));
+        if(this.relativeBlock != null)
+            query = query.where(qContent.relativeBlock.eq(this.relativeBlock));
         query.setHint("org.hibernate.cacheable", true);
         return query;
     }

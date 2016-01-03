@@ -24,7 +24,9 @@ public class ContentParameterDto implements DtoHasAttachment {
     private Date startTime;
     private Date endTime;
     private Long contentGroup;
-    private Content content;
+//    private Content content;
+    private boolean tagBlock;
+    private boolean relativeBlock;
     private List<Long> submitRequires;
     private List<Long> attachments;
 
@@ -35,5 +37,7 @@ public class ContentParameterDto implements DtoHasAttachment {
         content.setWriteDate(new Date());
         content.setStartTime(startTime);
         content.setEndTime(endTime);
+        content.setTagBlock(tagBlock);
+        content.setRelativeBlock(relativeBlock);
     }
 }

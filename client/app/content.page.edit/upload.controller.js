@@ -179,6 +179,8 @@ angular.module('clientApp').controller('uploadController',
       });
     }
 
+    states.setting = {title:"태그, 관계 설정"};
+
     $scope.setState = function (name) {
       if ($scope.state && $scope.state.name === name) {
         $scope.insert = false;

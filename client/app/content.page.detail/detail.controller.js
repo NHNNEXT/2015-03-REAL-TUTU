@@ -1,6 +1,6 @@
 angular.module('clientApp').controller('contentDetailController',
   /* @ngInject */
-  function ($scope, rootUser, Content, $stateParams, types, Reply, $state, http, $rootScope) {
+  function ($scope, rootUser, Content, $stateParams, types, Reply, $state, http, $rootScope, responseCode, alert) {
     $scope.rootUser = rootUser;
     $scope.content = {replies: []};
     $scope.select = {};
@@ -41,7 +41,11 @@ angular.module('clientApp').controller('contentDetailController',
         }, function () {
           if ($scope.tagReadOnly)
             return;
-          http.post('/api/v1/tag/content', {id: $scope.content.id, tags: $scope.content.tags}, true);
+          http.post('/api/v1/tag/content', {id: $scope.content.id, tags: $scope.content.tags}, true).then(function () {
+          }, function (r) {
+            if (r.code === responseCode.Tag.UPDATE_BLOCKED)
+              alert.error("게시물의 태그 설정이 완료되었습니다.");
+          });
         }, true);
 
         $state.current.header = content.lectureName;

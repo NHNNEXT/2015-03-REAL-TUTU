@@ -50,18 +50,24 @@
 
 <section>
   <div layout="row" layout-align="end center">
-    <md-button class="md-fab md-mini md-hue-2" ng-click="relativeReadOnly=!relativeReadOnly" aria-label="editRelative">
-      <md-icon md-svg-src="{{getRelativeIcon()}}"></md-icon>
-    </md-button>
-    <md-button class="md-fab md-mini md-hue-2" ng-click="tagReadOnly=!tagReadOnly" aria-label="editTag">
-      <md-icon md-svg-src="{{getTagIcon()}}"></md-icon>
-    </md-button>
+    <div ng-if="content.relativeBlock!==undefined && content.relativeBlock===false">
+      <md-button class="md-fab md-mini md-hue-2"
+                 ng-click="$parent.relativeReadOnly=!$parent.relativeReadOnly" aria-label="editRelative">
+        <md-icon md-svg-src="{{$parent.getRelativeIcon()}}"></md-icon>
+      </md-button>
+    </div>
+    <div ng-if="content.tagBlock!==undefined && content.tagBlock===false">
+      <md-button class="md-fab md-mini md-hue-2"
+                 ng-click="$parent.tagReadOnly=!$parent.tagReadOnly" aria-label="editTag">
+        <md-icon md-svg-src="{{$parent.getTagIcon()}}"></md-icon>
+      </md-button>
+    </div>
   </div>
-  <div layout="row" ng-show="content.relativeContents.length>0 || !relativeReadOnly">
+  <div layout="column" ng-show="content.relativeContents.length>0 || !relativeReadOnly">
     <relative-contents relative-contents="content.relativeContents" content="content"
                        readonly="relativeReadOnly"></relative-contents>
   </div>
-  <div layout="row">
+  <div layout="column">
     <md-tags placeholder="태그" ng-model="content.tags" type="content" md-id="content.id" readonly="tagReadOnly"
              flex></md-tags>
   </div>

@@ -1,5 +1,6 @@
 package org.next.lms.tag.control;
 
+import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.ContentRepository;
 import org.next.infra.repository.TagRepository;
 import org.next.infra.result.Result;
@@ -44,16 +45,13 @@ public class TagService {
     public Result updateContent(TagUpdateDto tagUpdateDto, User user) {
         Content content = assureNotNull(contentRepository.findOne(tagUpdateDto.getId()));
         contentAuth.checkReadRight(content, user);
-//        if (content.getWriter().equals(user)) { [TODO]  태그 삭제에 대한 논의가 필요.
+        if(content.isTagBlock())
+            return new Result(ResponseCode.Tag.UPDATE_BLOCKED);
         List<Tag> removedTags = content.getTags().stream().filter(tag -> !tagUpdateDto.getTags().stream().filter(tagText -> tagText.equals(tag.getText())).findAny().isPresent()).collect(Collectors.toList());
         addUpdated(tagUpdateDto, content);
         content.getTags().removeAll(removedTags);
         tagRepository.delete(removedTags);
         return success();
-//        }
-//
-//        addUpdated(tagUpdateDto, content);
-//        return success();
     }
 
     private void addUpdated(TagUpdateDto tagUpdateDto, Content content) {

@@ -11,6 +11,10 @@
              ng-click="setState('file');">
     <md-icon md-svg-src="/resource/icon/attach.svg"></md-icon>
   </md-button>
+  <md-button ng-class="{unselect:state.name && state.name != 'setting'}" class="md-fab md-mini" aria-label="file upload"
+             ng-click="setState('setting');">
+    <md-icon md-svg-src="/resource/icon/setting.svg"></md-icon>
+  </md-button>
 
   <div ng-show="insert">
     <h3>{{state.title}}</h3>
@@ -18,6 +22,16 @@
       <md-radio-button value="file" class="md-primary">파일 업로드</md-radio-button>
       <md-radio-button value="url" class="md-primary">URL 직접 입력</md-radio-button>
     </md-radio-group>
+    <div ng-show="state.name==='setting'">
+      <md-checkbox ng-model="content.tagBlock" aria-label="tag Block">
+        태그 완료
+        <md-tooltip md-direction="right">더 이상 태그를 업데이트 하지 않습니다.</md-tooltip>
+      </md-checkbox>
+      <md-checkbox ng-model="content.relativeBlock" aria-label="relative Block">
+        게시물 관계 설정 완료
+        <md-tooltip md-direction="right">더 이상 게시물 관계를 업데이트 하지 않습니다.</md-tooltip>
+      </md-checkbox>
+    </div>
     <div layout="row" ng-show="uploadType==='url'">
       <md-input-container flex>
         <label>{{state.urlPlaceHolder}}</label>

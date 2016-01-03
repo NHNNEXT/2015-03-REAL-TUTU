@@ -1,6 +1,6 @@
 angular.module('clientApp')
   /* @ngInject */
-  .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon, $timeout) {
+  .factory('http', function ($http, $q, responseCode, dialog, alert, $state, emoticon, $timeout, pageMove) {
     var httpQue = [];
 
     function getUniqueString(method, url, params) {
@@ -51,6 +51,7 @@ angular.module('clientApp')
             break;
           case responseCode.UNAUTHORIZED_REQUEST:
             alert.warning("권한이 없습니다.");
+            pageMove.ok = true;
             $state.go('main');
             break;
           case responseCode.PATTERN_NOT_MATCHED:

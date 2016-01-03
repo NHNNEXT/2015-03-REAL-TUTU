@@ -3,6 +3,7 @@ package org.next.lms.content.control;
 import com.mysema.query.jpa.impl.JPAQuery;
 import org.next.config.AppConfig;
 import org.next.infra.exception.HasNoRightException;
+import org.next.infra.exception.RelativeUpdateBlockedException;
 import org.next.infra.reponse.ResponseCode;
 import org.next.infra.repository.ContentLinkContentRepository;
 import org.next.infra.repository.ContentRepository;
@@ -94,8 +95,8 @@ public class ContentService {
     public Result makeRelation(Long contentId, Long linkContentId, User user) {
         if (contentId.equals(linkContentId))
             return new Result(ResponseCode.ContentRelation.CANT_BIND_SELF);
-        Content linkContent = getCheckedContent(contentId, user);
-        Content linkedContent = getCheckedContent(linkContentId, user);
+        Content linkContent = getRelativeUpdatableContent(contentId, user);
+        Content linkedContent = getRelativeUpdatableContent(linkContentId, user);
         if (null != contentLinkContentRepository.findByLinkContentIdAndLinkedContentId(contentId, linkContentId))
             return new Result(ResponseCode.ContentRelation.ALREADY_EXIST);
         if (null != contentLinkContentRepository.findByLinkContentIdAndLinkedContentId(linkContentId, contentId))
@@ -107,6 +108,14 @@ public class ContentService {
         return success();
     }
 
+    private Content getRelativeUpdatableContent(Long contentId, User user) {
+        Content content = assureNotNull(contentRepository.findOne(contentId));
+        if(content.isRelativeBlock())
+            throw new RelativeUpdateBlockedException();
+        contentAuthority.checkReadRight(content, user);
+        return content;
+    }
+
     private Content getCheckedContent(Long contentId, User user) {
         Content content = assureNotNull(contentRepository.findOne(contentId));
         contentAuthority.checkReadRight(content, user);
@@ -114,7 +123,7 @@ public class ContentService {
     }
 
     public Result removeRelation(Long contentId, Long linkContentId, User user) {
-        getCheckedContent(contentId, user);
+        getRelativeUpdatableContent(contentId, user);
         getCheckedContent(linkContentId, user);
         contentLinkContentRepository.deleteByLinkContentIdAndLinkedContentId(linkContentId, contentId);
         contentLinkContentRepository.deleteByLinkContentIdAndLinkedContentId(contentId, linkContentId);

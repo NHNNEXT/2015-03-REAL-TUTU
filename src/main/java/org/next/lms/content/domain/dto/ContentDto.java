@@ -32,6 +32,8 @@ public class ContentDto {
     private final Date startTime;
     private final Date endTime;
     private final List<String> tags;
+    private final boolean tagBlock;
+    private final boolean relativeBlock;
 
     private Long like;
     private List<UserHaveToSubmitDto> submitRequires;
@@ -54,6 +56,9 @@ public class ContentDto {
         this.tags = content.getTags().stream().map(Tag::getText).collect(Collectors.toList());
         this.repliesSize = content.getReplies().size();
         this.attachments = content.getAttachments().stream().map(UploadedFileDto::new).collect(Collectors.toList());
+
+        this.tagBlock = content.isTagBlock();
+        this.relativeBlock = content.isRelativeBlock();
 
         this.relativeContents = new ArrayList<>();
         this.relativeContents.addAll(content.getLinkContents().stream().map(contentLinkContent -> new ContentSummaryDto(contentLinkContent.getLinkedContent())).collect(Collectors.toList()));

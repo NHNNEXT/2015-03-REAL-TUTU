@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 @Setter
 @ToString(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup"})
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime"})
+@EqualsAndHashCode(exclude = {"attachments", "userLikesContents", "userHaveToSubmits", "tags", "linkedContents", "linkContents", "replies", "writer", "lecture", "contentGroup", "title", "hits", "body", "writeDate", "startTime", "endTime", "tagBlock", "relativeBlock"})
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "CONTENT")
@@ -99,6 +99,14 @@ public class Content implements ObjectOwnerKnowable, DomainHasAttachment {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "END_TIME")
     private Date endTime;
+
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "TAG_BLOCK")
+    private boolean tagBlock = false;
+
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "RELATIVE_BLOCK")
+    private boolean relativeBlock = false;
 
 
     public void addReadCount() {
