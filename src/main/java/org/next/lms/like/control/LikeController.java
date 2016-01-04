@@ -72,10 +72,12 @@ public class LikeController {
         }
         userLikesContentRepository.save(relation);
 
-        PackagedMessage message = aMessage().from(user).to(relation.getContent().getWriter())
-                .with(new UserLikesContentMessage(relation.getContent(), user, relation.getContent().getUserLikesContents().size())).packaging();
+        if (!user.equals(relation.getContent().getWriter())) {
+            PackagedMessage message = aMessage().from(user).to(relation.getContent().getWriter())
+                    .with(new UserLikesContentMessage(relation.getContent(), user, relation.getContent().getUserLikesContents().size())).packaging();
 
-        messageService.send(message);
+            messageService.send(message);
+        }
 
         return new Result(ResponseCode.Like.ADD);
     }
@@ -104,10 +106,14 @@ public class LikeController {
         }
         userLikesReplyRepository.save(relation);
 
-        PackagedMessage message = aMessage().from(user).to(relation.getReply().getWriter())
-                .with(new UserLikesReplyMessage(relation.getReply(), user, relation.getReply().getUserLikesReplies().size())).packaging();
 
-        messageService.send(message);
+        if (!user.equals(relation.getReply().getWriter())) {
+            PackagedMessage message = aMessage().from(user).to(relation.getReply().getWriter())
+                    .with(new UserLikesReplyMessage(relation.getReply(), user, relation.getReply().getUserLikesReplies().size())).packaging();
+
+            messageService.send(message);
+        }
+
 
         return new Result(ResponseCode.Like.ADD);
     }
