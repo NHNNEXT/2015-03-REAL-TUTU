@@ -1,2 +1,4 @@
 "LECTURE_NODE_ID","NAME","PARENT_ID"
 "1","2015년 3학기","0"
+"2","2015년 3학기",NULL
+"3","2015년 2학기",NULL
