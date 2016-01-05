@@ -1,6 +1,8 @@
 <div layout="column" layout-sm="column">
-  <span class="title" ui-sref="content({id:content.id})" flex>
-    {{content.title}}
+  <span class="title" ng-click="ifReadableMove()" flex>
+    <span ng-if="!readable" class="red"><i class="fa fa-exclamation"></i></span>
+      {{content.title}}
+
     <span class="margin-left">
       <small ng-if="content.contentGroup.contentType==='SUBMIT'">
         <i class="fa fa-check"></i> 마감 : {{content.endTime.fromNow()}}
