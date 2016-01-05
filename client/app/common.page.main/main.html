@@ -2,18 +2,28 @@
   <h2><span ng-repeat="lecture in rootUser.lectures | filter:{sideMenu:true}" ui-sref="lecture({id:lecture.id})">{{lecture.name}} <span
     ng-if="!$last">, </span></span></h2>
 </div>
-<div layout="column" class="margin" layout-gt-md="row">
-  <coming-schedule class="card" flex></coming-schedule>
-  <submit-requires class="card" flex></submit-requires>
-</div>
-<div layout="column" class="margin" layout-gt-md="row">
-  <content-list-card head="공지사항" query="{contentType:'NOTICE'}" class="card" flex></content-list-card>
-  <content-list-card head="최신 글" query="{contentType:'GENERAL'}" class="card" flex></content-list-card>
-</div>
-<div class="margin">
-  <div class="card">
-    <div class="card-header">일정 요약</div>
+<div ng-if="exist">
+  <div layout="column" class="margin" layout-gt-md="row">
+    <coming-schedule class="card" flex></coming-schedule>
+    <submit-requires class="card" flex></submit-requires>
+  </div>
+  <div layout="column" class="margin" layout-gt-md="row">
+    <content-list-card head="공지사항" query="{contentType:'NOTICE'}" class="card" flex></content-list-card>
+    <content-list-card head="최신 글" query="{contentType:'GENERAL'}" class="card" flex></content-list-card>
+  </div>
+  <div class="margin">
+    <div class="card">
+      <div class="card-header">일정 요약</div>
 
-    <lecture-summary start="date.start" end="date.end"></lecture-summary>
+      <lecture-summary start="date.start" end="date.end"></lecture-summary>
+    </div>
+  </div>
+</div>
+<div ng-if="!exist" layout="column" layout-align="center center">
+  <h2>즐겨찾기에 등록된 강의가 없습니다.</h2>
+  <h3>강의를 등록해보세요.</h3>
+  <div layout="row" layout-align="center center" class="margin-top">
+
+    <img src="/resource/bg.gif">
   </div>
 </div>

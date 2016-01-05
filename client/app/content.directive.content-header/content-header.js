@@ -11,7 +11,12 @@ angular.module('clientApp')
         s.now = Now;
       }, controller: function (rootUser, $scope, $state, alert) {
         $scope.rootUser = rootUser;
-        $scope.readable = rootUser.lectures.findById($scope.content.lectureId).contentGroups.findById($scope.content.contentGroup.id) !== undefined;
+
+        $scope.readable = false;
+        var lecture = rootUser.lectures.findById($scope.content.lectureId);
+        if (lecture)
+          $scope.readable = lecture.contentGroups.findById($scope.content.contentGroup.id) !== undefined;
+
         $scope.ifReadableMove = function () {
           if (!$scope.readable) {
             alert.warning("열람 권한이 없습니다.");

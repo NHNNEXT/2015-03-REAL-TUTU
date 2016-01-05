@@ -10,4 +10,7 @@ angular.module('clientApp')
       $state.go('loginneed');
     });
     this.rootUser = rootUser;
+    $scope.$parent.exist = this.rootUser.lectures.filter(function (lecture) {
+        return lecture.sideMenu;
+      }).length !== 0;
   });
