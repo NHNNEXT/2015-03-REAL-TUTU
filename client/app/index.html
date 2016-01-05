@@ -25,8 +25,6 @@
   <link href="/common.page.main/coming-schedule/coming-schedule.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/main.css" rel="stylesheet" type="text/css">
   <link href="/common.page.main/submit-requires/submit-requires.css" rel="stylesheet" type="text/css">
-  <link href="/common.page.main/timeline.css" rel="stylesheet" type="text/css">
-  <link href="/common.page.todo.content-todo-header/content-todo-header.css" rel="stylesheet" type="text/css">
   <link href="/common.part/layout.css" rel="stylesheet" type="text/css">
   <link href="/common.part/main-header.css" rel="stylesheet" type="text/css">
   <link href="/common.part/md-sidenav.css" rel="stylesheet" type="text/css">
@@ -38,7 +36,6 @@
   <link href="/common.style/icons.css" rel="stylesheet" type="text/css">
   <link href="/common.style/index.css" rel="stylesheet" type="text/css">
   <link href="/common.style/layout.css" rel="stylesheet" type="text/css">
-  <link href="/common.style/menu.css" rel="stylesheet" type="text/css">
   <link href="/common.style/meterial.css" rel="stylesheet" type="text/css">
   <link href="/common.style/report.css" rel="stylesheet" type="text/css">
   <link href="/common.style/sm-style.css" rel="stylesheet" type="text/css">
@@ -56,12 +53,12 @@
   <link href="/lecture.directive.lecture-summary/lecture-summary.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail.list/list.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail.list/pagenation.css" rel="stylesheet" type="text/css">
+  <link href="/lecture.page.detail.list/tabs.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.detail/lecture.css" rel="stylesheet" type="text/css">
   <link href="/lecture.page.edit/part/right.css" rel="stylesheet" type="text/css">
   <link href="/message.directive.messages/messages.css" rel="stylesheet" type="text/css">
   <link href="/message.directive/message.css" rel="stylesheet" type="text/css">
   <link href="/reply.directive.replies/replies.css" rel="stylesheet" type="text/css">
-  <link href="/reply.directive.reply/reply.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/char_counter.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/code_view.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/colors.min.css" rel="stylesheet" type="text/css">
@@ -91,8 +88,6 @@
   <link href="/resource/froala/css/themes/royal.min.css" rel="stylesheet" type="text/css">
   <link href="/resource/froala/css/video.min.css" rel="stylesheet" type="text/css">
   <link href="/submit.directive.submit-status/submit-status.css" rel="stylesheet" type="text/css">
-  <link href="/submit.directive.submit/submit.css" rel="stylesheet" type="text/css">
-  <link href="/term.directive.addterm/addterm.css" rel="stylesheet" type="text/css">
   <link href="/user.dialog/template.css" rel="stylesheet" type="text/css">
   <link href="/user.directive.user-profile/user-profile.css" rel="stylesheet" type="text/css">
   <link href="/user.page.profile/profile.css" rel="stylesheet" type="text/css">
@@ -139,15 +134,19 @@
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
-  !function (A, n, g, u, l, a, r) {
-    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-        (A[l].q = A[l].q || []).push(arguments)
-      }, A[l].l = +new Date, a = n.createElement(g),
-      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-  }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-XXXXX-X');
-  ga('send', 'pageview');
+  ga('create', 'UA-72032192-1', 'auto');
 </script>
 
 
