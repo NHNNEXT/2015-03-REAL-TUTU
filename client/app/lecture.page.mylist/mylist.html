@@ -50,10 +50,6 @@
     <md-list>
       <md-list-item class="md-2-line" ng-repeat="lecture in rootUser.waitingLectures | filter:query"
                     ng-click="$event.stopPropagation()">
-        <div layout="column">
-          <md-switch aria-label="즐겨찾기 추가" ng-model="lecture.sideMenu" ng-click="sideToggleRequest(lecture);$event.stopPropagation()">
-          </md-switch>
-        </div>
         <div class="md-list-item-text" layout="column">
           <h3 ui-sref="lecture({id:lecture.id})">{{lecture.name}}</h3>
 
