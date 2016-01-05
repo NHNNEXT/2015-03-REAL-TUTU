@@ -28,11 +28,9 @@
     </md-button>
   </md-list-item>
 </md-list>
+<span ng-if="lecture.waitingUsers.length>0">
 <md-subheader>가입 대기자</md-subheader>
 <md-list>
-  <md-list-item ng-show="lecture.waitingUsers.length===0">
-    신청자가 없습니다.
-  </md-list-item>
   <md-list-item ng-repeat="user in lecture.waitingUsers">
     <user-profile user="user"></user-profile>
     <div flex></div>
@@ -40,3 +38,4 @@
     <md-button aria-label="reject" class="md-raised" ng-click="lecture.reject(user)">거절</md-button>
   </md-list-item>
 </md-list>
+</span>
