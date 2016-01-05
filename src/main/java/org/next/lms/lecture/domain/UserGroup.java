@@ -7,6 +7,7 @@ import org.next.lms.content.control.auth.UserGroupCanReadContent;
 import org.next.lms.content.control.auth.UserGroupCanReadSubmit;
 import org.next.lms.content.control.auth.UserGroupCanWriteContent;
 import org.next.lms.content.domain.ContentGroup;
+import org.next.lms.lecture.control.auth.ApprovalState;
 import org.next.lms.user.domain.User;
 
 import javax.persistence.*;
@@ -62,7 +63,10 @@ public class UserGroup {
     }
 
     public boolean isUserExist(User user) {
-        return userEnrolledLectures.stream().filter(userEnrolledLecture -> userEnrolledLecture.getUser().equals(user)).findAny().isPresent();
+        return userEnrolledLectures.stream()
+                .filter(userEnrolledLecture ->
+                        ApprovalState.OK.equals(userEnrolledLecture.getApprovalState())
+                                && userEnrolledLecture.getUser().equals(user)).findAny().isPresent();
     }
 
     public Boolean canRead(ContentGroup contentGroup) {
