@@ -1,7 +1,7 @@
 angular
   .module('clientApp')
   /* @ngInject */
-  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types, $timeout, http, $rootScope) {
+  .controller('lectureDetailController', function ($scope, $stateParams, Lecture, rootUser, alert, $state, types, $timeout, http, $rootScope, hangul) {
 
     $scope.types = types;
     $scope.rootUser = rootUser;
@@ -41,6 +41,7 @@ angular
       query.lectureId = $scope.lecture.id;
       http.put('/api/v1/lecture/userGroup', query).then(function (group) {
         user.group = group;
+        alert.info(user.name + "님의 그룹이 " + hangul.getERO(group.name) + " 변경되었습니다");
       });
     }
 
