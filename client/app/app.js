@@ -13,7 +13,7 @@
     'toastr',
     'anim-in-out'
     /* @ngInject */
-  ]).run(function ($rootScope, $state, confirm, $window, pageMove, Loading, rootUser) {
+  ]).run(function ($rootScope, $state, confirm, $window, pageMove, Loading, rootUser, $location) {
     $($window).on("beforeunload", function () {
       if ($state.current.exitConfirm)
         return "이 페이지에서 벗어나면 작성하신 내용은 저장되지 않습니다.";
@@ -23,6 +23,7 @@
         $state.current = toState;
         pageMove.ok = false;
         Loading.end();
+        $window.ga('send', 'pageview', {page: $location.url()});
       }
     );
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
