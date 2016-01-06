@@ -35,7 +35,7 @@ angular.module('clientApp')
         var page = $scope.page = new Page();
 
 
-        $scope.doToggle = function (ev) {
+        $scope.doToggle = function () {
           var state = !$scope.submitRequire.done;//NG-Model바뀌는거보다, 이벤트 실행이 먼저되서 !done으로 보내야함.
 
           if (state && $scope.submits.length === 0) {
