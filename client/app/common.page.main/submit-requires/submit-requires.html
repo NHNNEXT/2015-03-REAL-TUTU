@@ -2,8 +2,6 @@
 
 <div wrapped ng-repeat="submitRequire in submitRequires  | orderBy:'content.endTime' | orderBy:'done'" layout="row"
      layout-sm="column">
-  <md-checkbox class="md-secondary" ng-model="submitRequire.done" ng-click="submitRequire.doToggle()"
-               aria-label="완료 여부"></md-checkbox>
   <content-header content="submitRequire.content" index="$index"></content-header>
   <md-divider></md-divider>
 </div>

@@ -1,8 +1,8 @@
 angular.module('clientApp')
   /* @ngInject */
   .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm, $rootScope, $state, pageMove) {
-    this.email = "test1@test.com";
-    this.password = "password";
+    this.email = "";
+    this.password = "";
     getSessionUser();
 
     var self = this;
