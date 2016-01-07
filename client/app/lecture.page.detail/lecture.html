@@ -18,6 +18,8 @@
       <span ui-sref="lecture.schedule"> <i class="fa fa-calendar-check-o"></i> {{lecture.scheduleLength}}</span>
       <span class="bar"></span>
       <span ui-sref="lecture.people"><i class="fa fa-user"></i> {{lecture.users.length}}</span>
+      <span class="bar"></span>
+      <span ui-sref="lecture.right"><i class="fa fa-shield"></i></span>
 
       <span class="margin-right" ng-show="lecture.hostUser.isRootUser() || lecture.isEnrolled()"
             ui-sref="contentNew({lectureId:lecture.id, contentGroupName:contentGroupName})">

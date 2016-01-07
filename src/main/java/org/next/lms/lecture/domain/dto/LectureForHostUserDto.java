@@ -16,36 +16,11 @@ import java.util.stream.Collectors;
 public class LectureForHostUserDto extends LectureDto {
 
     private final List<UserSummaryDto> waitingUsers;
-    private List<List<Boolean>> writable;
-    private List<List<Boolean>> readable;
-    private List<List<Boolean>> submitReadable;
 
     public LectureForHostUserDto(Lecture lecture, User hostUser) {
         super(lecture, hostUser);
         this.waitingUsers = lecture.getUserEnrolledLectures().stream().filter(UserEnrolledLecture::approvalStateWaiting).map(UserSummaryDto::new).collect(Collectors.toList());
-        makeWriteAndRead(lecture);
     }
 
-    private void makeWriteAndRead(Lecture lecture) {
-        List<UserGroup> userGroups = lecture.getUserGroups();
-        List<ContentGroup> contentGroups = lecture.getContentGroups();
-        this.writable = new ArrayList<>();
-        this.readable = new ArrayList<>();
-        this.submitReadable = new ArrayList<>();
-        for (UserGroup userGroup : userGroups) {
-            List<Boolean> writable = new ArrayList<>();
-            List<Boolean> readable = new ArrayList<>();
-            List<Boolean> submitReadable = new ArrayList<>();
 
-            contentGroups.forEach(contentGroup -> {
-                writable.add(userGroup.canWrite(contentGroup));
-                readable.add(userGroup.canRead(contentGroup));
-                submitReadable.add(userGroup.canSubmitRead(contentGroup));
-            });
-
-            this.writable.add(writable);
-            this.readable.add(readable);
-            this.submitReadable.add(submitReadable);
-        }
-    }
 }

@@ -76,6 +76,9 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   states["lecture.people"] = {
     templateUrl: "/lecture.page.detail/lecture.people.html"
   };
+  states["lecture.right"] = {
+    templateUrl: "/lecture.page.detail/lecture.right.html"
+  };
   states.emailVerify = {
     controller:"verifyController",
     templateUrl: "/auth.page/verify.html"
@@ -86,6 +89,7 @@ angular.module('clientApp').config(function ($stateProvider, $urlRouterProvider)
   };
 
   states["lecture.people"].url = "/참여자";
+  states["lecture.right"].url = "/권한";
 
   states["lecture.schedule"] = {
     templateUrl: "/lecture.page.detail/lecture.schedule.html"

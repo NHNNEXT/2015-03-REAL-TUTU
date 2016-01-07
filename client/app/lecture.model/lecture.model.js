@@ -65,7 +65,7 @@ angular.module('clientApp')
           alert.warning("최소 하나의 그룹은 있어야 합니다.");
           return;
         }
-        if (this.defaultGroup === this.userGroups.indexOf(el)){
+        if (this.defaultGroup === this.userGroups.indexOf(el)) {
           alert.warning("기본 그룹은 삭제할 수 없습니다.");
           return;
         }
@@ -133,7 +133,13 @@ angular.module('clientApp')
         var self = this;
         http.post('/api/v1/lecture/enroll', {id: this.id}).then(function () {
           alert.info('등록되었습니다.');
-          rootUser.lectures.push(self);
+          self.sideMenu = true;
+          var me = new User(rootUser);
+          me.group = self.userGroups.find(function (group) {
+            return group.defaultGroup === true;
+          });
+          self.users.push(me);
+          rootUser.refresh();
         }, function (response) {
           if (response.code === responseCode.Enroll.WAITING_FOR_APPROVAL) {
             alert.info('참가 요청하였습니다. 승인을 기다립니다.');
@@ -220,7 +226,7 @@ angular.module('clientApp')
               }
               alert.success("강의에서 탈퇴했습니다.");
               rootUser.lectures.removeById(self.id);
-              $rootScope.$broadcast('userStateChange');
+              rootUser.refresh();
               return;
             }
             alert.success("강의에서 " + user.name + "님을 탈퇴 시켰습니다.");

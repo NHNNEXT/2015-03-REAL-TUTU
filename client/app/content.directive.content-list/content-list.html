@@ -2,12 +2,13 @@
   <div flex></div>
   <div class="margin-vertical" layout="row" layout-align="end center">
     <div>
-      <md-input-container ng-show="search" class="search-input">
+      <md-input-container class="search-input">
         <label>검색어</label>
         <input ng-model="query.keyword">
       </md-input-container>
     </div>
-    <div ng-click="search=!search"><i class="fa" ng-class="{'fa-search':!search, 'fa-times':search}"></i></div>
+    <!--<div ng-click="search=!search"><i class="fa" ng-class="{'fa-search':!search, 'fa-times':search}"></i></div>-->
+    <div><i class="fa fa-search"></i></div>
   </div>
 </div>
 <div pagenation ng-show="pages.length>1">

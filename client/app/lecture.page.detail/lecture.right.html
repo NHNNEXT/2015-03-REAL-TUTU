@@ -1,0 +1,27 @@
+<md-data-table-container>
+  <table class="right-table" md-data-table>
+    <thead>
+    <tr>
+      <th></th>
+      <th ng-repeat="group in lecture.userGroups" ng-click="toggleUserGroups($index)">{{group.name}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contentGroup in lecture.contentGroups">
+      <td>{{contentGroup.name}}</td>
+      <td ng-repeat="group in lecture.userGroups">
+        <md-checkbox disabled ng-model="lecture.readable[$index][$parent.$index]">
+          읽기
+        </md-checkbox>
+        <md-checkbox disabled ng-model="lecture.writable[$index][$parent.$index]">
+          쓰기
+        </md-checkbox>
+        <md-checkbox disabled ng-show="contentGroup.contentType==='SUBMIT' && !contentGroup.submitOpen"
+                     ng-model="lecture.submitReadable[$index][$parent.$index]">
+          제출 내용 열람
+        </md-checkbox>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</md-data-table-container>

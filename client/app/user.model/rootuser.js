@@ -3,8 +3,8 @@ angular.module('clientApp')
   .service('rootUser', function (alert, dialog, http, responseCode, $mdSidenav, confirm, $rootScope, $state, pageMove) {
     this.email = "";
     this.password = "";
-    getSessionUser();
-
+    this.refresh = refresh;
+    this.refresh();
     var self = this;
 
     this.setProperties = function (obj) {
@@ -31,6 +31,7 @@ angular.module('clientApp')
         }
         self.enrolledLectures.push(lecture);
       });
+      $rootScope.$broadcast('userStateChange');
     };
 
     this.loginCheck = function () {
@@ -131,7 +132,8 @@ angular.module('clientApp')
       });
     };
 
-    function getSessionUser() {
+
+    function refresh() {
       return http.get('/api/v1/user/session').then(function (result) {
         self.setProperties(result);
       });

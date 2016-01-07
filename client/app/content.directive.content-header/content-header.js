@@ -9,13 +9,19 @@ angular.module('clientApp')
       templateUrl: '/content.directive.content-header/content-header.html',
       link: function (s) {
         s.now = Now;
-      }, controller: function (rootUser, $scope, $state, alert) {
+      }, controller: function (rootUser, $scope, $state, alert, $rootScope) {
         $scope.rootUser = rootUser;
 
-        $scope.readable = false;
-        var lecture = rootUser.lectures.findById($scope.content.lectureId);
-        if (lecture)
-          $scope.readable = lecture.contentGroups.findById($scope.content.contentGroup.id) !== undefined;
+        checkReadable();
+
+        $rootScope.$on('userStateChange', checkReadable);
+
+        function checkReadable() {
+          $scope.readable = false;
+          var lecture = rootUser.lectures.findById($scope.content.lectureId);
+          if (lecture)
+            $scope.readable = lecture.contentGroups.findById($scope.content.contentGroup.id) !== undefined;
+        }
 
         $scope.ifReadableMove = function () {
           if (!$scope.readable) {
