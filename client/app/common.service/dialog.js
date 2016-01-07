@@ -1,7 +1,14 @@
 angular.module('clientApp')
 
   /* @ngInject */
-  .service('dialog', function ($mdDialog) {
+  .service('dialog', function ($mdDialog, $window) {
+
+
+    this.report = function () { //[TODO] 향후 출시(?) 정식 서비스시 수정
+      $window.open("https://docs.google.com/spreadsheets/d/12tAaAAOSw02veZ8CC_i16be3Msg_RfrBQZ38HIIe3vA/edit?usp=sharing", '_blank');
+    };
+
+
 
     var self = this;
     this.letter = function (param) {
@@ -46,17 +53,7 @@ angular.module('clientApp')
     };
 
 
-    this.report = function (ev) {
-      $mdDialog.show({
-        controller: 'reportController',
-        templateUrl: '/report.dialog/report.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: true
-      });
-    };
-
-    this.close = function() {
+    this.close = function () {
       $mdDialog.cancel();
     };
   })
@@ -68,7 +65,7 @@ angular.module('clientApp')
         var regex = /^(\w+)\((.*)\)$/i;
         e.bind('click', function () {
           var result = regex.exec(a.dialog);
-          if(result){
+          if (result) {
             dialog[result[1]]($parse(result[2])(s));
             return;
           }
