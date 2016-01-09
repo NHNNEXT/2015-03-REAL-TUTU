@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    @QueryHints(value = {
-            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
-            @QueryHint(name = "org.hibernate.cacheRegion", value = "messages-by-receiverId")
-    })
-    List<Message> findByReceiverId(Long userId, org.springframework.data.domain.Pageable request);
+//    @QueryHints(value = {
+//            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+//            @QueryHint(name = "org.hibernate.cacheRegion", value = "messages-by-receiverId")
+//    })
+//    List<Message> findByReceiverId(Long userId, org.springframework.data.domain.Pageable request);
 
     @QueryHints(value = {
             @QueryHint(name = "org.hibernate.cacheable", value = "true"),

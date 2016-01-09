@@ -1,5 +1,6 @@
 package org.next.lms.message.control;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.next.config.AppConfig;
 import org.next.infra.repository.MessageRepository;
@@ -7,6 +8,7 @@ import org.next.infra.result.Result;
 import org.next.lms.message.domain.Message;
 import org.next.lms.message.domain.MessageDto;
 import org.next.lms.message.domain.PackagedMessage;
+import org.next.lms.message.domain.QMessage;
 import org.next.lms.message.structure.MessageTemplate;
 import org.next.lms.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,9 +36,15 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     public Result getList(User user, Integer page) {
-        Pageable pageable = new PageRequest(page, AppConfig.PAGE_SIZE, Sort.Direction.DESC, "date");
-        List<Message> messages = messageRepository.findByReceiverId(user.getId(), pageable);
+        JPAQuery query = new JPAQuery(entityManager);
+        QMessage qMessage = QMessage.message1;
+        query = query.from(qMessage).where(qMessage.receiver.id.eq(user.getId())).orderBy(qMessage.checked.desc()).orderBy(qMessage.date.desc()).limit(AppConfig.PAGE_SIZE).offset(AppConfig.PAGE_SIZE*page);
+        query.setHint("org.hibernate.cacheable", true);
+        List<Message> messages = query.list(qMessage);
         return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }
 
