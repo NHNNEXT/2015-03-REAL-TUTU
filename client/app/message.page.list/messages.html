@@ -1,7 +1,7 @@
 <section ng-controller="messagesController as m">
   <md-list>
     <md-divider></md-divider>
-    <md-list-item ng-repeat="message in m.messages | orderBy:'-date'">
+    <md-list-item ng-repeat="message in m.messages | orderBy:'-date' | orderBy:'checked' ">
       <div class="md-list-item-text">
         <message message="message" class="margin-vertical"></message>
       </div>

@@ -42,8 +42,8 @@ public class MessageService {
     public Result getList(User user, Integer page) {
         JPAQuery query = new JPAQuery(entityManager);
         QMessage qMessage = QMessage.message1;
-        query = query.from(qMessage).where(qMessage.receiver.id.eq(user.getId())).orderBy(qMessage.checked.desc()).orderBy(qMessage.date.desc()).limit(AppConfig.PAGE_SIZE).offset(AppConfig.PAGE_SIZE*page);
-        query.setHint("org.hibernate.cacheable", true);
+        query = query.from(qMessage).where(qMessage.receiver.id.eq(user.getId())).orderBy(qMessage.checked.asc()).orderBy(qMessage.date.desc()).limit(AppConfig.PAGE_SIZE).offset(AppConfig.PAGE_SIZE*page);
+//        query.setHint("org.hibernate.cacheable", true);
         List<Message> messages = query.list(qMessage);
         return success(messages.stream().map(MessageDto::new).collect(Collectors.toList()));
     }

@@ -5,7 +5,8 @@
     <md-icon md-menu-origin md-svg-icon="/resource/icon/alerts.svg"></md-icon>
   </md-button>
   <md-menu-content>
-    <md-menu-item class="message" ng-repeat="message in Message.messages | orderBy:'-date' | limitTo:5">
+    <md-menu-item class="message"
+                  ng-repeat="message in Message.messages | orderBy:'-date' | orderBy:'checked' | limitTo:5">
       <md-button aria-label="메시지">
         <message message="message"></message>
       </md-button>
